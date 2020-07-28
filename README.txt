@@ -1,3 +1,15 @@
+Source code:
+
+https://github.com/HakkaTjakka/MinecraftWorldEditor
+
+This program is als used by:
+
+https://github.com/HakkaTjakka/Minecraft-Voxelizer
+
+Thanks to https://github.com/IDidMakeThat. Code changed (also used in this repo, this one is isolated and speed up with mem. allocation and read/write from memory, memory leak detection with sep. memory allocator) from him:
+
+https://github.com/HakkaTjakka/MCA-NBT-EDIT
+
 Load city data from drive:
 https://drive.google.com/drive/folders/12TwAJk4L6kch_bv6_96yDbOMX_gp0IfU
 directory pacman/earth
