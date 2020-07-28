@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1572742212 source:c:\3d\obj-loader\e1_loadandprint.cpp
+	<iostream>
+	<fstream>
+	"OBJ_Loader.h"
+
+1572742430 c:\3d\obj-loader\obj_loader.h
+	<iostream>
+	<vector>
+	<string>
+	<fstream>
+	<math.h>
+

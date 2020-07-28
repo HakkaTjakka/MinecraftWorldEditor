@@ -1,0 +1,19 @@
+#demo macro     Check keylist.hpp for details.
+#select from list.txt with ALT-q, put macros_something.txt in files dir, run makelist.bat to create list.txt with paths to files/*.*
+#start with CTRL-ALT-q
+
+#Macro name       Key:          Description:
+#MACRO_LIST     //SHIFT-F1      Show macro list (MACRO.TXT) (Plot on screen...)
+#SCRIPT         //              Run script. Usage SCRIPT "CHAI_SCRIPTNAME" PARAMETER1 PARAMETER2
+                //              Example: SCRIPT ..//scripts//fun.chai or SCRIPT "..//scripts//fun.chai" or SCRIPT ..\scripts\fun.chai or SCRIPT "..\scripts\fun.chai"
+                //              Use quotes when path/filename contains white spaces.... Use backslash to preserve backslash....
+                //              PARAMETER1 PARAMETER2 ... etc also end up in chai_input[n], where n is #PARAMETER - 1 (starting from 0, while script starts from 1...
+                //              See ../scripts/fun.chai for example. Like GetInput("1") for getting first parameter, and/or ReturnResult("1","This is the output") for sending first output parameter.
+                //              Output ends up in chai_output[n], where n=0 is the first("1") output value. (char*). Check code for adding non script (c coded) functions, like the GetInput() and ReturnResult() functions.
+#EXECUTE        //              Run script. Usage EXECUTE CHAI_SCRIPT_COMMAND
+                //              Example: EXECUTE print("Hello World\n");
+
+MACRO_LIST
+EXECUTE print("This is a macro/script test:")
+SCRIPT ..\scripts\fun.chai Hello World
+EXECUTE puts(helloWorld("Bob","1"));

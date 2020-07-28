@@ -1,0 +1,10 @@
+return
+{
+	cThrownSnowballEntity =
+	{
+		Inherits =
+		{
+			"cProjectileEntity",
+		},
+	},
+}

@@ -1,0 +1,26 @@
+1 Program busy or hangs... Thread alive at: 03/07/2020 02:26:39
+1 Program busy or hangs... Thread alive at: 04/07/2020 05:41:15
+1 Program busy or hangs... Thread alive at: 04/07/2020 05:42:04
+1 Program busy or hangs... Thread alive at: 04/07/2020 06:02:18
+0 invalid image ffmpeg: 
+
+0 invalid image ffmpeg: 
+
+1 Program busy or hangs... Thread alive at: 05/07/2020 16:56:02
+0 invalid image ffmpeg: 
+
+1 Program busy or hangs... Thread alive at: 08/07/2020 17:23:40
+1 Program busy or hangs... Thread alive at: 08/07/2020 17:23:47
+1 Program busy or hangs... Thread alive at: 16/07/2020 23:51:08
+1 Program busy or hangs... Thread alive at: 16/07/2020 23:55:02
+1 Program busy or hangs... Thread alive at: 16/07/2020 23:55:57
+1 Program busy or hangs... Thread alive at: 16/07/2020 23:57:01
+1 Program busy or hangs... Thread alive at: 17/07/2020 00:00:00
+1 Program busy or hangs... Thread alive at: 17/07/2020 00:01:19
+1 Program busy or hangs... Thread alive at: 17/07/2020 00:02:45
+1 Program busy or hangs... Thread alive at: 17/07/2020 00:16:16
+1 Program busy or hangs... Thread alive at: 17/07/2020 00:22:42
+1 Program busy or hangs... Thread alive at: 17/07/2020 00:22:57
+1 Program busy or hangs... Thread alive at: 17/07/2020 00:25:22
+1 Program busy or hangs... Thread alive at: 17/07/2020 00:29:57
+1 Program busy or hangs... Thread alive at: 17/07/2020 00:31:14

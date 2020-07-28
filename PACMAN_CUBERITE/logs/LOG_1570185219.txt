@@ -1,0 +1,59 @@
+     [12:33:39] --- Started Log ---
+     [12:33:39] Cuberite local build build id: Unknown
+     [12:33:39] from commit id: approx: e0ca4d83991d80865781c1dbbbfa1f92259a366a built at: approx: 2019-08-11 11:39:43 +0200
+     [12:33:39] Creating new server instance...
+     [12:33:39] Reading server config...
+     [12:33:39] Starting server...
+Info [12:33:39] Compatible clients: 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x
+     [12:33:39] cMojangAPI: Updating name-to-uuid cache for 1 names
+Info [12:33:39] Compatible protocol versions 47, 107, 108, 109, 110, 210, 315, 316, 335, 338, 340
+Info [12:33:39] WebServer: The server will run in secure HTTPS mode.
+     [12:33:39] cMojangAPI: Updating uuid-to-profile cache for 1 uuids
+     [12:33:39] Loaded 755 crafting recipes
+     [12:33:39] Loaded 67 furnace recipes and 66 fuels
+     [12:33:39] Loaded 88 brewing recipes
+     [12:33:39] -- Loading Plugins --
+     [12:33:39] Initialised Core v.15
+     [12:33:39] Initialized ChatLog v.3
+     [12:33:39] -- Loaded 2 Plugins --
+     [12:33:41] Preparing spawn (Test): 2,25% (9/400; 8,16 chunks / sec)
+     [12:33:42] Preparing spawn (Test): 6,00% (24/400; 14,69 chunks / sec)
+     [12:33:43] Preparing spawn (Test): 13,50% (54/400; 29,44 chunks / sec)
+     [12:33:44] Preparing spawn (Test): 20,50% (82/400; 27,64 chunks / sec)
+     [12:33:45] Preparing spawn (Test): 28,00% (112/400; 29,33 chunks / sec)
+     [12:33:46] Preparing spawn (Test): 35,25% (141/400; 27,13 chunks / sec)
+     [12:33:47] Preparing spawn (Test): 43,00% (172/400; 30,63 chunks / sec)
+     [12:33:48] Preparing spawn (Test): 50,50% (202/400; 29,59 chunks / sec)
+     [12:33:49] Preparing spawn (Test): 57,50% (230/400; 26,00 chunks / sec)
+     [12:33:50] Preparing spawn (Test): 65,25% (261/400; 28,81 chunks / sec)
+     [12:33:51] Preparing spawn (Test): 71,25% (285/400; 23,46 chunks / sec)
+     [12:33:52] Preparing spawn (Test): 77,50% (310/400; 24,58 chunks / sec)
+     [12:33:53] Preparing spawn (Test): 85,75% (343/400; 32,26 chunks / sec)
+     [12:33:54] Preparing spawn (Test): 95,75% (383/400; 39,22 chunks / sec)
+     [12:33:56] Preparing spawn (Test): 2,50% (10/400; 9,88 chunks / sec)
+     [12:33:57] Preparing spawn (Test): 5,00% (20/400; 9,30 chunks / sec)
+     [12:33:58] Preparing spawn (Test): 14,25% (57/400; 35,96 chunks / sec)
+     [12:33:59] Preparing spawn (Test): 26,25% (105/400; 46,20 chunks / sec)
+     [12:34:00] Preparing spawn (Test): 44,75% (179/400; 72,83 chunks / sec)
+     [12:34:01] Preparing spawn (Test): 81,00% (324/400; 141,46 chunks / sec)
+     [12:34:02] Preparing spawn (Test): 89,25% (357/400; 32,42 chunks / sec)
+     [12:34:03] Preparing spawn (Test): 97,25% (389/400; 31,43 chunks / sec)
+Info [12:34:03] World "Test":Generated spawnpoint position at {120,50, 37,00, -119,50}
+Info [12:34:03] WebAdmin is running on port(s) 8080
+     [12:34:03] Startup complete, took 24534ms!
+Info [12:35:49] User Pacman_Graphics authenticated with UUID 150459360a0e42da9a8c1111e36bbc17
+     [12:35:50] Client connected with 5 mods: FML@8.0.99.99, forge@14.23.5.2847, mcp@9.42, minecraft@1.12.2, replaymod@1.12.2-2.2.0-b7, 
+Info [12:35:50] Player Pacman_Graphics has joined the game
+Info [12:36:09] Player Pacman_Graphics has left the game
+     [12:36:12] Chunk generator performance: 23,61 ch / sec (513 ch total)
+     [12:36:16] Shutting down server...
+     [12:36:18] Unloading worlds...
+     [12:36:19] Disabled Core!
+     [12:36:19] Cleaning up...
+     [12:36:19] Shutdown successful!
+     [12:36:19] --- Stopped Log ---
+Warn [12:36:19] DeadlockDetect: Some CS objects (4) haven't been removed from tracking
+Warn [12:36:19]   CS 0x3a49f380 / World Test clients
+Warn [12:36:19]   CS 0x39d4e208 / World Test players
+Warn [12:36:19]   CS 0x3a49f350 / World Test tasks
+Warn [12:36:19]   CS 0x1cab55c0 / World Test chunkmap

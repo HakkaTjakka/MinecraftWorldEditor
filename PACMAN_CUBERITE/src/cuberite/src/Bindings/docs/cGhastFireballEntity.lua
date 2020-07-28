@@ -1,0 +1,10 @@
+return
+{
+	cGhastFireballEntity =
+	{
+		Inherits =
+		{
+			"cProjectileEntity",
+		},
+	},
+}

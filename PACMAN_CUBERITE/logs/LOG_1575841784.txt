@@ -1,0 +1,39 @@
+     [22:49:44] --- Started Log ---
+     [22:49:44] Cuberite local build build id: Unknown
+     [22:49:44] from commit id: approx: e0ca4d83991d80865781c1dbbbfa1f92259a366a built at: approx: 2019-08-11 11:39:43 +0200
+     [22:49:44] Creating new server instance...
+     [22:49:44] Reading server config...
+     [22:49:44] Starting server...
+     [22:49:44] cMojangAPI: Updating name-to-uuid cache for 1 names
+Info [22:49:44] Compatible clients: 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x
+Info [22:49:44] Compatible protocol versions 47, 107, 108, 109, 110, 210, 315, 316, 335, 338, 340
+Info [22:49:44] WebServer: The server will run in secure HTTPS mode.
+     [22:49:44] Loaded 755 crafting recipes
+     [22:49:44] Loaded 67 furnace recipes and 66 fuels
+     [22:49:44] Loaded 88 brewing recipes
+Warn [22:49:44] Cannot read world settings from "D:/Saves/Test.copy/world.ini", defaults will be used.
+Info [22:49:44] Chosen a new random seed for world: 15319216
+     [22:49:44] cMojangAPI: Updating uuid-to-profile cache for 1 uuids
+     [22:49:44] -- Loading Plugins --
+     [22:49:44] Initialised Core v.15
+     [22:49:44] Initialized ChatLog v.3
+     [22:49:44] -- Loaded 2 Plugins --
+     [22:49:45] Preparing spawn (Test): 10,25% (41/400; 40,24 chunks / sec)
+     [22:49:46] Preparing spawn (Test): 33,75% (135/400; 92,25 chunks / sec)
+     [22:49:47] Preparing spawn (Test): 50,50% (202/400; 65,62 chunks / sec)
+     [22:49:48] Preparing spawn (Test): 68,25% (273/400; 70,79 chunks / sec)
+     [22:49:49] Preparing spawn (Test): 85,50% (342/400; 68,25 chunks / sec)
+Warn [22:49:50] World "Test": Did not find an acceptable spawnpoint. Generated a random spawnpoint position at {0,00, 253,00, 0,00}
+Info [22:49:50] WebAdmin is running on port(s) 8080
+     [22:49:50] Startup complete, took 6043ms!
+     [22:49:50] Shutting down server...
+     [22:49:51] Unloading worlds...
+     [22:49:51] Disabled Core!
+     [22:49:51] Cleaning up...
+     [22:49:51] Shutdown successful!
+     [22:49:51] --- Stopped Log ---
+Warn [22:49:51] DeadlockDetect: Some CS objects (4) haven't been removed from tracking
+Warn [22:49:51]   CS 0xc2bbf380 / World Test clients
+Warn [22:49:51]   CS 0xc246e208 / World Test players
+Warn [22:49:51]   CS 0xc2bbf350 / World Test tasks
+Warn [22:49:51]   CS 0x13bd52400 / World Test chunkmap

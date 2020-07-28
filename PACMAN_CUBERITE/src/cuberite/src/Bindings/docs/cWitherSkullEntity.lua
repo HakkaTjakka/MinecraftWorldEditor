@@ -1,0 +1,10 @@
+return
+{
+	cWitherSkullEntity =
+	{
+		Inherits =
+		{
+			"cProjectileEntity",
+		},
+	},
+}

@@ -1,0 +1,6 @@
+SET PATH=%CD%\FFMPEG\BIN;%PATH%
+CD PACMAN_CUBERITE
+echo 013 > level.txt
+PACMAN.BAT mceditor 1
+CD ..
+pause

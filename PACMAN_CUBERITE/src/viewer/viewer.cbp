@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="viewer" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Release">
+				<Option output="viewer" prefix_auto="1" extension_auto="1" />
+				<Option object_output="." />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-w" />
+					<Add option="-std=c++1y" />
+					<Add option="-m64" />
+					<Add option="-DGLEW_STATIC" />
+					<Add directory="../../../glfw/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-static" />
+					<Add option="-m64" />
+					<Add library="../../../glfw/build/src/libglfw3.a" />
+					<Add library="../../../lib/libgdi32.a" />
+					<Add library="../../../lib/libwinmm.a" />
+					<Add library="../../../lib/User32.Lib" />
+					<Add library="../../../glew-2.1.0/lib/Release/x64/glew32s.lib" />
+					<Add library="../../../glew-2.1.0/lib/Release/x64/glew32.lib" />
+					<Add library="../../../lib/GlU32.Lib" />
+					<Add library="../../../lib/libopengl32.a" />
+					<Add library="../../../lib/libkernel32.a" />
+					<Add library="../../../lib/libstdc++.a" />
+					<Add library="../../../lib/libws2_32.a" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-DGLEW_STATIC" />
+		</Compiler>
+		<Unit filename="stb_image.h" />
+		<Unit filename="trackball.cc" />
+		<Unit filename="trackball.h" />
+		<Unit filename="viewer.cc" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

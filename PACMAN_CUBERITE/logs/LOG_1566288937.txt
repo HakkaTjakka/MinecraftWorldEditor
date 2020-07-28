@@ -1,0 +1,44 @@
+     [10:15:37] --- Started Log ---
+     [10:15:38] Cuberite local build build id: Unknown
+     [10:15:38] from commit id: approx: e0ca4d83991d80865781c1dbbbfa1f92259a366a built at: approx: 2019-08-11 11:39:43 +0200
+     [10:15:38] Creating new server instance...
+     [10:15:38] Reading server config...
+     [10:15:38] Starting server...
+Info [10:15:38] Compatible clients: 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x
+Info [10:15:38] Compatible protocol versions 47, 107, 108, 109, 110, 210, 315, 316, 335, 338, 340
+Info [10:15:38] WebServer: The server will run in secure HTTPS mode.
+     [10:15:38] Loaded 755 crafting recipes
+     [10:15:38] Loaded 67 furnace recipes and 66 fuels
+     [10:15:38] Loaded 88 brewing recipes
+     [10:15:38] -- Loading Plugins --
+     [10:15:38] Initialised Core v.15
+     [10:15:38] Initialized ChatLog v.3
+     [10:15:38] -- Loaded 2 Plugins --
+Warn [10:15:38] World "Test": Did not find an acceptable spawnpoint. Generated a random spawnpoint position at {0,00, 0,00, 0,00}
+Warn [10:15:38] World "World0": Did not find an acceptable spawnpoint. Generated a random spawnpoint position at {0,00, 3,00, 0,00}
+     [10:15:40] Preparing spawn (World2): 78,25% (313/400; 282,24 chunks / sec)
+Warn [10:15:42] World "World9": Did not find an acceptable spawnpoint. Generated a random spawnpoint position at {0,00, 41,00, 0,00}
+Info [10:15:43] WebAdmin is running on port(s) 8080
+     [10:15:43] Startup complete, took 5047ms!
+Info [10:15:47] User Pacman_Graphics authenticated with UUID 150459360a0e42da9a8c1111e36bbc17
+Info [10:15:48] Player Pacman_Graphics has joined the game
+Warn [10:20:55] Loading chunk [121, 96] for world World2 from file r.3.3.mca failed: NBT parsing failed. Offloading old chunk data to file D:/Saves/Atropos by carloooo V2.5\region\badchunks\ch.121.96.2019-08-20-10-20-55.dat and regenerating chunk.
+Warn [10:26:00] Loading chunk [125, 97] for world World2 from file r.3.3.mca failed: NBT parsing failed. Offloading old chunk data to file D:/Saves/Atropos by carloooo V2.5\region\badchunks\ch.125.97.2019-08-20-10-26-00.dat and regenerating chunk.
+Warn [10:26:00] Loading chunk [121, 92] for world World2 from file r.3.2.mca failed: NBT parsing failed. Offloading old chunk data to file D:/Saves/Atropos by carloooo V2.5\region\badchunks\ch.121.92.2019-08-20-10-26-00.dat and regenerating chunk.
+Warn [10:31:06] Loading chunk [127, 93] for world World2 from file r.3.2.mca failed: NBT parsing failed. Offloading old chunk data to file D:/Saves/Atropos by carloooo V2.5\region\badchunks\ch.127.93.2019-08-20-10-31-06.dat and regenerating chunk.
+Warn [10:46:21] Loading chunk [125, 95] for world World2 from file r.3.2.mca failed: NBT parsing failed. Offloading old chunk data to file D:/Saves/Atropos by carloooo V2.5\region\badchunks\ch.125.95.2019-08-20-10-46-21.dat and regenerating chunk.
+Warn [10:46:21] Loading chunk [123, 96] for world World2 from file r.3.3.mca failed: NBT parsing failed. Offloading old chunk data to file D:/Saves/Atropos by carloooo V2.5\region\badchunks\ch.123.96.2019-08-20-10-46-21.dat and regenerating chunk.
+Warn [10:51:27] Loading chunk [123, 97] for world World2 from file r.3.3.mca failed: NBT parsing failed. Offloading old chunk data to file D:/Saves/Atropos by carloooo V2.5\region\badchunks\ch.123.97.2019-08-20-10-51-27.dat and regenerating chunk.
+Warn [10:51:27] Loading chunk [120, 95] for world World2 from file r.3.2.mca failed: NBT parsing failed. Offloading old chunk data to file D:/Saves/Atropos by carloooo V2.5\region\badchunks\ch.120.95.2019-08-20-10-51-27.dat and regenerating chunk.
+Warn [10:51:27] Loading chunk [127, 93] for world World2 from file r.3.2.mca failed: NBT parsing failed. Offloading old chunk data to file D:/Saves/Atropos by carloooo V2.5\region\badchunks\ch.127.93.2019-08-20-10-51-27.dat and regenerating chunk.
+Info [10:57:08] Player Pacman_Graphics has left the game
+     [10:57:40] Executing console command: "STO"
+     [10:57:40] Unknown command, type 'help' for all commands.
+     [10:57:42] Executing console command: "STOP"
+     [10:57:42] Unknown command, type 'help' for all commands.
+     [10:57:45] Shutting down server...
+     [10:57:46] Unloading worlds...
+     [10:57:47] Disabled Core!
+     [10:57:47] Cleaning up...
+     [10:57:47] Shutdown successful!
+     [10:57:47] --- Stopped Log ---

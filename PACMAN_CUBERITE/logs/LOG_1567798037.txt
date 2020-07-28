@@ -1,0 +1,39 @@
+     [21:27:17] --- Started Log ---
+     [21:27:17] Cuberite local build build id: Unknown
+     [21:27:17] from commit id: approx: e0ca4d83991d80865781c1dbbbfa1f92259a366a built at: approx: 2019-08-11 11:39:43 +0200
+     [21:27:17] Creating new server instance...
+     [21:27:18] Reading server config...
+     [21:27:18] Starting server...
+     [21:27:18] cMojangAPI: Updating name-to-uuid cache for 1 names
+Info [21:27:18] Compatible clients: 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x
+Info [21:27:18] Compatible protocol versions 47, 107, 108, 109, 110, 210, 315, 316, 335, 338, 340
+Info [21:27:19] Setting default viewdistance to the maximum of 32
+     [21:27:20] cMojangAPI: Updating uuid-to-profile cache for 1 uuids
+Info [21:27:20] WebServer: The server will run in secure HTTPS mode.
+     [21:27:21] Loaded 755 crafting recipes
+     [21:27:21] Loaded 67 furnace recipes and 66 fuels
+     [21:27:21] Loaded 88 brewing recipes
+Warn [21:27:33] Cannot read world settings from "D:/Saves/Test/world.ini", defaults will be used.
+Info [21:27:33] Chosen a new random seed for world: 15319216
+     [21:27:33] -- Loading Plugins --
+     [21:27:34] Initialised Core v.15
+     [21:27:34] Initialized ChatLog v.3
+     [21:27:34] -- Loaded 2 Plugins --
+     [21:27:35] Preparing spawn (Test): 19.25% (77/400; 74.04 chunks / sec)
+     [21:27:36] Preparing spawn (Test): 83.75% (335/400; 252.94 chunks / sec)
+Warn [21:27:36] World "Test": Did not find an acceptable spawnpoint. Generated a random spawnpoint position at {0.00, 251.00, 0.00}
+Warn [21:27:36] World "World0": Did not find an acceptable spawnpoint. Generated a random spawnpoint position at {0.00, 3.00, 0.00}
+     [21:27:37] Preparing spawn (World1): 29.25% (117/400; 116.30 chunks / sec)
+     [21:27:39] Preparing spawn (World10): 75.25% (301/400; 298.61 chunks / sec)
+     [21:27:40] Preparing spawn (World2): 32.75% (131/400; 125.84 chunks / sec)
+     [21:27:41] Preparing spawn (World2): 52.75% (211/400; 79.60 chunks / sec)
+Warn [21:27:41] Loading chunk [136, 95] for world World2 from file r.4.2.mca failed: NBT parsing failed. Offloading old chunk data to file D:/Saves/Atropos by carloooo V2.5\region\badchunks\ch.136.95.2019-09-06-21-27-41.dat and regenerating chunk.
+     [21:27:42] Preparing spawn (World2): 89.75% (359/400; 142.72 chunks / sec)
+     [21:27:47] Preparing spawn (World8): 1.50% (6/400; 5.94 chunks / sec)
+     [21:27:48] Preparing spawn (World8): 4.50% (18/400; 11.88 chunks / sec)
+     [21:27:49] Preparing spawn (World8): 52.25% (209/400; 190.43 chunks / sec)
+     [21:27:51] Preparing spawn (World9): 5.25% (21/400; 20.75 chunks / sec)
+Warn [21:27:51] World "World9": Did not find an acceptable spawnpoint. Generated a random spawnpoint position at {0.00, 41.00, 0.00}
+     [21:27:52] Preparing spawn (world): 85.75% (343/400; 323.58 chunks / sec)
+Warn [21:27:52] Cannot listen on port 25565: 10048 (Cannot bind IPv6 socket to port 25565: 10048 (Elk socketadres (protocol/netwerkadres/poort) kan normaal slechts één keer worden gebruikt.)).
+Err  [21:27:52] Couldn't open any ports. Aborting the server

@@ -1,0 +1,12 @@
+CMakeLists.txt.user
+*.kdev4
+.kdev*
+*~
+build/
+
+# Codeblocks files
+bin/
+obj/
+*.cbp
+*.depend
+*.layout

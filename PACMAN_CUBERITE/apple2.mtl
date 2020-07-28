@@ -1,0 +1,48 @@
+# Blender MTL File: 'None'
+# Material Count: 4
+
+newmtl Material
+Ns 323.999994
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl apple_001
+Ns 50.000007
+Ka 1.000000 1.000000 1.000000
+Kd 0.588000 0.588000 0.588000
+Ks 0.360000 0.360000 0.360000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Bump apple(bump)001.jpg
+map_Kd apple(diffuse)001.jpg
+
+newmtl apple_002
+Ns 50.000007
+Ka 1.000000 1.000000 1.000000
+Kd 0.588000 0.588000 0.588000
+Ks 0.360000 0.360000 0.360000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Bump apple(bump)002.jpg
+map_Kd apple(diffuse)002.jpg
+
+newmtl wood_Byholma_white_
+Ns 50.000007
+Ka 1.000000 1.000000 1.000000
+Kd 0.854900 0.854900 0.854900
+Ks 0.360800 0.360800 0.360800
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Bump wood(bump)_Byholma.jpg
+map_Kd wood(diffuse)_Byholma(white).jpg

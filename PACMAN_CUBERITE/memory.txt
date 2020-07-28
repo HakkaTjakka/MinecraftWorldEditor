@@ -1,0 +1,2 @@
+09:59
+   TIME   LOOPS   TOTAL       MEM FIRST   DIFFERENCE!       MEM START    DIFFERENCE         MEM NOW      LOOPS        LOOP AVG      LOOPS       TOTAL AVG      CALL        CALL AVG       CALL       TOTAL AVG

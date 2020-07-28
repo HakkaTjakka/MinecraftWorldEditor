@@ -1,0 +1,76 @@
+1)  program.exe world2nbtdir <worldsavedirname>             reads all world/region/r.*.*.mca files and converts to
+                                                            world/nbt/r.*.*/*.gzip.nbt files for every column
+                                                            (reverse of 7: nbtdir2world)
+
+2)  program.exe world2nbt <worldsavedirname>                reads all world/region/r.*.*.mca files and converts to
+                                                            world/nbt/r.*.*.gzip.nbt files for every region &
+                                                            world/nbt/world.gzip.nbt file for whole world containing all region files.
+                                                            (same as mca2nbt, but then for all r.*.*.mca files)
+                                                            (reverse has to be made, all world/nbt/r.*.*.gzip.nbt files to world/nbt/r.*.*.mca files)
+
+3) program.exe header2nbt <r.x.z>.mca                       reads region file and saves header in r.x.z.header.gzip.nbt & r.x.z.header.txt (Debugging purposes)
+
+4) program.exe mca2nbtdir <r.x.z>.mca                       reads one region file and converts to world/nbt/r.*.*/*gzip.nbt files for every column
+                                                            (reverse of 6: nbtdir2mca)
+
+5) program.exe mca2nbt <r.x.z>.mca                          reads one region file and converts to r.x.z.gzip.nbt file
+                                                            (reverse of 9: nbt2mca)
+
+6) program.exe nbtdir2mca <r.x.z>                           reads r.x.z/*.gzip.nbt and converts to r.x.z.mca
+                                                            (reverse of 4: mca2nbtdir)
+
+7) program.exe nbtdir2world <worldsavedirname>              reads world/nbt/r.*.*/*.gzip.nbt files and converts to
+                                                            world/.nbt/r.*.*.mca for every r.*.* directory in world/nbt (world/nbt/r.*.*)
+                                                            (reverse of 1: world2nbtdir)
+
+8) program.exe worldnbt2mca <worldname>.gzip.nbt            reads world.gzip.nbt and converts to r.*.*.mca region files for every region in world.gzip.nbt
+                                                            (partial reverse of 5: world2nbt, that is generating both world.gzip.nbt & world/nbt/r.*.*.gzip.nbt files)
+
+9) program.exe nbt2mca <r.x.z>.gzip.nbt                     reads r.x.z.gzip.nbt and converts to r.x.z.mca region file.
+                                                            (reverse of 5: mca2nbt)
+
+
+
+program.exe world2nbtdir <WorldSaveDir>
+reads:    all the r.*.*.mca files from <WorldSaveDir>/region/r.*.*.mca
+writes:   <WorldSaveDir>/nbt/r.*.*/<ColumnNumber>.gzip.nbt (nbt's containing column from region files)
+call:     from directory above the <WorldSaveDir>/region/r.*.* director(y/ies).
+
+program.exe world2nbt <WorldSaveDir>
+reads:    all the r.*.*.mca files from <WorldSaveDir>/region/r.*.*.mca
+writes:   <WorldSaveDir>/nbt/r.*.*.gzip.nbt (nbt's containing one region file)
+call:     from directory above the <WorldSaveDir>/region/r.*.* director(y/ies).
+
+program.exe header2nbt <r.x.z>.mca
+reads:    region file <r.x.z>.mca
+writes:   <r.x.z>.header.gzip.nbt & <r.x.z>.header.txt in current dir
+
+program.exe mca2nbtdir <r.x.z>.mca
+reads:    region file <r.x.z>.mca
+writes:   <r.x.z>/<ColumnNumber>.gzip.nbt files
+
+program.exe mca2nbt <r.x.z>.mca
+reads:    region file <r.x.z>.mca
+writes:   <r.x.z>.gzip.nbt file
+
+program.exe nbtdir2mca <r.x.z>
+reads:    <r.x.z>/*.gzip.nbt files (nbt files containing columns)
+writes:   region file <r.x.z>.mca
+call:     from directory above <r.x.z>/*.gzip.nbt
+
+program.exe nbtdir2world <WorldSaveDir>
+reads:    <WorldSaveDir>/nbt/r.*.*/<ColumnNumber>.gzip.nbt
+writes:   all the r.*.*.mca to <WorldSaveDir>/nbt/r.*.*.mca
+call:     from directory above the <WorldSaveDir>/nbt/r.*.* director(y/ies).
+
+program.exe worldnbt2mca <WorldName>.gzip.nbt | <WorldName>.zlib.nbt | <WorldName>.nbt
+reads:    <WorldName>.gzip.nbt or <WorldName>.zlib.nbt or <WorldName>.nbt
+writes:   all r.*.*.mca region files contained in <WorldName>.gzip.nbt or <WorldName>.zlib.nbt or <WorldName>.nbt
+call:     from <WorldSaveDir>/nbt
+
+program.exe nbt2mca <r.x.z>.gzip.nbt | <r.x.z>.zlib.nbt | <r.x.z>.nbt
+reads:    <r.x.z>.gzip.nbt or <r.x.z>.zlib.nbt or <r.x.z>.nbt file
+writes:   <r.x.z>.mca region file contained in <r.x.z>.gzip.nbt or <r.x.z>.zlib.nbt or <r.x.z>.zlib.nbt
+call:     from <WorldSaveDir>/nbt
+
+

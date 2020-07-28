@@ -1,0 +1,3 @@
+D:\PACMAN\models\formula 1\Formula 1 mesh.obj
+D:\PACMAN\models\male02\male02.obj
+D:\PACMAN\models\female02\female02.obj

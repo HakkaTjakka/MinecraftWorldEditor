@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="OPENCV" />
+		<Option platforms="Windows;" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Release">
+				<Option platforms="Windows;" />
+				<Option output="OPENCV" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+				<Option projectCompilerOptionsRelation="0" />
+				<Compiler>
+					<Add option="-march=corei7" />
+					<Add option="-O3" />
+					<Add option="-w" />
+					<Add option="-Wextra" />
+					<Add option="-std=c++14" />
+					<Add option="-m64" />
+					<Add option="-DSFML_STATIC" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+			<Target title="Debug">
+				<Option platforms="Windows;" />
+				<Option output="PACMAN_DEBUG" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+				<Option projectCompilerOptionsRelation="0" />
+				<Compiler>
+					<Add option="-march=corei7" />
+					<Add option="-w" />
+					<Add option="-Wextra" />
+					<Add option="-std=c++14" />
+					<Add option="-m64" />
+					<Add option="-Og" />
+					<Add option="-g" />
+					<Add option="-DSFML_STATIC" />
+				</Compiler>
+				<Linker>
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-O3" />
+			<Add option="-w" />
+			<Add option="-Wextra" />
+			<Add option="-std=c++14" />
+			<Add option="-m64" />
+			<Add option="-U__STRICT_ANSI__" />
+			<Add option="-DSFML_STATIC" />
+			<Add directory="include" />
+		</Compiler>
+		<Linker>
+			<Add option="-s" />
+			<Add option="-m64" />
+			<Add option="-static-libgcc -static-libstdc++" />
+			<Add library="lib/libsfml-graphics-s.a" />
+			<Add library="lib/libsfml-window-s.a" />
+			<Add library="lib/libsfml-audio-s.a" />
+			<Add library="lib/libsfml-system-s.a" />
+			<Add library="lib/libsfml-network-s.a" />
+			<Add library="lib/libsfml-main.a" />
+			<Add library="lib/libopengl32.a" />
+			<Add library="lib/libopenal32.a" />
+			<Add library="lib/libFLAC.a" />
+			<Add library="lib/libfreetype.a" />
+			<Add library="lib/libjpeg.a" />
+			<Add library="lib/libvorbisfile.a" />
+			<Add library="lib/libvorbis.a" />
+			<Add library="lib/libvorbisenc.a" />
+			<Add library="lib/libogg.a" />
+			<Add library="lib/libwinmm.a" />
+			<Add library="lib/libgdi32.a" />
+			<Add library="lib/libsfeMovie-s.a" />
+			<Add library="lib/libavdevice.a" />
+			<Add library="lib/libavformat.a" />
+			<Add library="lib/libws2_32.a" />
+			<Add library="lib/libavfilter.a" />
+			<Add library="lib/libavcodec.a" />
+			<Add library="lib/libswresample.a" />
+			<Add library="lib/libswscale.a" />
+			<Add library="lib/libavutil.a" />
+			<Add library="lib/libpsapi.a" />
+			<Add library="lib/libwsock32.a" />
+			<Add library="lib/libkernel32.a" />
+			<Add library="lib/libparser.a" />
+			<Add library="lib/libstdlib.a" />
+			<Add library="lib/libstdc++.a" />
+			<Add library="lib/libz.a" />
+			<Add library="lib/libiconv.a" />
+			<Add library="lib/opencv/libopencv_aruco346.dll.a" />
+			<Add library="lib/opencv/libopencv_bgsegm346.dll.a" />
+			<Add library="lib/opencv/libopencv_bioinspired346.dll.a" />
+			<Add library="lib/opencv/libopencv_calib3d346.dll.a" />
+			<Add library="lib/opencv/libopencv_ccalib346.dll.a" />
+			<Add library="lib/opencv/libopencv_core346.dll.a" />
+			<Add library="lib/opencv/libopencv_datasets346.dll.a" />
+			<Add library="lib/opencv/libopencv_dnn_objdetect346.dll.a" />
+			<Add library="lib/opencv/libopencv_dnn346.dll.a" />
+			<Add library="lib/opencv/libopencv_dpm346.dll.a" />
+			<Add library="lib/opencv/libopencv_face346.dll.a" />
+			<Add library="lib/opencv/libopencv_features2d346.dll.a" />
+			<Add library="lib/opencv/libopencv_flann346.dll.a" />
+			<Add library="lib/opencv/libopencv_fuzzy346.dll.a" />
+			<Add library="lib/opencv/libopencv_hfs346.dll.a" />
+			<Add library="lib/opencv/libopencv_highgui346.dll.a" />
+			<Add library="lib/opencv/libopencv_img_hash346.dll.a" />
+			<Add library="lib/opencv/libopencv_imgcodecs346.dll.a" />
+			<Add library="lib/opencv/libopencv_imgproc346.dll.a" />
+			<Add library="lib/opencv/libopencv_line_descriptor346.dll.a" />
+			<Add library="lib/opencv/libopencv_ml346.dll.a" />
+			<Add library="lib/opencv/libopencv_objdetect346.dll.a" />
+			<Add library="lib/opencv/libopencv_optflow346.dll.a" />
+			<Add library="lib/opencv/libopencv_phase_unwrapping346.dll.a" />
+			<Add library="lib/opencv/libopencv_photo346.dll.a" />
+			<Add library="lib/opencv/libopencv_plot346.dll.a" />
+			<Add library="lib/opencv/libopencv_reg346.dll.a" />
+			<Add library="lib/opencv/libopencv_rgbd346.dll.a" />
+			<Add library="lib/opencv/libopencv_saliency346.dll.a" />
+			<Add library="lib/opencv/libopencv_shape346.dll.a" />
+			<Add library="lib/opencv/libopencv_stereo346.dll.a" />
+			<Add library="lib/opencv/libopencv_stitching346.dll.a" />
+			<Add library="lib/opencv/libopencv_structured_light346.dll.a" />
+			<Add library="lib/opencv/libopencv_superres346.dll.a" />
+			<Add library="lib/opencv/libopencv_surface_matching346.dll.a" />
+			<Add library="lib/opencv/libopencv_text346.dll.a" />
+			<Add library="lib/opencv/libopencv_tracking346.dll.a" />
+			<Add library="lib/opencv/libopencv_video346.dll.a" />
+			<Add library="lib/opencv/libopencv_videoio346.dll.a" />
+			<Add library="lib/opencv/libopencv_videostab346.dll.a" />
+			<Add library="lib/opencv/libopencv_xfeatures2d346.dll.a" />
+			<Add library="lib/opencv/libopencv_ximgproc346.dll.a" />
+			<Add library="lib/opencv/libopencv_xobjdetect346.dll.a" />
+			<Add library="lib/opencv/libopencv_xphoto346.dll.a" />
+			<Add directory="lib" />
+			<Add directory="C:/mingw-w64/x86_64-7.3.0-release-posix-seh-rt_v5-rev0/mingw64/lib" />
+			<Add directory="C:/mingw-w64/x86_64-7.3.0-release-posix-seh-rt_v5-rev0/mingw64/x86_64-w64-mingw32/lib" />
+			<Add directory="C:/mingw-w64/x86_64-7.3.0-release-posix-seh-rt_v5-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/7.3.0" />
+		</Linker>
+		<Unit filename="MAIN.CPP">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="TEST.BAT">
+			<Option target="Release" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

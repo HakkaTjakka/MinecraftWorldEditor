@@ -1,0 +1,8 @@
+RANDOM=ON
+D:\PACMAN\geodata\files\allCountries.rnd
+D:\PACMAN\geodata\files\allCountries2.rnd
+D:\PACMAN\geodata\files\cities1000.rnd
+D:\PACMAN\geodata\files\cities15000.rnd
+D:\PACMAN\geodata\files\cities500.rnd
+D:\PACMAN\geodata\files\cities5000.rnd
+D:\PACMAN\geodata\files\NL_full.rnd

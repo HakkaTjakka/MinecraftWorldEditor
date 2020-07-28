@@ -1,0 +1,219 @@
+Keys:
+
+F1                  Help
+F2                  Debug info on/off
+CTRL-F2             Mouse on/off
+F3                  Vertical Sync on/off
+F4                  Speed Adjust on/off32
+CTRL-F5             Overwrite background textures (picture.*.*.png)with drawmaze (foreground) textures (picture_maze.*.*.png) changed/saved (copy files)
+SHIFT-F7            Combine background textures with foreground textures.
+SHIFT-F12           Read all levels of maps.
+                    Goto point highest zoom level.
+                    SHIFT-D DRAWMAZES=OFF
+                    SHIFT-F6: SHADE MAP=1
+                    SHIFT-G: FORMULA=1
+0                   Screenshot. Placed in picture SHIFT-P. 1920 x 1080
+1                   If blending==2 (custom blending, 2xSHIFT-V) select next colorSrcFactor. SHIFT-1 ('!') previous colorSrcFactor.
+                    Else select 'difficulty' 1.
+2                   If blending==2 (custom blending, 2xSHIFT-V) select next colorDstFactor. SHIFT-2 ('@') previous colorDstFactor.
+                    Else select 'difficulty' 2.
+3                   If blending==2 (custom blending, 2xSHIFT-V) select next colorEquation. SHIFT-2 ('#') previous colorEquation.
+                    Else select 'difficulty' 3.
+4                   If blending==2 (custom blending, 2xSHIFT-V) select next alphaSrcFactor. SHIFT-1 ('$') previous alphaSrcFactor.
+                    Else select 'difficulty' 4.
+5                   If blending==2 (custom blending, 2xSHIFT-V) select next alphaDstFactor. SHIFT-2 ('%') previous alphaDstFactor.
+6                   If blending==2 (custom blending, 2xSHIFT-V) select next alphaEquation. SHIFT-2 ('^') previous alphaEquation.
+r                   Recording on. Put in pause mode. SHIFT-R (when 'RECORDING (PAUZED)' on top of screen) starts recording. SHIFT-R pauses. 'r' stops recording.
+SHIFT-r             When recording is on: Pause recording / continue recording. When recording is off: change recording mode (whole screen, or only movie from SHIFT-M)
+e                   Eatmode on/off. Ghosts eat end off maze (dead ends). 'f'/'F' follow ghost. CTRL-F ghost to pacman. DRAWMAZES=ON (SHIFT-D)
+Z                   Save maze file to map.dat (binary)
+z                   Save maze file to maze.dat (text)
+SHIFT-x             Read maze file from map.dat
+x                   Read maze file from maze.dat
+c/C                 Set COMBINE=ON. Combines maze in memory with maze from 'x'/'X'. Puts left/top on place cursor when loading.
+                    When saving map ('z'/'Z') it saves current position pacman as left/top of maze.
+                    '['/']' to switch between levels (different mazes).
+{                   Ghost slow down when follow ghost ('f'/'F')
+                    When follow ghost mode, and PLOT MAP >= 1, previous level. (Because otherwise its speed ghost...and '[' is previous ghost...)
+ALT-{               All ghosts slow down.
+}                   Ghost speed up when follow ghost
+                    When follow ghost mode, and PLOT MAP >= 1, next level. (Because otherwise its speed ghost...and ']' is next ghost...)
+ALT-}               All ghost speed up.
+[                   Previous ghost when follow ghost is on.
+                    Previous level when follow ghost is off.
+(                   Previous level when follow ghost is on or off.
+]                   Next ghost when follow ghost is on.
+                    Next level when follow ghost is off.
+)                   Next level when follow ghost is on or off.
+<                   Previous map when SHADE MAP > 0 (ALT-F6)
+>                   Next map when SHADE MAP > 0 (ALT-F6)
+SHIFT+CTRL-t        Batch pictures funcion batch_pictures().
+                    If COMBINE=ON ('c') batch_pictures2();
+ALT+CTRL-t          If COMBINE=ON ('c') and picture from SHIFT-P: texture -> maze (type 2)
+                                        and NO picture from SHIFT-P: maze -> texture
+                    If combine is off, and picture form SHIFT-P: texture -> maze (type 1)
+                                       and NO picture from SHIFT-P: reverse maze
+ALT-t               Plot text from list.txt file. list.txt in program dir contains filelist to text files to plot. First line of text file 1 needs to be empty.
+                    The text will be printed with the selected font/size from CTRL-t
+CTRL-t          Select random/next font. Change scale (SHIFT-PGUP/PGDN) and press CTRL-t again for larger/smaller size.
+SHITF-t         Make black transparant. See thresholds in pacman.ini
+t               Change maze type. (Ghost follow pacman mode for maze on/of (more random instead of following))
+SHIFT-w         Make white transparant. (C coded. Make better with shader) See thresholds in pacman.ini
+SHIFT-a         Make dark transparant.
+SHIFT-c         Make color transparant. See thresholds in pacman.ini
+p               Toggle point of maze (big/normal) when DRAWMAZES=ON (SHIFT-d)
+q               Save (changed) files on/off. (When changed textures are nog neeeded. Maze will be generated new.....)
++ or =          More ghosts.
+                When BLENDING=CUSTOM (2x SHIFT-v) 1 out of 4 standard blending modes. 4 is custom with keys 1-6 for parameters.
+-               (On keypad for now... check NumLock key...). Less ghosts.
+g               Ghosts on/off. When in plot all mode (CTRL-Y) use it to set normal ghosts off, and use SHIFT-F9 for shader ghosts mode.
+SHIFT-G         Graphics mode. MODE 1 to plot throught shaders.
+                Set to background (SHIFT-d). Select GRAPHICS=1 (SHIFT-g). Select shader (SHIFT-F2/CTRL-F2) and/or picture (SHIFT-P). Press SHIFT-F6 to plot all screens.
+                (Will be separate manual). To plot geo maps set also SHADE MAP to 2 (ALT-F6 2x)
+SHFT+ALT-y      Rotate picture from SHIFT-p 90 degrees.
+SHFT+CTRL-y     Rotate picture from SHIFT-p to current angle.
+ALT-y           Reset canvas (from SHIFT-y)
+CTRL-y          Load canvas 8x8 bitmaps. Use numpad (NumLock=ON) and keys:
+                ALT-4,ALT-6 rotate x Axis   4,6 translate x
+                ALT-8,ALT-2 rotate y Axis   8,2 translate y
+                ALT-7,ALT-1 rotate z Axis   7,1 translate z
+                9,3 perspective. CTRL 9,3 perspective slow.
+ALT-F6          Map mode 1,2 or off. 2 normal use. 1 for saving 'local' picture_maze.* tiles and blend tile info onto other maps. (For now....)
+SHIFT+CTRL-F6   If PLOT MAP 2 (ALT-F6), and COMBINING ON ('c'), map all tiles from map_pictures dir (map tiles)
+                If PLOT MAP 2 (ALT-F6), and COMBINING OFF ('c'), map all pictures (created from these tiles...) from map_pictures\map.z(current_level)\pictures\y#\x# dirs.
+                If PLOT MAP is OFF (ALT-F6), and COMBINING OFF ('c'), map all pictures current level directory %leveldir\XxY\pictures.y.x.
+
+
+key_functions.cpp|2562|case 'G':|
+key_functions.cpp|2569|case 'f':|
+key_functions.cpp|2646|case 'F':|
+key_functions.cpp|2690|case 'U':|
+key_functions.cpp|2735|case 'I':|
+key_functions.cpp|2769|case 'V':|
+key_functions.cpp|2800|case 'v':|
+key_functions.cpp|2828|case 'b':|
+key_functions.cpp|2863|case '.':|
+key_functions.cpp|2869|case ',':|
+key_functions.cpp|2875|case 'K':|
+key_functions.cpp|2896|case 'B':|
+key_functions.cpp|2956|case 'M':|
+key_functions.cpp|3014|case 'P':|
+key_functions.cpp|3089|case '9':|
+key_functions.cpp|3182|case 'h':|
+key_functions.cpp|3190|case 'y':|
+key_functions.cpp|3191|case 'Y':|
+key_functions.cpp|3215|case 'n':|
+key_functions.cpp|3220|case 'N':|
+key_functions.cpp|3226|case 'm':|
+key_functions.cpp|3315|case ' ':|
+key_functions.cpp|3316|//  case sf::Keyboard::Space:|
+key_functions.cpp|3331|case 'w':|
+key_functions.cpp|3332|case 'i':|
+key_functions.cpp|3392|case 'S':|
+key_functions.cpp|3417|case 's':|
+key_functions.cpp|3418|case 'k':|
+key_functions.cpp|3478|case 'a':|
+key_functions.cpp|3479|case 'j':|
+key_functions.cpp|3539|case 'D':|
+key_functions.cpp|3594|case 'O':|
+key_functions.cpp|3637|case 'L':|
+key_functions.cpp|3658|case 'd':|
+key_functions.cpp|3659|case 'l':|
+key_functions.cpp|3719|case 27:|
+key_functions.cpp|3781|case sf::Event::Closed:|
+key_functions.cpp|3784|case sf::Event::TextEntered:|
+key_functions.cpp|3789|case sf::Event::KeyPressed:|
+key_functions.cpp|3792|case sf::Event::MouseMoved:|
+key_functions.cpp|3793|case sf::Event::MouseButtonPressed:|
+key_functions.cpp|3932|case sf::Keyboard::F:|
+key_functions.cpp|4088|case sf::Keyboard::Num0:|
+key_functions.cpp|4091|case sf::Keyboard::Num1:|
+key_functions.cpp|4106|case sf::Keyboard::Num2:|
+key_functions.cpp|4121|case sf::Keyboard::Num3:|
+key_functions.cpp|4136|case sf::Keyboard::Num4:|
+key_functions.cpp|4151|case sf::Keyboard::Num5:|
+key_functions.cpp|4162|case sf::Keyboard::Num6:|
+key_functions.cpp|4173|case sf::Keyboard::Num9:|
+key_functions.cpp|4273|case sf::Keyboard::Numpad6:|
+key_functions.cpp|4279|case sf::Keyboard::Numpad4:|
+key_functions.cpp|4285|case sf::Keyboard::Numpad8:|
+key_functions.cpp|4291|case sf::Keyboard::Numpad2:|
+key_functions.cpp|4297|case sf::Keyboard::Numpad7:|
+key_functions.cpp|4305|case sf::Keyboard::Numpad1:|
+key_functions.cpp|4313|case sf::Keyboard::Numpad9:|
+key_functions.cpp|4326|case sf::Keyboard::Numpad5:|
+key_functions.cpp|4335|case sf::Keyboard::Numpad3:|
+key_functions.cpp|4348|case sf::Keyboard::Tab:|
+key_functions.cpp|4404|case sf::Keyboard::Z:|
+key_functions.cpp|4429|case sf::Keyboard::T:|
+key_functions.cpp|4719|case sf::Keyboard::F1:|
+key_functions.cpp|4754|case sf::Keyboard::F2:|
+key_functions.cpp|4804|case sf::Keyboard::F3:|
+key_functions.cpp|4834|case sf::Keyboard::F4:|
+key_functions.cpp|4840|case sf::Keyboard::F5:|
+key_functions.cpp|4864|case sf::Keyboard::F6:|
+key_functions.cpp|5056|case sf::Keyboard::F7:|
+key_functions.cpp|5076|case sf::Keyboard::F8:|
+key_functions.cpp|5368|case sf::Keyboard::F9:|
+key_functions.cpp|5404|case sf::Keyboard::F10:|
+key_functions.cpp|5415|case sf::Keyboard::F11:|
+key_functions.cpp|5435|case sf::Keyboard::F12:|
+key_functions.cpp|5458|case sf::Keyboard::LBracket:|
+key_functions.cpp|5469|case sf::Keyboard::RBracket:|
+key_functions.cpp|5480|case sf::Keyboard::Add:|
+key_functions.cpp|5481|case sf::Keyboard::Equal:|
+key_functions.cpp|5588|case sf::Keyboard::Subtract:|
+key_functions.cpp|5653|case sf::Keyboard::End:|
+key_functions.cpp|5696|case sf::Keyboard::Home:|
+key_functions.cpp|5709|case sf::Keyboard::H:|
+key_functions.cpp|5715|case sf::Keyboard::Left:|
+key_functions.cpp|5799|case sf::Keyboard::Right:|
+key_functions.cpp|5883|case sf::Keyboard::Up:|
+key_functions.cpp|5989|case sf::Keyboard::Down:|
+key_functions.cpp|6095|case sf::Keyboard::Q:|
+key_functions.cpp|6116|case sf::Keyboard::RAlt:|
+key_functions.cpp|6117|case sf::Keyboard::LAlt:|
+key_functions.cpp|6123|case sf::Keyboard::PageDown:|
+key_functions.cpp|6252|case sf::Keyboard::Space:|
+key_functions.cpp|6331|case sf::Keyboard::PageUp:|
+key_functions.cpp|6458|case sf::Keyboard::Y:|
+key_functions.cpp|6531|case sf::Keyboard::P:|
+key_functions.cpp|6582|case sf::Keyboard::I:|
+key_functions.cpp|6634|case sf::Keyboard::M:|
+key_functions.cpp|6829|case sf::Keyboard::A:|
+key_functions.cpp|6842|case sf::Keyboard::R:|
+key_functions.cpp|6895|case sf::Keyboard::U:|
+key_functions.cpp|6911|case sf::Keyboard::C:|
+key_functions.cpp|6924|case sf::Keyboard::E:|
+key_functions.cpp|6939|case sf::Keyboard::S:|
+key_functions.cpp|6980|case sf::Keyboard::B:|
+key_functions.cpp|7117|case sf::Keyboard::D:|
+key_functions.cpp|7145|case sf::Keyboard::Delete:|
+key_functions.cpp|7265|case sf::Keyboard::Insert:|
+key_functions.cpp|7272|case sf::Keyboard::V:|
+key_functions.cpp|7308|case WM_CREATE:|
+key_functions.cpp|7310|case WM_COMMAND:|
+key_functions.cpp|7313|case 2:|
+key_functions.cpp|7316|case BN_CLICKED:|
+key_functions.cpp|7317|case BN_PUSHED:|
+key_functions.cpp|7374|case WM_KEYDOWN:|
+key_functions.cpp|7377|case WM_CHAR:|
+key_functions.cpp|7380|case WM_LBUTTONDOWN:|
+key_functions.cpp|7390|case WM_RBUTTONDOWN:|
+key_functions.cpp|7395|case WM_MOUSEMOVE:|
+key_functions.cpp|7399|case WM_CLOSE:|
+key_functions.cpp|7400|case WM_DESTROY:|
+key_functions.cpp|8325|//        case sf::Event::Closed:|
+key_functions.cpp|8329|case sf::Event::TextEntered:|
+key_functions.cpp|8334|case sf::Event::KeyPressed:|
+key_functions.cpp|8338|case sf::Keyboard::PageDown:|
+key_functions.cpp|8341|case sf::Keyboard::PageUp:|
+key_functions.cpp|8344|case sf::Keyboard::RBracket:|
+key_functions.cpp|8347|case sf::Keyboard::LBracket:|
+key_functions.cpp|8356|//        case sf::Event::MouseMoved:|
+key_functions.cpp|8360|//        case sf::Event::MouseButtonPressed:|
+key_functions.cpp|8374|case MACRO1:|
+key_functions.cpp|8385|case ZOOM_OUT:|
+key_functions.cpp|8413|case ZOOM_IN:|
+key_functions.cpp|8431|case ADAPT_SPEED:|
+map.cpp|4723|case sf::Keyboard::Escape:|

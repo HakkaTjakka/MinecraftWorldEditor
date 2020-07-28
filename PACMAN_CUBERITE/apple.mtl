@@ -1,0 +1,50 @@
+# 3ds Max Wavefront OBJ Exporter v0.94b - (c)2007 guruware
+# File Created: 12.04.2015 22:45:52
+
+newmtl apple_001
+	Ns 50.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 1.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.3600 0.3600 0.3600
+	Ke 0.0000 0.0000 0.0000
+	map_Ka apple(diffuse)001.jpg
+	map_Kd apple(diffuse)001.jpg
+	map_bump apple(bump)001.jpg
+	bump apple(bump)001.jpg
+
+newmtl apple_002
+	Ns 50.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 1.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.3600 0.3600 0.3600
+	Ke 0.0000 0.0000 0.0000
+	map_Ka apple(diffuse)002.jpg
+	map_Kd apple(diffuse)002.jpg
+	map_bump apple(bump)002.jpg
+	bump apple(bump)002.jpg
+
+newmtl wood_Byholma_white_
+	Ns 50.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 1.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.8549 0.8549 0.8549
+	Ks 0.3608 0.3608 0.3608
+	Ke 0.0000 0.0000 0.0000
+	map_Ka wood(diffuse)_Byholma(white).jpg
+	map_Kd wood(diffuse)_Byholma(white).jpg
+	map_bump wood(bump)_Byholma.jpg
+	bump wood(bump)_Byholma.jpg

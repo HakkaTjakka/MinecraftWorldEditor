@@ -1,0 +1,185 @@
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+//#include <SFML/Graphics/Image.hpp>
+//#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/OpenGL.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Graphics/Rect.hpp>
+//#include <SFML/Network.hpp>
+#include <SFML/System/Mutex.hpp>
+
+
+#include <glm/glm.hpp>
+
+#include <cstdio>
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <cstring>
+
+struct image_loader {
+    std::string filename;
+    sf::Image* image;
+    bool ready=false;
+    bool ok=true;
+    size_t index;
+    sf::Thread *thread_pointer;
+    std::string previous="";
+//    sf::Thread image_thread;
+};
+
+typedef float Vec2[2];
+typedef float Vec3[3];
+typedef unsigned char Rgb[3];
+
+
+/*
+float edgeFunction(const Vec2 &a, const Vec2 &b, const Vec2 &c) {
+    return (c[0] - a[0]) * (b[1] - a[1]) - (c[1] - a[1]) * (b[0] - a[0]);
+}
+
+bool insideTriangle(const Vec2 &V0, const Vec2 &V1, const Vec2 &V2, const Vec2 &p)  {
+    bool inside = true;
+    inside &= (edgeFunction(V0, V1, p)>=0);
+    inside &= (edgeFunction(V1, V2, p)>=0);
+    inside &= (edgeFunction(V2, V0, p)>=0);
+
+    return inside;
+}
+*/
+
+int rasterize( float tc[3][2], uint32_t w, uint32_t h, int buf_count, int faces, sf::Image* image)
+{
+
+    float bmin_pixel[2];
+    float bmax_pixel[2];
+
+    bmin_pixel[0] = bmin_pixel[1] = std::numeric_limits<float>::max();
+    bmax_pixel[0] = bmax_pixel[1] = -std::numeric_limits<float>::max();
+
+    for (int l=0; l<3; l++) {
+        bmin_pixel[0]=std::min(tc[l][0]*w, bmin_pixel[0]);   bmax_pixel[0]=std::max(tc[l][0]*w, bmax_pixel[0]);
+        bmin_pixel[1]=std::min(tc[l][1]*h, bmin_pixel[1]);   bmax_pixel[1]=std::max(tc[l][1]*h, bmax_pixel[1]);
+    }
+    int real_w=(bmax_pixel[0]-bmin_pixel[0]);
+    int real_h=(bmax_pixel[1]-bmin_pixel[1]);
+
+    sf::Image im_out;
+    im_out.create(real_w+2,real_h+2);
+
+//    im_out.copy(*image,1,1,sf::IntRect(bmin_pixel[0],bmin_pixel[1],real_w,real_h));
+    static int num=0;
+    Vec2 v0;
+    Vec2 v1;
+    Vec2 v2;
+    v0[0] = tc[0][0]*w; v0[1] = tc[0][1]*h;
+    v1[0] = tc[1][0]*w; v1[1] = tc[1][1]*h;
+    v2[0] = tc[2][0]*w; v2[1] = tc[2][1]*h;
+//    printf("\n");
+//    printf("TC:(%3d,%3d),(%3d,%3d),(%3d,%3d)\n",int(v0[0]),int(v0[1]),int(v1[0]),int(v1[1]),int(v2[0]),int(v2[1]));
+    Vec3 c0 = {1, 0, 0};
+    Vec3 c1 = {0, 1, 0};
+    Vec3 c2 = {0, 0, 1};
+
+
+//    Rgb *framebuffer = new Rgb[w * h];
+//    std::memset(framebuffer, 0x0, w * h * 3);
+
+//    float area = edgeFunction(v0, v1, v2);
+    float area = (v1[0]-v0[0])*(v2[1]-v0[1]) - (v2[0]-v0[0])*(v1[1]-v0[1]);
+
+    for (uint32_t j = 0; j < h; ++j) {
+        for (uint32_t i = 0; i < w; ++i) {
+            Vec2 p = {(float)i + 0.5f, (float)j + 0.5f};
+//            float w0 = edgeFunction(v1, v2, p);
+//            float w1 = edgeFunction(v2, v0, p);
+//            float w2 = edgeFunction(v0, v1, p);
+
+            float w0 = (p[0]-v0[0])*(v2[1]-v0[1]) - (v2[0]-v0[0])*(p[1]-v0[1]);
+            float w1 = (p[0]-v1[0])*(v0[1]-v1[1]) - (v0[0]-v1[0])*(p[1]-v1[1]);
+            float w2 = (p[0]-v2[0])*(v1[1]-v2[1]) - (v1[0]-v2[0])*(p[1]-v2[1]);
+
+            if ((w0 >= 0.0 && w1 >= 0.0 && w2 >= 0.0) || (w0 <= 0.0 && w1 <= 0.0 && w2 <= 0.0)) {
+
+//                framebuffer[j * w + i][0] = (unsigned char)(0);
+//                framebuffer[j * w + i][1] = (unsigned char)(0);
+//                framebuffer[j * w + i][2] = (unsigned char)(255);
+//                printf("0");
+                if (area!=0.0) {
+                    w0 /= area;
+                    w1 /= area;
+                    w2 /= area;
+                    float r = (w0 * c0[0]) + (w1 * c1[0]) + (w2 * c2[0]);
+                    float g = (w0 * c0[1]) + (w1 * c1[1]) + (w2 * c2[1]);
+                    float b = (w0 * c0[2]) + (w1 * c1[2]) + (w2 * c2[2]);
+
+//                    printf("r=%f g=%f b=%f   area=%f   w0=%f w1=%f w2=%f   i=%d j=%d\n",r*255.0,g*255.0,b*255.0,area,w0,w1,w2,i,j);
+
+//                    float r = abs(w0 * c0[0]) + abs(w1 * c1[0]) + abs(w2 * c2[0]);
+//                    float g = abs(w0 * c0[1]) + abs(w1 * c1[1]) + abs(w2 * c2[1]);
+//                    float b = abs(w0 * c0[2]) + abs(w1 * c1[2]) + abs(w2 * c2[2]);
+                    if (i<=bmax_pixel[0] && j<=bmax_pixel[1])
+                        if (i-bmin_pixel[0]>=0 && j-bmin_pixel[1]>=0)
+                            im_out.setPixel(1+i-bmin_pixel[0],1+j-bmin_pixel[1],sf::Color(255,255,255,255));
+                            if (i-bmin_pixel[0]==0 || j-bmin_pixel[1]==0 || i-bmin_pixel[0]==real_w+1 || j-bmin_pixel[1]==real_h+1 )
+                                im_out.setPixel(1+i-bmin_pixel[0],1+j-bmin_pixel[1],sf::Color(255,0,0,255));
+                            else
+                                im_out.setPixel(1+i-bmin_pixel[0],1+j-bmin_pixel[1],sf::Color((int)(r*255),(int)(g*255),(int)(b*255),255));
+
+
+                } else {
+                }
+/*
+                framebuffer[j * w + i][0] = (unsigned char)(r * 255.0);
+                framebuffer[j * w + i][1] = (unsigned char)(g * 255.0);
+                framebuffer[j * w + i][2] = (unsigned char)(b * 255.0);
+*/
+            } else {
+//                printf("1");
+//                framebuffer[j * w + i][0] = (unsigned char)( 255);
+//                framebuffer[j * w + i][1] = (unsigned char)( 255);
+//                framebuffer[j * w + i][2] = (unsigned char)( 255);
+                if (i<=bmax_pixel[0] && j<=bmax_pixel[1])
+                    if (i-bmin_pixel[0]>=0 && j-bmin_pixel[1]>=0) {
+                        im_out.setPixel(1+i-bmin_pixel[0],1+j-bmin_pixel[1],sf::Color(255,255,255,255));
+                        if (i-bmin_pixel[0]==0 || j-bmin_pixel[1]==0 || i-bmin_pixel[0]==real_w+1 || j-bmin_pixel[1]==real_h+1 )
+                            im_out.setPixel(1+i-bmin_pixel[0],1+j-bmin_pixel[1],sf::Color(0,255,0,255));
+                        else
+                            im_out.setPixel(1+i-bmin_pixel[0],1+j-bmin_pixel[1],sf::Color(255,255,255,255));
+
+                    }
+//                printf("no..");
+            }
+        }
+//        printf("\n");
+    }
+//    printf("\n");
+
+//    std::ofstream ofs;
+    char filename[2000];
+//    sprintf(filename, "../cut/raster2d.%03d.%03d.ppm", buf_count, faces );
+//    ofs.open(filename);
+//    ofs << "P6\n" << w << " " << h << "\n255\n";
+//    ofs.write((char*)framebuffer, w * h * 3);
+//    ofs.close();
+    sprintf(filename, "../cut/raster2d.%03d.%03d.jpg", buf_count, faces );
+    im_out.saveToFile(filename);
+
+//    delete [] framebuffer;
+
+    return 0;
+}
+
+
+extern magic(float v[3][3], float tc[3][2], struct image_loader* image_buffer);
+
+void magic(float v[3][3], float tc[3][2], struct image_loader* image_buffer, int buf_count, int faces) {
+    uint32_t w = 10*image_buffer->image->getSize().x;
+    uint32_t h = 10*image_buffer->image->getSize().y;
+
+    if ( tc[0][0]==tc[1][0] && tc[0][1]==tc[1][1] ) { printf(".\n"); return; }
+    if ( tc[1][0]==tc[2][0] && tc[1][1]==tc[2][1] ) { printf(".\n"); return; }
+    if ( tc[2][0]==tc[0][0] && tc[2][1]==tc[0][1] ) { printf(".\n"); return; }
+    rasterize(tc, w, h, buf_count, faces, image_buffer->image);
+}

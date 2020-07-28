@@ -1,0 +1,8 @@
+RANDOM=ON
+D:\PACMAN\blendingpictures\files\bighole.png
+D:\PACMAN\blendingpictures\files\BlackHoleSharp.png
+D:\PACMAN\blendingpictures\files\BlackHoleSharpWhiteBorder.png
+D:\PACMAN\blendingpictures\files\InverseBlackHoleSharp.png
+D:\PACMAN\blendingpictures\files\Out of center hole.png
+D:\PACMAN\blendingpictures\files\smallhole.png
+D:\PACMAN\blendingpictures\files\WhiteBorder.png

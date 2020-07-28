@@ -1,0 +1,1 @@
+xcopy x*.png f:\pacman\map_pictures /s

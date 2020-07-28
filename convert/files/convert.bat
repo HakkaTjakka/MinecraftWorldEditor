@@ -1,0 +1,1 @@
+ffmpeg.exe -hide_banner -i "Dr. Rath - EU Politiek Perspectief-WuhbyHE8mDg.f247.webm" -i "Dr. Rath - EU Politiek Perspectief-WuhbyHE8mDg.f251.webm" -map 0:v:0 -map 1:a:0 -strict -2 -vf subtitles="f='Dr. Rath - EU Politiek Perspectief-WuhbyHE8mDg.en.vtt'" -c:s mov_text -c:v libx264 -preset veryfast -crf 23 -c:a aac -b:a 96k -pix_fmt yuv420p "out/Dr.en.mp4"

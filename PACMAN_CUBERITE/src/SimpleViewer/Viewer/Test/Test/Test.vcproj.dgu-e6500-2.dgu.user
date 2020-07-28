@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="gb2312"?>
+<VisualStudioUserFile
+	ProjectType="Visual C++"
+	Version="9.00"
+	ShowAllFiles="false"
+	>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			>
+			<DebugSettings
+				Command="$(TargetPath)"
+				WorkingDirectory=""
+				CommandArguments=""
+				Attach="false"
+				DebuggerType="3"
+				Remote="1"
+				RemoteMachine="DGU-E6500-2"
+				RemoteCommand=""
+				HttpUrl=""
+				PDBPath=""
+				SQLDebugging=""
+				Environment=""
+				EnvironmentMerge="true"
+				DebuggerFlavor=""
+				MPIRunCommand=""
+				MPIRunArguments=""
+				MPIRunWorkingDirectory=""
+				ApplicationCommand=""
+				ApplicationArguments=""
+				ShimCommand=""
+				MPIAcceptMode=""
+				MPIAcceptFilter=""
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			>
+			<DebugSettings
+				Command="$(TargetPath)"
+				WorkingDirectory="E:\DavidGu\2013\2013_Conformal_Geometry_Library\demo\Holo_Form_SphericalHarmonicMap_test\brain"
+				CommandArguments="test.pos.m &gt; test_boundary.xya"
+				Attach="false"
+				DebuggerType="3"
+				Remote="1"
+				RemoteMachine="DGU-E6500-2"
+				RemoteCommand=""
+				HttpUrl=""
+				PDBPath=""
+				SQLDebugging=""
+				Environment=""
+				EnvironmentMerge="true"
+				DebuggerFlavor="0"
+				MPIRunCommand=""
+				MPIRunArguments=""
+				MPIRunWorkingDirectory=""
+				ApplicationCommand=""
+				ApplicationArguments=""
+				ShimCommand=""
+				MPIAcceptMode=""
+				MPIAcceptFilter=""
+			/>
+		</Configuration>
+	</Configurations>
+</VisualStudioUserFile>

@@ -1,0 +1,21 @@
+For the voxel generator:
+
+Put .obj files into dir ../models (seen from within installdir/pacman_cuberite, so installdir models).
+Set pacman.ini files to right parameters. Like search paths for files. Setup list.txt files in dirs if needed.
+For downloading Google 3d Earth data see the ../EARTH dir, edit some right files with the right data, see examples. Also check the file in a subdir of the javascript system for inserting a new area name.
+After generating a list with code to insert into the program, (adapt some see examples, or by file like amsterdam when its large), compile it.
+Download the first octant. Check the first coordinates and put them in the javascript (see examples).
+Download all to obj dir, transfer to new dir, run divide.bat, run convert.bat.
+Setup saves dir for minecraft files (see .bat file).
+Run pacman.exe program. 
+Press Backspace to select MODELS (so list.txt from ../models dir with complete filepath of .obj objects to load from, like from ../modesl itself with a dir /s/b command to generate the list.txt (see files))
+Or AREA NAME from google 3d data.
+Load one model / part, press Alt-B to generate .nbt files from .obj files.
+Press B to generate 3d wire model of all data blocks and .dat file with size of object.
+(Adapt viewer_my_loadobj.cpp function wuppie_vector with right offset settings according height of minecraft level (max 256 blocks), and/or adapt code if you want larger voxel data. (Help yourself).)
+
+Press ctrl-6 or 6 for loading one object. lat_lon.txt for gps coords. OBJECT_ARRAY.TXT for X/Y data when loading large google maps.
+Press twice ctrl-v from main window. Press 4 times shift-k. (crossing=2 mirror=4 below in screen...)
+Press alt-b
+The region files should now be created from the .obj files.
+Msg me for installing and operating. Manual in progress.

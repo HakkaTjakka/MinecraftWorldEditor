@@ -1,0 +1,119 @@
+recover_mp4 v1.92
+(C) 2011-2017 Дмитрий Васильев <slydiman@mail.ru>
+http://slydiman.me
+
+Утилита для восстановления нефинализированных MP4/MOV/3GP файлов.
+Нефинализированный файл может получиться если камера была повреждена 
+во время записи или вынули аккумулятор и т.п. В этом случае заголовок 
+файла просто забит нулями и мы располагаем только секцией mdat. 
+
+Речь идет о файлах, нормально читающихся с флэшки, но с испорченным заголовком.
+Если файл не виден или не копируется, то воспользуйтесь программами типа 
+R-Studio, Restorer2000, EasyRecovery и пр. - это не наш случай.
+
+Если на последнем восстановленом файле отсутствует момент ДТП (последние 5-10 сек),
+то ещё не всё потеряно. Просто видеорегистратор не успел обновить FAT из кэша.
+Можно восстановить всё видео со всей флэшки вообще игнорируя файловую систему. 
+Останется только просмотреть всё и найти нужный момент.
+Нужно сделать посекторную копию флэшки (имидж). Формат файла .img (ни в коем случае не .iso). 
+Это можно сделать такими программами как Restorer2000, WinHex и пр. 
+Если флэшка размером 16GB, то получится файл 16GB.
+Файл можно порезать на куски для удобства запаковав его WinRar'ом без сжатия 
+с разбиением например по 2GB. Далее заливайте всё это на какой-нибудь Google Drive, DropBox,
+Яндекс.Диск, MEGA и пр. (кому что больше нравится) и присылаяте ссылки.
+
+Поддерживаемые видео форматы: AVC/H.264, HEVC/H.265
+
+Поддерживаемые аудио форматы: AAC, ADPCM (Intel), MP3, PCM (LE, BE, float), RAW
+
+При необходимости можно доработать под конкретный случай.
+
+Как этим пользоваться:
+
+  recover_mp4 in_good_similar.mp4 --analyze
+  recover_mp4 in_corrupted.mp4 {out_video.h264 | out_video.hevc | --novideo}
+                      [out_audio.aac | out_audio.wav | out_audio.mp3 | out_audio.raw | --noaudio] [options]
+Опции:
+  --start <hex>     read from position (ignore mdat atom)
+  --end <hex>       end position (ignore mdat atom). Specify 0 for EOF
+  --avcidrmax <hex> ignore AVC NAL units (IDR) with the size above than <hex> bytes
+  --avcxmax <hex>   ignore AVC NAL units (non IDR) with the size above than <hex> bytes
+  --aaclong
+  --aacmin <hex>  
+  --pcmmin <hex>  
+  --pcmfix <hex>  
+  --verbose  
+
+  --gopro4        use Ambarella templates and detect GoPro4 specific data (default for MP4 files)
+  --ambarella     use Ambarella templates (ignore GoPro4 specific data)
+  --lav           use Lav/ffmpeg templates
+  --mainconcept   use Mainconcept templates
+  --novatek       use car DVR templates based on Novatek (DV turnkey, Street Guardian, etc.)
+  --qt            use QuickTime templates (default for MOV files)
+  --iphone4       use iPhone4 templates
+  --eos           use Canon EOS 5D Mark II, 7D, 550D templates
+  --eos3          use Canon EOS 5D Mark III, 7D Mark II, 100D templates
+  --eos4          use Canon EOS 5D Mark IV templates
+  --canon         use Canon SX, EOS 80D templates
+  --vmix          use vMix templates
+  --wowza         use Wowza templates
+  --blackmagic    use BlackMagic templates
+  --avermedia     use AVerMedia Live Gamer Portable C875 templates
+  --lumia         use Lumia templates
+  --panasonic     use Panasonic DMC-G7, DMC-GX80, DMC-G85, DMC-GH4, DC-GH5, HC-X1000 templates
+  --sony          use SONY A7S [Mark II], AX1E, NX5R, A6000, HDR-CX405, HDR-CX625 templates
+  --drim          use DRIMeIII templates (Samsung NX1000 camcorder)
+  --drim5         use DRIMeV HEVC/H.265 templates (Samsung NX1/NX500 camcorder)
+  --tomtom        use TomTom Bandit Action Camera templates
+  --icat          use iCatch templates
+  --cgo3          use cgo3 templates
+  --dji.avc       use DJI.AVC Phantom (H.264) templates
+  --dji.hvc       use DJI.HVC Phantom (H.265) templates
+  --hevc          use generic HEVC/H.265 templates
+  --ext           use generic templates for any other camcorder or smartphone, Open Broadcaster Software, etc.
+
+1. Берем ХОРОШИЙ один из предыдущих MP4 файлов, записанных той же камерой с тем же разрешением, например GOPR0346.MP4
+Файл должен воспроизводится в проигрывателе.
+
+Запускаем из командной строки:
+>recover_mp4.exe GOPR0346.MP4 --analyze
+
+При этом программа создает крохотные файлы video.hdr и audio.hdr
+и распечатает дальнейшие инструкции (параметры запуска).
+
+2. Допустим ваш поврежденный файл GOPR0347.MP4
+
+Запускаем из командной строки:
+
+>recover_mp4.exe GOPR0347.MP4 recovered.h264 recovered.aac
+
+Возможно тут нужно будет добавить дополнительные параметры (см. распечатанную инструкцию из шага 1).
+
+Некоторые видеорегистраторы пишут MOV файлы со звуком в формате PCM или ADPCM. 
+В таком случае нужно указать 3-м параметром имя файла с расширением .wav
+
+>recover_mp4_to_h264.exe bad.mov recovered.h264 recovered.wav
+
+3. Для склеивания recovered.h264 и recovered.aac в конечный MP4/MOV файл лучше всего использовать ffmpeg (скачать можно тут http://ffmpeg.org/download.html)
+На шаге 1 программа распечатывает параметры для запуска ffmpeg.
+
+Если звук AAC, вместо ffmpeg можно попробовать программу Yamb 
+(скачать например тут http://yamb.unite-video.com/download.html)
+Запускаем Yamb, кликаем Create (Создать), добавляем поток recovered.h264 и recovered.aac,
+нажимаем Далее и создаем новый исправный файл, например recovered.mp4
+
+Пример использования ffmpeg:
+
+>ffmpeg.exe -r 30 -i recovered.h264 -i recovered.aac -bsf:a aac_adtstoasc -c:v copy --c:a copy recovered.mp4
+
+Для звука PCM:
+
+>ffmpeg.exe -r 30 -i recovered.h264 -i recovered.wav -c:v copy -c:a copy recovered.mov
+
+Для звука ADPCM:
+
+>ffmpeg.exe -r 30 -i recovered.h264 -i recovered.wav -c:v copy -c:a adpcm_ima_wav recovered.mov
+
+В этих примерах 30 - это частота кадров. Укажите свою. 
+Если частота слегка плавает, придется подобрать среднее значение чтобы видео и звук совпадали.
+Вместо 29.97 лучше указать 30000/1001

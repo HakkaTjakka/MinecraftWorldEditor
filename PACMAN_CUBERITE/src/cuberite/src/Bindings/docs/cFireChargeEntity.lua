@@ -1,0 +1,10 @@
+return
+{
+	cFireChargeEntity =
+	{
+		Inherits =
+		{
+			"cProjectileEntity",
+		},
+	},
+}

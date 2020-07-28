@@ -1,0 +1,33 @@
+     [12:41:25] --- Started Log ---
+     [12:41:25] Cuberite local build build id: Unknown
+     [12:41:25] from commit id: approx: e0ca4d83991d80865781c1dbbbfa1f92259a366a built at: approx: 2019-08-11 11:39:43 +0200
+     [12:41:25] Creating new server instance...
+     [12:41:25] Reading server config...
+     [12:41:25] Starting server...
+Info [12:41:25] Compatible clients: 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x
+Info [12:41:25] Compatible protocol versions 47, 107, 108, 109, 110, 210, 315, 316, 335, 338, 340
+Info [12:41:25] WebServer: The server will run in secure HTTPS mode.
+     [12:41:25] Loaded 755 crafting recipes
+     [12:41:25] Loaded 67 furnace recipes and 66 fuels
+     [12:41:26] Loaded 88 brewing recipes
+     [12:41:26] -- Loading Plugins --
+     [12:41:26] Initialised Core v.15
+     [12:41:26] Initialized ChatLog v.3
+     [12:41:26] -- Loaded 2 Plugins --
+Info [12:41:27] WebAdmin is running on port(s) 8080
+     [12:41:27] Startup complete, took 1542ms!
+Info [12:41:48] User Pacman_Graphics authenticated with UUID 150459360a0e42da9a8c1111e36bbc17
+     [12:41:48] Client connected with 5 mods: FML@8.0.99.99, forge@14.23.5.2847, mcp@9.42, minecraft@1.12.2, replaymod@1.12.2-2.2.0-b7, 
+Info [12:41:49] Player Pacman_Graphics has joined the game
+Info [12:42:03] Player Pacman_Graphics has left the game
+     [12:43:59] Shutting down server...
+     [12:44:00] Unloading worlds...
+     [12:44:00] Disabled Core!
+     [12:44:00] Cleaning up...
+     [12:44:00] Shutdown successful!
+     [12:44:00] --- Stopped Log ---
+Warn [12:44:00] DeadlockDetect: Some CS objects (4) haven't been removed from tracking
+Warn [12:44:00]   CS 0x38bc1380 / World Test clients
+Warn [12:44:00]   CS 0x38470208 / World Test players
+Warn [12:44:00]   CS 0x38bc1350 / World Test tasks
+Warn [12:44:00]   CS 0x1d1220f0 / World Test chunkmap

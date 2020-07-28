@@ -1,0 +1,233 @@
+
+  # NAME            CODE    KEY                  DESCRIPTION
+  0 GO_LIST         4000000 C,ALT-v              List's convert directory. Compares with record dir, moves
+                                                 converted files to converted.
+  1 GO_DOWNLOAD     3000000 ALT-v                Start downloading url's from ../convert/list.txt. Can be
+                                                 youtube code's kj2GlIIWCL8 or url
+                                                 https://www.youtube.com/watch?v=kj2GlIIWCL8Creates
+                                                 ../convert/files/convert.txt with data for burning
+                                                 subtitles (GO_BURN / SHIFT-ALT-v)Creates
+                                                 ../convert/files/convert.bat with ffmpeg commands for
+                                                 converting by batch shell.
+  5 GO_BURN         3000001 SHIFT-ALT-v          Start burning subtitles in downloaded files from ALT-V (when
+                                                 downloaded).Files end up in
+                                                 ../convert/files../convert/files/list.txt playable files
+                                                 downloaded.../convert/files/convert.txt data for burning.
+                                                 (from GO_DOWNLOAD / ALT-vFiles end up in ../convert/files
+ 10 MACRO1          1000001 ALT-F11              Macro 1. Set PLOT MAP 2, load rel.pos. (CTRL-F10 and
+                                                 CTRL-F12), set canvas on (CTRL-y), select canvas
+                                                 (ALT-DOWN),zoom in (SHIFT-PGDN), canvas ghost on
+                                                 (SHIFT-F9), GHOST OFF ('g').
+ 12 MACRO2          1000002 SHFT-F11             Macro 2. Load maze ('x'), set canvas on (SHIFT-F9), GHOST
+                                                 OFF ('g'), canvas ghost on (SHIFT-F9), select canvas
+                                                 (ALT-DOWN), zoom in
+ 14 ZOOM_OUT        1000101 CTRL-END             Start zoom out macro. (END=set jump level) (Save/load/set
+                                                 start: CTRL-F9/CTRL-F10, Save/load/set end:
+                                                 CTRL-F11/CTRL-F12)
+ 16 ZOOM_IN         1000102 CTRL-HOME            Start zoom in macro. (END=set jump level)Zoom uses directory
+                                                 ../geodata, geodata filelist in list.txt (path to filename
+                                                 containing geodata, see example)
+ 19 ADAPT_SPEED     1000103 -                    Macro used by zoom in/out.Some keys for map zoom functions:
+                                                 ALT-F6, '['/']'/'<'/'>', ALT-z/ALT-x,
+                                                 ALT-END/ALT-HOME/END/CTRL-F9/CTRL-F10/CTRL-F11/CTRL-F12,
+                                                 SHIFT-PGDN/SHIFT-PGUP, ALT-DOWN/ALT-UP,
+                                                 CTRL-LEFT/CTRL-RIGHT
+ 22 MACRO_LIST      2000000 SHIFT-F1             Show macro list (this file and data)
+ 23 TEXT_FILES      1000400 ALT-t                Text files to font to screen. Filelist in ./list.txt First
+                                                 line of first textfile needs to be empty... (bug).Usage:
+                                                 TEXT_FILES <FONTSIZE> <COLOR> (COLOR IN HEXADECIMAL LIKE
+                                                 FF00FFFF FOR CYAN NO TRANSPARANT....)Example: "TEXT_FILES
+                                                 24 FFFFFFFF"
+ 28 SCRIPT          1010000                      Run script. Usage SCRIPT <CHAI_SCRIPTNAME> PARAMETER1
+                                                 PARAMETER2Example: SCRIPT ..//scripts//fun.chai or SCRIPT
+                                                 "..//scripts//fun.chai" or SCRIPT ..\scripts\fun.chai or
+                                                 SCRIPT "..\scripts\fun.chai"Use quotes when path/filename
+                                                 contains white spaces.... Use backslash to preserve
+                                                 backslash....PARAMETER1 PARAMETER2 ... etc also end up in
+                                                 chai_input[n], where n is #PARAMETER - 1 (starting from 0,
+                                                 while script starts from 1...See ../scripts/fun.chai for
+                                                 example. Like GetInput("1") for getting first parameter,
+                                                 and/or ReturnResult("1","This is the output") for sending
+                                                 first output parameter.Output ends up in chai_output[n],
+                                                 where n=0 is the first("1") output value. (char*). Check
+                                                 code for adding non script (c coded) functions, like the
+                                                 GetInput() and ReturnResult() functions.
+ 38 EXECUTE         1010001                      Run script. Usage EXECUTE CHAI_SCRIPT_COMMANDExample:
+                                                 EXECUTE print("Hello World\n");
+ 40 HELP_ON_OFF     1000500 F1                   Help on/off
+ 41 HELP_ON         1000501                      Help on
+ 42 HELP_OFF        1000502                      Help off
+ 43 DEBUG_ON_OFF    1000600 F2                   Debug info on/off
+ 44 DEBUG_ON        1000601                      Debug info on
+ 45 DEBUG_OFF       1000602                      Debug info off
+ 46 MOUSE_ON_OFF    1000700 CTRL-F2              Mouse on/off
+ 47 MOUSE_ON        1000701                      Mouse on
+ 48 MOUSE_OFF       1000702                      Mouse off
+ 49 SYNC_ON_OFF     1000800 F3                   Vertical synchonisation on/off
+ 50 SYNC_ON         1000801                      Vertical synchonisation on
+ 51 SYNC_OFF        1000802                      Vertical synchonisation off
+ 52 SPD_ADJ_ON_OFF  1000900 F4                   Speed adjust on/off
+ 53 SPD_ADJ_ON      1000901                      Speed adjust on
+ 54 SPD_ADJ_OFF     1000902                      Speed adjust off
+ 55 OVERWRITE       1001000 CTRL-F5              Overwrite background textures (picture.*.*.png)with drawmaze
+                                                 (foreground) textures (picture_maze.*.*.png)
+                                                 changed/saved(copy files picture_maze.* -> picture.*)
+ 58 MERGE           1001100 SHIFT-F7             Combine background textures with foreground
+                                                 textures.(render, overwriting background with forground
+                                                 (transparancy))
+ 60 SCREENSHOT      1001300 0                    Screenshot. Placed in picture SHIFT-P. 1920 x 1080
+ 61 BLENDING        1000310                      Set blening mode on/off. Usage: BLENDING <blendingmode>.
+                                                 (0=off/1/2).When set blening mode 2. Use keys 1-6 and SHIFT
+                                                 1-6 for custom blending (4) modes/values. '+'/'-' selects 1
+                                                 out of 4 standard modes. 4 is custom...
+ 64 BLEND_MODE      1000323                      Add, Set blending mode. When BLENDING=2 (CUSTOM) Usage:
+                                                 BLEND_MODE <num> where num: 0=Add,, 1=None, 2=Alpha,
+                                                 3=Multiply, 4=Custom userCustom user parameter selection:
+ 67 COLORSRCFACTOR  1000324                      0=Zero, 1=One, 2=SrcColor, 3=OneMinusSrcColor, 4=DstColor,
+                                                 5=OneMinusDstColor, 6=SrcAlpha, 7=OneMinusSrcAlpha,
+                                                 8=DstAlpha, 9=OneMinusDstAlpha
+ 69 COLORDSTFACTOR  1000325                      Same as above. Usage: colorDstFactor <num>, where <num> one
+                                                 of the above.
+ 70 ALPHASRCFACTOR  1000326                      Same as above
+ 71 ALPHADSTFACTOR  1000327                      Same as above
+ 72 COLOREQUATION   1000328                      0=Add ,1=Subtract ,2=ReverseSubtract
+ 73 ALPHAEQUATION   1000329                      Same as above. Usage alphaEquation <num>
+ 74 RECORD_ON       1001400 r                    Recording on. (When pressing 'r' on keyboard it sets
+                                                 PAUSE_ON
+ 75 RECORD_OFF      1001401                      Recording off.
+ 76 RECORD_MODE     1001402 R                    Recording mode. Usage: RECORD_MODE <num>, where <num> = 1-2.
+                                                 1=whole screen, 2=only movie from 'b'
+ 77 PAUSE_ON        1001501 R                    Pause off. (When pressing 'R' on keyboard when recording is
+                                                 OFF, select RECORDING MODE (0=screen, 1=movie from SHIFT-m)
+ 79 PAUSE_OFF       1001502                      Pause onCheck pacman.ini file for FFMPEG input/output
+                                                 settings. Like movie 'b' loading with subtitles(FFMPEG_IN),
+                                                 and/or writing (FFMPEG) output movie with audio track
+                                                 directly to .mp4 (need split audio first or with
+                                                 youtube-dl/getyoutube.bat)
+ 83 EATMODE_ON      1001601                      Eatmode on
+ 84 EATMODE_OFF     1001602                      Eatmode off
+ 85 SAVE_MAP        1001700 Z                    Save maze file to map.dat (binary) (maze maps)
+ 86 SAVE_MAZE       1001701 z                    Save maze file to maze.dat (text)
+ 87 LOAD_MAP        1001702 SHIFT-x              Read maze file from map.dat
+ 88 LOAD_MAZE       1001703 x                    Read maze file from maze.dat
+ 89 COMBINE_ON      1001801                      Set COMBINE=ON
+ 90 COMBINE_OFF     1001802                      Set COMBINE=OFFWhen saving map ('z'/'Z') it saves current
+                                                 position pacman as left/top of maze.'['/']' to switch
+                                                 between levels (different mazes).Also used in combination
+                                                 with other functions like maze -> texture and vise versa.
+ 94 GHOST_SLOW      1001900 {                    Current ghost slow down when follow ghost ('f'/'F')
+ 95 GHOST_ALL_SLOW  1001901 ALT-{                All ghosts slow down.
+ 96 GHOST_FAST      1001902 }                    Ghost speed up when follow ghost
+ 97 GHOST_ALL_FAST  1001903 ALT-}                All ghost speed up.
+ 98 PREVIOUS_GHOST  1001904 [                    Previous ghost when follow ghost is on.
+ 99 NEXT_GHOST      1001905 ]                    Next ghost when follow ghost is on.
+100 PREVIOUS_LEVEL  1002001 (/[                  Previous level.
+101 NEXT_LEVEL      1002002 )/]                  Next level when follow ghost is on or off.
+102 SET_LEVEL       1002003                      Set level. Usage SET_LEVEL <num> where <num> is level
+                                                 number.
+103 MAPMODE         1000200 ALT-F6               Map mode 1,2 or off. 2 normal use. 1 for saving 'local'
+                                                 picture_maze.* tiles and blend tile info onto other maps.
+                                                 (For now....)Usage: MAPMODE <num> (0=off/1/2). Sets
+                                                 leveldir to ../map_pictures/www.tilesite.com/SIZEXxSIZEY/
+                                                 use url local.something.more/evenmore ("local"<-!!!) or
+                                                 your serverpath for loading tiles from 'internet'(web
+                                                 server)
+108 PREVIOUS_MAP    1002101 <                    Previous map when SHADE MAP > 0 (ALT-F6) (geo maps)
+109 NEXT_MAP        1002102 <                    Next map when SHADE MAP > 0 (ALT-F6)
+110 READ_ALL_MAPS   1001200 ALT-F12              Read all levels of ALL maps.Read all levels of maps. Goto
+                                                 point highest zoom level. SHIFT-D DRAWMAZES=OFF, SHIFT-F6:
+                                                 SHADE MAP=1, SHIFT-G: FORMULA=1, ALT-F12
+113 READ_ALL_LEVEL  1001201 SHIFT-F12            Read all levels of current map.Goto point highest zoom
+                                                 level. SHIFT-D DRAWMAZES=OFF, ALT-F6: SHADE MAP=1, SHIFT-G:
+                                                 FORMULA=1, SHIFT-F12
+116 BATCH_PICTURES1 1001300 SHIFT+CTRL-t         Batch pictures funcion batch_pictures().Keyboard: If
+                                                 COMBINE=ON ('c') batch_pictures2();
+118 BATCH_PICTURES2 1001301 SHIFT+CTRL-t         Batch pictures funcion batch_pictures2().
+119 PIC_TO_MAZE2    1001302 ALT+CTRL-t           Keyboard: If COMBINE=ON ('c') and picture from SHIFT-P:
+                                                 texture -> maze (type 2)
+120 MAZE_TO_PIC     1001303 ALT+CTRL-t                     and NO picture from SHIFT-P: maze -> texture
+121 PIC_TO_MAZE1    1001304 ALT+CTRL-t                     If combine is off, and picture form SHIFT-P:
+                                                 texture -> maze (type 1)          and NO picture from
+                                                 SHIFT-P: reverse maze
+123 TEXT_TO-PIC     1001401 ALT-t                Plot text from list.txt file. list.txt in program dir
+                                                 contains filelist to text files to plot. First line of text
+                                                 file 1 needs to be empty.The text will be printed with the
+                                                 selected font/size from CTRL-t
+126 FONT_LOAD       1001402 CTRL-t               Select random/next font. Change scale (SHIFT-PGUP/PGDN) and
+                                                 press CTRL-t again for larger/smaller size.
+128 FONT_LOAD_NUM   1001403                      Load font num <num> from list. Usage: FONT_LOAD_NUM <num>
+129 FONT_COLOR      1001404                      Set font color. Usage FONT_COLOR FF0000FF FFFFFFFF, for red
+                                                 inline and white outline color
+130 FONT_SIZE       1001405                      Set font character size. Usage FONT_SIZE <char_size)
+131 FONT_OUTLINE    1001406                      Set font outline size. Usage FONT_OUTLINE <outline_size)
+132 BLACK_TO_TRANS  1001501 SHITF-t              Make black transparant. See thresholds in pacman.ini
+133 WHITE_TO_TRANS  1001502 SHIFT-w              Make white transparant. (C coded. Make better with shader)
+                                                 See thresholds in pacman.ini
+134 DARK_TO_TRANS   1001503 SHIFT-a              Make dark transparant.
+135 COLOR_TO_TRANS  1001504 SHIFT-c              Make color transparant. See thresholds in pacman.ini (make
+                                                 bettter one with shader)
+136 MAZE_TYPE       1001601 t                    Change maze type. Usage: MAZE_TYPE <type>, 0 for normal
+                                                 (ghosts hunt pacman) or 1 for maze (ghosts go random)
+138 SET_POINT       1001701 p                    Keyboard: Toggle point of maze (big/normal) when
+                                                 DRAWMAZES=ON (SHIFT-d). Usage: SET_POINT <on/off> where 0
+                                                 is off and 1 is on
+140 SAVE_TEXTURES   1001702 q                    Keyboard: Save (changed) files on/off. (When changed
+                                                 textures are nog neeeded. Maze will be generated
+                                                 new.....)Usage: SAVE_TEXTURES <on/off> where 0=off and 1=on
+143 MORE_GHOSTS     1001801 +or=                 More ghosts.
+144 LESS_GHOSTS     1001802 -                    Less ghosts.
+145 GHOSTS          1001901 g                    Keyboard: Ghosts on/off. When in plot all mode (CTRL-Y) use
+                                                 it to set normal ghosts off, and use SHIFT-F9 for shader
+                                                 ghosts mode.Usage: GHOSTS <on/off> where on=1 and off=0
+148 GRAPHICS_MODE   1002001 SHIFT-G              Select graphics mode. GRAPHICS_MODE 1 to plot throught
+                                                 shaders (ALT-F1,ALT-F2,CTRL-F2,ALT-F3).GRAPHCIS_MODE 2 to
+                                                 shade new copy from original (overlap etc, holding original
+                                                 texturs as source, then copy all back)When selected shader
+                                                 (ALT-F2), or MAP_MODE is 1 or 2, press SHIFT-F6 to generate
+                                                 shader/maps.Shading zoom (www.local.com...) levels under
+                                                 constructions. (MAP_MODE=2, SHADER ON, GRAPHICS=1) (Shader
+                                                 over whole zoom level)Set to background (SHIFT-d). Select
+                                                 GRAPHICS=1 (SHIFT-g). Select shader (SHIFT-F2/CTRL-F2)
+                                                 and/or picture (SHIFT-P). Press SHIFT-F6 to plot all
+                                                 screens.(Will be separate manual). To plot geo maps set
+                                                 also SHADE MAP to 2 (ALT-F6 2x)
+157 ROT_90          1002101 SHFT+ALT-y           Rotate picture from SHIFT-p 90 degrees.
+158 ROT_CURRENT     1002102 SHFT+CTRL-y          Rotate picture from SHIFT-p to current angle.
+159 CANVAS_RESET    1002201 ALT-y                Reset canvas (rotation/translation/etc.) from SHIFT-y
+160 CANVAS          1002202 CTRL-y               Keyboard: Load/unload canvas 8x8 bitmaps. Use numpad
+                                                 (NumLock=ON) and keys:Usage CANVAS <on/off> where 0 is off
+                                                 and 1 is on
+162 ROTATE_X_PLUS   1002203 ALT-4                rotate x Axis +
+163 ROTATE_X_MIN    1002204 ALT-6                rotate x Axis -
+164 TRANS_X_PLUS    1002205 4                    translate x +
+165 TRANS_X_MIN     1002206 6                    translate x -
+166 ROTATE_Y_PLUS   1002207 ALT-8                rotate y Axis +
+167 ROTATE_Y_MIN    1002208 ALT-2                rotate y Axis -
+168 TRANS_Y_PLUS    1002209 8                    translate y +
+169 TRANS_Y_MIN     1002210 2                    translate y -
+170 ROTATE_Z_PLUS   1002211 ALT-7                rotate z Axis +
+171 ROTATE_Z_MIN    1002212 ALT-1                rotate z Axis -
+172 TRANS_Z_PLUS    1002213 7                    translate z +
+173 TRANS_Z_MIN     1002214 1                    translate z -
+174 PERS_PLUS       1002215 9                    perspective +
+175 PERS_MIN        1002216 3                    perspective -
+176 PERS_PLUS_SLOW  1002217 CTRL-9               perspective slow +
+177 PERS_MIN_SLOW   1002218 CTRL-3               perspective slow -
+178 DIFFICULTY      1001400                      Else select 'difficulty'. Usage: DIFFICULTY <num>, where
+                                                 <num> is 1-4
+179 GET_VIDEOS      1002300                      Get video's with youtube-dl. Place url's/links in
+                                                 ../convert/list.txt. Downloaded files end up in
+                                                 ../convert/files/Conversion list
+                                                 (../convert/files/convert.txt) holds all the names
+                                                 audio/subtitle tracks.
+182 BURN_SUBS       1002301                      (Live) auto burn subtitles downloaded with GET_VIDEOS.
+                                                 (Manual: 'R' (only record movie from 'b'), set FFMPEG_IN
+                                                 like FFMPEG_IN_SUBS, SET FFMPEG_M_ORIG like
+                                                 FFMPEG_M_ORIG_AUDIO,'r' start recording(pause), 'b' start
+                                                 movie extern, SHIFT-r start recording.Uses
+                                                 ../convert/files/convert.txt list from GET_VIDEO'SBURN_SUBS
+                                                 automaticly takes right FFMPEG COMMANDS. (FFMPEG_IN_SUBS &
+                                                 FFMPEG_M_ORIG_AUDIO) (Manual: FFMPEG_IN & FFMPEG_M_ORIG)
+                                                 (pacman.ini).
+188 BACKGROUND      1002401 SHFT-d               SET TO BACKGROUND
+189 FOREGROUND      1002402 SHFT-d               SET TO FORGROUND

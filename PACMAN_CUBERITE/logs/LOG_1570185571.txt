@@ -1,0 +1,35 @@
+     [12:39:31] --- Started Log ---
+     [12:39:31] Cuberite local build build id: Unknown
+     [12:39:31] from commit id: approx: e0ca4d83991d80865781c1dbbbfa1f92259a366a built at: approx: 2019-08-11 11:39:43 +0200
+     [12:39:31] Creating new server instance...
+     [12:39:31] Reading server config...
+     [12:39:31] Starting server...
+Info [12:39:31] Compatible clients: 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x
+Info [12:39:31] Compatible protocol versions 47, 107, 108, 109, 110, 210, 315, 316, 335, 338, 340
+Info [12:39:31] WebServer: The server will run in secure HTTPS mode.
+     [12:39:31] Loaded 755 crafting recipes
+     [12:39:31] Loaded 67 furnace recipes and 66 fuels
+     [12:39:31] Loaded 88 brewing recipes
+     [12:39:31] -- Loading Plugins --
+     [12:39:31] Initialised Core v.15
+     [12:39:31] Initialized ChatLog v.3
+     [12:39:31] -- Loaded 2 Plugins --
+Info [12:39:32] WebAdmin is running on port(s) 8080
+     [12:39:32] Startup complete, took 927ms!
+Info [12:39:46] User Pacman_Graphics authenticated with UUID 150459360a0e42da9a8c1111e36bbc17
+     [12:39:46] Client connected with 5 mods: FML@8.0.99.99, forge@14.23.5.2847, mcp@9.42, minecraft@1.12.2, replaymod@1.12.2-2.2.0-b7, 
+Info [12:39:47] Player Pacman_Graphics has joined the game
+     [12:40:32] Player Pacman_Graphics is executing command "/portal test" in world "Test" at world age 29803.
+     [12:40:33] MoveToWorld: Couldn't find world "test".
+Info [12:41:04] Player Pacman_Graphics has left the game
+     [12:41:08] Shutting down server...
+     [12:41:11] Unloading worlds...
+     [12:41:11] Disabled Core!
+     [12:41:11] Cleaning up...
+     [12:41:11] Shutdown successful!
+     [12:41:11] --- Stopped Log ---
+Warn [12:41:11] DeadlockDetect: Some CS objects (4) haven't been removed from tracking
+Warn [12:41:11]   CS 0x3b7b8380 / World Test clients
+Warn [12:41:11]   CS 0x3b067208 / World Test players
+Warn [12:41:11]   CS 0x3b7b8350 / World Test tasks
+Warn [12:41:11]   CS 0x1d2a4830 / World Test chunkmap

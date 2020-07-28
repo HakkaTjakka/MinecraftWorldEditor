@@ -1,0 +1,48 @@
+     [19:56:21] --- Started Log ---
+     [19:56:21] Cuberite local build build id: Unknown
+     [19:56:21] from commit id: approx: e0ca4d83991d80865781c1dbbbfa1f92259a366a built at: approx: 2019-08-11 11:39:43 +0200
+     [19:56:21] Creating new server instance...
+     [19:56:21] Reading server config...
+     [19:56:21] Starting server...
+Info [19:56:21] Compatible clients: 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x
+Info [19:56:21] Compatible protocol versions 47, 107, 108, 109, 110, 210, 315, 316, 335, 338, 340
+Info [19:56:22] WebServer: The server will run in secure HTTPS mode.
+     [19:56:22] Loaded 755 crafting recipes
+     [19:56:22] Loaded 67 furnace recipes and 66 fuels
+     [19:56:22] Loaded 88 brewing recipes
+Warn [19:56:22] Cannot read world settings from "world/world.ini", defaults will be used.
+Info [19:56:22] Chosen a new random seed for world: 15319216
+Warn [19:56:25] Cannot read world settings from "D:/Saves/Test/world.ini", defaults will be used.
+Info [19:56:25] Chosen a new random seed for world: 911615345
+     [19:56:25] -- Loading Plugins --
+     [19:56:25] Initialised Core v.15
+     [19:56:25] Initialized ChatLog v.3
+     [19:56:25] -- Loaded 2 Plugins --
+     [19:56:26] Preparing spawn (Test): 10,50% (42/400; 41,02 chunks / sec)
+     [19:56:27] Preparing spawn (Test): 35,75% (143/400; 99,12 chunks / sec)
+     [19:56:28] Preparing spawn (Test): 63,25% (253/400; 107,95 chunks / sec)
+     [19:56:29] Preparing spawn (Test): 90,75% (363/400; 107,74 chunks / sec)
+     [19:56:31] Preparing spawn (Test): 88,75% (355/400; 351,49 chunks / sec)
+Info [19:56:31] World "Test":Generated spawnpoint position at {72,50, 62,00, 72,50}
+Warn [19:56:32] World "World0": Did not find an acceptable spawnpoint. Generated a random spawnpoint position at {0,00, 3,00, 0,00}
+     [19:56:33] Preparing spawn (World1): 88,25% (353/400; 345,40 chunks / sec)
+     [19:56:34] Preparing spawn (World10): 94,75% (379/400; 371,57 chunks / sec)
+     [19:56:35] Preparing spawn (World2): 34,50% (138/400; 135,56 chunks / sec)
+     [19:56:36] Preparing spawn (World2): 53,25% (213/400; 74,70 chunks / sec)
+     [19:56:37] Preparing spawn (World2): 93,25% (373/400; 155,95 chunks / sec)
+Warn [19:56:40] World "World9": Did not find an acceptable spawnpoint. Generated a random spawnpoint position at {0,00, 41,00, 0,00}
+     [19:56:41] Preparing spawn (world): 13,75% (55/400; 53,76 chunks / sec)
+     [19:56:42] Preparing spawn (world): 38,75% (155/400; 98,14 chunks / sec)
+     [19:56:43] Preparing spawn (world): 63,75% (255/400; 98,23 chunks / sec)
+     [19:56:44] Preparing spawn (world): 88,25% (353/400; 95,70 chunks / sec)
+     [19:56:46] Preparing spawn (world): 14,00% (56/400; 55,39 chunks / sec)
+     [19:56:47] Preparing spawn (world): 86,50% (346/400; 284,04 chunks / sec)
+Info [19:56:47] World "world":Generated spawnpoint position at {120,50, 37,00, -119,50}
+Info [19:56:47] WebAdmin is running on port(s) 8080
+     [19:56:47] Startup complete, took 25916ms!
+     [19:56:50] Shutting down server...
+     [19:56:52] Unloading worlds...
+     [19:56:53] Disabled Core!
+     [19:56:53] Cleaning up...
+     [19:56:53] Shutdown successful!
+     [19:56:53] --- Stopped Log ---

@@ -1,0 +1,517 @@
+NOTE: (!!1) for setting environment path to ffmpeg/bin PRESS WINDOWS KEY + R and type SYSDM.CPL then add ffmpeg/bin dir (full path) to PATH variable... reboot or open cmd shell to run codeblocks or pacman :p
+
+Recording (r) flicker in screen? Add second desktop on which you don't use alt tab (but control-windows-key left/right and/or windows-key + tab)
+https://www.cnet.com/how-to/how-to-use-multiple-desktops-in-windows-10/
+(Does not work, sorry...)
+
+Bla bla.
+Last update:
+Check pacman.ini
+If MAZEOFF=1 is set, start program. Goto center of map. Press shift-g (FORMULA=1). Then shift-d (drawmazes off). Then press ']' for next map. Etc. Have fun.
+If map coordinates are messed up, delete the mazeoff.dat file in corresponding directory (levels/XxY/mazeoff.dat. Tile offset is calculated on position.
+If map is greater than screen, it will put you in the center of the large bitmap screen.
+So it depends on where you are located on the map. It will be the center of the next map.
+Edit pacman.ini for starting conditions. Like zoom level 17 (smalles map) and startx/starty to 0.
+If MAZEOFF=0, game mode is on on start. Press F2 for info and ',' to set game mode to off. Otherwise the ghosts will get you.
+Lots of new options (like shaders). For now check code (keyboard stuff) about options. Complete manual and instructions on how to use follows.
+Remember, its a experimental prototype program to check out SFML and codeblocks and stuff.
+Press ',' (comma) on first time use when not knowing anything at all.
+Then press f2.
+
+How to use. And better: What is it?
+
+First, its not a game. I put a maze in it, with a pacman and ghosts. So you can see you can use it as a platform for games or something else.
+
+The foundation, the base of the game, a sort of engine, is a bitmaps based engine. You can create an array of bitmaps, the you can use as a canvas for grapics. The bitmaps are fixed to 1920x1080 pixels. The whole program is based on this size. Also the screen is 1920x1080. So thats easy. You can create a screen of x times y bitmaps, like 2 times 2. Equals total 4 bitmaps. Then you can scroll over them. When you go out like to the right, you get the pacman effect (...) you enter again from the left. Go out up and you find yourself at the bottom of the bitmap. So horizontal and vertical you can go on for ever and ever. The maze used for the game are made out of fixed blocks of 64*72 pixels. So that makes on a 1920x1080 bitmap 30 times 15 of them. So with 2 x 2 bitmaps, you can create a maze made out of 60 time 30 building blocks. Creating 60 colums, and 30 rows of maze.
+
+This maze is stored into a fixed array in memory. The whole memory allocation is dynamic. So the bigger screen you use, the more memory is allocated for the maze. This puts a limit on the total size of the whole screen. But when used a different system, you can create a screen as large as your harddrive can hold on bitmaps. Like 1000 times 1000 screens. However on such a screen the program can not create a maze anymore (later more on that).
+
+There is a file, called pacman.ini
+In this file you can set the size of the screen, in bitmaps:
+
+File pacman.ini:
+
+BITMAPSX=8
+BITMAPSY=8
+MAXINMEM=64
+PRELOAD=0
+MAXGHOSTS=100000
+LOADLAST=1
+SAVELAST=1
+MAZEWIDTH=150000
+MAZEHEIGHT=5
+DONTSAVEFILES=0
+LOGFILE=1
+MOVIEDIR="../movies"
+PICTUREDIR="../pictures"
+BLENDINGPICTUREDIR="../blendingpictures"
+URLDIR="../url"
+FFMPEG="ffmpeg.exe -f rawvideo -vcodec rawvideo -pix_fmt rgb24 -s 1920x1080 -r 30 -i - -an -c:v libx264 record/output%d.mp4"
+PIXELISBLACKTHRESHOLD=10
+PIXELISWHITETHRESHOLD=10
+PIXELISCOLORTHRESHOLD=10
+PIXELISCOLOR_R=255
+PIXELISCOLOR_G=0
+PIXELISCOLOR_B=0
+
+#BITMAPSX	Number of bitmaps horizontal
+#BITMAPSY	Number of bitmaps vertical
+#MAXINMEM	Maximum number of bitmaps in memory (cpu or video card memory, depends on system). Must be >=16 (uses 8 extra for overload = 24).
+#PRELOAD	Load bitmaps into memory on startup. BITMAPSX * BITMAPSY must be smaller or equal than MAXINMEM
+#MAXGHOSTS	Maximum number of ghosts (use =/+ or - to add or remove ghosts)
+#LOADLAST	Load lastmaze.dat on startup (last used maze, use bitmaps left in bitmaps directory)
+#SAVELAST	Save lastmaze.dat on exit. If 0 bitmaps directory is cleaned also
+#MAZEWIDTH	Width of maze used when pressing first time 'm'. If 0 random width is used according to level. Maximum is 30 * BITMAPSX. Remove for random sizes.
+#MAZEHEIGHT	Height of maze used when pressing first time 'm'. If 0 random height is used according to level. Maximum is 15 * BITMAPSY. Remove for random sizes.
+#DONTSAVEFILES 	If 1 program does not write bitmap files to disk in bitmaps dir. (Usefull when editing large bitmaps, switch to of to save progress, otherwise only map is saved, not graphics...)
+#LOGFILE	If 1 program saves some debug info
+#MOVIEDIR	Directory containing movies to play/plot (SHIFT-B, SHIFT-M)
+#PICTUREDIR	Directory containng pictures to plot (SHIFT-P/ALT-P/PAGEUP/DOWN/SHIFT-PAGEUP/DOWN/F7/F8)
+#BLENDINGPICTUREDIR	Directory containing blening pictures (SHIFT-V (2x), +/=/- (select (custom)blending mode(1,2,3,4,5,6)), SHIFT-P to load after SHIFT-V (2x), (same as normal pictures with shift-p)
+#URLDIR		Directory containing urls of pictures on the internet. Remove the 's' from https.
+#FFMPEG		FFMPEG.EXE pipe-line command for recording. FFMPEG.EXE must be in pacman dir or path.
+#PIXELISBLACKTHRESHOLD	Threshold for converting black background to transparant. (SHIFT-T)
+#PIXELISWHITETHRESHOLD	Threshold for converting white background to transparant. (SHIFT-W)
+#PIXELISCOLORTHRESHOLD	Threshold user defined color RGB values. (SHIFT-C)
+#PIXELISCOLOR-R		Red color value for use with SHIFT-C
+#PIXELISCOLOR-G		Green color value for use with SHIFT-C
+#PIXELISCOLOR-B		Blue color value for use with SHIFT-C
+
+#file may be edited before usage of functions. Before (some) functions are executed this file is re-read. (Like directories/values).
+
+Setting like
+BITMAPSX=2
+BITMAPSY=2
+
+Gives you a screen of 2 times 2 bitmaps. Holding a maze of maximal 60 times 30 maze blocks.
+To predefine a certain maze width, you can edit the MAZEWIDTH and MAZEHEIGHT. Not set gives a maze depending on the level parameter.
+
+There are some other parameters. Like the maximal number of bitmaps the system will hold in memory, depends on your computer and graphic card. Maybe if you have a powerfull system, you can set it to 500 or so, my system goes nuts when its over 100 or so. The computer will then hold maximal 64 textures in memory, before it gonna save them to hard drive. You will notice later. Set them to the max makes the edit bitmaps mode more smooth.
+
+In the same dir where the pacman dir is, make a dir called movies. Put your movies you want to use with the system in this dir. Then make a list.txt file of them with the makelist.bat file. Run it once then edit it to remove the unwanted filenames, like list.txt and makelist.bat themselves. Let in the list only the movies you want to use. The program just picks a random movie if you ask for one. (More on that also later). You also can put .mp3 files in them.
+Also create a directory called PICTURES. Put your pictures in it. Run the makelist.bat. Edit the list.txt and remove the files makelist.bat and list.txt.
+
+Als in the same dir like movies and pacman, you can create an dir called FFMPEG
+Download the ffmpeg binaries from the internet and put them into this FFMPEG dir. Then you will have a dir inside FFMPEG, called FFMPEG/BIN with in there the programs ffmpay.exe and ffmpeg.exe. The program uses them.
+So you end up with 4 directories:
+PACMAN
+FFMPEG
+MOVIES
+PICTURES
+NOTE: (!!1) for setting environment path to ffmpeg/bin PRESS WINDOWS KEY + R and type SYSDM.CPL then add ffmpeg/bin dir (full path) to PATH variable... reboot or open cmd shell to run codeblocks or pacman :p
+
+Now go to the dir pacman and edit the pacman.ini and start pacman.exe.
+The system depends on compiled ffmpeg libs, that only can be used dynamicly at the moment, so you have a lots of .dll files. You can compile ffmpeg also yourself.
+The program uses the SFML graphics library, together with SfeMovie lib, that needs again the ffmpeg libraries. I put them all in, so you don't have to compile them yourself. Just like the SfeMovie lib. To compile them is a hell of a job. I putted everything in the ffmpeg, but not the ass subtitle system. But then, who needs subtitles?
+
+The whole system at the moment is just an experimental prototype system, and the usage is just with lots of keys, but you always can press f1 to get some info. Just read this manual, and you get the idea.
+
+When everything goes fine, and you start the program, you will end up with a director levels in the pacman dir, that holds again a directory with name of the size of the maze you choosed with the pacman.ini file. Like pacman/levels/2x2
+Inside this dir again you will have a dir caled 000 001 002 003 etc, for the levels you have under this size.
+This is because of the maze is fixed size, that depends of the number of bitmaps you use horizontal and vertical.
+When using the same size on different levels, you can combine mazes you build on the several levels. (More on that later).
+
+So lets start.
+Start pacman.exe
+Then say NO when it askes for multiplayer.
+
+When the games starts up, you end up in a predeined maze like in the 8x8 directory, or a an empty maze. No maze, not bitmaps, just you and probably 4 ghosts. The ghosts won't hurt pacman, pacman don't get on to the ghosts. Because they have become friends and have make a pact with each other. They are just there to test the graphics system.
+
+(SO I WANT TO DRAW A MAZE NOW!!!)
+
+OK. You can press F1 for some help, F2 for putting some debug info on/off. When editing its better to leave the debug info on.
+On the bottom the program should say: DRAWMAZES=ON
+
+This is the mode that you have the mazes on. It uses another set of pictures/bitmaps/textures/screens then the background. The system for the maze play have the word maze into the filename. Its only used when playing a game. When playing a game the system can/will save the changed bitmaps to disk for later use or while playing. You can set the saving of this on/off. (More later).
+
+(I WANT TO DRAW A MAZE NOW!!!!)
+
+Ok. Then lets do that.
+
+Just press TAB key once. It should then say EDIT DRAW on the left bottom of the screen. Just before the DRAWMAZES=ON text.
+Pressing TAB key again, gives you several modes: ERASE, MOVE, then off again. Then EDIT DRAW again.
+Tab so you have EDIT DRAW, then draw your maze. You have several keys.
+
+w,s,a,d  for up,down,left,right, or  i,k,j,l  or cursor keys. Now you can draw a maze. Pressing TAB again makes you delete the maze when you go over a path of it. Pressing TAB again (EDIT MOVE) you can use to scroll over the maze.
+
+When you put a path over the ghosts, they will move over the maze. Thats nice, don't you think?
+
+(I WANT DOTS IN THE MAZE SO I CAN EAT GHOSTS!!!!)
+
+When in EDIT mode you can put large dots in the maze by pressing the 'p' key. (p, for  P oints). Pressing it again removes the dots.
+
+When done editing, save the maze on a selected level. On the top left of the screen it should say LEVEL=1 or so.
+
+You can change the level with the '[' and ']' key. But take great care with that. Its only used to change it when combining mazes from different levels (more on that later).
+
+So choose your level, then press the 'z' key to save it. If it allready exists the program asks you to press 'z' again to confirm.
+It then saves your maze in a readable text file, called levels/2x2/001/maze.dat
+To make an extra copy of the maze in a binary file, use the 'Z' key. Then you will have a file called like levels/2x2/001/map.dat
+
+Now, fine. You have edited a maze and saved it. Now you can place pacman into the maze. Press TAB until the EDIT mode is off, and you can run pacman arround.
+
+When you are tired, you can just quit by pressing the ESCAPE (ESC) (top left on keyboard) key, and press 'y' to confirm exit.
+When you did not save your map, the program will warn you. But it also saves the last map into a seperate file. That is loaded during startup when there and saved during exit. The program will always startup the level used during exit.
+
+NOTICE: When you change levels, the background bitmaps don't move with the maze. Every level has their own set of background bitmaps.
+
+You can combine different mazes of different levels. You also can combine a level with itself.
+
+When pressing 'x', you can load a maze.dat file. It will load from the directory that comes with the level.
+Pressing 'X' will load the map.dat file, when the maze what saved with 'Z'.
+
+So we have 'z' and 'Z' for saving levels, and 'x' and 'X' for loading levels. w,s,a,d and i,k,j,l and cursor keys to move around.
+And TAB key for choosing edit mode (DRAW, ERASE, MOVE, OFF). And '[' AND ']' for choosing a level. And of course 'p' to mark a point.
+And the F1 for help key, and the F2 for debug info.
+
+Clear the maze? Just press the DELETE key. When edited and not saved it should ask for confirmation. Press DELETE again to confirm.
+
+Now play around with that for a while.
+
+Notice how the system for the maze works. Loading and saving them under diffent levels, with the maze.dat (z,x) or map.dat (Z,X) files.
+Then move around in the maze with pacman. Putting some dots. Change the levels. Loading them from one, and saving them under another. Leave the program, start it up again, etc. When your done, continue reading please.
+
+When you are ready creating your mazes to play with, you can change between them with the 'n' (new key, yeahhh!) key, for 'N ext'. It should load the next level. Or when no levels under 20 or so, it will move to level 1 again. When going to a next level, ALL the according bitmaps used on the harddrive with 'maze' in the file names (.png files...) will be deleted. They are only used when playing one level. To start it up again later, so you can complete a maze or so. (More on mazes later).
+
+When choosing another size of bitmaps, you will use a different dir, so maze (now) are incompatible between different sizes in bitmaps as defined in the pacman.ini file.
+
+Notice there is a difference between lower and upper keys. (You will notice later...).
+
+Now, have you created the FFMPEG dir in the same directory as where the PACMAN dir is? From the PACMAN dir it will use '../FFMPEG/BIN/FFPLAY.EXE' and '../FFMPEG/BIN/FFMPEG.EXE' and have you created also a MOVIE directory? Put your movies and mp3 files into the dir, run the makelist.bat file, edit the list.txt files and remove unwanted entries. From the PACMAN dir the program will use '../MOVIES/LIST.TXT' to select a random file from the directory. So make sure they match, like no filenames in the LIST.TXT that are not in the MOVIES dir.
+
+When you set up all correctly, we can have some fun.
+
+Set up the pacman.ini file. Choose for instance BITMAPSX=8 and BITMAPSY=8. In the levels/8x8 there should be 2 or three dirs like 000,001,002,003 etc, with some mazes in it. In the 000 dir the program saves the last used mazes. For loading the last used maze.
+
+Pressing 'n' lets you change between the different levels. When correct LEVEL=1 should show the standard pacman maze, and there should be some graphics on the background. They come from the files like: picture.000001.000000.png inside the levels/8x8/001 directory. Were also the maze.dat and map.dat files are inside where the level is stored.
+
+So you have files with the maze inside it, and bitmaps. Compressed .png files. Only bitmaps that are used are saved. We have a 8x8 bitmaps screen, so we can have maximal 8x8=64 bitmaps in the directory. For the graphical background.
+
+Now how to get the graphics inside the background?
+
+We have several options:
+
+Putting a picture from the internet inside the background. Its now fixed inside the source code to just only one file, from my facebook account. But soon you can list them just like the movies from the movies dir, with a list.txt file holding all the url's of internet adresses of pictures you want to use.
+
+You can get a picture from the internet by pressing the shift - 'i' key, so 'I'. Shift-i gives you a picture when right, when you have internet access. Pressing shift-I again unloads the picture.
+
+To plot it into the background we have several options:
+
+Press TAB so EDIT MOVE is on, then goto a spot where you want the picture. Press shift-I to load the internet picture.
+
+Then press F8 to put it into the background.
+
+Now hold on, whats happening? When right, the maze will dissapear, the system switches to the background bitmaps mode, to access the background, without the mazes over it..... (Important).
+
+When pressing F8 notice the debug info shows 1, 2, or even 4 CHANGED (bitmpas). You just changed one or more bitmaps of the background. These bitmaps reside inside memory. According to the settings on how much bitmaps (MAXINMEM) parameter from the PACMAN.INI file.
+
+The top of the debug info should show how much of the maximum number of bitmaps are used, the number changed, the number of background files there are, and 'MAZEFILES', number of files that are there when playing the maze. (That will be deleted when going to a next level, or pressing 'n' (next) when loading.)
+
+So nice, you can put a picture from the internet into the background. Change the code for your own url's (for now...).
+
+By pressing the F7 key after pressing shift-I, you can change wether you want to place the bitmap/picture in front of the other background graphics, or at the back of them. Play around with it placing pictures at different spots.
+
+Notice when changing the EDIT mode with the TAB key while holding the picture selected with shift-I, you change the movement with the cursor keys to place the picture.....
+
+Put some pictures in front of other, or behind them with F7, place them with F8, move them around a bit. Etc.
+
+To delete the background press ALT-DELETE. It will ask then for confirmation.
+
+Notice: When deleting the background, all the pictures in the direcotory of the level will be deleted. To hold a different background, make a backup of the directory.
+
+So we have Shift-I and F7, F8, TAB, movement keys to place pictures, and delete it with ALT-DELETE.
+
+Notice: (Important:)
+
+When you place the picture with F8, the maze is cleared, the bitmaps are reloaded (that reside inside memory), the picture is placed (in front or back of the other graphics), and the maze is reloaded and drawn again.
+
+Before the maze is drawn, the changed bitmaps are saved. When placing a bitmap, you can affect 1, 2, or 4 different background bitmaps, that are changed then.
+
+So you will see the FILES= parameter with a number of files.
+
+Now, when placing lots of pictures, you can switch off the maze by pressing SHIFT-D,
+
+The shift key is special, because some affect the background bitmaps settings mode.
+
+When pressing 'D' you can switch between the maze mode, or background mode.
+
+When in background mode, you can place as much pictures as you want, the system will start saving bitmaps when there are more used then the maximum that can reside inside memory.
+
+When pressing shift-D again, the changed bitmaps are saved, and the maze is been drawn again.
+
+(Btw) You can also SET positions with the F9 and F11 key. Press then twice for confirmation. Later you can press F10 and F11 to go to the saved positions.
+
+The HOME key is used to return to the spot where pacman started when loading the level. ALT-HOME will bring pacman to location X=0,Y=0
+
+So DELETE to delete the maze, ALT-DELETE to delete the background bitmaps.
+ALT-HOME to return to X=0,Y=0, HOME to return to the start location. F9,F10,F11,F12 to set/get positions.
+SHIFT-I to load a internet picture, F7 and F8 to place them.
+SHIFT-D to switch between maze mode / background mode.
+
+You want more keys? Ok.
+
+The same goes for the pictures directory. Press SHIFT-P to load a random picture. Place it with F7/F8.
+
+So, thats nice.
+
+You can now draw / load / save / erase mazes / backgrounds.
+
+New keys: (Thank you...)
+
+SHIFT-L to load the background.
+SHIFT-S to save the background.
+SHIFT-D to change between maze / background mode.
+F7 / F8 place bitmaps in front or back of graphic screen.
+
+Now we gonna do some tricky stuff:
+
+Choose a level. Clear the maze and background: (DELETE, ALT-DELETE)
+Just draw a little maze.
+
+Now go with the pacman to the UPPER LEFT point of your maze.
+
+PRESS THE c KEY.
+
+It should say something about combining mazes.
+
+Press 'z' or 'Z' to save your maze to a maze.dat or map.dat file.
+
+Now the point from where the pacman was is X=0,Y=0
+
+When you load the maze again with 'x' or 'X', the point from where you saved it with the c (COMBINE KEY) on, is 0,0
+
+That is nice!!!
+
+Now go to a different point in the maze.
+
+Press c again, the message should come up again.
+
+Now do NOT press z/Z again, but x or X, to LOAD the level.
+
+The level should now load with 0,0 from the point were you are standing now, COMBINING the two levels to one map.
+Also paths that cross eachother are combined to a crossing.
+
+So (important): you can save and combine different or the same mazes.
+
+By selecting a different level with '[' or ']', then pressing 'c' (COMBINE), then pressing 'x' (LOAD MAZE),
+
+you can COMBINE DIFFERENT MAZES! Now, thats amazing.
+
+Go back to your level, and reload the background with SHIFT-L
+
+Try saving loading some levels with the 'c' key, and notice the point of saving is 0,0
+
+This way you can easy create large mazes. Try to draw a path upwards until it reaches itself again from the bottom, then do the same to the left, connecting it from the right. Place yourself on the crossing, press 'c', press 'z' to save, then move to a different spot, press 'c' agin, then 'x', to load the same level. Save again with 'c', 'z', move a little, load again with 'c','x', you get the picture.
+
+Create mazes on diffenent levels, save them, move with '[',']' between levels, press 'c','x' tot combine them, save them on a different level, etc.
+
+Well nice, you can edit mazes.
+
+Now put some graphics from movies into the background.
+
+Press SHIFT-M
+When set up the movies dir, the list.txt, a movie should show up. The FFMPEG libs become active (Yeah!!!).
+A random movie is played in its original size.
+
+JUST LIKE THE PICTURE WITH SHIFT-I (from internet), you can plot the shown movie fragment into the background.
+
+Just press F7/F8 to place the picture in the background.
+
+Press SHIFT-D to enter background mode when you put more into the background.
+
+You can move arround while the movie plays. You can skip to a certain fragment with the mouse. Clicking the mouse (invisible) around the x-axis of the screen should move to another fragment, left is start of movie, right is end of movie.
+When playing a movie, control it with the mouse. Left mousebutton uses x-axis mouse value to position movie from beginning to end.
+Pressing right mousebutton pauses/plays movie. Holding left mousebutton lets you scroll through the movie. Holding right mousebutton lets you go frame to frame when moving, for fine adjustment.
+
+NOW YOU CAN PLAY MOVIES!!!! THAT IS GREAT!!!
+
+Pressing SHIFT-M again releases the movie, pressing SHIFM-M again shows another random movie.
+
+By pressing first SHIFT-D and put the maze off, you can enter lots of picturs from the movie into the background. When the selected file is a .mp3 file, you should just hear music... (:))
+While selecting a picture with SHIFT-I, or SHIFT-M, when pressing TAB so the EDIT mode is off (NO EDIT DRAW, EDIT ERASE, EDIT MOVE, but off), notice the movement of the picture with the cursor keys, by pressing the cursor key again the movement becomes quicker and quicker. Space will hold the movement. When in EDIT MOVE mode, the movement is like the pacman in EDIT MOVE mode.
+
+So, SHIFT-I, SHIFT-M, to place pictures from internet/movies or play the movie them selves. F7/F8 for placting them. SHIFT-D for maze/background mode, SHIFT-L, SHIFT-S to load / save bitmaps. Then:
+
+SHIFT-O (O n/O ff), for putting the background bitmaps to ON/OFF.
+When pressing SHIFT-O the background disapeares. Pressing SHIFT-O again shows it again.
+
+This is because we have a maze (ON/OFF with shift-d), and a background, and another key!!!!!
+
+SHIFT-B, for playing another movie, but then in full screen mode.
+When using only SHIFT-B movie, (not SHIFT-I, or SHIFT-M picture/movie), the movement of pacman when in edit-off mode, is different. You can just play pacman when EDIT mode is off.
+While playing a movie with SHIFT-B in the background.
+
+Press SHIFT-B to play a movie. Press F7 to place it in foreground/background.
+
+Press SHIFT-D to put maze ON / OFF. Press F8 to put the movie into the background. Press F7 to place it in front or back of other bitmaps in the background graphics.
+
+Press 'g' to put the ghosts to off.
+Press SHIFT-D to put the maze off.
+Press F2 to put debug info off,
+
+and just watch the movie!!
+Press SHIFT-D again to show the maze.
+Press F7 to put the movie into the background
+Press SHIFT-O to put other graphics off.
+And play pacman, while watching the movie in the background.
+
+Get the idea?
+
+Try 'f' and 'F' to FOLLOW GHOST mode.
+Press +/- for more/less ghosts.
+Press 'g' to show / hide ghosts.
+When following ghosts, press '[',']' for selecting a different ghost.
+Press F3 for frame rate synchronisation on / off. Press F4 to maintain speed at high frame rate.
+
+Press 'm' for generating a maze, based on the size defined in pacman.ini. When not defined, the higher the level, the greater the maze.
+Atfter pressing 'm', press next to get another maze.
+
+Press 'm' again to get large maze. Then next for another large maze.
+
+Press 'm' again to go to normal level.
+
+When generating a maze, you can also save it!!!!
+
+'q' save bitmaps mode on/off. Handy if you don't want to save bitmaps while playing.
+
+The maze is generated when there is no file on disk. Its combined with the background bitmap, when there is one.
+
+SHIFT-G, for generating insane graphics when in background mode (SHIFT-D) when there is no background (after ALD-DELETE for example), then when entering background bitmap mode with SHIFT-G (GRAPHICS=1,2) at bottom, it will create a background based on some simple formula's (see source code).
+
+You can generate a background that way, then put pictures inside it.
+
+So, that's for short.
+
+But remember, its just an experimental prototype program. Based on this code you can create lots of games/applications.
+
+Like:
+Movie converter / editor / mixer.
+Movie/photo album.
+Just put your photo's on the background, create a path with a maze over them. Follow ghost, put them off, then you have a nice picture show.
+
+More later.
+Bye for now.
+
+So you have the 'n' key for playing the next level. The pacman will start at the point were you saved the maze with the 'z' key
+
+Keys oversight:
+
+F1          Help.
+F2          Debug info on/off
+F3          Horizontal sync on/off
+F4          Adapt speed when horizontal sync is off (also used in multiplayer mode so both pacmans have same speed)
+F5          Goto partner pacman in multiplayer mode
+F6          Get partner pacman in multiplayer mode
+F7          Plot pictures / movies behind / in front of background
+F8          Plot pictures (When switching maze off with SHIFT-D, you can plot lots of pictures after each other without saving/loading)
+SHIFT-F8	Plot background into current shift-p picture (reversed F8)
+ALT-F8		Save picture from shift-i and/or shift-p to ./pictures
+F9          Set position 1
+F10         Goto position 1
+F11         Set position 2
+F12         Goto position 2
+
+DELETE      Delete the maze.
+ALT-DELETE  Delete the background (When its gone, its gone forever, make backup of level dir to keep copy of your background)
+
+q           Save bitmaps ON/OFF (Used when drawing large mazes, no saving / loading of textures)
+w,s,a,d     Move
+i,k,j,l     Move
+Cursor      Move
+e           Ghosts eat maze (eats all dead-ends of maze, just for fun...)
+t           Switch maze type to normal (ghosts will follow pacman) or maze (ghosts will go random)
+p           Place/erase big point in maze
+f           Follow ghost.
+F           Follow ghost most far away from starting point (X=0,Y=0)
+g           Ghosts/pacman on/off
+G           Graphics formula 1 or 2, create background with formula's when editing background
+h           Ghost hunt mode on
+z           Save maze.dat under current(!!!!) level set
+Z           Save map.dat under current(!!!!) level set. Used for extra backup of level
+x           Load maze.dat and background graphics.
+X           LOAD map.dat.
+V			Put movie (SHIFT-M) at fixed spot. (Under construction).
+c           Combine on/off. When saving (z/Z) make pacman position X=0,Y=0. When loading with combine on, it merges with map in memory.
+            Be shure to go back to editing level and press SHIFT-L to load background bitmaps again!!!!
+n           Go to next level / small maze / large maze
+m           Select small maze / big maze / saved maze
+,           Change to play mode when playing .mp3 / movie with SHIFT-M
+.           Change pacman motion when drawing large mazes
+[ & ]       Change level, or change following ghost when follow ghost is on (f)
+{ & }       Change ghost speed when following ghost is on
+= & -       Add / remove ghosts
+SHIFT-D     Change drawing mode, maze / bitmaps (for quick editing background)
+SHIFT-L     Load background bitmaps
+SHIFT-S     Save background bitmaps
+SHIFT-O     Set background on / off
+SHIFT-M     Load movie original size. (Plot with F7/F8, plot lot with SHIFT-D = mazes off)
+SHIFT-B     Load movie maximal size.  (Plot with F7/F8, plot lot with SHIFT-D = mazes off)
+SHIFT-P     Load picture from ../picture directory (Plot with F7/F8, plot lot with SHIFT-D = mazes off) (Now also plots large pictures, like from camera).
+SHIFT-V		Blending mode when plotting/playing pictures/movies. Press SHIFT-V again for custom blending mode. (keys 1-6 !-^ select modes up/down).
+v           Experimental. Blend picture (v, then shift-p) from blendingdir upon movie from shift-m.
+
+TAB         Change EDIT / MOVE mode of pacman.
+MOUSE       Click (invisible mouse...) in screen (x-axis) to position movie. Clicking when maximal right movie movement is off...
+ALT-HOME    Goto position X=0, Y=0
+HOME        Goto starting position (position when saved with x)
+0           Screen shot
+r           Record screen. Need ffmpeg.exe in pacman dir or in (dos/environment WINDOWSKEY-r 'sysdm.cpl') path.
+R           Pause recording.
+ALT-p       Set rotation on/off when loaded picture from directory (shift-p)
+ALT-i       Set rotation on/off when loaded picture from internet (shift-i)
+ALT-m       Set rotation on/off when loaded movie from directory (shift-m)
+ALT-b       Set rotation on/off when loaded movie from internet (shift-b)
+PAGEUP      Rotate picture + (From SHIFT-I, THEN ALT-I or from SHIFT-P, THEN ALT-P or from SHIFT-M, THEN ALT-M or from SHIFT-B, THEN ALT-B)
+PAGEDOWN    Rotate picture -
+CTRL-PAGEUP 	Size +
+CTRL-PAGEDONW 	Size -
+SHIFT-PAGEUP	Size+
+SHIFT-PAGEDOWN 	Size-
+ALT-PAGEUP     	Rotation speed +
+ALT-PAGEDOWN   	Rotation speed -
+SPACE       	Stop pacman / Stop rotation.
+ALT-SPACE	Stop rotation
+CTRL-SPACE	Fixed position (WITH CTRL-I,CTRL-P,CTRL-M,CTRL-B) off.
+SHIFT-SPACE	Restore to original size (scale=1)
+
+	added:	Blending mode.
+	shift-V normal blending (source+destination color add) replaced with all modes blending (you get crazy....)
+	For blending modes i refer to sfml documentation. Press shift-V for standard blending mode (color add). Press shift-V again: +(=)/- selects standard blending modes. Also added custom blending.
+	Set custom blending modes with keys 1/2/3/4/5/6 (up) or !/@/#/$/%/^(press twice... :P) (down). Then you can use the BLENDINGPICTUREDIR (pacman.ini) (../blendingpictures) or whatever
+	dir you want to use for blendingpictures. Use GIMP 2.0 to create .png pictures with transparent channels, or other pictures you want to use for blending mode. I tried it with a picture with
+	transparant (smallhole.png) and use (+/-) custom blending mode: one,one,add,zero,srcalpha,add to create a transparant hole in the background texture. Btw. I'm confused about the blending modes....
+
+9	Clear (only) visible screen.
+0	Screenshot is now loaded after save like shift-P pictures.
+SHIFT-PAGEUP	Make pictures (SHIFT-I, SHIFT-P) larger.
+SHIFT-PAGEDOWN	Make pictures smaller.
+
+Update. 	Shift-M (real size movies) now can rotate(alt-m, pageup/pagedown, alt-pageup/pagedown) and resize (shift-pageup/pagedown) ('v' to fix positions).
+
+Latest version 11.0
+
+Demo's:
+https://www.facebook.com/gerard.wensink/videos/1892094397519825/
+https://www.facebook.com/gerard.wensink/videos/1893743534021578/
+https://www.facebook.com/gerard.wensink/videos/1895964343799497/
+https://www.facebook.com/gerard.wensink/videos/1896062803789651/
+https://www.facebook.com/gerard.wensink/videos/1897126383683293/
+https://www.facebook.com/gerard.wensink/videos/1897748493621082/
+
+SHIFT-A	Convert dark to transparant.  Threshold in pacman.ini
+SHIFT-T  Convert black to transparant.   Threshold in pacman.ini
+SHIFT-W	Convert white to transparant.  Threshold in pacman.ini
+SHIFT-C	Convert color to transparant. Threshold and color in pacman.ini
+SHIFT-K Drawmode Kaleidoscope (mirror x4: 90,180,-90 degrees) SHIFT-K (again) mirror x2: 180 degrees.
+
+Pictures from shift-p / shift-i
+CTRL-A	Add border to picture (adds 20 pixels).
+CTRL-C  Convert picture from original size to scaled size. (loss off pixels/crash program when to large...)
+CTRL-S  Soften edges of picture. Makes 2 pixels on edge transparent.
+CTRL-R	Convert movie (shift-b/shift-m) to picture (like shift-p). Then you can adapt border, plot, etc.
+
+For use with photo's loaded: First apply CTRL-S for soften edges. Then CTRL-A for adding border (thickness depends on size, adjust with CTRL-C), Then CTRL-S again. All for soften edges/border.
+
+ALT-V	Create viaduct. When drawing maze you get horizontal bridge on top, or when pressing ALT-V again you get vertical bridge on top. ALT-V(3x) is off again. Nice to use with SHIFT-K (Kaleidoscope).
+ALT-F8	Save current shift-p and/or shift-i picture to pictures directory (inside pacman dir). Copy them to your shift-p pictures dir (add them in list.txt) for later use.
+SHIFT-F8	Reversed plot (F8). Plot background into picture from shift-p.

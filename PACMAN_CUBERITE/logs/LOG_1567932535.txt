@@ -1,0 +1,39 @@
+     [10:48:55] --- Started Log ---
+     [10:48:55] Cuberite local build build id: Unknown
+     [10:48:55] from commit id: approx: e0ca4d83991d80865781c1dbbbfa1f92259a366a built at: approx: 2019-08-11 11:39:43 +0200
+     [10:48:55] Creating new server instance...
+     [10:48:55] Reading server config...
+     [10:48:55] Starting server...
+Info [10:48:55] Compatible clients: 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x
+Info [10:48:55] Compatible protocol versions 47, 107, 108, 109, 110, 210, 315, 316, 335, 338, 340
+Info [10:48:55] WebServer: The server will run in secure HTTPS mode.
+     [10:48:55] Loaded 755 crafting recipes
+     [10:48:55] Loaded 67 furnace recipes and 66 fuels
+     [10:48:55] Loaded 88 brewing recipes
+Warn [10:48:55] Cannot read world settings from "D:/Saves/Test/world.ini", defaults will be used.
+Info [10:48:55] Chosen a new random seed for world: 15319216
+     [10:48:55] -- Loading Plugins --
+     [10:48:56] Initialised Core v.15
+     [10:48:56] Initialized ChatLog v.3
+     [10:48:56] -- Loaded 2 Plugins --
+     [10:48:57] Preparing spawn (Test): 7,00% (28/400; 27,24 chunks / sec)
+     [10:48:58] Preparing spawn (Test): 26,25% (105/400; 75,34 chunks / sec)
+     [10:48:59] Preparing spawn (Test): 47,25% (189/400; 82,51 chunks / sec)
+     [10:49:00] Preparing spawn (Test): 69,00% (276/400; 85,55 chunks / sec)
+     [10:49:01] Preparing spawn (Test): 85,25% (341/400; 63,60 chunks / sec)
+     [10:49:03] Preparing spawn (Test): 15,00% (60/400; 59,00 chunks / sec)
+     [10:49:04] Preparing spawn (Test): 81,75% (327/400; 261,76 chunks / sec)
+Info [10:49:04] World "Test":Generated spawnpoint position at {120,50, 37,00, -119,50}
+Info [10:49:04] WebAdmin is running on port(s) 8080
+     [10:49:04] Startup complete, took 9431ms!
+     [10:50:04] Shutting down server...
+     [10:50:05] Unloading worlds...
+     [10:50:05] Disabled Core!
+     [10:50:05] Cleaning up...
+     [10:50:05] Shutdown successful!
+     [10:50:05] --- Stopped Log ---
+Warn [10:50:05] DeadlockDetect: Some CS objects (4) haven't been removed from tracking
+Warn [10:50:05]   CS 0x1a73a0380 / World Test clients
+Warn [10:50:05]   CS 0x1a6c4f208 / World Test players
+Warn [10:50:05]   CS 0x1a73a0350 / World Test tasks
+Warn [10:50:05]   CS 0x1a58dc000 / World Test chunkmap

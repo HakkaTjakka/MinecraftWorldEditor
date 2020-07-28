@@ -1,0 +1,32 @@
+     [11:04:14] --- Started Log ---
+     [11:04:14] Cuberite local build build id: Unknown
+     [11:04:14] from commit id: approx: e0ca4d83991d80865781c1dbbbfa1f92259a366a built at: approx: 2019-08-11 11:39:43 +0200
+     [11:04:14] Creating new server instance...
+     [11:04:14] Reading server config...
+     [11:04:14] Starting server...
+     [11:04:14] cMojangAPI: Updating name-to-uuid cache for 1 names
+Info [11:04:14] Compatible clients: 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x
+Info [11:04:14] Compatible protocol versions 47, 107, 108, 109, 110, 210, 315, 316, 335, 338, 340
+Info [11:04:14] WebServer: The server will run in secure HTTPS mode.
+     [11:04:14] Loaded 755 crafting recipes
+     [11:04:14] Loaded 67 furnace recipes and 66 fuels
+     [11:04:14] Loaded 88 brewing recipes
+     [11:04:14] cMojangAPI: Updating uuid-to-profile cache for 1 uuids
+     [11:04:14] -- Loading Plugins --
+     [11:04:15] Initialised Core v.15
+     [11:04:15] Initialized ChatLog v.3
+     [11:04:15] -- Loaded 2 Plugins --
+Warn [11:04:16] World "Test": Did not find an acceptable spawnpoint. Generated a random spawnpoint position at {0,00, 253,00, 0,00}
+Info [11:04:16] WebAdmin is running on port(s) 8080
+     [11:04:16] Startup complete, took 1927ms!
+     [11:04:51] Shutting down server...
+     [11:04:56] Unloading worlds...
+     [11:04:57] Disabled Core!
+     [11:04:57] Cleaning up...
+     [11:04:57] Shutdown successful!
+     [11:04:57] --- Stopped Log ---
+Warn [11:04:57] DeadlockDetect: Some CS objects (4) haven't been removed from tracking
+Warn [11:04:57]   CS 0x13bea7380 / World Test clients
+Warn [11:04:57]   CS 0x13b756208 / World Test players
+Warn [11:04:57]   CS 0x13bea7350 / World Test tasks
+Warn [11:04:57]   CS 0x3f1fbbb0 / World Test chunkmap

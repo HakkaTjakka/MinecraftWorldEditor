@@ -1,0 +1,2 @@
+@ECHO OFF
+cmd /k CUBERITE2.BAT %*

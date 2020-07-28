@@ -1,0 +1,3 @@
+@6Welcome to the Cuberite Pacman Graphics server!
+@6http://www.cuberite.org/
+@6Type /help for all commands

@@ -1,0 +1,66 @@
+     [12:44:45] --- Started Log ---
+     [12:44:45] Cuberite local build build id: Unknown
+     [12:44:45] from commit id: approx: e0ca4d83991d80865781c1dbbbfa1f92259a366a built at: approx: 2019-08-11 11:39:43 +0200
+     [12:44:45] Creating new server instance...
+     [12:44:45] Reading server config...
+     [12:44:45] Starting server...
+Info [12:44:45] Compatible clients: 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x
+Info [12:44:45] Compatible protocol versions 47, 107, 108, 109, 110, 210, 315, 316, 335, 338, 340
+Info [12:44:45] WebServer: The server will run in secure HTTPS mode.
+     [12:44:45] Loaded 755 crafting recipes
+     [12:44:45] Loaded 67 furnace recipes and 66 fuels
+     [12:44:45] Loaded 88 brewing recipes
+Warn [12:44:45] Cannot read world settings from "D:/Saves/Test.copy/world.ini", defaults will be used.
+Info [12:44:45] Chosen a new random seed for world: 15319216
+     [12:44:45] -- Loading Plugins --
+     [12:44:46] Initialised Core v.15
+     [12:44:46] Initialized ChatLog v.3
+     [12:44:46] -- Loaded 2 Plugins --
+     [12:44:47] Preparing spawn (Test): 28,25% (113/400; 112,89 chunks / sec)
+     [12:44:48] Preparing spawn (Test): 50,75% (203/400; 86,71 chunks / sec)
+     [12:44:49] Preparing spawn (Test): 61,50% (246/400; 40,60 chunks / sec)
+     [12:44:50] Preparing spawn (Test): 71,00% (284/400; 37,81 chunks / sec)
+     [12:44:51] Preparing spawn (Test): 80,50% (322/400; 37,00 chunks / sec)
+     [12:44:52] Preparing spawn (Test): 90,75% (363/400; 40,43 chunks / sec)
+Warn [12:44:53] World "Test": Did not find an acceptable spawnpoint. Generated a random spawnpoint position at {0,00, 252,00, 0,00}
+Info [12:44:53] WebAdmin is running on port(s) 8080
+     [12:44:53] Startup complete, took 7786ms!
+Info [12:45:05] User Pacman_Graphics authenticated with UUID 150459360a0e42da9a8c1111e36bbc17
+     [12:45:05] Client connected with 5 mods: FML@8.0.99.99, forge@14.23.5.2847, mcp@9.42, minecraft@1.12.2, replaymod@1.12.2-2.2.0-b7, 
+Warn [12:45:06] Invalid statistic type "stat.sneakTime"
+Warn [12:45:06] Invalid statistic type "stat.timeSinceDeath"
+Info [12:45:06] Player Pacman_Graphics has joined the game
+     [12:45:23] Player Pacman_Graphics is executing command "/tp 10 200 10" in world "Test" at world age 738.
+     [12:46:50] Executing console command: "/op Pacman_Graphics"
+     [12:46:50] Unknown command, type 'help' for all commands.
+     [12:47:00] Executing console command: "op Pacman_Graphics"
+     [12:47:00] Player Pacman_Graphics is now in rank Admin
+     [12:47:13] Player Pacman_Graphics is executing command "/gamemode spectator" in world "Test" at world age 2938.
+     [12:47:13] Gamemode of Pacman_Graphics set to spectator by: Pacman_Graphics
+     [12:53:05] Player Pacman_Graphics is executing command "/gamemode creative" in world "Test" at world age 9939.
+     [12:53:05] Gamemode of Pacman_Graphics set to creative by: Pacman_Graphics
+     [12:54:21] Player Pacman_Graphics is executing command "/gamemode spectator" in world "Test" at world age 11443.
+     [12:54:21] Gamemode of Pacman_Graphics set to spectator by: Pacman_Graphics
+     [12:56:49] Executing console command: "op Pacman_Graphics"
+     [12:56:49] Player Pacman_Graphics is now in rank Admin
+     [12:57:06] Player Pacman_Graphics is executing command "/op Pacman_Graphics" in world "Test" at world age 14742.
+     [12:58:21] Player Pacman_Graphics is executing command "/gamemode spectator" in world "Test" at world age 16224.
+     [12:58:21] Gamemode of Pacman_Graphics set to spectator by: Pacman_Graphics
+     [12:58:26] Player Pacman_Graphics is executing command "/gamemode creative" in world "Test" at world age 16318.
+     [12:58:26] Gamemode of Pacman_Graphics set to creative by: Pacman_Graphics
+     [12:58:34] Player Pacman_Graphics is executing command "/gamemode spectator" in world "Test" at world age 16494.
+     [12:58:34] Gamemode of Pacman_Graphics set to spectator by: Pacman_Graphics
+     [12:58:54] Player Pacman_Graphics is executing command "/gamemode creative" in world "Test" at world age 16877.
+     [12:58:54] Gamemode of Pacman_Graphics set to creative by: Pacman_Graphics
+Info [12:59:07] Player Pacman_Graphics has left the game
+     [12:59:16] Shutting down server...
+     [12:59:27] Unloading worlds...
+     [12:59:28] Disabled Core!
+     [12:59:28] Cleaning up...
+     [12:59:28] Shutdown successful!
+     [12:59:28] --- Stopped Log ---
+Warn [12:59:28] DeadlockDetect: Some CS objects (4) haven't been removed from tracking
+Warn [12:59:28]   CS 0x3b75e380 / World Test clients
+Warn [12:59:28]   CS 0x3b00d208 / World Test players
+Warn [12:59:28]   CS 0x3b75e350 / World Test tasks
+Warn [12:59:28]   CS 0x1d36b990 / World Test chunkmap

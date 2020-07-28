@@ -1,0 +1,1 @@
+makepalette out.mp4

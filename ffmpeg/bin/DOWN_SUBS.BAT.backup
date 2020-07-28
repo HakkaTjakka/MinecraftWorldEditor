@@ -1,0 +1,171 @@
+@echo off
+setlocal ENABLEDELAYEDEXPANSION
+
+CALL :GETONE "%~1"
+
+exit /b
+
+:GETONE
+
+
+echo GETONE %1
+if exist filelist.txt del filelist.txt
+youtube-dl --get-filename %1 > filelist.txt
+
+for /F "tokens=*" %%A in (filelist.txt) do (
+	set my_yes=1
+	set my_error=2
+
+	set hoppa="%%A"
+    echo !hoppa!
+	set hoppa=!hoppa:.mp4=!
+	set hoppa=!hoppa:.mkv=!
+	set hoppa=!hoppa:.webm=!
+	set hoppa=!hoppa:'=!
+	set hoppa=!hoppa:`=!
+	set hoppa=!hoppa:“=!
+    echo !hoppa!
+
+
+
+
+
+
+
+rem	pause
+	exit /b
+
+
+
+	if exist "%%~nA.mkv" (
+		set input="%%~nA.mkv"
+	) else (
+		if exist "%%~nA.mp4" (
+			set input="%%~nA.mp4"
+		) else (
+			if exist "%%~nA.webm" (
+				set input="%%~nA.webm"
+			) else (
+				if exist "ORIGINAL\%%~nA.mkv" (
+					move "ORIGINAL\%%~nA.mkv" "."  >NUL
+					set input="%%~nA.mkv"
+				) else (
+					if exist "ORIGINAL\%%~nA.mp4" (
+						move "ORIGINAL\%%~nA.mp4" "."  >NUL
+						set input="%%~nA.mp4"
+					) else (
+						if exist "ORIGINAL\%%~nA.webm" (
+							move "ORIGINAL\%%~nA.webm" "."  >NUL
+							set input="%%~nA.webm"
+						) else (
+							set input="%%A"
+						)
+					)
+				)
+			)
+		)
+	)
+
+ 	if exist "ORIGINAL\%%A" (
+ 		move "ORIGINAL\%%A" "."  >NUL
+		set input="%%A"
+		set my_error=3
+ 	) else (
+		if not exist "%%A" (
+			if not exist !input! (
+				set my_error=1
+			) else (
+				set my_error=3
+			)
+		) else (
+			set input="%%A"
+			set my_error=3
+		)
+ 	)
+
+rem	echo INPUT = !input!
+
+	if exist "SUBTITLES\%%~nA.nl.srt" (
+		move "SUBTITLES\%%~nA.nl.srt" "." >NUL
+		if not !my_error! == 1 set my_error=3		
+ 	) else (
+		if not exist ".\%%~nA.nl.srt" (
+			set my_error=1
+		) else (
+			if not !my_error! == 1 set my_error=3
+		)
+	)
+	if exist "SUBTITLES\%%~nA.en.srt" (
+		move "SUBTITLES\%%~nA.en.srt" "." >NUL
+		if not !my_error! == 1 set my_error=3
+ 	) else (
+		if not exist ".\%%~nA.en.srt" (
+			set my_error=1
+		) else (
+			if not !my_error! == 1 set my_error=3
+		)
+	)
+	if !my_error! == 2 set my_error=1
+rem 	echo !my_error!
+rem  	pause
+rem  	exit /b
+	
+	if !my_error! == 1 (
+		call youtube-dl --restrict-filenames --abort-on-error --no-mtime --sub-lang "en,nl" --write-sub --convert-subs srt --write-auto-sub --download-archive ARCHIVE.TXT --skip-unavailable-fragments --geo-bypass %1
+	)
+
+	ffprobe.exe -v error -select_streams v:0 -show_entries format=bit_rate -of default=nw=1 !input! > bit_rate.txt
+	for /F "tokens=*" %%R in (bit_rate.txt) do (
+		for /f "tokens=1,2 delims==" %%a in ("%%R") do set NAME=%%a & set bit_rate=%%b
+	rem	echo bit_rate = !bit_rate!
+	)
+
+ 	sof.exe "%%~nA.nl.srt"
+	sof.exe "%%~nA.en.srt"
+
+	if not exist DUTCH mkdir DUTCH
+
+	for %%x in ("%%~nA.nl.srt.fixed") do (
+		if not %%~zx == 0 (
+			if not  exist "DUTCH/%%~nA.nl.mp4" (
+				ffmpeg -y -hide_banner -i !input! -filter_complex "[0:v]scale=1920:1080[j];[j]subtitles='%%~nA.nl.srt.fixed'[k]" -map "[k]" -map 0:a -strict -2 -c:v h264_nvenc -pix_fmt yuv420p -rc-lookahead 32 -b:v !bit_rate! -ac 2 -ar 44100 -acodec aac "DUTCH/%%~nA.nl.PART.mp4"
+			) else (
+				echo Already exists: "DUTCH/%%~nA.nl.mp4" 
+			)
+		) else (
+			echo Subtitle file empty: %%~nA.nl.srt.fixed
+		)
+	)
+
+	if exist "DUTCH/%%~nA.nl.PART.mp4" rename "DUTCH\%%~nA.nl.PART.mp4" "%%~nA.nl.mp4"
+	if not exist SUBTITLES mkdir SUBTITLES
+	if exist "%%~nA.nl.srt.fixed" move "%%~nA.nl.srt.fixed" SUBTITLES >NUL
+	if exist "%%~nA.nl.srt" move "%%~nA.nl.srt" SUBTITLES >NUL
+
+	if not exist ENGLISH mkdir ENGLISH
+
+	for %%x in ("%%~nA.en.srt.fixed") do (
+		if not %%~zx == 0 (
+			if not  exist "ENGLISH/%%~nA.en.mp4" (
+				ffmpeg -y -hide_banner -i !input! -filter_complex "[0:v]scale=1920:1080[j];[j]subtitles='%%~nA.en.srt.fixed'[k]" -map "[k]" -map 0:a -strict -2 -c:v h264_nvenc -pix_fmt yuv420p -rc-lookahead 32 -b:v !bit_rate! -ac 2 -ar 44100 -acodec aac "ENGLISH/%%~nA.en.PART.mp4"
+			) else (
+				echo Already exists: "DUTCH/%%~nA.en.mp4" 
+			)
+		) else (
+			echo Subtitle file empty: %%~nA.en.srt.fixed
+		)
+	)
+
+	if exist "ENGLISH/%%~nA.en.PART.mp4" rename "ENGLISH\%%~nA.en.PART.mp4" "%%~nA.en.mp4"
+	if exist "%%~nA.en.srt.fixed" move "%%~nA.en.srt.fixed" SUBTITLES >NUL
+	if exist "%%~nA.en.srt" move "%%~nA.en.srt" SUBTITLES >NUL
+
+	if not exist ORIGINAL mkdir ORIGINAL
+	move !input! ORIGINAL >NUL
+	
+
+rem 	ffmpeg -y -hide_banner -i "%%A" -filter_complex "[0:v]scale=1920:1080[j];[j]subtitles='%%~nA.nl.srt.fixed'[k]" -map "[k]" -map 0:a -strict -2 -c:v h264_nvenc -profile:v high -pixel_format nv12 -bf:v 3 -preset slow -rc:v vbr_hq -rc-lookahead 32 -c:a copy "%%~nA.hires.nl.mp4"
+rem  	ffmpeg -y -hide_banner -i "%%A" -filter_complex "[0:v]scale=1920:1080[j];[j]subtitles='%%~nA.en.srt.fixed'[k]" -map "[k]" -map 0:a -strict -2 -c:v h264_nvenc -profile:v high -pixel_format nv12 -bf:v 3 -preset slow -rc:v vbr_hq -rc-lookahead 32 -c:a copy "%%~nA.hires.en.mp4"
+)
+exit /b
+

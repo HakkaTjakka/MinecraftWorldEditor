@@ -1,0 +1,66 @@
+[    0][  0][  0]=21527161726 lat=37.96875 to 37.79296875 lon=-26.015625 to -25.83984375
+[    1][  1][  0]=21527161727 lat=37.96875 to 37.79296875 lon=-25.83984375 to -25.6640625
+[    2][  2][  0]=21527161736 lat=37.96875 to 37.79296875 lon=-25.6640625 to -25.48828125
+[    3][  3][  0]=21527161737 lat=37.96875 to 37.79296875 lon=-25.48828125 to -25.3125
+[    4][  4][  0]=21527170626 lat=37.96875 to 37.79296875 lon=-25.3125 to -25.13671875
+std::string get_octant_AZORES(int &x, int &y) {
+	static std::string *octants[5];
+	static std::string *lat_lon[5];
+	static int first_do=1;
+	if  (first_do==1) {
+		first_do=0;
+		octants[0]=new std::string[1] {"21527161726"};
+		octants[1]=new std::string[1] {"21527161727"};
+		octants[2]=new std::string[1] {"21527161736"};
+		octants[3]=new std::string[1] {"21527161737"};
+		octants[4]=new std::string[1] {"21527170626"};
+		lat_lon[0]=new std::string[1] {"N=37.96875 S=37.79296875 W=-26.015625 E=-25.83984375"};
+		lat_lon[1]=new std::string[1] {"N=37.96875 S=37.79296875 W=-25.83984375 E=-25.6640625"};
+		lat_lon[2]=new std::string[1] {"N=37.96875 S=37.79296875 W=-25.6640625 E=-25.48828125"};
+		lat_lon[3]=new std::string[1] {"N=37.96875 S=37.79296875 W=-25.48828125 E=-25.3125"};
+		lat_lon[4]=new std::string[1] {"N=37.96875 S=37.79296875 W=-25.3125 E=-25.13671875"};
+	}
+	extra_octants=0;
+	if (x<0 || y<0) {
+		x=5;y=1;
+		return "";
+	}
+	bool OK=false;
+	if (x>=5 || y>=1) printf("Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
+	else OK=true;
+	if (!OK) return "";
+	latitude_longditude=lat_lon[x][y];
+	std::string subdir=octants[x][y].substr(0,14)+"/";
+	return_root = std::string()+EARTH_ROOT1+"/AZORES/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/AZORES/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/AZORES/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/AZORES/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/AZORES/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/AZORES/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/AZORES/"+"nbt/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/AZORES/"+"nbt/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/AZORES/"+"nbt/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/AZORES/"+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/AZORES/"+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/AZORES/"+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/"+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/"+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/"+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/AZORES/"+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/AZORES/"+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/AZORES/"+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/AZORES/"+"obj/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/AZORES/"+"obj/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/AZORES/"+"obj/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/"+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/"+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/"+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	printf("Directory not found on search paths: %s-21\n",octants[x][y].c_str());
+	return "";
+}
+node DUMP_OBJ_CITY.js 21527161736 21 --parallel-search --AZORES
+node DUMP_OBJ_CITY.js 21527161737 21 --parallel-search --AZORES
+node DUMP_OBJ_CITY.js 21527161727 21 --parallel-search --AZORES
+node DUMP_OBJ_CITY.js 21527170626 21 --parallel-search --AZORES
+node DUMP_OBJ_CITY.js 21527161726 21 --parallel-search --AZORES
+REM EXTRA:

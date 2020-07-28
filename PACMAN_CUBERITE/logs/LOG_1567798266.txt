@@ -1,0 +1,28 @@
+     [21:31:06] --- Started Log ---
+     [21:31:06] Cuberite local build build id: Unknown
+     [21:31:06] from commit id: approx: e0ca4d83991d80865781c1dbbbfa1f92259a366a built at: approx: 2019-08-11 11:39:43 +0200
+     [21:31:06] Creating new server instance...
+     [21:31:06] Reading server config...
+     [21:31:06] Starting server...
+Info [21:31:06] Compatible clients: 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x
+Info [21:31:06] Compatible protocol versions 47, 107, 108, 109, 110, 210, 315, 316, 335, 338, 340
+Info [21:31:06] Setting default viewdistance to the maximum of 32
+Info [21:31:06] WebServer: The server will run in secure HTTPS mode.
+     [21:31:06] Loaded 755 crafting recipes
+     [21:31:06] Loaded 67 furnace recipes and 66 fuels
+     [21:31:06] Loaded 88 brewing recipes
+     [21:31:06] -- Loading Plugins --
+     [21:31:06] Initialised Core v.15
+     [21:31:06] Initialized ChatLog v.3
+     [21:31:06] -- Loaded 2 Plugins --
+Warn [21:31:06] World "Test": Did not find an acceptable spawnpoint. Generated a random spawnpoint position at {0.00, 251.00, 0.00}
+Warn [21:31:06] Cannot listen on port 25565: 10048 (Cannot bind IPv6 socket to port 25565: 10048 (Elk socketadres (protocol/netwerkadres/poort) kan normaal slechts één keer worden gebruikt.)).
+Err  [21:31:06] Couldn't open any ports. Aborting the server
+     [21:31:07] Unloading worlds...
+     [21:31:07] Disabled Core!
+     [21:31:07] Cleaning up...
+Warn [21:31:07] DeadlockDetect: Some CS objects (4) haven't been removed from tracking
+Warn [21:31:07]   CS 0x3dd6380 / World Test clients
+Warn [21:31:07]   CS 0x3685208 / World Test players
+Warn [21:31:07]   CS 0x3dd6350 / World Test tasks
+Warn [21:31:07]   CS 0x3509690 / World Test chunkmap

@@ -1,0 +1,77 @@
+# depslib dependency file v1.0
+1572889035 source:c:\new\simpleviewer\main.cpp
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<stdlib.h>
+
+976663372 c:\new\glut-3.7.6-bin\include\gl\glut.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1364673158 c:\new\simpleviewer\glut\include\gl\glut.h
+	"freeglut_std.h"
+
+1364673158 c:\new\simpleviewer\glut\include\gl\freeglut_std.h
+	<Windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1364673158 c:\new\simpleviewer\glut\include\gl\gl.h
+	"gl_mangle.h"
+	<stdlib.h>
+	<windows.h>
+	<GL/glext.h>
+
+1364673158 c:\new\simpleviewer\glut\include\gl\gl_mangle.h
+
+1364673158 c:\new\simpleviewer\glut\include\gl\glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1364673158 c:\new\simpleviewer\glut\include\gl\glu.h
+	"glu_mangle.h"
+	<GL/gl.h>
+
+1364673158 c:\new\simpleviewer\glut\include\gl\glu_mangle.h
+
+1426346128 c:\new\freeglut\include\gl\glut.h
+	"freeglut_std.h"
+
+1426346128 c:\new\freeglut\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1572889035 source:d:\pacman\pacman_cuberite\src\simpleviewer\main.cpp
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<stdlib.h>
+
+1426346128 d:\pacman\pacman_cuberite\src\freeglut\include\gl\glut.h
+	"freeglut_std.h"
+
+1426346128 d:\pacman\pacman_cuberite\src\freeglut\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+

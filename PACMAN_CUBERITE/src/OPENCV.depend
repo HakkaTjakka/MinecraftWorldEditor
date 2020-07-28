@@ -1,0 +1,3314 @@
+# depslib dependency file v1.0
+1558628596 source:d:\pacman\pacman_static_ffmpeg_64\bitmaps.cpp
+	<winsock2.h>
+	<io.h>
+	"WinMain.h"
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+	<sys/stat.h>
+	<iostream>
+	<cstdlib>
+	<Windows.h>
+	<Winuser.h>
+	<assert.h>
+	<vector>
+	<cmath>
+	<time.h>
+	<dirent.h>
+	<unistd.h>
+	<SFML/Audio.hpp>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/System.hpp>
+	<SFML/Network.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<sfeMovie/Movie.hpp>
+	"StreamSelector.hpp"
+	"MediaInfo.hpp"
+	<SFML/OpenGL.hpp>
+	<GL/glext.h>
+	<GL/glu.h>
+	<GL/gl.h>
+
+1555953718 d:\pacman\pacman_static_ffmpeg_64\winmain.h
+	<iostream>
+
+1555954110 d:\pacman\pacman_static_ffmpeg_64\include\sfml\audio.hpp
+	<SFML/System.hpp>
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/Audio/Listener.hpp>
+	<SFML/Audio/Music.hpp>
+	<SFML/Audio/OutputSoundFile.hpp>
+	<SFML/Audio/Sound.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundBufferRecorder.hpp>
+	<SFML/Audio/SoundFileFactory.hpp>
+	<SFML/Audio/SoundFileReader.hpp>
+	<SFML/Audio/SoundFileWriter.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/Audio/SoundStream.hpp>
+
+1555954112 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/Err.hpp>
+	<SFML/System/FileInputStream.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/Lock.hpp>
+	<SFML/System/MemoryInputStream.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Sleep.hpp>
+	<SFML/System/String.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Utf.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+
+1555954110 d:\pacman\pacman_static_ffmpeg_64\include\sfml\config.hpp
+	"TargetConditionals.h"
+
+1555954160 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\clock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1555954160 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\export.hpp
+	<SFML/Config.hpp>
+
+1555954164 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\time.hpp
+	<SFML/System/Export.hpp>
+
+1555954160 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\err.hpp
+	<SFML/System/Export.hpp>
+	<ostream>
+
+1555954160 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\fileinputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Export.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdio>
+	<string>
+
+1555954162 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\inputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Export.hpp>
+
+1555954162 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\noncopyable.hpp
+	<SFML/System/Export.hpp>
+
+1555954162 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\lock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1555954162 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\memoryinputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/Export.hpp>
+	<cstdlib>
+
+1555954162 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\mutex.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1555954162 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\sleep.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1555954162 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\string.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Utf.hpp>
+	<iterator>
+	<locale>
+	<string>
+	<SFML/System/String.inl>
+
+1555954164 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\utf.hpp
+	<SFML/Config.hpp>
+	<algorithm>
+	<locale>
+	<string>
+	<cstdlib>
+	<SFML/System/Utf.inl>
+
+1555954166 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\utf.inl
+
+1555954162 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\string.inl
+
+1555954162 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\thread.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+	<SFML/System/Thread.inl>
+
+1555954164 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\thread.inl
+
+1555954164 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\threadlocal.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+
+1555954164 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\threadlocalptr.hpp
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.inl>
+
+1555954164 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\threadlocalptr.inl
+
+1555954166 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\vector2.hpp
+	<SFML/System/Vector2.inl>
+
+1555954166 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\vector2.inl
+
+1555954166 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\vector3.hpp
+	<SFML/System/Vector3.inl>
+
+1555954166 d:\pacman\pacman_static_ffmpeg_64\include\sfml\system\vector3.inl
+
+1555954146 d:\pacman\pacman_static_ffmpeg_64\include\sfml\audio\inputsoundfile.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<algorithm>
+
+1555954146 d:\pacman\pacman_static_ffmpeg_64\include\sfml\audio\export.hpp
+	<SFML/Config.hpp>
+
+1555954146 d:\pacman\pacman_static_ffmpeg_64\include\sfml\audio\listener.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/Vector3.hpp>
+
+1555954146 d:\pacman\pacman_static_ffmpeg_64\include\sfml\audio\music.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundStream.hpp>
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+
+1555954150 d:\pacman\pacman_static_ffmpeg_64\include\sfml\audio\soundstream.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Mutex.hpp>
+	<cstdlib>
+
+1555954150 d:\pacman\pacman_static_ffmpeg_64\include\sfml\audio\soundsource.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Vector3.hpp>
+
+1555954146 d:\pacman\pacman_static_ffmpeg_64\include\sfml\audio\alresource.hpp
+	<SFML/Audio/Export.hpp>
+
+1555954148 d:\pacman\pacman_static_ffmpeg_64\include\sfml\audio\outputsoundfile.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<string>
+
+1555954148 d:\pacman\pacman_static_ffmpeg_64\include\sfml\audio\sound.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Time.hpp>
+	<cstdlib>
+
+1555954148 d:\pacman\pacman_static_ffmpeg_64\include\sfml\audio\soundbuffer.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+	<set>
+
+1555954148 d:\pacman\pacman_static_ffmpeg_64\include\sfml\audio\soundbufferrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<vector>
+
+1555954148 d:\pacman\pacman_static_ffmpeg_64\include\sfml\audio\soundrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<vector>
+	<string>
+
+1555954148 d:\pacman\pacman_static_ffmpeg_64\include\sfml\audio\soundfilefactory.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+	<vector>
+	<SFML/Audio/SoundFileFactory.inl>
+
+1555954148 d:\pacman\pacman_static_ffmpeg_64\include\sfml\audio\soundfilefactory.inl
+
+1555954148 d:\pacman\pacman_static_ffmpeg_64\include\sfml\audio\soundfilereader.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+
+1555954148 d:\pacman\pacman_static_ffmpeg_64\include\sfml\audio\soundfilewriter.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+
+1555954112 d:\pacman\pacman_static_ffmpeg_64\include\sfml\window.hpp
+	<SFML/System.hpp>
+	<SFML/Window/Clipboard.hpp>
+	<SFML/Window/Context.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/Cursor.hpp>
+	<SFML/Window/Event.hpp>
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+	<SFML/Window/Sensor.hpp>
+	<SFML/Window/Touch.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/Window.hpp>
+	<SFML/Window/WindowHandle.hpp>
+	<SFML/Window/WindowStyle.hpp>
+
+1555954166 d:\pacman\pacman_static_ffmpeg_64\include\sfml\window\clipboard.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/String.hpp>
+
+1555954170 d:\pacman\pacman_static_ffmpeg_64\include\sfml\window\export.hpp
+	<SFML/Config.hpp>
+
+1555954166 d:\pacman\pacman_static_ffmpeg_64\include\sfml\window\context.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1555954170 d:\pacman\pacman_static_ffmpeg_64\include\sfml\window\glresource.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1555954168 d:\pacman\pacman_static_ffmpeg_64\include\sfml\window\contextsettings.hpp
+	<SFML/Config.hpp>
+
+1555954168 d:\pacman\pacman_static_ffmpeg_64\include\sfml\window\cursor.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Vector2.hpp>
+
+1555954170 d:\pacman\pacman_static_ffmpeg_64\include\sfml\window\event.hpp
+	<SFML/Config.hpp>
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+	<SFML/Window/Sensor.hpp>
+
+1555954170 d:\pacman\pacman_static_ffmpeg_64\include\sfml\window\joystick.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/String.hpp>
+
+1555954170 d:\pacman\pacman_static_ffmpeg_64\include\sfml\window\keyboard.hpp
+	<SFML/Window/Export.hpp>
+
+1555954170 d:\pacman\pacman_static_ffmpeg_64\include\sfml\window\mouse.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector2.hpp>
+
+1555954170 d:\pacman\pacman_static_ffmpeg_64\include\sfml\window\sensor.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector3.hpp>
+	<SFML/System/Time.hpp>
+
+1555954170 d:\pacman\pacman_static_ffmpeg_64\include\sfml\window\touch.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector2.hpp>
+
+1555954170 d:\pacman\pacman_static_ffmpeg_64\include\sfml\window\videomode.hpp
+	<SFML/Window/Export.hpp>
+	<vector>
+
+1555954172 d:\pacman\pacman_static_ffmpeg_64\include\sfml\window\window.hpp
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/Cursor.hpp>
+	<SFML/Window/Export.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/WindowHandle.hpp>
+	<SFML/Window/WindowStyle.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/String.hpp>
+	<SFML/System/Vector2.hpp>
+
+1555954170 d:\pacman\pacman_static_ffmpeg_64\include\sfml\window\windowhandle.hpp
+	<SFML/Config.hpp>
+
+1555954170 d:\pacman\pacman_static_ffmpeg_64\include\sfml\window\windowstyle.hpp
+
+1555954112 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics.hpp
+	<SFML/Window.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/CircleShape.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/ConvexShape.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/Glyph.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/RectangleShape.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Graphics/RenderTexture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/Graphics/Shader.hpp>
+	<SFML/Graphics/Shape.hpp>
+	<SFML/Graphics/Sprite.hpp>
+	<SFML/Graphics/Text.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/Graphics/VertexBuffer.hpp>
+	<SFML/Graphics/View.hpp>
+
+1555954150 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\blendmode.hpp
+	<SFML/Graphics/Export.hpp>
+
+1555954152 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\export.hpp
+	<SFML/Config.hpp>
+
+1555954150 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\circleshape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+
+1555954154 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\shape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/System/Vector2.hpp>
+
+1555954152 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\drawable.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+
+1555954154 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\renderstates.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/Transform.hpp>
+
+1555954156 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\transform.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/System/Vector2.hpp>
+
+1555954154 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\rect.hpp
+	<SFML/System/Vector2.hpp>
+	<algorithm>
+	<SFML/Graphics/Rect.inl>
+
+1555954154 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\rect.inl
+
+1555954156 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\transformable.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Transform.hpp>
+
+1555954156 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\vertexarray.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<vector>
+
+1555954156 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\vertex.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/System/Vector2.hpp>
+
+1555954150 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\color.hpp
+	<SFML/Graphics/Export.hpp>
+
+1555954152 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\primitivetype.hpp
+
+1555954150 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\convexshape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+	<vector>
+
+1555954152 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\font.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Glyph.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/String.hpp>
+	<map>
+	<string>
+	<vector>
+
+1555954152 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\glyph.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+
+1555954156 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\texture.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Window/GlResource.hpp>
+
+1555954152 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\image.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<string>
+	<vector>
+
+1555954154 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\rectangleshape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+
+1555954154 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\rendertarget.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/View.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1555954156 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\view.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/System/Vector2.hpp>
+
+1555954154 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\rendertexture.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Window/ContextSettings.hpp>
+
+1555954154 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\renderwindow.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Window/Window.hpp>
+	<string>
+
+1555954154 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\shader.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Glsl.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+	<map>
+	<string>
+
+1555954152 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\glsl.hpp
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+	<SFML/Graphics/Glsl.inl>
+
+1555954152 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\glsl.inl
+
+1555954156 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\sprite.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/Rect.hpp>
+
+1555954156 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\text.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/System/String.hpp>
+	<string>
+	<vector>
+
+1555954156 d:\pacman\pacman_static_ffmpeg_64\include\sfml\graphics\vertexbuffer.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Window/GlResource.hpp>
+
+1555954112 d:\pacman\pacman_static_ffmpeg_64\include\sfml\network.hpp
+	<SFML/System.hpp>
+	<SFML/Network/Ftp.hpp>
+	<SFML/Network/Http.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<SFML/Network/Packet.hpp>
+	<SFML/Network/Socket.hpp>
+	<SFML/Network/SocketHandle.hpp>
+	<SFML/Network/SocketSelector.hpp>
+	<SFML/Network/TcpListener.hpp>
+	<SFML/Network/TcpSocket.hpp>
+	<SFML/Network/UdpSocket.hpp>
+
+1555954158 d:\pacman\pacman_static_ffmpeg_64\include\sfml\network\ftp.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/TcpSocket.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+
+1555954158 d:\pacman\pacman_static_ffmpeg_64\include\sfml\network\export.hpp
+	<SFML/Config.hpp>
+
+1555954160 d:\pacman\pacman_static_ffmpeg_64\include\sfml\network\tcpsocket.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/Socket.hpp>
+	<SFML/System/Time.hpp>
+
+1555954158 d:\pacman\pacman_static_ffmpeg_64\include\sfml\network\socket.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/SocketHandle.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<vector>
+
+1555954158 d:\pacman\pacman_static_ffmpeg_64\include\sfml\network\sockethandle.hpp
+	<SFML/Config.hpp>
+	<basetsd.h>
+
+1555954158 d:\pacman\pacman_static_ffmpeg_64\include\sfml\network\http.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<SFML/Network/TcpSocket.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Time.hpp>
+	<map>
+	<string>
+
+1555954158 d:\pacman\pacman_static_ffmpeg_64\include\sfml\network\ipaddress.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/System/Time.hpp>
+	<istream>
+	<ostream>
+	<string>
+
+1555954158 d:\pacman\pacman_static_ffmpeg_64\include\sfml\network\packet.hpp
+	<SFML/Network/Export.hpp>
+	<string>
+	<vector>
+
+1555954158 d:\pacman\pacman_static_ffmpeg_64\include\sfml\network\socketselector.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1555954160 d:\pacman\pacman_static_ffmpeg_64\include\sfml\network\tcplistener.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/Socket.hpp>
+	<SFML/Network/IpAddress.hpp>
+
+1555954160 d:\pacman\pacman_static_ffmpeg_64\include\sfml\network\udpsocket.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/Socket.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<vector>
+
+1555954110 d:\pacman\pacman_static_ffmpeg_64\include\sfemovie\movie.hpp
+	<SFML/Graphics.hpp>
+	<SFML/System.hpp>
+	<sfeMovie/Visibility.hpp>
+	<sfeMovie/StreamSelection.hpp>
+	<vector>
+	<string>
+	<memory>
+
+1555954110 d:\pacman\pacman_static_ffmpeg_64\include\sfemovie\visibility.hpp
+	<SFML/System.hpp>
+
+1555954110 d:\pacman\pacman_static_ffmpeg_64\include\sfemovie\streamselection.hpp
+	<sfeMovie/Visibility.hpp>
+	<string>
+	<vector>
+
+1555953714 d:\pacman\pacman_static_ffmpeg_64\streamselector.hpp
+	<sfeMovie/Movie.hpp>
+	<map>
+
+1555953698 d:\pacman\pacman_static_ffmpeg_64\mediainfo.hpp
+	<sfeMovie/Movie.hpp>
+
+1555954112 d:\pacman\pacman_static_ffmpeg_64\include\sfml\opengl.hpp
+	<SFML/Config.hpp>
+	<windows.h>
+	<GL/gl.h>
+	<GLES/gl.h>
+	<GLES/glext.h>
+	<GL/gl.h>
+	<OpenGL/gl.h>
+	<OpenGLES/ES1/gl.h>
+	<OpenGLES/ES1/glext.h>
+	<GLES/gl.h>
+	<GLES/glext.h>
+	<GLES2/gl2platform.h>
+	<GLES2/gl2ext.h>
+
+1555953686 source:d:\pacman\pacman_static_ffmpeg_64\blending.cpp
+	<winsock2.h>
+	<io.h>
+	"WinMain.h"
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+	<sys/stat.h>
+	<iostream>
+	<cstdlib>
+	<Windows.h>
+	<Winuser.h>
+	<assert.h>
+	<vector>
+	<cmath>
+	<time.h>
+	<dirent.h>
+	<SFML/Audio.hpp>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/System.hpp>
+	<SFML/Network.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<sfeMovie/Movie.hpp>
+	"StreamSelector.hpp"
+	"MediaInfo.hpp"
+
+1560683467 source:d:\pacman\pacman_static_ffmpeg_64\canny.cpp
+	<cmath>
+	<iostream>
+	"opencv2/core.hpp"
+	<opencv2/core/utility.hpp>
+	<iostream>
+	"opencv2/imgproc.hpp"
+	"opencv2/highgui.hpp"
+	"opencv2/imgproc.hpp"
+	"opencv2/imgcodecs.hpp"
+	"opencv2/core/cuda.hpp"
+	"opencv2/modules/ximgproc.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core.hpp
+	"opencv2/core/cvdef.h"
+	"opencv2/core/version.hpp"
+	"opencv2/core/base.hpp"
+	"opencv2/core/cvstd.hpp"
+	"opencv2/core/traits.hpp"
+	"opencv2/core/matx.hpp"
+	"opencv2/core/types.hpp"
+	"opencv2/core/mat.hpp"
+	"opencv2/core/persistence.hpp"
+	"opencv2/core/operations.hpp"
+	"opencv2/core/cvstd.inl.hpp"
+	"opencv2/core/utility.hpp"
+	"opencv2/core/optim.hpp"
+	"opencv2/core/ovx.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\cvdef.h
+	"cvconfig.h"
+	<limits.h>
+	"opencv2/core/hal/interface.h"
+	"cv_cpu_dispatch.h"
+	<intrin.h>
+	<array>
+	<cstdint>
+	<stdint.h>
+	<stdint.h>
+	"opencv2/core/fast_math.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\hal\interface.h
+	<cstddef>
+	<stddef.h>
+	<stdbool.h>
+	<cstdint>
+	<stdint.h>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\cv_cpu_dispatch.h
+	"cv_cpu_config.h"
+	"cv_cpu_helper.h"
+	<emmintrin.h>
+	<pmmintrin.h>
+	<tmmintrin.h>
+	<smmintrin.h>
+	<nmmintrin.h>
+	<nmmintrin.h>
+	<popcntintrin.h>
+	<immintrin.h>
+	<arm_neon.h>
+	<immintrin.h>
+	<immintrin.h>
+	<immintrin.h>
+	<immintrin.h>
+	<Intrin.h>
+	<arm_neon.h>
+	<arm_neon.h>
+	<arm_neon.h>
+	<altivec.h>
+	<emmintrin.h>
+	<Intrin.h>
+	<arm_neon.h>
+	<arm_neon.h>
+	<altivec.h>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\cv_cpu_helper.h
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\fast_math.hpp
+	"opencv2/core/cvdef.h"
+	<emmintrin.h>
+	<cmath>
+	<fastmath.h>
+	<math.h>
+	"tegra_round.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\version.hpp
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\base.hpp
+	"opencv2/opencv_modules.hpp"
+	<climits>
+	<algorithm>
+	"opencv2/core/cvdef.h"
+	"opencv2/core/cvstd.hpp"
+	"opencv2/core/neon_utils.hpp"
+	"opencv2/core/vsx_utils.hpp"
+	"opencv2/core/check.hpp"
+
+1560611580 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\opencv_modules.hpp
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\cvstd.hpp
+	"opencv2/core/cvdef.h"
+	<cstddef>
+	<cstring>
+	<cctype>
+	<string>
+	<algorithm>
+	<utility>
+	<cstdlib>
+	<cmath>
+	"opencv2/core/ptr.inl.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\ptr.inl.hpp
+	<algorithm>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\neon_utils.hpp
+	"opencv2/core/cvdef.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\vsx_utils.hpp
+	"opencv2/core/cvdef.h"
+	<assert.h>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\check.hpp
+	<opencv2/core/base.hpp>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\traits.hpp
+	"opencv2/core/cvdef.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\matx.hpp
+	"opencv2/core/cvdef.h"
+	"opencv2/core/base.hpp"
+	"opencv2/core/traits.hpp"
+	"opencv2/core/saturate.hpp"
+	<initializer_list>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\saturate.hpp
+	"opencv2/core/cvdef.h"
+	"opencv2/core/fast_math.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\types.hpp
+	<climits>
+	<cfloat>
+	<vector>
+	<limits>
+	"opencv2/core/cvdef.h"
+	"opencv2/core/cvstd.hpp"
+	"opencv2/core/matx.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\mat.hpp
+	"opencv2/core/matx.hpp"
+	"opencv2/core/types.hpp"
+	"opencv2/core/bufferpool.hpp"
+	<type_traits>
+	"opencv2/core/mat.inl.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\bufferpool.hpp
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\mat.inl.hpp
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\persistence.hpp
+	"opencv2/core/types.hpp"
+	"opencv2/core/mat.hpp"
+	"opencv2/opencv.hpp"
+	<time.h>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\opencv.hpp
+	"opencv2/opencv_modules.hpp"
+	"opencv2/core.hpp"
+	"opencv2/calib3d.hpp"
+	"opencv2/features2d.hpp"
+	"opencv2/dnn.hpp"
+	"opencv2/flann.hpp"
+	"opencv2/highgui.hpp"
+	"opencv2/imgcodecs.hpp"
+	"opencv2/imgproc.hpp"
+	"opencv2/ml.hpp"
+	"opencv2/objdetect.hpp"
+	"opencv2/photo.hpp"
+	"opencv2/shape.hpp"
+	"opencv2/stitching.hpp"
+	"opencv2/superres.hpp"
+	"opencv2/video.hpp"
+	"opencv2/videoio.hpp"
+	"opencv2/videostab.hpp"
+	"opencv2/viz.hpp"
+	"opencv2/cudaarithm.hpp"
+	"opencv2/cudabgsegm.hpp"
+	"opencv2/cudacodec.hpp"
+	"opencv2/cudafeatures2d.hpp"
+	"opencv2/cudafilters.hpp"
+	"opencv2/cudaimgproc.hpp"
+	"opencv2/cudaobjdetect.hpp"
+	"opencv2/cudaoptflow.hpp"
+	"opencv2/cudastereo.hpp"
+	"opencv2/cudawarping.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\calib3d.hpp
+	"opencv2/core.hpp"
+	"opencv2/features2d.hpp"
+	"opencv2/core/affine.hpp"
+	"opencv2/calib3d/calib3d_c.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\features2d.hpp
+	"opencv2/opencv_modules.hpp"
+	"opencv2/core.hpp"
+	"opencv2/flann/miniflann.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\miniflann.hpp
+	"opencv2/core.hpp"
+	"opencv2/flann/defines.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\defines.h
+	"config.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\config.h
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\affine.hpp
+	<opencv2/core.hpp>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\calib3d\calib3d_c.h
+	"opencv2/core/core_c.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\core_c.h
+	"opencv2/core/types_c.h"
+	"cxcore.h"
+	"cxcore.h"
+	"opencv2/core/utility.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\types_c.h
+	<ipl.h>
+	<ipl/ipl.h>
+	"opencv2/core/cvdef.h"
+	<assert.h>
+	<stdlib.h>
+	<string.h>
+	<float.h>
+	"opencv2/core.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\utility.hpp
+	"opencv2/core.hpp"
+	<ostream>
+	<functional>
+	"opencv2/core/core_c.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\dnn.hpp
+	<opencv2/dnn/dnn.hpp>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\dnn\dnn.hpp
+	<vector>
+	<opencv2/core.hpp>
+	<opencv2/dnn/dict.hpp>
+	<opencv2/dnn/layer.hpp>
+	<opencv2/dnn/dnn.inl.hpp>
+	<opencv2/dnn/utils/inference_engine.hpp>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\dnn\dict.hpp
+	<opencv2/core.hpp>
+	<map>
+	<ostream>
+	<opencv2/dnn/dnn.hpp>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\dnn\layer.hpp
+	<opencv2/dnn.hpp>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\dnn\dnn.inl.hpp
+	<opencv2/dnn.hpp>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\dnn\utils\inference_engine.hpp
+	"../dnn.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann.hpp
+	"opencv2/core.hpp"
+	"opencv2/flann/miniflann.hpp"
+	"opencv2/flann/flann_base.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\flann_base.hpp
+	<vector>
+	<cassert>
+	<cstdio>
+	"general.h"
+	"matrix.h"
+	"params.h"
+	"saving.h"
+	"all_indices.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\general.h
+	"opencv2/core.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\matrix.h
+	<stdio.h>
+	"general.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\params.h
+	"any.h"
+	"general.h"
+	<iostream>
+	<map>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\any.h
+	"defines.h"
+	<stdexcept>
+	<ostream>
+	<typeinfo>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\saving.h
+	<cstring>
+	<vector>
+	"general.h"
+	"nn_index.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\nn_index.h
+	"general.h"
+	"matrix.h"
+	"result_set.h"
+	"params.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\result_set.h
+	<algorithm>
+	<cstring>
+	<iostream>
+	<limits>
+	<set>
+	<vector>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\all_indices.h
+	"general.h"
+	"nn_index.h"
+	"kdtree_index.h"
+	"kdtree_single_index.h"
+	"kmeans_index.h"
+	"composite_index.h"
+	"linear_index.h"
+	"hierarchical_clustering_index.h"
+	"lsh_index.h"
+	"autotuned_index.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\kdtree_index.h
+	<algorithm>
+	<map>
+	<cassert>
+	<cstring>
+	"general.h"
+	"nn_index.h"
+	"dynamic_bitset.h"
+	"matrix.h"
+	"result_set.h"
+	"heap.h"
+	"allocator.h"
+	"random.h"
+	"saving.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\dynamic_bitset.h
+	<boost/dynamic_bitset.hpp>
+	<limits.h>
+	"dist.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\dist.h
+	<cmath>
+	<cstdlib>
+	<string.h>
+	<stdint.h>
+	"defines.h"
+	<Intrin.h>
+	"arm_neon.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\heap.h
+	<algorithm>
+	<vector>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\allocator.h
+	<stdlib.h>
+	<stdio.h>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\random.h
+	<algorithm>
+	<cstdlib>
+	<vector>
+	"general.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\kdtree_single_index.h
+	<algorithm>
+	<map>
+	<cassert>
+	<cstring>
+	"general.h"
+	"nn_index.h"
+	"matrix.h"
+	"result_set.h"
+	"heap.h"
+	"allocator.h"
+	"random.h"
+	"saving.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\kmeans_index.h
+	<algorithm>
+	<map>
+	<cassert>
+	<limits>
+	<cmath>
+	"general.h"
+	"nn_index.h"
+	"dist.h"
+	"matrix.h"
+	"result_set.h"
+	"heap.h"
+	"allocator.h"
+	"random.h"
+	"saving.h"
+	"logger.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\logger.h
+	<stdio.h>
+	<stdarg.h>
+	"defines.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\composite_index.h
+	"general.h"
+	"nn_index.h"
+	"kdtree_index.h"
+	"kmeans_index.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\linear_index.h
+	"general.h"
+	"nn_index.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\hierarchical_clustering_index.h
+	<algorithm>
+	<map>
+	<cassert>
+	<limits>
+	<cmath>
+	"general.h"
+	"nn_index.h"
+	"dist.h"
+	"matrix.h"
+	"result_set.h"
+	"heap.h"
+	"allocator.h"
+	"random.h"
+	"saving.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\lsh_index.h
+	<algorithm>
+	<cassert>
+	<cstring>
+	<map>
+	<vector>
+	"general.h"
+	"nn_index.h"
+	"matrix.h"
+	"result_set.h"
+	"heap.h"
+	"lsh_table.h"
+	"allocator.h"
+	"random.h"
+	"saving.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\lsh_table.h
+	<algorithm>
+	<iostream>
+	<iomanip>
+	<limits.h>
+	<unordered_map>
+	<map>
+	<math.h>
+	<stddef.h>
+	"dynamic_bitset.h"
+	"matrix.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\autotuned_index.h
+	<sstream>
+	"general.h"
+	"nn_index.h"
+	"ground_truth.h"
+	"index_testing.h"
+	"sampling.h"
+	"kdtree_index.h"
+	"kdtree_single_index.h"
+	"kmeans_index.h"
+	"composite_index.h"
+	"linear_index.h"
+	"logger.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\ground_truth.h
+	"dist.h"
+	"matrix.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\index_testing.h
+	<cstring>
+	<cassert>
+	<cmath>
+	"matrix.h"
+	"nn_index.h"
+	"result_set.h"
+	"logger.h"
+	"timer.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\timer.h
+	<time.h>
+	"opencv2/core.hpp"
+	"opencv2/core/utility.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\flann\sampling.h
+	"matrix.h"
+	"random.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\highgui.hpp
+	"opencv2/core.hpp"
+	"opencv2/imgcodecs.hpp"
+	"opencv2/videoio.hpp"
+	"opencv2/highgui/highgui_c.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\imgcodecs.hpp
+	"opencv2/core.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\videoio.hpp
+	"opencv2/core.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\highgui\highgui_c.h
+	"opencv2/core/core_c.h"
+	"opencv2/imgproc/imgproc_c.h"
+	"opencv2/imgcodecs/imgcodecs_c.h"
+	"opencv2/videoio/videoio_c.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\imgproc\imgproc_c.h
+	"opencv2/imgproc/types_c.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\imgproc\types_c.h
+	"opencv2/core/core_c.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\imgcodecs\imgcodecs_c.h
+	"opencv2/core/core_c.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\videoio\videoio_c.h
+	"opencv2/core/core_c.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\imgproc.hpp
+	"opencv2/core.hpp"
+	"opencv2/imgproc/imgproc_c.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\ml.hpp
+	"opencv2/core.hpp"
+	<float.h>
+	<map>
+	<iostream>
+	<opencv2/ml/ml.inl.hpp>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\ml\ml.inl.hpp
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\objdetect.hpp
+	"opencv2/core.hpp"
+	"opencv2/objdetect/detection_based_tracker.hpp"
+	"opencv2/objdetect/objdetect_c.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\objdetect\detection_based_tracker.hpp
+	<opencv2/core.hpp>
+	<vector>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\objdetect\objdetect_c.h
+	"opencv2/core/core_c.h"
+	<deque>
+	<vector>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\photo.hpp
+	"opencv2/core.hpp"
+	"opencv2/imgproc.hpp"
+	"opencv2/photo/photo_c.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\photo\photo_c.h
+	"opencv2/core/core_c.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\shape.hpp
+	"opencv2/shape/emdL1.hpp"
+	"opencv2/shape/shape_transformer.hpp"
+	"opencv2/shape/hist_cost.hpp"
+	"opencv2/shape/shape_distance.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\shape\emdl1.hpp
+	"opencv2/core.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\shape\shape_transformer.hpp
+	<vector>
+	"opencv2/core.hpp"
+	"opencv2/imgproc.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\shape\hist_cost.hpp
+	"opencv2/imgproc.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\shape\shape_distance.hpp
+	"opencv2/core.hpp"
+	"opencv2/shape/hist_cost.hpp"
+	"opencv2/shape/shape_transformer.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\stitching.hpp
+	"opencv2/core.hpp"
+	"opencv2/features2d.hpp"
+	"opencv2/stitching/warpers.hpp"
+	"opencv2/stitching/detail/matchers.hpp"
+	"opencv2/stitching/detail/motion_estimators.hpp"
+	"opencv2/stitching/detail/exposure_compensate.hpp"
+	"opencv2/stitching/detail/seam_finders.hpp"
+	"opencv2/stitching/detail/blenders.hpp"
+	"opencv2/stitching/detail/camera.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\stitching\warpers.hpp
+	"opencv2/stitching/detail/warpers.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\stitching\detail\warpers.hpp
+	"opencv2/core.hpp"
+	"opencv2/core/cuda.hpp"
+	"opencv2/imgproc.hpp"
+	"opencv2/opencv_modules.hpp"
+	"warpers_inl.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\cuda.hpp
+	"opencv2/core.hpp"
+	"opencv2/core/cuda_types.hpp"
+	<opencv2/opencv.hpp>
+	"opencv2/core/cuda.inl.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\cuda_types.hpp
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\cuda.inl.hpp
+	"opencv2/core/cuda.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\stitching\detail\warpers_inl.hpp
+	"opencv2/core.hpp"
+	"warpers.hpp"
+	<limits>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\stitching\detail\matchers.hpp
+	"opencv2/core.hpp"
+	"opencv2/features2d.hpp"
+	"opencv2/opencv_modules.hpp"
+	"opencv2/xfeatures2d/cuda.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\stitching\detail\motion_estimators.hpp
+	"opencv2/core.hpp"
+	"matchers.hpp"
+	"util.hpp"
+	"camera.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\stitching\detail\util.hpp
+	<list>
+	"opencv2/core.hpp"
+	"util_inl.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\stitching\detail\util_inl.hpp
+	<queue>
+	"opencv2/core.hpp"
+	"util.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\stitching\detail\camera.hpp
+	"opencv2/core.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\stitching\detail\exposure_compensate.hpp
+	"opencv2/core.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\stitching\detail\seam_finders.hpp
+	<set>
+	"opencv2/core.hpp"
+	"opencv2/opencv_modules.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\stitching\detail\blenders.hpp
+	"opencv2/core.hpp"
+	"opencv2/core/cuda.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\superres.hpp
+	"opencv2/core.hpp"
+	"opencv2/superres/optical_flow.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\superres\optical_flow.hpp
+	"opencv2/core.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\video.hpp
+	"opencv2/video/tracking.hpp"
+	"opencv2/video/background_segm.hpp"
+	"opencv2/video/tracking_c.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\video\tracking.hpp
+	"opencv2/core.hpp"
+	"opencv2/imgproc.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\video\background_segm.hpp
+	"opencv2/core.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\video\tracking_c.h
+	"opencv2/imgproc/types_c.h"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\videostab.hpp
+	"opencv2/videostab/stabilizer.hpp"
+	"opencv2/videostab/ring_buffer.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\videostab\stabilizer.hpp
+	<vector>
+	<ctime>
+	"opencv2/core.hpp"
+	"opencv2/imgproc.hpp"
+	"opencv2/videostab/global_motion.hpp"
+	"opencv2/videostab/motion_stabilizing.hpp"
+	"opencv2/videostab/frame_source.hpp"
+	"opencv2/videostab/log.hpp"
+	"opencv2/videostab/inpainting.hpp"
+	"opencv2/videostab/deblurring.hpp"
+	"opencv2/videostab/wobble_suppression.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\videostab\global_motion.hpp
+	<vector>
+	<fstream>
+	"opencv2/core.hpp"
+	"opencv2/features2d.hpp"
+	"opencv2/opencv_modules.hpp"
+	"opencv2/videostab/optical_flow.hpp"
+	"opencv2/videostab/motion_core.hpp"
+	"opencv2/videostab/outlier_rejection.hpp"
+	"opencv2/cudaimgproc.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\videostab\optical_flow.hpp
+	"opencv2/core.hpp"
+	"opencv2/opencv_modules.hpp"
+	"opencv2/cudaoptflow.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\cudaoptflow.hpp
+	"opencv2/core/cuda.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\videostab\motion_core.hpp
+	<cmath>
+	"opencv2/core.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\videostab\outlier_rejection.hpp
+	<vector>
+	"opencv2/core.hpp"
+	"opencv2/videostab/motion_core.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\cudaimgproc.hpp
+	"opencv2/core/cuda.hpp"
+	"opencv2/imgproc.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\videostab\motion_stabilizing.hpp
+	<vector>
+	<utility>
+	"opencv2/core.hpp"
+	"opencv2/videostab/global_motion.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\videostab\frame_source.hpp
+	<vector>
+	"opencv2/core.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\videostab\log.hpp
+	"opencv2/core.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\videostab\inpainting.hpp
+	<vector>
+	"opencv2/core.hpp"
+	"opencv2/videostab/optical_flow.hpp"
+	"opencv2/videostab/fast_marching.hpp"
+	"opencv2/videostab/global_motion.hpp"
+	"opencv2/photo.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\videostab\fast_marching.hpp
+	<cmath>
+	<queue>
+	<algorithm>
+	"opencv2/core.hpp"
+	"fast_marching_inl.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\videostab\fast_marching_inl.hpp
+	"opencv2/videostab/fast_marching.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\videostab\deblurring.hpp
+	<vector>
+	"opencv2/core.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\videostab\wobble_suppression.hpp
+	<vector>
+	"opencv2/core.hpp"
+	"opencv2/core/cuda.hpp"
+	"opencv2/videostab/global_motion.hpp"
+	"opencv2/videostab/log.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\videostab\ring_buffer.hpp
+	<vector>
+	"opencv2/imgproc.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\viz.hpp
+	<opencv2/viz/types.hpp>
+	<opencv2/viz/widgets.hpp>
+	<opencv2/viz/viz3d.hpp>
+	<opencv2/viz/vizcore.hpp>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\viz\types.hpp
+	<string>
+	<opencv2/core.hpp>
+	<opencv2/core/affine.hpp>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\viz\widgets.hpp
+	<opencv2/viz/types.hpp>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\viz\viz3d.hpp
+	<opencv2/core.hpp>
+	<opencv2/viz/types.hpp>
+	<opencv2/viz/widgets.hpp>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\viz\vizcore.hpp
+	<opencv2/viz/types.hpp>
+	<opencv2/viz/widgets.hpp>
+	<opencv2/viz/viz3d.hpp>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\cudaarithm.hpp
+	"opencv2/core/cuda.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\cudabgsegm.hpp
+	"opencv2/core/cuda.hpp"
+	"opencv2/video/background_segm.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\cudacodec.hpp
+	"opencv2/core/cuda.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\cudafeatures2d.hpp
+	"opencv2/core/cuda.hpp"
+	"opencv2/features2d.hpp"
+	"opencv2/cudafilters.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\cudafilters.hpp
+	"opencv2/core/cuda.hpp"
+	"opencv2/imgproc.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\cudaobjdetect.hpp
+	"opencv2/core/cuda.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\cudastereo.hpp
+	"opencv2/core/cuda.hpp"
+	"opencv2/calib3d.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\cudawarping.hpp
+	"opencv2/core/cuda.hpp"
+	"opencv2/imgproc.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\operations.hpp
+	<cstdio>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\cvstd.inl.hpp
+	<complex>
+	<ostream>
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\optim.hpp
+	"opencv2/core.hpp"
+
+1554558202 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\core\ovx.hpp
+	"cvdef.h"
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc.hpp
+	"ximgproc/edge_filter.hpp"
+	"ximgproc/disparity_filter.hpp"
+	"ximgproc/sparse_match_interpolator.hpp"
+	"ximgproc/structured_edge_detection.hpp"
+	"ximgproc/edgeboxes.hpp"
+	"ximgproc/seeds.hpp"
+	"ximgproc/segmentation.hpp"
+	"ximgproc/fast_hough_transform.hpp"
+	"ximgproc/estimated_covariance.hpp"
+	"ximgproc/weighted_median_filter.hpp"
+	"ximgproc/slic.hpp"
+	"ximgproc/lsc.hpp"
+	"ximgproc/paillou_filter.hpp"
+	"ximgproc/fast_line_detector.hpp"
+	"ximgproc/deriche_filter.hpp"
+	"ximgproc/peilin.hpp"
+	"ximgproc/fourier_descriptors.hpp"
+	"ximgproc/ridgefilter.hpp"
+	"ximgproc/brightedges.hpp"
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\edge_filter.hpp
+	<opencv2/core.hpp>
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\disparity_filter.hpp
+	<opencv2/core.hpp>
+	<opencv2/calib3d.hpp>
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\sparse_match_interpolator.hpp
+	<opencv2/core.hpp>
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\structured_edge_detection.hpp
+	<opencv2/core.hpp>
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\edgeboxes.hpp
+	<opencv2/core.hpp>
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\seeds.hpp
+	<opencv2/core.hpp>
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\segmentation.hpp
+	<opencv2/core.hpp>
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\fast_hough_transform.hpp
+	"opencv2/core.hpp"
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\estimated_covariance.hpp
+	<opencv2/core.hpp>
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\weighted_median_filter.hpp
+	<opencv2/core.hpp>
+	<string>
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\slic.hpp
+	<opencv2/core.hpp>
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\lsc.hpp
+	<opencv2/core.hpp>
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\paillou_filter.hpp
+	<opencv2/core.hpp>
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\fast_line_detector.hpp
+	<opencv2/core.hpp>
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\deriche_filter.hpp
+	<opencv2/core.hpp>
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\peilin.hpp
+	<opencv2/core.hpp>
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\fourier_descriptors.hpp
+	<opencv2/core.hpp>
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\ridgefilter.hpp
+	<opencv2/core.hpp>
+
+1554444650 d:\pacman\pacman_static_ffmpeg_64\include\opencv2\modules\ximgproc\brightedges.hpp
+	"opencv2/core.hpp"
+
+1557292455 source:d:\pacman\pacman_static_ffmpeg_64\commando.cpp
+	"keylist.hpp"
+	"everything.hpp"
+
+1555953690 d:\pacman\pacman_static_ffmpeg_64\keylist.hpp
+
+1557292456 d:\pacman\pacman_static_ffmpeg_64\everything.hpp
+	<wchar.h>
+	<winsock2.h>
+	<io.h>
+	"WinMain.h"
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<sys/stat.h>
+	<iostream>
+	<cstdlib>
+	<Windows.h>
+	<TlHelp32.h>
+	<tchar.h>
+	<signal.h>
+	<Winuser.h>
+	<assert.h>
+	<vector>
+	<cmath>
+	<time.h>
+	<dirent.h>
+	<sys/types.h>
+	<unistd.h>
+	<SFML/Audio.hpp>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/System.hpp>
+	<SFML/Network.hpp>
+	"StreamSelector.hpp"
+	<SFML/System/Mutex.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<sfeMovie/Movie.hpp>
+	"MediaInfo.hpp"
+	<SFML/OpenGL.hpp>
+	<GL/glext.h>
+	<GL/glu.h>
+	<GL/gl.h>
+	<dirent.h>
+	<string>
+	<sstream>
+	<list>
+	<chaiscript/chaiscript.hpp>
+	"colorcodes.hpp"
+
+1555954074 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\chaiscript.hpp
+	"chaiscript_basic.hpp"
+	"language/chaiscript_parser.hpp"
+	"chaiscript_stdlib.hpp"
+
+1555954074 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\chaiscript_basic.hpp
+	"chaiscript_defines.hpp"
+	"dispatchkit/dispatchkit.hpp"
+	"dispatchkit/function_call.hpp"
+	"dispatchkit/dynamic_object.hpp"
+	"dispatchkit/boxed_number.hpp"
+	"language/chaiscript_eval.hpp"
+	"language/chaiscript_engine.hpp"
+	"chaiscript_stdlib.hpp"
+	"language/chaiscript_parser.hpp"
+
+1555954074 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\chaiscript_defines.hpp
+	<vector>
+	<memory>
+	<string>
+	<cmath>
+
+1555954136 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\dispatchkit.hpp
+	<algorithm>
+	<iostream>
+	<list>
+	<map>
+	<memory>
+	<set>
+	<stdexcept>
+	<string>
+	<typeinfo>
+	<utility>
+	<vector>
+	"../chaiscript_defines.hpp"
+	"../chaiscript_threading.hpp"
+	"bad_boxed_cast.hpp"
+	"boxed_cast.hpp"
+	"boxed_cast_helper.hpp"
+	"boxed_value.hpp"
+	"type_conversions.hpp"
+	"dynamic_object.hpp"
+	"proxy_constructors.hpp"
+	"proxy_functions.hpp"
+	"type_info.hpp"
+	"short_alloc.hpp"
+
+1555954074 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\chaiscript_threading.hpp
+	<unordered_map>
+	<thread>
+	<mutex>
+	"chaiscript_defines.hpp"
+
+1555954132 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\bad_boxed_cast.hpp
+	<string>
+	<typeinfo>
+	"../chaiscript_defines.hpp"
+	"type_info.hpp"
+
+1555954140 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\type_info.hpp
+	<memory>
+	<type_traits>
+	<typeinfo>
+	<string>
+
+1555954134 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\boxed_cast.hpp
+	"../chaiscript_defines.hpp"
+	"bad_boxed_cast.hpp"
+	"boxed_cast_helper.hpp"
+	"boxed_value.hpp"
+	"type_conversions.hpp"
+	"type_info.hpp"
+
+1555954134 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\boxed_cast_helper.hpp
+	<memory>
+	<type_traits>
+	"boxed_value.hpp"
+	"type_info.hpp"
+
+1555954134 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\boxed_value.hpp
+	<map>
+	<memory>
+	<type_traits>
+	"../chaiscript_defines.hpp"
+	"any.hpp"
+	"type_info.hpp"
+
+1555954130 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\any.hpp
+	<utility>
+
+1555954140 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\type_conversions.hpp
+	<atomic>
+	<memory>
+	<set>
+	<stdexcept>
+	<string>
+	<type_traits>
+	<typeinfo>
+	"../chaiscript_threading.hpp"
+	"bad_boxed_cast.hpp"
+	"boxed_cast_helper.hpp"
+	"boxed_value.hpp"
+	"type_info.hpp"
+
+1555954134 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\dynamic_object.hpp
+	<map>
+	<string>
+	<utility>
+	"boxed_value.hpp"
+
+1555954138 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\proxy_constructors.hpp
+	"proxy_functions.hpp"
+
+1555954140 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\proxy_functions.hpp
+	<cassert>
+	<functional>
+	<memory>
+	<stdexcept>
+	<string>
+	<type_traits>
+	<vector>
+	<iterator>
+	"../chaiscript_defines.hpp"
+	"boxed_cast.hpp"
+	"boxed_value.hpp"
+	"proxy_functions_detail.hpp"
+	"type_info.hpp"
+	"dynamic_object.hpp"
+
+1555954138 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\proxy_functions_detail.hpp
+	<functional>
+	<stdexcept>
+	<vector>
+	<array>
+	"../chaiscript_defines.hpp"
+	"boxed_cast.hpp"
+	"boxed_value.hpp"
+	"handle_return.hpp"
+	"type_info.hpp"
+	"callable_traits.hpp"
+
+1555954138 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\handle_return.hpp
+	<functional>
+	<memory>
+	<type_traits>
+	"boxed_number.hpp"
+	"boxed_value.hpp"
+
+1555954134 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\boxed_number.hpp
+	<cstdint>
+	<sstream>
+	<string>
+	"../language/chaiscript_algebraic.hpp"
+	"any.hpp"
+	"boxed_cast.hpp"
+	"boxed_cast_helper.hpp"
+	"boxed_value.hpp"
+	"type_info.hpp"
+
+1555954142 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\language\chaiscript_algebraic.hpp
+	"../utility/fnv1a.hpp"
+	<string>
+
+1555954144 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\utility\fnv1a.hpp
+	<cstdint>
+	"../chaiscript_defines.hpp"
+
+1555954134 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\callable_traits.hpp
+	<memory>
+
+1555954138 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\short_alloc.hpp
+	<cstddef>
+	<cassert>
+
+1555954136 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\function_call.hpp
+	<functional>
+	<string>
+	<vector>
+	"boxed_cast.hpp"
+	"function_call_detail.hpp"
+	"proxy_functions.hpp"
+	"callable_traits.hpp"
+
+1555954136 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\function_call_detail.hpp
+	<functional>
+	<memory>
+	<string>
+	<type_traits>
+	<vector>
+	"boxed_cast.hpp"
+	"boxed_number.hpp"
+	"boxed_value.hpp"
+	"type_conversions.hpp"
+	"proxy_functions.hpp"
+
+1555954142 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\language\chaiscript_eval.hpp
+	<exception>
+	<functional>
+	<limits>
+	<map>
+	<memory>
+	<ostream>
+	<stdexcept>
+	<string>
+	<vector>
+	"../chaiscript_defines.hpp"
+	"../dispatchkit/boxed_cast.hpp"
+	"../dispatchkit/boxed_number.hpp"
+	"../dispatchkit/boxed_value.hpp"
+	"../dispatchkit/dispatchkit.hpp"
+	"../dispatchkit/dynamic_object_detail.hpp"
+	"../dispatchkit/proxy_functions.hpp"
+	"../dispatchkit/proxy_functions_detail.hpp"
+	"../dispatchkit/register_function.hpp"
+	"../dispatchkit/type_info.hpp"
+	"chaiscript_algebraic.hpp"
+	"chaiscript_common.hpp"
+
+1555954134 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\dynamic_object_detail.hpp
+	<cassert>
+	<map>
+	<memory>
+	<string>
+	<typeinfo>
+	<utility>
+	<vector>
+	"../chaiscript_defines.hpp"
+	"boxed_cast.hpp"
+	"boxed_cast_helper.hpp"
+	"boxed_value.hpp"
+	"proxy_functions.hpp"
+	"type_info.hpp"
+	"dynamic_object.hpp"
+
+1555954138 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\register_function.hpp
+	<type_traits>
+	"bind_first.hpp"
+	"proxy_functions.hpp"
+
+1555954132 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\bind_first.hpp
+	<functional>
+
+1555954142 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\language\chaiscript_common.hpp
+	<algorithm>
+	<memory>
+	<sstream>
+	<stdexcept>
+	<string>
+	<vector>
+	"../chaiscript_defines.hpp"
+	"../dispatchkit/boxed_value.hpp"
+	"../dispatchkit/dispatchkit.hpp"
+	"../dispatchkit/proxy_functions.hpp"
+	"../dispatchkit/type_info.hpp"
+
+1555954142 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\language\chaiscript_engine.hpp
+	<cassert>
+	<exception>
+	<fstream>
+	<functional>
+	<map>
+	<memory>
+	<mutex>
+	<set>
+	<stdexcept>
+	<vector>
+	<cstring>
+	"../chaiscript_defines.hpp"
+	"../chaiscript_threading.hpp"
+	"../dispatchkit/boxed_cast_helper.hpp"
+	"../dispatchkit/boxed_value.hpp"
+	"../dispatchkit/dispatchkit.hpp"
+	"../dispatchkit/type_conversions.hpp"
+	"../dispatchkit/proxy_functions.hpp"
+	"chaiscript_common.hpp"
+	<unistd.h>
+	<dlfcn.h>
+	"chaiscript_unknown.hpp"
+	"chaiscript_windows.hpp"
+	"chaiscript_posix.hpp"
+	"chaiscript_unknown.hpp"
+	"../dispatchkit/exception_specification.hpp"
+
+1555954144 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\language\chaiscript_unknown.hpp
+
+1555954144 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\language\chaiscript_windows.hpp
+	<string>
+	<windows.h>
+
+1555954142 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\language\chaiscript_posix.hpp
+
+1555954136 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\exception_specification.hpp
+	<memory>
+	"../chaiscript_defines.hpp"
+	"boxed_cast.hpp"
+
+1555954074 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\chaiscript_stdlib.hpp
+	<map>
+	<memory>
+	<string>
+	<utility>
+	<vector>
+	"chaiscript_defines.hpp"
+	"language/chaiscript_common.hpp"
+	"dispatchkit/function_call.hpp"
+	"dispatchkit/operators.hpp"
+	"dispatchkit/bootstrap.hpp"
+	"dispatchkit/bootstrap_stl.hpp"
+	"language/chaiscript_prelude.hpp"
+	"dispatchkit/register_function.hpp"
+	"utility/json_wrap.hpp"
+	<future>
+
+1555954138 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\operators.hpp
+	"../chaiscript_defines.hpp"
+	"register_function.hpp"
+
+1555954132 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\bootstrap.hpp
+	"../utility/utility.hpp"
+	"register_function.hpp"
+
+1555954146 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\utility\utility.hpp
+	<string>
+	<type_traits>
+	<utility>
+	<vector>
+	"../language/chaiscript_common.hpp"
+	"../dispatchkit/register_function.hpp"
+	"../dispatchkit/operators.hpp"
+
+1555954134 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\dispatchkit\bootstrap_stl.hpp
+	<functional>
+	<memory>
+	<stdexcept>
+	<typeinfo>
+	<vector>
+	"bootstrap.hpp"
+	"boxed_value.hpp"
+	"dispatchkit.hpp"
+	"operators.hpp"
+	"proxy_constructors.hpp"
+	"register_function.hpp"
+	"type_info.hpp"
+
+1555954142 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\language\chaiscript_prelude.hpp
+
+1555954144 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\utility\json_wrap.hpp
+	"json.hpp"
+
+1555954146 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\utility\json.hpp
+	<cstdint>
+	<cmath>
+	<cctype>
+	<string>
+	<vector>
+	<map>
+	<type_traits>
+	<initializer_list>
+	<ostream>
+	<iostream>
+	"../chaiscript_defines.hpp"
+
+1555954142 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\language\chaiscript_parser.hpp
+	<exception>
+	<iostream>
+	<memory>
+	<sstream>
+	<string>
+	<vector>
+	<cctype>
+	<cstring>
+	"../dispatchkit/boxed_value.hpp"
+	"chaiscript_common.hpp"
+	"chaiscript_optimizer.hpp"
+	"chaiscript_tracer.hpp"
+	"../utility/fnv1a.hpp"
+	"../utility/static_string.hpp"
+	<locale>
+	<codecvt>
+
+1555954142 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\language\chaiscript_optimizer.hpp
+	"chaiscript_eval.hpp"
+
+1555954144 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\language\chaiscript_tracer.hpp
+
+1555954146 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\utility\static_string.hpp
+
+1555953686 d:\pacman\pacman_static_ffmpeg_64\colorcodes.hpp
+
+1559490652 source:d:\pacman\pacman_static_ffmpeg_64\convert.cpp
+	"everything.hpp"
+
+1555953688 source:d:\pacman\pacman_static_ffmpeg_64\exit_program.cpp
+	<winsock2.h>
+	<io.h>
+	"WinMain.h"
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+	<sys/stat.h>
+	<iostream>
+	<cstdlib>
+	<Windows.h>
+	<Winuser.h>
+	<assert.h>
+	<vector>
+	<cmath>
+	<time.h>
+	<dirent.h>
+	<SFML/Audio.hpp>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/System.hpp>
+	<SFML/Network.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<sfeMovie/Movie.hpp>
+	"StreamSelector.hpp"
+	"MediaInfo.hpp"
+
+1557588234 source:d:\pacman\pacman_static_ffmpeg_64\file_functions.cpp
+	<wchar.h>
+	<winsock2.h>
+	<io.h>
+	"WinMain.h"
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+	<sys/stat.h>
+	<iostream>
+	<cstdlib>
+	<Windows.h>
+	<Winuser.h>
+	<assert.h>
+	<vector>
+	<cmath>
+	<time.h>
+	<dirent.h>
+	<SFML/Audio.hpp>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/System.hpp>
+	<SFML/Network.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<sfeMovie/Movie.hpp>
+	"StreamSelector.hpp"
+	"MediaInfo.hpp"
+
+1560358500 source:d:\pacman\pacman_static_ffmpeg_64\getfilefrominternet.cpp
+	<Windows.h>
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Network.hpp>
+	<iostream>
+
+1560347778 source:d:\pacman\pacman_static_ffmpeg_64\init.cpp
+	<stdio.h>
+	<stdlib.h>
+	<iostream>
+	<Windows.h>
+	<dirent.h>
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<stdio.h>
+	<string.h>
+	<iostream>
+	<fstream>
+
+1560337331 source:d:\pacman\pacman_static_ffmpeg_64\key_functions.cpp
+	<wchar.h>
+	<winsock2.h>
+	<io.h>
+	"WinMain.h"
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+	<sys/stat.h>
+	<iostream>
+	<Windows.h>
+	<TlHelp32.h>
+	<tchar.h>
+	<signal.h>
+	<Winuser.h>
+	<assert.h>
+	<vector>
+	<cmath>
+	<time.h>
+	<dirent.h>
+	<sys/types.h>
+	<unistd.h>
+	<SFML/Audio.hpp>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/System.hpp>
+	<SFML/Network.hpp>
+	"StreamSelector.hpp"
+	<SFML/System/Mutex.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<sfeMovie/Movie.hpp>
+	"MediaInfo.hpp"
+	<SFML/OpenGL.hpp>
+	<GL/glext.h>
+	<GL/glu.h>
+	<GL/gl.h>
+	<dirent.h>
+	"keylist.hpp"
+	<string.h>
+
+1557477548 source:d:\pacman\pacman_static_ffmpeg_64\make_black_transparant.cpp
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+
+1560341062 source:d:\pacman\pacman_static_ffmpeg_64\map.cpp
+	<winsock2.h>
+	<io.h>
+	"WinMain.h"
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+	<sys/stat.h>
+	<iostream>
+	<cstdlib>
+	<Windows.h>
+	<Winuser.h>
+	<assert.h>
+	<vector>
+	<cmath>
+	<time.h>
+	<dirent.h>
+	<SFML/Audio.hpp>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/System.hpp>
+	<SFML/Network.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<sfeMovie/Movie.hpp>
+	"StreamSelector.hpp"
+	<SFML/OpenGL.hpp>
+	<GL/glext.h>
+	<GL/glu.h>
+	<GL/gl.h>
+	"MediaInfo.hpp"
+
+1556233083 source:d:\pacman\pacman_static_ffmpeg_64\maps.cpp
+	"everything.hpp"
+
+1555953698 source:d:\pacman\pacman_static_ffmpeg_64\maze.cpp
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<math.h>
+	<fcntl.h>
+	<iostream>
+
+1560339143 source:d:\pacman\pacman_static_ffmpeg_64\maze_functions.cpp
+	"everything.hpp"
+
+1555953698 source:d:\pacman\pacman_static_ffmpeg_64\mediainfo.cpp
+	"MediaInfo.hpp"
+	<string>
+	<iostream>
+
+1555953698 source:d:\pacman\pacman_static_ffmpeg_64\moviedemo.cpp
+	<SFML/Config.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<sfeMovie/Movie.hpp>
+	<iostream>
+	<algorithm>
+	"UserInterface.hpp"
+	"StreamSelector.hpp"
+	"MediaInfo.hpp"
+	<stdio.h>
+	<stdlib.h>
+	<iostream>
+	<io.h>
+	<cstdlib>
+	<assert.h>
+	<Windows.h>
+
+1555953718 d:\pacman\pacman_static_ffmpeg_64\userinterface.hpp
+	<SFML/Graphics/RenderWindow.hpp>
+	<sfeMovie/Movie.hpp>
+
+1555953700 source:d:\pacman\pacman_static_ffmpeg_64\network.cpp
+	<winsock2.h>
+	<io.h>
+	"WinMain.h"
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+	<sys/stat.h>
+	<iostream>
+	<cstdlib>
+	<Windows.h>
+	<Winuser.h>
+	<assert.h>
+	<vector>
+	<cmath>
+	<time.h>
+	<dirent.h>
+	<SFML/Audio.hpp>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/System.hpp>
+	<SFML/Network.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<sfeMovie/Movie.hpp>
+	"StreamSelector.hpp"
+	"MediaInfo.hpp"
+
+1556452844 source:d:\pacman\pacman_static_ffmpeg_64\plotting.cpp
+	<winsock2.h>
+	<io.h>
+	"WinMain.h"
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+	<sys/stat.h>
+	<iostream>
+	<cstdlib>
+	<Windows.h>
+	<Winuser.h>
+	<assert.h>
+	<vector>
+	<cmath>
+	<time.h>
+	<dirent.h>
+	<SFML/Audio.hpp>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/System.hpp>
+	<SFML/Network.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<sfeMovie/Movie.hpp>
+	"StreamSelector.hpp"
+	"MediaInfo.hpp"
+
+1557318800 source:d:\pacman\pacman_static_ffmpeg_64\print_to_screen.cpp
+	"everything.hpp"
+
+1556410802 source:d:\pacman\pacman_static_ffmpeg_64\recording.cpp
+	<winsock2.h>
+	<io.h>
+	"WinMain.h"
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+	<sys/stat.h>
+	<iostream>
+	<cstdlib>
+	<Windows.h>
+	<Winuser.h>
+	<assert.h>
+	<vector>
+	<cmath>
+	<time.h>
+	<dirent.h>
+	<SFML/Audio.hpp>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/System.hpp>
+	<SFML/Network.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<sfeMovie/Movie.hpp>
+	"StreamSelector.hpp"
+	"MediaInfo.hpp"
+	"colorcodes.hpp"
+
+1555953714 source:d:\pacman\pacman_static_ffmpeg_64\scripting.cpp
+	<chaiscript/chaiscript.hpp>
+	<iostream>
+	<list>
+	<regex>
+	<chaiscript/chaiscript_basic.hpp>
+	"chaiscript/static_libs/chaiscript_parser.hpp"
+	"chaiscript/static_libs/chaiscript_stdlib.hpp"
+	<readline/readline.h>
+	<readline/history.h>
+
+1555954140 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\static_libs\chaiscript_parser.hpp
+
+1555954140 d:\pacman\pacman_static_ffmpeg_64\include\chaiscript\static_libs\chaiscript_stdlib.hpp
+
+1559236040 source:d:\pacman\pacman_static_ffmpeg_64\shader.cpp
+	"Effect.hpp"
+	<vector>
+	<cmath>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<SFML/OpenGL.hpp>
+	<GL/glext.h>
+	<GL/glu.h>
+	<GL/gl.h>
+	<algorithm>
+	<bits/stdc++.h>
+
+1555953686 d:\pacman\pacman_static_ffmpeg_64\effect.hpp
+	<SFML/Graphics.hpp>
+	<cassert>
+	<string>
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\glm.hpp
+	"detail/_fixes.hpp"
+	"detail/setup.hpp"
+	<cmath>
+	<climits>
+	<cfloat>
+	<limits>
+	<cassert>
+	"fwd.hpp"
+	"vec2.hpp"
+	"vec3.hpp"
+	"vec4.hpp"
+	"mat2x2.hpp"
+	"mat2x3.hpp"
+	"mat2x4.hpp"
+	"mat3x2.hpp"
+	"mat3x3.hpp"
+	"mat3x4.hpp"
+	"mat4x2.hpp"
+	"mat4x3.hpp"
+	"mat4x4.hpp"
+	"trigonometric.hpp"
+	"exponential.hpp"
+	"common.hpp"
+	"packing.hpp"
+	"geometric.hpp"
+	"matrix.hpp"
+	"vector_relational.hpp"
+	"integer.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\_fixes.hpp
+	<cmath>
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\setup.hpp
+	<cassert>
+	<cstddef>
+	"../simd/platform.h"
+	<cstdint>
+	<type_traits>
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\simd\platform.h
+	<cuda.h>
+	<immintrin.h>
+	<immintrin.h>
+	<popcntintrin.h>
+	<nmmintrin.h>
+	<smmintrin.h>
+	<tmmintrin.h>
+	<pmmintrin.h>
+	<emmintrin.h>
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\fwd.hpp
+	"detail/qualifier.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\qualifier.hpp
+	"setup.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\vec2.hpp
+	"./ext/vector_bool2.hpp"
+	"./ext/vector_bool2_precision.hpp"
+	"./ext/vector_float2.hpp"
+	"./ext/vector_float2_precision.hpp"
+	"./ext/vector_double2.hpp"
+	"./ext/vector_double2_precision.hpp"
+	"./ext/vector_int2.hpp"
+	"./ext/vector_int2_precision.hpp"
+	"./ext/vector_uint2.hpp"
+	"./ext/vector_uint2_precision.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_bool2.hpp
+	"../detail/type_vec2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_vec2.hpp
+	"qualifier.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<cstddef>
+	"type_vec2.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\_swizzle.hpp
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\_swizzle_func.hpp
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_vec2.inl
+	"./compute_vector_relational.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\compute_vector_relational.hpp
+	"setup.hpp"
+	<limits>
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_bool2_precision.hpp
+	"../detail/type_vec2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_float2.hpp
+	"../detail/type_vec2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_float2_precision.hpp
+	"../detail/type_vec2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_double2.hpp
+	"../detail/type_vec2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_double2_precision.hpp
+	"../detail/type_vec2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_int2.hpp
+	"../detail/type_vec2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_int2_precision.hpp
+	"../detail/type_vec2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_uint2.hpp
+	"../detail/type_vec2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_uint2_precision.hpp
+	"../detail/type_vec2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\vec3.hpp
+	"./ext/vector_bool3.hpp"
+	"./ext/vector_bool3_precision.hpp"
+	"./ext/vector_float3.hpp"
+	"./ext/vector_float3_precision.hpp"
+	"./ext/vector_double3.hpp"
+	"./ext/vector_double3_precision.hpp"
+	"./ext/vector_int3.hpp"
+	"./ext/vector_int3_precision.hpp"
+	"./ext/vector_uint3.hpp"
+	"./ext/vector_uint3_precision.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_bool3.hpp
+	"../detail/type_vec3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_vec3.hpp
+	"qualifier.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<cstddef>
+	"type_vec3.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_vec3.inl
+	"compute_vector_relational.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_bool3_precision.hpp
+	"../detail/type_vec3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_float3.hpp
+	"../detail/type_vec3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_float3_precision.hpp
+	"../detail/type_vec3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_double3.hpp
+	"../detail/type_vec3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_double3_precision.hpp
+	"../detail/type_vec3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_int3.hpp
+	"../detail/type_vec3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_int3_precision.hpp
+	"../detail/type_vec3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_uint3.hpp
+	"../detail/type_vec3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_uint3_precision.hpp
+	"../detail/type_vec3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\vec4.hpp
+	"./ext/vector_bool4.hpp"
+	"./ext/vector_bool4_precision.hpp"
+	"./ext/vector_float4.hpp"
+	"./ext/vector_float4_precision.hpp"
+	"./ext/vector_double4.hpp"
+	"./ext/vector_double4_precision.hpp"
+	"./ext/vector_int4.hpp"
+	"./ext/vector_int4_precision.hpp"
+	"./ext/vector_uint4.hpp"
+	"./ext/vector_uint4_precision.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_bool4.hpp
+	"../detail/type_vec4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_vec4.hpp
+	"qualifier.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<cstddef>
+	"type_vec4.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_vec4.inl
+	"compute_vector_relational.hpp"
+	"type_vec4_simd.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_vec4_simd.inl
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_bool4_precision.hpp
+	"../detail/type_vec4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_float4.hpp
+	"../detail/type_vec4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_float4_precision.hpp
+	"../detail/type_vec4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_double4.hpp
+	"../detail/type_vec4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_double4_precision.hpp
+	"../detail/setup.hpp"
+	"../detail/type_vec4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_int4.hpp
+	"../detail/type_vec4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_int4_precision.hpp
+	"../detail/type_vec4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_uint4.hpp
+	"../detail/type_vec4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\vector_uint4_precision.hpp
+	"../detail/type_vec4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\mat2x2.hpp
+	"./ext/matrix_double2x2.hpp"
+	"./ext/matrix_double2x2_precision.hpp"
+	"./ext/matrix_float2x2.hpp"
+	"./ext/matrix_float2x2_precision.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_double2x2.hpp
+	"../detail/type_mat2x2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat2x2.hpp
+	"type_vec2.hpp"
+	<limits>
+	<cstddef>
+	"type_mat2x2.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat2x2.inl
+	"../matrix.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\matrix.hpp
+	"detail/qualifier.hpp"
+	"detail/setup.hpp"
+	"vec2.hpp"
+	"vec3.hpp"
+	"vec4.hpp"
+	"mat2x2.hpp"
+	"mat2x3.hpp"
+	"mat2x4.hpp"
+	"mat3x2.hpp"
+	"mat3x3.hpp"
+	"mat3x4.hpp"
+	"mat4x2.hpp"
+	"mat4x3.hpp"
+	"mat4x4.hpp"
+	"detail/func_matrix.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\mat2x3.hpp
+	"./ext/matrix_double2x3.hpp"
+	"./ext/matrix_double2x3_precision.hpp"
+	"./ext/matrix_float2x3.hpp"
+	"./ext/matrix_float2x3_precision.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_double2x3.hpp
+	"../detail/type_mat2x3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat2x3.hpp
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	<limits>
+	<cstddef>
+	"type_mat2x3.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat2x3.inl
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_double2x3_precision.hpp
+	"../detail/type_mat2x3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_float2x3.hpp
+	"../detail/type_mat2x3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_float2x3_precision.hpp
+	"../detail/type_mat2x3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\mat2x4.hpp
+	"./ext/matrix_double2x4.hpp"
+	"./ext/matrix_double2x4_precision.hpp"
+	"./ext/matrix_float2x4.hpp"
+	"./ext/matrix_float2x4_precision.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_double2x4.hpp
+	"../detail/type_mat2x4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat2x4.hpp
+	"type_vec2.hpp"
+	"type_vec4.hpp"
+	<limits>
+	<cstddef>
+	"type_mat2x4.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat2x4.inl
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_double2x4_precision.hpp
+	"../detail/type_mat2x4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_float2x4.hpp
+	"../detail/type_mat2x4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_float2x4_precision.hpp
+	"../detail/type_mat2x4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\mat3x2.hpp
+	"./ext/matrix_double3x2.hpp"
+	"./ext/matrix_double3x2_precision.hpp"
+	"./ext/matrix_float3x2.hpp"
+	"./ext/matrix_float3x2_precision.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_double3x2.hpp
+	"../detail/type_mat3x2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat3x2.hpp
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	<limits>
+	<cstddef>
+	"type_mat3x2.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat3x2.inl
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_double3x2_precision.hpp
+	"../detail/type_mat3x2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_float3x2.hpp
+	"../detail/type_mat3x2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_float3x2_precision.hpp
+	"../detail/type_mat3x2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\mat3x3.hpp
+	"./ext/matrix_double3x3.hpp"
+	"./ext/matrix_double3x3_precision.hpp"
+	"./ext/matrix_float3x3.hpp"
+	"./ext/matrix_float3x3_precision.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_double3x3.hpp
+	"../detail/type_mat3x3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat3x3.hpp
+	"type_vec3.hpp"
+	<limits>
+	<cstddef>
+	"type_mat3x3.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat3x3.inl
+	"../matrix.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_double3x3_precision.hpp
+	"../detail/type_mat3x3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_float3x3.hpp
+	"../detail/type_mat3x3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_float3x3_precision.hpp
+	"../detail/type_mat3x3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\mat3x4.hpp
+	"./ext/matrix_double3x4.hpp"
+	"./ext/matrix_double3x4_precision.hpp"
+	"./ext/matrix_float3x4.hpp"
+	"./ext/matrix_float3x4_precision.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_double3x4.hpp
+	"../detail/type_mat3x4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat3x4.hpp
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	<limits>
+	<cstddef>
+	"type_mat3x4.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat3x4.inl
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_double3x4_precision.hpp
+	"../detail/type_mat3x4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_float3x4.hpp
+	"../detail/type_mat3x4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_float3x4_precision.hpp
+	"../detail/type_mat3x4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\mat4x2.hpp
+	"./ext/matrix_double4x2.hpp"
+	"./ext/matrix_double4x2_precision.hpp"
+	"./ext/matrix_float4x2.hpp"
+	"./ext/matrix_float4x2_precision.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_double4x2.hpp
+	"../detail/type_mat4x2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat4x2.hpp
+	"type_vec2.hpp"
+	"type_vec4.hpp"
+	<limits>
+	<cstddef>
+	"type_mat4x2.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat4x2.inl
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_double4x2_precision.hpp
+	"../detail/type_mat4x2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_float4x2.hpp
+	"../detail/type_mat4x2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_float4x2_precision.hpp
+	"../detail/type_mat2x2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\mat4x3.hpp
+	"./ext/matrix_double4x3.hpp"
+	"./ext/matrix_double4x3_precision.hpp"
+	"./ext/matrix_float4x3.hpp"
+	"./ext/matrix_float4x3_precision.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_double4x3.hpp
+	"../detail/type_mat4x3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat4x3.hpp
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	<limits>
+	<cstddef>
+	"type_mat4x3.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat4x3.inl
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_double4x3_precision.hpp
+	"../detail/type_mat4x3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_float4x3.hpp
+	"../detail/type_mat4x3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_float4x3_precision.hpp
+	"../detail/type_mat4x3.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\mat4x4.hpp
+	"./ext/matrix_double4x4.hpp"
+	"./ext/matrix_double4x4_precision.hpp"
+	"./ext/matrix_float4x4.hpp"
+	"./ext/matrix_float4x4_precision.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_double4x4.hpp
+	"../detail/type_mat4x4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat4x4.hpp
+	"type_vec4.hpp"
+	<limits>
+	<cstddef>
+	"type_mat4x4.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat4x4.inl
+	"../matrix.hpp"
+	"type_mat4x4_simd.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_mat4x4_simd.inl
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_double4x4_precision.hpp
+	"../detail/type_mat4x4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_float4x4.hpp
+	"../detail/type_mat4x4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_float4x4_precision.hpp
+	"../detail/type_mat4x4.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\func_matrix.inl
+	"../geometric.hpp"
+	<limits>
+	"func_matrix_simd.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\geometric.hpp
+	"detail/type_vec3.hpp"
+	"detail/func_geometric.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\func_geometric.inl
+	"../exponential.hpp"
+	"../common.hpp"
+	"func_geometric_simd.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\exponential.hpp
+	"detail/type_vec1.hpp"
+	"detail/type_vec2.hpp"
+	"detail/type_vec3.hpp"
+	"detail/type_vec4.hpp"
+	<cmath>
+	"detail/func_exponential.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_vec1.hpp
+	"qualifier.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<cstddef>
+	"type_vec1.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_vec1.inl
+	"./compute_vector_relational.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\func_exponential.inl
+	"../vector_relational.hpp"
+	"_vectorize.hpp"
+	<limits>
+	<cmath>
+	<cassert>
+	"func_exponential_simd.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\vector_relational.hpp
+	"detail/qualifier.hpp"
+	"detail/setup.hpp"
+	"detail/func_vector_relational.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\func_vector_relational.inl
+	"func_vector_relational_simd.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\func_vector_relational_simd.inl
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\_vectorize.hpp
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\func_exponential_simd.inl
+	"../simd/exponential.h"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\simd\exponential.h
+	"platform.h"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\common.hpp
+	"detail/qualifier.hpp"
+	"detail/_fixes.hpp"
+	"detail/func_common.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\func_common.inl
+	"../vector_relational.hpp"
+	"compute_common.hpp"
+	"type_vec1.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	"_vectorize.hpp"
+	<limits>
+	"func_common_simd.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\compute_common.hpp
+	"setup.hpp"
+	<limits>
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\func_common_simd.inl
+	"../simd/common.h"
+	<immintrin.h>
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\simd\common.h
+	"platform.h"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\func_geometric_simd.inl
+	"../simd/geometric.h"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\simd\geometric.h
+	"common.h"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\func_matrix_simd.inl
+	"type_mat4x4.hpp"
+	"../geometric.hpp"
+	"../simd/matrix.h"
+	<cstring>
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\simd\matrix.h
+	"geometric.h"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_double2x2_precision.hpp
+	"../detail/type_mat2x2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_float2x2.hpp
+	"../detail/type_mat2x2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_float2x2_precision.hpp
+	"../detail/type_mat2x2.hpp"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\trigonometric.hpp
+	"detail/setup.hpp"
+	"detail/qualifier.hpp"
+	"detail/func_trigonometric.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\func_trigonometric.inl
+	"_vectorize.hpp"
+	<cmath>
+	<limits>
+	"func_trigonometric_simd.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\func_trigonometric_simd.inl
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\packing.hpp
+	"./ext/vector_uint2.hpp"
+	"./ext/vector_float2.hpp"
+	"./ext/vector_float4.hpp"
+	"detail/func_packing.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\func_packing.inl
+	"../common.hpp"
+	"type_half.hpp"
+	"func_packing_simd.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_half.hpp
+	"setup.hpp"
+	"type_half.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\type_half.inl
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\func_packing_simd.inl
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\integer.hpp
+	"detail/qualifier.hpp"
+	"common.hpp"
+	"vector_relational.hpp"
+	"detail/func_integer.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\func_integer.inl
+	"_vectorize.hpp"
+	<intrin.h>
+	<limits>
+	"func_integer_simd.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\detail\func_integer_simd.inl
+	"../simd/integer.h"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\simd\integer.h
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\gtc\matrix_transform.hpp
+	"../mat4x4.hpp"
+	"../vec2.hpp"
+	"../vec3.hpp"
+	"../vec4.hpp"
+	"../ext/matrix_projection.hpp"
+	"../ext/matrix_clip_space.hpp"
+	"../ext/matrix_transform.hpp"
+	"matrix_transform.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_projection.hpp
+	"../gtc/constants.hpp"
+	"../geometric.hpp"
+	"../trigonometric.hpp"
+	"../matrix.hpp"
+	"matrix_projection.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\gtc\constants.hpp
+	"../ext/scalar_constants.hpp"
+	"constants.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\scalar_constants.hpp
+	"../detail/setup.hpp"
+	"scalar_constants.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\scalar_constants.inl
+	<limits>
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\gtc\constants.inl
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_projection.inl
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_clip_space.hpp
+	"../ext/scalar_constants.hpp"
+	"../geometric.hpp"
+	"../trigonometric.hpp"
+	"matrix_clip_space.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_clip_space.inl
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_transform.hpp
+	"../gtc/constants.hpp"
+	"../geometric.hpp"
+	"../trigonometric.hpp"
+	"../matrix.hpp"
+	"matrix_transform.inl"
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\ext\matrix_transform.inl
+
+1554168504 d:\pacman\pacman_static_ffmpeg_64\include\glm\gtc\matrix_transform.inl
+	"../geometric.hpp"
+	"../trigonometric.hpp"
+	"../matrix.hpp"
+
+1555953714 source:d:\pacman\pacman_static_ffmpeg_64\shaders.cpp
+	<winsock2.h>
+	<io.h>
+	"WinMain.h"
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+	<sys/stat.h>
+	<iostream>
+	<cstdlib>
+	<Windows.h>
+	<Winuser.h>
+	<assert.h>
+	<vector>
+	<cmath>
+	<time.h>
+	<dirent.h>
+	<SFML/Audio.hpp>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/System.hpp>
+	<SFML/Network.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<sfeMovie/Movie.hpp>
+	"StreamSelector.hpp"
+	"MediaInfo.hpp"
+
+1555953714 source:d:\pacman\pacman_static_ffmpeg_64\streamselector.cpp
+	"StreamSelector.hpp"
+	"MediaInfo.hpp"
+	<iostream>
+
+1555953716 source:d:\pacman\pacman_static_ffmpeg_64\tcp.cpp
+	<SFML/Network.hpp>
+	<iostream>
+	<Windows.h>
+	<string>
+	<stdio.h>
+	<stdlib.h>
+
+1556295115 source:d:\pacman\pacman_static_ffmpeg_64\text_functions.cpp
+	<wchar.h>
+	<winsock2.h>
+	<io.h>
+	"WinMain.h"
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<sys/time.h>
+	<sys/stat.h>
+	<iostream>
+	<cstdlib>
+	<Windows.h>
+	<Winuser.h>
+	<assert.h>
+	<vector>
+	<cmath>
+	<time.h>
+	<dirent.h>
+	<SFML/Audio.hpp>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/System.hpp>
+	<SFML/Network.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<sfeMovie/Movie.hpp>
+	"StreamSelector.hpp"
+	"MediaInfo.hpp"
+
+1555953718 source:d:\pacman\pacman_static_ffmpeg_64\udp.cpp
+	<SFML/Network.hpp>
+	<iostream>
+	<Windows.h>
+	<string>
+
+1555953716 source:d:\pacman\pacman_static_ffmpeg_64\userinterface.cpp
+	"UserInterface.hpp"
+
+1560409718 source:d:\pacman\pacman_static_ffmpeg_64\wierdo.cpp
+	<winsock2.h>
+	<io.h>
+	"WinMain.h"
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+	<iostream>
+	<cstdlib>
+	<Windows.h>
+	<Winuser.h>
+	<assert.h>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<time.h>
+	<SFML/Audio.hpp>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/System.hpp>
+	<SFML/Network.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<SFML/OpenGL.hpp>
+	<GL/glext.h>
+	<GL/glu.h>
+	<GL/gl.h>
+
+1556153213 source:d:\pacman\pacman_static_ffmpeg_64\winapi.cpp
+	<winsock2.h>
+	<io.h>
+	"WinMain.h"
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+	<sys/stat.h>
+	<iostream>
+	<cstdlib>
+	<Windows.h>
+	<Winuser.h>
+	<assert.h>
+	<vector>
+	<cmath>
+	<time.h>
+	<dirent.h>
+	<SFML/Audio.hpp>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/System.hpp>
+	<SFML/Network.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<sfeMovie/Movie.hpp>
+	"StreamSelector.hpp"
+	"MediaInfo.hpp"
+	<wchar.h>
+	<locale.h>
+
+1560681658 source:d:\pacman\pacman_static_ffmpeg_64\winmain.cpp
+	<winsock2.h>
+	<io.h>
+	"WinMain.h"
+	<stdio.h>
+	<conio.h>
+	<dos.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+	<sys/stat.h>
+	<iostream>
+	<cstdlib>
+	<Windows.h>
+	<Winuser.h>
+	<assert.h>
+	<vector>
+	<cmath>
+	<time.h>
+	<dirent.h>
+	<psapi.h>
+	<locale.h>
+	<unistd.h>
+	<SFML/Audio.hpp>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/System.hpp>
+	<SFML/Network.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<sfeMovie/Movie.hpp>
+	"StreamSelector.hpp"
+	"MediaInfo.hpp"
+	"Effect.hpp"
+	<SFML/OpenGL.hpp>
+	<GL/glext.h>
+	<GL/glu.h>
+	<GL/gl.h>
+	"keylist.hpp"
+
+1560722746 source:d:\pacman\pacman_static_ffmpeg_64\main.cpp
+	"opencv2/objdetect.hpp"
+	"opencv2/highgui.hpp"
+	"opencv2/imgproc.hpp"
+	<iostream>
+

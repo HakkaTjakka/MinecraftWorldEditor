@@ -1,0 +1,29 @@
+     [21:29:26] --- Started Log ---
+     [21:29:26] Cuberite local build build id: Unknown
+     [21:29:26] from commit id: approx: e0ca4d83991d80865781c1dbbbfa1f92259a366a built at: approx: 2019-08-11 11:39:43 +0200
+     [21:29:26] Creating new server instance...
+     [21:29:26] Reading server config...
+     [21:29:26] Starting server...
+Info [21:29:26] Compatible clients: 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x
+Info [21:29:26] Compatible protocol versions 47, 107, 108, 109, 110, 210, 315, 316, 335, 338, 340
+Info [21:29:26] Setting default viewdistance to the maximum of 32
+Info [21:29:26] WebServer: The server will run in secure HTTPS mode.
+     [21:29:26] Loaded 755 crafting recipes
+     [21:29:26] Loaded 67 furnace recipes and 66 fuels
+     [21:29:26] Loaded 88 brewing recipes
+Warn [21:29:26] Cannot read world settings from "world/world.ini", defaults will be used.
+Info [21:29:26] Chosen a new random seed for world: 15319216
+     [21:29:26] -- Loading Plugins --
+     [21:29:26] Initialised Core v.15
+     [21:29:26] Initialized ChatLog v.3
+     [21:29:26] -- Loaded 2 Plugins --
+Warn [21:29:27] World "Test": Did not find an acceptable spawnpoint. Generated a random spawnpoint position at {0.00, 251.00, 0.00}
+     [21:29:28] Preparing spawn (world): 20.50% (82/400; 80.23 chunks / sec)
+     [21:29:29] Preparing spawn (world): 50.75% (203/400; 118.63 chunks / sec)
+     [21:29:30] Preparing spawn (world): 86.75% (347/400; 141.45 chunks / sec)
+Warn [21:29:30] World "world": Did not find an acceptable spawnpoint. Generated a random spawnpoint position at {0.00, 61.00, 0.00}
+Warn [21:29:30] Cannot listen on port 25565: 10048 (Cannot bind IPv6 socket to port 25565: 10048 (Elk socketadres (protocol/netwerkadres/poort) kan normaal slechts één keer worden gebruikt.)).
+Err  [21:29:30] Couldn't open any ports. Aborting the server
+     [21:29:31] Unloading worlds...
+     [21:29:31] Disabled Core!
+     [21:29:31] Cleaning up...

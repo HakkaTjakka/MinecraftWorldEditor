@@ -1,0 +1,41 @@
+     [10:13:42] --- Started Log ---
+     [10:13:42] Cuberite local build build id: Unknown
+     [10:13:42] from commit id: approx: e0ca4d83991d80865781c1dbbbfa1f92259a366a built at: approx: 2019-08-11 11:39:43 +0200
+     [10:13:42] Creating new server instance...
+     [10:13:42] Reading server config...
+     [10:13:42] Starting server...
+Info [10:13:42] Compatible clients: 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x
+Info [10:13:42] Compatible protocol versions 47, 107, 108, 109, 110, 210, 315, 316, 335, 338, 340
+Info [10:13:42] WebServer: The server will run in secure HTTPS mode.
+     [10:13:42] Loaded 755 crafting recipes
+     [10:13:42] Loaded 67 furnace recipes and 66 fuels
+     [10:13:42] Loaded 88 brewing recipes
+Warn [10:13:45] Cannot read world settings from "D:/Saves/Test/world.ini", defaults will be used.
+Info [10:13:45] Chosen a new random seed for world: 15319216
+     [10:13:45] -- Loading Plugins --
+     [10:13:45] Initialised Core v.15
+     [10:13:45] Initialized ChatLog v.3
+     [10:13:45] -- Loaded 2 Plugins --
+     [10:13:46] Preparing spawn (Test): 10,25% (41/400; 40,92 chunks / sec)
+     [10:13:47] Preparing spawn (Test): 33,50% (134/400; 85,87 chunks / sec)
+     [10:13:48] Preparing spawn (Test): 78,75% (315/400; 180,46 chunks / sec)
+Warn [10:13:49] World "Test": Did not find an acceptable spawnpoint. Generated a random spawnpoint position at {0,00, 0,00, 0,00}
+     [10:13:50] Preparing spawn (World0): 63,75% (255/400; 246,38 chunks / sec)
+Warn [10:13:50] World "World0": Did not find an acceptable spawnpoint. Generated a random spawnpoint position at {0,00, 3,00, 0,00}
+     [10:13:51] Preparing spawn (World1): 48,50% (194/400; 194,00 chunks / sec)
+     [10:13:52] Preparing spawn (World10): 70,50% (282/400; 274,05 chunks / sec)
+     [10:13:53] Preparing spawn (World2): 28,50% (114/400; 104,97 chunks / sec)
+     [10:13:55] Preparing spawn (World2): 51,75% (207/400; 67,54 chunks / sec)
+Warn [10:13:55] Loading chunk [136, 95] for world World2 from file r.4.2.mca failed: NBT parsing failed. Offloading old chunk data to file D:/Saves/Atropos by carloooo V2.5\region\badchunks\ch.136.95.2019-08-20-10-13-55.dat and regenerating chunk.
+     [10:13:56] Preparing spawn (World2): 64,75% (259/400; 49,95 chunks / sec)
+     [10:13:57] Preparing spawn (World2): 75,00% (300/400; 39,08 chunks / sec)
+Warn [10:14:02] World "World9": Did not find an acceptable spawnpoint. Generated a random spawnpoint position at {0,00, 41,00, 0,00}
+     [10:14:03] Preparing spawn (world): 85,25% (341/400; 333,99 chunks / sec)
+Info [10:14:03] WebAdmin is running on port(s) 8080
+     [10:14:03] Startup complete, took 21163ms!
+     [10:15:13] Shutting down server...
+     [10:15:14] Unloading worlds...
+     [10:15:15] Disabled Core!
+     [10:15:15] Cleaning up...
+     [10:15:15] Shutdown successful!
+     [10:15:15] --- Stopped Log ---
