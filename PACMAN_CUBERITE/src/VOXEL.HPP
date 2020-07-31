@@ -56,10 +56,11 @@ struct hit_one_region {
                                             index4(index4_),    index5(index5_),    index6(index6_),    index7(index7_),
                                             index8(index8_),    index9(index9_),    index10(index10_),  index11(index11),  index12(index12) {};
 
-    bool operator < (const Voxel &B) const
+    bool operator < (const hit_one_region &B) const
     {
-        if (z < B.z) return z < B.z;
-        else return x < B.x;
+//        if (z < B.z) return z < B.z;
+//        else return x < B.x;
+        return index8 < B.index8;
 
     }
 

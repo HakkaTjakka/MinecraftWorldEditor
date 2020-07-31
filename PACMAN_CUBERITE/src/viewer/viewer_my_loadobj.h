@@ -1660,8 +1660,8 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
 //        bot_left =glm::dvec2(3105714.1226496957,   -5365303.167017606);
 //        bot_right=glm::dvec2(3119098.869450965,    -5361027.64235222);
 
-        float cnt_x=(3109621.6855937983+3122982.1209280635+3105714.1226496957+3119098.869450965)/4.0;
-        float cnt_z=(-5377456.286742788-5373177.931635568-5365303.167017606-5361027.64235222)/4.0;
+        float cnt_x=3105714.1226496957;
+        float cnt_z=-5377456.286742788;
 
         top_left =glm::dvec2((3109621.6855937983-cnt_x)*3.0,   (-5377456.286742788-cnt_z)*3.0);
         top_right=glm::dvec2((3122982.1209280635-cnt_x)*3.0,   (-5373177.931635568-cnt_z)*3.0);
@@ -3094,7 +3094,8 @@ extern float* fspeed_ghosty;
             if (flushing) printf("FLUSHING:\n");
             int NUMBER_OF_REGIONS=0;
 
-            for (int n=0; n < vector_hit_regions.size(); n++) {
+            sort(vector_hit_regions.begin(), vector_hit_regions.end()); // sort on number of columns (int)(512.0*512.0*0.9995) (flushing to voxel files first).
+            for (int n=0; n < vector_hit_regions.size(); n++) {         // fok! exept not flushing region voxel files... hmmm
 
                 hit_one_region* hit_one=&vector_hit_regions[n];
 
