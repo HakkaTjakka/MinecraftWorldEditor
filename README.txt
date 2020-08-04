@@ -6,7 +6,7 @@ Source code:
 
 https://github.com/HakkaTjakka/MinecraftWorldEditor
 
-This program is als used by:
+This program is also used by:
 
 https://github.com/HakkaTjakka/Minecraft-Voxelizer
 
