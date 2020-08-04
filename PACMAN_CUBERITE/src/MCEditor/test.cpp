@@ -6694,13 +6694,13 @@ extern std::string area;
             }
             printf("caves:\n");
             static bool first=true;
-            static float d[31][31][31];
+            static float d[35][35][35];
             if (first) {
                 first=false;
-                for (int xxx=-15; xxx<16; xxx++) {
-                    for (int zzz=-15; zzz<16; zzz++) {
-                        for (int yyy=-15; yyy<16; yyy++) {
-                            d[xxx+15][zzz+15][yyy+15]=sqrt(float(xxx*xxx)+float(yyy*yyy)+float(zzz*zzz));
+                for (int xxx=-17; xxx<18; xxx++) {
+                    for (int zzz=-17; zzz<18; zzz++) {
+                        for (int yyy=-17; yyy<18; yyy++) {
+                            d[xxx+17][zzz+17][yyy+17]=sqrt(float(xxx*xxx)+float(yyy*yyy)+float(zzz*zzz));
                         }
                     }
                 }
@@ -6791,47 +6791,6 @@ extern std::string area;
                             }
                             int c1=0;
                             if ( !((r3>y && r3_x>y && r3_y>y && r3_z>y) || (r3<y && r3_x<y && r3_y<y && r3_z<y)) ) {
-/*
-                            if (    (r3>=y && (r3_x<=y || r3_y<=y || r3_z<=y) ) ||
-                                    (r3<=y && (r3_x>=y || r3_y>=y || r3_z>=y) ) ||
-                                    r3==y
-                                    ) {
-*/
-/*
-
-                                for (int n=0; n<4; n++) {
-                                    if (n==0) { f_x=f_x_x; f_y=f_y_x; f_x=f_z_x; var1=var1_x; var2=var2_x; var3=var3_x;}
-                                    else if (n==1) { f_x=f_x_y; f_y=f_y_y; f_x=f_z_y; var1=var1_y; var2=var2_y; var3=var3_y;}
-                                    else if (n==2) { f_x=f_x_z; f_y=f_y_z; f_x=f_z_z; var1=var1_z; var2=var2_z; var3=var3_z;}
-                                    else  { f_x=f_x_0; f_y=f_y_0; f_x=f_z_0; var1=var1_0; var2=var2_0; var3=var3_0;}
-                                    r1= int( 140.0*sin( (
-                                               ( var2*f_x/1.23  +  f_z/2.3 )                      /   (87.3 * (1.0+var2*0.4*sin((-var3*f_x/1.2 + f_y     + f_z/2.5) / 330.0)))   +
-                                               ( var3*f_x/2.44  +  f_z/3.5 )                      /   (83.3 * (1.0+var3*0.4*sin((-f_x-      var2*f_y/2.6 + f_z/1.3) / 354.0)))   +
-                                               var3*1.10*sin( (var1*f_x/1.53 + f_z/1.1 )               /   (86.0 * (1.0+0.4*sin(( f_x/2.7 + f_y     - var1*f_z    ) / 233.0)))   ) +
-                                               var1*1.15*sin( (f_x/1.33 + var2*f_z/1.4 )               /   (81.0 * (1.0+0.4*sin(( f_x/2.8 - var3*f_y     + f_z/1.4) / 277.0)))   )
-                                        )*0.55  ) );
-                                    if (n==0)       {r1_x=r1+255; }
-                                    else if (n==1)  {r1_y=r1+255; }
-                                    else if (n==2)  {r1_z=r1+255; }
-                                    else r1=r1+255;
-                                }
-                                for (int n=0; n<4; n++) {
-                                    if (n==0) { f_x=f_x_x; f_y=f_y_x; f_x=f_z_x; var1=var1_x; var2=var2_x; var3=var3_x;}
-                                    else if (n==1) { f_x=f_x_y; f_y=f_y_y; f_x=f_z_y; var1=var1_y; var2=var2_y; var3=var3_y;}
-                                    else if (n==2) { f_x=f_x_z; f_y=f_y_z; f_x=f_z_z; var1=var1_z; var2=var2_z; var3=var3_z;}
-                                    else  { f_x=f_x_0; f_y=f_y_0; f_x=f_z_0; var1=var1_0; var2=var2_0; var3=var3_0;}
-                                    r2= int( 140.0*sin( (
-                                           ( var3*f_z/2.02   +  f_x/1.30 )              / (86.3*(1.0+var3*0.3*sin(( f_x/1.2 + f_y/2.2 + var2*f_z      )  /387.0)))    +
-                                           ( f_z/3.32   +  var1*f_x/2.42 )              / (88.3*(1.0+var1*0.4*sin((-var3*f_x/1.3 - f_y     + f_z/2.3  )  /365.0)))    +
-                                           var2*1.10*sin( (var2*f_z/1.0 + f_x/1.5 )          / (89.0*(1.0+0.4*sin(( f_x/2.4 - f_y     + var3*f_z      )  /245.0)))    ) +
-                                           var3*1.15*sin( (f_z/1.5 + var3*f_x/1.7 )          / (83.0*(1.0+0.4*sin(( var1*f_x/1.5 + f_y/2.1 - f_z      )  /243.0)))    )
-                                        )*0.55 ) );
-                                    if (n==0)       {r2_x=r2+255; }
-                                    else if (n==1)  {r2_y=r2+255; }
-                                    else if (n==2)  {r2_z=r2+255; }
-                                    else r2=r2+255;
-                                }
-*/
 
                                 if (
                                         ((r1>x && r1_x>x && r1_y>x && r1_z>x) || (r1<x && r1_x<x && r1_y<x && r1_z<x))
@@ -6840,72 +6799,44 @@ extern std::string area;
                                     ) {
                                     continue;
                                 }
-/*
-                                if (! (
-                                        (r1>=x && (r1_x<=x || r1_y<=x || r1_z<=x) ) ||
-                                        (r1<=x && (r1_x>=x || r1_y>=x || r1_z>=x) ) ||
-                                        (r2>=z && (r2_x<=z || r2_y<=z || r2_z<=z) ) ||
-                                        (r2<=z && (r2_x>=z || r2_y>=z || r2_z>=z) ) ||
-                                        r2==z || r1==x
-                                       ) ) {
-                                    continue;
-                                }
-*/
-
-//                                    if (!(z==255+r2) && !(x==255+r1)) {
-//                                        continue;
-//                                    }
 
                                 printf("\rx=%3d,z=%3d,y=%3d => %d\r",x,z,y,counter1);
                                 counter1++;
                                 AY[y]=BlockInfo(254,0,0,0);
-                                for (int xxx=-15; xxx<16; xxx++) {
-                                    for (int zzz=-15; zzz<16; zzz++) {
-                                        for (int yyy=-15; yyy<16; yyy++) {
+
+                                for (int xxx=-17; xxx<18; xxx++) {
+                                    for (int zzz=-17; zzz<18; zzz++) {
+                                        for (int yyy=-17; yyy<18; yyy++) {
                                             if (xxx+x>=0 && xxx+x<512 && yyy+y>=0 && yyy+y<256 && zzz+z>=0 && zzz+z<512) {
                                                 BlockInfo* hoppa=&AX[x+xxx][z+zzz][y+yyy];
                                                 if (hoppa->id!=254) {
-                                                    float dd=d[xxx+15][zzz+15][yyy+15];
-                                                    if ( (xxx==0 && zzz==0 && abs(yyy)==2) || (xxx==0 && abs(zzz)==2 && yyy==0) || (abs(xxx)==2 && zzz==0 && yyy==0) || ( abs(xxx)+abs(yyy)+abs(zzz) <= 1  ) ) {
+                                                    float dd=d[xxx+17][zzz+17][yyy+17];
+                                                    float dd2=10000.0;
+                                                    if (yyy+17-3 > 0) dd2=d[xxx+17][zzz+17][yyy+17-3];
+                                                    if ( dd2<=1.0) {
+//                                                    if ( dd<2.1 ) {
+//                                                    if ( (xxx==0 && zzz==0 && abs(yyy)==2) || (xxx==0 && abs(zzz)==2 && yyy==0) || (abs(xxx)==2 && zzz==0 && yyy==0) || ( abs(xxx)+abs(yyy)+abs(zzz) <= 1  ) ) {
                                                         *hoppa=BlockInfo(46,0,0,0);
                                                     } else if (!(hoppa->id==46)) {
-                                                        if (dd<4.0) {
+                                                        if (dd2<3.5) {
                                                             *hoppa=BlockInfo(5, 0, 0, 0);
-                                                        } else if (!(hoppa->id==5) && !(hoppa->id==8)) {
-                                                            if (dd<17.0) {
+                                                        } else if ((!(hoppa->id==5)) && (!(hoppa->id==8))) {
+                                                            if (dd<19.0 || dd2<19 ) {
                                                                 int c=((int(abs(xxx+xx)+abs(yyy+y)+abs(zzz+zz))+rand()%20)/int(65.0+6.0*var1+5.0*var2+5.0*var3)+2500)%16;
                                                                 *hoppa=BlockInfo(95,0,c,0);
                                                             } else if (!(hoppa->id==95)) {
-                                                                if (dd<20.0) {
+                                                                if (dd<22.0 || dd2<22.0) {
                                                                     if (rand()%20000 < int(  300.0+300.0*sin( (f_x+f_y+f_z)/100.0 ) ) ) *hoppa=BlockInfo(89,0,0,0);
                                                                 }
                                                             }
                                                         }
                                                     }
                                                 }
-
-/*
-                                                if (yyy==-3) {
-                                                    int dept=3-(abs(xxx)+abs(zzz)/2);
-                                                    if (y+yyy-4-dept>1+height_add) {
-                                                        int c=((r1+r2+r3+rand()%10)/25+2500)%16;
-                                                        hoppa=&AX[x+xxx][z+zzz][y+yyy-4-dept];
-                                                        if (hoppa->id!=254 && hoppa->id!=46) *hoppa=BlockInfo(95,0,c,0);
-                                                        if (y+yyy-5-dept>1+height_add) {
-                                                            hoppa=&AX[x+xxx][z+zzz][y+yyy-5-dept];
-                                                            if (hoppa->id!=254 && hoppa->id!=46) *hoppa=BlockInfo(95,0,c,0);
-                                                            if (y+yyy-6-dept>1+height_add) {
-                                                                hoppa=&AX[x+xxx][z+zzz][y+yyy-6-dept];
-                                                                if (hoppa->id!=254 && hoppa->id!=95 && hoppa->id!=46) *hoppa=BlockInfo(89,0,0,0);
-                                                            }
-                                                        }
-                                                    }
-                                                }
-*/
                                             }
                                         }
                                     }
                                 }
+                                if ((!(rand()%500)) && AY[y].id==95) AY[y]=BlockInfo(89,0,0,0);
                             }
                         }
                     }
@@ -7552,7 +7483,7 @@ extern std::string area;
                                 }
                             }
                         }
-                        if (num_tnt>8) AY[y]=BlockInfo(5,0,0,0);
+//                        if (num_tnt>8) AY[y]=BlockInfo(5,0,0,0);
                     }
 
 
@@ -7560,23 +7491,26 @@ extern std::string area;
                         MobEntity* mob;
                         Pos position(region.x_ori + xx, region.z_ori + zz, region.y_ori + y+1);
                         Pos position2(region.x_ori + x, region.z_ori + z, region.y_ori + y+1);
-                        int n=rand()%12;
-                        if (n==0) mob = new MobEntity(position, "minecraft:pig");
-                        else if (n==1) mob = new MobEntity(position, "minecraft:sheep");
-                        else if (n==2) mob = new MobEntity(position, "minecraft:chicken");
-                        else if (n==3) mob = new MobEntity(position, "minecraft:cow");
-                        else if (n==4) mob = new MobEntity(position, "minecraft:mule");
-                        else if (n==5) mob = new MobEntity(position, "minecraft:cave_spider");
-                        else if (n==6) mob = new MobEntity(position, "minecraft:spider");
-                        else if (n==7) mob = new MobEntity(position, "minecraft:donkey");
-                        else if (n==8) mob = new MobEntity(position, "minecraft:zombie");
-                        else if (n==9) mob = new MobEntity(position, "minecraft:panda");
-                        else if (n==10) mob = new MobEntity(position, "minecraft:slime");
-                        else if (n==11) mob = new MobEntity(position, "minecraft:parrot");
-
-
-
-
+                        int n=rand()%19;
+                        if (n==0)       mob = new MobEntity(position, "minecraft:pig"       );
+                        else if (n==1)  mob = new MobEntity(position, "minecraft:sheep"     );
+                        else if (n==2)  mob = new MobEntity(position, "minecraft:chicken"   );
+                        else if (n==3)  mob = new MobEntity(position, "minecraft:cow"       );
+                        else if (n==4)  mob = new MobEntity(position, "minecraft:mule"      );
+                        else if (n==5)  mob = new MobEntity(position, "minecraft:cave_spider");
+                        else if (n==6)  mob = new MobEntity(position, "minecraft:spider"    );
+                        else if (n==7)  mob = new MobEntity(position, "minecraft:donkey"    );
+                        else if (n==8)  mob = new MobEntity(position, "minecraft:cat"       );
+                        else if (n==9)  mob = new MobEntity(position, "minecraft:panda"     );
+                        else if (n==10) mob = new MobEntity(position, "minecraft:slime"     );
+                        else if (n==11) mob = new MobEntity(position, "minecraft:parrot"    );
+                        else if (n==12) mob = new MobEntity(position, "minecraft:donkey"    );
+                        else if (n==13) mob = new MobEntity(position, "minecraft:fox"    );
+                        else if (n==14) mob = new MobEntity(position, "minecraft:llama"    );
+                        else if (n==15) mob = new MobEntity(position, "minecraft:polar_bear"    );
+                        else if (n==16) mob = new MobEntity(position, "minecraft:rabbit"    );
+                        else if (n==17) mob = new MobEntity(position, "minecraft:wolf"    );
+                        else if (n==18) mob = new MobEntity(position, "minecraft:villager"      );
                         editor.mca_coder.insertEntity(position2, mob);
                         delete mob;
 //                        if (AY[y-1].id==0) AY[y-1]=BlockInfo(251,0,1,0);
@@ -7819,15 +7753,15 @@ extern std::string area;
 void make_one_plot_WINMAIN(int x, int y, sf::Image* image, int type) {
     image->create(512+10,512+10,sf::Color(0,0,0,0));
     int add=0;
-    int add2=250;
+    int add2=1024;
     if (type>1) { type-=2; add=20; add2=0; }
 
     for (int yy=-5; yy<512+5; yy++) {
         for (int xx=-5; xx<512+5; xx++) {
             if (type==0) { //vertical
                 if (
-                    ( (x+xx+3+5)%500)==add ||
-                    ( ((y+yy+3+5)%500)==add2 && ( abs((x+xx+3+5)%500 - add) <= 150 ||  abs((x+xx+3+5)%500 - add) >= 350 )  )
+                    ( (x+xx+3+5)%1024)==add //||
+//                    ( ((y+yy+3+5)%500)==add2 && ( abs((x+xx+3+5)%500 - add) <= 150 ||  abs((x+xx+3+5)%500 - add) >= 350 )  )
 
                      ) { //every 500 blocks....
                     image->setPixel(xx+5,yy+5,sf::Color(255,255,255,255));
@@ -7843,8 +7777,8 @@ void make_one_plot_WINMAIN(int x, int y, sf::Image* image, int type) {
                 }
             } else if (type==1) { //horizontal
                 if (
-                     ((y+yy+3+5)%500)==add ||
-                    ( ((x+xx+3+5)%500)==add2 && ( abs((y+yy+3+5)%500 - add)  <= 150 ||  abs((y+yy+3+5)%500 - add)  >= 350 ) )
+                     ((y+yy+3+5)%1024)==add //||
+//                    ( ((x+xx+3+5)%500)==add2 && ( abs((y+yy+3+5)%500 - add)  <= 150 ||  abs((y+yy+3+5)%500 - add)  >= 350 ) )
 
                     ) { //every 500 blocks....
                     image->setPixel(xx+5,yy+5,sf::Color(255,255,255,255));

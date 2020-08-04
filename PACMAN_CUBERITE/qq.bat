@@ -87,7 +87,16 @@ rem ffmpeg -y -framerate 30 -f gdigrab -i desktop -vf mpdecimate -s 1920x1080 -c
 
 rem ffmpeg -y -framerate 30 -f gdigrab -i desktop -vf mpdecimate -s 1920x1080 -c:v h264_nvenc -profile:v high -pixel_format yuv420p -b:v 10000k -bufsize 20000k -bf:v 2 -preset fast -rc:v vbr_hq -rc-lookahead 20 -r 30 recording_high3.mp4
 
-ffmpeg -y -framerate 30 -f gdigrab -i title="Minecraft* 1.15.2 - Multiplayer (3rd-party)" -vf mpdecimate,setpts=0.5*PTS -c:v h264_nvenc -profile:v high -pixel_format yuv420p -b:v 10000k -bufsize 20000k -bf:v 2 -preset fast -rc:v vbr_hq -rc-lookahead 20 -r 30 recording_high3.mp4
+rem ffmpeg -y -framerate 30 -f gdigrab -i title="Minecraft 1.12.2" -vf mpdecimate,setpts=0.5*PTS -c:v h264_nvenc -profile:v high -pixel_format yuv420p -b:v 10000k -bufsize 20000k -bf:v 2 -preset fast -rc:v vbr_hq -rc-lookahead 20 -r 30 recording_high3.mp4
+
+rem ffmpeg -y -framerate 30 -f gdigrab -i desktop -vf mpdecimate -c:v h264_nvenc -profile:v high -pixel_format yuv420p -b:v 10000k -bufsize 20000k -bf:v 2 -preset fast -rc:v vbr_hq -rc-lookahead 20 -r 30 recording_high3.mp4
+rem ffmpeg -f dshow -i audio="Digital Audio (S/PDIF) (Cirrus Logic CS4206A (AB 71))" -acodec libmp3lame
+rem ffmpeg -y -framerate 1 -hide_banner -f dshow -i video="screen-capture-recorder":audio="Microfoon (HD Webcam C310)" -r 1 -vf settb=\(1/60\),setpts=N/TB/60 -r 60 -c:v libx264 -preset veryfast -crf 23 -c:a copy -pix_fmt yuv420p 	output.mp4
+
+rem ffmpeg -y -hide_banner -f gdigrab -framerate ntsc -video_size 1920x1080 -i desktop -f dshow -i audio="Stereo-mix (Realtek High Definition Audio)" -vf mpdecimate -c:v h264_nvenc -profile:v high -pixel_format yuv420p -b:v 10000k -bufsize 20000k -bf:v 2 -preset fast -rc:v vbr_hq -rc-lookahead 20 recording_high3.mp4
+
+
+rem ffmpeg -f gdigrab -framerate ntsc -video_size 1920x1080 -i desktop -f dshow -i audio="Microphone (Realtek High Definition Audio)" -vcodec libx264 -pix_fmt yuv420p -preset ultrafast D:\Movies\output.mp4
 
 rem ffmpeg -y -framerate 60 -f gdigrab -i title="Minecraft* 1.15.2 - Singleplayer" -vf mpdecimate,setpts=0.25*PTS -c:v h264_nvenc -profile:v high -pixel_format yuv420p -b:v 10000k -bufsize 20000k -bf:v 2 -preset fast -rc:v vbr_hq -rc-lookahead 20 -r 60 recording_high3.mp4
 
@@ -127,4 +136,23 @@ rem -bf:v 3 -coder:v cabac -b_ref_mode:v middle \
 rem -f mp4 "e:\output.mp4"
 
 
+rem ffmpeg -y -hide_banner -f gdigrab -framerate ntsc -video_size 1920x1080 -i desktop -f dshow -i audio="Stereo-mix (Realtek High Definition Audio)" -c:v h264_nvenc -profile:v high -pixel_format yuv420p -b:v 10000k -bufsize 20000k -bf:v 2 -preset fast -rc:v vbr_hq -rc-lookahead 20 recording_high1.mp4
+
+rem ffmpeg -y -hide_banner -f gdigrab -framerate ntsc -video_size 1920x1080 -i desktop -c:v h264_nvenc -profile:v high -pixel_format yuv420p -b:v 10000k -bufsize 20000k -bf:v 2 -preset fast -rc:v vbr_hq -rc-lookahead 20 recording_high1.mp4
+
+rem ffmpeg -thread_queue_size 1024 -y -hide_banner -f gdigrab -i desktop -f dshow -i audio="Stereo-mix (Realtek High Definition Audio)" -c:v h264_nvenc -qp 0 recording_FAST2.mp4
+
+rem ffmpeg -thread_queue_size 1024 -y -hide_banner -f gdigrab -i title="Minecraft" -f dshow -i audio="Stereo-mix (Realtek High Definition Audio)" -c:v h264_nvenc -qp 0 recording_FAST2.mp4
+ffmpeg -list_devices true -f dshow -i dummy
+rem ffmpeg -thread_queue_size 1024 -y -hide_banner -f gdigrab -i desktop -f dshow -i audio="Stereo-mix (Realtek High Definition Audio)" -c:v libx264rgb -crf 0 -preset ultrafast recording_FAST2.mkv
+
+rem ffmpeg -i hw:1,0 -s 1920×1080 -f gdigrab -i desktop -f dshow -i audio="Stereo-mix (Realtek High Definition Audio)" -c:v h264_nvenc -qp 0 recording_FAST2.mp4
+REM -i :0.0 -c:v libx264rgb -crf 0 -preset ultrafast output.mkv
+
+REM ffmpeg -thread_queue_size 1024 -y -hide_banner -f gdigrab -i desktop -f dshow -i audio="Stereo-mix (Realtek High Definition Audio)" -c:v libx264rgb -crf 0 -preset ultrafast recording_FAST2.mp4
+
+REM ffmpeg -y -hide_banner -f gdigrab -i desktop -f dshow -i audio="Stereo-mix (Realtek High Definition Audio)" -c:v h264_nvenc -profile:v high -pixel_format yuv420p -b:v 10000k -bufsize 20000k -bf:v 2 -preset fast -rc:v vbr_hq -rc-lookahead 20 recording_high2.mp4
+REM -c:v libx264rgb -crf 0 -preset ultrafast output.mkv
+REM ffmpeg -f gdigrab -framerate 30 -i desktop -c:v h264_nvenc -qp 0 output.mkv
+REM ffmpeg -video_size 1920x1080 -framerate 30 -f x11grab -i :0.0 -c:v libx264rgb -crf 0 -preset ultrafast output.mkv
 pause
