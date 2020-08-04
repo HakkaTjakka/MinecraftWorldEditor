@@ -1,3 +1,7 @@
+Download from Google drive: 
+
+https://drive.google.com/drive/folders/1RuIClj5k9hI7i3NJv5cLOhdohfn4S9tR
+
 Source code:
 
 https://github.com/HakkaTjakka/MinecraftWorldEditor
