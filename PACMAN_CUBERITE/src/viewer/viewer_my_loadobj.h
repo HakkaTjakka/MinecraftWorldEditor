@@ -3237,6 +3237,15 @@ extern float* fspeed_ghosty;
 //                                add_to_region=true;
                                 if (got_one) no_plotting=true;
 
+                                FILE* INFO;
+                                if ((INFO = fopen (new_name, "a"))!=NULL) {
+                                    fprintf(INFO,"r.%d.%d\n",x,z);
+                                    fclose(INFO);
+                                } else {
+                                    printf("Error opening %s for writing.\n",new_name);
+                                }
+
+
                                 main_mceditor6_fixed(x,z,region_block);
 
                                 printf("Finished region r.%d.%d\n",x,z);
@@ -3700,6 +3709,63 @@ void region_voxel_files_to_region_files(bool display_only) {
         }
     }
     closedir(dr);
+    printf("\n");
+    area=o_area;
+}
+
+void one_region_voxel_files_to_region_files(bool display_only, char* voxel_filename) {
+    int x,z;
+    char picture_file[200];
+    char full_name[1000];
+    std::string o_area=area;
+
+    printf("LOADING .VOX FILES ../cut/%s.vox\n", voxel_filename);
+    sprintf(full_name,"../cut/%s",voxel_filename);
+    if (!file_exists(full_name)) {
+        printf("Can not find .vox file: %s\n",full_name);
+        return;
+    }
+    if ((strstr(voxel_filename, ".vox")) != NULL) {
+        int num=sscanf(voxel_filename,"r.%d.%d.vox",&x,&z);
+        if (num==2) {
+            printf("Converting %s to /saves/test/region/done0/r.%d.%d.mca\n",voxel_filename,x,z);
+        } else  {
+            printf("Not region voxel file: %s\n",voxel_filename);
+            return;
+        }
+        plot_only=0;
+        sprintf(picture_file,"r.%d.%d",x,z);
+        area=picture_file;
+        if (load_voxels()) {
+            area=o_area;
+            if (voxels_total.size()>0) {
+                if (voxels_total.size()>0 || voxels.size()>0) {
+                    float minimum[3];
+                    float maximum[3];
+                    std::vector<BufferObject> buffers;
+                    std::vector<tinyobj::material_t> materials;
+                    flushing=true;
+                    plot_only=display_only;
+                    dont_write_to_region_voxels=true;
+//                        dont_clear=true;
+                    crossing=2;mirror=4;
+                    WUPPIE_SUBS(buffers, materials, minimum, maximum, 0, 0, picture_file);
+                    crossing=0;mirror=0;
+                    dont_write_to_region_voxels=false;
+//                        dont_clear=false;
+                    flushing=false;
+                    plot_only=false;
+                }
+                scan_image.create(512,512,sf::Color(0,0,0,0));
+                voxels.clear();
+                voxels_total.clear();
+            }
+            area=o_area;
+        }
+    } else {
+        printf("Not .vox file: %s\n",voxel_filename);
+    }
+//    closedir(dr);
     printf("\n");
     area=o_area;
 }

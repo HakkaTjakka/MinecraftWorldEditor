@@ -1292,3 +1292,75 @@
 0 MESSED UP
 0 MESSED UP
 1 Program busy or hangs... Thread alive at: 05/08/2020 16:30:43
+1 Program busy or hangs... Thread alive at: 09/08/2020 20:25:22
+1 Program busy or hangs... Thread alive at: 09/08/2020 21:53:13
+1 Program busy or hangs... Thread alive at: 10/08/2020 01:24:58
+0 Program busy or hangs... Thread alive at: 10/08/2020 01:25:04
+11 Error loading picture
+13 Error loading picture
+8 Error loading picture
+24 Error loading picture
+2 Error loading picture
+32 Error loading picture
+33 Error loading picture
+1 Error loading picture
+9 Error loading picture
+16 Error loading picture
+19 Error loading picture
+22 Error loading picture
+25 Error loading picture
+26 Error loading picture
+3 Error loading picture
+6 Error loading picture
+30 Error loading picture
+5 Error loading picture
+21 Error loading picture
+17 Error loading picture
+23 Error loading picture
+26 Error loading picture
+18 Error loading picture
+23 Error loading picture
+3 Error loading picture
+30 Error loading picture
+15 Error loading picture
+26 Error loading picture
+28 Error loading picture
+29 Error loading picture
+6 Error loading picture
+33 Error loading picture
+34 Error loading picture
+11 Error loading picture
+8 Error loading picture
+9 Error loading picture
+15 Error loading picture
+19 Error loading picture
+1 Error loading picture
+5 Error loading picture
+23 Error loading picture
+33 Error loading picture
+34 Error loading picture
+4 Error loading picture
+8 Error loading picture
+24 Error loading picture
+25 Error loading picture
+15 Error loading picture
+27 Error loading picture
+32 Error loading picture
+6 Error loading picture
+19 Error loading picture
+1 Error loading picture
+16 Error loading picture
+21 Error loading picture
+22 Error loading picture
+25 Error loading picture
+11 Error loading picture
+21 Error loading picture
+0 Program busy or hangs... Thread alive at: 11/08/2020 17:12:42
+0 Program busy or hangs... Thread alive at: 11/08/2020 17:13:03
+0 Program busy or hangs... Thread alive at: 11/08/2020 17:13:08
+0 Program busy or hangs... Thread alive at: 11/08/2020 17:13:13
+0 Program busy or hangs... Thread alive at: 11/08/2020 17:13:19
+0 Program busy or hangs... Thread alive at: 11/08/2020 17:13:24
+0 Program busy or hangs... Thread alive at: 11/08/2020 17:13:29
+1 Program busy or hangs... Thread alive at: 11/08/2020 17:13:34
+1 Program busy or hangs... Thread alive at: 11/08/2020 17:13:41

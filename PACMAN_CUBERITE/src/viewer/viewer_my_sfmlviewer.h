@@ -1,5 +1,9 @@
 extern bool make_regions;
 extern bool flushing_mode;
+void one_region_voxel_files_to_region_files(bool display_only, char* voxel_filename);
+
+extern char voxel_filename[];
+
 void GLAPIENTRY MessageCallback( GLenum source,
                  GLenum type,
                  GLuint id,
@@ -1171,8 +1175,15 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                     crossing=0; mirror=0;
                 }
                 if (make_regions) {
-                    printf("Converting ../cut/r.*.*.vox region files to /saves/test/region/done0/r.*.*.mca minecraft files\n");
-                    region_voxel_files_to_region_files(false);
+                    if (strlen(voxel_filename)!=0) {
+                        int x,z;
+                        int num=sscanf(voxel_filename,"r.%d.%d.vox",&x,&z);
+                        printf("Converting ../cut/%s voxel region file to /saves/test/region/done0/r.%d.%d.mca minecraft files\n",voxel_filename,x,z);
+                        one_region_voxel_files_to_region_files(false, voxel_filename);
+                    } else {
+                        printf("Converting ../cut/r.*.*.vox voxel region files to /saves/test/region/done0/r.*.*.mca minecraft files\n");
+                        region_voxel_files_to_region_files(false);
+                    }
                     make_regions=false;
                 }
 

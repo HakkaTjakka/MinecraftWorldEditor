@@ -46,7 +46,7 @@
 #define EVENT_CONTROL 4
 #define EVENT_SYSTEM 8
 extern bool and_now_i_am_here;
-
+char voxel_filename[200];
 std::string obj_filename="";
 bool make_regions=false;
 extern bool file_exists(const char * filename);
@@ -736,7 +736,16 @@ int WINAPI WinMain2()
         else if (   strcmp(argv[1],"nbt2mca"    )==0) { WRITE_REGION(                   argv[2]);   send_message='x';   return 0; }
         else if (   strcmp(argv[1],"nbt2world"  )==0) { WRITE_ALL_REGIONS(               argv[2]);   send_message='x';   return 0; }
         else if (   strcmp(argv[1],"repack"  )==0) { REPACK(               argv[2]);   send_message='x';   return 0; }
-        else if (   strcmp(argv[1],"regions"    )==0) { send_message='r'; }
+        else if (   strcmp(argv[1],"regions"    )==0) {
+            if (argc>2) {
+                strcpy(voxel_filename,argv[2]);
+                printf("One .voxel file: %s\n",voxel_filename);
+//                printf("strlen(voxel_filename)=%d\n",strlen(voxel_filename));
+            } else {
+                strcpy(voxel_filename,"");
+            }
+            send_message='r';
+        }
         else if (   strcmp(argv[1],"enschede"    )==0) { send_message='s'; }
         else if (   strcmp(argv[1],"denhaag"    )==0) { send_message='t'; }
         else if (   strcmp(argv[1],"voxel"    )==0) {
