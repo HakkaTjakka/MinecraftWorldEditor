@@ -2530,7 +2530,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
     if (!dont_clear) voxels.clear();
     char new_name[200];
 
-    sprintf(new_name,"../cut/%s",fn.c_str());
+    sprintf(new_name,"../cut/%s.info",fn.c_str());
 //    mkdir(new_name);
 //Amsterdam
 //    std::vector<BufferObject> buffers_sub;
