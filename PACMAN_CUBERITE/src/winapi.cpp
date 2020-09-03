@@ -45,6 +45,8 @@
 #define EVENT_SHIFT 2
 #define EVENT_CONTROL 4
 #define EVENT_SYSTEM 8
+
+extern bool do_pong=false;
 extern bool and_now_i_am_here;
 char voxel_filename[200];
 std::string obj_filename="";
@@ -561,6 +563,8 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
                     sf::sleep(sf::seconds(0.1));
                 }
                 combine=0;
+            } else if (c==(char)'u') {
+                do_pong=true;
             } else if (c==(char)'t') {
                 crossing=2; mirror=4;combine=1;
                 area="DenHaag";
@@ -747,6 +751,7 @@ int WINAPI WinMain2()
             send_message='r';
         }
         else if (   strcmp(argv[1],"enschede"    )==0) { send_message='s'; }
+        else if (   strcmp(argv[1],"pong"    )==0) { send_message='u'; }
         else if (   strcmp(argv[1],"denhaag"    )==0) { send_message='t'; }
         else if (   strcmp(argv[1],"voxel"    )==0) {
                 for (int n=2; n<argc; n++) {

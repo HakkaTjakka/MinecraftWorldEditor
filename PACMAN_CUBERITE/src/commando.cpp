@@ -1,6 +1,15 @@
 #include "keylist.hpp"
 #include "everything.hpp"
 
+extern char frag_name[];
+extern char SHADERDIR[];
+extern int fragment_shader;
+extern int update_shader();
+extern int plot_shader;
+extern void insert_key(WPARAM key);
+extern void insert_event(sf::Keyboard::Key code,int MODE);
+extern bool do_pong;
+
 void do_command(int what) {
     command_par(1,what);
 }
@@ -15,6 +24,30 @@ void command_par(int num, ...) {
     int decimal;
     int what=va_arg(args,int);
     switch (what) {
+        case DO_PONG:
+            do_pong=false;
+//            insert_key('P');
+
+            sprintf(frag_name,"%s/fragment/picture_shader 01.frag",SHADERDIR);
+            fragment_shader=1;
+            update_shader();
+
+            plot_shader=1;
+//            plot_ffmpegfile=1; plotplot();
+            insert_event(sf::Keyboard::F8,0);
+/*
+            insert_event(sf::Keyboard::F8,0);
+            insert_event(sf::Keyboard::F8,0);
+            insert_event(sf::Keyboard::F8,0);
+            insert_event(sf::Keyboard::F8,0);
+            sprintf(frag_name,"%s/fragment/picture_shader 02.frag",SHADERDIR);
+            update_shader();
+            insert_event(sf::Keyboard::F8,0);
+            plot_shader=0;
+            fragment_shader=0;
+            insert_event(sf::Keyboard::F8,EVENT_ALT);
+*/
+            break;
         case GO_DOWNLOAD:
             go_download=0;
             start_get_videos_thread();

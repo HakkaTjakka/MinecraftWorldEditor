@@ -61,6 +61,14 @@
 #define TILE_SELECT 3
 #define SHADER_SELECT 4
 
+extern int iFrame;
+static std::string GetFileName(const std::string& filepath)
+{
+    if (filepath.find_last_of("/\\") != std::string::npos)
+        return filepath.substr(1+filepath.find_last_of("/\\"),filepath.length());
+    return "";
+}
+
 extern sf::VertexArray m_pointCloud3;
 extern void set_cube();
 extern sf::ContextSettings contextSettings;
@@ -916,6 +924,8 @@ void do_nextlevel()
 
 sf::Clock kp;
 
+char picture_name[2000];
+
 VOID HANDLECHAR(WPARAM wparam)
 {
 /*
@@ -935,6 +945,7 @@ VOID HANDLECHAR(WPARAM wparam)
     char naam[2000];
     int x,y;
     FILE *testfile;
+    std::string texture_name;
     switch((wchar_t)wparam)
     {
 
@@ -1130,6 +1141,7 @@ VOID HANDLECHAR(WPARAM wparam)
                     rate_count=play_rate-1;
                     record_pause=1;
                     SFMLView1.setVerticalSyncEnabled(true);
+//                    iFrame=0;
                 }
             }
             else if (recording_type==1)
@@ -3442,6 +3454,11 @@ VOID HANDLECHAR(WPARAM wparam)
             GETBLENDINGPICTURE(naam);
         else
             GETPICTURE(naam);
+
+//        texture_name = naam;
+        texture_name = std::string() + PICTUREDIR + "/" + GetFileName(naam);
+        sprintf(picture_name,"%s",texture_name.c_str());
+
         if (file_exists(naam))
         {
 //            savedata(naam,0);

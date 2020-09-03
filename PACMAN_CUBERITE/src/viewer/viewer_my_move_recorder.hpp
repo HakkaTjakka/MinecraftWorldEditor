@@ -603,8 +603,8 @@ struct info_3d_struct {
 //        double Bdist=sqrt( (B.pos.x-center_x_new_B)*(B.pos.x-center_x_new_B) + (B.pos.y-center_y_new_B)*(B.pos.y-center_y_new_B) );
 
 
-        double dist=sqrt( (pos.x-center_x)*(pos.x-center_x) + (pos.y-center_y)*(pos.y-center_y) );
-        double Bdist=sqrt( (B.pos.x-center_x)*(B.pos.x-center_x) + (B.pos.y-center_y)*(B.pos.y-center_y) );
+        double dist=sqrt( (pos.x-center_x)*(pos.x-center_x) + 4.0*(pos.y-center_y)*(pos.y-center_y) );
+        double Bdist=sqrt( (B.pos.x-center_x)*(B.pos.x-center_x) + 4.0*(B.pos.y-center_y)*(B.pos.y-center_y) );
 
 //        double dist=sqrt( (pos.x-center_x)*(pos.x-center_x) + (pos.y-center_y)*(pos.y-center_y) );
 //        double Bdist=sqrt( (B.pos.x-center_x)*(B.pos.x-center_x) + (B.pos.y-center_y)*(B.pos.y-center_y) );
@@ -613,6 +613,7 @@ struct info_3d_struct {
 //            center_x=(center_x*5+pos.x)/6;
 //            center_y=(center_y*5+pos.y)/6;
 //        }
+//reversed...hoppa
         return( dist < Bdist );
 
 //        return( sqrt( (pos.x-center_x)*(pos.x-center_x) + (pos.y-center_y)*(pos.y-center_y) )

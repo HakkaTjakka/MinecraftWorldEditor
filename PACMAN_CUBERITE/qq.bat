@@ -143,8 +143,16 @@ rem ffmpeg -y -hide_banner -f gdigrab -framerate ntsc -video_size 1920x1080 -i d
 rem ffmpeg -thread_queue_size 1024 -y -hide_banner -f gdigrab -i desktop -f dshow -i audio="Stereo-mix (Realtek High Definition Audio)" -c:v h264_nvenc -qp 0 recording_FAST2.mp4
 
 rem ffmpeg -thread_queue_size 1024 -y -hide_banner -f gdigrab -i title="Minecraft" -f dshow -i audio="Stereo-mix (Realtek High Definition Audio)" -c:v h264_nvenc -qp 0 recording_FAST2.mp4
-ffmpeg -list_devices true -f dshow -i dummy
-rem ffmpeg -thread_queue_size 1024 -y -hide_banner -f gdigrab -i desktop -f dshow -i audio="Stereo-mix (Realtek High Definition Audio)" -c:v libx264rgb -crf 0 -preset ultrafast recording_FAST2.mkv
+rem ffmpeg -thread_queue_size 1024 -y -hide_banner -f gdigrab -i title="Minecraft" -f dshow -i audio="Stereo-mix (Realtek High Definition Audio)" -c:v h264_nvenc -qp 0 recording_FAST2.mp4
+rem Microfoon (ManyCam Virtual Microphone)
+rem ffmpeg -list_devices true -f dshow -i dummy
+
+ffmpeg -thread_queue_size 1024 -y -hide_banner -f gdigrab -i desktop -f dshow -i audio="Stereo-mix (Realtek High Definition Audio)" -c:v libx264rgb -crf 0 -preset ultrafast recording_FAST2.mkv
+rem ffmpeg -thread_queue_size 1024 -y -hide_banner -f gdigrab -i desktop -f dshow -i audio="Luidsprekers(Realtek High Definition Audio)" -c:v libx264rgb -crf 0 -preset ultrafast recording_FAST2.mkv
+
+rem ffmpeg -thread_queue_size 1024 -y -hide_banner -f gdigrab -i desktop -f dshow -i audio="CABLE Output (VB-Audio Virtual Cable)" -c:v libx264rgb -crf 0 -preset ultrafast recording_FAST2.mkv
+
+rem ffmpeg -y -rtbufsize 1024M -f dshow -video_size 1920x1080 -i video="screen-capture-recorder":audio="CABLE Output (VB-Audio Virtual Cable)" -c:v h264_nvenc -qp 0 output.mp4
 
 rem ffmpeg -i hw:1,0 -s 1920×1080 -f gdigrab -i desktop -f dshow -i audio="Stereo-mix (Realtek High Definition Audio)" -c:v h264_nvenc -qp 0 recording_FAST2.mp4
 REM -i :0.0 -c:v libx264rgb -crf 0 -preset ultrafast output.mkv

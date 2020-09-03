@@ -2439,6 +2439,8 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
 
 //    static int first=1;
     vector_hit_regions.clear();
+//FOKIT
+//    first_wuppie=0;
     if (first_wuppie==1) {
         first_wuppie=0;
 //        for (int z=0; z<1000; z++) {
@@ -3137,7 +3139,7 @@ extern float* fspeed_ghosty;
                 }
                 if (hit_one->index6>0 || got_one) {
                     NUMBER_OF_REGIONS++;
-                    if ((flushing_mode) || hit_one->index8 > (int)(512.0*512.0*0.9995) || flushing ) {
+                    if ((flushing_mode) || hit_one->index8 > (int)(512.0*512.0*0.99) || flushing ) {
 //                    if ((voxels_total.size()>25000000) || hit_one->index8 > (int)(512.0*512.0*0.9995) || flushing ) {
                         if (flushing_mode && !got_one)
                             printf("FLUSHING MODE:  [%3d][%3d]  ",x,z);
@@ -3239,7 +3241,7 @@ extern float* fspeed_ghosty;
 
                                 FILE* INFO;
                                 if ((INFO = fopen (new_name, "a"))!=NULL) {
-                                    fprintf(INFO,"r.%d.%d\n",x,z);
+                                    fprintf(INFO,"r.%d.%d (%6.2f%%)\n",x,z, 100.0*(double)columns/(512.0*512.0));
                                     fclose(INFO);
                                 } else {
                                     printf("Error opening %s for writing.\n",new_name);

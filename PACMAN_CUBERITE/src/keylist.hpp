@@ -17,6 +17,7 @@
 //sf::Keyboard::
 //sf::Keyboard::A,EVENT_SHIFT||EVENT_ALT
 #define LIST_START      0
+#define DO_PONG         2000001     //
 #define GO_LIST         4000000     //C,ALT-v               List's convert directory. Compares with record dir, moves converted files to converted.
 #define GO_DOWNLOAD     3000000     //ALT-v                 Start downloading url's from ../convert/list.txt. Can be youtube code's kj2GlIIWCL8 or url https://www.youtube.com/watch?v=kj2GlIIWCL8
                                     //                      Creates ../convert/files/convert.txt with data for burning subtitles (GO_BURN / SHIFT-ALT-v)

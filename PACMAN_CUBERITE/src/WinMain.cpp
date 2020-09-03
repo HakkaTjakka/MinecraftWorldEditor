@@ -1884,6 +1884,18 @@ extern int trace_line4(std::string in);
 //        insert_key((WPARAM)'m');
         return;
     }
+extern void parse_command(char * text);
+extern char frag_name[];
+extern char SHADERDIR[];
+extern int fragment_shader;
+extern int update_shader();
+extern int plot_shader;
+extern void insert_key(WPARAM key);
+extern void insert_event(sf::Keyboard::Key code,int MODE);
+extern bool do_pong;
+extern char picture_name[];
+extern char PICTUREDIR[];
+extern int replace_string(char *str, char *orig, char *rep);
 
     if (DO_ADAPT)
         do_command(ADAPT_SPEED);
@@ -1902,7 +1914,90 @@ extern int trace_line4(std::string in);
             do_command(GO_BURN);
         }
     }
+extern int timenow;
 
+    if (combine==1 && record_screen==1 && record_screen_num==200*5) {
+        if (sync==1)
+            SFMLView1.setVerticalSyncEnabled(true);
+        else
+            SFMLView1.setVerticalSyncEnabled(false);
+        record_screen=0;
+        record_pause=0;
+        sf::sleep(sf::microseconds(100));
+        strcpy(error_msg2,"FLUSHING RECORD PIPE...");
+        error_flag2=1;
+        draw2(error_msg2,770,400,sf::Color::Red,sf::Color::White);
+        SFMLView1.display();
+
+        if (recording_type==0)
+            recording_end();
+        int scale_x=texture_from_ffmpeg.getSize().x*sprite_from_ffmpeg.getScale().x;
+        int scale_y=texture_from_ffmpeg.getSize().y*sprite_from_ffmpeg.getScale().y;
+        if (scale_x>1920) scale_x=1920;
+        if (scale_y>1080) scale_y=1080;
+        FILE* HOP;
+        HOP=fopen("../record/make.bat","a");
+        fprintf(HOP,"ffmpeg -y -i output%d.mp4 -filter:v \"crop=%d:%d:%d:%d\" -c:v h264_nvenc -profile:v high -pix_fmt yuv420p -b:v 10M -bufsize 20M -bf:v 3 -preset slow -rc:v vbr_hq -rc-lookahead 32 output%d_crop.mp4",timenow,scale_x,scale_y,int((1920-scale_x)/2),int((1080-scale_y)/2),timenow);
+        fclose(HOP);
+
+//        printf("%d:%d:%d:%d",scale_x,scale_y,(1920-scale_x)/2,(1080-scale_y)/2);
+    }
+
+    if (do_pong) {
+        static int waiter=0;
+        if (waiter==1) {
+
+            insert_key('P');
+
+        } else if (waiter==2) {
+
+            replace_string(picture_name,".png",".jpg");
+            replace_string(picture_name,".bmp",".jpg");
+            texture_from_ffmpeg.copyToImage().saveToFile(picture_name);
+            sprite_from_ffmpeg.setScale(2.0,2.0);
+            convert_to_scale(&texture_from_ffmpeg, &sprite_from_ffmpeg);
+            sprite_from_ffmpeg.setScale(0.5,0.5);
+
+        } else if (waiter==3) {
+
+            sprintf(frag_name,"%s/fragment/picture_shader 01.frag",SHADERDIR);
+            fragment_shader=1;
+            update_shader();
+
+        } else if (waiter>=4 && waiter<=4+5) {
+
+            plot_shader=1;
+            plot_ffmpegfile=1; plotplot();
+
+        } else if (waiter==4+6) {
+
+            sprintf(frag_name,"%s/fragment/picture_shader 02.frag",SHADERDIR);
+            update_shader();
+
+        } else if (waiter==4+7) {
+
+            plot_ffmpegfile=1; plotplot();
+
+        } else if (waiter==4+8) {
+
+            plot_shader=0;
+            fragment_shader=0;
+
+        } else if (waiter==4+9) {
+
+            replace_string(picture_name,".jpg",".pong.jpg");
+            texture_from_ffmpeg.copyToImage().saveToFile(picture_name);
+
+        } else if (waiter==4+10) {
+
+            insert_key('P');
+//            do_pong=false;
+
+        } else if (waiter==4+11) {
+            waiter=-1;
+        }
+        waiter++;
+    }
 
     loader_mutex.lock();
     monitor_off=1;
@@ -10217,8 +10312,11 @@ extern bool hold_voxels;
 
             update_MC(scan_image,scan_x,scan_z);
             update_request=0;
-            int x=(int)( ( (LONG64)scan_x*512 + (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
-            int y=(int)( ( (LONG64)scan_z*512 + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
+//hehehe
+            int x=(int)( ( (LONG64)(scan_x+6)*512 + (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
+            int y=(int)( ( (LONG64)(scan_z+6)*512 + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
+//            int x=(int)( ( (LONG64)scan_x*512 + (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
+            //int y=(int)( ( (LONG64)scan_z*512 + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
 
             if (!hold_voxels) {
                 position1x=(x+256+maxpixelsx)%+maxpixelsx;
@@ -13766,8 +13864,9 @@ extern bool flushing_mode;
     rot_speed_ffmpeg=0.0;
     scale_now=1.0;
     ffmpeg_move=1;
-    ffmpeg_posx=x;
-    ffmpeg_posy=y;
+//hehehe
+    ffmpeg_posx=x+6*512;
+    ffmpeg_posy=y+6*512;
     int bl_old=blending;
     blending=0;
     ffmpegfile=0;
@@ -13832,7 +13931,7 @@ extern bool rot_plot;
     ffmpegfile=1;
     float complete_f=100.0*float(pixel_count)/(512.0*512.0);
     image_local.create(512,512,sf::Color(0,0,0,0));
-    if (flushing_mode && complete_f>99.99 && !no_plotting) {
+    if (flushing_mode && complete_f>99.0 && !no_plotting) {
 //    if (flushing_mode && complete_f>99.99 && !no_plotting && !complete_f2>99.99) {
         printf("\nGOT ONE COMPLETE (%f%% pixels) : r.%d.%d PUSHED ==>>\n",complete_f,xx,yy);
 //        hit_one_region one_region;

@@ -158,7 +158,8 @@ mat2 rotate(float a) {
 	return mat2(c, s, -s, c);
 }
 
-
+float scale=iResolution.x/iResolution.y;
+float rotation=2.0*PI/200.0;
 //GRADATION
 void main_Grad( )
 //void main()
@@ -166,7 +167,9 @@ void main_Grad( )
     vec4 kS = vec4(1.0, 1.0, 1.0, 1.0);
     vec4 kA = vec4(0.0, .0, .0, 1.0);
     vec4 kD;
-    vec3 light=vec3(1.5, 1.5, -5.0); // zzzzz 2.0
+    float light_x=sin(-iFrame*rotation)*2.5*scale;
+    float light_y=cos(-iFrame*rotation)*2.5;
+    vec3 light=vec3(light_x, light_y, -5.0); // zzzzz 2.0
     vec3 ro = vec3(0.0,0.0, -1.0);
     vec2 uv;
     vec3 n;
@@ -205,7 +208,7 @@ void main_Grad( )
 //	uv = zoom*rotate(iRotate)*(Coord.xy - .5 * Resolution) / Resolution.x;
 
 
-            uv = (vec2(0.5,0.5)+vec2(-1.0,-1.0)*  (  rotate(iRotate) *       ( gl_FragCoord.xy-pos_correction.xy - .5 * iResolution.xy )) / iResolution.xy);
+            uv = (vec2(0.5,0.5)+vec2(1.0,-1.0)*  (  rotate(iRotate) *       ( gl_FragCoord.xy-pos_correction.xy - .5 * iResolution.xy )) / iResolution.xy);
 //            uv = (vec2(1.0,-1.0)*(  ( gl_FragCoord.xy-pos_correction.xy)) / iResolution.xy);
             kD = texture(texture_in,uv);
             n = vec3(getGrad_super(texture_in,uv,1.0/vec2(1920,1080)),-150.0);

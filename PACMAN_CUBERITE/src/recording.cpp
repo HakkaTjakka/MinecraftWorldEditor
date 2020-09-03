@@ -763,12 +763,15 @@ void recording_m_orig()
 }
 
 
+int timenow;
+
 int recording_start(int x, int y)
 {
-    int timenow= time(0);
 
     rec_clock_tot.restart();
     rec_clock_frame.restart();
+
+    timenow= time(0);
 
 //    reload_init();
 
@@ -779,8 +782,17 @@ int recording_start(int x, int y)
         else
             sprintf(command_line,"ffmpeg.exe -f rawvideo -vcodec rawvideo -pix_fmt rgb24 -s %dx%d -r 60 -i - -an -c:v libx264 record/output%d.mp4",x,y,timenow);
     } else {
-        if (strlen(FFMPEGCOMMAND_CROP)>0)
-            sprintf(command_line,FFMPEGCOMMAND_CROP,crop_x_size,crop_x,timenow);
+        if (strlen(FFMPEGCOMMAND_CROP)>0) {
+            int scale_x=texture_from_ffmpeg.getSize().x*sprite_from_ffmpeg.getScale().x;
+            int scale_y=texture_from_ffmpeg.getSize().y*sprite_from_ffmpeg.getScale().y;
+            if (scale_x>1920) scale_x=1920;
+            if (scale_y>1080) scale_y=1080;
+            if (float(scale_x)/2.0!=int(scale_x/2.0)) scale_x-=1;
+            if (float(scale_y)/2.0!=int(scale_y/2.0)) scale_y-=1;
+
+            sprintf(command_line,FFMPEGCOMMAND_CROP,scale_x,scale_y,int((1920-scale_x)/2),int((1080-scale_y)/2),timenow);
+/////////            sprintf(command_line,FFMPEGCOMMAND_CROP,crop_x_size,crop_x,timenow);
+        }
         else
             sprintf(command_line,"ffmpeg -hide_banner -f rawvideo -vcodec rawvideo -pix_fmt rgb24 -s 1920x1080 -r 60 -i - -filter:v crop=%d:1080:%d:0 -an -c:v libx264 -preset slow -crf 23 -c:a copy -pix_fmt yuv420p ../record/output%d.mp4",crop_x_size,crop_x,timenow);
     }
