@@ -3119,8 +3119,9 @@ extern float* fspeed_ghosty;
 //                                printf(" NO VOXELFILE.");
                             }
                             got_one=true;
+//huh
+                            printf("\n");
                         }
-                        printf("\n");
                         if (got_one) break;
                     }
                     if (got_one) ready_regions.erase(ready_regions.begin()+n,ready_regions.begin()+n+1);

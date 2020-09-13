@@ -26,7 +26,7 @@ exit /b
 	)
 	
  	sof.exe "!hoppa!.nl.srt"
-	sof.exe "!hoppa!.en.srt"
+rem	sof.exe "!hoppa!.en.srt"
 
 	if not exist DUTCH mkdir DUTCH
 
