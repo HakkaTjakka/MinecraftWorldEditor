@@ -563,6 +563,11 @@ void interpolate_spline(int what) {
 int center_x=0;
 int center_y=0;
 
+double center_lat=0;
+double center_lon=0;
+
+bool sort_lat_lon=false;
+
 struct info_3d_struct {
     glm::ivec2 pos;
     std::string filename;
@@ -582,42 +587,16 @@ struct info_3d_struct {
 
     bool operator < (const info_3d_struct &B) const
     {
-//        return( abs(pos.x-center_x) + abs(pos.y-center_y)   <   abs(B.pos.x-center_x) + abs(B.pos.y-center_y) );
+        if (sort_lat_lon) {
+            double dist=sqrt( (lat-center_lat)*(lat-center_lat) + (lon-center_lon)*(lon-center_lon) );
+            double Bdist=sqrt( (B.lat-center_lat)*(B.lat-center_lat) + (B.lon-center_lon)*(B.lon-center_lon) );
+            return( dist < Bdist );
+        } else {
+            double dist=sqrt( (pos.x-center_x)*(pos.x-center_x) + 4.0*(pos.y-center_y)*(pos.y-center_y) );
+            double Bdist=sqrt( (B.pos.x-center_x)*(B.pos.x-center_x) + 4.0*(B.pos.y-center_y)*(B.pos.y-center_y) );
+            return( dist < Bdist );
+        }
 
-/*
-        double center_x_new=0.5*(center_x + pos.x);
-        double center_y_new=0.5*(center_y + pos.y);
-        double center_x_new_B=0.5*(center_x + B.pos.x);
-        double center_y_new_B=0.5*(center_y + B.pos.y);
-        double dist=sqrt( (pos.x-center_x_new)*(pos.x-center_x_new) + (pos.y-center_y_new)*(pos.y-center_y_new) );
-        double Bdist=sqrt( (B.pos.x-center_x_new_B)*(B.pos.x-center_x_new_B) + (B.pos.y-center_y_new_B)*(B.pos.y-center_y_new_B) );
-*/
-//            return (pos.x-center_x)*(pos.y-center_y) < (B.pos.x-center_x)*(B.pos.y-center_y);
-
-//        double center_x_new=center_x+sin((double)pos.x/20)*center_x;
-//        double center_y_new=center_y+cos((double)pos.y/20)*center_y;
-//        double center_x_new_B=center_x+sin((double)B.pos.x/20)*center_x;
-//        double center_y_new_B=center_y+cos((double)B.pos.y/20)*center_y;
-
-//        double dist=sqrt( (pos.x-center_x_new)*(pos.x-center_x_new) + (pos.y-center_y_new)*(pos.y-center_y_new) );
-//        double Bdist=sqrt( (B.pos.x-center_x_new_B)*(B.pos.x-center_x_new_B) + (B.pos.y-center_y_new_B)*(B.pos.y-center_y_new_B) );
-
-
-        double dist=sqrt( (pos.x-center_x)*(pos.x-center_x) + 4.0*(pos.y-center_y)*(pos.y-center_y) );
-        double Bdist=sqrt( (B.pos.x-center_x)*(B.pos.x-center_x) + 4.0*(B.pos.y-center_y)*(B.pos.y-center_y) );
-
-//        double dist=sqrt( (pos.x-center_x)*(pos.x-center_x) + (pos.y-center_y)*(pos.y-center_y) );
-//        double Bdist=sqrt( (B.pos.x-center_x)*(B.pos.x-center_x) + (B.pos.y-center_y)*(B.pos.y-center_y) );
-
-//        if (dist < Bdist) {
-//            center_x=(center_x*5+pos.x)/6;
-//            center_y=(center_y*5+pos.y)/6;
-//        }
-//reversed...hoppa
-        return( dist < Bdist );
-
-//        return( sqrt( (pos.x-center_x)*(pos.x-center_x) + (pos.y-center_y)*(pos.y-center_y) )
-//                < sqrt( (B.pos.x-center_x)*(B.pos.x-center_x) + (B.pos.y-center_y)*(B.pos.y-center_y) ) );
     }
 };
 
@@ -1152,6 +1131,7 @@ extern sf::Image scan_image;
 extern int MCEDITOR_stop;
 extern std::vector<Voxel> voxels_total;
 extern bool load_voxels();
+extern std::string *extra_octants_belong_to_string_pointer;
 
 bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool pac_obj2_arr_used[100], Pacman_Object pac_obj2_arr[100]) {
     FILE* report;
@@ -1235,6 +1215,21 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                     if (y>max_y) max_y=y;
                     info_3d_elem.filename=str;
                     info_3d_elem.pos=glm::ivec2(x,y);
+
+                    lat_north=0.0;
+                    lat_south=0.0;
+                    lon_west=0.0;
+                    lon_east=0.0;
+                    if (latitude_longditude!="") {
+                        char line[2000];
+                        strcpy(line,latitude_longditude.c_str());
+                        while (replace_str(line,".",","));
+                        int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
+                        info_3d_elem.lat=(lat_north+lat_south)/2.0;
+                        info_3d_elem.lon=(lon_east+lon_west)/2.0;
+                    }
+
+
                     info_3d.push_back(info_3d_elem);
                 } else {
                     printf("NOT FOUND: X=%4d Y=%4d                                                                                                               \n",x,y);
@@ -1266,6 +1261,20 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                     printf("#%3d FOUND: X=%3d Y=%3d %s\n",cnt,x,y,str.c_str());
                     info_3d_elem.filename=str;
                     info_3d_elem.pos=glm::ivec2(x,y);
+
+                    lat_north=0.0;
+                    lat_south=0.0;
+                    lon_west=0.0;
+                    lon_east=0.0;
+                    if (latitude_longditude!="") {
+                        char line[2000];
+                        strcpy(line,latitude_longditude.c_str());
+                        while (replace_str(line,".",","));
+                        int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
+                        info_3d_elem.lat=(lat_north+lat_south)/2.0;
+                        info_3d_elem.lon=(lon_east+lon_west)/2.0;
+                    }
+
                     info_3d.push_back(info_3d_elem);
                 } else {
                     printf("#%3d NOT FOUND: X=%3d Y=%3d\n",cnt,x,y);
@@ -1279,12 +1288,37 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
             window.pollEvent(event);
             str=get_area_data(my_area,max_x,y);
             if (str!="") {
-                printf(".");
-//                printf("#%3d FOUND: X=%3d Y=%3d %s (EXTRA)\n",cnt,max_x,y,str.c_str());
+//                printf(".");
+                printf("#%3d FOUND: X=%3d Y=%3d %s (EXTRA)\n",cnt,max_x,y,str.c_str());
                 info_3d_elem.filename=str;
                 info_3d_elem.pos=glm::ivec2(max_x,y);
-                info_3d.push_back(info_3d_elem);
+
+                std::string to_test=extra_octants_belong_to_string_pointer[y];
+                char octant[100];
+                int xx,yy;
+                int num=sscanf(to_test.c_str(),"%100[^ ] X=%d Y=%d", octant, &xx, &yy);
+                if (num==3) {
+                    info_3d_elem.pos=glm::ivec2(xx,yy);
+                    printf("Relocating octant %s (%d,%d) to (%d,%d)\n",to_test.c_str(),max_x,y,xx,yy);
                 } else {
+                    printf("Can not relocate (%d,%d) to \"%s\"\n",max_x,y,to_test.c_str());
+                }
+
+                lat_north=0.0;
+                lat_south=0.0;
+                lon_west=0.0;
+                lon_east=0.0;
+                if (latitude_longditude!="") {
+                    char line[2000];
+                    strcpy(line,latitude_longditude.c_str());
+                    while (replace_str(line,".",","));
+                    int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
+                    info_3d_elem.lat=(lat_north+lat_south)/2.0;
+                    info_3d_elem.lon=(lon_east+lon_west)/2.0;
+                }
+
+                info_3d.push_back(info_3d_elem);
+            } else {
                 printf("#%3d NOT FOUND: X=%3d Y=%3d (EXTRA)\n",cnt,max_x,y);
             }
             cnt++;
@@ -1295,20 +1329,41 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
 //Amsterdam center
 //    center_x=46;
 //    center_y=103;
-
+    center_x=0;
+    center_y=0;
+    center_lat=0.0;
+    center_lon=0.0;
+    int num_octants=0;
     for (auto v : info_3d) {
         center_x+=v.pos.x;
         center_y+=v.pos.y;
+        if (v.lat!=0.0 && v.lon!=0.0) {
+            num_octants++;
+            center_lat+=v.lat;
+            center_lon+=v.lon;
+        }
     }
     if (info_3d.size()>0) {
         center_x/=info_3d.size();
         center_y/=info_3d.size();
     }
+    if (num_octants>0) {
+        center_lat/=num_octants;
+        center_lon/=num_octants;
+    }
 
+    sort_lat_lon=false;
     if (my_area=="DenHaag") {
         center_x=22;
         center_y=23;
+    } else if (my_area=="NewYork") {
+        center_x=54;
+        center_y=43;
+        center_lat=40.689242;
+        center_lon=-74.044540;
+//        sort_lat_lon=true;
     }
+
     if (crossing>0 && my_area!="Models" && my_area!="Canvas") {
 //    if (crossing>0 && crossing!=3) {
         printf("Sorting square\n");
@@ -1319,6 +1374,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
         }
         printf("\n");
     }
+    sort_lat_lon=false;
 
     cnt=0;
     for (auto v : info_3d) {
@@ -1452,7 +1508,9 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
             else
                 printf("\r#%3d CONVERTING: X=%4d Y=%4d %s\n",cnt,v.pos.x,v.pos.y,v.filename.c_str());
 
-            std::string str=get_area_data(my_area,v.pos.x,v.pos.y);
+//willem
+//            std::string str=get_area_data(my_area,v.pos.x,v.pos.y);
+            std::string str=v.filename;
 
             int i;
             for (i=0; i<100; i++) {

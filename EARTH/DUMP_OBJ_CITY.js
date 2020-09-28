@@ -165,15 +165,15 @@ async function run() {
 		else if (fs.existsSync(newDir_AZORES) ) 	{	console.log('exists in: ' + newDir_AZORES);		return;		}
 
 		else if (fs.existsSync(objDir)) 			{	console.log('exists in: ' + objDir);			return;		}
-		else if (fs.existsSync(newDir_AMSTERDAMb) )	{	console.log('exists in: ' + newDir_AMSTERDAMb1);return;		}
-		else if (fs.existsSync(newDir_BRUSSELb) ) 	{	console.log('exists in: ' + newDir_BRUSSELb1);	return;		}
-		else if (fs.existsSync(newDir_ENSCHEDEb) ) 	{	console.log('exists in: ' + newDir_ENSCHEDEb1);	return;		}
-		else if (fs.existsSync(newDir_LAb) ) 		{	console.log('exists in: ' + newDir_LAb1);		return;		}
-		else if (fs.existsSync(newDir_NEWYORKb) ) 	{	console.log('exists in: ' + newDir_NEWYORKb1);	return;		}
-		else if (fs.existsSync(newDir_MIAMIb) ) 	{	console.log('exists in: ' + newDir_MIAMIb1);	return;		}
-		else if (fs.existsSync(newDir_DENHAAGb) ) 	{	console.log('exists in: ' + newDir_DENHAAGb1);	return;		}
-		else if (fs.existsSync(newDir_SCHWEIZb) ) 	{	console.log('exists in: ' + newDir_SCHWEIZb1);	return;		}
-		else if (fs.existsSync(newDir_AZORESb) ) 	{	console.log('exists in: ' + newDir_AZORESb1);	return;		}
+		else if (fs.existsSync(newDir_AMSTERDAMb) )	{	console.log('exists in: ' + newDir_AMSTERDAMb);return;		}
+		else if (fs.existsSync(newDir_BRUSSELb) ) 	{	console.log('exists in: ' + newDir_BRUSSELb);	return;		}
+		else if (fs.existsSync(newDir_ENSCHEDEb) ) 	{	console.log('exists in: ' + newDir_ENSCHEDEb);	return;		}
+		else if (fs.existsSync(newDir_LAb) ) 		{	console.log('exists in: ' + newDir_LAb);		return;		}
+		else if (fs.existsSync(newDir_NEWYORKb) ) 	{	console.log('exists in: ' + newDir_NEWYORKb);	return;		}
+		else if (fs.existsSync(newDir_MIAMIb) ) 	{	console.log('exists in: ' + newDir_MIAMIb);	return;		}
+		else if (fs.existsSync(newDir_DENHAAGb) ) 	{	console.log('exists in: ' + newDir_DENHAAGb);	return;		}
+		else if (fs.existsSync(newDir_SCHWEIZb) ) 	{	console.log('exists in: ' + newDir_SCHWEIZb);	return;		}
+		else if (fs.existsSync(newDir_AZORESb) ) 	{	console.log('exists in: ' + newDir_AZORESb);	return;		}
 		else 										{	console.log('not exist: ' + objDir);	}
 
 			 if (fs.existsSync(newDir1) )			{	console.log('exists in: ' + newDir1);			return;		}

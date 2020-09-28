@@ -47,6 +47,7 @@ bool massiv_on=false;
 bool turbo_on=true;
 bool boom_on=true;
 bool caves_on=true;
+bool tunnels_on=true;
 bool rooms_on=true;
 bool coral_on=true;
 bool maze_on=true;
@@ -6263,6 +6264,13 @@ extern std::string area;
         printf(" Caves=on");
     } else caves_on=false;
 
+    if (file_exists("tunnels.on")) {
+        tunnels_on=true;
+        if (fff==1) printf("\n");
+        fff=0;
+        printf(" Tunnels=on");
+    } else tunnels_on=false;
+
     if (file_exists("rooms.on")) {
         rooms_on=true;
         if (fff==1) printf("\n");
@@ -6437,7 +6445,7 @@ extern std::string area;
         int tears=0;
         int water=0;
 
-        if (boom_on || rooms_on || caves_on) {
+        if (boom_on || rooms_on || caves_on || tunnels_on) {
             editor.x_len = region.x_len, editor.z_len = region.z_len, editor.y_len = region.y_len;
             editor.x_ori = region.x_ori, editor.z_ori = region.z_ori, editor.y_ori = region.y_ori;
             editor.block_entities = region.B;
@@ -6463,15 +6471,19 @@ extern std::string area;
                             float f_xx=xx+SEED;
                             float f_y=y+SEED;
                             float f_zz=zz+SEED;
-                            int rr=int(2.0+2.0*sin((f_xx-f_zz+f_y)/158.77) + 8.0*(1.0+sin((f_xx+f_zz+f_y)/156.0))/2.0);
-                            int b1=int( ( sin( float(f_xx)/279.83 + 0.35*sin( float(f_y)/185.83 ) ) + sin( float(f_y)/275.83 )  +  float(f_zz+ 0.27*sin( float(f_xx)/239.83 ) )/369.51 + 2.0)*300.0 + 500.0 )%300;
-                            int b2=int( ( sin( float(f_xx+ 0.2*sin( float(f_zz)/345.83 ) )/299.83 ) + sin( float(f_y)/255.83 )  +  float(f_zz)/239.51 + 2.0  + 0.31*sin( float(f_y)/315.83 ))*300.0 + 500.0 )%300;
-                            int b3=int( ( sin( float(f_xx+ 0.13*sin( float(f_zz)/445.83 ) )/139.83 ) + sin( float(f_y)/265.83 ) +  float(f_zz)/279.51 + 2.0  + 0.15*sin( float(f_y)/445.83 ))*300.0 + 700.0 )%350;
+                            int rr=int(2.0+2.0*sin((f_xx-f_zz+f_y)/118.77) + 8.0*(1.0+sin((f_xx+f_zz+f_y)/106.0))/2.0);
+                            int b1=int( ( sin( float(f_xx)/179.83 + 0.35*sin( float(f_y)/115.83 ) ) + sin( float(f_y)/175.83 )  +  float(f_zz+ 0.27*sin( float(f_xx)/139.83 ) )/269.51 + 2.0)*300.0 + 500.0 )%300;
+                            int b2=int( ( sin( float(f_xx+ 0.2*sin( float(f_zz)/245.83 ) )/199.83 ) + sin( float(f_y)/155.83 )  +  float(f_zz)/139.51 + 2.0  + 0.31*sin( float(f_y)/215.83 ))*300.0 + 500.0 )%300;
+                            int b3=int( ( sin( float(f_xx+ 0.13*sin( float(f_zz)/345.83 ) )/119.83 ) + sin( float(f_y)/165.83 ) +  float(f_zz)/179.51 + 2.0  + 0.15*sin( float(f_y)/345.83 ))*300.0 + 700.0 )%350;
                             if (
-                                    b3==75 || b3==211 || b1==140 || b1==190 || b2==135 || b2==288 ||
-                                    b3==76 || b3==212 || b1==141 || b1==191 || b2==136 || b2==289 ||
+                                    b3==75 || b1==140 || b2==135 ||
+                                    b3==76 || b1==141 || b2==136 ||
                                     (b1+b2+b3)%300==75 || abs(b1+b2*2-b3+200)%300==220 ||
                                     (b1+b2+b3)%300==76 || abs(b1+b2*2-b3+200)%300==221
+//                                    b3==75 || b3==211 || b1==140 || b1==190 || b2==135 || b2==288 ||
+//                                    b3==76 || b3==212 || b1==141 || b1==191 || b2==136 || b2==289 ||
+//                                    (b1+b2+b3)%300==75 || abs(b1+b2*2-b3+200)%300==220 ||
+//                                    (b1+b2+b3)%300==76 || abs(b1+b2*2-b3+200)%300==221
 
                                 ) {
                                 BlockInfo hop=AY[y];
@@ -6541,7 +6553,8 @@ extern std::string area;
                                     if (AY[y].id==0) {
                                         if (!(rand()%(2+((y-height_add)*(y-height_add))/5)))
                                             AY[y]=BlockInfo(89,0,0,0);
-                                        else if (!(rand()%(2+((y-height_add)*(y-height_add))/25)))
+//WILLEM
+                                        else if (!(rand()%(50+((y-height_add)*(y-height_add))/25)))
                                             AY[y]=BlockInfo(14,0,0,0);
                                         else
                                         {
@@ -6598,7 +6611,6 @@ extern std::string area;
                     }
                 }
             }
-//            if (caves_on)
             int counter1=0;
 //            int counter2=0;
 
@@ -6619,6 +6631,8 @@ extern std::string area;
             static int starting_x=true;
             static int starting_z=true;
 */
+
+//            if (caves_on)
             for (int x = 0; x < xl; x++) {
                 BlockInfo** AZ=AX[x];
                 xx=x+chunk_offsetx*16;
@@ -6668,7 +6682,7 @@ extern std::string area;
 //                                    num_blocks_total++;
 //                                }
 //willem
-                                if (y>=floor_y[x][z]) {
+                                if (y>floor_y[x][z]) {
                                     if (AX[x][z][y-1].id==0                                      && AX[x][z][y-1].id!=255 && skylight[x][z][y-1]==0) { num_blocks_total++;AX[x][z][y-1]=BlockInfo(46,0,0,0); if (AX[x][z][y-1-1].id==0) AX[x][z][y-1-1]=BlockInfo(hop.id,0,hop.data,0);}
                                     if ((rand()%20)<=(int)rr) if (x-1>=0  && AX[x-1][z][y].id==0 && AX[x-1][z][y].id!=255 && skylight[x-1][z][y]==0) { num_blocks_total++;AX[x-1][z][y]=BlockInfo(46,0,0,0); if (AX[x-1][z][y-1].id==0) AX[x-1][z][y-1]=BlockInfo(hop.id,0,hop.data,0);}
                                     if ((rand()%20)<=(int)rr) if (x+1<512 && AX[x+1][z][y].id==0 && AX[x+1][z][y].id!=255 && skylight[x+1][z][y]==0) { num_blocks_total++;AX[x+1][z][y]=BlockInfo(46,0,0,0); if (AX[x+1][z][y-1].id==0) AX[x+1][z][y-1]=BlockInfo(hop.id,0,hop.data,0);}
@@ -6692,185 +6706,188 @@ extern std::string area;
                     }
                 }
             }
-            printf("caves:\n");
-            static bool first=true;
-            static float d[35][35][35];
-            if (first) {
-                first=false;
-                for (int xxx=-17; xxx<18; xxx++) {
-                    for (int zzz=-17; zzz<18; zzz++) {
-                        for (int yyy=-17; yyy<18; yyy++) {
-                            d[xxx+17][zzz+17][yyy+17]=sqrt(float(xxx*xxx)+float(yyy*yyy)+float(zzz*zzz));
+
+            if (tunnels_on) {
+                printf("tunnels:\n");
+                static bool first=true;
+                static float d[35][35][35];
+                if (first) {
+                    first=false;
+                    for (int xxx=-17; xxx<18; xxx++) {
+                        for (int zzz=-17; zzz<18; zzz++) {
+                            for (int yyy=-17; yyy<18; yyy++) {
+                                d[xxx+17][zzz+17][yyy+17]=sqrt(float(xxx*xxx)+float(yyy*yyy)+float(zzz*zzz));
+                            }
                         }
                     }
                 }
-            }
+                for (int x = 0; x < xl; x++) {
+                    BlockInfo** AZ=AX[x];
+                    xx=x+chunk_offsetx*16;
+                    for (int z = 0; z < zl; z++) {
+                        zz=z+chunk_offsetz*16;
+                        BlockInfo* AY=AZ[z];
+                        for (int y = height_add; y < 256; y++) {
+                            if (y+height_add<1) continue;
+                            if (AY[y].id==0) continue;
 
-            for (int x = 0; x < xl; x++) {
-                BlockInfo** AZ=AX[x];
-                xx=x+chunk_offsetx*16;
-                for (int z = 0; z < zl; z++) {
-                    zz=z+chunk_offsetz*16;
-                    BlockInfo* AY=AZ[z];
-                    for (int y = height_add; y < 256; y++) {
-                        if (y+height_add<1) continue;
+                            if (AY[y].id!=254) {
 
-                        if (AY[y].id!=254) {
+                                float f_x_0=376.0*sin(float(xx + zz/2+ y   +200)/142.79);
+                                float f_y_0=200.0*sin(float(y  +xx+zz)/130.54);
+                                float f_z_0=336.0*sin(float(zz + y   +xx/2)/165.59);
 
-                            float f_x_0=376.0*sin(float(xx + zz/2+ y   +200)/142.79);
-                            float f_y_0=200.0*sin(float(y  +xx+zz)/130.54);
-                            float f_z_0=336.0*sin(float(zz + y   +xx/2)/165.59);
+                                float f_x_x=376.0*sin(float(xx+1 +zz/2 + y +200  )/142.79);
+                                float f_y_x=200.0*sin(float(y  +xx+1+zz)/130.54);
+                                float f_z_x=336.0*sin(float(zz + y   +(xx+1)/2)  /165.59);
 
-                            float f_x_x=376.0*sin(float(xx+1 +zz/2 + y +200  )/142.79);
-                            float f_y_x=200.0*sin(float(y  +xx+1+zz)/130.54);
-                            float f_z_x=336.0*sin(float(zz + y   +(xx+1)/2)  /165.59);
+                                float f_x_y=376.0*sin(float(xx + zz/2 + y+1  +200 )/142.79);
+                                float f_y_y=200.0*sin(float(y+1  +xx+zz)/130.54);
+                                float f_z_y=336.0*sin(float(zz + y+1   +xx/2)/165.59);
 
-                            float f_x_y=376.0*sin(float(xx + zz/2 + y+1  +200 )/142.79);
-                            float f_y_y=200.0*sin(float(y+1  +xx+zz)/130.54);
-                            float f_z_y=336.0*sin(float(zz + y+1   +xx/2)/165.59);
+                                float f_x_z=376.0*sin(float(xx + (zz+1)/2 + y  +200 )  /142.79);
+                                float f_y_z=200.0*sin(float(y  +xx+zz+1)/130.54);
+                                float f_z_z=336.0*sin(float(zz+1 + y   +xx/2)/165.59);
 
-                            float f_x_z=376.0*sin(float(xx + (zz+1)/2 + y  +200 )  /142.79);
-                            float f_y_z=200.0*sin(float(y  +xx+zz+1)/130.54);
-                            float f_z_z=336.0*sin(float(zz+1 + y   +xx/2)/165.59);
+                                float var1_0=(1.0+0.25*sin(float( xx+y+zz)/94.53 ));
+                                float var2_0=(1.0+0.25*sin(float( xx+y-zz)/115.32));
+                                float var3_0=(1.0+0.25*sin(float(-xx-y+zz)/83.21 ));
 
-                            float var1_0=(1.0+0.25*sin(float( xx+y+zz)/94.53 ));
-                            float var2_0=(1.0+0.25*sin(float( xx+y-zz)/115.32));
-                            float var3_0=(1.0+0.25*sin(float(-xx-y+zz)/83.21 ));
+                                float var1_x=(1.0+0.25*sin(float( (xx+1)+y+zz)/94.53 ));
+                                float var2_x=(1.0+0.25*sin(float( xx+1+y-zz)  /115.32));
+                                float var3_x=(1.0+0.25*sin(float(-xx-1-y+zz)  /83.21 ));
 
-                            float var1_x=(1.0+0.25*sin(float( (xx+1)+y+zz)/94.53 ));
-                            float var2_x=(1.0+0.25*sin(float( xx+1+y-zz)  /115.32));
-                            float var3_x=(1.0+0.25*sin(float(-xx-1-y+zz)  /83.21 ));
+                                float var1_y=(1.0+0.25*sin(float( xx+y+1+zz)/94.53 ));
+                                float var2_y=(1.0+0.25*sin(float( xx+y+1-zz)/115.32));
+                                float var3_y=(1.0+0.25*sin(float(-xx-y-1+zz)/83.21 ));
 
-                            float var1_y=(1.0+0.25*sin(float( xx+y+1+zz)/94.53 ));
-                            float var2_y=(1.0+0.25*sin(float( xx+y+1-zz)/115.32));
-                            float var3_y=(1.0+0.25*sin(float(-xx-y-1+zz)/83.21 ));
+                                float var1_z=(1.0+0.25*sin(float( xx+y+zz+1)  /94.53 ));
+                                float var2_z=(1.0+0.25*sin(float( xx+y-zz-1)  /115.32));
+                                float var3_z=(1.0+0.25*sin(float(-xx-y+(zz+1))/83.21 ));
 
-                            float var1_z=(1.0+0.25*sin(float( xx+y+zz+1)  /94.53 ));
-                            float var2_z=(1.0+0.25*sin(float( xx+y-zz-1)  /115.32));
-                            float var3_z=(1.0+0.25*sin(float(-xx-y+(zz+1))/83.21 ));
+                                int r1,r2,r3;
+                                int r1_x; int r2_x; int r3_x;
+                                int r1_y; int r2_y; int r3_y;
+                                int r1_z; int r2_z; int r3_z;
 
-                            int r1,r2,r3;
-                            int r1_x; int r2_x; int r3_x;
-                            int r1_y; int r2_y; int r3_y;
-                            int r1_z; int r2_z; int r3_z;
+                                int r1_b,r2_b,r3_b;
+                                int r1_x_b; int r2_x_b; int r3_x_b;
+                                int r1_y_b; int r2_y_b; int r3_y_b;
+                                int r1_z_b; int r2_z_b; int r3_z_b;
 
-                            int r1_b,r2_b,r3_b;
-                            int r1_x_b; int r2_x_b; int r3_x_b;
-                            int r1_y_b; int r2_y_b; int r3_y_b;
-                            int r1_z_b; int r2_z_b; int r3_z_b;
+                                float f_x,f_y,f_z;
+                                float var1,var2,var3;
+                                for (int n=0; n<4; n++) {
+                                    if      (n==0)  { f_x=f_x_x; f_y=f_y_x; f_x=f_z_x; var1=var1_x; var2=var2_x; var3=var3_x;}
+                                    else if (n==1)  { f_x=f_x_y; f_y=f_y_y; f_x=f_z_y; var1=var1_y; var2=var2_y; var3=var3_y;}
+                                    else if (n==2)  { f_x=f_x_z; f_y=f_y_z; f_x=f_z_z; var1=var1_z; var2=var2_z; var3=var3_z;}
+                                    else            { f_x=f_x_0; f_y=f_y_0; f_x=f_z_0; var1=var1_0; var2=var2_0; var3=var3_0;}
 
-                            float f_x,f_y,f_z;
-                            float var1,var2,var3;
-                            for (int n=0; n<4; n++) {
-                                if      (n==0)  { f_x=f_x_x; f_y=f_y_x; f_x=f_z_x; var1=var1_x; var2=var2_x; var3=var3_x;}
-                                else if (n==1)  { f_x=f_x_y; f_y=f_y_y; f_x=f_z_y; var1=var1_y; var2=var2_y; var3=var3_y;}
-                                else if (n==2)  { f_x=f_x_z; f_y=f_y_z; f_x=f_z_z; var1=var1_z; var2=var2_z; var3=var3_z;}
-                                else            { f_x=f_x_0; f_y=f_y_0; f_x=f_z_0; var1=var1_0; var2=var2_0; var3=var3_0;}
-
-                                r3= int(30.0 + 29.0*sin( (
-                                         0.8*( var1*f_z/1.44  + var2*f_x/2.36 )           /  (93.3 * (1.0+var1*0.4*sin((var3*f_x/1.3 + f_y/2.4 + f_z    ) / 77.0)))   +
-                                         var2*0.7*( var2*f_z/1.14  + var3*f_x/1.17 )           /  (89.4 * (1.0+var2*0.4*sin((f_x/1.7 + f_y     - var1*f_z    ) / 90.0)))   +
-                                         var3*3.10*sin( (var3*f_z/1.36 + f_x/1.55 )   /  (112.6 * (1.0+0.4*sin((var2*f_x     + f_y     + f_z/2.1) / 51.0)))   ) +
-                                         var1*4.15*sin( (f_z/1.67 + var3*f_x/1.64 )   /  (52.4 * (1.0+0.4*sin((f_x     - var1*f_y/2.7 + f_z/1.2) / 87.0)))   )
-                                    )*0.8 ) );
-
-
-                                r1= int( 200.0*sin( (
-                                           0.7*( var2*f_x/2.23  +  f_z/2.3 )                       /   (97.3 * (1.0+var2*0.4*sin((-var3*f_x/1.2 + f_y     + f_z/1.5) / 133.0)))   +
-                                           var2*0.6*( var3*f_x/1.44  +  f_z/1.5 )                            /   (113.3 * (1.0+var3*0.4*sin((-f_x-      var2*f_y/1.6 + f_z/1.3) / 124.0)))   +
-                                           var3*1.8*sin( (var3*f_x/1.53 + f_z/1.1 )                /   (86.0 * (1.0+0.4*sin(( f_x + f_y     - var1*f_z/2.1    ) / 83.0)))   ) +
-                                           var1*2.15*sin( (f_x/1.33 + var2*f_z/1.4 )                /   (98.0 * (1.0+0.4*sin(( f_x/1.8 - var3*f_y     + f_z/1.4) / 87.0)))   )
-                                    )*0.60  ) );
+                                    r3= int(30.0 + 29.0*sin( (
+                                             0.8*( var1*f_z/1.44  + var2*f_x/2.36 )           /  (93.3 * (1.0+var1*0.4*sin((var3*f_x/1.3 + f_y/2.4 + f_z    ) / 77.0)))   +
+                                             var2*0.7*( var2*f_z/1.14  + var3*f_x/1.17 )           /  (89.4 * (1.0+var2*0.4*sin((f_x/1.7 + f_y     - var1*f_z    ) / 90.0)))   +
+                                             var3*3.10*sin( (var3*f_z/1.36 + f_x/1.55 )   /  (112.6 * (1.0+0.4*sin((var2*f_x     + f_y     + f_z/2.1) / 51.0)))   ) +
+                                             var1*4.15*sin( (f_z/1.67 + var3*f_x/1.64 )   /  (52.4 * (1.0+0.4*sin((f_x     - var1*f_y/2.7 + f_z/1.2) / 87.0)))   )
+                                        )*0.8 ) );
 
 
-                                r2= int( 200.0*sin( (
-                                       0.7*( var3*f_z/2.02   +  f_x/2.30 )              / (126.3*(1.0+var3*0.3*sin(( f_x/1.2 + f_y/2.2 + var2*f_z      )  /117.0)))    +
-                                       var3*0.6*( f_z/1.12   +  var1*f_x/1.22 )                  / (118.3*(1.0+var1*0.4*sin((-var3*f_x/1.3 - f_y     + f_z/1.7  )  /125.0)))    +
-                                       var2*1.8*sin( (var2*f_z/1.0 + f_x/1.5 )          / (99.0*(1.0+0.4*sin(( f_x/1.32 - f_y     + var3*f_z      )  /85.0)))    ) +
-                                       var1*2.15*sin( (f_z/1.5 + var3*f_x/1.7 )          / (83.0*(1.0+0.4*sin(( var1*f_x/1.5 + f_y/2.1 - f_z      )  /83.0)))    )
-                                    )*0.60 ) );
-
-                                r3_b= int(30.0 + 29.0*sin( (
-                                         0.8*( var1*f_x/1.44  + var2*f_z/2.36 )           /  (93.3 * (1.0+var1*0.4*sin((var3*f_z/1.3 + f_y/2.4 + f_x    ) / 77.0)))   +
-                                         var2*0.7*( var2*f_x/1.14  + var3*f_z/1.17 )           /  (89.4 * (1.0+var2*0.4*sin((f_z/1.7 + f_y     - var1*f_x    ) / 90.0)))   +
-                                         var3*3.10*sin( (var3*f_x/1.36 + f_z/1.55 )   /  (112.6 * (1.0+0.4*sin((var2*f_z     + f_y     + f_x/2.1) / 51.0)))   ) +
-                                         var1*4.15*sin( (f_x/1.67 + var3*f_z/1.64 )   /  (52.4 * (1.0+0.4*sin((f_z     - var1*f_y/2.7 + f_x/1.2) / 87.0)))   )
-                                    )*0.8 ) );
+                                    r1= int( 200.0*sin( (
+                                               0.7*( var2*f_x/2.23  +  f_z/2.3 )                       /   (97.3 * (1.0+var2*0.4*sin((-var3*f_x/1.2 + f_y     + f_z/1.5) / 133.0)))   +
+                                               var2*0.6*( var3*f_x/1.44  +  f_z/1.5 )                            /   (113.3 * (1.0+var3*0.4*sin((-f_x-      var2*f_y/1.6 + f_z/1.3) / 124.0)))   +
+                                               var3*1.8*sin( (var3*f_x/1.53 + f_z/1.1 )                /   (86.0 * (1.0+0.4*sin(( f_x + f_y     - var1*f_z/2.1    ) / 83.0)))   ) +
+                                               var1*2.15*sin( (f_x/1.33 + var2*f_z/1.4 )                /   (98.0 * (1.0+0.4*sin(( f_x/1.8 - var3*f_y     + f_z/1.4) / 87.0)))   )
+                                        )*0.60  ) );
 
 
-                                r1_b= int( 200.0*sin( (
-                                           0.7*( var2*f_z/2.23  +  f_x/2.3 )                       /   (97.3 * (1.0+var2*0.4*sin((-var3*f_z/1.2 + f_y     + f_x/1.5) / 133.0)))   +
-                                           var2*0.6*( var3*f_z/1.44  +  f_x/1.5 )                            /   (113.3 * (1.0+var3*0.4*sin((-f_z-      var2*f_y/1.6 + f_x/1.3) / 124.0)))   +
-                                           var3*1.8*sin( (var3*f_z/1.53 + f_x/1.1 )                /   (86.0 * (1.0+0.4*sin(( f_z + f_y     - var1*f_x/2.1    ) / 83.0)))   ) +
-                                           var1*2.15*sin( (f_z/1.33 + var2*f_x/1.4 )                /   (98.0 * (1.0+0.4*sin(( f_z/1.8 - var3*f_y     + f_x/1.4) / 87.0)))   )
-                                    )*0.60  ) );
+                                    r2= int( 200.0*sin( (
+                                           0.7*( var3*f_z/2.02   +  f_x/2.30 )              / (126.3*(1.0+var3*0.3*sin(( f_x/1.2 + f_y/2.2 + var2*f_z      )  /117.0)))    +
+                                           var3*0.6*( f_z/1.12   +  var1*f_x/1.22 )                  / (118.3*(1.0+var1*0.4*sin((-var3*f_x/1.3 - f_y     + f_z/1.7  )  /125.0)))    +
+                                           var2*1.8*sin( (var2*f_z/1.0 + f_x/1.5 )          / (99.0*(1.0+0.4*sin(( f_x/1.32 - f_y     + var3*f_z      )  /85.0)))    ) +
+                                           var1*2.15*sin( (f_z/1.5 + var3*f_x/1.7 )          / (83.0*(1.0+0.4*sin(( var1*f_x/1.5 + f_y/2.1 - f_z      )  /83.0)))    )
+                                        )*0.60 ) );
 
-                                r2_b= int( 200.0*sin( (
-                                       0.7*( var3*f_x/2.02   +  f_z/2.30 )              / (126.3*(1.0+var3*0.3*sin(( f_z/1.2 + f_y/2.2 + var2*f_x      )  /117.0)))    +
-                                       var3*0.6*( f_x/1.12   +  var1*f_z/1.22 )                  / (118.3*(1.0+var1*0.4*sin((-var3*f_z/1.3 - f_y     + f_x/1.7  )  /125.0)))    +
-                                       var2*1.8*sin( (var2*f_x/1.0 + f_z/1.5 )          / (99.0*(1.0+0.4*sin(( f_z/1.32 - f_y     + var3*f_x      )  /85.0)))    ) +
-                                       var1*2.15*sin( (f_x/1.5 + var3*f_z/1.7 )          / (83.0*(1.0+0.4*sin(( var1*f_z/1.5 + f_y/2.1 - f_x      )  /83.0)))    )
-                                    )*0.60 ) );
+                                    r3_b= int(30.0 + 29.0*sin( (
+                                             0.8*( var1*f_x/1.44  + var2*f_z/2.36 )           /  (93.3 * (1.0+var1*0.4*sin((var3*f_z/1.3 + f_y/2.4 + f_x    ) / 77.0)))   +
+                                             var2*0.7*( var2*f_x/1.14  + var3*f_z/1.17 )           /  (89.4 * (1.0+var2*0.4*sin((f_z/1.7 + f_y     - var1*f_x    ) / 90.0)))   +
+                                             var3*3.10*sin( (var3*f_x/1.36 + f_z/1.55 )   /  (112.6 * (1.0+0.4*sin((var2*f_z     + f_y     + f_x/2.1) / 51.0)))   ) +
+                                             var1*4.15*sin( (f_x/1.67 + var3*f_z/1.64 )   /  (52.4 * (1.0+0.4*sin((f_z     - var1*f_y/2.7 + f_x/1.2) / 87.0)))   )
+                                        )*0.8 ) );
 
-                                if (n==0)       {r3_x=r3+height_add+1;      r1_x=r1+255; r2_x=r2+255;   r3_x_b=r3_b+height_add+1;      r1_x_b=r1_b+255; r2_x_b=r2_b+255;  }
-                                else if (n==1)  {r3_y=r3+height_add+1;      r1_y=r1+255; r2_y=r2+255;   r3_y_b=r3_b+height_add+1;      r1_y_b=r1_b+255; r2_y_b=r2_b+255;  }
-                                else if (n==2)  {r3_z=r3+height_add+1;      r1_z=r1+255; r2_z=r2+255;   r3_z_b=r3_b+height_add+1;      r1_z_b=r1_b+255; r2_z_b=r2_b+255;  }
-                                else            {r3=  r3+height_add+1;      r1=r1+255;   r2=r2+255;     r3_b=  r3_b+height_add+1;      r1_b=r1_b+255;   r2_b=r2_b+255;    }
 
-                            }
-                            int c1=0;
-                            bool hit=false;
+                                    r1_b= int( 200.0*sin( (
+                                               0.7*( var2*f_z/2.23  +  f_x/2.3 )                       /   (97.3 * (1.0+var2*0.4*sin((-var3*f_z/1.2 + f_y     + f_x/1.5) / 133.0)))   +
+                                               var2*0.6*( var3*f_z/1.44  +  f_x/1.5 )                            /   (113.3 * (1.0+var3*0.4*sin((-f_z-      var2*f_y/1.6 + f_x/1.3) / 124.0)))   +
+                                               var3*1.8*sin( (var3*f_z/1.53 + f_x/1.1 )                /   (86.0 * (1.0+0.4*sin(( f_z + f_y     - var1*f_x/2.1    ) / 83.0)))   ) +
+                                               var1*2.15*sin( (f_z/1.33 + var2*f_x/1.4 )                /   (98.0 * (1.0+0.4*sin(( f_z/1.8 - var3*f_y     + f_x/1.4) / 87.0)))   )
+                                        )*0.60  ) );
 
-                            if ( !((r3>y && r3_x>y && r3_y>y && r3_z>y) || (r3<y && r3_x<y && r3_y<y && r3_z<y)) ) {
-                                if (
-                                        ((r1>x && r1_x>x && r1_y>x && r1_z>x) || (r1<x && r1_x<x && r1_y<x && r1_z<x))
-                                     &&
-                                        ((r2>z && r2_x>z && r2_y>z && r2_z>z) || (r2<z && r2_x<z && r2_y<z && r2_z<z))
-                                    ) {
-                                    hit=false;
-                                } else hit=true;
-                            }
-                            if (!hit) {
-                                if ( !((r3_b>y && r3_x_b>y && r3_y_b>y && r3_z_b>y) || (r3_b<y && r3_x_b<y && r3_y_b<y && r3_z_b<y)) ) {
+                                    r2_b= int( 200.0*sin( (
+                                           0.7*( var3*f_x/2.02   +  f_z/2.30 )              / (126.3*(1.0+var3*0.3*sin(( f_z/1.2 + f_y/2.2 + var2*f_x      )  /117.0)))    +
+                                           var3*0.6*( f_x/1.12   +  var1*f_z/1.22 )                  / (118.3*(1.0+var1*0.4*sin((-var3*f_z/1.3 - f_y     + f_x/1.7  )  /125.0)))    +
+                                           var2*1.8*sin( (var2*f_x/1.0 + f_z/1.5 )          / (99.0*(1.0+0.4*sin(( f_z/1.32 - f_y     + var3*f_x      )  /85.0)))    ) +
+                                           var1*2.15*sin( (f_x/1.5 + var3*f_z/1.7 )          / (83.0*(1.0+0.4*sin(( var1*f_z/1.5 + f_y/2.1 - f_x      )  /83.0)))    )
+                                        )*0.60 ) );
+
+                                    if (n==0)       {r3_x=r3+height_add+1;      r1_x=r1+255; r2_x=r2+255;   r3_x_b=r3_b+height_add+1;      r1_x_b=r1_b+255; r2_x_b=r2_b+255;  }
+                                    else if (n==1)  {r3_y=r3+height_add+1;      r1_y=r1+255; r2_y=r2+255;   r3_y_b=r3_b+height_add+1;      r1_y_b=r1_b+255; r2_y_b=r2_b+255;  }
+                                    else if (n==2)  {r3_z=r3+height_add+1;      r1_z=r1+255; r2_z=r2+255;   r3_z_b=r3_b+height_add+1;      r1_z_b=r1_b+255; r2_z_b=r2_b+255;  }
+                                    else            {r3=  r3+height_add+1;      r1=r1+255;   r2=r2+255;     r3_b=  r3_b+height_add+1;      r1_b=r1_b+255;   r2_b=r2_b+255;    }
+
+                                }
+                                int c1=0;
+                                bool hit=false;
+
+                                if ( !((r3>y && r3_x>y && r3_y>y && r3_z>y) || (r3<y && r3_x<y && r3_y<y && r3_z<y)) ) {
                                     if (
-                                            ((r1_b>x && r1_x_b>x && r1_y_b>x && r1_z_b>x) || (r1_b<x && r1_x_b<x && r1_y_b<x && r1_z_b<x))
+                                            ((r1>x && r1_x>x && r1_y>x && r1_z>x) || (r1<x && r1_x<x && r1_y<x && r1_z<x))
                                          &&
-                                            ((r2_b>z && r2_x_b>z && r2_y_b>z && r2_z_b>z) || (r2_b<z && r2_x_b<z && r2_y_b<z && r2_z_b<z))
+                                            ((r2>z && r2_x>z && r2_y>z && r2_z>z) || (r2<z && r2_x<z && r2_y<z && r2_z<z))
                                         ) {
                                         hit=false;
                                     } else hit=true;
                                 }
-                            }
-                            if (hit) {
-                                printf("\rx=%3d,z=%3d,y=%3d => %d\r",x,z,y,counter1);
-                                counter1++;
-                                AY[y]=BlockInfo(254,0,0,0);
+                                if (!hit) {
+                                    if ( !((r3_b>y && r3_x_b>y && r3_y_b>y && r3_z_b>y) || (r3_b<y && r3_x_b<y && r3_y_b<y && r3_z_b<y)) ) {
+                                        if (
+                                                ((r1_b>x && r1_x_b>x && r1_y_b>x && r1_z_b>x) || (r1_b<x && r1_x_b<x && r1_y_b<x && r1_z_b<x))
+                                             &&
+                                                ((r2_b>z && r2_x_b>z && r2_y_b>z && r2_z_b>z) || (r2_b<z && r2_x_b<z && r2_y_b<z && r2_z_b<z))
+                                            ) {
+                                            hit=false;
+                                        } else hit=true;
+                                    }
+                                }
+                                if (hit) {
+                                    printf("\rx=%3d,z=%3d,y=%3d => %d\r",x,z,y,counter1);
+                                    counter1++;
+                                    AY[y]=BlockInfo(254,0,0,0);
 
-                                for (int xxx=-17; xxx<18; xxx++) {
-                                    for (int zzz=-17; zzz<18; zzz++) {
-                                        for (int yyy=-17; yyy<18; yyy++) {
-                                            if (xxx+x>=0 && xxx+x<512 && yyy+y>=0 && yyy+y<256 && zzz+z>=0 && zzz+z<512) {
-                                                BlockInfo* hoppa=&AX[x+xxx][z+zzz][y+yyy];
-                                                if (hoppa->id!=254) {
-                                                    float dd=d[xxx+17][zzz+17][yyy+17];
-                                                    float dd2=10000.0;
-                                                    if (yyy+17-3 > 0) dd2=d[xxx+17][zzz+17][yyy+17-3];
-                                                    if ( dd2<=1.0) {
-//                                                    if ( dd<2.1 ) {
-//                                                    if ( (xxx==0 && zzz==0 && abs(yyy)==2) || (xxx==0 && abs(zzz)==2 && yyy==0) || (abs(xxx)==2 && zzz==0 && yyy==0) || ( abs(xxx)+abs(yyy)+abs(zzz) <= 1  ) ) {
-                                                        *hoppa=BlockInfo(46,0,0,0);
-                                                    } else if (!(hoppa->id==46)) {
-                                                        if (dd2<3.5) {
-                                                            if (!(rand()%2000)) *hoppa=BlockInfo(89, 0, 0, 0);
-                                                            *hoppa=BlockInfo(5, 0, 0, 0);
-                                                        } else if ((!(hoppa->id==5)) && (!(hoppa->id==8))) {
-                                                            if (dd<19.0 || dd2<19 ) {
-                                                                int c=((int(abs(xxx+xx)+abs(yyy+y)+abs(zzz+zz))+rand()%20)/int(65.0+6.0*var1+5.0*var2+5.0*var3)+2500)%16;
+                                    for (int xxx=-17; xxx<18; xxx++) {
+                                        for (int zzz=-17; zzz<18; zzz++) {
+                                            for (int yyy=-17; yyy<18; yyy++) {
+                                                if (xxx+x>=0 && xxx+x<512 && yyy+y>=0 && yyy+y<256 && zzz+z>=0 && zzz+z<512) {
+                                                    BlockInfo* hoppa=&AX[x+xxx][z+zzz][y+yyy];
+                                                    if (hoppa->id!=254) {
+                                                        float dd=d[xxx+17][zzz+17][yyy+17];
+                                                        float dd2=10000.0;
+                                                        if (yyy+17-3 > 0) dd2=d[xxx+17][zzz+17][yyy+17-3];
+                                                        if ( dd2<=1.0) {
+    //                                                    if ( dd<2.1 ) {
+    //                                                    if ( (xxx==0 && zzz==0 && abs(yyy)==2) || (xxx==0 && abs(zzz)==2 && yyy==0) || (abs(xxx)==2 && zzz==0 && yyy==0) || ( abs(xxx)+abs(yyy)+abs(zzz) <= 1  ) ) {
+                                                            *hoppa=BlockInfo(46,0,0,0);
+                                                        } else if (!(hoppa->id==46)) {
+                                                            if (dd2<3.5) {
                                                                 if (!(rand()%2000)) *hoppa=BlockInfo(89, 0, 0, 0);
-                                                                else *hoppa=BlockInfo(95,0,c,0);
-                                                            } else if (!(hoppa->id==95)) {
-                                                                if (dd<22.0 || dd2<22.0) {
-                                                                    if (rand()%20000 < int(  300.0+300.0*sin( (f_x+f_y+f_z)/100.0 ) ) ) *hoppa=BlockInfo(89,0,0,0);
+                                                                *hoppa=BlockInfo(5, 0, 0, 0);
+                                                            } else if ((!(hoppa->id==5)) && (!(hoppa->id==8))) {
+                                                                if (dd<19.0 || dd2<19 ) {
+                                                                    int c=((int(abs(xxx+xx)+abs(yyy+y)+abs(zzz+zz))+rand()%20)/int(65.0+6.0*var1+5.0*var2+5.0*var3)+2500)%16;
+                                                                    if (!(rand()%2000)) *hoppa=BlockInfo(89, 0, 0, 0);
+                                                                    else *hoppa=BlockInfo(95,0,c,0);
+                                                                } else if (!(hoppa->id==95)) {
+                                                                    if (dd<22.0 || dd2<22.0) {
+                                                                        if (rand()%20000 < int(  300.0+300.0*sin( (f_x+f_y+f_z)/100.0 ) ) ) *hoppa=BlockInfo(89,0,0,0);
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -6879,8 +6896,8 @@ extern std::string area;
                                             }
                                         }
                                     }
+                                    if ((!(rand()%500)) && AY[y].id==95) AY[y]=BlockInfo(89,0,0,0);
                                 }
-                                if ((!(rand()%500)) && AY[y].id==95) AY[y]=BlockInfo(89,0,0,0);
                             }
                         }
                     }

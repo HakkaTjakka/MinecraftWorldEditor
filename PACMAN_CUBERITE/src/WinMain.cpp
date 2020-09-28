@@ -13727,8 +13727,8 @@ void update_MC(sf::Image& image_local2, int xx, int yy) {
 
 //    int x=xx*512;
 //    int y=yy*512;
-    int x=xx*512+1920/2.0;
-    int y=yy*512+1080/2.0;
+    int x=xx*512+1920/2;
+    int y=yy*512+1080/2;
     static int smooth_mem=0;
     int smooth_old=smooth;
 
@@ -13912,11 +13912,11 @@ extern bool rot_plot;
     if (!plot_only) {
         text_to_ffmpeg(mc_text2, 28,random_pixel,sf::Color::White);
         if (hit_one!=NULL) {
-            ffmpeg_posy=y+2+42+28*(hit_one->index12);
+            ffmpeg_posy=y+2+42+28*(hit_one->index12)+6*512;
 //            if (hit_one->index12>4) printf("Error: hit_one->index12>4\n");
         }
         else
-            ffmpeg_posy=y+2+42+28;
+            ffmpeg_posy=y+2+42+28+6*512;
 
 //        ffmpeg_posy=y+2+42+28*(region_counter[xx][yy]);
 
@@ -13931,7 +13931,7 @@ extern bool rot_plot;
     ffmpegfile=1;
     float complete_f=100.0*float(pixel_count)/(512.0*512.0);
     image_local.create(512,512,sf::Color(0,0,0,0));
-    if (flushing_mode && complete_f>99.0 && !no_plotting) {
+    if (flushing_mode && complete_f>99.9 && !no_plotting) {
 //    if (flushing_mode && complete_f>99.99 && !no_plotting && !complete_f2>99.99) {
         printf("\nGOT ONE COMPLETE (%f%% pixels) : r.%d.%d PUSHED ==>>\n",complete_f,xx,yy);
 //        hit_one_region one_region;

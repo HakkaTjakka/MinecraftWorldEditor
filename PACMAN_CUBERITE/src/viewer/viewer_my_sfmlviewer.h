@@ -682,7 +682,8 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
         else if (test_area=="BRUSSEL")   { lat= 50.85;    lon=   4.35; }
         else if (test_area=="AMSTERDAM") { lat= 52.35;    lon=   4.89; }
         else if (test_area=="DENHAAG")   { lat= 52.065;   lon=   4.297; }
-        else if (test_area=="NEWYORK")   { lat= 40.67;    lon= -74.50; }
+//        else if (test_area=="NEWYORK")   { lat= 40.67;    lon= -74.50; }
+        else if (test_area=="NEWYORK")   { lat= 40.689242;lon= -74.04454; }
 //        else if (test_area=="Models")    { lat=  0.0;     lon=   0.0;  }
         else if (test_area=="SCHWEIZ")   { lat= 46.7;     lon=   7.55; }
 

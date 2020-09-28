@@ -212,7 +212,7 @@ async function run() {
 		num_lons = Math.round(num_lons);
         var line = '';
         var prev_line = '';
-		lon=from_lat+size_lat/2.0;
+		lat=from_lat+size_lat/2.0;
         var row_cc_extra = '{';
         for (let lat_count=0; lat_count<num_lats; lat_count++) {
             var ok;
@@ -296,7 +296,10 @@ async function run() {
                 if (ok === 0) {
                     console.log('Not found:' + lat + ',' + lon);
                 }
-				lon=lon+size_lon
+//				lon=lon+size_lon
+//				lon=box.e+size_lon/2.0;
+				lon=middle_lon+size_lon;
+
             }
             row_cc=row_cc+"};";
 			row_cc='octants['+lat_count+']=new std::string['+num_lons+'] '+row_cc;
@@ -304,7 +307,9 @@ async function run() {
             row_cc_lat_lon=row_cc_lat_lon+"};";
 			row_cc_lat_lon='lat_lon['+lat_count+']=new std::string['+num_lons+'] '+row_cc_lat_lon;
 			out_cplusplus_lat_lon.push(row_cc_lat_lon);
-			lat=lat+size_lat;
+//			lat=lat+size_lat;
+//			lat=box.s+size_lat/2.0;
+			lat=middle_lat+size_lat;
         }
 		ok=0;
 		while (ok===0) {

@@ -1667,6 +1667,22 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
         top_right=glm::dvec2((3122982.1209280635-cnt_x)*3.0,   (-5373177.931635568-cnt_z)*3.0);
         bot_left =glm::dvec2((3105714.1226496957-cnt_x)*3.0,   (-5365303.167017606-cnt_z)*3.0);
         bot_right=glm::dvec2((3119098.869450965 -cnt_x)*3.0,   (-5361027.64235222 -cnt_z)*3.0);
+    } else if (area=="NewYork" && mirror!=0) {
+        vertical =bmax_total[0]- bmin_total[0];
+
+//        top_left =glm::dvec2(3109621.6855937983,   -5377456.286742788);
+//        top_right=glm::dvec2(3122982.1209280635,   -5373177.931635568);
+//        bot_left =glm::dvec2(3105714.1226496957,   -5365303.167017606);
+//        bot_right=glm::dvec2(3119098.869450965,    -5361027.64235222);
+
+        float cnt_x=-8544252.905233163;
+        float cnt_z=-6033824.210212925;
+
+        top_left =glm::dvec2((-8544252.905233163-cnt_x)*2.0,   (-6025046.430239671-cnt_z)*2.0);
+        top_right=glm::dvec2((-8514849.449649889-cnt_x)*2.0,   (-6033824.210212925-cnt_z)*2.0);
+        bot_left =glm::dvec2((-8537325.411157254-cnt_x)*2.0,   (-6001596.67934797 -cnt_z)*2.0);
+        bot_right=glm::dvec2((-8507791.20154021 -cnt_x)*2.0,   (-6010397.765766095-cnt_z)*2.0);
+
     } else {
         double f;
         if (schematic_size!=0) {
@@ -1879,6 +1895,9 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
             } else if (area=="DenHaag") {
                 bmin_total[0]=-80.0;
                 bmax_total[0]=60.0;
+            } else if (area=="NewYork") {
+                bmin_total[0]=-10.0;
+                bmax_total[0]=150.0;
             }
         } else {
             printf("Error reading %s\n",dat_name);
@@ -3126,7 +3145,7 @@ extern float* fspeed_ghosty;
                     }
                     if (got_one) ready_regions.erase(ready_regions.begin()+n,ready_regions.begin()+n+1);
                 }
-                if (hit_one->index8 > (int)(512.0*512.0*0.9995) || flushing ) {
+                if (hit_one->index8 > (int)(512.0*512.0*0.999) || flushing ) {
                     if (!got_one) {
                         if (make_region_from_voxel(x,z)) {
                             printf("LOADED VOXEL FILE!");
@@ -3140,7 +3159,7 @@ extern float* fspeed_ghosty;
                 }
                 if (hit_one->index6>0 || got_one) {
                     NUMBER_OF_REGIONS++;
-                    if ((flushing_mode) || hit_one->index8 > (int)(512.0*512.0*0.99) || flushing ) {
+                    if ((flushing_mode) || hit_one->index8 > (int)(512.0*512.0*0.999) || flushing ) {
 //                    if ((voxels_total.size()>25000000) || hit_one->index8 > (int)(512.0*512.0*0.9995) || flushing ) {
                         if (flushing_mode && !got_one)
                             printf("FLUSHING MODE:  [%3d][%3d]  ",x,z);
@@ -3234,11 +3253,14 @@ extern float* fspeed_ghosty;
                             sprintf(mc_text2,"SAVING");
                             hit_one->index12=0;
 //change
+//                            char fname[200];
                             if ((!plot_only_on && !flushing_mode) || got_one) {
 //                            if (!plot_only_on) {
                                 MCEDITOR_running=1;
 //                                add_to_region=true;
                                 if (got_one) no_plotting=true;
+
+/*
 
                                 FILE* INFO;
                                 if ((INFO = fopen (new_name, "a"))!=NULL) {
@@ -3247,8 +3269,15 @@ extern float* fspeed_ghosty;
                                 } else {
                                     printf("Error opening %s for writing.\n",new_name);
                                 }
+                                sprintf (fname,"../cut/r.%d.%d.info",x,z);
+                                if ((INFO = fopen (fname, "a"))!=NULL) {
+                                    fprintf(INFO,"%s\n",fn.c_str());
+                                    fclose(INFO);
+                                } else {
+                                    printf("Error opening %s for writing.\n",fname);
+                                }
 
-
+*/
                                 main_mceditor6_fixed(x,z,region_block);
 
                                 printf("Finished region r.%d.%d\n",x,z);
@@ -3258,9 +3287,12 @@ extern float* fspeed_ghosty;
 //                                add_to_region=false;
                                 MCEDITOR_running=0;
                             }
-                            char fname[200]; sprintf (fname,"../cut/r.%d.%d.vox",x,z);
+                            char fname[200];
+                            sprintf (fname,"../cut/r.%d.%d.vox",x,z);
 
-                            if (!dont_write_to_region_voxels || got_one) {
+//joepie
+//                            if (!dont_write_to_region_voxels || got_one) {
+                            if (!dont_write_to_region_voxels) {
                                 if (got_one) {
                                     voxel_file_pointer=fopen(fname,"w");
                                 } else {
@@ -3279,11 +3311,29 @@ extern float* fspeed_ghosty;
                                 if (voxel_file_pointer!=NULL) { fclose(voxel_file_pointer); printf(" Ok.\n"); }
                             } else printf("NOT outputing voxels to %s ",fname);
 
+                            FILE* INFO;
+                            if ((INFO = fopen (new_name, "a"))!=NULL) {
+                                fprintf(INFO,"r.%d.%d (%6.2f%%)\n",x,z, 100.0*(double)columns/(512.0*512.0));
+                                fclose(INFO);
+                            } else {
+                                printf("Error opening %s for writing.\n",new_name);
+                            }
+                            sprintf (fname,"../cut/r.%d.%d.info",x,z);
+                            if ((INFO = fopen (fname, "a"))!=NULL) {
+                                fprintf(INFO,"%s\n",fn.c_str());
+                                fclose(INFO);
+                            } else {
+                                printf("Error opening %s for writing.\n",fname);
+                            }
+
                             if ((!plot_only_on && !make_schematic && !hold_voxels && !flushing_mode) || got_one) {
                                 char naam[200];
                                 mkdir("../cut/done");
-                                sprintf(naam,"move \"..\\cut\\%s.*\" ..\\cut\\done\\",fname);
-//                                sprintf(naam,"move \"..\\cut\\r.%d.%d.vox\" ..\\cut\\done\\",x,z);
+                                sprintf (fname,"../cut/r.%d.%d.vox",x,z);
+                                sprintf(naam,"move \"..\\cut\\%s\" ..\\cut\\done\\",fname);
+                                system(naam);
+                                sprintf (fname,"../cut/r.%d.%d.info",x,z);
+                                sprintf(naam,"move \"..\\cut\\%s\" ..\\cut\\done\\",fname);
                                 system(naam);
                             }
 
@@ -3318,7 +3368,7 @@ extern float* fspeed_ghosty;
             }
         }
     }
-    if (!plot_only_on && !make_schematic && !hold_voxels) {
+    if (!plot_only_on && !make_schematic && !hold_voxels && !dont_write_to_region_voxels) {
         char naam[200];
         mkdir("../cut/done");
         sprintf(naam,"move \"..\\cut\\%s.*\" ..\\cut\\done\\",fn.c_str());
