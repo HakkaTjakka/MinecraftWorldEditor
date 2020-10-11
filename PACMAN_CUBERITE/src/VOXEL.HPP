@@ -3,6 +3,8 @@
 
 typedef unsigned short us;
 
+extern bool sort_cubic;
+
 struct Voxel {
     int x,y,z;
     unsigned int r,g,b,l;
@@ -15,25 +17,28 @@ struct Voxel {
 
     bool operator < (const Voxel &B) const
     {
-//        if (y != B.y) return (y < B.y);
-//        else if (z != B.z) return (z < B.z);
-//        else return (x < B.x);
-
-
         int ay = y , by = B.y;
         if ((int)(ay / 512) != (int)(by / 512)) {
-//        if (ay >> 9 != by >> 9) {
             return ay < by;
-        }
-        else {
+        } else {
             int az = z, bz = B.z;
             if ((int)(az / 512) != (int)(bz / 512)) {
-//            if (az  >> 9 != bz >> 9) {
                 return az < bz;
             } else {
-                if (ay!=by) return ay < by;
-                else if (az!=bz) return az < bz;
-                else return x < B.x;
+                if (sort_cubic) {
+                    int ax = x, bx = B.x;
+                    if ((int)(ax / 256) != (int)(bx / 256)) {
+                        return ax < bx;
+                    } else {
+                        if (ay!=by) return ay < by;
+                        else if (az!=bz) return az < bz;
+                        else return x < B.x;
+                    }
+                } else {
+                    if (ay!=by) return ay < by;
+                    else if (az!=bz) return az < bz;
+                    else return x < B.x;
+                }
             }
         }
     }

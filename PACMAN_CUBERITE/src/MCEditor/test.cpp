@@ -6001,6 +6001,8 @@ void get_floor(MCRegion &R) {
 
 void get_floor(MCRegion &region, int height_add);
 void fok_floor(MCRegion &region, int height_add);
+extern int region_floor;
+extern bool cubic;
 
 int main_mceditor6_fixed(int region_x, int region_z, unsigned char* mc) {
 //printf("hier 6\n");
@@ -6042,7 +6044,10 @@ extern std::string area;
     if (area=="Models") do_model=true;
     string fname=MCAFileNameXZ(region_x, region_z);
     char tmp[256];
-    sprintf(tmp, "/Saves/Test/region/done0/r.%d.%d.mca", region_x, region_z);
+    char DONE[16];
+    sprintf(DONE,"done%d",region_floor);
+    sprintf(tmp, "/Saves/Test/region/%s/r.%d.%d.mca", DONE, region_x, region_z);
+//    sprintf(tmp, "/Saves/Test/region/done0/r.%d.%d.mca", region_x, region_z);
     fname=tmp;
     if (file_exists("add_to_region.on")) {
         add_to_region=true;
@@ -6190,7 +6195,7 @@ extern std::string area;
 //           region.eraseRegion();
            return 0;
         }
-        else if (make_regions || flushing_mode) {
+        else if ((make_regions || flushing_mode) && !add_to_region) {
             printf("file %s exists, skipping...\n",fname.c_str());
             return 0;
         }
@@ -6342,14 +6347,16 @@ extern std::string area;
 //                                if (o_id!=0) {
 //                                    AY[y]=BlockInfo();
 //                                }
-                    if (y==height_add) {
-                        if (!(rand()%200)) {
-                            AY[y] = BlockInfo(89, 0, 0, 0 );
-                        } else {
-                            if ((xx+zz)%2)
-                                AY[y] = BlockInfo(251, 0, ret_color((128+region_z*25)%256,(128+region_x*37)%256,0),0 );
-                            else
-                                AY[y] = BlockInfo(251, 0, rand_color,0 );
+                    if (!cubic) {
+                        if (y==height_add) {
+                            if (!(rand()%200)) {
+                                AY[y] = BlockInfo(89, 0, 0, 0 );
+                            } else {
+                                if ((xx+zz)%2)
+                                    AY[y] = BlockInfo(251, 0, ret_color((128+region_z*25)%256,(128+region_x*37)%256,0),0 );
+                                else
+                                    AY[y] = BlockInfo(251, 0, rand_color,0 );
+                            }
                         }
                     }
 
@@ -6439,6 +6446,79 @@ extern std::string area;
         }
 */
 
+        if (cubic) {
+            editor.x_len = region.x_len, editor.z_len = region.z_len, editor.y_len = region.y_len;
+            editor.x_ori = region.x_ori, editor.z_ori = region.z_ori, editor.y_ori = region.y_ori;
+            editor.block_entities = region.B;
+            editor.initArrays(editor.x_len + 00, editor.z_len + 00, 256);
+            printf(" initBlocks\b\b\b\b\b\b\b\b\b\b\b");
+            editor.initBlocks(region);
+            printf(" computeSkyLight\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+            editor.computeSkyLight();
+            ui ***skylight=editor.skylight;
+
+            for (int x = 0; x < xl; x++) {
+                BlockInfo** AZ=AX[x];
+                xx=x+chunk_offsetx*16;
+                for (int z = 0; z < zl; z++) {
+                    BlockInfo* AY=AZ[z];
+                    zz=z+chunk_offsetz*16;
+                    for (int y = 0; y < 256; y++) {
+                        if (AY[y].id==0) {
+                            if (skylight[x][z][y]==0) {
+                                if (region_floor==0) {
+                                    if (y<=floor_y[x][z]) {
+                                        if (!(rand()%(2+((y-height_add)*(y-height_add))/5)))
+                                            AY[y]=BlockInfo(89,0,0,0);
+                                        else if (!(rand()%(50+((y-height_add)*(y-height_add))/25)))
+                                            AY[y]=BlockInfo(14,0,0,0);
+                                        else
+                                        {
+                                            if (y<=floor_y[x][z]-15+rand()%4) {
+                                                AY[y]=BlockInfo(1,0,0,0);
+                                            }
+                                            else {
+                                                if (!(rand()%5000)) AY[y]=BlockInfo(2,0,0,0);
+                                                else AY[y]=BlockInfo(3,0,0,0);
+                                            }
+                                        }
+                                    }
+                                } else if (region_floor<0) {
+                                    AY[y]=BlockInfo(1,0,0,0);
+                                }
+                                if (AY[y].id==0 && !(rand()%500)) {
+                                    bool ok=false;
+                                    if (x!=0) {
+                                        if (AX[x-1][z][y].id==251) ok=true;
+                                    }
+                                    if (x!=511 && !ok) {
+                                        if (AX[x+1][z][y].id==251) ok=true;
+                                    }
+                                    if (z!=0 && !ok) {
+                                        if (AX[x][z-1][y].id==251) ok=true;
+                                    }
+                                    if (z!=511 && !ok) {
+                                        if (AX[x][z+1][y].id==251) ok=true;
+                                    }
+                                    if (y!=0) {
+                                        if (AX[x][z][y-1].id==251) ok=true;
+                                    }
+                                    if (y!=255 && !ok) {
+                                        if (AX[x][z][y+1].id==251) ok=true;
+                                    }
+                                    if (ok) {
+                                        AY[y]=BlockInfo(89,0,0,0);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            editor.clearArrays(editor.x_len + 00, editor.z_len + 00, 256);
+        }
+
         vector<pair<Pos, string> > SomeStuff;
 
         int num_blocks_total=0;
@@ -6455,6 +6535,39 @@ extern std::string area;
             printf(" computeSkyLight\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
             editor.computeSkyLight();
             ui ***skylight=editor.skylight;
+
+            if (cubic && region_floor==0) {
+                for (int x = 0; x < xl; x++) {
+                    BlockInfo** AZ=AX[x];
+                    xx=x+chunk_offsetx*16;
+                    for (int z = 0; z < zl; z++) {
+                        BlockInfo* AY=AZ[z];
+                        zz=z+chunk_offsetz*16;
+                        for (int y = 0; y < 255; y++) {
+                            if (skylight[x][z][y]==0) {
+                                if (y<=floor_y[x][z]) {
+                                    if (AY[y].id==0) {
+                                        if (!(rand()%(2+((y-height_add)*(y-height_add))/5)))
+                                            AY[y]=BlockInfo(89,0,0,0);
+                                        else if (!(rand()%(50+((y-height_add)*(y-height_add))/25)))
+                                            AY[y]=BlockInfo(14,0,0,0);
+                                        else
+                                        {
+                                            if (y<=floor_y[x][z]-15+rand()%4) {
+                                                AY[y]=BlockInfo(1,0,0,0);
+                                            }
+                                            else {
+                                                if (!(rand()%5000)) AY[y]=BlockInfo(2,0,0,0);
+                                                else AY[y]=BlockInfo(3,0,0,0);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
             if (boom_on)
             for (int x = 0; x < xl; x++) {
@@ -6509,6 +6622,7 @@ extern std::string area;
             int room_x=16;
             int room_y=14;
             int room_z=16;
+
             if (rooms_on)
             for (int x = 0; x < xl; x++) {
                 BlockInfo** AZ=AX[x];
@@ -6565,7 +6679,7 @@ extern std::string area;
                                             }
                                             else {
                                                 if (!(rand()%5000)) AY[y]=BlockInfo(2,0,0,0);
-                                                AY[y]=BlockInfo(3,0,0,0);
+                                                else AY[y]=BlockInfo(3,0,0,0);
                                             }
                                         }
                                     }
@@ -6632,7 +6746,7 @@ extern std::string area;
             static int starting_z=true;
 */
 
-//            if (caves_on)
+            if (caves_on)
             for (int x = 0; x < xl; x++) {
                 BlockInfo** AZ=AX[x];
                 xx=x+chunk_offsetx*16;
@@ -7004,7 +7118,7 @@ extern std::string area;
             for (int z = 0; z < zl; z++) {
                 zz=z+chunk_offsetz*16;
                 BlockInfo* AY=AZ[z];
-                AY[0] = BlockInfo(7, 0, 0 );
+                if (!cubic) AY[0] = BlockInfo(7, 0, 0 );
 
                 for (int y = height_add; y < 256; y++) {
 
@@ -7609,10 +7723,9 @@ extern std::string area;
 
     scan_x=region_x;
     scan_z=region_z;
-    sprintf(mc_text1,"R.%d.%d.MCA",region_x,region_z);
+    sprintf(mc_text1,"R.%d.%d.MCA %d",region_x,region_z,region_floor);
 
 //    if (!no_plotting) {
-
 
     num_blocks=0;
     scan_image.create(512,512,sf::Color(0,0,0,0));
@@ -7655,10 +7768,7 @@ extern std::string area;
                 scan_image.setPixel(x,z,sf::Color(0,0,0,0));
             }
         }
-
     }
-
-
 
     update_request=2;
     while (update_request) {
@@ -7764,8 +7874,12 @@ extern std::string area;
     mkdir("/Saves");
     mkdir("/Saves/test");
     mkdir("/Saves/test/region");
-    mkdir("/Saves/test/region/done0");
-    sprintf(tmp, "/Saves/Test/region/done0/r.%d.%d.mca", region_x, region_z);
+    char done_dir[200];
+    sprintf(done_dir,"/Saves/test/region/%s",DONE);
+    mkdir(done_dir);
+//    mkdir("/Saves/test/region/done0");
+    sprintf(tmp, "/Saves/Test/region/%s/r.%d.%d.mca", DONE, region_x, region_z);
+//    sprintf(tmp, "/Saves/Test/region/done0/r.%d.%d.mca", region_x, region_z);
 
     if (file_exists(tmp) && !plotting) {
         char cmd[200];

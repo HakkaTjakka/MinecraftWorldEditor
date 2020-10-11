@@ -278050,3 +278050,5 @@
 42 no free spot PUTINMAZESFML
 42 no free spot READSFML
 42 no free spot PUTINMAZESFML
+1 Program busy or hangs... Thread alive at: 01/10/2020 14:47:23
+1 Program busy or hangs... Thread alive at: 08/10/2020 21:15:44

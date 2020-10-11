@@ -1169,13 +1169,18 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                     make_schematic=false;
                 }
                 if (mirror==4 && crossing==2) {
+//tuuttuut1
                     flushing_mode=true;
+
                     create_nbt(my_area, window, win_num, pac_obj2_arr_used, pac_obj2_arr);
                     printf("Creating rest regions...");
                     make_regions=true;
                     crossing=0; mirror=0;
                 }
                 if (make_regions) {
+//tuuttuut2
+//                    flushing_mode=true;
+
                     if (strlen(voxel_filename)!=0) {
                         int x,z;
                         int num=sscanf(voxel_filename,"r.%d.%d.vox",&x,&z);

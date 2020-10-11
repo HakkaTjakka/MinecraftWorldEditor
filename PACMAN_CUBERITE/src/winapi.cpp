@@ -45,6 +45,7 @@
 #define EVENT_SHIFT 2
 #define EVENT_CONTROL 4
 #define EVENT_SYSTEM 8
+extern bool cubic;
 
 extern bool do_pong=false;
 extern bool and_now_i_am_here;
@@ -578,6 +579,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
             } else if (c==(char)'v') {
                 crossing=2; mirror=4;combine=1;
                 area="NewYork";
+                cubic=true;
                 and_now_i_am_here=true;
                 launch_SFMLGL2_b();
 //                while (!and_now_i_am_here) {

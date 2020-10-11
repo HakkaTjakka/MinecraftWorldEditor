@@ -6,6 +6,8 @@ extern bool make_region_from_voxel(int x, int z);
 extern std::vector<hit_one_region> ready_regions;
 extern bool no_plotting;
 
+bool sort_cubic=false;
+
 extern int F4;
 extern bool rot_plot;
 extern int follow_ghost;
@@ -61,6 +63,8 @@ float g_move_object_y=0;
 float g_move_object_z=0;
 extern int shut_up;
 void flush_voxels();
+
+bool cubic=false;
 
 std::vector<Voxel> voxels_total;
 std::vector<hit_one_region> vector_hit_regions;
@@ -1627,10 +1631,14 @@ double ll_a_z;
 double ll_b_z;
 double ll_c_z;
 
-glm::dvec2 top_left;
-glm::dvec2 top_right;
-glm::dvec2 bot_left;
-glm::dvec2 bot_right;
+glm::fvec2 top_left;
+glm::fvec2 top_right;
+glm::fvec2 bot_left;
+glm::fvec2 bot_right;
+//glm::dvec2 top_left;
+//glm::dvec2 top_right;
+//glm::dvec2 bot_left;
+//glm::dvec2 bot_right;
 double vertical;
 
 double schematic_size=0;
@@ -1648,10 +1656,10 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
 //        bot_right=glm::dvec2(3310446.4741736553, -5323728.268546224);
         vertical =bmax_total[0]- bmin_total[0];
 
-        top_left =glm::dvec2((3302480-3300154)*2.5, (-5334572+5334572)*2.5);
-        top_right=glm::dvec2((3312756-3300154)*2.5, (-5331483+5334572)*2.5);
-        bot_left =glm::dvec2((3300154-3300154)*2.5, (-5326818+5334572)*2.5);
-        bot_right=glm::dvec2((3310446-3300154)*2.5, (-5323728+5334572)*2.5);
+        top_left =glm::fvec2((3302480-3300154)*2.5, (-5334572+5334572)*2.5);
+        top_right=glm::fvec2((3312756-3300154)*2.5, (-5331483+5334572)*2.5);
+        bot_left =glm::fvec2((3300154-3300154)*2.5, (-5326818+5334572)*2.5);
+        bot_right=glm::fvec2((3310446-3300154)*2.5, (-5323728+5334572)*2.5);
     } else if (area=="DenHaag" && mirror!=0) {
         vertical =bmax_total[0]- bmin_total[0];
 
@@ -1663,10 +1671,10 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
         float cnt_x=3105714.1226496957;
         float cnt_z=-5377456.286742788;
 
-        top_left =glm::dvec2((3109621.6855937983-cnt_x)*3.0,   (-5377456.286742788-cnt_z)*3.0);
-        top_right=glm::dvec2((3122982.1209280635-cnt_x)*3.0,   (-5373177.931635568-cnt_z)*3.0);
-        bot_left =glm::dvec2((3105714.1226496957-cnt_x)*3.0,   (-5365303.167017606-cnt_z)*3.0);
-        bot_right=glm::dvec2((3119098.869450965 -cnt_x)*3.0,   (-5361027.64235222 -cnt_z)*3.0);
+        top_left =glm::fvec2((3109621.6855937983-cnt_x)*3.0,   (-5377456.286742788-cnt_z)*3.0);
+        top_right=glm::fvec2((3122982.1209280635-cnt_x)*3.0,   (-5373177.931635568-cnt_z)*3.0);
+        bot_left =glm::fvec2((3105714.1226496957-cnt_x)*3.0,   (-5365303.167017606-cnt_z)*3.0);
+        bot_right=glm::fvec2((3119098.869450965 -cnt_x)*3.0,   (-5361027.64235222 -cnt_z)*3.0);
     } else if (area=="NewYork" && mirror!=0) {
         vertical =bmax_total[0]- bmin_total[0];
 
@@ -1675,13 +1683,19 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
 //        bot_left =glm::dvec2(3105714.1226496957,   -5365303.167017606);
 //        bot_right=glm::dvec2(3119098.869450965,    -5361027.64235222);
 
-        float cnt_x=-8544252.905233163;
-        float cnt_z=-6033824.210212925;
+        float cnt_x=0;
+        float cnt_z=0;
+//        float cnt_x=-8544252.905233163;
+//        float cnt_z=-6033824.210212925;
 
-        top_left =glm::dvec2((-8544252.905233163-cnt_x)*2.0,   (-6025046.430239671-cnt_z)*2.0);
-        top_right=glm::dvec2((-8514849.449649889-cnt_x)*2.0,   (-6033824.210212925-cnt_z)*2.0);
-        bot_left =glm::dvec2((-8537325.411157254-cnt_x)*2.0,   (-6001596.67934797 -cnt_z)*2.0);
-        bot_right=glm::dvec2((-8507791.20154021 -cnt_x)*2.0,   (-6010397.765766095-cnt_z)*2.0);
+        top_left =glm::fvec2((-8544252.905233163-cnt_x)*1.0,   (-6025046.430239671-cnt_z)*1.0);
+        top_right=glm::fvec2((-8514849.449649889-cnt_x)*1.0,   (-6033824.210212925-cnt_z)*1.0);
+        bot_left =glm::fvec2((-8537325.411157254-cnt_x)*1.0,   (-6001596.67934797 -cnt_z)*1.0);
+        bot_right=glm::fvec2((-8507791.20154021 -cnt_x)*1.0,   (-6010397.765766095-cnt_z)*1.0);
+//        top_left =glm::dvec2((-8544252.905233163-cnt_x)*1.0,   (-6025046.430239671-cnt_z)*1.0);
+//        top_right=glm::dvec2((-8514849.449649889-cnt_x)*1.0,   (-6033824.210212925-cnt_z)*1.0);
+//        bot_left =glm::dvec2((-8537325.411157254-cnt_x)*1.0,   (-6001596.67934797 -cnt_z)*1.0);
+//        bot_right=glm::dvec2((-8507791.20154021 -cnt_x)*1.0,   (-6010397.765766095-cnt_z)*1.0);
 
     } else {
         double f;
@@ -1720,26 +1734,28 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
             }
         }
 
-        top_left =glm::dvec2(0,                                       0);
-        top_right=glm::dvec2(bmax_total[1]*f - bmin_total[1]*f,       0);
-        bot_left =glm::dvec2(0,                                       bmax_total[2]*f - bmin_total[2]*f);
-        bot_right=glm::dvec2(bmax_total[1]*f - bmin_total[1]*f,       bmax_total[2]*f - bmin_total[2]*f);
+        top_left =glm::fvec2(0,                                       0);
+        top_right=glm::fvec2(bmax_total[1]*f - bmin_total[1]*f,       0);
+        bot_left =glm::fvec2(0,                                       bmax_total[2]*f - bmin_total[2]*f);
+        bot_right=glm::fvec2(bmax_total[1]*f - bmin_total[1]*f,       bmax_total[2]*f - bmin_total[2]*f);
         vertical =bmax_total[0]*f- bmin_total[0]*f;
 
         tot_lon[0]=-180.0; tot_lon[1]=180.0;
         tot_lat[0]=-90.0; tot_lat[1]=90.0;
     }
 
-//    if (top_left[0]<0) Amx = top_left[0]-512;  //?????? must be 511?
-//    else
-    Amx = top_left[0];
+    if (top_left[0]<0)
+        Amx = top_left[0]-512;  //?????? must be 511?
+    else
+        Amx = top_left[0];
 
     ABx = top_right[0] - top_left[0];
     ACx = bot_left[0] - top_left[0];
 
-//    if (top_left[1]<0)
-    Amz = top_left[1]-512; // must be 511?
-//    else Amz = top_left[1]; // ?????????
+    if (top_left[1]<0)
+        Amz = top_left[1]-512; // must be 511?
+    else
+        Amz = top_left[1]; // ?????????
 
     ABz = top_right[1] - top_left[1];
     ACz = bot_left[1] - top_left[1];
@@ -1896,7 +1912,9 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
                 bmin_total[0]=-80.0;
                 bmax_total[0]=60.0;
             } else if (area=="NewYork") {
-                bmin_total[0]=-10.0;
+//floors
+                bmin_total[0]=-40.0;
+//                bmin_total[0]=-10.0;
                 bmax_total[0]=150.0;
             }
         } else {
@@ -2143,8 +2161,11 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
         printf(" Texture pixelator = %9.6f\n",filler);
 //        printf("\n");
     } else {
-        pixels_per_block_glob=4.0;
-        pixels_per_block_glob_rev=1.0/4.0;
+//tuuttuut3
+        pixels_per_block_glob=8.0/block_scale;
+        pixels_per_block_glob_rev=block_scale/8.0;
+//        pixels_per_block_glob=4.0;
+//        pixels_per_block_glob_rev=1.0/4.0;
     }
 
     double offset_xyz[3];
@@ -2435,6 +2456,7 @@ hit_one_region* findRegion(int x, int z) {
     return NULL;
 }
 
+int region_floor;
 
 void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::material_t> &materials, float bmin_o[3], float bmax_o[3], double lat, double lon, std::string fn) {
     if (area=="Models") adapt_colors=false;
@@ -2550,8 +2572,10 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
 
     if (!dont_clear) voxels.clear();
     char new_name[200];
+    char new_name2[200];
 
     sprintf(new_name,"../cut/%s.info",fn.c_str());
+    sprintf(new_name2,"../cut/done/%s.info",fn.c_str());
 //    mkdir(new_name);
 //Amsterdam
 //    std::vector<BufferObject> buffers_sub;
@@ -3132,10 +3156,12 @@ extern float* fspeed_ghosty;
                             printf(" FOUND! ");
                             if (make_region_from_voxel(x,z)) {
                                 printf(" AND LOADED!");
+                                if (cubic) sort_cubic=true;
                                 sort(voxels_total.begin(), voxels_total.end());
+                                sort_cubic=false;
                                 printf(" SORTED!!!");
                             } else {
-//                                printf(" NO VOXELFILE.");
+                                printf(" NO VOXELFILE.");
                             }
                             got_one=true;
 //huh
@@ -3149,10 +3175,12 @@ extern float* fspeed_ghosty;
                     if (!got_one) {
                         if (make_region_from_voxel(x,z)) {
                             printf("LOADED VOXEL FILE!");
+                            if (cubic) sort_cubic=true;
                             sort(voxels_total.begin(), voxels_total.end());
+                            sort_cubic=false;
                             printf(" SORTED!!!\n");
                         } else {
-                                printf(" NO VOXELFILE.\n");
+                            printf(" NO VOXELFILE.\n");
                         }
                     }
                     got_one=true;
@@ -3161,6 +3189,7 @@ extern float* fspeed_ghosty;
                     NUMBER_OF_REGIONS++;
                     if ((flushing_mode) || hit_one->index8 > (int)(512.0*512.0*0.999) || flushing ) {
 //                    if ((voxels_total.size()>25000000) || hit_one->index8 > (int)(512.0*512.0*0.9995) || flushing ) {
+
                         if (flushing_mode && !got_one)
                             printf("FLUSHING MODE:  [%3d][%3d]  ",x,z);
                         else if (hit_one->index11)
@@ -3180,77 +3209,180 @@ extern float* fspeed_ghosty;
                         size_t TOP_MAX=230;
                         size_t TOPPED_MIN=0;
                         size_t TOPPED_MAX=0;
+                        int floor=0;
+                        int num_floors=0;
+                        bool NEXT_FLOOR=false;
+                        region_floor=0;
 //change
-                        if (!plot_only_on) std::memset(region_block, 0x0, 512*256*512*4);
+//floors
+                        std::memset(region_block, 0x0, 512*256*512*4);
 //                        if (!plot_only_on) std::memset(region_block, 0x0, 512*256*512*4);
+
                         for (auto u : voxels_total) {
+
                             if ( (int)(u.y/512)==x && (int)(u.z/512)==z ) {
+
                                 if (prev_x!=u.y || prev_z!=u.z) columns++;
-                                prev_x=u.y; prev_z=u.z;
-                                if (first==-1) first=count;
+//tuuttuut
+//                                prev_x=u.y; prev_z=u.z;
+
+                                if (first==-1) {
+                                    first=count;
+                                    floor=int(u.x/256);
+                                    num_floors++;
+                                    region_floor=floor;
+                                    prev_x=u.y; prev_z=u.z;
+                                }
+                                if (int(u.x/256)!=floor) {
+                                    NEXT_FLOOR=true;
+                                    num_floors++;
+                                }
+
                                 hits+=u.l;
+
                                 if (!(voxels%4096)) printf("count=%d  first=%d  voxels=%d  hits=%d  columns=%d (%6.2f%%)\r",
                                                           count, first, voxels, hits, columns, 100.0*(double)columns/(512.0*512.0));
 //change
                                 if ((!plot_only_on && !flushing_mode) || got_one) {
 //                                if (!plot_only_on) {
+
                                     int prev_y_mod;
-                                    if (u.y>=0)
-                                        prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
-                                    else
-                                        prev_y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
-
                                     int prev_z_mod;
-                                    if (u.z>=0)
-                                        prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
-                                    else
-                                        prev_z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
+                                    if (cubic) {
+                                        if (NEXT_FLOOR) {
+                                            region_floor=floor;
 
-                                    if (u.x>=0 && u.x<230 && u.l>0) {
-                                        size_t off_x=(u.x+256*prev_y_mod+prev_z_mod*512*256)*4;
-                                        region_block[off_x]=u.r/u.l;
-                                        region_block[off_x+1]=u.g/u.l;
-                                        region_block[off_x+2]=u.b/u.l;
-                                        region_block[off_x+3]=u.l;
-                                    } else if (u.l>0) {
-                                        if (u.x<1) {
-                                            if (u.x<TOP_MIN) TOP_MIN=u.x;
-                                            TOPPED_MIN++;
-                                            size_t off_x=(1+256*prev_y_mod+prev_z_mod*512*256)*4;
-                                            region_block[off_x]=u.r/u.l;
-                                            region_block[off_x+1]=u.g/u.l;
-                                            region_block[off_x+2]=u.b/u.l;
-                                            region_block[off_x+3]=u.l;
-                                        } else if (u.x>=230) {
-                                            if (u.x>TOP_MAX) TOP_MAX=u.x;
-                                            TOPPED_MAX++;
-                                            float togo=u.x-230.0;
-                                            float new_real_y=230.0+togo/(1.0+(togo/20.0)); if (new_real_y>=256.0) new_real_y=255.0;
-                                            size_t off_x=((int)new_real_y+256*prev_y_mod+prev_z_mod*512*256)*4;
-                                            region_block[off_x]=u.r/u.l;
-                                            region_block[off_x+1]=u.g/u.l;
-                                            region_block[off_x+2]=u.b/u.l;
-                                            region_block[off_x+3]=u.l;
+                                            if (voxels==0 || hits==0 || first==-1 || count==0) {
+                                                printf("\nERROR: count=%d  first=%d  voxels=%d  hits=%d\n",count, first, voxels, hits);
+                                            } else {
+                                                printf("\rTOTAL: VOXELS %d  HITS: %d  FROM %d to %d  COLUMNS: %d (%6.2f%%)  Creating region file r.%d.%d.mca floor %d\n",
+                                                       voxels, hits, first, first+voxels, columns, 100.0*(double)columns/(512.0*512.0), x,z,region_floor);
+                                                plotting=0;
+
+                                                sprintf(mc_text2,"SAVING %d",region_floor);
+//                                                hit_one->index12=0;
+
+                                                if ((!plot_only_on && !flushing_mode) || got_one) {
+                                                    MCEDITOR_running=1;
+                    //                                add_to_region=true;
+                                                    if (got_one) no_plotting=true;
+                                                    main_mceditor6_fixed(x,z,region_block);
+                                                    printf("Finished region r.%d.%d floor\n",x,z,region_floor);
+                                                    if (got_one) no_plotting=false;
+                    //                                add_to_region=false;
+                                                    MCEDITOR_running=0;
+                                                }
+                                                hits=0;
+                                                count=0;
+                                            }
+
+                                            std::memset(region_block, 0x0, 512*256*512*4);
+                                            floor=int(u.x/256);
+                                            region_floor=floor;
+                                            NEXT_FLOOR=false;
+
+                                            if (prev_x>=0)
+                                                prev_y_mod=(int)(((LONG64)prev_x+100000*512)%512);
+                                            else
+                                                prev_y_mod=(int)(((LONG64)prev_x-1+100000*512)%512);
+
+                                            if (prev_z>=0)
+                                                prev_z_mod=(int)(((LONG64)prev_z+100000*512)%512);
+                                            else
+                                                prev_z_mod=(int)(((LONG64)prev_z-1+100000*512)%512);
+
+                                            if (u.l>0) {
+                                                size_t off_x=(u.x-floor*256+256*prev_y_mod+prev_z_mod*512*256)*4;
+                                                region_block[off_x]=u.r/u.l;
+                                                region_block[off_x+1]=u.g/u.l;
+                                                region_block[off_x+2]=u.b/u.l;
+                                                region_block[off_x+3]=u.l;
+                                            } else {
+                                                printf("ERROR: u.l=0\n");
+                                            }
+
+                                        } else {
+
+                                            if (u.y>=0)
+                                                prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
+                                            else
+                                                prev_y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
+
+                                            if (u.z>=0)
+                                                prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
+                                            else
+                                                prev_z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
+
+                                            if (u.l>0) {
+                                                size_t off_x=(u.x-floor*256+256*prev_y_mod+prev_z_mod*512*256)*4;
+                                                region_block[off_x]=u.r/u.l;
+                                                region_block[off_x+1]=u.g/u.l;
+                                                region_block[off_x+2]=u.b/u.l;
+                                                region_block[off_x+3]=u.l;
+                                            } else {
+                                                printf("ERROR: u.l=0\n");
+                                            }
                                         }
                                     } else {
-                                        printf("ERROR: u.l=0\n");
+
+                                        if (u.y>=0)
+                                            prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
+                                        else
+                                            prev_y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
+
+                                        if (u.z>=0)
+                                            prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
+                                        else
+                                            prev_z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
+
+                                        if (u.x>=0 && u.x<230 && u.l>0) {
+                                            size_t off_x=(u.x+256*prev_y_mod+prev_z_mod*512*256)*4;
+                                            region_block[off_x]=u.r/u.l;
+                                            region_block[off_x+1]=u.g/u.l;
+                                            region_block[off_x+2]=u.b/u.l;
+                                            region_block[off_x+3]=u.l;
+                                        } else if (u.l>0) {
+                                            if (u.x<1) {
+                                                if (u.x<TOP_MIN) TOP_MIN=u.x;
+                                                TOPPED_MIN++;
+                                                size_t off_x=(1+256*prev_y_mod+prev_z_mod*512*256)*4;
+                                                region_block[off_x]=u.r/u.l;
+                                                region_block[off_x+1]=u.g/u.l;
+                                                region_block[off_x+2]=u.b/u.l;
+                                                region_block[off_x+3]=u.l;
+                                            } else if (u.x>=230) {
+                                                if (u.x>TOP_MAX) TOP_MAX=u.x;
+                                                TOPPED_MAX++;
+                                                float togo=u.x-230.0;
+                                                float new_real_y=230.0+togo/(1.0+(togo/20.0)); if (new_real_y>=256.0) new_real_y=255.0;
+                                                size_t off_x=((int)new_real_y+256*prev_y_mod+prev_z_mod*512*256)*4;
+                                                region_block[off_x]=u.r/u.l;
+                                                region_block[off_x+1]=u.g/u.l;
+                                                region_block[off_x+2]=u.b/u.l;
+                                                region_block[off_x+3]=u.l;
+                                            }
+                                        } else {
+                                            printf("ERROR: u.l=0\n");
+                                        }
                                     }
                                 }
                                 voxels++;
+                                prev_x=u.y; prev_z=u.z;
                             }
                             count++;
                         }
                         printf("                                                                                                                            \n");
                         if (TOPPED_MIN>0) printf("TOPPED_MIN=%d (MIN=%d)\n",TOPPED_MIN,TOP_MIN);
                         if (TOPPED_MAX>0) printf("TOPPED_MAX=%d (MAX=%d)\n",TOPPED_MAX,TOP_MAX);
+
                         if (voxels==0 || hits==0 || first==-1 || count==0) {
                             printf("\nERROR: count=%d  first=%d  voxels=%d  hits=%d\n",count, first, voxels, hits);
                         } else {
-                            printf("\rTOTAL: VOXELS %d  HITS: %d  FROM %d to %d  COLUMNS: %d (%6.2f%%)  Creating region file r.%d.%d..mca\n",
-                                   voxels, hits, first, first+voxels, columns, 100.0*(double)columns/(512.0*512.0), x,z);
+                            printf("\rTOTAL: VOXELS %d  HITS: %d  FROM %d to %d  COLUMNS: %d (%6.2f%%)  Creating region file r.%d.%d.mca floor %d\n",
+                                   voxels, hits, first, first+voxels, columns, 100.0*(double)columns/(512.0*512.0), x,z,region_floor);
                             plotting=0;
 
-                            sprintf(mc_text2,"SAVING");
+                            sprintf(mc_text2,"SAVING %d",num_floors);
                             hit_one->index12=0;
 //change
 //                            char fname[200];
@@ -3260,24 +3392,6 @@ extern float* fspeed_ghosty;
 //                                add_to_region=true;
                                 if (got_one) no_plotting=true;
 
-/*
-
-                                FILE* INFO;
-                                if ((INFO = fopen (new_name, "a"))!=NULL) {
-                                    fprintf(INFO,"r.%d.%d (%6.2f%%)\n",x,z, 100.0*(double)columns/(512.0*512.0));
-                                    fclose(INFO);
-                                } else {
-                                    printf("Error opening %s for writing.\n",new_name);
-                                }
-                                sprintf (fname,"../cut/r.%d.%d.info",x,z);
-                                if ((INFO = fopen (fname, "a"))!=NULL) {
-                                    fprintf(INFO,"%s\n",fn.c_str());
-                                    fclose(INFO);
-                                } else {
-                                    printf("Error opening %s for writing.\n",fname);
-                                }
-
-*/
                                 main_mceditor6_fixed(x,z,region_block);
 
                                 printf("Finished region r.%d.%d\n",x,z);
@@ -3287,38 +3401,56 @@ extern float* fspeed_ghosty;
 //                                add_to_region=false;
                                 MCEDITOR_running=0;
                             }
-                            char fname[200];
-                            sprintf (fname,"../cut/r.%d.%d.vox",x,z);
 
+                            char fname[200];
+                            char fname2[200];
+                            sprintf (fname,"../cut/r.%d.%d.vox",x,z);
 //joepie
 //                            if (!dont_write_to_region_voxels || got_one) {
                             if (!dont_write_to_region_voxels) {
-                                if (got_one) {
-                                    voxel_file_pointer=fopen(fname,"w");
+                                sprintf(fname2,"../cut/done/r.%d.%d.vox",x,z);
+                                if (file_exists(fname2)) {
+                                    voxel_file_pointer=fopen(fname2,"a");
                                 } else {
-                                    voxel_file_pointer=fopen(fname,"a");
-                                }
-                                if (voxel_file_pointer==NULL) printf("Error opening file %s for writing\n",fname);
-                                else printf("Outputing voxels to %s ",fname);
-                                for (int n=first; n<first+voxels; n++) {
-                                    Voxel u=voxels_total[n];
-                                    if (u.l>0) {
-                                        fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d)\n",
-                                                u.y, u.x, u.z,  u.r/u.l,u.g/u.l, u.b/u.l,  u.l );
+                                    if (got_one) {
+                                        voxel_file_pointer=fopen(fname,"w");
+                                    } else {
+                                        voxel_file_pointer=fopen(fname,"a");
                                     }
-                                    if (!(n%10)) toggle2();
                                 }
-                                if (voxel_file_pointer!=NULL) { fclose(voxel_file_pointer); printf(" Ok.\n"); }
+
+                                if (voxel_file_pointer==NULL) printf("Error opening file %s for writing\n",fname);
+                                else {
+                                    printf("Outputing voxels to %s ",fname);
+                                    for (int n=first; n<first+voxels; n++) {
+                                        Voxel u=voxels_total[n];
+                                        if (u.l>0) {
+                                            fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d)\n",
+                                                    u.y, u.x, u.z,  u.r/u.l,u.g/u.l, u.b/u.l,  u.l );
+                                        }
+                                        if (!(n%10)) toggle2();
+                                    }
+                                    fclose(voxel_file_pointer); printf(" Ok.\n");  voxel_file_pointer=NULL;
+                                }
                             } else printf("NOT outputing voxels to %s ",fname);
 
                             FILE* INFO;
-                            if ((INFO = fopen (new_name, "a"))!=NULL) {
+                            if (file_exists(new_name2)) {
+                                INFO = fopen (new_name2, "a");
+                            } else {
+                                INFO = fopen (new_name, "a");
+                            }
+                            if (INFO !=NULL) {
                                 fprintf(INFO,"r.%d.%d (%6.2f%%)\n",x,z, 100.0*(double)columns/(512.0*512.0));
                                 fclose(INFO);
                             } else {
                                 printf("Error opening %s for writing.\n",new_name);
                             }
-                            sprintf (fname,"../cut/r.%d.%d.info",x,z);
+
+                            sprintf(fname,"../cut/done/r.%d.%d.info",x,z);
+                            if (!file_exists(fname)) {
+                                sprintf (fname,"../cut/r.%d.%d.info",x,z);
+                            }
                             if ((INFO = fopen (fname, "a"))!=NULL) {
                                 fprintf(INFO,"%s\n",fn.c_str());
                                 fclose(INFO);
@@ -3330,11 +3462,15 @@ extern float* fspeed_ghosty;
                                 char naam[200];
                                 mkdir("../cut/done");
                                 sprintf (fname,"../cut/r.%d.%d.vox",x,z);
-                                sprintf(naam,"move \"..\\cut\\%s\" ..\\cut\\done\\",fname);
-                                system(naam);
+                                if (file_exists(fname)) {
+                                    sprintf(naam,"move \"..\\cut\\%s\" ..\\cut\\done\\",fname);
+                                    system(naam);
+                                }
                                 sprintf (fname,"../cut/r.%d.%d.info",x,z);
-                                sprintf(naam,"move \"..\\cut\\%s\" ..\\cut\\done\\",fname);
-                                system(naam);
+                                if (file_exists(fname)) {
+                                    sprintf(naam,"move \"..\\cut\\%s\" ..\\cut\\done\\",fname);
+                                    system(naam);
+                                }
                             }
 
                             printf("Deleting from array: ");
@@ -3344,6 +3480,9 @@ extern float* fspeed_ghosty;
     //                            if (voxels_total[n].y>region_offset_x) region_offset_x=voxels_total[n].y;
     //                        }
                             voxels_total.erase(voxels_total.begin()+first,voxels_total.begin()+first+voxels);
+//                            for (auto u = voxels_total.begin()+first; u <= voxels_total.begin()+first+voxels; ++u) {};
+//                            for (auto u = voxels_total.begin()+first; u != voxels_total.end(); ++u) {};
+
                             printf("Erased voxels:         %10d\n",voxels);
                             printf("New size voxels_total: %10d\n",voxels_total.size());
                             printf("New size + voxels:     %10d\n",voxels_total.size()+voxels);
@@ -3363,7 +3502,7 @@ extern float* fspeed_ghosty;
                                 u.y, u.x, u.z,  u.r/u.l,u.g/u.l, u.b/u.l,  u.l );
                     }
                 }
-                if (voxel_file_pointer!=NULL) fclose(voxel_file_pointer);
+                if (voxel_file_pointer!=NULL) { fclose(voxel_file_pointer);  voxel_file_pointer=NULL; }
                 voxel_to_file=false;
             }
         }
