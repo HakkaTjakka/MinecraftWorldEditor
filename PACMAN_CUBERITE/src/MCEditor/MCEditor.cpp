@@ -525,7 +525,8 @@ extern int remove_block_entities;
         for (int z = 00; z < z_len + 00; z++) {
             ui* AY_skylight=AZ_skylight[z];
             toggle2();
-            for (int y = 0; y < 255; y++) { if (AY_skylight[y] == 15) { mca_coder.setHeightMap(x + x_ori, z + z_ori, y);  break; } }
+//tuuttuut
+            for (int y = 0; y < 256; y++) { if (AY_skylight[y] == 15) { mca_coder.setHeightMap(x + x_ori, z + z_ori, y);  break; } }
 //            for (int y = 0; y < 255; y++) { if (skylight[x][z][y] == 15) { mca_coder.setHeightMap(x + x_ori, z + z_ori, y);  break; } }
         }
     }

@@ -17,6 +17,8 @@ struct Voxel {
 
     bool operator < (const Voxel &B) const
     {
+
+
         int ay = y , by = B.y;
         if ((int)(ay / 512) != (int)(by / 512)) {
             return ay < by;
@@ -25,22 +27,26 @@ struct Voxel {
             if ((int)(az / 512) != (int)(bz / 512)) {
                 return az < bz;
             } else {
+                int ax = x, bx = B.x;
                 if (sort_cubic) {
-                    int ax = x, bx = B.x;
-                    if ((int)(ax / 256) != (int)(bx / 256)) {
+                    int ax_d=ax/256; if (ax<0) ax_d--;
+                    int bx_d=bx/256; if (bx<0) bx_d--;
+                    if (ax_d != bx_d) {
+//                    if ((int)(ax / 256) != (int)(bx / 256)) {
                         return ax < bx;
                     } else {
                         if (ay!=by) return ay < by;
                         else if (az!=bz) return az < bz;
-                        else return x < B.x;
+                        else return ax < bx;
                     }
                 } else {
                     if (ay!=by) return ay < by;
                     else if (az!=bz) return az < bz;
-                    else return x < B.x;
+                    else return ax < bx;
                 }
             }
         }
+
     }
 };
 

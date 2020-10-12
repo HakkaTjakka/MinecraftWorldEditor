@@ -2115,6 +2115,7 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
                     if (make_schematic)
                         v[l][0]=(v[l][0]*block_scale-bmin_total[0]);
                     else
+//tuuttuut
                         v[l][0]=(v[l][0]*block_scale-bmin_total[0])+1;
                     v[l][1]=(v[l][1]*block_scale-bmin_total[1]);
                     v[l][2]=(bmax_total[2]-v[l][2]*block_scale);
@@ -3228,12 +3229,13 @@ extern float* fspeed_ghosty;
 
                                 if (first==-1) {
                                     first=count;
-                                    floor=int(u.x/256);
+                                    floor=(int)((u.x)/256);
+                                    if (u.x<0) floor--;
                                     num_floors++;
                                     region_floor=floor;
                                     prev_x=u.y; prev_z=u.z;
                                 }
-                                if (int(u.x/256)!=floor) {
+                                if ( (u.x>=0 && (int)(u.x/256)!=floor) || (u.x<0 && (int)(u.x/256)-1 != floor) ) {
                                     NEXT_FLOOR=true;
                                     num_floors++;
                                 }
@@ -3277,51 +3279,30 @@ extern float* fspeed_ghosty;
                                             }
 
                                             std::memset(region_block, 0x0, 512*256*512*4);
-                                            floor=int(u.x/256);
+
+                                            floor=(int)((u.x)/256);
+                                            if (u.x<0) floor--;
                                             region_floor=floor;
                                             NEXT_FLOOR=false;
+                                        }
+                                        if (u.y>=0)
+                                            prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
+                                        else
+                                            prev_y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
 
-                                            if (prev_x>=0)
-                                                prev_y_mod=(int)(((LONG64)prev_x+100000*512)%512);
-                                            else
-                                                prev_y_mod=(int)(((LONG64)prev_x-1+100000*512)%512);
+                                        if (u.z>=0)
+                                            prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
+                                        else
+                                            prev_z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
 
-                                            if (prev_z>=0)
-                                                prev_z_mod=(int)(((LONG64)prev_z+100000*512)%512);
-                                            else
-                                                prev_z_mod=(int)(((LONG64)prev_z-1+100000*512)%512);
-
-                                            if (u.l>0) {
-                                                size_t off_x=(u.x-floor*256+256*prev_y_mod+prev_z_mod*512*256)*4;
-                                                region_block[off_x]=u.r/u.l;
-                                                region_block[off_x+1]=u.g/u.l;
-                                                region_block[off_x+2]=u.b/u.l;
-                                                region_block[off_x+3]=u.l;
-                                            } else {
-                                                printf("ERROR: u.l=0\n");
-                                            }
-
+                                        if (u.l>0) {
+                                            size_t off_x=(u.x-floor*256+256*prev_y_mod+prev_z_mod*512*256)*4;
+                                            region_block[off_x]=u.r/u.l;
+                                            region_block[off_x+1]=u.g/u.l;
+                                            region_block[off_x+2]=u.b/u.l;
+                                            region_block[off_x+3]=u.l;
                                         } else {
-
-                                            if (u.y>=0)
-                                                prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
-                                            else
-                                                prev_y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
-
-                                            if (u.z>=0)
-                                                prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
-                                            else
-                                                prev_z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
-
-                                            if (u.l>0) {
-                                                size_t off_x=(u.x-floor*256+256*prev_y_mod+prev_z_mod*512*256)*4;
-                                                region_block[off_x]=u.r/u.l;
-                                                region_block[off_x+1]=u.g/u.l;
-                                                region_block[off_x+2]=u.b/u.l;
-                                                region_block[off_x+3]=u.l;
-                                            } else {
-                                                printf("ERROR: u.l=0\n");
-                                            }
+                                            printf("ERROR: u.l=0\n");
                                         }
                                     } else {
 

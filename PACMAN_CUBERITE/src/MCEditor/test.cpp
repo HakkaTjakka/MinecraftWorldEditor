@@ -6424,7 +6424,7 @@ extern std::string area;
                     }
                     else scan_image.setPixel(x,z,sf::Color(0,0,0,0));
                 }
-                if (lights_on && min_y>height_add) {
+                if (lights_on && min_y>height_add && min_y>0) {
                     if (!do_model) {
                         if (!(rand()%75)) {
                             if (AY[min_y-1].id==0) num_blocks_added++;
@@ -6543,7 +6543,7 @@ extern std::string area;
                     for (int z = 0; z < zl; z++) {
                         BlockInfo* AY=AZ[z];
                         zz=z+chunk_offsetz*16;
-                        for (int y = 0; y < 255; y++) {
+                        for (int y = 0; y < 256; y++) {
                             if (skylight[x][z][y]==0) {
                                 if (y<=floor_y[x][z]) {
                                     if (AY[y].id==0) {
