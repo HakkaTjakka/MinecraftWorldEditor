@@ -3154,15 +3154,22 @@ extern float* fspeed_ghosty;
                     for (n=0; n<ready_regions.size(); n++) {
 //                        printf("SCANNING READY REGIONs: [%d][%d]",ready_regions[n].x,ready_regions[n].z);
                         if (ready_regions[n].x==x && ready_regions[n].z==z) {
-                            printf(" FOUND! ");
+                            printf(" HIT FOUND! ");
                             if (make_region_from_voxel(x,z)) {
                                 printf(" AND LOADED!");
                                 if (cubic) sort_cubic=true;
                                 sort(voxels_total.begin(), voxels_total.end());
                                 sort_cubic=false;
-                                printf(" SORTED!!!");
+                                if (!cubic) printf(" SORTED!!!");
+                                else  printf(" SORTED CUBIC!!!");
                             } else {
                                 printf(" NO VOXELFILE.");
+                                if (cubic) {
+                                    sort_cubic=true;
+                                    sort(voxels_total.begin(), voxels_total.end());
+                                    sort_cubic=false;
+                                    printf(" SORTED CUBIC!!!");
+                                }
                             }
                             got_one=true;
 //huh
@@ -3179,9 +3186,16 @@ extern float* fspeed_ghosty;
                             if (cubic) sort_cubic=true;
                             sort(voxels_total.begin(), voxels_total.end());
                             sort_cubic=false;
-                            printf(" SORTED!!!\n");
+                            if (!cubic) printf(" SORTED!!!");
+                            else  printf(" SORTED CUBIC!!!");
                         } else {
-                            printf(" NO VOXELFILE.\n");
+                            printf(" NO VOXELFILE.");
+                            if (cubic) {
+                                sort_cubic=true;
+                                sort(voxels_total.begin(), voxels_total.end());
+                                sort_cubic=false;
+                                printf(" SORTED CUBIC!!!");
+                            }
                         }
                     }
                     got_one=true;
@@ -3255,9 +3269,9 @@ extern float* fspeed_ghosty;
                                             region_floor=floor;
 
                                             if (voxels==0 || hits==0 || first==-1 || count==0) {
-                                                printf("\nERROR: count=%d  first=%d  voxels=%d  hits=%d\n",count, first, voxels, hits);
+                                                printf("\n1) ERROR: count=%d  first=%d  voxels=%d  hits=%d\n",count, first, voxels, hits);
                                             } else {
-                                                printf("\rTOTAL: VOXELS %d  HITS: %d  FROM %d to %d  COLUMNS: %d (%6.2f%%)  Creating region file r.%d.%d.mca floor %d\n",
+                                                printf("\r1) TOTAL: VOXELS %d  HITS: %d  FROM %d to %d  COLUMNS: %d (%6.2f%%)  Creating region file r.%d.%d.mca floor %d\n",
                                                        voxels, hits, first, first+voxels, columns, 100.0*(double)columns/(512.0*512.0), x,z,region_floor);
                                                 plotting=0;
 
@@ -3269,7 +3283,7 @@ extern float* fspeed_ghosty;
                     //                                add_to_region=true;
                                                     if (got_one) no_plotting=true;
                                                     main_mceditor6_fixed(x,z,region_block);
-                                                    printf("Finished region r.%d.%d floor\n",x,z,region_floor);
+                                                    printf("Finished region r.%d.%d floor %d\n",x,z,region_floor);
                                                     if (got_one) no_plotting=false;
                     //                                add_to_region=false;
                                                     MCEDITOR_running=0;
@@ -3357,9 +3371,9 @@ extern float* fspeed_ghosty;
                         if (TOPPED_MAX>0) printf("TOPPED_MAX=%d (MAX=%d)\n",TOPPED_MAX,TOP_MAX);
 
                         if (voxels==0 || hits==0 || first==-1 || count==0) {
-                            printf("\nERROR: count=%d  first=%d  voxels=%d  hits=%d\n",count, first, voxels, hits);
+                            printf("\n2) ERROR: count=%d  first=%d  voxels=%d  hits=%d\n",count, first, voxels, hits);
                         } else {
-                            printf("\rTOTAL: VOXELS %d  HITS: %d  FROM %d to %d  COLUMNS: %d (%6.2f%%)  Creating region file r.%d.%d.mca floor %d\n",
+                            printf("\r2) TOTAL: VOXELS %d  HITS: %d  FROM %d to %d  COLUMNS: %d (%6.2f%%)  Creating region file r.%d.%d.mca floor %d\n",
                                    voxels, hits, first, first+voxels, columns, 100.0*(double)columns/(512.0*512.0), x,z,region_floor);
                             plotting=0;
 
@@ -3375,7 +3389,7 @@ extern float* fspeed_ghosty;
 
                                 main_mceditor6_fixed(x,z,region_block);
 
-                                printf("Finished region r.%d.%d\n",x,z);
+                                printf("Finished region r.%d.%d floor %d\n",x,z,floor);
 
                                 if (got_one) no_plotting=false;
 
