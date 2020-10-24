@@ -1004,6 +1004,7 @@ extern int ESCAPE_PRESSED;
                     WUPPIE_SUBS(buffers, materials, bmin, bmax, lat, lon, fn);
                 }
             } else {
+                printf("loadandconvert: lat=%lf lon=%lf\n",lat,lon);
                 WUPPIE_VECTOR(buffers, materials, bmin, bmax, lat, lon, fn);
             }
 

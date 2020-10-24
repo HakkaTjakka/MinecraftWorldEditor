@@ -1231,10 +1231,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                         strcpy(line,latitude_longditude.c_str());
                         while (replace_str(line,".",","));
                         int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
-                        info_3d_elem.lat=(lat_north+lat_south)/2.0;
-                        info_3d_elem.lon=(lon_east+lon_west)/2.0;
                     }
-
                     info_3d_elem.lat=(lat_north+lat_south)/2.0;
                     info_3d_elem.lon=(lon_east+lon_west)/2.0;
                     info_3d_elem.n=lat_north;
@@ -1284,9 +1281,14 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                         strcpy(line,latitude_longditude.c_str());
                         while (replace_str(line,".",","));
                         int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
-                        info_3d_elem.lat=(lat_north+lat_south)/2.0;
-                        info_3d_elem.lon=(lon_east+lon_west)/2.0;
                     }
+                    info_3d_elem.lat=(lat_north+lat_south)/2.0;
+                    info_3d_elem.lon=(lon_east+lon_west)/2.0;
+                    info_3d_elem.n=lat_north;
+                    info_3d_elem.s=lat_south;
+                    info_3d_elem.e=lon_east;
+                    info_3d_elem.w=lon_west;
+//                    printf("N=%lf S=%lf W=%lf E=%lf lat=%lf lon=%lf\n", info_3d_elem.n,info_3d_elem.s,info_3d_elem.w,info_3d_elem.e,info_3d_elem.lat,info_3d_elem.lon);
 
                     info_3d.push_back(info_3d_elem);
                 } else {
@@ -1554,10 +1556,18 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                     voxel_to_file=true;
                 }
             }
+            lat_global=v.lat;
+            lon_global=v.lon;
+
             if (true == LoadObjAndConvert_window(pac_obj2_arr[i].bmin, pac_obj2_arr[i].bmax, pac_obj2_arr[i].gDrawObjects, pac_obj2_arr[i].materials, pac_obj2_arr[i].textures, (char*) str.c_str()))
             {
                 pac_obj2_arr[i].map_x=v.pos.x;
                 pac_obj2_arr[i].map_y=v.pos.y;
+                lat_north=v.n;
+                lat_south=v.s;
+                lon_east=v.e;
+                lon_west=v.w;
+
                 pac_obj2_arr[i].arr_index=i;
                 pac_obj2_arr[i].show=1;
                 pac_obj2_arr_used[i]=true;
