@@ -1205,7 +1205,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                 str=get_area_data(my_area,x,y);
 //                to_check_filename.push_back(str);
                 if (str!="") {
-                    printf("FOUND: X=%4d Y=%4d %s          \n",x,y,GetFileName(str).c_str());
+                    printf("FOUND: X=%4d Y=%4d %s  ",x,y,GetFileName(str).c_str());
 //                    printf("lat/lon   : \"%s\"\n",latitude_longditude.c_str());
                     bool ERR=false;
                     for (auto v : info_3d) {
@@ -1239,6 +1239,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                     info_3d_elem.e=lon_east;
                     info_3d_elem.w=lon_west;
 
+                    printf("N=%15.11f S=%15.11f W=%15.11f E=%15.11f\n", lat_north, lat_south, lon_west, lon_east);
                     info_3d.push_back(info_3d_elem);
                 } else {
                     printf("NOT FOUND: X=%4d Y=%4d                                                                                                               \n",x,y);
@@ -1267,7 +1268,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
 //                printf("Filename x=%d y=%d = %s\n",x,y,str.c_str());
                 if (str!="") {
 //                    printf(".");
-                    printf("#%3d FOUND: X=%3d Y=%3d %s\n",cnt,x,y,str.c_str());
+                    printf("#%3d FOUND: X=%3d Y=%3d %s  ",cnt,x,y,str.c_str());
 //                    printf("lat/lon   : \"%s\"\n",latitude_longditude.c_str());
                     info_3d_elem.filename=str;
                     info_3d_elem.pos=glm::ivec2(x,y);
@@ -1288,7 +1289,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                     info_3d_elem.s=lat_south;
                     info_3d_elem.e=lon_east;
                     info_3d_elem.w=lon_west;
-//                    printf("N=%lf S=%lf W=%lf E=%lf lat=%lf lon=%lf\n", info_3d_elem.n,info_3d_elem.s,info_3d_elem.w,info_3d_elem.e,info_3d_elem.lat,info_3d_elem.lon);
+                    printf("N=%15.11f S=%15.11f W=%15.11f E=%15.11f\n", lat_north, lat_south, lon_west, lon_east);
 
                     info_3d.push_back(info_3d_elem);
                 } else {
@@ -1304,7 +1305,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
             str=get_area_data(my_area,max_x,y);
             if (str!="") {
 //                printf(".");
-                printf("#%3d FOUND: X=%3d Y=%3d %s (EXTRA)\n",cnt,max_x,y,str.c_str());
+                printf("#%3d FOUND: X=%3d Y=%3d %s (EXTRA)  ",cnt,max_x,y,str.c_str());
                 info_3d_elem.filename=str;
                 info_3d_elem.pos=glm::ivec2(max_x,y);
 
@@ -1328,10 +1329,16 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                     strcpy(line,latitude_longditude.c_str());
                     while (replace_str(line,".",","));
                     int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
-                    info_3d_elem.lat=(lat_north+lat_south)/2.0;
-                    info_3d_elem.lon=(lon_east+lon_west)/2.0;
 //                    printf("N=%f S=%f W=%f E=%f\n", &lat_north, &lat_south, &lon_west, &lon_east);
                 }
+                info_3d_elem.lat=(lat_north+lat_south)/2.0;
+                info_3d_elem.lon=(lon_east+lon_west)/2.0;
+                info_3d_elem.n=lat_north;
+                info_3d_elem.s=lat_south;
+                info_3d_elem.e=lon_east;
+                info_3d_elem.w=lon_west;
+
+                printf("N=%15.11f S=%15.11f W=%15.11f E=%15.11f\n", lat_north, lat_south, lon_west, lon_east);
 
                 info_3d.push_back(info_3d_elem);
             } else {
@@ -1558,15 +1565,14 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
             }
             lat_global=v.lat;
             lon_global=v.lon;
+            char kutjelikken[200];
+            sprintf(kutjelikken,"N=%lf S=%lf W=%lf E=%lf", v.n, v.s, v.w, v.e);
+            latitude_longditude=kutjelikken;
 
             if (true == LoadObjAndConvert_window(pac_obj2_arr[i].bmin, pac_obj2_arr[i].bmax, pac_obj2_arr[i].gDrawObjects, pac_obj2_arr[i].materials, pac_obj2_arr[i].textures, (char*) str.c_str()))
             {
                 pac_obj2_arr[i].map_x=v.pos.x;
                 pac_obj2_arr[i].map_y=v.pos.y;
-                lat_north=v.n;
-                lat_south=v.s;
-                lon_east=v.e;
-                lon_west=v.w;
 
                 pac_obj2_arr[i].arr_index=i;
                 pac_obj2_arr[i].show=1;
