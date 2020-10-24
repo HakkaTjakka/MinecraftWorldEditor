@@ -3196,7 +3196,7 @@ extern float* fspeed_ghosty;
                     }
                     if (got_one) ready_regions.erase(ready_regions.begin()+n,ready_regions.begin()+n+1);
                 }
-                if (hit_one->index8 > (int)(512.0*512.0*0.999) || flushing ) {
+                if (hit_one->index8 > (int)(512.0*512.0*0.9995) || flushing ) {
                     if (!got_one) {
                         if (make_region_from_voxel(x,z)) {
                             printf("LOADED VOXEL FILE!");
@@ -3219,7 +3219,7 @@ extern float* fspeed_ghosty;
                 }
                 if (hit_one->index6>0 || got_one) {
                     NUMBER_OF_REGIONS++;
-                    if ((flushing_mode) || hit_one->index8 > (int)(512.0*512.0*0.999) || flushing ) {
+                    if ((flushing_mode) || hit_one->index8 > (int)(512.0*512.0*0.9995) || flushing ) {
 //                    if ((voxels_total.size()>25000000) || hit_one->index8 > (int)(512.0*512.0*0.9995) || flushing ) {
 
                         if (flushing_mode && !got_one)
