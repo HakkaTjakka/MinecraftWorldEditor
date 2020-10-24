@@ -105,6 +105,8 @@ bool GET_OCTANT_LIST(std::string area_name, std::string **octants, std::string *
                             lat_lon[index][item_count]=string_found;
                         }
 
+//                         printf("lat_lon[%d/%d][%d/%d]=%s\n", lat_lon_line_count-1, x, item_count, y, string_found.c_str());
+
                     }
                     found_begin=array_line_str.find(str,found_end+2);
                 } else {
@@ -125,8 +127,6 @@ bool GET_OCTANT_LIST(std::string area_name, std::string **octants, std::string *
 
     return true;
 }
-
-
 
 std::string get_octant_AMSTERDAM(int &x, int &y) {
 	static std::string *octants[88];

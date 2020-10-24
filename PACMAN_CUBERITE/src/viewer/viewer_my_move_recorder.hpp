@@ -642,6 +642,7 @@ bool create_boundaries(std::string my_area, sf::RenderWindow& window) {
                 str=get_area_data(my_area,x,y);
                 if (str!="") {
                     printf("FOUND: X=%4d Y=%4d %s          \r",x,y,GetFileName(str).c_str());
+//                    printf("lat/lon   : \"%s\"\n",latitude_longditude);
                     bool ERR=false;
                     for (auto v : info_3d) {
                         if (v.pos.x==x && v.pos.y==y) {
@@ -666,6 +667,7 @@ bool create_boundaries(std::string my_area, sf::RenderWindow& window) {
                         strcpy(line,latitude_longditude.c_str());
                         while (replace_str(line,".",","));
                         int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
+
 //                        if (num==4) {
 //                        }
                     }
@@ -709,11 +711,13 @@ bool create_boundaries(std::string my_area, sf::RenderWindow& window) {
                     lat_south=0.0;
                     lon_west=0.0;
                     lon_east=0.0;
+
                     if (latitude_longditude!="") {
                         char line[2000];
                         strcpy(line,latitude_longditude.c_str());
                         while (replace_str(line,".",","));
                         int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
+//                        "N=52.0916748046875 S=52.08892822265625 W=5.0811767578125 E=5.086669921875"
 //                        if (num==4) {
 //                        }
                     }
@@ -724,6 +728,7 @@ bool create_boundaries(std::string my_area, sf::RenderWindow& window) {
                     info_3d_elem.e=lon_east;
                     info_3d_elem.w=lon_west;
                     info_3d.push_back(info_3d_elem);
+//                    printf("N=%f S=%f W=%f E=%f\n", &lat_north, &lat_south, &lon_west, &lon_east);
                 } else {
                     printf("#%3d NOT FOUND: X=%3d Y=%3d\n",cnt,x,y);
                 }
@@ -1201,6 +1206,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
 //                to_check_filename.push_back(str);
                 if (str!="") {
                     printf("FOUND: X=%4d Y=%4d %s          \n",x,y,GetFileName(str).c_str());
+//                    printf("lat/lon   : \"%s\"\n",latitude_longditude.c_str());
                     bool ERR=false;
                     for (auto v : info_3d) {
                         if (v.pos.x==x && v.pos.y==y) {
@@ -1229,6 +1235,12 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                         info_3d_elem.lon=(lon_east+lon_west)/2.0;
                     }
 
+                    info_3d_elem.lat=(lat_north+lat_south)/2.0;
+                    info_3d_elem.lon=(lon_east+lon_west)/2.0;
+                    info_3d_elem.n=lat_north;
+                    info_3d_elem.s=lat_south;
+                    info_3d_elem.e=lon_east;
+                    info_3d_elem.w=lon_west;
 
                     info_3d.push_back(info_3d_elem);
                 } else {
@@ -1250,7 +1262,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                 window.pollEvent(event);
 //wuppie
 
-//                if (!(x>1 && x<max_x-1 && y>1 && y<max_y-1)) continue; //outline
+                if (!(x>1 && x<max_x-1 && y>1 && y<max_y-1)) continue; //outline //used on coords amsterdam
 
 //                if (x!=0 && x!=max_x-1 && y!=0 && y!=max_y-1) continue; //outline
 //                if (!(  (x==0 && (y==0 || y==max_y-1)) || (x==max_x-1 && (y==0 || y==max_y-1))  )) continue; //corners
@@ -1259,6 +1271,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                 if (str!="") {
 //                    printf(".");
                     printf("#%3d FOUND: X=%3d Y=%3d %s\n",cnt,x,y,str.c_str());
+//                    printf("lat/lon   : \"%s\"\n",latitude_longditude.c_str());
                     info_3d_elem.filename=str;
                     info_3d_elem.pos=glm::ivec2(x,y);
 
@@ -1315,6 +1328,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                     int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
                     info_3d_elem.lat=(lat_north+lat_south)/2.0;
                     info_3d_elem.lon=(lon_east+lon_west)/2.0;
+//                    printf("N=%f S=%f W=%f E=%f\n", &lat_north, &lat_south, &lon_west, &lon_east);
                 }
 
                 info_3d.push_back(info_3d_elem);
@@ -1356,6 +1370,9 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
     if (my_area=="DenHaag") {
         center_x=22;
         center_y=23;
+    } else if (my_area=="Amsterdam") {
+        center_x=43;
+        center_y=100;
     } else if (my_area=="NewYork") {
         center_x=65;
         center_y=51;

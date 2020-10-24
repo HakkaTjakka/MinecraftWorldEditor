@@ -587,6 +587,17 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
                     sf::sleep(sf::seconds(0.1));
                 }
                 combine=0;
+            } else if (c==(char)'w') {
+                crossing=2; mirror=4;combine=1;
+                area="Amsterdam";
+                cubic=true;
+                and_now_i_am_here=true;
+                launch_SFMLGL2_b();
+//                while (!and_now_i_am_here) {
+                while (!i_am_here) {
+                    sf::sleep(sf::seconds(0.1));
+                }
+                combine=0;
             }
         }
     }
@@ -766,6 +777,7 @@ int WINAPI WinMain2()
         else if (   strcmp(argv[1],"pong"    )==0) { send_message='u'; }
         else if (   strcmp(argv[1],"denhaag"    )==0) { send_message='t'; }
         else if (   strcmp(argv[1],"newyork"    )==0) { send_message='v'; }
+        else if (   strcmp(argv[1],"amsterdam"    )==0) { send_message='w'; }
         else if (   strcmp(argv[1],"voxel"    )==0) {
                 for (int n=2; n<argc; n++) {
                     strcpy(argv_main[n-2],argv[n]);

@@ -20,4 +20,4 @@ if __name__ == "__main__":
 #    print(projection.fromGeo(0, 51.5))
 #    print(projection.toGeo(*projection.fromGeo(0, 51.5)))
 
-        print(projection.fromGeo(6.892627,52.229425,))
+        print(projection.fromGeo(40.689632,-74.045263))

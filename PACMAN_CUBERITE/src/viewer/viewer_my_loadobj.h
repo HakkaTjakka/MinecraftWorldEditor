@@ -1675,6 +1675,20 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
         top_right=glm::fvec2((3122982.1209280635-cnt_x)*3.0,   (-5373177.931635568-cnt_z)*3.0);
         bot_left =glm::fvec2((3105714.1226496957-cnt_x)*3.0,   (-5365303.167017606-cnt_z)*3.0);
         bot_right=glm::fvec2((3119098.869450965 -cnt_x)*3.0,   (-5361027.64235222 -cnt_z)*3.0);
+    } else if (area=="Amsterdam" && mirror!=0) {
+        vertical =bmax_total[0]- bmin_total[0];
+
+        float cnt_x=0;
+        float cnt_z=0;
+        top_left =glm::fvec2((3161552.411711868 -cnt_x)*1.0,   (-5428108.961447178 -cnt_z)*1.0);
+        top_right=glm::fvec2((3194832.7696658284-cnt_x)*1.0,   (-5417672.727180401 -cnt_z)*1.0);
+        bot_left =glm::fvec2((3141325.945715654 -cnt_x)*1.0,   (-5364168.2744096005-cnt_z)*1.0);
+        bot_right=glm::fvec2((3174801.152713919 -cnt_x)*1.0,   (-5353619.96164422  -cnt_z)*1.0);
+
+//top left:       3161552.411711868,      -5428108.961447178
+//top right:      3194832.7696658284,     -5417672.727180401
+//bottom left:    3141325.945715654,      -5364168.2744096005
+//bottom right:   3174801.152713919,      -5353619.96164422
     } else if (area=="NewYork" && mirror!=0) {
         vertical =bmax_total[0]- bmin_total[0];
 
@@ -1696,7 +1710,6 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
 //        top_right=glm::dvec2((-8514849.449649889-cnt_x)*1.0,   (-6033824.210212925-cnt_z)*1.0);
 //        bot_left =glm::dvec2((-8537325.411157254-cnt_x)*1.0,   (-6001596.67934797 -cnt_z)*1.0);
 //        bot_right=glm::dvec2((-8507791.20154021 -cnt_x)*1.0,   (-6010397.765766095-cnt_z)*1.0);
-
     } else {
         double f;
         if (schematic_size!=0) {
@@ -1915,6 +1928,9 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
 //floors
                 bmin_total[0]=-40.0;
 //                bmin_total[0]=-10.0;
+                bmax_total[0]=150.0;
+            } else if (area=="Amsterdam") {
+                bmin_total[0]=-30.0;
                 bmax_total[0]=150.0;
             }
         } else {
