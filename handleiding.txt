@@ -1,6 +1,4 @@
 Handleiding Minecraft World Creator. Speciaal voor BTE The Netherlands / BTE Benelux en de rest.
-Handleiding Minecraft World Creator. Speciaal voor BTE The Netherlands / BTE Benelux en de rest.
-Handleiding Minecraft World Creator. Speciaal voor BTE The Netherlands / BTE Benelux en de rest.
 
 Gebruiken van het programma betekent:
 	- Niet wanhopen als het niet lukt, uiteindelijk zal het lukken. Je bent een doorzetter. Besef dat goed. Verder helpen we elkaar allemaal natuurlijk.
@@ -826,10 +824,165 @@ Downloaden van de Google 3d Earth gegevens. (Yeah!)
 	NB: Voor heel grote area's, zoals Amsterdam bijvoorbeeld, wordt zo'n functie te lang. De compiler verslikt zich in de declaraties. Die dus VAST in de code komen. Waardoor een grote .exe dus. Als voorbeeld kan je zien hoe dat met Amsterdam gedaan wordt. In D:\PACMAN\PACMAN_CUBERITE\OCTANTS krijg je dan een text file in dit geval AMSTERDAM.TXT, met dezelfde code. Via een speciale functie in dit geval area_data_amsterdam.cpp wordt deze dan gehandeld, net als in area_data.cpp het iets anders is. Gebruik dit als voorbeeld indien nodig. Mooi.
 	
 	Ik ga nu eerst even wat te eten scoren. Doe dit ook. Neem rust, koffie, energy drink, sigaretten (niet aanbevolen), sluit jezelf op, of gooi iedereen de deur uit. Concentratie is het belangrijkste bij dit soort zaken. Eén telefoontje of storing tussendoor, en je concentratie is minstends een half uur minder dan daarvoor. Maar goed, daar gaat het hier niet over. Tot zo.
+	Het regent dus ik flikker er een paar bamischijven in het vet met wat patat en gaan gewoon verder.
 	
+	We gaan onder codeblocks naar de volgende file, deze staat niet onder src, maar onder headers.
+	Dus Workspace -> PACMAN_CUBERITE -> Headers -> viewer -> viewer_my_sfmlviewer.h
+	Dit lijkt een header file, maar het is slechts één deel van Workspace -> PACMAN_CUBERITE -> Src -> viewer -> viewer_my_cc.cc die een heleboel van deze header files onder elkaar plakt. Het is in feite dus één grote .cc file. Dit alles komt vanwege de hele geschiedenis van de code die heel vreemd in elkaar steekt zo, al het maar werkt. Niet mee klooien dus!
+
+	viewer_my_sfmlviewer.h :
+		- We gaan op zoek naar de volgende code: (zoek op AMSTERDAM of zo, regel 679)
+		
+			if (test_area=="ENSCHEDE")       { lat= 52.2;     lon=   6.9;  }
+			else if (test_area=="LA")        { lat= 34.08;    lon=-118.29; }
+			else if (test_area=="MIAMI")     { lat= 25.789;   lon= -80.206; }
+			else if (test_area=="BRUSSEL")   { lat= 50.85;    lon=   4.35; }
+			else if (test_area=="AMSTERDAM") { lat= 52.35;    lon=   4.89; }
+			else if (test_area=="DENHAAG")   { lat= 52.065;   lon=   4.297; }
+			else if (test_area=="NEWYORK")   { lat= 40.689242;lon= -74.04454; }
+			else if (test_area=="SCHWEIZ")   { lat= 46.7;     lon=   7.55; }
+		- Hier gaan we de lattitude lontitude waarden van Utrecht inzetten. Het mooiste is als je de center van de area daar voor neemt. Volgens deze twee variablen, wordt het hele plateau van onze area gedraait. Het hele. Niet de afzonderlijk octanten. Zo blijft alles netjes aan elkaar plakken. Voor de kromming van de aarde kan dit later worden verandert. Voor extreem grote area's. In één enkele stad is weinig terug te vinden van de kromming van de aarde. In feite is de hele area licht gekromt volgens de aard kromming. En met een formule kunnen we die plat maken. Maar dat is voor later een zorg.
+		Voor de lat en lon neem ik het gemiddelde van de waarden die we voor de area hebben genomen. Deze dus:
+			lat0=52.091874;
+			lon0=5.109879;
+			lat1=52.083905;
+			lon1=5.127000;
+		We tellen te twee lats bij elkaar op en delen deze door twee en doen voor de lons hetzelfde. We krijgen dan (let op, in de calculator is in de Nederlandse versie de decimale punt een komma) :
+		lat = 52.0878895 en lon = 5.1184395 volgens de virtuele zakJappanner.
+		Deze regel frotten we ergens tussen de andere:
+		
+			else if (test_area=="UTRECHT") { lat= 52.0878895;    lon=   5.1184395; }
+			
+		En we compileren het programma opnieuw: ctrl-F9
+		Als dit is gelukt gaan we pas echt moeilijk doen, ik hoop dat het (mij ook) lukt.
+	
+	Converteren van de Wavefront .obj files naar .nbt files.
+	Omdat bij mij de files van Amsterdam en Utrecht elkaar overlappen, heb ik tijdelijk de std::string get_octant_UTRECHT(int &x, int &y) functie aangepast zodat ie daar ook even gaat kijken voor de files van Utrecht. Anders werkt het bij mij niet. Ik schakel het zoeken in de dirs van Amsterdam ook even uit in de DUMP_OBJ_CITY.js en download de andere octanten ook even. Dan is het bij mij en bij jou gelijk.
+	In de file D:\PACMAN\PACMAN_CUBERITE\src\viewer\viewer_my_move_recorder.hpp (in codeblocks onder include -> viewer) bevat een regel op 1263 die je even uit moet schakelen. Voor het voxelizen van Amsterdam gebruik ik de octanten op de randen niet. Voor een area van 3 bij 3 blijft er dan niet veel over om te verwerken. Voor dit doel hier moet deze lijn ALTIJD uitgeschakeld zijn..... Is niet zo relaxed, maar ja. 
+
+	//                if (!(x>1 && x<max_x-1 && y>1 && y<max_y-1)) continue; //outline //used on coords amsterdam
+
+	Deze regel commentarieren we er even uit dus, met twee slashes ervoor, en compileren de hele hap weer.
+	Nu gaan we heftige dingen doen. We gaan alle .obj files van de Wavefront 3d objecten omzetten in veel kleinere .nbt files.
+	We starten vanuit pacman_cuberite het programma pacman.exe op. Drukken dan net zolang op BACKSPACE, tot we onder in beeld de naam Utrecht zien staan. Utrecht is nu geselecteerd, en we kunnen op ctrl + 6 drukken, om de middelste octant te laden.
+	Voor de goede orde: In pacman_cuberite staat een file lat_lon.txt. Zie voorbeelden, hier kun je LAT en LON coords definieren, waar je dan via verschillende manieren naar toe kan springen, en de desbetreffen octant wordt dan voor je opgezocht. Wat belangrijker is is de file OBJECT_ARRAY.txt in deze dir.
+	DEZE MOET WEG ZIJN, OF UITGESCHAKELD ZIJN, anders gaat het systeem alleen de octanten behandelen die daarin vermeld staan onder het x en y index nummer. Zo kan je een klein gedeelte van de kaart of op het scherm zetten als je ctrl + 6 drukt, dan laat het systeem al die octanten in de 3d viewer die je daarin vermeld hebt. We gebruiken dit nu niet, en deze moet dus uitgeschakeld zijn, dwz er mag geen OBJECT_ARRAY.txt in deze dir staan. Rename deze als ie er wel staat.
+	
+	Er wordt nu een nieuw scherm voor 3d weergaves geopend, en één van de octanten is geladen.
+	Tussendoor: Druk je nu CTRL + ALT en CURSOR l/r/u/d, dan laadt de viewer de desbetrefende octant die er naast/onder/boven ligt er ook BIJ in. Etc. Druk je CTRL + SYSTEM + ALT en CURSOR, dan laadt het de volgende, en wist die de huidige. Als je in het dos venster (console) kijkt, zie je dat de geladen .obj files, omgezet worden naar een .nbt file. Deze komt naast de .obj in de directory van de octant te staan. Deze wordt als ie er is geladen, ipv de .obj. In deze .nbt zitten de texturenamen die gebruikt worden, en alleen de data die uiteindelijk in de GPU wordt geladen. Zoals vertices (knooppunten), triangles (combinatie van deze knooppunten voor een trianle), normalen, en texture coords. In de .nbt zijn deze gecomprimeerd. En dus stukken sneller laden (ipv de .obj loader), en stukken kleiner zijn. 
+
+	Als we 1 octant in het 3d venter hebben, en dit 3d venster actief is, drukken we op ALT + 'b'. Is de object_array.txt uitgeschakeld? Dan worden alle octanten geladen, als er GEEN .NBT file aanwezig is, en dus omgezet naar .nbt files.
+	In het console venster kun je dan zien dat de .obj files omgezet worden naar .nbt files. 
+	Is dit gelukt? Dan kunnen alle .obj files worden verwijdert. Bewaar deze echter nog een tijdje, in een andere dir of gecomprimeert. Mocht er iets fout zijn gegaan met de .nbt files. Zoals verkeerde lat/lon in één van de gewijzigde programma's of zo. Nu de .obj's zijn omgezet naar .nbt's, en de .png's en .bmp's naar .jpg's, heb je veel minder schijfruimte nodig. Voor een flinke stad moet je op vele gigabytes aan data rekenen. Vandaar de 3 locaties voor deze. Zo kan je ook 1 area verdelen over meerdere schijven.
+	
+	Mocht dit alles tot nu toe gelukt zijn, je bent een held. Geef jezelf een schouderklopje, en ga niet naast je schoenen lopen. Want we zijn er nog (lang) niet.
+		Tussendoor: Je kunt met het programma ook objecten tot voxels maken. Deze moeten dan in de dir /pacman/models in een dir komen te staan, met in de list.txt een verwijzing naar de .obj, of de .nbt file. Wordt een .obj gevonden, dan wordt er meteen een .nbt van gemaakt voor eventueel later gebruik. Houdt daarbij de file /pacman/models/list.txt in de gaten. Deze wordt namelijk opnieuw aangemaakt bij het drukken van bijvoorbeeld 'b', in het 3d scherm. Dan roept het programma de .bat file MAKELIST.BAT aan, die de list.txt aanmaakt, met daarin alle gevonden .obj files in alle sub-dirs. Vindt het programma daar ook een .nbt wordt deze geladen ipv de .obj. 
+		Om het 3d venster te sluiten kun je op esc drukken. De thread van dit 3d scherm blijft dan echter actief, voor later gebruik. Met ctrl + 'q' wordt ook de thread afgesloten. 
+		Wil je een model (maak copy van een octant dir en plaats deze in /pacman/models), pas de list.txt aan. En druk in het hoofdscherm op BACKSPACE, totdat MODELS onder in beeld staat. Je hebt nu deze dir geselecteerd, en niet één van de area's.
+		Met ctrl + 6 of '6' laadt deze dan de eerste uit list.txt. 
+		In het 3d scherm staat nu extra info. Over hoe je 1 object tot voxels kunt maken, en als je klaar bent met voxels het tot regions of schematic kunt saven. Gaan we hier echter nu even niet doen. Maar zo kun je een compositie maken van 3d objecten, ze groter kleiner hoger lager plaatsen, roteren etc., dan tot voxels maken, en dan zie je de compositie (van boven) van de region files die daaran kunnen worden gemaakt. En of je kan 1 object naar schematic voxelizeren. Komt allemaal later nog. Je kan dan aan je region files nieuwe objecten toevoegen op basis van Wavefront 3d objecten.
+		Verder kan je filmpjes maken van 3d objecten, dmv deze te draaien, markers te zetten, kan het daarna daartussen smooth intepoleren, en kan je tevens een video maken van het path dat je zo gemaakt hebt, maar dat gaan we nu ook niet doen. We kunnen ook supergrote posters maken van onze area. Ook dat gaan we nu niet doen, daarvoor zijn aparte handleidingen nodig.
+	
+	Even recapituleren. Een aantal files van het Javascript en de c/c++ code zijn gewijzigt. Er zijn octanten gedownload, omgezet naar nieuw coordinaten systeem, .jpg's van gemaakt, met het programma met BACKSPACE de area Utrecht geselecteert, geladen met '6' of shift-'6', waarna de .obj's zijn omgezet naar .nbt met ALT + 'b' drukken in het 3d scherm.
+	We zijn halverwege. Op de helft dus.
+	
+	Start het programma pacman.exe op vanuit /pacman/pacman_cuberite.
+	Selecteer met BACKSPACE Utrecht. Druk op ctrl + '6'. Eén octant van Utrecht wordt geladen. Druk terwijl het 3d venster geactiveerd is (niet op ALT + 'b') op 'b'
+	Als het goed is scanned het programma nu alle octanten dirs, en gaat minima en maxima bepalen van de coordinaten.
+	Dit komt in een .dot file te staan. Dit is op basis van de NIEUWE .nbt files, waarin deze waarden anders worden bepaald als in de aanwezige .dat files, die door het Javascript programma is aangemaakt.
+	In de .dat files staan de minimale en maximale waarden van de x y en z coordinaten. In de .obj Wavefront file, is het octant object geroteerd zoals het op de aarde geprojecteert staat, onder een hoek dus. Wij willen het plat, recht, en dan deze waarden opnieuw bepalen. Dan weten we de exacte breedte hoogte en diepte van het object. Daarvoor worden op basis van de lat en lon waarden die we in het programma hebben gestampt de object geroteerd, waardoor deze niet plat, maar rechtop worden gezet. Dit komt door de ontwikkeling van het programma. Het object staat dan eigenlijk op zijn kant. De hoogte is dan dus naar x+, van links naar rechts, de x-as staat dan van boven naar beneden, en de z as is de diepte van het scherm. 
+	Later wordt deze x waarde dus de y hoogte in MC, en de y waarde de x-as. Lekker makkelijk............
+	Maar goed. Kijk je in die .dot file, zie je (dus) veel kleinere waarden, vooral voor de hoogte (de x waarden nu dus...).
+	In de .dat file heb je de minima en maxima van het object, als het dus gekanteld is zoals op de globe geplakt.
+	.dat:
+		MIN X: X=-338.0133072528988 Y=697.1742749765981 Z=129.08331463485956
+		MIN Y: X=-304.4881198932417 Y=323.1815105723799 Z=129.08331463485956
+		MIN Z: X=-81.89592995168641 Y=508.8316615096992 Z=-62.273694943636656
+		MAX X: X=-56.21217440534383 Y=397.65178180055227 Z=-41.12155630066991
+		MAX Y: X=-90.45505857188255 Y=719.3657114411471 Z=-49.084355210885406
+		MAX Z: X=-306.84647489804775 Y=531.2229230488883 Z=149.79245564807206
+	.dot:
+		MIN X: X=-68,195999 Y=348,867706 Z=-9,958948
+		MIN Y: X=-68,195999 Y=348,867706 Z=-9,958948
+		MIN Z: X=-68,195999 Y=348,867706 Z=-9,958948
+		MAX X: X=-17,585693 Y=724,773743 Z=296,027161
+		MAX Y: X=-17,585693 Y=724,773743 Z=296,027161
+		MAX Z: X=-17,585693 Y=724,773743 Z=296,027161
+	
+	De floating point waarden van de coords in de .nbt file blijven echter ongewijzigt zoals uit de .obj file gehaald. Wordt de .obj file geladen, wordt het anders geroteert dan de .nbt file, op basis dus van de lat en lon waarden.
+	Als je de eerste keer een gedownload (.obj) object laadt, dan zie je bij het draaien met de muis in het 3d scherm dat het object NIET om het middelpunt (meer) draait. Historische oorzaak. Druk je ctrl-q, en laadt je hetzelfde object opnieuw, wordt de .nbt geladen, en zie je het (dus) van boven af, plat zeg maar. En draait het om het middelpunt. Het is op basis van de lat/lon gedraait. Mooi.
+	Door op 'b' te drukken in het 3d scherm met 1 octant, maakt het systeem in de pacman_cuberite een nieuwe file aan. In dit geval Utrecht.dat (D:\PACMAN\PACMAN_CUBERITE\Utrecht.DAT) Boven in de file:
+		TOTAL MIN: X=  -116,04261016845703000 Y=  -401,79827880859375000 Z=    -9,95894813537597660
+		TOTAL MAX: X=    50,01991271972656300 Y=   724,77374267578125000 Z=   906,87194824218750000
+		TOTAL DIF: X=   166,06252288818359000 Y=  1126,57202148437500000 Z=   916,83089637756348000
+		LAT: NORTH=    52,09442138671875000 SOUTH=    52,08618164062500000
+		LON:  WEST=     5,10864257812500000  EAST=     5,12512207031250000
+	Dit zijn de minimale en maximale waarden, van de totale area.
+
+	De LAT EN LON waarden, zijn NIET onze lat en lon waarden die we in het programma hebben gezet. Deze van ons vallen namelijk ergens midden in één van de octanten. En wij hebben de uitersten van deze octanten nodig.
+	DAT ZIJN DEZE WAARDEN IN DE UTRECHT.DAT FILE!!! Niet die wij hebben gebruikt in het Javascript programma. Ik maakte net de fout dat ik deze lat/lon waarden van ons heb gebruikt voor het volgende, en kan dit nu helemaal weer opnieuw doen, en dat ga ik dus nu (opnieuw) doen.
+	
+	We gaan de coordinaten bepalen volgens de BTE 121 projectie. Voor sommigen bekend van het /tpll commando in de BTE versie (Cubic Chunks) voor Minecraft. 
+	We hebben de coordinaten nodig van de 4 hoeken van onze area. Omdat deze in de BTE versie 'scheef' staat, hebben we niet de linker bovenhoek en rechter onderhoek nodig, (lat links/rechts is dan gelijk, net als lon boven/onder), maar alle vier de hoekpunten. 
+	Dit kunnen we op 2 manieren doen.
+	Op de website van build the earth hebben we de map. (https://buildtheearth.net/map). En als we daarop inzoomen, zien we de region files en de coordinaten daarvan. Tikken we de lat/lon coordinaten in van onze linker bovenhoek, dan komen we in de region file terecht, waarin deze valt. ECHTER, DEZE REGION FILE KUNNEN WE NIET MAKEN, WANT VANUIT HET PUNT VAN DE LAT/LON COORDINATEN, GAAT ONZE AREA NAAR RECHTS (LON), EN NAAR BENEDEN (LAT). We weten dan niet welke region files binnen deze octant vallen. Wat we nodig hebben is niet de region file, waarvan we de coordinaten met 512 kunnen vermenigvuldigen om de x en z coordinaat van een BLOCK te vinden (region file is 512 x 512 blokken), maar het exacte block BINNEN deze region file. Deze map is hiervoor dus niet geschikt. Het geeft de exacte coordinaten niet weer. (Minpuntje van de site).
+	1) De makkelijkste manier is om de BTE versie van MC op te starten. En de Build The Earth wereld te openen. Daarbinnen kunnen we het /tpll commando ook gebruiken, maar komen dan PRECIES op het juiste block terecht BINNEN deze region file. En dat is wat we willen hebben. 
+	2) Het /tpll commando is ook beschikbaar in Python taal. (Bijna javascript). Bij mij krijg ik deze echter alleen aan de praat (tot nu toe) onder Ubuntu (linux), onder de Windows powershell. Hoe je Ubuntu moet installeren moet je maar even opzoeken. In Ubuntu moet je dan Python installeren, en ook nog met pip wat tooljes die het progje nodig heeft. Mij is dit gelukt, en het progje staat op: https://github.com/HakkaTjakka/project-obj
+
+	We hebben uit de file utrecht.dat uit pacman_cuberite met 'b' in het 3d venster dus deze gegevens, en die gaan we gebruiken.
+		LAT: NORTH=    52,09442138671875000 SOUTH=    52,08618164062500000
+		LON:  WEST=     5,10864257812500000  EAST=     5,12512207031250000
+	
+	Speciaal voor jullie ga ik het via de BTE versie van MC doen. Dit heb ik zelf nog niet (nooit) gedaan, dus eens kijken of het gaat lukken. Daarvoor start ik dus de BTE versie van Minecraft op. Hoe je die moet installeren staat op de website van bte. Ik start het programma en selecteer de map Build The Earth (New projection). En tik: (NORTH-WEST)
+	/tpll 52.09442138671875 5.08642578125
+	En hoppa, ik druk F3, en vindt de block coordinaten van de linker bovenhoek. Achter XYZ. We hebben alleen de X en Z coordinaat nodig, en deze zijn (dus...): x=3172027 z=-5354491 en eronder zien we deze nog een keer onder BLOCK staan, afgerond. Maar op 1 blokje steekt het hem nu eventjes niet. Op dezelfde manier vinden we de coordinaten voor de rechter onderhoek: /tpll 52.086181640625 5.1251220703125 (SOUTH-EAST) en vinden we: 3174501 voor x en -5352657 voor z. Je ziet dat vanwege het roteren van de kaart, dezelfd lat en/of lon, een andere coordinaat vinden voor zowel de x als z. 
+	Maar we zijn er nog niet. We hebben (dus) ook de LINKER ONDERHOEK, en RECHTER BOVENHOEK nodig.
+	Hoe vinden we de lat/lon daarvoor: Voor de linker onderhoek hebben we dus de SOUTH nodig, en de WEST. Voor de rechterbovenhoek de NORTH en EAST. Dus:
+
+	Linker onderhoek wordt dan:	 52.086181640625 5.108642578125 (lat lon)
+	Rechter BOVENhoek! wordt dan: 52.09442138671875 5.1251220703125
+	/tpll 52.086181640625 5.108642578125 wordt dan 3173319 voor x en -5353029 (afgerond naar boven vanwege de .639 aan het eind)
+	/tpll 52.09442138671875 5.1251220703125 wordt dan 3174801 voor x en -5353620
+
+	Dus: 
+	    top_left =(3172027 , -5354491) /tpll 52.09442138671875 5.08642578125 	(NORTH-WEST)
+        top_right=(3174801 , -5353620) /tpll 52.09442138671875 5.1251220703125	(NORTH-EAST)
+        bot_left =(3173319 , -5353029) /tpll 52.086181640625 5.108642578125		(SOUTH-WEST)
+        bot_right=(3174501 , -5352657) /tpll 52.086181640625 5.1251220703125 	(SOUTH-EAST)
+		
+	Of het allemaal klopt gaan we later zien. Voor de zekerheid ga ik het progje onder Ubuntu daar ook even mee draaien. Momentje. Hiervoor zet ik in en Python script de volgend code: Let op, hierbij zijn lat en lon in omgekeerde volgorde!!!
+
+	print('top left: ')
+	print(projection.fromGeo(5.08642578125  ,52.09442138671875))
+  	print('top right: ')                    
+	print(projection.fromGeo(5.1251220703125,52.09442138671875))
+	print('bottom left: ')                  
+	print(projection.fromGeo(5.108642578125 ,52.086181640625  ))
+  	print('bottom right: ')                 
+	print(projection.fromGeo(5.1251220703125,52.086181640625  ))
 
 	
+	En 'python utrecht.py' geeft dan:
+		top left:		[3172027.0208473764, -5354490.865355419]
+		top right:		[3174801.152713919,  -5353619.96164422]
+		bottom left:	[3173319.705408585,  -5353028.639382178]
+		bottom right:	[3174501.387840918,  -5352657.873705601]
+		
+	Wat toch aardig in de buurt komt moet ik zeggen. Goed gedaan jonguh!
 	
+	We gaan weer eens eventjes de programmeur uithangen. In de file D:\PACMAN\PACMAN_CUBERITE\src\viewer\viewer_my_loadobj.h, die je kunt vinden via workspace -> PACMAN_CUBERITE -> Sources -> Headers -> viewer -> viewer_my_loadobj.h dus, gaan we richting regel 1660 of zo. En vinden daar voor elke area die we gaan voxelizen een stukje code, en daar gaan we een nieuw stukje met else if aan toevoegen, gelijk aan de anderen. Tussen de andere code voor area's komt dan deze:
+
+    } else if (area=="Utrecht" && mirror!=0) {
+        vertical =bmax_total[0]- bmin_total[0];
+
+        float cnt_x=0.0;
+        float cnt_z=0.0;
+
+        top_left =glm::fvec2((3172027.0208473764-cnt_x)*1.0,   (-5354490.865355419-cnt_z)*1.0);
+        top_right=glm::fvec2((3174801.152713919 -cnt_x)*1.0,   (-5353619.96164422 -cnt_z)*1.0);
+        bot_left =glm::fvec2((3173319.705408585 -cnt_x)*1.0,   (-5353028.639382178-cnt_z)*1.0);
+        bot_right=glm::fvec2((3174501.387840918 -cnt_x)*1.0,   (-5352657.873705601-cnt_z)*1.0);
 	
-	
-	
+	En we voegen dit tussen die van de anderen, maar wel op de juiste manier heh? Ik hoop dat het duidelijk is. Deze code staat straks ook zo op GitHub, en kan je kijken hoe het goed moet... ;)
+	De float cnt_x en cnt_z kan je gebruiken voor een offset. Vul hiervoor de laagste x en z waarde in. De linker bovenhoek van de area met region files komt dan op r.0.0.mca uit. Wij willen BTE projectie, dus doen dat niet. De *1.0 geeft de schaal aan. Zo kan je een grotere of kleinere projectie maken. Wij willen 1 op 1, dus 1.0.
+	We plakken dit er dus tussen en kijken of het programma wil compileren.
