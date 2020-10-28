@@ -1,0 +1,26 @@
+dist: trusty
+
+language: java
+cache:
+  directories:
+  - $HOME/.gradle
+jdk:
+  - openjdk8
+  - oraclejdk8
+
+before_install:
+  # workaround to get "git describe" working
+  - git fetch --unshallow --tags || true
+  - git describe
+script: ./gradlew build
+
+notifications:
+  email: false
+
+deploy:
+  - provider: script
+    script: "./gradlew uploadArchives"
+    skip_cleanup: true
+    on:
+      repo: OpenCubicChunks/CubicChunksConverter
+      all_branches: false

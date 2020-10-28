@@ -1,0 +1,112 @@
+plugins {
+  id 'java'
+  id 'maven'
+  id 'signing'
+  id 'net.minecrell.licenser' version '0.3'
+}
+
+group 'net.kyori'
+version '1.12-1.0.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+tasks.withType(JavaCompile) {
+  options.compilerArgs += ['-Xlint:all', '-Xlint:-path', '-parameters']
+  options.deprecation = true
+  options.encoding = 'UTF-8'
+}
+
+license {
+  header project.file('header.txt')
+  include '**/*.java'
+  newLine false
+}
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+
+dependencies {
+  compile 'org.checkerframework:checker-qual:2.4.0'
+  testCompile 'com.google.guava:guava:26.0-jre'
+  testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.3'
+  testCompile 'org.junit.jupiter:junit-jupiter-engine:5.0.3'
+}
+
+task javadocJar(type: Jar) {
+  classifier 'javadoc'
+  from javadoc
+}
+
+task sourcesJar(type: Jar) {
+  classifier 'sources'
+  from sourceSets.main.allSource
+}
+
+artifacts {
+  archives javadocJar
+  archives sourcesJar
+}
+
+signing {
+  required { !project.version.endsWith('-SNAPSHOT') && gradle.taskGraph.hasTask(':uploadArchives') && project.hasProperty('signing.keyId') }
+  sign configurations.archives
+}
+
+jar {
+  manifest.attributes(
+    'Automatic-Module-Name': 'net.kyori.nbt'
+  )
+}
+
+if (project.hasProperty('sonatypeUsername') && project.hasProperty('sonatypePassword')) {
+  uploadArchives {
+    enabled = System.getenv('TRAVIS') == null || project.version.endsWith('-SNAPSHOT')
+
+    repositories {
+      mavenDeployer {
+        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+        repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
+          authentication(userName: sonatypeUsername, password: sonatypePassword)
+        }
+
+        snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
+          authentication(userName: sonatypeUsername, password: sonatypePassword)
+        }
+
+        pom.project {
+          description 'An NBT library for Minecraft.'
+          name project.name
+          url 'https://github.com/KyoriPowered/nbt/'
+
+          developers {
+            developer {
+              name 'kashike'
+            }
+          }
+
+          issueManagement {
+            system 'GitHub Issues'
+            url 'https://github.com/KyoriPowered/nbt/issues'
+          }
+
+          licenses {
+            license {
+              name 'MIT License'
+              url 'https://opensource.org/licenses/MIT'
+            }
+          }
+
+          scm {
+            connection 'scm:git@github.com:KyoriPowered/nbt.git'
+            developerConnection 'scm:git@github.com:KyoriPowered/nbt.git'
+            url 'https://github.com/KyoriPowered/nbt/'
+          }
+        }
+      }
+    }
+  }
+}

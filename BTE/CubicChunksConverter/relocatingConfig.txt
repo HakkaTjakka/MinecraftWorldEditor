@@ -1,0 +1,23 @@
+keep all
+move all by 0 16 0
+keep 2 0 0 1 1 1
+
+cut all
+cut all to 0 1 2
+cut all by 1 2 5
+cut 0 0 0 1 1 1
+cut 1 0 0 1 1 1 to 5 0 0
+cut 2 0 0 1 1 1 by 5 0 0
+
+copy all to 129387 1 2
+copy all by 10000 2 5
+copy 1 0 0 1 1 1 to 5 0 0
+copy 2 0 0 1 1 1 by 5 0 0
+
+move all to 129387 1 2
+move all by 10000 2 5
+move 1 0 0 1 1 1 to 5 0 0
+move 2 0 0 1 1 1 by 5 0 0
+
+remove all
+remove 1 0 0 1 1 1

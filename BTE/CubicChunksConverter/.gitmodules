@@ -1,0 +1,6 @@
+[submodule "RegionLib"]
+	path = RegionLib
+	url = https://github.com/Barteks2x/RegionLib
+[submodule "nbt"]
+	path = nbt
+	url = https://github.com/OpenCubicChunks/nbt
