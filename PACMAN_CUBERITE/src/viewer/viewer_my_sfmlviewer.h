@@ -676,17 +676,15 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
         }
         std::transform(test_area.begin(), test_area.end(), test_area.begin(), ::toupper);
 
-        if (test_area=="ENSCHEDE")       { lat= 52.2;     lon=   6.9;  }
-        else if (test_area=="LA")        { lat= 34.08;    lon=-118.29; }
-        else if (test_area=="MIAMI")     { lat= 25.789;   lon= -80.206; }
-        else if (test_area=="BRUSSEL")   { lat= 50.85;    lon=   4.35; }
-//        else if (test_area=="AMSTERDAM") { lat= 0.0;    lon=   0.0; }
-        else if (test_area=="AMSTERDAM") { lat= 52.35;    lon=   4.89; }
-        else if (test_area=="DENHAAG")   { lat= 52.065;   lon=   4.297; }
-//        else if (test_area=="NEWYORK")   { lat= 40.67;    lon= -74.50; }
-        else if (test_area=="NEWYORK")   { lat= 40.689242;lon= -74.04454; }
-//        else if (test_area=="Models")    { lat=  0.0;     lon=   0.0;  }
-        else if (test_area=="SCHWEIZ")   { lat= 46.7;     lon=   7.55; }
+        if (test_area=="ENSCHEDE")       { lat= 52.2;       lon=   6.9;  }
+        else if (test_area=="LA")        { lat= 34.08;      lon=-118.29; }
+        else if (test_area=="MIAMI")     { lat= 25.789;     lon= -80.206; }
+        else if (test_area=="BRUSSEL")   { lat= 50.85;      lon=   4.35; }
+        else if (test_area=="AMSTERDAM") { lat= 52.35;      lon=   4.89; }
+		else if (test_area=="UTRECHT")   { lat= 52.0878895; lon=   5.1184395; }
+        else if (test_area=="DENHAAG")   { lat= 52.065;     lon=   4.297; }
+        else if (test_area=="NEWYORK")   { lat= 40.689242;  lon= -74.04454; }
+        else if (test_area=="SCHWEIZ")   { lat= 46.7;       lon=   7.55; }
 
         lat_global=lat;
         lon_global=lon;
