@@ -1187,6 +1187,8 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                         int num=sscanf(voxel_filename,"r.%d.%d.vox",&x,&z);
                         printf("Converting ../cut/%s voxel region file to /saves/test/region/done0/r.%d.%d.mca minecraft files\n",voxel_filename,x,z);
                         one_region_voxel_files_to_region_files(false, voxel_filename);
+extern char send_message;
+                        send_message='x';
                     } else {
                         printf("Converting ../cut/r.*.*.vox voxel region files to /saves/test/region/done0/r.*.*.mca minecraft files\n");
                         region_voxel_files_to_region_files(false);

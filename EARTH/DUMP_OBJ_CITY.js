@@ -9,20 +9,20 @@ const PLANET = 'earth';
 const URL_PREFIX = `https://kh.google.com/rt/${PLANET}/`;
 
 const DL_DIR = './downloaded_files';
-const [ DUMP_NEW_NEW_DIR,	DUMP_NEW_DIR,		DUMP_NEW_DIR_MIAMI,		DUMP_NEW_DIR_AZORES,		DUMP_NEW_DIR_DENHAAG,		DUMP_NEW_DIR_SCHWEIZ,		DUMP_NEW_DIR_NEWYORK,		DUMP_NEW_DIR_BRUSSEL,		DUMP_NEW_DIR_ENSCHEDE,		DUMP_NEW_DIR_LA,		DUMP_NEW_DIR_AMSTERDAM,		DUMP_OBJ_DIR,		DUMP_JSON_DIR,		DUMP_RAW_DIR	] =
-	  [	'new/new',			'new',			  	'new/Miami',			'new/Azores',				'new/DenHaag',				'new/Schweiz',				'new/NewYork',	  			'new/Brussel',	  			'new/Enschede',	  			'new/LA',				'new/Amsterdam',			'obj',				'json',				'raw' 		  	].map(x => path.join(DL_DIR, x));
+const [ DUMP_NEW_NEW_DIR,	DUMP_NEW_DIR,		DUMP_NEW_DIR_UTRECHT,	DUMP_NEW_DIR_MIAMI,		DUMP_NEW_DIR_AZORES,		DUMP_NEW_DIR_DENHAAG,		DUMP_NEW_DIR_SCHWEIZ,		DUMP_NEW_DIR_NEWYORK,		DUMP_NEW_DIR_BRUSSEL,		DUMP_NEW_DIR_ENSCHEDE,		DUMP_NEW_DIR_LA,		DUMP_NEW_DIR_AMSTERDAM,		DUMP_OBJ_DIR,		DUMP_JSON_DIR,		DUMP_RAW_DIR	] =
+	  [	'new/new',			'new',			  	'new/Utrecht',			'new/Miami',			'new/Azores',				'new/DenHaag',				'new/Schweiz',				'new/NewYork',	  			'new/Brussel',	  			'new/Enschede',	  			'new/LA',				'new/Amsterdam',			'obj',				'json',				'raw' 		  	].map(x => path.join(DL_DIR, x));
 
 const DL_DIR1 = 'D:/PACMAN/EARTH/downloaded_files';
-const [ DUMP_NEW_NEW_DIR1,	DUMP_NEW_DIR1,		DUMP_NEW_DIR_MIAMI1,	DUMP_NEW_DIR_AZORES1,		DUMP_NEW_DIR_DENHAAG1,		DUMP_NEW_DIR_SCHWEIZ1,		DUMP_NEW_DIR_NEWYORK1,		DUMP_NEW_DIR_BRUSSEL1,		DUMP_NEW_DIR_ENSCHEDE1,		DUMP_NEW_DIR_LA1,		DUMP_NEW_DIR_AMSTERDAM1,	DUMP_OBJ_DIR1,		DUMP_JSON_DIR1,		DUMP_RAW_DIR1	] =
-	  [	'new/new',			'new',			  	'new/Miami',			'new/Azores',				'new/DenHaag',				'new/Schweiz',				'new/NewYork',	  			'new/Brussel',	  			'new/Enschede',	  			'new/LA',				'new/Amsterdam',			'obj',				'json',				'raw' 		  	].map(x => path.join(DL_DIR1, x));
+const [ DUMP_NEW_NEW_DIR1,	DUMP_NEW_DIR1,		DUMP_NEW_DIR_UTRECHT1,	DUMP_NEW_DIR_MIAMI1,	DUMP_NEW_DIR_AZORES1,		DUMP_NEW_DIR_DENHAAG1,		DUMP_NEW_DIR_SCHWEIZ1,		DUMP_NEW_DIR_NEWYORK1,		DUMP_NEW_DIR_BRUSSEL1,		DUMP_NEW_DIR_ENSCHEDE1,		DUMP_NEW_DIR_LA1,		DUMP_NEW_DIR_AMSTERDAM1,	DUMP_OBJ_DIR1,		DUMP_JSON_DIR1,		DUMP_RAW_DIR1	] =
+	  [	'new/new',			'new',			  	'new/Utrecht',			'new/Miami',			'new/Azores',				'new/DenHaag',				'new/Schweiz',				'new/NewYork',	  			'new/Brussel',	  			'new/Enschede',	  			'new/LA',				'new/Amsterdam',			'obj',				'json',				'raw' 		  	].map(x => path.join(DL_DIR1, x));
 
 const DL_DIR2 = 'G:/EARTH2/downloaded_files';
-const [ DUMP_NEW_NEW_DIR2,	DUMP_NEW_DIR2,		DUMP_NEW_DIR_MIAMI2,	DUMP_NEW_DIR_AZORES2,		DUMP_NEW_DIR_DENHAAG2,		DUMP_NEW_DIR_SCHWEIZ2,		DUMP_NEW_DIR_NEWYORK2,		DUMP_NEW_DIR_BRUSSEL2,		DUMP_NEW_DIR_ENSCHEDE2,		DUMP_NEW_DIR_LA2,		DUMP_NEW_DIR_AMSTERDAM2,	DUMP_OBJ_DIR2,		DUMP_JSON_DIR2,		DUMP_RAW_DIR2	] =
-	  [	'new/new',			'new',			  	'new/Miami',			'new/Azores',				'new/DenHaag',				'new/Schweiz',				'new/NewYork',	  			'new/Brussel',	  			'new/Enschede',	  			'new/LA',				'new/Amsterdam',			'obj',				'json',				'raw' 		  	].map(x => path.join(DL_DIR2, x));
+const [ DUMP_NEW_NEW_DIR2,	DUMP_NEW_DIR2,		DUMP_NEW_DIR_UTRECHT2,	DUMP_NEW_DIR_MIAMI2,	DUMP_NEW_DIR_AZORES2,		DUMP_NEW_DIR_DENHAAG2,		DUMP_NEW_DIR_SCHWEIZ2,		DUMP_NEW_DIR_NEWYORK2,		DUMP_NEW_DIR_BRUSSEL2,		DUMP_NEW_DIR_ENSCHEDE2,		DUMP_NEW_DIR_LA2,		DUMP_NEW_DIR_AMSTERDAM2,	DUMP_OBJ_DIR2,		DUMP_JSON_DIR2,		DUMP_RAW_DIR2	] =
+	  [	'new/new',			'new',			  	'new/Utrecht',			'new/Miami',			'new/Azores',				'new/DenHaag',				'new/Schweiz',				'new/NewYork',	  			'new/Brussel',	  			'new/Enschede',	  			'new/LA',				'new/Amsterdam',			'obj',				'json',				'raw' 		  	].map(x => path.join(DL_DIR2, x));
 
 const DL_DIR3 = 'F:/EARTH3/downloaded_files';
-const [ DUMP_NEW_NEW_DIR3,	DUMP_NEW_DIR3,		DUMP_NEW_DIR_MIAMI3,	DUMP_NEW_DIR_AZORES3,		DUMP_NEW_DIR_DENHAAG3,		DUMP_NEW_DIR_SCHWEIZ3,		DUMP_NEW_DIR_NEWYORK3,		DUMP_NEW_DIR_BRUSSEL3,		DUMP_NEW_DIR_ENSCHEDE3,		DUMP_NEW_DIR_LA3,		DUMP_NEW_DIR_AMSTERDAM3,	DUMP_OBJ_DIR3,		DUMP_JSON_DIR3,		DUMP_RAW_DIR3	] =
-	  [	'new/new',			'new',			  	'new/Miami',			'new/Azores',				'new/DenHaag',				'new/Schweiz',				'new/NewYork',	  			'new/Brussel',	  			'new/Enschede',	  			'new/LA',				'new/Amsterdam',			'obj',				'json',				'raw' 		  	].map(x => path.join(DL_DIR3, x));
+const [ DUMP_NEW_NEW_DIR3,	DUMP_NEW_DIR3,		DUMP_NEW_DIR_UTRECHT3,	DUMP_NEW_DIR_MIAMI3,	DUMP_NEW_DIR_AZORES3,		DUMP_NEW_DIR_DENHAAG3,		DUMP_NEW_DIR_SCHWEIZ3,		DUMP_NEW_DIR_NEWYORK3,		DUMP_NEW_DIR_BRUSSEL3,		DUMP_NEW_DIR_ENSCHEDE3,		DUMP_NEW_DIR_LA3,		DUMP_NEW_DIR_AMSTERDAM3,	DUMP_OBJ_DIR3,		DUMP_JSON_DIR3,		DUMP_RAW_DIR3	] =
+	  [	'new/new',			'new',			  	'new/Utrecht',			'new/Miami',			'new/Azores',				'new/DenHaag',				'new/Schweiz',				'new/NewYork',	  			'new/Brussel',	  			'new/Enschede',	  			'new/LA',				'new/Amsterdam',			'obj',				'json',				'raw' 		  	].map(x => path.join(DL_DIR3, x));
 
 const { OCTANTS, MAX_LEVEL, CITYNAME, DUMP_JSON, DUMP_RAW, PARALLEL_SEARCH } = require('./lib/parse-command-line2')(__filename);
 const DUMP_OBJ = !(DUMP_JSON || DUMP_RAW);
@@ -61,6 +61,7 @@ async function run() {
 	const newDir  			= path.join(DUMP_NEW_DIR, 				`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newnewDir  		= path.join(DUMP_NEW_NEW_DIR, 			`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_AMSTERDAM  = path.join(DUMP_NEW_DIR_AMSTERDAM,		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
+	const newDir_UTRECHT	= path.join(DUMP_NEW_DIR_UTRECHT,		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_BRUSSEL 	= path.join(DUMP_NEW_DIR_BRUSSEL, 		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_ENSCHEDE	= path.join(DUMP_NEW_DIR_ENSCHEDE,		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_LA			= path.join(DUMP_NEW_DIR_LA, 			`${OCTANTS.join('+')}-${MAX_LEVEL}`);
@@ -72,6 +73,7 @@ async function run() {
 	const objDir			= path.join(DUMP_OBJ_DIR,				`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 
 	const newDir_AMSTERDAMb = path.join(DUMP_NEW_DIR_AMSTERDAM,		`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
+	const newDir_UTRECHTb 	= path.join(DUMP_NEW_DIR_UTRECHT,		`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_BRUSSELb 	= path.join(DUMP_NEW_DIR_BRUSSEL, 		`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_ENSCHEDEb	= path.join(DUMP_NEW_DIR_ENSCHEDE,		`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_LAb		= path.join(DUMP_NEW_DIR_LA, 			`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
@@ -87,6 +89,7 @@ async function run() {
 	const newDir_ENSCHEDE1	= path.join(DUMP_NEW_DIR_ENSCHEDE1,		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_LA1		= path.join(DUMP_NEW_DIR_LA1, 			`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_AMSTERDAM1 = path.join(DUMP_NEW_DIR_AMSTERDAM1,	`${OCTANTS.join('+')}-${MAX_LEVEL}`);
+	const newDir_UTRECHT1 	= path.join(DUMP_NEW_DIR_UTRECHT1,		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_NEWYORK1	= path.join(DUMP_NEW_DIR_NEWYORK1,		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_MIAMI1 	= path.join(DUMP_NEW_DIR_MIAMI1,		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_DENHAAG1 	= path.join(DUMP_NEW_DIR_DENHAAG1,		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
@@ -95,6 +98,7 @@ async function run() {
 	const objDir1			= path.join(DUMP_OBJ_DIR1,				`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 
 	const newDir_AMSTERDAMb1= path.join(DUMP_NEW_DIR_AMSTERDAM1,	`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
+	const newDir_UTRECHTb1	= path.join(DUMP_NEW_DIR_UTRECHT1,		`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_BRUSSELb1	= path.join(DUMP_NEW_DIR_BRUSSEL1, 		`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_ENSCHEDEb1 = path.join(DUMP_NEW_DIR_ENSCHEDE1,		`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_LAb1		= path.join(DUMP_NEW_DIR_LA1, 			`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
@@ -110,6 +114,7 @@ async function run() {
 	const newDir_ENSCHEDE2	= path.join(DUMP_NEW_DIR_ENSCHEDE2,		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_LA2		= path.join(DUMP_NEW_DIR_LA2, 			`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_AMSTERDAM2 = path.join(DUMP_NEW_DIR_AMSTERDAM2,	`${OCTANTS.join('+')}-${MAX_LEVEL}`);
+	const newDir_UTRECHT2 	= path.join(DUMP_NEW_DIR_UTRECHT2,		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_NEWYORK2	= path.join(DUMP_NEW_DIR_NEWYORK2,		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_MIAMI2 	= path.join(DUMP_NEW_DIR_MIAMI2,		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_DENHAAG2 	= path.join(DUMP_NEW_DIR_DENHAAG2,		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
@@ -118,6 +123,7 @@ async function run() {
 	const objDir2			= path.join(DUMP_OBJ_DIR2,				`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 
 	const newDir_AMSTERDAMb2= path.join(DUMP_NEW_DIR_AMSTERDAM2,	`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
+	const newDir_UTRECHTb2	= path.join(DUMP_NEW_DIR_UTRECHT2,		`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_BRUSSELb2	= path.join(DUMP_NEW_DIR_BRUSSEL2, 		`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_ENSCHEDEb2 = path.join(DUMP_NEW_DIR_ENSCHEDE2,		`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_LAb2		= path.join(DUMP_NEW_DIR_LA2, 			`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
@@ -133,6 +139,7 @@ async function run() {
 	const newDir_ENSCHEDE3	= path.join(DUMP_NEW_DIR_ENSCHEDE3,		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_LA3		= path.join(DUMP_NEW_DIR_LA3, 			`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_AMSTERDAM3 = path.join(DUMP_NEW_DIR_AMSTERDAM3,	`${OCTANTS.join('+')}-${MAX_LEVEL}`);
+	const newDir_UTRECHT3 	= path.join(DUMP_NEW_DIR_UTRECHT3,		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_NEWYORK3	= path.join(DUMP_NEW_DIR_NEWYORK3,		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_MIAMI3 	= path.join(DUMP_NEW_DIR_MIAMI3,		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_DENHAAG3 	= path.join(DUMP_NEW_DIR_DENHAAG3,		`${OCTANTS.join('+')}-${MAX_LEVEL}`);
@@ -141,6 +148,7 @@ async function run() {
 	const objDir3			= path.join(DUMP_OBJ_DIR3,				`${OCTANTS.join('+')}-${MAX_LEVEL}`);
 
 	const newDir_AMSTERDAMb3= path.join(DUMP_NEW_DIR_AMSTERDAM3,	`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
+	const newDir_UTRECHTb3	= path.join(DUMP_NEW_DIR_UTRECHT3,		`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_BRUSSELb3	= path.join(DUMP_NEW_DIR_BRUSSEL3, 		`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_ENSCHEDEb3 = path.join(DUMP_NEW_DIR_ENSCHEDE3,		`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
 	const newDir_LAb3		= path.join(DUMP_NEW_DIR_LA3, 			`${subdir}/${OCTANTS.join('+')}-${MAX_LEVEL}`);
@@ -155,6 +163,7 @@ async function run() {
 			 if (fs.existsSync(newDir) )			{	console.log('exists in: ' + newDir);			return;		}
 		else if (fs.existsSync(newnewDir) ) 		{	console.log('exists in: ' + newnewDir);			return;		}
 		else if (fs.existsSync(newDir_AMSTERDAM) ) 	{	console.log('exists in: ' + newDir_AMSTERDAM);	return;		}
+		else if (fs.existsSync(newDir_UTRECHT) ) 	{	console.log('exists in: ' + newDir_UTRECHT);	return;		}
 		else if (fs.existsSync(newDir_BRUSSEL) ) 	{	console.log('exists in: ' + newDir_BRUSSEL);	return;		}
 		else if (fs.existsSync(newDir_ENSCHEDE) ) 	{	console.log('exists in: ' + newDir_ENSCHEDE);	return;		}
 		else if (fs.existsSync(newDir_LA) ) 		{	console.log('exists in: ' + newDir_LA);			return;		}
@@ -165,7 +174,8 @@ async function run() {
 		else if (fs.existsSync(newDir_AZORES) ) 	{	console.log('exists in: ' + newDir_AZORES);		return;		}
 
 		else if (fs.existsSync(objDir)) 			{	console.log('exists in: ' + objDir);			return;		}
-		else if (fs.existsSync(newDir_AMSTERDAMb) )	{	console.log('exists in: ' + newDir_AMSTERDAMb);return;		}
+		else if (fs.existsSync(newDir_AMSTERDAMb) )	{	console.log('exists in: ' + newDir_AMSTERDAMb);	return;		}
+		else if (fs.existsSync(newDir_UTRECHTb) )	{	console.log('exists in: ' + newDir_UTRECHTb);	return;		}
 		else if (fs.existsSync(newDir_BRUSSELb) ) 	{	console.log('exists in: ' + newDir_BRUSSELb);	return;		}
 		else if (fs.existsSync(newDir_ENSCHEDEb) ) 	{	console.log('exists in: ' + newDir_ENSCHEDEb);	return;		}
 		else if (fs.existsSync(newDir_LAb) ) 		{	console.log('exists in: ' + newDir_LAb);		return;		}
@@ -182,6 +192,7 @@ async function run() {
 		else if (fs.existsSync(newDir_ENSCHEDE1) ) 	{	console.log('exists in: ' + newDir_ENSCHEDE1);	return;		}
 		else if (fs.existsSync(newDir_LA1) ) 		{	console.log('exists in: ' + newDir_LA1);		return;		}
 		else if (fs.existsSync(newDir_AMSTERDAM1) )	{	console.log('exists in: ' + newDir_AMSTERDAM1);	return;		}
+		else if (fs.existsSync(newDir_UTRECHT1) )	{	console.log('exists in: ' + newDir_UTRECHT1);	return;		}
 		else if (fs.existsSync(newDir_NEWYORK1) ) 	{	console.log('exists in: ' + newDir_NEWYORK1);	return;		}
 		else if (fs.existsSync(newDir_MIAMI1) ) 	{	console.log('exists in: ' + newDir_MIAMI1);		return;		}
 		else if (fs.existsSync(newDir_DENHAAG1) ) 	{	console.log('exists in: ' + newDir_DENHAAG1);	return;		}
@@ -190,6 +201,7 @@ async function run() {
 		else if (fs.existsSync(objDir1)) 			{	console.log('exists in: ' + objDir1);			return;		}
 		
 		else if (fs.existsSync(newDir_AMSTERDAMb1) ){	console.log('exists in: ' + newDir_AMSTERDAMb1);return;		}
+		else if (fs.existsSync(newDir_UTRECHTb1) )	{	console.log('exists in: ' + newDir_UTRECHTb1);	return;		}
 		else if (fs.existsSync(newDir_BRUSSELb1) )	{	console.log('exists in: ' + newDir_BRUSSELb1);	return;		}
 		else if (fs.existsSync(newDir_ENSCHEDEb1) ) {	console.log('exists in: ' + newDir_ENSCHEDEb1);	return;		}
 		else if (fs.existsSync(newDir_LAb1) ) 		{	console.log('exists in: ' + newDir_LAb1);		return;		}
@@ -206,6 +218,7 @@ async function run() {
 		else if (fs.existsSync(newDir_ENSCHEDE2) ) 	{	console.log('exists in: ' + newDir_ENSCHEDE2);	return;		}
 		else if (fs.existsSync(newDir_LA2) ) 		{	console.log('exists in: ' + newDir_LA2);		return;		}
 		else if (fs.existsSync(newDir_AMSTERDAM2) )	{	console.log('exists in: ' + newDir_AMSTERDAM2);	return;		}
+		else if (fs.existsSync(newDir_UTRECHT2) )	{	console.log('exists in: ' + newDir_UTRECHT2);	return;		}
 		else if (fs.existsSync(newDir_NEWYORK2) ) 	{	console.log('exists in: ' + newDir_NEWYORK2);	return;		}
 		else if (fs.existsSync(newDir_MIAMI2) ) 	{	console.log('exists in: ' + newDir_MIAMI2);		return;		}
 		else if (fs.existsSync(newDir_DENHAAG2) ) 	{	console.log('exists in: ' + newDir_DENHAAG2);	return;		}
@@ -214,6 +227,7 @@ async function run() {
 		else if (fs.existsSync(objDir2)) 			{	console.log('exists in: ' + objDir2);			return;		}
 		
 		else if (fs.existsSync(newDir_AMSTERDAMb2) ){	console.log('exists in: ' + newDir_AMSTERDAMb2);return;		}
+		else if (fs.existsSync(newDir_UTRECHTb2) )	{	console.log('exists in: ' + newDir_UTRECHTb2);	return;		}
 		else if (fs.existsSync(newDir_BRUSSELb2) )	{	console.log('exists in: ' + newDir_BRUSSELb2);	return;		}
 		else if (fs.existsSync(newDir_ENSCHEDEb2) ) {	console.log('exists in: ' + newDir_ENSCHEDEb2);	return;		}
 		else if (fs.existsSync(newDir_LAb2) ) 		{	console.log('exists in: ' + newDir_LAb2);		return;		}
@@ -230,6 +244,7 @@ async function run() {
 		else if (fs.existsSync(newDir_ENSCHEDE3) ) 	{	console.log('exists in: ' + newDir_ENSCHEDE3);	return;		}
 		else if (fs.existsSync(newDir_LA3) ) 		{	console.log('exists in: ' + newDir_LA3);		return;		}
 		else if (fs.existsSync(newDir_AMSTERDAM3) )	{	console.log('exists in: ' + newDir_AMSTERDAM3);	return;		}
+		else if (fs.existsSync(newDir_UTRECHT3) )	{	console.log('exists in: ' + newDir_UTRECHT3);	return;		}
 		else if (fs.existsSync(newDir_NEWYORK3) ) 	{	console.log('exists in: ' + newDir_NEWYORK3);	return;		}
 		else if (fs.existsSync(newDir_MIAMI3) ) 	{	console.log('exists in: ' + newDir_MIAMI3);		return;		}
 		else if (fs.existsSync(newDir_DENHAAG3) ) 	{	console.log('exists in: ' + newDir_DENHAAG3);	return;		}
@@ -238,6 +253,7 @@ async function run() {
 		else if (fs.existsSync(objDir3)) 			{	console.log('exists in: ' + objDir3);			return;		}
 		
 		else if (fs.existsSync(newDir_AMSTERDAMb3) ){	console.log('exists in: ' + newDir_AMSTERDAMb3);return;		}
+		else if (fs.existsSync(newDir_UTRECHTb3) )	{	console.log('exists in: ' + newDir_UTRECHTb3);	return;		}
 		else if (fs.existsSync(newDir_BRUSSELb3) )	{	console.log('exists in: ' + newDir_BRUSSELb3);	return;		}
 		else if (fs.existsSync(newDir_ENSCHEDEb3) ) {	console.log('exists in: ' + newDir_ENSCHEDEb3);	return;		}
 		else if (fs.existsSync(newDir_LAb3) ) 		{	console.log('exists in: ' + newDir_LAb3);		return;		}
@@ -250,6 +266,7 @@ async function run() {
 	}
 
 	if (CITYNAME[0]=="--ENSCHEDE")			{	offset_x=3875099.0;					offset_y=468154.0;				offset_z=5035344.0; }
+	else if (CITYNAME[0]=="--UTRECHT")		{	offset_x=3899275.0;					offset_y=348997.0;				offset_z=5026376.0; }
 	else if (CITYNAME[0]=="--AMSTERDAM")	{	offset_x=3876534.0;					offset_y=331582.0;				offset_z=5045027.0; }
 	else if (CITYNAME[0]=="--BRUSSEL")		{	offset_x=4014897.0; 				offset_y=296156.0; 				offset_z=4937953.0; }
 	else if (CITYNAME[0]=="--LA")			{	offset_x=-2490962;					offset_y=-4656517; 				offset_z=3564040; }

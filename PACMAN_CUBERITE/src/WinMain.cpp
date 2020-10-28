@@ -1,5 +1,4 @@
 #define PI 3.141592653589793
-#define PI 3.141592653589793
 #define SFML_STATIC
 #undef UNICODE
 #include <winsock2.h>

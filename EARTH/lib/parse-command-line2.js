@@ -18,7 +18,7 @@ module.exports = function parseCommandLine(filename) {
 		if (octants.filter((o, i) => octants.indexOf(o) === i).length !== octants.length) errors.push('Duplicate octants.');
 		if (Object.keys(octants.reduce((acc, cur) => ({ ...acc, [cur.length]: 1 }), {})).length !== 1) errors.push('Octants must have equal levels.');
 		if (!/^\d{1,2}$/.test(max_level)) errors.push('Invalid max_level.');
-		if (optional.filter(o => !['--dump-json', '--dump-raw', '--parallel-search','--AZORES','--ENSCHEDE','--MIAMI','--DENHAAG','--SCHWEIZ', '--AMSTERDAM', '--BRUSSEL',  '--LA',  '--NEWYORK', '--JOCELYN' ].includes(o)).length > 0) errors.push('Invalid parameters.');
+		if (optional.filter(o => !['--dump-json', '--dump-raw', '--parallel-search','--AZORES','--UTRECHT','--ENSCHEDE','--MIAMI','--DENHAAG','--SCHWEIZ', '--AMSTERDAM', '--BRUSSEL',  '--LA',  '--NEWYORK', '--JOCELYN' ].includes(o)).length > 0) errors.push('Invalid parameters.');
 	}
 	if (errors.length > 0) {
 		const invoc = `node ${require('path').basename(filename)}`;
@@ -33,7 +33,7 @@ module.exports = function parseCommandLine(filename) {
 	return {
 		OCTANTS: octants,
 		MAX_LEVEL: parseInt(max_level),
-		CITYNAME: optional.filter(o => ['--MIAMI','--SCHWEIZ', '--AZORES', '--ENSCHEDE', '--DENHAAG', '--AMSTERDAM', '--BRUSSEL',  '--LA',  '--NEWYORK', '--JOCELYN' ].includes(o)),
+		CITYNAME: optional.filter(o => ['--UTRECHT','--MIAMI','--SCHWEIZ', '--AZORES', '--ENSCHEDE', '--DENHAAG', '--AMSTERDAM', '--BRUSSEL',  '--LA',  '--NEWYORK', '--JOCELYN' ].includes(o)),
 		DUMP_JSON: optional.includes('--dump-json'),
 		DUMP_JSON: optional.includes('--dump-json'),
 		DUMP_RAW: optional.includes('--dump-raw'),

@@ -1380,8 +1380,10 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
         center_x=22;
         center_y=23;
     } else if (my_area=="Amsterdam") {
-        center_x=43;
-        center_y=100;
+//        center_x=43;
+//        center_y=100;
+        center_x=60;
+        center_y=108;
     } else if (my_area=="NewYork") {
         center_x=65;
         center_y=51;

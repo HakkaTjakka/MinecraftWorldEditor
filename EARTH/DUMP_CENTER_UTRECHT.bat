@@ -1,0 +1,13 @@
+@echo off
+
+node DUMP_OBJ_CITY.js 30604243514160615 21 --parallel-search --UTRECHT
+node DUMP_OBJ_CITY.js 30604243514160704 21 --parallel-search --UTRECHT
+node DUMP_OBJ_CITY.js 30604243514160617 21 --parallel-search --UTRECHT
+node DUMP_OBJ_CITY.js 30604243514160706 21 --parallel-search --UTRECHT
+node DUMP_OBJ_CITY.js 30604243514160614 21 --parallel-search --UTRECHT
+node DUMP_OBJ_CITY.js 30604243514160616 21 --parallel-search --UTRECHT
+node DUMP_OBJ_CITY.js 30604243514160635 21 --parallel-search --UTRECHT
+node DUMP_OBJ_CITY.js 30604243514160724 21 --parallel-search --UTRECHT
+node DUMP_OBJ_CITY.js 30604243514160634 21 --parallel-search --UTRECHT
+
+PAUSE

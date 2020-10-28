@@ -503,7 +503,9 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
             }
             else if (c==(char)'x') {
                 go_on=0;
-                while (animator_running) sf::sleep(sf::seconds(0.2));
+                int count=0;
+                ShowTaskBar(true);
+                while (animator_running && count<20) { sf::sleep(sf::seconds(0.2)); count++; }
                 ShowTaskBar(true);
                 exit(0);
             }

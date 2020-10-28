@@ -85,7 +85,7 @@ async function run() {
 	let CITY=process.argv[2];
 	let NO_EXTRA=0;
 //	if ([lat, lon].includes(undefined) || lat=="--ENSCHEDE" || lat=="--LA" || lat=="--AMSTERDAM" || lat=="--NEWYORK" || lat=="--MAIMI" || lat=="--BRUSSEL") {
-	if (CITY=="--AZORES" || CITY=="--ENSCHEDE" || CITY=="--DENHAAG" || CITY=="--LA" || CITY=="--AMSTERDAM" || CITY=="--NEWYORK" || CITY=="--MIAMI" || CITY=="--SCHWEIZ" || CITY=="--BRUSSEL") {
+	if (CITY=="--AZORES" || CITY=="--ENSCHEDE" || CITY=="--DENHAAG" || CITY=="--LA" || CITY=="--AMSTERDAM" || CITY=="--NEWYORK" || CITY=="--MIAMI" || CITY=="--SCHWEIZ" || CITY=="--BRUSSEL" || CITY=="--UTRECHT") {
 		let CITY_NAME="";
 		let lat0=0.0;
 		let lon0=0.0;
@@ -97,6 +97,12 @@ async function run() {
 			lon0= 6.813080;
 			lat1=52.178402;
 			lon1= 6.974389;
+		} else if (CITY=="--UTRECHT") {
+			CITY_NAME="UTRECHT"
+			lat0=52.091874;
+			lon0=5.109879;
+			lat1=52.083905;
+			lon1=5.127000;
 		} else if (CITY=="--LA") {
 			CITY_NAME="LA"
 			lat0=34.081049;
