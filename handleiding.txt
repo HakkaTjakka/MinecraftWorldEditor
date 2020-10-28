@@ -934,8 +934,9 @@ Downloaden van de Google 3d Earth gegevens. (Yeah!)
 		LON:  WEST=     5,10864257812500000  EAST=     5,12512207031250000
 	
 	Speciaal voor jullie ga ik het via de BTE versie van MC doen. Dit heb ik zelf nog niet (nooit) gedaan, dus eens kijken of het gaat lukken. Daarvoor start ik dus de BTE versie van Minecraft op. Hoe je die moet installeren staat op de website van bte. Ik start het programma en selecteer de map Build The Earth (New projection). En tik: (NORTH-WEST)
-	/tpll 52.09442138671875 5.08642578125
-	En hoppa, ik druk F3, en vindt de block coordinaten van de linker bovenhoek. Achter XYZ. We hebben alleen de X en Z coordinaat nodig, en deze zijn (dus...): x=3172027 z=-5354491 en eronder zien we deze nog een keer onder BLOCK staan, afgerond. Maar op 1 blokje steekt het hem nu eventjes niet. Op dezelfde manier vinden we de coordinaten voor de rechter onderhoek: /tpll 52.086181640625 5.1251220703125 (SOUTH-EAST) en vinden we: 3174501 voor x en -5352657 voor z. Je ziet dat vanwege het roteren van de kaart, dezelfd lat en/of lon, een andere coordinaat vinden voor zowel de x als z. 
+	/tpll 52.09442138671875 5.108642578125
+	
+	En hoppa, ik druk F3, en vindt de block coordinaten van de linker bovenhoek. Achter XYZ. We hebben alleen de X en Z coordinaat nodig, en deze zijn (dus...): x=3173620 z=-5353991 en eronder zien we deze nog een keer onder BLOCK staan, afgerond. Maar op 1 blokje steekt het hem nu eventjes niet. Op dezelfde manier vinden we de coordinaten voor de rechter onderhoek: /tpll 52.086181640625 5.1251220703125 (SOUTH-EAST) en vinden we: 3174501 voor x en -5352657 voor z. Je ziet dat vanwege het roteren van de kaart, dezelfd lat en/of lon, een andere coordinaat vinden voor zowel de x als z. 
 	Maar we zijn er nog niet. We hebben (dus) ook de LINKER ONDERHOEK, en RECHTER BOVENHOEK nodig.
 	Hoe vinden we de lat/lon daarvoor: Voor de linker onderhoek hebben we dus de SOUTH nodig, en de WEST. Voor de rechterbovenhoek de NORTH en EAST. Dus:
 
@@ -945,7 +946,7 @@ Downloaden van de Google 3d Earth gegevens. (Yeah!)
 	/tpll 52.09442138671875 5.1251220703125 wordt dan 3174801 voor x en -5353620
 
 	Dus: 
-	    top_left =(3172027 , -5354491) /tpll 52.09442138671875 5.08642578125 	(NORTH-WEST)
+	    top_left =(3173620 , -5353991) /tpll 52.09442138671875 5.108642578125 	(NORTH-WEST)
         top_right=(3174801 , -5353620) /tpll 52.09442138671875 5.1251220703125	(NORTH-EAST)
         bot_left =(3173319 , -5353029) /tpll 52.086181640625 5.108642578125		(SOUTH-WEST)
         bot_right=(3174501 , -5352657) /tpll 52.086181640625 5.1251220703125 	(SOUTH-EAST)
@@ -953,7 +954,7 @@ Downloaden van de Google 3d Earth gegevens. (Yeah!)
 	Of het allemaal klopt gaan we later zien. Voor de zekerheid ga ik het progje onder Ubuntu daar ook even mee draaien. Momentje. Hiervoor zet ik in en Python script de volgend code: Let op, hierbij zijn lat en lon in omgekeerde volgorde!!!
 
 	print('top left: ')
-	print(projection.fromGeo(5.08642578125  ,52.09442138671875))
+	print(projection.fromGeo(5.108642578125  ,52.09442138671875))
   	print('top right: ')                    
 	print(projection.fromGeo(5.1251220703125,52.09442138671875))
 	print('bottom left: ')                  
@@ -963,12 +964,12 @@ Downloaden van de Google 3d Earth gegevens. (Yeah!)
 
 	
 	En 'python utrecht.py' geeft dan:
-		top left:		[3172027.0208473764, -5354490.865355419]
-		top right:		[3174801.152713919,  -5353619.96164422]
-		bottom left:	[3173319.705408585,  -5353028.639382178]
-		bottom right:	[3174501.387840918,  -5352657.873705601]
-		
-	Wat toch aardig in de buurt komt moet ik zeggen. Goed gedaan jonguh!
+		top left:		[3173619.701549666, -5353990.708839205]
+		top right:		[3174801.152713919, -5353619.96164422]
+		bottom left:	[3173319.705408585, -5353028.639382178]
+		bottom right:	[3174501.387840918, -5352657.873705601]
+
+	Wat toch aardig in de buurt komt moet ik zeggen. Goed gedaan jonguh! Bij mij ging het 2 keer fout, dus kijk goed uit. 
 	
 	We gaan weer eens eventjes de programmeur uithangen. In de file D:\PACMAN\PACMAN_CUBERITE\src\viewer\viewer_my_loadobj.h, die je kunt vinden via workspace -> PACMAN_CUBERITE -> Sources -> Headers -> viewer -> viewer_my_loadobj.h dus, gaan we richting regel 1660 of zo. En vinden daar voor elke area die we gaan voxelizen een stukje code, en daar gaan we een nieuw stukje met else if aan toevoegen, gelijk aan de anderen. Tussen de andere code voor area's komt dan deze:
 
@@ -978,11 +979,152 @@ Downloaden van de Google 3d Earth gegevens. (Yeah!)
         float cnt_x=0.0;
         float cnt_z=0.0;
 
-        top_left =glm::fvec2((3172027.0208473764-cnt_x)*1.0,   (-5354490.865355419-cnt_z)*1.0);
+        top_left =glm::fvec2((3173619.701549666 -cnt_x)*1.0,   (-5353990.708839205-cnt_z)*1.0);
         top_right=glm::fvec2((3174801.152713919 -cnt_x)*1.0,   (-5353619.96164422 -cnt_z)*1.0);
         bot_left =glm::fvec2((3173319.705408585 -cnt_x)*1.0,   (-5353028.639382178-cnt_z)*1.0);
         bot_right=glm::fvec2((3174501.387840918 -cnt_x)*1.0,   (-5352657.873705601-cnt_z)*1.0);
-	
+
+	De waardes achter de komma zijn niet zo belangrijk...
 	En we voegen dit tussen die van de anderen, maar wel op de juiste manier heh? Ik hoop dat het duidelijk is. Deze code staat straks ook zo op GitHub, en kan je kijken hoe het goed moet... ;)
 	De float cnt_x en cnt_z kan je gebruiken voor een offset. Vul hiervoor de laagste x en z waarde in. De linker bovenhoek van de area met region files komt dan op r.0.0.mca uit. Wij willen BTE projectie, dus doen dat niet. De *1.0 geeft de schaal aan. Zo kan je een grotere of kleinere projectie maken. Wij willen 1 op 1, dus 1.0.
-	We plakken dit er dus tussen en kijken of het programma wil compileren.
+	We plakken dit er dus tussen en kijken of het programma wil compileren. Mooi. c/c++ programmeur level 3 ben je nu.
+	We gaan weer even naar de file /pacman/pacman_cuberite/utrecht.txt, daarin zien we voor de x, wat voor ons DE HOOGTE!!! is van de 3d data (het object staat op zijn kant als het geroteerd is intern) de volgende waarden:
+		TOTAL MIN: X=  -116,04261016845703000	
+		TOTAL MAX: X=    50,01991271972656300
+		TOTAL DIF: X=   166,06252288818359000
+	Deze waarden zijn zo, omdat we het systeem gekalibreerd hebben, dmv de cijfers voor de komma zo klein te maken.
+	De hoogte van het nu onstane 3d model, wordt dus mede bepaald door de z waarde die we daar hebben gebruikt. Deze kan van een punt op een straat zijn, of op de punt van een kerk toren. We zien daarom ook dat deze van -116 tot 50 loopt. Daarbinnen valt dus onze hoogte van de MC wereld die we gaan maken. In een poging het straat niveau op een goede hoogte te krijgen, moeten we een offset maken. En daarna kijken hoe deze hoogte voor de hele octant uitvalt in de ontstane region files. Je kunt er vanuit gaan dat de 50 van een kerktoren is (het allerhoogste punt), en de -116 dus van het allerlaagste punt. Let op, soms zitten er objecten onder de grond, die je in Google 3d niet kunt zien...
+	We gaan daarom in dezelfde .h file viewer_my_loadobj.h richting regel 1920. En voegen daarom daar een stukje code toe, proppen dit ertussen, op de juiste manier natuurlijk:
+	
+		} else if (area=="DenHaag") {
+			bmin_total[0]=-100.0;
+			bmax_total[0]=60.0;
+
+	De bmin_total[0] geeft de vloer weer van de region file. Dus y hoogte 0. Die zetten voor de gein maar eens gewoon op -100.0
+	Alles wat op deze hoogte zit, wordt dus 0 in de region file. In ons geval is de bmax_total[0] niet van belang. Dit is normaal de maximale hoogte van een omzetting naar voxels. En dan kan de schaal op basis van deze twee waarden worden bepaald, waardoor alles tussen de min en max in MC dus tussen de 0 en 256 komt te liggen. Maar wij gaan hoger dus. En wordt de schaal (1:1) gegeven door de 4 x/z setjes die we eerder met het /tpll commando hebben gekregen. En zou dus een schaal 1:1 op moeten leveren. (1.0) Verderop in het programma zie je dingen uit gecommentarieerd. Waarbij deze dingen worden gebruikt om de schaal te kunnen berekenen. Op dit moment zit je bijna in de core van de voxelizer, die vanuit deze code zal worden aangeroepen. Voor elke driehoek 1 keer. Waarbij elke triangle (texture tussen 3 x/y/z punten) met de bijbehorende texture pixels zal worden omgezet. Trickie punt daarbij is het bepalen van hoe groot de stapgrootte moet zijn bij het scannen van deze texture. Voor BTE staat de formule daarvoor goed. Om dit te bepalen voert het programma een test scan uit, om een goeje te vinden. En kan je groter en/of kleiner maken in         
+
+	pixels_per_block_glob=8.0/block_scale;
+	
+	Wat in deze schaal een goed resultaat oplevert. Is deze te laag, krijg je gaten in je bouwwerk. Staat deze te hoog, dan scanned hij dezelfde pixels meerdere keren. Wat niet erg is, maar dan wordt het trager.
+	De eigenlijke voxelizer routine staat onder Workspace -> PACMAN_CUBERITE -> Src -> WUPPIE.CPP voor de liefhebbers van goniometrie. (jukkie bah!) De formulles heb ik van het internet en naar eigen believen aangepast. Met de formulles kan je dus de pixel in de texture vinden die binnen de triangle past. Ik doe het net andersom. Ik neem de pixels van de triangle (deze coordinaten zitten ook in de Wavefront .obj file) en scan deze pixels, en bereken van daaruit de 3d coordinaten op basis van de 3 hoekpunten in de 3-dimentionale wereld. Je krijgt dan de 3d locatie van deze ene pixel.
+	Valt deze pixel (afgerond op gehele getallen) op dezelfde plek als anderen (zo'n 30 stuks gemiddeld normaal, we maken grote blokken tov de Google 3d texture pixels) dan worden de rgb waarden gewoon opgeteld, en wordt een teller bijgehouden van hoeveel pixels (hits) er zijn. De totale rgb waarden worden dan later gedeeld door dit getal, en krijg je de gemiddelde rgb waarden van zo'n 30 pixels van de textures.
+	
+	Om niet moeilijk te doen, gaan we het programma nog een beetje aanpassen. Anders moeten we in het programma verschillende toetsen indrukken wat bij herhaling lastig kan zijn. Hoe dat moet beschrijf ik later wel, want ik weet het niet eens uit het hoofd. In de code kun je het makkelijk terug vinden. Wij bouwen nu een command line optie in speciaal voor utrecht.
+	Daarvoor gaan we naar D:\PACMAN\PACMAN_CUBERITE\src\winapi.cpp die je vast zelf nu in Codeblocks kunt vinden.
+	Op ongeveer regel 781 vinden we het volgende stukje code:
+	
+	        else if (   strcmp(argv[1],"newyork"    )==0) { send_message='v'; }
+
+	Die copieren we en maken er het volgende van:
+
+	        else if (   strcmp(argv[1],"utrecht"    )==0) { send_message='z'; }
+
+	En staat er dus:
+		(...)
+        else if (   strcmp(argv[1],"newyork"    )==0) { send_message='v'; }
+        else if (   strcmp(argv[1],"utrecht"    )==0) { send_message='z'; }
+        else if (   strcmp(argv[1],"amsterdam"    )==0) { send_message='w'; }
+		(...)
+	
+	Ip ongeveer regel 581 vinden we het volgende:
+	
+		} else if (c==(char)'v') {
+			crossing=2; mirror=4;combine=1;
+			area="NewYork";
+			cubic=true;
+			and_now_i_am_here=true;
+			launch_SFMLGL2_b();
+			while (!i_am_here) {
+				sf::sleep(sf::seconds(0.1));
+			}
+			combine=0;
+
+	Ook hiervan maken we een copie en plakken dit eronder, en wijzigen dit in:
+
+		} else if (c==(char)'z') {
+			crossing=2; mirror=4;combine=1;
+			area="Utrecht";
+			cubic=true;
+			and_now_i_am_here=true;
+			launch_SFMLGL2_b();
+			while (!i_am_here) {
+				sf::sleep(sf::seconds(0.1));
+			}
+			combine=0;
+	
+	En krijg je dus zoiets als:
+		(...)
+        } else if (c==(char)'v') {
+			crossing=2; mirror=4;combine=1;
+			area="NewYork";
+			cubic=true;
+			and_now_i_am_here=true;
+			launch_SFMLGL2_b();
+			while (!i_am_here) {
+				sf::sleep(sf::seconds(0.1));
+			}
+			combine=0;
+		} else if (c==(char)'z') {
+			crossing=2; mirror=4;combine=1;
+			area="Utrecht";
+			cubic=true;
+			and_now_i_am_here=true;
+			launch_SFMLGL2_b();
+			while (!i_am_here) {
+				sf::sleep(sf::seconds(0.1));
+			}
+			combine=0;
+		} else if (c==(char)'w') {
+			crossing=2; mirror=4;combine=1;
+			area="Amsterdam";
+		(...)
+
+	Let op de kleine letters van utrecht en de hoofdletter van Utrecht op verschillende plaatsen. Heh?
+	En we compileren. Je zit nu op level 4. 
+	
+	Tricky....
+	Nu gaan we een directory voorbereiden, waarin de region files komen te staan die gemaakt zullen gaan worden.
+	In de root moet een directory \saves komen te staan. Gelijk aan die in minecraft op "%appdata%\.minecraft\saves".
+	Deze willen we in de root van de schijf waarop het pacman programma draait hebben. Want het programma zal daar de region files in gaan zetten, in een wereld dir, genaamd test, en nog een wereld dir, genaamd leeg, waarin één lege r.0.0.mca region file komt te staan. Die als template dient voor de region die daar in komt. Deze is nodig.
+	In mijn geval link ik de minecraft\saves directory daar ook naar toe. In de dir \pacman staat een batch file.
+	INSTALL_SAVES.bat
+	Maar je kan alles ook met het handje doen. Als je deze opstart vanuit windows door dubbel te klikken, dan maakt deze de directory \saves in de root, met daaronder 3 werelden, gelijk aan die in de directory \pacman\leeg
+	Een voor de template (leeg), één voor de region files (test), en een test.copy, waarin je test kunt kopieeren, en dan met MC kunt uitproberen, zonder dat het origineel verandert wordt. (Mocht het hele level ontploffen, 'toevallig').
+	Start je het programma daarna als ADMIN op, dan linkt het de saves directory van .minecraft, naar deze in de root toe. En je oude saves dir wordt "%appdata%\.minecraft\saves.byebyebaby". Als je dan Minecraft speelt, staan je werelden dus in \saves in de root, als je die uit "%appdata%\.minecraft\saves.byebyebaby" daar naar toe verplaatst. 
+	Je kunt ook gewoon je saves in .minecraft laten staan, als je maar een \saves in de root hebt, met de drie werelden. Je kan deze ook met de hand aanmaken. Op dezelfde manier kan je je saves dir linken naar een andere directory en/of schijf, bijvoorbeedl een ssd schijf die lekker snel is. Mochten de mlink commando's niet werken (vergeet niet voor mlink moet je admin zijn, vanwege de locatie van Minecraft in de users dir, als je deze ook naar de root wilt laten verwijzen) vraag dan een buurman. Het omlinken van de saves in .minecraft is niet nodig. Maar dan moet je dus de files vanuit /saves/test/region/r.*.*.mca verplaatsen of copieren naar de saves onder .minecraft. Affijn, je ziet maar.
+	
+	Voor we gaan testen zorgen we dat de directories in /pacman/cut leeg zijn. Dwz, draai (eventueel) de .bat file CLEANUP_ALL.BAT die alleen die files delete die gedelete moeten worden. In deze dir komen de plaatjes (topview) van 512x512 pixels van de top view van de region files. En gelijknamige .vox files, met daarin de voxel data. En een .dat file. Met wat info. Op deze .dat file wordt getest of deze in /pacman/cut staan, zo ja, weet het systeem dat het deze al gedaan heeft. Is deze en de .vox file verplaatst naar done, weet het systeem deze ook te vinden, en zal hem niet draaien. Wil je deze octant opnieuw draaien, delete dan de .vox en .dat file. De .png textures blijven in /pacman/cut staan. Ze worden door het systeem gebruikt en als 99.95% van alle colums aanwezig zijn (van de 512 x 512 dus, als daar blokken zijn dus van de voxels), gaat ie daar een region file van maken. Soms blijft er eentje hangen op minder dan 99.99%. Die worden op het laatst en/of handmatig nog even gepakt. Ook mocht er later toch nog voxels bijkomen, is er een optie om de region file opnieuw te lezen, en deze data toe te voegen. Maar dat zien we later wel. (Dit kan met pacman.exe regions r.<x>.<z>.vox , als de .vox in /pacman/cut staat, met pacman.exe regions doet ie alle .vox files uit deze dir naar regions, dit doet het systeem op het laatst, om ook de randen die niet compleet zijn naar region files om te zetten. (red.))
+	
+	We gaan ook kijken of de directory /saves/test/region leeg is. Daarin komt straks een dir done0, waarin de region files van 'floor' 0 staan. Van blok y=0 t/m y=255. Die van daarboven en onder worden dan resp done0 en done-1
+	Zorg bij het starten dat deze leeg en of niet aanwezig zijn in de dir /saves/test/region
+	
+	Als dit alles gelukt is gaan we even bidden, en kijken wat er gebeurt als we vanuit de pacman_cuberite het volgende magische commando geven:
+	
+	pacman.exe utrecht
+	
+	(Zonder hooftletters in utrecht dus, zoals in de code gedefinieerd).
+	Bij mij ging het mis, omdat ik de /tpll coordinaten de eerste keer niet goed had gemaakt. En dan krijg je een vertekende octant. 
+	
+	Bij mij werkt het, bij jou ook?
+	
+	Als het wel werkt, wat op zich een klein wonder is en waarmee je als je de eerste bent een dikke vette taart verdient en ik je ook toe zal doen komen, worden de octanten naar voxels omgezet, en op het scherm gezet. Binnen de dunne rode lijntjes zie je de region files. Als er één dus meer dan 99.95% af is, wordt daar een region file van gemaakt. Als het programma alle octanten af heeft, gaat hij de resterende region files ook maken. 
+	
+	Zorg er van te voren voor dat de MAXINMEM in pacman.ini op 80 of zo staat als je GPU dat aan kan, dan kan je met ctrl-y (zie eerdere tekst over het lastige in/uit zoomen) een groter overzicht verkrijgen. Heb je de MAXINMEM op minder dan 64 staan, druk dan niet op ctrl-y (!!)
+	Zet ook de BITMAPSX en BITMAPY hoog genoeg zodat de hele map er op past. Voor deze demo hoeven deze niet zo groot te zijn. 10 bij 10 is al meer dan zat. Houdt een minimum aan van 8 bij 8. Het programma heet PACMAN, (er zit een pacman spel ingebouwd), omdat de canvas als je er rechts uit gaat, je er weer links in komt, en vise versa, en ook voor boven en beneden. Het zogenaamde pacman effect, die rechts het scherm uit gaat door een gangetje en er dan links weer inkomt... Je weet toch?
+	
+	Op het einde als het de randen tot region files gaat maken, zie ik net dat er ge-'blend' wordt op het scherm. Niet aan storen. Het is een zogenaamde bug. 
+	
+	Later ga ik misschien nog een serie screenshots maken over dit alles. Maar dat kan JIJ ook doen, heh? Voor mij.
+	Vertaal deze tekst ook eventjes in het Engels. Zet je chrome browser op de engelse taal. Laadt deze tekst file in de browser, en laat Google deze lekker helemaal vertalen. En zet het allemaal in de cloud.
+	
+	Wie de eerste is die dit alles lukt, die krijgt dus van mij een dikke vette taart toegestuurd (van een goede bakker in jou buurt). Daar kan je me op vastpinnen.
+	
+	Als het af is, druk dan ESC en 'y', dan sluit het programma netjes af, en gaat de canvas helemaal gesaved worden in /pacman/levels/XxY/levelnummer. Met wat knippen en plakken kan je daar een poster mee maken.
+	In de dir /pacman/cut in MAP en MAP2 staan ook nog wat tooltjes om met irfanview daarmee een overzichts poster te maken. Die moet je eventueel een beetje aanpassen voor wat de region file nummers betreft. Zoek dat zelf maar uit hoe het werkt. Of de buurman heh?
+	
+	
+
+
+	
+	
+		

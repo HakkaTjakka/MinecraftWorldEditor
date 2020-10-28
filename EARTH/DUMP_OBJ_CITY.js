@@ -162,7 +162,7 @@ async function run() {
 	if (DUMP_OBJ) {
 			 if (fs.existsSync(newDir) )			{	console.log('exists in: ' + newDir);			return;		}
 		else if (fs.existsSync(newnewDir) ) 		{	console.log('exists in: ' + newnewDir);			return;		}
-		else if (fs.existsSync(newDir_AMSTERDAM) ) 	{	console.log('exists in: ' + newDir_AMSTERDAM);	return;		}
+//		else if (fs.existsSync(newDir_AMSTERDAM) ) 	{	console.log('exists in: ' + newDir_AMSTERDAM);	return;		}
 		else if (fs.existsSync(newDir_UTRECHT) ) 	{	console.log('exists in: ' + newDir_UTRECHT);	return;		}
 		else if (fs.existsSync(newDir_BRUSSEL) ) 	{	console.log('exists in: ' + newDir_BRUSSEL);	return;		}
 		else if (fs.existsSync(newDir_ENSCHEDE) ) 	{	console.log('exists in: ' + newDir_ENSCHEDE);	return;		}
@@ -174,7 +174,7 @@ async function run() {
 		else if (fs.existsSync(newDir_AZORES) ) 	{	console.log('exists in: ' + newDir_AZORES);		return;		}
 
 		else if (fs.existsSync(objDir)) 			{	console.log('exists in: ' + objDir);			return;		}
-		else if (fs.existsSync(newDir_AMSTERDAMb) )	{	console.log('exists in: ' + newDir_AMSTERDAMb);	return;		}
+//		else if (fs.existsSync(newDir_AMSTERDAMb) )	{	console.log('exists in: ' + newDir_AMSTERDAMb);	return;		}
 		else if (fs.existsSync(newDir_UTRECHTb) )	{	console.log('exists in: ' + newDir_UTRECHTb);	return;		}
 		else if (fs.existsSync(newDir_BRUSSELb) ) 	{	console.log('exists in: ' + newDir_BRUSSELb);	return;		}
 		else if (fs.existsSync(newDir_ENSCHEDEb) ) 	{	console.log('exists in: ' + newDir_ENSCHEDEb);	return;		}
@@ -191,7 +191,7 @@ async function run() {
 		else if (fs.existsSync(newDir_BRUSSEL1) ) 	{	console.log('exists in: ' + newDir_BRUSSEL1);	return;		}
 		else if (fs.existsSync(newDir_ENSCHEDE1) ) 	{	console.log('exists in: ' + newDir_ENSCHEDE1);	return;		}
 		else if (fs.existsSync(newDir_LA1) ) 		{	console.log('exists in: ' + newDir_LA1);		return;		}
-		else if (fs.existsSync(newDir_AMSTERDAM1) )	{	console.log('exists in: ' + newDir_AMSTERDAM1);	return;		}
+//		else if (fs.existsSync(newDir_AMSTERDAM1) )	{	console.log('exists in: ' + newDir_AMSTERDAM1);	return;		}
 		else if (fs.existsSync(newDir_UTRECHT1) )	{	console.log('exists in: ' + newDir_UTRECHT1);	return;		}
 		else if (fs.existsSync(newDir_NEWYORK1) ) 	{	console.log('exists in: ' + newDir_NEWYORK1);	return;		}
 		else if (fs.existsSync(newDir_MIAMI1) ) 	{	console.log('exists in: ' + newDir_MIAMI1);		return;		}
@@ -200,7 +200,7 @@ async function run() {
 		else if (fs.existsSync(newDir_AZORES1) ) 	{	console.log('exists in: ' + newDir_AZORES1);	return;		}
 		else if (fs.existsSync(objDir1)) 			{	console.log('exists in: ' + objDir1);			return;		}
 		
-		else if (fs.existsSync(newDir_AMSTERDAMb1) ){	console.log('exists in: ' + newDir_AMSTERDAMb1);return;		}
+//		else if (fs.existsSync(newDir_AMSTERDAMb1) ){	console.log('exists in: ' + newDir_AMSTERDAMb1);return;		}
 		else if (fs.existsSync(newDir_UTRECHTb1) )	{	console.log('exists in: ' + newDir_UTRECHTb1);	return;		}
 		else if (fs.existsSync(newDir_BRUSSELb1) )	{	console.log('exists in: ' + newDir_BRUSSELb1);	return;		}
 		else if (fs.existsSync(newDir_ENSCHEDEb1) ) {	console.log('exists in: ' + newDir_ENSCHEDEb1);	return;		}
@@ -217,7 +217,7 @@ async function run() {
 		else if (fs.existsSync(newDir_BRUSSEL2) ) 	{	console.log('exists in: ' + newDir_BRUSSEL2);	return;		}
 		else if (fs.existsSync(newDir_ENSCHEDE2) ) 	{	console.log('exists in: ' + newDir_ENSCHEDE2);	return;		}
 		else if (fs.existsSync(newDir_LA2) ) 		{	console.log('exists in: ' + newDir_LA2);		return;		}
-		else if (fs.existsSync(newDir_AMSTERDAM2) )	{	console.log('exists in: ' + newDir_AMSTERDAM2);	return;		}
+//		else if (fs.existsSync(newDir_AMSTERDAM2) )	{	console.log('exists in: ' + newDir_AMSTERDAM2);	return;		}
 		else if (fs.existsSync(newDir_UTRECHT2) )	{	console.log('exists in: ' + newDir_UTRECHT2);	return;		}
 		else if (fs.existsSync(newDir_NEWYORK2) ) 	{	console.log('exists in: ' + newDir_NEWYORK2);	return;		}
 		else if (fs.existsSync(newDir_MIAMI2) ) 	{	console.log('exists in: ' + newDir_MIAMI2);		return;		}
@@ -226,7 +226,7 @@ async function run() {
 		else if (fs.existsSync(newDir_AZORES2) ) 	{	console.log('exists in: ' + newDir_AZORES2);	return;		}
 		else if (fs.existsSync(objDir2)) 			{	console.log('exists in: ' + objDir2);			return;		}
 		
-		else if (fs.existsSync(newDir_AMSTERDAMb2) ){	console.log('exists in: ' + newDir_AMSTERDAMb2);return;		}
+//		else if (fs.existsSync(newDir_AMSTERDAMb2) ){	console.log('exists in: ' + newDir_AMSTERDAMb2);return;		}
 		else if (fs.existsSync(newDir_UTRECHTb2) )	{	console.log('exists in: ' + newDir_UTRECHTb2);	return;		}
 		else if (fs.existsSync(newDir_BRUSSELb2) )	{	console.log('exists in: ' + newDir_BRUSSELb2);	return;		}
 		else if (fs.existsSync(newDir_ENSCHEDEb2) ) {	console.log('exists in: ' + newDir_ENSCHEDEb2);	return;		}
@@ -243,7 +243,7 @@ async function run() {
 		else if (fs.existsSync(newDir_BRUSSEL3) ) 	{	console.log('exists in: ' + newDir_BRUSSEL3);	return;		}
 		else if (fs.existsSync(newDir_ENSCHEDE3) ) 	{	console.log('exists in: ' + newDir_ENSCHEDE3);	return;		}
 		else if (fs.existsSync(newDir_LA3) ) 		{	console.log('exists in: ' + newDir_LA3);		return;		}
-		else if (fs.existsSync(newDir_AMSTERDAM3) )	{	console.log('exists in: ' + newDir_AMSTERDAM3);	return;		}
+//		else if (fs.existsSync(newDir_AMSTERDAM3) )	{	console.log('exists in: ' + newDir_AMSTERDAM3);	return;		}
 		else if (fs.existsSync(newDir_UTRECHT3) )	{	console.log('exists in: ' + newDir_UTRECHT3);	return;		}
 		else if (fs.existsSync(newDir_NEWYORK3) ) 	{	console.log('exists in: ' + newDir_NEWYORK3);	return;		}
 		else if (fs.existsSync(newDir_MIAMI3) ) 	{	console.log('exists in: ' + newDir_MIAMI3);		return;		}
@@ -252,7 +252,7 @@ async function run() {
 		else if (fs.existsSync(newDir_AZORES3) ) 	{	console.log('exists in: ' + newDir_AZORES3);	return;		}
 		else if (fs.existsSync(objDir3)) 			{	console.log('exists in: ' + objDir3);			return;		}
 		
-		else if (fs.existsSync(newDir_AMSTERDAMb3) ){	console.log('exists in: ' + newDir_AMSTERDAMb3);return;		}
+//		else if (fs.existsSync(newDir_AMSTERDAMb3) ){	console.log('exists in: ' + newDir_AMSTERDAMb3);return;		}
 		else if (fs.existsSync(newDir_UTRECHTb3) )	{	console.log('exists in: ' + newDir_UTRECHTb3);	return;		}
 		else if (fs.existsSync(newDir_BRUSSELb3) )	{	console.log('exists in: ' + newDir_BRUSSELb3);	return;		}
 		else if (fs.existsSync(newDir_ENSCHEDEb3) ) {	console.log('exists in: ' + newDir_ENSCHEDEb3);	return;		}

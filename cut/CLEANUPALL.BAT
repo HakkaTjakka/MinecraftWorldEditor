@@ -1,0 +1,6 @@
+DEL DONE\*.* /Q
+DEL *.PNG /Q
+DEL *.VOX /Q
+DEL *.INFO
+DEL *.DAT
+TIMEOUT 5

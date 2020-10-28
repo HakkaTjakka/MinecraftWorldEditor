@@ -1661,21 +1661,16 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
         top_right=glm::fvec2((3312756-3300154)*2.5, (-5331483+5334572)*2.5);
         bot_left =glm::fvec2((3300154-3300154)*2.5, (-5326818+5334572)*2.5);
         bot_right=glm::fvec2((3310446-3300154)*2.5, (-5323728+5334572)*2.5);
-    } else if (area=="DenHaag" && mirror!=0) {
+    } else if (area=="Utrecht" && mirror!=0) {
         vertical =bmax_total[0]- bmin_total[0];
 
-//        top_left =glm::dvec2(3109621.6855937983,   -5377456.286742788);
-//        top_right=glm::dvec2(3122982.1209280635,   -5373177.931635568);
-//        bot_left =glm::dvec2(3105714.1226496957,   -5365303.167017606);
-//        bot_right=glm::dvec2(3119098.869450965,    -5361027.64235222);
+        float cnt_x=0.0;
+        float cnt_z=0.0;
 
-        float cnt_x=3105714.1226496957;
-        float cnt_z=-5377456.286742788;
-
-        top_left =glm::fvec2((3109621.6855937983-cnt_x)*3.0,   (-5377456.286742788-cnt_z)*3.0);
-        top_right=glm::fvec2((3122982.1209280635-cnt_x)*3.0,   (-5373177.931635568-cnt_z)*3.0);
-        bot_left =glm::fvec2((3105714.1226496957-cnt_x)*3.0,   (-5365303.167017606-cnt_z)*3.0);
-        bot_right=glm::fvec2((3119098.869450965 -cnt_x)*3.0,   (-5361027.64235222 -cnt_z)*3.0);
+        top_left =glm::fvec2((3173619.701549666 -cnt_x)*1.0,   (-5353990.708839205-cnt_z)*1.0);
+        top_right=glm::fvec2((3174801.152713919 -cnt_x)*1.0,   (-5353619.96164422 -cnt_z)*1.0);
+        bot_left =glm::fvec2((3173319.705408585 -cnt_x)*1.0,   (-5353028.639382178-cnt_z)*1.0);
+        bot_right=glm::fvec2((3174501.387840918 -cnt_x)*1.0,   (-5352657.873705601-cnt_z)*1.0);
     } else if (area=="Amsterdam" && mirror!=0) {
         vertical =bmax_total[0]- bmin_total[0];
 
@@ -1924,6 +1919,9 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
                 bmax_total[0]+=15.0;
             } else if (area=="DenHaag") {
                 bmin_total[0]=-80.0;
+                bmax_total[0]=60.0;
+            } else if (area=="Utrecht") {
+                bmin_total[0]=-100.0;
                 bmax_total[0]=60.0;
             } else if (area=="NewYork") {
 //floors

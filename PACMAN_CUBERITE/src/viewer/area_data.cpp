@@ -16,7 +16,7 @@
 std::string areas(int q) {
     static int x=-1;
     if (q==0) {
-        x=(x+1)%11;
+        x=(x+1)%12;
     } else {
         x=q-1;
     }
@@ -31,6 +31,7 @@ std::string areas(int q) {
     else if (x==8) return "Miami";
     else if (x==9) return "Canvas";
     else if (x==10) return "Azores";
+    else if (x==11) return "Utrecht";
     else return "Nope...";
 }
 
@@ -41,6 +42,7 @@ std::string get_octant_BRUSSEL(int &x, int &y);
 std::string get_octant_LA(int &x, int &y);
 std::string get_octant_ENSCHEDE(int &x, int &y);
 std::string get_octant_NEWYORK(int &x, int &y);
+std::string get_octant_UTRECHT(int &x, int &y);
 std::string get_octant_MIAMI(int &x, int &y);
 std::string get_Model(int &x, int &y);
 std::string get_Canvas(int &x, int &y);
@@ -91,6 +93,7 @@ std::string get_area_data2(std::string area_name, int &x, int &y) {
     else if (area_name == "CANVAS") return get_Canvas(x,y);
     else if (area_name == "SCHWEIZ") return get_octant_SCHWEIZ(x,y);
     else if (area_name == "AMSTERDAM") return get_octant_AMSTERDAM(x,y);
+    else if (area_name == "UTRECHT") return get_octant_UTRECHT(x,y);
     else if (area_name == "AZORES") return get_octant_AZORES(x,y);
 
     return "Error not in get_area_data2()";
@@ -1532,6 +1535,7 @@ std::string get_octant_UTRECHT(int &x, int &y) {
     if (!OK) return "";
     latitude_longditude=lat_lon[x][y];
     std::string subdir=octants[x][y].substr(0,14)+"/";
+
     return_root = std::string()+EARTH_ROOT1+"/UTRECHT/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
     return_root = std::string()+EARTH_ROOT2+"/UTRECHT/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
     return_root = std::string()+EARTH_ROOT3+"/UTRECHT/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
@@ -1556,6 +1560,7 @@ std::string get_octant_UTRECHT(int &x, int &y) {
     return_root = std::string()+EARTH_ROOT1+"/"+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
     return_root = std::string()+EARTH_ROOT2+"/"+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
     return_root = std::string()+EARTH_ROOT3+"/"+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+
     printf("Directory not found on search paths: %s-21\n",octants[x][y].c_str());
     return "";
 }

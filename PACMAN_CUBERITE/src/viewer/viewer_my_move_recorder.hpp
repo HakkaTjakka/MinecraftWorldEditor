@@ -697,7 +697,7 @@ bool create_boundaries(std::string my_area, sf::RenderWindow& window) {
                 window.pollEvent(event);
                 if (my_area=="Models" || my_area=="Canvas") {
                 } else if (!(x>1 && x<max_x-1 && y>1 && y<max_y-1)) {
-                    continue; //outline
+                    if (my_area=="NewYork" || my_area=="Amsterdam") continue; //outline
                 }
 //                if (x!=0 && x!=max_x-1 && y!=0 && y!=max_y-1) continue; //outline
 //                if (!(  (x==0 && (y==0 || y==max_y-1)) || (x==max_x-1 && (y==0 || y==max_y-1))  )) continue; //corners
@@ -1259,8 +1259,8 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
             for (x=0; x<max_x; x++) {
                 window.pollEvent(event);
 //wuppie
-
-                if (!(x>1 && x<max_x-1 && y>1 && y<max_y-1)) continue; //outline //used on coords amsterdam
+                if (my_area == "Amsterdam" || my_area == "NewYork")
+                    if (!(x>1 && x<max_x-1 && y>1 && y<max_y-1)) continue; //outline //used on coords amsterdam
 
 //                if (x!=0 && x!=max_x-1 && y!=0 && y!=max_y-1) continue; //outline
 //                if (!(  (x==0 && (y==0 || y==max_y-1)) || (x==max_x-1 && (y==0 || y==max_y-1))  )) continue; //corners
