@@ -1,5 +1,8 @@
 Minecraft World Creator Manual. Especially for BTE The Netherlands / BTE Benelux and the rest.
 
+This program has no connections with BTE or Google 3d. It is for personal use. What you do with it is your business. According to the TOS (Terms of Service) of Google, the Google 3d Earth data may not be used for other purposes. My opinion is that Google scans all land and houses without permission from the owners, and also puts this online so that burglars know the way and escape route. And so are people not allowed to use their own digitized objects? Duh. If Google doesn't need to ask me / us for permission, then I don't need to ask Google for permission.
+For BTE it is the intention to use the produced Minecraft world that has been made with a voxel generator with the 3d data from Google Earth, as a MAL, just like the 2d cadastre info, roads, waters, train tracks, and heights, which come from open source sources. The world consists of only 14 colored concrete blocks, and the intention is to use it as a base or tool to transform it by hand into a beautiful whole. The result cannot be seen whether or not it comes from Google Earth. Because how do you want to prove that 1 block comes from 30 pixels from Google 3d? Not so. Success with it.
+
 Using the program means:
 	- If it doesn't work, don't despair, it will work in the end. You are a go-getter. Realize that well. Furthermore, we all help each other, of course.
 	- Install codeblocks ide.
