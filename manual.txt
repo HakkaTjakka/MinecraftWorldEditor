@@ -1190,3 +1190,8 @@ Download the Google 3d Earth data.
 
 
         The converter is located in / pacman / BTE, to be able to place different worlds on top of each other. In the demo there are 5, and they are placed on top of each other with the converter. With the middle floor, 0, last, so that you don't have to move a lot up and / or down. You can find out for yourself how it works. It works like an elevator, but in reverse. Not you go up or down, but all floors.
+
+The directory / pacman / pacman_cuberite contains a number of files of type .on and / or .off
+The .on should NOT be there, unless you want to include weird stuff in your region files. Therefore, leave only the .off.
+The add_to_region.on / .off is used to not determine whether to update a region file if it exists or not.
+You can then edit entire octands again by saving the <octant> .vox and .dat. After which region files that already exist are not recreated.		

@@ -1190,3 +1190,9 @@ Downloaden van de Google 3d Earth gegevens.
 
 
         In /pacman/BTE staat de converter, om verschillende werelden boven op elkaar te kunnen plaatsen. In de demo zitten er 5, en die worden met de converter bovenop elkaar geplaatst. Met de middelste, floor 0, als laatste, zodat niet mega veel verplaatst hoeft te worden naar boven en/of beneden. Hoe het werkt kan je zelf wel uitvinden. Het werkt net zo als een lift, maar dan omgekeerd. Niet jij gaat omhoog of omlaag, maar alle vloeren.
+		
+In de directory /pacman/pacman_cuberite staan een aantal files van het type .on en/of .off
+De .on moeten er NIET zijn, tenzij je rare dingen in je region files in wilt bouwen. Laat daarom alleen de .off staan.
+De add_to_region.on / .off wordt gebruikt om niet of wel te bepalen een region file moet worden geupdate als deze bestaat of niet.
+Je kunt dan hele octanden opnieuw bewerken dmv de <octant>.vox en .dat weg te zetten. Waarna region files die al bestaan niet worden aangemaakt opnieuw.
+		
