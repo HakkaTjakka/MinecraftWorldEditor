@@ -278,6 +278,8 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
     lat_south=0.0;
     lon_west=0.0;
     lon_east=0.0;
+    double lat=lat_global;
+    double lon=lon_global;
     if (latitude_longditude!="") {
         char line[2000];
         strcpy(line,latitude_longditude.c_str());
@@ -296,13 +298,13 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                 sprintf(command_str,"\"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe\" https://www.google.com/maps/@%s,%s,18.00z >nul 2>nul",lat_str,lon_str);
                 system(command_str);
             }
+            lat=(lat_north+lat_south)/2.0;
+            lon=(lon_east+lon_west)/2.0;
         }
-    } else printf("\n");
+    } else {
+        printf("\n");
+    }
 
-    double lat=lat_global;
-    double lon=lon_global;
-//    double lat=(lat_north+lat_south)/2.0;
-//    double lon=(lon_east+lon_west)/2.0;
 
     tinyobj::attrib_t attrib;
     std::vector<tinyobj::shape_t> shapes;
@@ -1557,7 +1559,7 @@ void CANVAS_OBJECT3D(std::vector<BufferObject> &buffers, std::vector<tinyobj::ma
 */
 
 extern magic(double v[3][3], double tc[3][2], struct image_loader* image_buffer, int buf_count, int faces, sf::Image& image_copy, int offset_x, int offset_y, int offset_z, int box_x, int box_y, int box_z, unsigned short **mc_sub, double block_scale);
-extern magic(double v[3][3], double tc[3][2], struct image_loader* image_buffer, int buf_count, int faces, sf::Image& image_copy, int offset_x, int offset_y, int offset_z, int box_x, int box_y, int box_z, unsigned short **mc_sub, double block_scale);
+//extern magic(double v[3][3], double tc[3][2], struct image_loader* image_buffer, int buf_count, int faces, sf::Image& image_copy, int offset_x, int offset_y, int offset_z, int box_x, int box_y, int box_z, unsigned short **mc_sub, double block_scale);
 //ayay2
 //extern magic(float v[3][3], float tc[3][2], struct image_loader* image_buffer, int buf_count, int faces, sf::Image& image_copy, float offset_x, float offset_y, float offset_z, int box_x, int box_y, int box_z, unsigned short* mc, float block_scale);
 
