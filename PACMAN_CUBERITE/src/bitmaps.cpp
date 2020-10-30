@@ -214,17 +214,17 @@ void go_save_some_bitmaps()
 extern int plot_all_factor;
                     if (plot_all) {
                         int fromx=-BITMAPSX/2+1;
-                        if (fromx<-3-plot_all_factor)
-                            fromx=-3-plot_all_factor;
+                        if (fromx<-3-plot_all_factor) fromx=-3-plot_all_factor;
+
                         int tox=BITMAPSX/2;
-                        if (tox>4+plot_all_factor)
-                            tox=4+plot_all_factor;
+                        if (tox>4+plot_all_factor) tox=4+plot_all_factor;
+
                         int fromy=-BITMAPSY/2+1;
-                        if (fromy<-3-plot_all_factor)
-                            fromy=-3-plot_all_factor;
+                        if (fromy<-3-plot_all_factor) fromy=-3-plot_all_factor;
+
                         int toy=BITMAPSY/2;
-                        if (toy>4+plot_all_factor)
-                            toy=4+plot_all_factor;
+                        if (toy>4+plot_all_factor) toy=4+plot_all_factor;
+
                         if (
                             !(x>=(fromx+render_picturex+totalpicturex)%totalpicturex    && x<=(tox+render_picturex)%totalpicturex   && y>=(fromy+render_picturey+totalpicturey)%totalpicturey   && y<=(toy+render_picturey)%totalpicturey ) &&
                             !(x>=(fromx+picturex+totalpicturex)%totalpicturex           && x<=(tox+picturex)%totalpicturex          && y>=(fromy+picturey+totalpicturey)%totalpicturey          && y<=(toy+picturey)%totalpicturey )

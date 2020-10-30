@@ -13066,19 +13066,19 @@ void update_plot_all2()
         }
     }
     int fromx=-BITMAPSX/2+1;
-    if (fromx<-3-plot_all_factor)
-        fromx=-3-plot_all_factor;
-    if (fromx<-5) fromx=-5;
+    if (fromx<-3-plot_all_factor) fromx=-3-plot_all_factor;
+//    if (fromx<-5) fromx=-5;
+
     int tox=BITMAPSX/2;
-    if (tox>4+plot_all_factor)
-        tox=4+plot_all_factor;
-    if (tox>6) tox=6;
+    if (tox>4+plot_all_factor) tox=4+plot_all_factor;
+//    if (tox>6) tox=6;
+
     int fromy=-BITMAPSY/2+1;
-    if (fromy<-3-plot_all_factor)
-        fromy=-3-plot_all_factor;
+    if (fromy<-3-plot_all_factor) fromy=-3-plot_all_factor;
+
     int toy=BITMAPSY/2;
-    if (toy>4+plot_all_factor)
-        toy=4+plot_all_factor;
+    if (toy>4+plot_all_factor) toy=4+plot_all_factor;
+
 //  fromx=-3; tox=4;
 //  fromy=-6; toy=7;
     for (x=fromx; x<=tox; x++)

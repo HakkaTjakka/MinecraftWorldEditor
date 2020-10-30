@@ -364,6 +364,7 @@ extern std::string get_octant_ENSCHEDE(int &x, int &y);
 extern std::string get_octant_LA(int &x, int &y);
 
 extern int smooth;
+int global_octant_x,global_octant_y;
 
 static std::string GetBaseDir(const std::string& filepath)
 {

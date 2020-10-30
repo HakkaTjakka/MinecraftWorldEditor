@@ -1380,10 +1380,10 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
         center_x=22;
         center_y=23;
     } else if (my_area=="Amsterdam") {
-//        center_x=43;
-//        center_y=100;
-        center_x=60;
-        center_y=108;
+        center_x=43;
+        center_y=100;
+//        center_x=60;
+//        center_y=108;
     } else if (my_area=="NewYork") {
         center_x=65;
         center_y=51;
@@ -1570,6 +1570,9 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
             char kutjelikken[200];
             sprintf(kutjelikken,"N=%lf S=%lf W=%lf E=%lf", v.n, v.s, v.w, v.e);
             latitude_longditude=kutjelikken;
+
+            global_octant_x=v.pos.x;
+            global_octant_y=v.pos.y;
 
             if (true == LoadObjAndConvert_window(pac_obj2_arr[i].bmin, pac_obj2_arr[i].bmax, pac_obj2_arr[i].gDrawObjects, pac_obj2_arr[i].materials, pac_obj2_arr[i].textures, (char*) str.c_str()))
             {
@@ -2386,6 +2389,8 @@ bool load_3d_objects(int frustum_count_x,int frustum_count_y,std::string my_area
             pac_obj2_arr[i].materials.clear();
             pac_obj2_arr[i].textures.clear();
             pac_obj2_arr[i].show=0;
+            global_octant_x=p.x;
+            global_octant_y=p.y;
             burn=true;
             if (true == LoadObjAndConvert_window(pac_obj2_arr[i].bmin, pac_obj2_arr[i].bmax, pac_obj2_arr[i].gDrawObjects, pac_obj2_arr[i].materials, pac_obj2_arr[i].textures, (char*) str.c_str()))
             {

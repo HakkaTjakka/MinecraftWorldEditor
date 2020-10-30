@@ -2541,6 +2541,15 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
 //                                plot_only=1;
                                 MCEDITOR_running=1;
                                 main_mceditor6_fixed(x, z, region_block);
+
+                                char dat_name[300];
+                                sprintf(dat_name,"../cut/%s.DAT",fn.c_str());
+                                FILE* HOP;
+                                if ((HOP = fopen (dat_name, "a"))!=NULL) {
+                                    fprintf(HOP,"r.%d.%d floor %d\n",x,z,region_floor);
+                                    fclose(HOP);
+                                }
+
                                 MCEDITOR_running=0;
                                 plotting=0;
                             }
@@ -2550,6 +2559,13 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                             plot_only=1;
                             MCEDITOR_running=1;
                             main_mceditor6_fixed(x, z, region_block);
+                            char dat_name[300];
+                            sprintf(dat_name,"../cut/%s.DAT",fn.c_str());
+                            FILE* HOP;
+                            if ((HOP = fopen (dat_name, "a"))!=NULL) {
+                                fprintf(HOP,"r.%d.%d floor %d\n",x,z,region_floor);
+                                fclose(HOP);
+                            }
                             MCEDITOR_running=0;
                             plotting=0;
                         }
@@ -3299,6 +3315,14 @@ extern float* fspeed_ghosty;
                                                     if (got_one) no_plotting=true;
                                                     main_mceditor6_fixed(x,z,region_block);
                                                     printf("Finished region r.%d.%d floor %d\n",x,z,region_floor);
+
+                                                    char dat_name[300];
+                                                    sprintf(dat_name,"../cut/%s.DAT",fn.c_str());
+                                                    FILE* HOP;
+                                                    if ((HOP = fopen (dat_name, "a"))!=NULL) {
+                                                        fprintf(HOP,"r.%d.%d floor %d\n",x,z,region_floor);
+                                                        fclose(HOP);
+                                                    }
                                                     if (got_one) no_plotting=false;
                     //                                add_to_region=false;
                                                     MCEDITOR_running=0;
@@ -3404,6 +3428,14 @@ extern float* fspeed_ghosty;
 
                                 main_mceditor6_fixed(x,z,region_block);
 
+                                char dat_name[300];
+                                sprintf(dat_name,"../cut/%s.DAT",fn.c_str());
+                                FILE* HOP;
+                                if ((HOP = fopen (dat_name, "a"))!=NULL) {
+                                    fprintf(HOP,"r.%d.%d floor %d\n",x,z,region_floor);
+                                    fclose(HOP);
+                                }
+
                                 printf("Finished region r.%d.%d floor %d\n",x,z,floor);
 
                                 if (got_one) no_plotting=false;
@@ -3462,7 +3494,8 @@ extern float* fspeed_ghosty;
                                 sprintf (fname,"../cut/r.%d.%d.info",x,z);
                             }
                             if ((INFO = fopen (fname, "a"))!=NULL) {
-                                fprintf(INFO,"%s\n",fn.c_str());
+                                std::string str=get_area_data(area,global_octant_x,global_octant_y);
+                                fprintf(INFO,"%s [%3d][%3d] %s\n",fn.c_str(),global_octant_x,global_octant_y,str.c_str());
                                 fclose(INFO);
                             } else {
                                 printf("Error opening %s for writing.\n",fname);
