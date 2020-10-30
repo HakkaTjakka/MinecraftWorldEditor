@@ -10,6 +10,12 @@ This program is also used by:
 
 https://github.com/HakkaTjakka/Minecraft-Voxelizer
 
+For BTE 121 projection:
+
+https://github.com/HakkaTjakka/MinecraftWorldEditor/blob/master/manual.txt
+
+https://github.com/HakkaTjakka/MinecraftWorldEditor/blob/master/handleiding.txt
+
 Thanks to https://github.com/IDidMakeThat. Code changed (also used in this repo, this one is isolated and speed up with mem. allocation and read/write from memory, memory leak detection with sep. memory allocator) from him:
 
 https://github.com/HakkaTjakka/MCA-NBT-EDIT
