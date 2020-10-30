@@ -83786,3 +83786,4 @@ Starting loop
 Entering loop first time
 Next
 Clean up / testing files
+Saving all bitmaps

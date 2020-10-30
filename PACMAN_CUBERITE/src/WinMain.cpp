@@ -13930,7 +13930,7 @@ extern bool rot_plot;
     ffmpegfile=1;
     float complete_f=100.0*float(pixel_count)/(512.0*512.0);
     image_local.create(512,512,sf::Color(0,0,0,0));
-    if (flushing_mode && complete_f>99.95 && !no_plotting) {
+    if (flushing_mode && complete_f>99.90 && !no_plotting) {
 //    if (flushing_mode && complete_f>99.99 && !no_plotting && !complete_f2>99.99) {
         printf("\nGOT ONE COMPLETE (%f%% pixels) : r.%d.%d PUSHED ==>>\n",complete_f,xx,yy);
 //        hit_one_region one_region;

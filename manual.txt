@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 Minecraft World Creator Manual. Especially for BTE The Netherlands / BTE Benelux and the rest.
 
 
@@ -1189,4 +1190,1197 @@ Download the Google 3d Earth data.
         The dir / pacman / cut in MAP and MAP2 also contains some tools to make an overview poster with irfanview. You may have to adjust that a bit as far as the region file numbers are concerned. Find out for yourself how it works. Or the neighbor huh?
 
 
+=======
+Minecraft World Creator Manual. Especially for BTE The Netherlands / BTE Benelux and the rest.
+
+
+Using the program means:
+        - If it doesn't work, don't despair, it will work in the end. You are a go-getter. Realize that well. Furthermore, we all help each other, of course.
+        - Install codeblocks ide.
+                - Install the mingw seh compiler under Codeblocks.
+        - Download and install the program (minecraft world editor).
+                - Configure directories etc. in the pacman.ini file.
+                - Set path to ffmpeg / bin and pacman_cuberite / bin in Windows.
+                - Prepare directories for use.
+        - Being able to change the program, and therefore compile it afterwards.
+        - To be able to use the program, it only has a graphical interface and is operated with the keys. No menus.
+        - Get the javascript program (modified version from: https://github.com/retroplasma/earth-reverse-engineering) running (install node.js), modify, and download Google 3d data in bulk.
+        - Outside the system to manage directories and files.
+
+
+
+
+Download the program. To install. Compile.
+        - The program on Github is usually the latest version, and contains the settings and options in the code at the last moment of use. For every area that one wants to convert to BTE projection, several things in the javascript program that download the Google 3d octants need to be changed / set, just like in the c / c ++ code.
+        - Github: https://github.com/HakkaTjakka/MinecraftWorldEditor
+        - Drive: https://drive.google.com/file/d/1RYuasWozHuSJUHBubsooqnyj1Wr97hsC
+        - The program also includes the modified javascript for bulk downloading Google 3d data. (directory EARTH)
+        - Download the program, unzip it, and put it in a directory, as high as possible in the root. The easiest way is in a directory / PACMAN, under which the directory PACMAN_CUBERITE and EARTH will be located. Pacman_cuberite contains the source code of the c / c ++ program. Cuberite comes from the (temporarily disabled) built-in cuberite c / c ++ Minecraft server. (Can do everything in the .exe file, so you have a built-in server ... possibly, the same applies to opencv, it is in / there, but has been temporarily disabled to allow faster linking with the compiler.)
+        - To use the javascript program in the directory / pacman / earth /, you need node.js. You can download and install this anywhere. There are a number of versions in https://drive.google.com/drive/folders/10JK6i6gK_o6_VNO0I5NKBY28wslAWqez. Install node.js so that it runs in the dos shell.
+        - With: node --version in the dos shell you can test if it works. I myself get v13.6.0
+        
+        - Set paths. Make sure these paths are in your PATH. As in / pacman / pacman_cuberite / qsetpath_seh_64_v7 - copy.bat for example happens with the pacman_cuberite / bin directory. Better is through the following way:
+                - Click in explorer on "This PC" with the right mouse button -> Properties.
+                - Then select in the window: Advanced system settings.
+                - Then choose under the advanced tab at the bottom on environment variables.
+                - Then search in the top of the two windows for the line 'Path', and click on edit.
+                - Click on new, and add the path to the pacman_cuberite / bin and ffmpeg / bin directory.
+                - In my case: \ pacman \ pacman_cuberite \ bin, and \ pacman \ ffmpeg \ bin
+        - If all goes well when you open a dos shell and type 'path', both should be in the path.
+        - The pacman.exe program, is ALWAYS started from the directory / pacman / pacman_cuberite, because from that directory the path is determined to other directories, such as those above it, with .. \ pictures for example. Everything is relative from this directory.
+        
+        - Download the Codeblocks ide from: http://www.codeblocks.org/downloads/26
+        - You can choose between different versions, with or without the mingw compiler. 
+        - Download the x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z mingw seh compiler. (Search ...)
+                In the download from Drive or GitHub this is also included (x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z), HOWEVER, if there are problems compiling, there are also 3 zip files, mingw64. zip, mingw64.z01, mingw64.z02, along with an exact copy of the seh mingw compiler as I use it now. We will later test if the compiler is working properly.
+        - The seh compiler creates a directory when you unpack it containing all the files for this seh compiler. In my case it is on c: \ mingw, with directories below such as c: \ mingw \ bin, and c: \ mingw \ x86_64-w64-mingw32, etc. If you are smart put the seh compiler in the same directory match it with the data that you will have to change in Codeblocks later, to use this compiler. These are stored somewhere in the codeblocks ide directory, so they must be set in the ide before first use. That comes now.
+        - In the project file for Codeblocks (D: \ PACMAN \ PACMAN_CUBERITE \ src \ PACMAN_CUBERITE.cbp), contains all the libraries and c and header files that are used. However, before setting the compiler (seh version), a few things have to be specified in codeblocks. Normally this is hard to find, so I'll take some screenshots later, here in text:
+                - Start the codeblocks ide. You can already try opening the project file (D: \ PACMAN \ PACMAN_CUBERITE \ src \ PACMAN_CUBERITE.cbp). But it is better not to compile this one (yet), because with the (possibly) supplied standard mingw compiler you will have trouble. We prefer not to, so we will immediately set the correct seh compiler in the codeblocks ide.
+                - Go through the menu to SETTINGS -> COMPILER
+                - In the top tabs choose TOOLCHAIN ​​EXECUTABLES
+                - Set the directory for the mingw compiler, in my case: C: \ mingw64
+                - Add the following programs to the program files:
+                        - C compiler: x86_64-w64-mingw32-gcc.exe
+                        - C ++ compiler: x86_64-w64-mingw32-g ++. Exe
+                        - Linker for dynamic libs: x86_64-w64-mingw32-g ++. Exe
+                        - Linker for static libs: x86_64-w64-mingw32-gcc-ar.exe
+                        - We're not using debugger, we're not sissies.
+                        - Resource compiler: x86_64-w64-mingw32-windres.exe
+                        - Make program: mingw32-make.exe
+                - In the normally downloaded seh compiler (x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z) the executable names may be different. You can then choose an equivalent .exe, or use the zipped version in three parts, which matches exactly these executables, I may have changed some names or something ...
+
+
+        - If you are lucky, the codeblocks ide is running, the seh compiler is installed, put the settings in the toolchain executables, you should compile the program.
+        - From the menu choose BUILD -> BUILD, the program should now compile all .c and .cpp files piece by piece, and eventually link them together so that in / pacman / pacman_cuberite / bin a new pacman.exe appears.
+
+
+        - If all of this worked, have you either been very lucky, are you a real crack, or this guide is great. If not, this is due to commercial activities in this universe that can make things difficult for us .... Mind you, we do this under Windows, and everything that works under Windows is a miracle.
+
+
+        - The pacman.ini file. The pacman.ini file contains a few things that must / can be set. This depends on your graphics card.
+                - You can find the pacman.ini file in: /pacman/pacman_cuberite/pacman.ini, you can also find it in the Codeblocks ide: Left window MANAGEMENT -> TAB SHEET Projects, then PACMAN_CUBERITE -> Others -> src -> pacman. ini, you can then edit it in Codeblocks. For editing things outside of Codeblocks we recommend: Notepad ++
+                - Important data: One of the most important is MAXINMEM. These are the number of TEXTURES used by the program for the canvas, the 2d surface to display data maps data. It can scroll, and can be up to 400 x 400 screens, and with 1 screen I mean an HD screen of 1920x1080 pixels, .png, 24 bits + 8 bit transparency. The canvas system stores the canvas in such units / textures. the MAXINMEN setting in pacman.ini specifies the maximum number of textures that are stored in the memory of the GPU (graphics processor), and therefore depends on your graphics card. To be able to scroll, you usually see a maximum of 4 of the used textures on your screen. These are in the memory of the graphics card. MAXINMEM must be at least about 20. Do you have a better graphics card, you can easily set this to 100. The program also offers the possibility to display multiple textures, so that you can zoom in and zoom out. (ctrl-y), SO YOU MUST PUT MAXINMEM ON ABOVE 64, because it will load 8 by 8 = 64 textures in the GPU by default, which it can then show. Zooming in and out on this large overview view of the area where you are at that moment on the canvas can then be zoomed in and out with the following (very complicated ... note). If you have successfully run the program, and you have MAXINMEM at 80 or so, you can press in the program: CTRL-y. The program will then load 8 by 8 pictures and show them on the screen. Then you will see a new line on the screen on the right: CANVAS DEF ON OFF ON with BLEND PLOT SHOW TILE SHADER above it. To get to the line for the canvas, NOTE, press ALT + CURSOR DOWN. With ALT and CURSOR UP / DOWN you select 1 of the lines below, in this case only 1 for the canvas that you enlarge with CTRL-y. The line with CANVAS DEF ON OFF ON is then highlighted (blue) and DEF is red. With ALT + CURSOR left right you can cycle through the different options, to change them with CTRL + SPACE. We do not do this.
+                With the line selected, you can now zoom in and out on SHIFT + PAGEUP / PAGEDOWN. 
+                With CTRL-y you turn off the large canvas.
+                With ALT + PAGEUP / PAGEDOWN you can rotate, it will keep rotating. Only PAGEUP / PAGEDOWN is rotate a little bit.
+                ALT + y resets the rotation. With NUMLOCK on, more rotations are possible. For example, with ALT + 6 (KEYPAD!) The screen will tilt backwards. Did you screw things up: ALT-y. Ctrl-y turns off the large canvas mode.
+                When you scroll across the canvas with the cursor keys, the program keeps the last one in memory. If not, it will save and load to the hard disk. That is what the MAXINMEM is ultimately intended for. Note: those in memory are not yet saved to disk. He does this when you leave the program. I am writing a separate manual about the use of the canvas. All this can be found in .txt files somewhere in the directories, search and you will find ...
+                - Also a very important one is for the number of bitmaps (from 1920 by 1080) you want to use on the canvas. BITMAPSX and BITMAPSY. Both of these determine the directory in which the textures of the canvas will be placed. This is / pacman / levels /
+                In this directory you will get a directory <BITMAPSXxBITMAPSY>, you have BITMAPSX = 40 and BITMAPSY = 80, so you are in / pacman / levels / 40x80 /
+                Below that is a 3 digit number for the "LEVEL", which you can see at the top of the canvas screen. Each level is a directory below the above. For example LEVEL = 1 -> / pacman / levels / 40x80 / ​​001 This directory will contain the textures of the used canvas. In total for 40 by 80 screens, so 40 * 1920 by 80 * 1080 pixels to dress up. YOU CAN CHANGE THE LEVEL WITH '[' and ']'. So you can put many canvases under 40 by 80 screens. Between which you can cut and paste etc., which we are not going to do now. We just use one canvas, one that is large enough to display an entire area, which we can then scroll over nicely. The region files and octant data will be shown here when reading out and generating the region files.
+                You can set the canvas to 500 by 500. And through another system it goes to infinity, for example for satellite and street maps from Google and others, these can sometimes become very large. The program also offers (many) options for downloading them, but we will not bother with it. This requires a separate manual, but for the cracks, it's already there .....
+                I make a separate manual about the use of the canvas. For now that is not (yet) necessary.
+                Some important keys: ALT + 3 (or 4 ...) times DELETE is cleaning the canvas. Behind the canvas is ANOTHER canvas. It is normally fixed and will NOT be deleted. You can access this by pressing SHIFT + 'd'. Here you can also ALT + 3 (or 4 ..) times DELETE delete everything. With SHIFT-d you go back again. You can also delete them in the corresponding level directory. At the bottom you see DRAWMAZES = ON. That's the screen to mess around. Is everything OK? Then with CTRL + F5 you can move the canvas of DRAWMAZES to the background which is then final. When showing the canvas, the back image is first loaded (if it says DRAWMAZES = ON), on which the image of the foreground is then placed over it, where that which is transparent is translucent and thus the image can be seen in the background. This way you can mess around in the foreground, and if all goes well, put it in the background. But all this just aside. If you've come this far, you're almost there.
+                You can end the program with ESC, and then pressing 'y', the program will cleanly save all textures that have been changed, and close the program properly. With CTRL + 'q' you close the program with a kill. Just like with ctrl + c in the dos box with which the program starts or from which you start it. Nothing will be saved, but it is nice and fast. Quit that bite!
+                The following settings are for certain directories that can be used. This is a directory for pictures, movies, but is not important for now.
+                Which are important to us are: EARTH_ROOT1, EARTH_ROOT2 and EARTH_ROOT3, through these three you can configure 3 directories for storing the Google 3d data. Because this requires a lot of HD space for large areas, you can use 3 disks (or directories) for the storage thereof. By linking directories to others you can achieve the same ...
+                The MODELS setting is a directory for storing 3d models, which we can also voxelize. This can contain wavefront 3d objects. These usually consist of one .obj file for the 3d data, a .mtl for the textures that are used and effects on it, and a whole load of textures, in the case of Google 3d these can be .jpg, .png and .bmp.
+                You also see a lot of FFMPEG commands. These are used for the program, to be able to read in films via a pipeline in FFMPEG, and to write FFMPEG.EXE with an EXTERNAL (also includes an internal FFMPEG player in the program, for playing videos and mp3 etc.) via a pipeline to FFMPEG.EXE. FFPROBE.EXE is also used in some cases. Therefore the PATH to (a) FFMPEG.EXE is needed. The included FFMPEG.EXE in / pacman / ffmpeg / bin contains ALL codecs for encoding / decoding so far, including the commercial ones. Here you can do everything you can do with FFMPEG. You can also use another one. I have selected these in combination with a geforce video card with hardware acceleration (-c: v h264_nvenc in the FFMPEG.EXE parameters), if you have a simple card, select the one under #std ffmpeg in the pacman.ini. Watch out, don't make a mess, there are a lot of them listed that are disabled. Furthermore, we will not make any movies at all, because again a separate manual is needed (something with 'r', then 'R' or something, and the screen is recorded with such an ffmpeg setting.)
+                To test if your ffmpeg settings and path are correct, you could try that. See also other help .txt files.
+                Other parameters in the pacman.ini should be left as they are. Everything still works for me ...
+
+
+        - Have you come this far? Congratulations. The cake is coming. Are we going to be really difficult ...
+
+
+Download the Google 3d Earth data.
+        - JAVASCRIPT
+        - In the directory / pacman / earth / is the reverse engineering program, adapted for bulk download of google 3d octants. An octant is a piece of the earth. The earth is chopped into pieces along length, width and depth, so you get 8 pieces. These are then always chopped into 4 or 8 pieces. They are at various zoom levels. We are going to download at zoom level 21, which is the second highest. The highest is 4 times larger in data, but does not show a better result. We will download this zoom level 21 octants in zoom level 17 FORMAT. This means that we are in one file, all octants, which are also on a higher zoom (lower ...) namely 17. Every step higher you get times 4 more octants. Anyway ... We are going to see it and we are going to experience it ...
+                - You should have installed node.js, and under a dos shell 'node --version' shows the version. That's a good start. That was 1% of everything that is difficult to reverse engineer the javascript program.
+        - A number of files are very important:
+        - DUMP_OCTANTS.BAT, with a call to 'node LAT_LONG_CENTER.js' with corresponding options for the area we are going to download.
+                - Example: node LAT_LONG_CENTER.js --NEWYORK> NEWYORK_LAT_LONG_CENTER.TXT
+                Wherein a NEWYORK_LAT_LONG_CENTER.TXT file is created that we will use.
+        - Note: Do not use this (yet). For those listed in the DUMP_OCTANTS.BAT, these should already work by the way, but for this purpose I'm going to download a new area, so everything should be listed correctly here. This concerns a number of changes to the files mentioned here.
+        - LAT_LONG_CENTER.js (called from DUMP_OCTANTS.BAT)
+        - DUMP_OBJ_CITY.js (called from LAT_LONG_CENTER.js)
+        - ./lib/parse-command-line2.js (called from DUMP_OBJ_CITY.js) (original ./lib/parse-command-line.js)
+        - In all these files you can already see what exactly needs to be adjusted, if you follow one of the AREAS that are already there. It is then just copy and adjust. So that's what we're going to do now.
+        - Some areas are quite different in structure, and you can NOT download it, it makes no sense with the way the program is now, an example of this is the Azores. It has to do with the zoom levels that work very differently.
+        - At the moment you will find the data for:
+                - Miami, Azores, The Hague, Schweiz, New York, Brussels, Enschede, LA, Amsterdam
+                - Of which Azores does not work, and Schweiz is only part of a mountain ... But outside of Azores these should already work ....
+
+
+        - For this manual we ('I') are going to download a piece of hmmm, have a look, Utrecht. 
+        - We go to Google maps, and select an area we want to have. For that we need the ALTITUDE AND LATITUDE, called the so-called LATITUDE and LONGDITUDE (or something, spell checker will come later). For that we need the TOP LEFT and the RIGHT BOTTOM CORNER. Then we have two latitudes and two longitudes that I'm going to work with.
+        - If we click on the map of Google maps with the left mouse button, we see at the bottom the coordinates we need.
+        For the top left corner I choose: 52.091874, 5.109879, and for the bottom right corner 52.083905, 5.127000.
+        As you can see, the second coordinate, the LATTITUDE, runs from high (52.091874) to low (52.083905). Because it is 0 on the equator, in degrees, and then counts up (north). This is nice and difficult later ...
+        The bar counts 90 degrees up from the equator to the North Pole, and down to -90 degrees to the North Pole. 180 degrees in total. The lon counts from -180 degrees to +180 degrees, so to the left and right the entire earth by 360 degrees. In this way you can indicate any place, with a lon of 0-360 degrees, or -180 - +180, and 90 degrees up or down.
+        - In the program /pacman/earth/LAT_LONG_CENTER.js we are going to use these 4 data:
+                From line 88 we are going to add things. Completely identical to the other data that is already there. Make no mistakes here, and pay close attention to capital and small letters.
+                Line 88 says: if (CITY == "- AZORES" || CITY == "- ENSCHEDE" || CITY == "- DENHAAG" || CITY == "- LA" || CITY == "--AMSTERDAM" || CITY == "- NEWYORK" || CITY == "- MIAMI" || CITY == "- SCHWEIZ" || CITY == "- BRUSSELS") {
+                and we're going to ADD --UTRECHT TO THAT. So it becomes:
+                if (CITY == "- AZORES" || CITY == "- ENSCHEDE" || CITY == "- DENHAAG" || CITY == "- LA" || CITY == "- AMSTERDAM" || CITY == "- NEWYORK" || CITY == "- MIAMI" || CITY == "- SCHWEIZ" || CITY == "- BRUSSELS" || CITY == "- UTRECHT" ) {
+                A little below that we find the following code:
+                        if (CITY == "- ENSCHEDE") {
+                                CITY_NAME = "ENSCHEDE"
+                                lat0 = 52.252913;
+                                lon0 = 6.813080;
+                                lat1 = 52.178402;
+                                lon1 = 6.974389;
+                        } else if (CITY == "- LA") {
+                                CITY_NAME = "LA"
+                                lat0 = 34.081049;
+                                lon0 = -118.258214;
+                                lat1 = 34.013811;
+                                lon1 = -118.143811;
+                        } else if (CITY == "- MIAMI") {
+                                CITY_NAME = "MIAMI"
+                                lat0 = 25.90;
+                                lon0 = -80.30;
+                                lat1 = 25.67;
+                                lon1 = -80.10;
+                        } else if (CITY == "- SCHWEIZ") {
+                        etc......
+                We are now going to add the found height and latitude for the area of ​​google maps.
+                So for our area, the code will be as follows: lat0 and lon0 is the top left corner, lat1 and lon1 is the bottom right corner.
+                The code should (can) look like this:
+                        if (CITY == "- ENSCHEDE") {
+                                CITY_NAME = "ENSCHEDE"
+                                lat0 = 52.252913;
+                                lon0 = 6.813080;
+                                lat1 = 52.178402;
+                                lon1 = 6.974389;
+                        } else if (CITY == "- UTRECHT") {
+                                CITY_NAME = "UTRECHT"
+                                lat0 = 52.091874;
+                                100 = 5.109879;
+                                lat1 = 52.083905;
+                                lon1 = 5,127,000;
+                        } else if (CITY == "- LA") {
+                                CITY_NAME = "LA"
+                                lat0 = 34.081049;
+                                lon0 = -118.258214;
+                                lat1 = 34.013811;
+                                lon1 = -118.143811;
+                        } else if (CITY == "- MIAMI") {
+                        etc....
+        - Beautiful. That's 1 file. Now editing is done with the following file: DUMP_OBJ_CITY.js
+        From line 11 there we see 4 directory 'lists'. For 4 different locations where the traffic jams can be.
+        These are the three from the pacman.ini file, plus the first, which is relative from the directory where we are going to download. For convenience, you can copy the / pacman / earth directory entirely to those locations. The other three are to check that the same files are not already in another location, to avoid double downloads. The pacman.exe program also looks in all 3 locations in an attempt to find the correct file (s).
+        Don't be alarmed ... We see the following rules: (Turn off automatic wrapping ...)
+                const DL_DIR = './downloaded_files';
+                const [DUMP_NEW_NEW_DIR, DUMP_NEW_DIR, DUMP_NEW_DIR_MIAMI, DUMP_NEW_DIR_AZORES, DUMP_NEW_DIR_DENHAAG, DUMP_NEW_DIR_SCHWEIZ, DUMP_NEW_DIR_NEWYORK, DUMP_NEW_DIR_BRUSSEL, DUMP_NEW_DIR_ENSCHEDE, DUMP_NEW_DIR_LA, DUMP_NEW_DIR_AMSTERDAM, DUMP_OBJ_DIR, DUMP_JSON_DIR, DUMP_RAW_DIR] =
+                          ['new / new', 'new', 'new / Miami', 'new / Azores',' new / DenHaag ',' new / Schweiz ',' new / NewYork ',' new / Brussels', 'new / Enschede ',' new / LA ',' new / Amsterdam ',' obj ',' json ',' raw '] .map (x => path.join (DL_DIR, x));
+
+
+                const DL_DIR1 = 'D: / PACMAN / EARTH / downloaded_files';
+                const [DUMP_NEW_NEW_DIR1, DUMP_NEW_DIR1, DUMP_NEW_DIR_MIAMI1, DUMP_NEW_DIR_AZORES1, DUMP_NEW_DIR_DENHAAG1, DUMP_NEW_DIR_SCHWEIZ1, DUMP_NEW_DIR_NEWYORK1, DUMP_NEW_DIR_BRUSSEL1, DUMP_NEW_DIR_ENSCHEDE1, DUMP_NEW_DIR_LA1, DUMP_NEW_DIR_AMSTERDAM1, DUMP_OBJ_DIR1, DUMP_JSON_DIR1, DUMP_RAW_DIR1] =
+                          ['new / new', 'new', 'new / Miami', 'new / Azores',' new / DenHaag ',' new / Schweiz ',' new / NewYork ',' new / Brussels', 'new / Enschede ',' new / LA ',' new / Amsterdam ',' obj ',' json ',' raw '] .map (x => path.join (DL_DIR1, x));
+
+
+                const DL_DIR2 = 'G: / EARTH2 / downloaded_files';
+                const [DUMP_NEW_NEW_DIR2, DUMP_NEW_DIR2, DUMP_NEW_DIR_MIAMI2, DUMP_NEW_DIR_AZORES2, DUMP_NEW_DIR_DENHAAG2, DUMP_NEW_DIR_SCHWEIZ2, DUMP_NEW_DIR_NEWYORK2, DUMP_NEW_DIR_BRUSSEL2, DUMP_NEW_DIR_ENSCHEDE2, DUMP_NEW_DIR_LA2, DUMP_NEW_DIR_AMSTERDAM2, DUMP_OBJ_DIR2, DUMP_JSON_DIR2, DUMP_RAW_DIR2] =
+                          ['new / new', 'new', 'new / Miami', 'new / Azores',' new / DenHaag ',' new / Schweiz ',' new / NewYork ',' new / Brussels', 'new / Enschede ',' new / LA ',' new / Amsterdam ',' obj ',' json ',' raw '] .map (x => path.join (DL_DIR2, x));
+
+
+                const DL_DIR3 = 'F: / EARTH3 / downloaded_files';
+                const [DUMP_NEW_NEW_DIR3, DUMP_NEW_DIR3, DUMP_NEW_DIR_MIAMI3, DUMP_NEW_DIR_AZORES3, DUMP_NEW_DIR_DENHAAG3, DUMP_NEW_DIR_SCHWEIZ3, DUMP_NEW_DIR_NEWYORK3, DUMP_NEW_DIR_BRUSSEL3, DUMP_NEW_DIR_ENSCHEDE3, DUMP_NEW_DIR_LA3, DUMP_NEW_DIR_AMSTERDAM3, DUMP_OBJ_DIR3, DUMP_JSON_DIR3, DUMP_RAW_DIR3] =
+                          ['new / new', 'new', 'new / Miami', 'new / Azores',' new / DenHaag ',' new / Schweiz ',' new / NewYork ',' new / Brussels', 'new / Enschede ',' new / LA ',' new / Amsterdam ',' obj ',' json ',' raw '] .map (x => path.join (DL_DIR3, x));
+
+
+        In my case I use the following three disks / directories:
+        - D: / PACMAN / EARTH /
+        - G: / EARTH2 /
+        - F: / EARTH3 /
+        With you that can be others. Then adjust it, and make sure that it also contains the entire / pacman / earth directory.
+        If you are a script kiddie you can of course adjust it as you please.
+        We are now adapting this for UTRECHT, and it should look like this (in my case ...):
+                const DL_DIR = './downloaded_files';
+                const [DUMP_NEW_NEW_DIR, DUMP_NEW_DIR, DUMP_NEW_DIR_UTRECHT, DUMP_NEW_DIR_MIAMI, DUMP_NEW_DIR_AZORES, DUMP_NEW_DIR_DENHAAG, DUMP_NEW_DIR_SCHWEIZ, DUMP_NEW_DIR_NEWYORK, DUMP_NEW_DIR_BRUSSEL, DUMP_NEW_DIR_ENSCHEDE, DUMP_NEW_DIR_LA, DUMP_NEW_DIR_AMSTERDAM, DUMP_OBJ_DIR, DUMP_JSON_DIR, DUMP_RAW_DIR] =
+                          ['new / new', 'new', 'new / Utrecht', 'new / Miami', 'new / Azores',' new / DenHaag ',' new / Schweiz ',' new / NewYork ',' new / Brussels', 'new / Enschede', 'new / LA', 'new / Amsterdam', 'obj', 'json', 'raw'] .map (x => path.join (DL_DIR, x));
+
+
+                const DL_DIR1 = 'D: / PACMAN / EARTH / downloaded_files';
+                const [DUMP_NEW_NEW_DIR1, DUMP_NEW_DIR1, DUMP_NEW_DIR_UTRECHT1, DUMP_NEW_DIR_MIAMI1, DUMP_NEW_DIR_AZORES1, DUMP_NEW_DIR_DENHAAG1, DUMP_NEW_DIR_SCHWEIZ1, DUMP_NEW_DIR_NEWYORK1, DUMP_NEW_DIR_BRUSSEL1, DUMP_NEW_DIR_ENSCHEDE1, DUMP_NEW_DIR_LA1, DUMP_NEW_DIR_AMSTERDAM1, DUMP_OBJ_DIR1, DUMP_JSON_DIR1, DUMP_RAW_DIR1] =
+                          ['new / new', 'new', 'new / Utrecht', 'new / Miami', 'new / Azores',' new / DenHaag ',' new / Schweiz ',' new / NewYork ',' new / Brussels', 'new / Enschede', 'new / LA', 'new / Amsterdam', 'obj', 'json', 'raw'] .map (x => path.join (DL_DIR1, x));
+
+
+                const DL_DIR2 = 'G: / EARTH2 / downloaded_files';
+                const [DUMP_NEW_NEW_DIR2, DUMP_NEW_DIR2, DUMP_NEW_DIR_UTRECHT2, DUMP_NEW_DIR_MIAMI2, DUMP_NEW_DIR_AZORES2, DUMP_NEW_DIR_DENHAAG2, DUMP_NEW_DIR_SCHWEIZ2, DUMP_NEW_DIR_NEWYORK2, DUMP_NEW_DIR_BRUSSEL2, DUMP_NEW_DIR_ENSCHEDE2, DUMP_NEW_DIR_LA2, DUMP_NEW_DIR_AMSTERDAM2, DUMP_OBJ_DIR2, DUMP_JSON_DIR2, DUMP_RAW_DIR2] =
+                          ['new / new', 'new', 'new / Utrecht', 'new / Miami', 'new / Azores',' new / DenHaag ',' new / Schweiz ',' new / NewYork ',' new / Brussels', 'new / Enschede', 'new / LA', 'new / Amsterdam', 'obj', 'json', 'raw'] .map (x => path.join (DL_DIR2, x));
+
+
+                const DL_DIR3 = 'F: / EARTH3 / downloaded_files';
+                const [DUMP_NEW_NEW_DIR3, DUMP_NEW_DIR3, DUMP_NEW_DIR_UTRECHT3, DUMP_NEW_DIR_MIAMI3, DUMP_NEW_DIR_AZORES3, DUMP_NEW_DIR_DENHAAG3, DUMP_NEW_DIR_SCHWEIZ3, DUMP_NEW_DIR_NEWYORK3, DUMP_NEW_DIR_BRUSSEL3, DUMP_NEW_DIR_ENSCHEDE3, DUMP_NEW_DIR_LA3, DUMP_NEW_DIR_AMSTERDAM3, DUMP_OBJ_DIR3, DUMP_JSON_DIR3, DUMP_RAW_DIR3] =
+                          ['new / new', 'new', 'new / Utrecht', 'new / Miami', 'new / Azores',' new / DenHaag ',' new / Schweiz ',' new / NewYork ',' new / Brussels', 'new / Enschede', 'new / LA', 'new / Amsterdam', 'obj', 'json', 'raw'] .map (x => path.join (DL_DIR3, x));
+        You can also change one of the existing ones, delete the others, etc. For an example I would leave at least one ...
+        PLEASE NOTE THE 1,2 OR 3 in the names. This money in particular for what is to come ...
+        A bit lower we find a lot of rules, and since I am not a javascript programmer, it looks like it is ...
+        We see 16 pieces with lines separated by an empty line. UTRECHT MUST BE ADDED TO EACH OF THESE!
+        The first part looks like this:
+        
+        const subdir = `$ {OCTANTS}` .substr (0,14);
+        const newDir = path.join (DUMP_NEW_DIR, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newnewDir = path.join (DUMP_NEW_NEW_DIR, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_AMSTERDAM = path.join (DUMP_NEW_DIR_AMSTERDAM, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_BRUSSELS = path.join (DUMP_NEW_DIR_BRUSSELS, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_ENSCHEDE = path.join (DUMP_NEW_DIR_ENSCHEDE, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_LA = path.join (DUMP_NEW_DIR_LA, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_NEWYORK = path.join (DUMP_NEW_DIR_NEWYORK, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_MIAMI = path.join (DUMP_NEW_DIR_MIAMI, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_DENHAAG = path.join (DUMP_NEW_DIR_DENHAAG, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_SCHWEIZ = path.join (DUMP_NEW_DIR_SCHWEIZ, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_AZORES = path.join (DUMP_NEW_DIR_AZORES, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const objDir = path.join (DUMP_OBJ_DIR, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+
+
+        So we add our Utrecht to this, and it becomes: (Copy 1 line and then change it ...)
+
+
+        const subdir = `$ {OCTANTS}` .substr (0,14);
+        const newDir = path.join (DUMP_NEW_DIR, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newnewDir = path.join (DUMP_NEW_NEW_DIR, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_AMSTERDAM = path.join (DUMP_NEW_DIR_AMSTERDAM, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_UTRECHT = path.join (DUMP_NEW_DIR_UTRECHT, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_BRUSSELS = path.join (DUMP_NEW_DIR_BRUSSELS, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_ENSCHEDE = path.join (DUMP_NEW_DIR_ENSCHEDE, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_LA = path.join (DUMP_NEW_DIR_LA, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_NEWYORK = path.join (DUMP_NEW_DIR_NEWYORK, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_MIAMI = path.join (DUMP_NEW_DIR_MIAMI, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_DENHAAG = path.join (DUMP_NEW_DIR_DENHAAG, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_SCHWEIZ = path.join (DUMP_NEW_DIR_SCHWEIZ, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const newDir_AZORES = path.join (DUMP_NEW_DIR_AZORES, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        const objDir = path.join (DUMP_OBJ_DIR, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+
+
+        So simple. 
+        So we add the next 15 parts in the same way:
+
+
+        const newDir_UTRECHTb = path.join (DUMP_NEW_DIR_UTRECHT, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        
+        const newDir_UTRECHT1 = path.join (DUMP_NEW_DIR_UTRECHT1, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+        Etc..
+        Pay attention to the 'b' and / or numbers after the names. Copying a line is the most convenient.
+        
+        The whole bubs should look like this, you can also remove the other areas ... But to me it looks like this:
+                const subdir = `$ {OCTANTS}` .substr (0,14);
+                const newDir = path.join (DUMP_NEW_DIR, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newnewDir = path.join (DUMP_NEW_NEW_DIR, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_AMSTERDAM = path.join (DUMP_NEW_DIR_AMSTERDAM, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_UTRECHT = path.join (DUMP_NEW_DIR_UTRECHT, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_BRUSSELS = path.join (DUMP_NEW_DIR_BRUSSELS, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_ENSCHEDE = path.join (DUMP_NEW_DIR_ENSCHEDE, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_LA = path.join (DUMP_NEW_DIR_LA, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_NEWYORK = path.join (DUMP_NEW_DIR_NEWYORK, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_MIAMI = path.join (DUMP_NEW_DIR_MIAMI, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_DENHAAG = path.join (DUMP_NEW_DIR_DENHAAG, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_SCHWEIZ = path.join (DUMP_NEW_DIR_SCHWEIZ, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_AZORES = path.join (DUMP_NEW_DIR_AZORES, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const objDir = path.join (DUMP_OBJ_DIR, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+
+
+                const newDir_AMSTERDAMb = path.join (DUMP_NEW_DIR_AMSTERDAM, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_UTRECHTb = path.join (DUMP_NEW_DIR_UTRECHT, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_BRUSSELb = path.join (DUMP_NEW_DIR_BRUSSEL, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_ENSCHEDEb = path.join (DUMP_NEW_DIR_ENSCHEDE, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_LAb = path.join (DUMP_NEW_DIR_LA, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_NEWYORKb = path.join (DUMP_NEW_DIR_NEWYORK, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_MIAMIb = path.join (DUMP_NEW_DIR_MIAMI, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_DENHAAGb = path.join (DUMP_NEW_DIR_DENHAAG, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_AZORESb = path.join (DUMP_NEW_DIR_AZORES, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_SCHWEIZb = path.join (DUMP_NEW_DIR_SCHWEIZ, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+
+
+                const newDir1 = path.join (DUMP_NEW_DIR1, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newnewDir1 = path.join (DUMP_NEW_NEW_DIR1, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_BRUSSEL1 = path.join (DUMP_NEW_DIR_BRUSSEL1, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_ENSCHEDE1 = path.join (DUMP_NEW_DIR_ENSCHEDE1, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_LA1 = path.join (DUMP_NEW_DIR_LA1, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_AMSTERDAM1 = path.join (DUMP_NEW_DIR_AMSTERDAM1, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_UTRECHT1 = path.join (DUMP_NEW_DIR_UTRECHT1, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_NEWYORK1 = path.join (DUMP_NEW_DIR_NEWYORK1, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_MIAMI1 = path.join (DUMP_NEW_DIR_MIAMI1, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_DENHAAG1 = path.join (DUMP_NEW_DIR_DENHAAG1, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_SCHWEIZ1 = path.join (DUMP_NEW_DIR_SCHWEIZ1, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_AZORES1 = path.join (DUMP_NEW_DIR_AZORES1, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const objDir1 = path.join (DUMP_OBJ_DIR1, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+
+
+                const newDir_AMSTERDAMb1 = path.join (DUMP_NEW_DIR_AMSTERDAM1, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_UTRECHTb1 = path.join (DUMP_NEW_DIR_UTRECHT1, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_BRUSSELb1 = path.join (DUMP_NEW_DIR_BRUSSEL1, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_ENSCHEDEb1 = path.join (DUMP_NEW_DIR_ENSCHEDE1, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_LAb1 = path.join (DUMP_NEW_DIR_LA1, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_NEWYORKb1 = path.join (DUMP_NEW_DIR_NEWYORK1, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_MIAMIb1 = path.join (DUMP_NEW_DIR_MIAMI1, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_DENHAAGb1 = path.join (DUMP_NEW_DIR_DENHAAG1, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_SCHWEIZb1 = path.join (DUMP_NEW_DIR_SCHWEIZ1, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_AZORESb1 = path.join (DUMP_NEW_DIR_AZORES1, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+
+
+                const newDir2 = path.join (DUMP_NEW_DIR2, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newnewDir2 = path.join (DUMP_NEW_NEW_DIR2, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_BRUSSEL2 = path.join (DUMP_NEW_DIR_BRUSSEL2, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_ENSCHEDE2 = path.join (DUMP_NEW_DIR_ENSCHEDE2, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_LA2 = path.join (DUMP_NEW_DIR_LA2, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_AMSTERDAM2 = path.join (DUMP_NEW_DIR_AMSTERDAM2, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_UTRECHT2 = path.join (DUMP_NEW_DIR_UTRECHT2, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_NEWYORK2 = path.join (DUMP_NEW_DIR_NEWYORK2, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_MIAMI2 = path.join (DUMP_NEW_DIR_MIAMI2, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_DENHAAG2 = path.join (DUMP_NEW_DIR_DENHAAG2, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_SCHWEIZ2 = path.join (DUMP_NEW_DIR_SCHWEIZ2, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_AZORES2 = path.join (DUMP_NEW_DIR_AZORES2, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const objDir2 = path.join (DUMP_OBJ_DIR2, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+
+
+                const newDir_AMSTERDAMb2 = path.join (DUMP_NEW_DIR_AMSTERDAM2, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_UTRECHTb2 = path.join (DUMP_NEW_DIR_UTRECHT2, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_BRUSSELb2 = path.join (DUMP_NEW_DIR_BRUSSEL2, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_ENSCHEDEb2 = path.join (DUMP_NEW_DIR_ENSCHEDE2, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_LAb2 = path.join (DUMP_NEW_DIR_LA2, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_NEWYORKb2 = path.join (DUMP_NEW_DIR_NEWYORK2, $ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL} `);
+                const newDir_MIAMIb2 = path.join (DUMP_NEW_DIR_MIAMI2, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_DENHAAGb2 = path.join (DUMP_NEW_DIR_DENHAAG2, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_SCHWEIZb2 = path.join (DUMP_NEW_DIR_SCHWEIZ2, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_AZORESb2 = path.join (DUMP_NEW_DIR_AZORES2, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+
+
+                const newDir3 = path.join (DUMP_NEW_DIR3, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newnewDir3 = path.join (DUMP_NEW_NEW_DIR3, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_BRUSSEL3 = path.join (DUMP_NEW_DIR_BRUSSEL3, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_ENSCHEDE3 = path.join (DUMP_NEW_DIR_ENSCHEDE3, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_LA3 = path.join (DUMP_NEW_DIR_LA3, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_AMSTERDAM3 = path.join (DUMP_NEW_DIR_AMSTERDAM3, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_UTRECHT3 = path.join (DUMP_NEW_DIR_UTRECHT3, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_NEWYORK3 = path.join (DUMP_NEW_DIR_NEWYORK3, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_MIAMI3 = path.join (DUMP_NEW_DIR_MIAMI3, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_DENHAAG3 = path.join (DUMP_NEW_DIR_DENHAAG3, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_SCHWEIZ3 = path.join (DUMP_NEW_DIR_SCHWEIZ3, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_AZORES3 = path.join (DUMP_NEW_DIR_AZORES3, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const objDir3 = path.join (DUMP_OBJ_DIR3, `$ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+
+
+                const newDir_AMSTERDAMb3 = path.join (DUMP_NEW_DIR_AMSTERDAM3, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_UTRECHTb3 = path.join (DUMP_NEW_DIR_UTRECHT3, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_BRUSSELb3 = path.join (DUMP_NEW_DIR_BRUSSEL3, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_ENSCHEDEb3 = path.join (DUMP_NEW_DIR_ENSCHEDE3, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_LAb3 = path.join (DUMP_NEW_DIR_LA3, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_NEWYORKb3 = path.join (DUMP_NEW_DIR_NEWYORK3, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_MIAMIb3 = path.join (DUMP_NEW_DIR_MIAMI3, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_DENHAAGb3 = path.join (DUMP_NEW_DIR_DENHAAG3, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_SCHWEIZb3 = path.join (DUMP_NEW_DIR_SCHWEIZ3, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+                const newDir_AZORESb3 = path.join (DUMP_NEW_DIR_AZORES3, `$ {subdir} / $ {OCTANTS.join ('+')} - $ {MAX_LEVEL}`);
+
+
+
+
+                if (DUMP_OBJ) {
+                                 if (fs.existsSync (newDir)) {console.log ('exists in:' + newDir); return; }
+                        else if (fs.existsSync (newnewDir)) {console.log ('exists in:' + newnewDir); return; }
+                        else if (fs.existsSync (newDir_AMSTERDAM)) {console.log ('exists in:' + newDir_AMSTERDAM); return; }
+                        else if (fs.existsSync (newDir_UTRECHT)) {console.log ('exists in:' + newDir_UTRECHT); return; }
+                        else if (fs.existsSync (newDir_BRUSSELS)) {console.log ('exists in:' + newDir_BRUSSELS); return; }
+                        else if (fs.existsSync (newDir_ENSCHEDE)) {console.log ('exists in:' + newDir_ENSCHEDE); return; }
+                        else if (fs.existsSync (newDir_LA)) {console.log ('exists in:' + newDir_LA); return; }
+                        else if (fs.existsSync (newDir_NEWYORK)) {console.log ('exists in:' + newDir_NEWYORK); return; }
+                        else if (fs.existsSync (newDir_MIAMI)) {console.log ('exists in:' + newDir_MIAMI); return; }
+                        else if (fs.existsSync (newDir_DENHAAG)) {console.log ('exists in:' + newDir_DENHAAG); return; }
+                        else if (fs.existsSync (newDir_SCHWEIZ)) {console.log ('exists in:' + newDir_SCHWEIZ); return; }
+                        else if (fs.existsSync (newDir_AZORES)) {console.log ('exists in:' + newDir_AZORES); return; }
+
+
+                        else if (fs.existsSync (objDir)) {console.log ('exists in:' + objDir); return; }
+                        else if (fs.existsSync (newDir_AMSTERDAMb)) {console.log ('exists in:' + newDir_AMSTERDAMb); return; }
+                        else if (fs.existsSync (newDir_UTRECHTb)) {console.log ('exists in:' + newDir_UTRECHTb); return; }
+                        else if (fs.existsSync (newDir_BRUSSELSb)) {console.log ('exists in:' + newDir_BRUSSELSb); return; }
+                        else if (fs.existsSync (newDir_ENSCHEDEb)) {console.log ('exists in:' + newDir_ENSCHEDEb); return; }
+                        else if (fs.existsSync (newDir_LAb)) {console.log ('exists in:' + newDir_LAb); return; }
+                        else if (fs.existsSync (newDir_NEWYORKb)) {console.log ('exists in:' + newDir_NEWYORKb); return; }
+                        else if (fs.existsSync (newDir_MIAMIb)) {console.log ('exists in:' + newDir_MIAMIb); return; }
+                        else if (fs.existsSync (newDir_DENHAAGb)) {console.log ('exists in:' + newDir_DENHAAGb); return; }
+                        else if (fs.existsSync (newDir_SCHWEIZb)) {console.log ('exists in:' + newDir_SCHWEIZb); return; }
+                        else if (fs.existsSync (newDir_AZORESb)) {console.log ('exists in:' + newDir_AZORESb); return; }
+                        else {console.log ('not exist:' + objDir); }
+
+
+                                 if (fs.existsSync (newDir1)) {console.log ('exists in:' + newDir1); return; }
+                        else if (fs.existsSync (newnewDir1)) {console.log ('exists in:' + newnewDir1); return; }
+                        else if (fs.existsSync (newDir_BRUSSELS1)) {console.log ('exists in:' + newDir_BRUSSELS1); return; }
+                        else if (fs.existsSync (newDir_ENSCHEDE1)) {console.log ('exists in:' + newDir_ENSCHEDE1); return; }
+                        else if (fs.existsSync (newDir_LA1)) {console.log ('exists in:' + newDir_LA1); return; }
+                        else if (fs.existsSync (newDir_AMSTERDAM1)) {console.log ('exists in:' + newDir_AMSTERDAM1); return; }
+                        else if (fs.existsSync (newDir_UTRECHT1)) {console.log ('exists in:' + newDir_UTRECHT1); return; }
+                        else if (fs.existsSync (newDir_NEWYORK1)) {console.log ('exists in:' + newDir_NEWYORK1); return; }
+                        else if (fs.existsSync (newDir_MIAMI1)) {console.log ('exists in:' + newDir_MIAMI1); return; }
+                        else if (fs.existsSync (newDir_DENHAAG1)) {console.log ('exists in:' + newDir_DENHAAG1); return; }
+                        else if (fs.existsSync (newDir_SCHWEIZ1)) {console.log ('exists in:' + newDir_SCHWEIZ1); return; }
+                        else if (fs.existsSync (newDir_AZORES1)) {console.log ('exists in:' + newDir_AZORES1); return; }
+                        else if (fs.existsSync (objDir1)) {console.log ('exists in:' + objDir1); return; }
+                        
+                        else if (fs.existsSync (newDir_AMSTERDAMb1)) {console.log ('exists in:' + newDir_AMSTERDAMb1); return; }
+                        else if (fs.existsSync (newDir_UTRECHTb1)) {console.log ('exists in:' + newDir_UTRECHTb1); return; }
+                        else if (fs.existsSync (newDir_BRUSSELb1)) {console.log ('exists in:' + newDir_BRUSSELb1); return; }
+                        else if (fs.existsSync (newDir_ENSCHEDEb1)) {console.log ('exists in:' + newDir_ENSCHEDEb1); return; }
+                        else if (fs.existsSync (newDir_LAb1)) {console.log ('exists in:' + newDir_LAb1); return; }
+                        else if (fs.existsSync (newDir_NEWYORKb1)) {console.log ('exists in:' + newDir_NEWYORKb1); return; }
+                        else if (fs.existsSync (newDir_MIAMIb1)) {console.log ('exists in:' + newDir_MIAMIb1); return; }
+                        else if (fs.existsSync (newDir_DENHAAGb1)) {console.log ('exists in:' + newDir_DENHAAGb1); return; }
+                        else if (fs.existsSync (newDir_SCHWEIZb1)) {console.log ('exists in:' + newDir_SCHWEIZb1); return; }
+                        else if (fs.existsSync (newDir_AZORESb1)) {console.log ('exists in:' + newDir_AZORESb1); return; }
+                        else {console.log ('not exist:' + objDir1); }
+
+
+                                 if (fs.existsSync (newDir2)) {console.log ('exists in:' + newDir2); return; }
+                        else if (fs.existsSync (newnewDir2)) {console.log ('exists in:' + newnewDir2); return; }
+                        else if (fs.existsSync (newDir_BRUSSELS2)) {console.log ('exists in:' + newDir_BRUSSELS2); return; }
+                        else if (fs.existsSync (newDir_ENSCHEDE2)) {console.log ('exists in:' + newDir_ENSCHEDE2); return; }
+                        else if (fs.existsSync (newDir_LA2)) {console.log ('exists in:' + newDir_LA2); return; }
+                        else if (fs.existsSync (newDir_AMSTERDAM2)) {console.log ('exists in:' + newDir_AMSTERDAM2); return; }
+                        else if (fs.existsSync (newDir_UTRECHT2)) {console.log ('exists in:' + newDir_UTRECHT2); return; }
+                        else if (fs.existsSync (newDir_NEWYORK2)) {console.log ('exists in:' + newDir_NEWYORK2); return; }
+                        else if (fs.existsSync (newDir_MIAMI2)) {console.log ('exists in:' + newDir_MIAMI2); return; }
+                        else if (fs.existsSync (newDir_DENHAAG2)) {console.log ('exists in:' + newDir_DENHAAG2); return; }
+                        else if (fs.existsSync (newDir_SCHWEIZ2)) {console.log ('exists in:' + newDir_SCHWEIZ2); return; }
+                        else if (fs.existsSync (newDir_AZORES2)) {console.log ('exists in:' + newDir_AZORES2); return; }
+                        else if (fs.existsSync (objDir2)) {console.log ('exists in:' + objDir2); return; }
+                        
+                        else if (fs.existsSync (newDir_AMSTERDAMb2)) {console.log ('exists in:' + newDir_AMSTERDAMb2); return; }
+                        else if (fs.existsSync (newDir_UTRECHTb2)) {console.log ('exists in:' + newDir_UTRECHTb2); return; }
+                        else if (fs.existsSync (newDir_BRUSSELb2)) {console.log ('exists in:' + newDir_BRUSSELb2); return; }
+                        else if (fs.existsSync (newDir_ENSCHEDEb2)) {console.log ('exists in:' + newDir_ENSCHEDEb2); return; }
+                        else if (fs.existsSync (newDir_LAb2)) {console.log ('exists in:' + newDir_LAb2); return; }
+                        else if (fs.existsSync (newDir_NEWYORKb2)) {console.log ('exists in:' + newDir_NEWYORKb2); return; }
+                        else if (fs.existsSync (newDir_MIAMIb2)) {console.log ('exists in:' + newDir_MIAMIb2); return; }
+                        else if (fs.existsSync (newDir_DENHAAGb2)) {console.log ('exists in:' + newDir_DENHAAGb2); return; }
+                        else if (fs.existsSync (newDir_SCHWEIZb2)) {console.log ('exists in:' + newDir_SCHWEIZb2); return; }
+                        else if (fs.existsSync (newDir_AZORESb2)) {console.log ('exists in:' + newDir_AZORESb2); return; }
+                        e lse {console.log ('not exist:' + objDir2); }
+
+
+                                 if (fs.existsSync (newDir3)) {console.log ('exists in:' + newDir3); return; }
+                        else if (fs.existsSync (newnewDir3)) {console.log ('exists in:' + newnewDir3); return; }
+                        else if (fs.existsSync (newDir_BRUSSEL3)) {console.log ('exists in:' + newDir_BRUSSELS3); return; }
+                        else if (fs.existsSync (newDir_ENSCHEDE3)) {console.log ('exists in:' + newDir_ENSCHEDE3); return; }
+                        else if (fs.existsSync (newDir_LA3)) {console.log ('exists in:' + newDir_LA3); return; }
+                        else if (fs.existsSync (newDir_AMSTERDAM3)) {console.log ('exists in:' + newDir_AMSTERDAM3); return; }
+                        else if (fs.existsSync (newDir_UTRECHT3)) {console.log ('exists in:' + newDir_UTRECHT3); return; }
+                        else if (fs.existsSync (newDir_NEWYORK3)) {console.log ('exists in:' + newDir_NEWYORK3); return; }
+                        else if (fs.existsSync (newDir_MIAMI3)) {console.log ('exists in:' + newDir_MIAMI3); return; }
+                        else if (fs.existsSync (newDir_DENHAAG3)) {console.log ('exists in:' + newDir_DENHAAG3); return; }
+                        else if (fs.existsSync (newDir_SCHWEIZ3)) {console.log ('exists in:' + newDir_SCHWEIZ3); return; }
+                        else if (fs.existsSync (newDir_AZORES3)) {console.log ('exists in:' + newDir_AZORES3); return; }
+                        else if (fs.existsSync (objDir3)) {console.log ('exists in:' + objDir3); return; }
+                        
+                        else if (fs.existsSync (newDir_AMSTERDAMb3)) {console.log ('exists in:' + newDir_AMSTERDAMb3); return; }
+                        else if (fs.existsSync (newDir_UTRECHTb3)) {console.log ('exists in:' + newDir_UTRECHTb3); return; }
+                        else if (fs.existsSync (newDir_BRUSSELb3)) {console.log ('exists in:' + newDir_BRUSSELSb3); return; }
+                        else if (fs.existsSync (newDir_ENSCHEDEb3)) {console.log ('exists in:' + newDir_ENSCHEDEb3); return; }
+                        else if (fs.existsSync (newDir_LAb3)) {console.log ('exists in:' + newDir_LAb3); return; }
+                        else if (fs.existsSync (newDir_NEWYORKb3)) {console.log ('exists in:' + newDir_NEWYORKb3); return; }
+                        else if (fs.existsSync (newDir_MIAMIb3)) {console.log ('exists in:' + newDir_MIAMIb3); return; }
+                        else if (fs.existsSync (newDir_DENHAAGb3)) {console.log ('exists in:' + newDir_DENHAAGb3); return; }
+                        else if (fs.existsSync (newDir_SCHWEIZb3)) {console.log ('exists in:' + newDir_SCHWEIZb3); return; }
+                        else if (fs.existsSync (newDir_AZORESb3)) {console.log ('exists in:' + newDir_AZORESb3); return; }
+                        else {console.log ('not exist:' + objDir3); }
+                }
+
+
+        Then we see a piece of code for the areas below:
+                if (CITYNAME [0] == "- ENSCHEDE") {offset_x = 3875099.0; offset_y = 468154.0; offset_z = 5035344.0; }
+                else if (CITYNAME [0] == "- AMSTERDAM") {offset_x = 3876534.0; offset_y = 331582.0; offset_z = 5045027.0; }
+                else if (CITYNAME [0] == "- BRUSSELS") {offset_x = 4014897.0; offset_y = 296156.0; offset_z = 4937953.0; }
+                else if (CITYNAME [0] == "- LA") {offset_x = -2490962; offset_y = -4656517; offset_z = 3564040; }
+                else if (CITYNAME [0] == "- NEWYORK") {offset_x = 1323854.370856056; offset_y = -4649129.837542839; offset_z = 4150030.4071031474; }
+                else if (CITYNAME [0] == "- JOCELYN") {offset_x = -3151877; offset_y = 5289017; offset_z = 1637629; }
+                else if (CITYNAME [0] == "- MIAMI") {offset_x = 975859; offset_y = -5652918; offset_z = 2771644; }
+                else if (CITYNAME [0] == "- DENHAAG") {offset_x = 3904479.2616487066; offset_y = 294625.81305996777; offset_z = 5025795.962117693; }
+                else if (CITYNAME [0] == "- SCHWEIZ") {offset_x = 4386153.408482799; offset_y = 576284.5001272303; offset_z = 4587395.669652603; }
+                else if (CITYNAME [0] == "- AZORES") {offset_x = 4547134.555436776; offset_y = -2165128.87501796; offset_z = 3903020.5406996952; }
+        We will add one line to this later. Statement:
+                - The data in Google 3d that is downloaded, 3d coordinates are used on a global scale. Could just be meters. This means that before the comma can / will be a very large number. These numbers will be placed in the Wavefront .obj file. And so this one becomes very big. But that's not so bad. However, if we want to render the data in real time (which can also be done with pacman.exe ... cool!), These coordinates must be loaded into the GPU in 4 byte floating point values. Then these are too big. Because if there are a lot of digits before the comma, not much accuracy can be placed after the comma. And you get deviations. Therefore, for rendering, we are going to (later) subtract the mean of these values, x, y, and z, from all downloaded coordinates. Because they are almost all the same before the comma. So we get one value x, y and z for the center of the area, and all coordinates are offset from this. This way the xy and z values ​​are as small as possible. And if we load THIS directly into the GPU as a 4 byte (32 bit) float, then we have more digits before the decimal point, so good rendering accuracy in real time.
+        But first another file that we need to edit: /pacman/earth/lib/parse-command-line2.js
+                - To parse the command line, --UTRECHT must be added.
+                        if (optional.filter (o =>! ['- dump-json', '--dump-raw', '--parallel-search', '- AZORES', '- ENSCHEDE', '- MIAMI ',' - DENHAAG ',' - SCHWEIZ ',' --AMSTERDAM ',' --BRUSSELS ',' --LA ',' --NEWYORK ',' --JOCELYN '] .includes (o) ) .length> 0) errors.push ('Invalid parameters.');
+                then becomes:
+                        if (optional.filter (o =>! ['- dump-json', '--dump-raw', '--parallel-search', '- AZORES', '- UTRECHT', '- ENSCHEDE ',' - MIAMI ',' - THE HAGUE ',' - SCHWEIZ ',' --AMSTERDAM ',' --BRUSSELS ',' --LA ',' --NEWYORK ',' --JOCELYN ' ] .includes (o)). length> 0) errors.push ('Invalid parameters.');                
+                and:
+                        CITYNAME: optional.filter (o => ['--MIAMI', '- SCHWEIZ', '--AZORES', '--ENSCHEDE', '--DENHAAG', '--AMSTERDAM', '--BRUSSELS ',' --LA ',' --NEWYORK ',' --JOCELYN '] .includes (o)),
+                then becomes:
+                        CITYNAME: optional.filter (o => ['--UTRECHT', '- MIAMI', '- SCHWEIZ', '--AZORES', '--ENSCHEDE', '--DENHAAG', '--AMSTERDAM ',' --BRUSSELS ',' --LA ',' --NEWYORK ',' --JOCELYN '] .includes (o)),
+                Or something of that nature, as long as it stands and works ...
+
+
+        Do we all have that? Then we will now test whether any of it works ...
+        We add a line to DUMP_OCTANTS.BAT, namely:
+                node LAT_LONG_CENTER.js --UTRECHT> UTRECHT_LAT_LONG_CENTER.TXT
+        Now we open a dos shell and go to / pacman / earth, and issue the following command from the command prompt:
+        node LAT_LONG_CENTER.js --UTRECHT
+        Don't be alarmed, or you'll get a piece of data in front of you, or it won't work. It didn't work for me either, because I had forgotten a --UTRECHT somewhere. Does it all work, you should see this:
+
+
+                [0] [0] [0] = 30604243514160614 lat = 52.08892822265625 to 52.086181640625 lon = 5.108642578125 to 5.1141357421875
+                [1] [0] [1] = 30604243514160616 lat = 52.0916748046875 to 52.08892822265625 lon = 5.108642578125 to 5.1141357421875
+                [2] [0] [2] = 30604243514160634 lat = 52.09442138671875 to 52.0916748046875 lon = 5.108642578125 to 5.1141357421875
+                [3] [1] [0] = 30604243514160615 lat = 52.08892822265625 to 52.086181640625 lon = 5.1141357421875 to 5.11962890625
+                [4] [1] [1] = 30604243514160617 lat = 52.0916748046875 to 52.08892822265625 lon = 5.1141357421875 to 5.11962890625
+                [5] [1] [2] = 30604243514160635 lat = 52.09442138671875 to 52.0916748046875 lon = 5.1141357421875 to 5.11962890625
+                [6] [2] [0] = 30604243514160704 lat = 52.08892822265625 to 52.086181640625 lon = 5.11962890625 to 5.1251220703125
+                [7] [2] [1] = 30604243514160706 lat = 52.0916748046875 to 52.08892822265625 lon = 5.11962890625 to 5.1251220703125
+                [8] [2] [2] = 30604243514160724 lat = 52.09442138671875 to 52.0916748046875 lon = 5.11962890625 to 5.1251220703125
+                std :: string get_octant_UTRECHT (int & x, int & y) {
+                        static std :: string * octants [3];
+                        static std :: string * lat_lon [3];
+                        static int first_do = 1;
+                        if (first_do == 1) {
+                                first_do = 0;
+                                octants [0] = new std :: string [3] {"30604243514160614", "30604243514160616", "30604243514160634"};
+                                octants [1] = new std :: string [3] {"30604243514160615", "30604243514160617", "30604243514160635"};
+                                octants [2] = new std :: string [3] {"30604243514160704", "30604243514160706", "30604243514160724"};
+                                lat_lon [0] = new std :: string [3] {"N = 52.08892822265625 S = 52.086181640625 W = 5.108642578125 E = 5.1141357421875", "N = 52.0916748046875 S = 52.08892822265625 W = 5.10864257812518 E = 5.114.0755718" N = 5.114.057421875 " 52.0916748046875 W = 5.108642578125 E = 5.1141357421875 "};
+                                lat_lon [1] = new std :: string [3] {"N = 52.08892822265625 S = 52.086181640625 W = 5.1141357421875 E = 5.11962890625", "N = 52.0916748046875 S = 52.08892822265625 W = 5.11413574218906 E = 5.11975644875 E = 5.11975644618" 52.0916748046875 W = 5.1141357421875 E = 5.11962890625 "};
+                                lat_lon [2] = new std :: string [3] {"N = 52.08892822265625 S = 52.086181640625 W = 5.11962890625 E = 5.1251220703125", "N = 52.0916748046875 S = 52.08892822265625 W = 5.1196289020213567 N = 5.1196289020213867 = 5.11962890202138" 52.0916748046875 W = 5.11962890625 E = 5.1251220703125 "};
+                        }
+                        extra_octants = 0;
+                        if (x <0 || y <0) {
+                                x = 3; y = 3;
+                                return "";
+                        }
+                        bool OK = false;
+                        if (x> = 3 || y> = 3) printf ("Out of bound:% s X =% d Y =% d \ n", area.c_str (), x, y);
+                        else OK = true;
+                        if (! OK) return "";
+                        latitude_longditude = lat_lon [x] [y];
+                        std :: string subdir = octants [x] [y] .substr (0,14) + "/";
+                        return_root = std :: string () + EARTH_ROOT1 + "/ UTRECHT /" + subdir + octants [x] [y] + "- 21 /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT2 + "/ UTRECHT /" + subdir + octants [x] [y] + "- 21 /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT3 + "/ UTRECHT /" + subdir + octants [x] [y] + "- 21 /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT1 + "/ UTRECHT /" + subdir + octants [x] [y] + "- 21 /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT2 + "/ UTRECHT /" + subdir + octants [x] [y] + "- 21 /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT3 + "/ UTRECHT /" + subdir + octants [x] [y] + "- 21 /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT1 + "/ UTRECHT /" + "nbt /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT2 + "/ UTRECHT /" + "nbt /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT3 + "/ UTRECHT /" + "nbt /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT1 + "/ UTRECHT /" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT2 + "/ UTRECHT /" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT3 + "/ UTRECHT /" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT1 + "/" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT2 + "/" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT3 + "/" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT1 + "/ UTRECHT /" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT2 + "/ UTRECHT /" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT3 + "/ UTRECHT /" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT1 + "/ UTRECHT /" + "obj /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT2 + "/ UTRECHT /" + "obj /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT3 + "/ UTRECHT /" + "obj /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT1 + "/" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT2 + "/" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT3 + "/" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        printf ("Directory not found on search paths:% s-21 \ n", octants [x] [y] .c_str ());
+                        return "";
+                }
+                node DUMP_OBJ_CITY.js 30604243514160615 21 --parallel-search --UTRECHT
+                node DUMP_OBJ_CITY.js 30604243514160704 21 --parallel-search --UTRECHT
+                node DUMP_OBJ_CITY.js 30604243514160617 21 --parallel-search --UTRECHT
+                node DUMP_OBJ_CITY.js 30604243514160706 21 --parallel-search --UTRECHT
+                node DUMP_OBJ_CITY.js 30604243514160614 21 --parallel-search --UTRECHT
+                node DUMP_OBJ_CITY.js 30604243514160616 21 --parallel-search --UTRECHT
+                node DUMP_OBJ_CITY.js 30604243514160635 21 --parallel-search --UTRECHT
+                node DUMP_OBJ_CITY.js 30604243514160724 21 --parallel-search --UTRECHT
+                node DUMP_OBJ_CITY.js 30604243514160634 21 --parallel-search --UTRECHT
+                BRAKE EXTRA:
+
+
+        What do we have here? The first is a list of all octants that are used. The values ​​between the brackets are the sequence number (not used), and an x ​​and y coordinate. Including the octants are stored and indexed, and found (or not ...).
+        The second piece is a piece of c / c ++ code that has been generated. This will have to be compiled into the pacman.exe program later. It will be in the file: \ PACMAN \ PACMAN_CUBERITE \ src \ viewer \ area_data.cpp
+        This code will soon have to be included in (one function), and a few other functions around it, and also in other places in the program, a few things must be added especially for Utrecht. We are going to do that AFTER the next part. It is therefore important that the Codeblocks ide works, that the toolchain is correctly set on the seh compiler, that it is present, and that you get the program compiled. Do NOT mess around with settings for libs, include paths etc. These are all listed in good order in the project file PACMAN_CUBERITE.cbp, and all used libs headers etc. should be in the directories. Everything is complete, you don't have to install any other junk or figure it out yourself, so I did that for you.
+        We will now use the last piece (if it all works for you so far ... at least I hope it does).
+        This will be stored in a .bat file. So in DUMP_OCTANTS.BAT we have a line:
+        node LAT_LONG_CENTER.js --UTRECHT> UTRECHT_LAT_LONG_CENTER.TXT
+        Where the just generated output ends up in UTRECHT_LAT_LONG_CENTER.TXT. From this file you can therefore place the part with the lines such as: node DUMP_OBJ_CITY.js 30604243514160615 21 --parallel-search --UTRECHT in a .bat file, so that you can download them all with one call. For me it would then be called DUMP_CENTER_UTRECHT.BAT. Containing the 9 node rules.
+        BUT WE ARE NOT THAT FAR YET!
+        We will first download only one octant, and then calibrate the system, in order to make the large floating point coordinates a bit smaller. We just take the first line for that. For (very) large areas it is recommended to use one of the middle (middle x and middle y index) octants. If you have an area of ​​20 by 10 octants, you include it on [index #] [10] [5] or so. Then all coordinates are around this mean. Left negative x, right positive x, etc.
+
+
+        So now we will try the following in the directory / pacman / earth, in a dos shell: download one octant.
+        If you can do this you will be today's hero .....
+        
+        node DUMP_OBJ_CITY.js 30604243514160615 21 --parallel-search --UTRECHT
+        
+        Haha:
+        D: \ PACMAN \ EARTH> node DUMP_OBJ_CITY.js 30604243514160615 21 --parallel-search --UTRECHT
+                not exist: downloaded_files \ obj \ 30604243514160615-21
+                not exist: D: \ PACMAN \ EARTH \ downloaded_files \ obj \ 30604243514160615-21
+                not exist: G: \ EARTH2 \ downloaded_files \ obj \ 30604243514160615-21
+                not exist: F: \ EARTH3 \ downloaded_files \ obj \ 30604243514160615-21
+                NO OFFSET DATA !!!
+        No, we have not filled it in yet. That is why we will first set it to 0.0,0:
+        We are therefore going to edit the file /pacman/earth/DUMP_OBJ_CITY.js:
+        There you will find the following code on approximately line 268:
+        
+                if (CITYNAME [0] == "- ENSCHEDE") {offset_x = 3875099.0; offset_y = 468154.0; offset_z = 5035344.0; }
+                else if (CITYNAME [0] == "- AMSTERDAM") {offset_x = 3876534.0; offset_y = 331582.0; offset_z = 5045027.0; }
+                else if (CITYNAME [0] == "- BRUSSELS") {offset_x = 4014897.0; offset_y = 296156.0; offset_z = 4937953.0; }
+                else if (CITYNAME [0] == "- LA") {offset_x = -2490962; offset_y = -4656517; offset_z = 3564040; }
+                else if (CITYNAME [0] == "- NEWYORK") {offset_x = 1323854.370856056; offset_y = -4649129.837542839; offset_z = 4150030.4071031474; }
+                else if (CITYNAME [0] == "- JOCELYN") {offset_x = -3151877; offset_y = 5289017; offset_z = 1637629; }
+                else if (CITYNAME [0] == "- MIAMI") {offset_x = 975859; offset_y = -5652918; offset_z = 2771644; }
+                else if (CITYNAME [0] == "- DENHAAG") {offset_x = 3904479.2616487066; offset_y = 294625.81305996777; offset_z = 5025795.962117693; }
+                else if (CITYNAME [0] == "- SCHWEIZ") {offset_x = 4386153.408482799; offset_y = 576284.5001272303; offset_z = 4587395.669652603; }
+                else if (CITYNAME [0] == "- AZORES") {offset_x = 4547134.555436776; offset_y = -2165128.87501796; offset_z = 3903020.5406996952; }
+                else {
+                        console.log ('NO OFFSET DATA !!!');
+                        return false;
+                }
+                
+        And we are going to add Utrecht to that. We put this line somewhere in between (do it well, huh?)
+        
+                else if (CITYNAME [0] == "- UTRECHT") {offset_x = 0.0; offset_y = 0.0; offset_z = 0.0; }
+
+
+        And go back to dos under / pacman / earth and display in:
+        
+        node DUMP_OBJ_CITY.js 30604243514160615 21 --parallel-search --UTRECHT
+        
+        And there it goes if all goes well. You see a lot of files being downloaded, and the javascript decodes them and neatly turns them into one big .obj and .mtl file, and downloads a lot of textures with it.
+        These will be placed in the following directory: DRIVE: \ PACMAN \ EARTH \ downloaded_files \ obj
+        Here we also see the octant, all octants at zoom level 21, which are in zoom level 17 octant. (The smaller the octant, the bigger the number, every time it is divided into 8 or so, a number will appear after it). Nevertheless.
+        In D: \ PACMAN \ EARTH \ downloaded_files \ obj \ 30604243514160615-21 (with me then) there is now a .obj file, a .mtl file, and a lot of textures.
+        We are now going to work with the .obj file.
+        
+        OPEN THIS WITH AN EDITOR
+        We see the following in the top:
+        
+                mtllib 30604243514160615.mtl
+                o planet_306042435141606154005_0
+                # vertices
+                v 3899275.8555233814 348997.0963261624 5026376.944163698
+                v 3899275.83865131 348997.2848296207 5026376.944163698
+                v 3899276.029923367 348997.1119358973 5026377.168974734
+                v 3899276.013051295 348997.3004393556 5026377.168974734
+                v 3899277.200078323 348998.2617458436 5026376.181375372
+                etc.....
+                
+        They are the vertex coordinates used in the Wavefront file. As you can see, you have a lot of numbers after the decimal point, for accuracy, but also a lot BEFORE the decimal point, which are almost all equal. So we are going to make this one a bit smaller. NOTE: The values ​​we are going to use will be the OFFSET for all coordinates that we are going to use afterwards. However, we don't need them at all (so far), because we use the latitude and longitude for positioning.
+        But if you want to convert the saved data back later, you need this offset. And this one will be in /pacman/earth/DUMP_OBJ_CITY.js, where it will be subtracted from the coordinates that we are going to download so that we also get smaller .obj files.
+        And that's what we're going to do now. We just take the first coordinate of the first octant we just downloaded. Please note, soon we will have to delete this octant from the downloaded_files / obj, otherwise it will NOT download the new one with the new coordinates. If an octant is in downloaded_files / obj, or downloaded_files / new or in a subdir (coming later), or on another disk (one of three paths we can use), it will NOT be downloaded. So you can safely throw one away, run the .bat file again, and download only what is not there ...
+        
+        v 3899275.8555233814 348997.0963261624 5026376.944163698
+        
+        So this one. We are going to add that to /pacman/earth/DUMP_OBJ_CITY.js, we change the line where the x, y and z are 0.0: We change:
+
+
+                else if (CITYNAME [0] == "- UTRECHT") {offset_x = 0.0; offset_y = 0.0; offset_z = 0.0; }
+        so in:
+                else if (CITYNAME [0] == "- UTRECHT") {offset_x = 3899275.0; offset_y = 348997.0; offset_z = 5026376.0; }
+
+
+        Figures after the decimal point are not that important here. It's about getting what stands before as close to 0.0 as possible.
+        
+        Well, now we can flicker away the octant in downloaded_files / obj /.
+        So have made a BATCH file with the name DUMP_CENTER_UTRECHT.BAT
+        In it placed the commands from UTRECHT_LAT_LONG_CENTER.TXT
+        Which we created with the .bat file DUMP_OCTANTS.BAT where we have the line:
+        node LAT_LONG_CENTER.js --UTRECHT> UTRECHT_LAT_LONG_CENTER.TXT, or given it on the dos command line.
+        DUMP_CENTER_UTRECHT.BAT:
+                @ECHO OFF
+                node DUMP_OBJ_CITY.js 30604243514160615 21 --parallel-search --UTRECHT
+                node DUMP_OBJ_CITY.js 30604243514160704 21 --parallel-search --UTRECHT
+                node DUMP_OBJ_CITY.js 30604243514160617 21 --parallel-search --UTRECHT
+                node DUMP_OBJ_CITY.js 30604243514160706 21 --parallel-search --UTRECHT
+                node DUMP_OBJ_CITY.js 30604243514160614 21 --parallel-search --UTRECHT
+                node DUMP_OBJ_CITY.js 30604243514160616 21 --parallel-search --UTRECHT
+                node DUMP_OBJ_CITY.js 30604243514160635 21 --parallel-search --UTRECHT
+                node DUMP_OBJ_CITY.js 30604243514160724 21 --parallel-search --UTRECHT
+                node DUMP_OBJ_CITY.js 30604243514160634 21 --parallel-search --UTRECHT
+                PAUSE
+
+
+        For fun we put a PAUSE underneath when we click on him / her from windows explorer ....
+        And we will run it: Click from windows, or on the command line in dos:
+        
+        DUMP_CENTER_UTRECHT (Enter)
+        
+        Well, it went wrong with me, because I hadn't saved the DUMP_OBJ_CITY.js yet, and saw the offset all set to 0.0. Again: First remove the junk from downloaded_files / obj. Because for every octant dir that is there, he does NOT download it! You would think that everything would be in downloaded_files / new, not downloaded_files / obj SO!
+        
+        There it goes again, and now it is running.
+        In bulk you can download from Google 3d for 2 to 3 days. However, you will then be (temporarily) put on hold. So start small. Keep in mind if you change the area, THIS ENTIRE PROCESS MUST BE DONE AGAIN. The lat0, lat1, lon0, lon1. Running the scripts. Editing the source code (comes hereafter). Etc.
+        
+        Accidentally. When downloading these 9 octants, it did NOT download two, because I already had them from AMSTERDAM.
+        So there you have it. Overlapping parts of different areas are not downloaded twice.
+        HOWEVER: Those of UTRECHT will soon be in a directory Utrecht, and those of AMSTERDAM in Amsterdam.
+        Then make a copy of the directory Utrecht, THIS IS NOT INCLUDED !!!!! SO PAY ATTENTION. Otherwise you will have to get Amsterdam 'out of the system' by moving the directory temporarily or something. We'll see. I leave it as it is to see what happens when the program runs later.
+        It is better to keep it separate. We will later use the latitude and longitude coordinates of Utrecht, TO ROTATE THE OBJECT PROPERLY. This is done on the basis of the lat / lon coordinates, which rotate the coordinates in a formula. So that we can put it 'flat'. Until now everything is at an angle, like on the globe, but we want to make it flat later. The different lat / lon coordinates of Utrecht and Amsterdam are slightly different. But I'm going to see what happens later. This will give a difference in the octants under Amsterdam, and they will therefore be slightly (noticeably?) Distorted compared to Utrecht. In fact, each octant should be rotated to avoid deviations (heights and so on) between the different lat / lon calculations. A very large area is also slightly curved, because the earth is convex. This also gives small deviations in height at the edges. But for one city it is almost negligible.
+        If you now look in the .obj file in the octants dir where we first downloaded for the calibration, you see that the first coordinate we used is 0.0 0.0 0.0 if all is right. 
+        
+        We are going to move the downloaded octants first. From:
+        / pacman / earth / downloaded_files / obj to / pacman / earth / downloaded_files / new
+        The directories will then be placed there. I'm going to do that now ... Well, apparently I only have 3, because the rest is on Amsterdam. But it does not matter. In your case, you must have 9. Unless you have taken a different or larger area.
+        In the dir / pacman / earth / downloaded_files / new is a file move_all.bat
+        You can edit this to separate the different types of areas. As with me, however, Amsterdam and Utrecht overlap, so I do the following with the hand.
+        
+        - Create a directory in / pacman / earth / downloaded_files / new called Utrecht.
+        - Place the downloaded octant dirs in it.
+        - Place a copy of /pacman/earth/downloaded_files/new/DIVIDE.BAT in the dir Utrecht
+        - Run this in Utrecht (click). If all goes well he will divide the octants into groups. So that when downloading large areas there are not too many dirs in one dir. This saves some speed under windows later ...
+        Success, I have a dir 30604243514160 in Utrecht, containing my 3 octants.
+        - If you download the program irfanview, you can convert all textures to .jpg with a .bat file in / pacman / earth / downloaded_files / new called CONVERT.BAT. That saves a lot of space, because it is not .bmp (not compressed), nor .png (lossless compression), but .jpg. You don't see the difference between .png and .jpg, and it is not important here at all.
+        In CONVERT.BAT it also calls bash (bash.exe). If you don't have it download and install it too (just test if it works with bash in the command shel, ctrl-d is exit I believe).
+        Then put your CONVERT.BAT and convert_to_jpg_mtl_files.sh in the directory Utrecht, and start them, AND THE PATH TO IrfanView IS GOOD, so with me "C: \ Program Files \ IrfanView \ i_view64.exe", and start CONVERT. BAT, it will convert all .bmp's and .png's per octant main directory to .jpg's, and then change the .mtl files under bash (which doesn't matter, because if it can't find .png or .bmp later in pacman. exe, try to find another one, but if you want to view the Wavefront files with another program, the .mtl files must also have the correct texture names.)
+        
+        Tip: If you are going to download a lot of octants, the .obj files will be very, very large. (Just like with the textures).
+        To save space (just like with CONVERT.BAT for the textures), you can set the entire downloaded_files directory in windows to compress. (Directory, right mouse button, properties, advanced). Then the .obj files are seen much smaller physically on the hard disk). Later on we will also make the .obj files a bit smaller by the way. Then we only have the pure data that is loaded into the GPU, in a compressed .nbt file (named binary tag), just like in Minecraft.
+        I also managed to convert:
+                Converting to .jpg 30604243514160
+                Converting .mtl 30604243514160
+                Press any key to continue. . .        
+        Hip Hip, hooray.
+        
+        We are almost at 25%. Has everything worked out so far? Codeblocks, seh compiler, pacman.ini, path settings, toolchain executables, compile the program, node.js, change the files in pacman / earth, download, move, divide, irfan_view, bash, convert.
+        Congratulations. Take a break now, a cup of coffee, because now we are going to be really difficult. Until now it was a piece of cake. But the core stands.
+        If you have an .obj Wavefront viewer, you can already view the 3d objects. It is also possible with the pacman.exe program, for that you have to place a copy of an octant dir in / pacman / models. Edit the list.txt file in models, specifying the FULL path to the .obj file in the octants dir. Make sure that pacman.ini has the models dir to / pacman / models. Start the program. Press backspace until you see MODELS at the bottom. Press ctrl-6 or 6, and it should appear in a window. Just check if I can do that ....
+        I put a copy of dir D: \ PACMAN \ EARTH \ downloaded_files \ new \ Utrecht \ 30604243514160 \ 30604243514160614-21 in D: \ PACMAN \ models, edit list.txt and put one (!) Line in it with: D: \ PACMAN \ models \ 30604243514160614-21 \ 30604243514160614.obj
+        Saven. Then to / pacman / pacman_cuberite, under windows or dos, and then run the pacman.exe program. From windows you can also click one of the PACMAN.BAT files (if all goes well ... check this first for drive letters etc.)
+        Start program, backspace -> MODELS, 6
+        You should now be able to see one octant in a separate window. Have fun with it.
+        
+        So, now we are only really starting. 
+        We are going to program in c / c ++, and are going to produce a program of over 25 megs. Where everything is in it. Except for the OPENCV and CUBERITE server (which are in the project file for codeblocks, libs etc., and in the code as long as inactive. Opencv is for pattern recognition, like face recognition real time (in c / c ++), and CUBERITE is a Minecraft server in c. But we don't do anything with that because it takes a long time to compile, and we will do that very often, because for each area the code has to be changed a little (so far).
+        
+        From the codeblocks ide we will edit the program area_data.cpp, this is located under (left tab) PACMAN_CUBERITE (project) -> Sources -> src -> viewer -> area_data.cpp Open this in codeblocks. Now we are going to do difficult, namely programming.
+        At the top of the program we see this, a function. We will add Utrecht to this:
+                std :: string areas (int q) {
+                        static int x = -1;
+                        if (q == 0) {
+                                x = (x + 1)% 11;
+                        } else {
+                                x = q-1;
+                        }
+                        if (x == 0) return "Enschede";
+                        else if (x == 1) return "DenHaag";
+                        else if (x == 2) return "Schweiz";
+                        else if (x == 3) return "LA";
+                        else if (x == 4) return "Brussels";
+                        else if (x == 5) return "Amsterdam";
+                        else if (x == 6) return "NewYork";
+                        else if (x == 7) return "Models";
+                        else if (x == 8) return "Miami";
+                        else if (x == 9) return "Canvas";
+                        else if (x == 10) return "Azores";
+                        else return "Nope ...";
+                }
+        The code then becomes (note the 11 that becomes 12 ...):
+                std :: string areas (int q) {
+                        static int x = -1;
+                        if (q == 0) {
+                                x = (x + 1)% 12;
+                        } else {
+                                x = q-1;
+                        }
+                        if (x == 0) return "Enschede";
+                        else if (x == 1) return "DenHaag";
+                        else if (x == 2) return "Schweiz";
+                        else if (x == 3) return "LA";
+                        else if (x == 4) return "Brussels";
+                        else if (x == 5) return "Amsterdam";
+                        else if (x == 6) return "NewYork";
+                        else if (x == 7) return "Models";
+                        else if (x == 8) return "Miami";
+                        else if (x == 9) return "Canvas";
+                        else if (x == 10) return "Azores";
+                        else if (x == 11) return "Utrecht";
+                        else return "Nope ...";
+                }
+        Congratulations, you are now a c / c ++ programmer. The real hacker. That word ultimately derives from. Programming is hacking. All other hacking is nothing but cracking. Nevertheless. Hacking descends from the IBM keyboard, which was a hard touch for typists who were used to typewriters and wanted a harder touch, which then gave 'KLAK KLAK KLAK' as the sound. For programmers this became HACKING, like the word HAKKEN, and writing code IS hacking. You hack the computer so that it does exactly what you want. With c / c ++ you have your nose IN THE PROCESSOR. The code you write becomes pure machine code. Without any underlying fuss. You can view every line of code, which later stands for pure machine language. So quickly. All other programming languages ​​have a c / c ++ core and compiler, or are written in c / c ++. Nevertheless. That completely aside. Where were we?
+        
+        A bit lower we find this code:
+        
+                std :: string get_octant_BRUSSELS (int & x, int & y);
+                std :: string get_octant_LA (int & x, int & y);
+                std :: string get_octant_ENSCHEDE (int & x, int & y);
+                std :: string get_octant_NEWYORK (int & x, int & y);
+        
+        And add:
+                std :: string get_octant_UTRECHT (int & x, int & y);
+        
+        This is a definition for a function that will be given later, so that the compiler knows what you mean when you call this function for this function in the file. Would this function stand for that is not necessary. If you pay close attention, you will see that this function (header) has the same name as the code generated with the javascript program, namely D: \ PACMAN \ EARTH \ UTRECHT_LAT_LONG_CENTER.TXT (in my case then), which you like it is made right from the command prompt or with the DUMP_OCTANTS.bat file you ran edit. Do you remember? :
+        node LAT_LONG_CENTER.js --NEWYORK> NEWYORK_LAT_LONG_CENTER.TXT
+        We are now going to open this file, and copy the piece of code in it into the area_data.cpp in codeblocks.
+        That should be this piece from the .txt file:
+        
+                std :: string get_octant_UTRECHT (int & x, int & y) {
+                        static std :: string * octants [3];
+                        static std :: string * lat_lon [3];
+                        static int first_do = 1;
+                        if (first_do == 1) {
+                                first_do = 0;
+                                octants [0] = new std :: string [3] {"30604243514160614", "30604243514160616", "30604243514160634"};
+                                octants [1] = new std :: string [3] {"30604243514160615", "30604243514160617", "30604243514160635"};
+                                octants [2] = new std :: string [3] {"30604243514160704", "30604243514160706", "30604243514160724"};
+                                lat_lon [0] = new std :: string [3] {"N = 52.08892822265625 S = 52.086181640625 W = 5.108642578125 E = 5.1141357421875", "N = 52.0916748046875 S = 52.08892822265625 W = 5.10864257812518 E = 5.114.0755718" N = 5.114.057421875 " 52.0916748046875 W = 5.108642578125 E = 5.1141357421875 "};
+                                lat_lon [1] = new std :: string [3] {"N = 52.08892822265625 S = 52.086181640625 W = 5.1141357421875 E = 5.11962890625", "N = 52.0916748046875 S = 52.08892822265625 W = 5.11413574218906 E = 5.11975644875 E = 5.11975644618" 52.0916748046875 W = 5.1141357421875 E = 5.11962890625 "};
+                                lat_lon [2] = new std :: string [3] {"N = 52.08892822265625 S = 52.086181640625 W = 5.11962890625 E = 5.1251220703125", "N = 52.0916748046875 S = 52.08892822265625 W = 5.1196289020213567 N = 5.1196289020213867 = 5.11962890202138" 52.0916748046875 W = 5.11962890625 E = 5.1251220703125 "};
+                        }
+                        extra_octants = 0;
+                        if (x <0 || y <0) {
+                                x = 3; y = 3;
+                                return "";
+                        }
+                        bool OK = false;
+                        if (x> = 3 || y> = 3) printf ("Out of bound:% s X =% d Y =% d \ n", area.c_str (), x, y);
+                        else OK = true;
+                        if (! OK) return "";
+                        latitude_longditude = lat_lon [x] [y];
+                        std :: string subdir = octants [x] [y] .substr (0,14) + "/";
+                        return_root = std :: string () + EARTH_ROOT1 + "/ UTRECHT /" + subdir + octants [x] [y] + "- 21 /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT2 + "/ UTRECHT /" + subdir + octants [x] [y] + "- 21 /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT3 + "/ UTRECHT /" + subdir + octants [x] [y] + "- 21 /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT1 + "/ UTRECHT /" + subdir + octants [x] [y] + "- 21 /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT2 + "/ UTRECHT /" + subdir + octants [x] [y] + "- 21 /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT3 + "/ UTRECHT /" + subdir + octants [x] [y] + "- 21 /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT1 + "/ UTRECHT /" + "nbt /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT2 + "/ UTRECHT /" + "nbt /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT3 + "/ UTRECHT /" + "nbt /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT1 + "/ UTRECHT /" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT2 + "/ UTRECHT /" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT3 + "/ UTRECHT /" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT1 + "/" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT2 + "/" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT3 + "/" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". nbt"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT1 + "/ UTRECHT /" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT2 + "/ UTRECHT /" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT3 + "/ UTRECHT /" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT1 + "/ UTRECHT /" + "obj /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT2 + "/ UTRECHT /" + "obj /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT3 + "/ UTRECHT /" + "obj /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT1 + "/" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT2 + "/" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        return_root = std :: string () + EARTH_ROOT3 + "/" + octants [x] [y] + "- 21 /" + octants [x] [y] + ". obj"; if (FileExists (return_root.c_str ())) return return_root;
+                        printf ("Directory not found on search paths:% s-21 \ n", octants [x] [y] .c_str ());
+                        return "";
+                }
+        
+        So you see again, javascript can program c / c ++.
+        So we are going to put this piece of code in area_data.cpp somewhere neatly in between, with one empty line above and below it, so that we can distinguish the different functions for convenience.
+        Make sure the 'indent' is neatly against the left margin. If not, select the piece of text with keyboard (shift + cursors) or mouse (right), then hold down SHIFT, and press TAB, until the function call is nicely left. The last curly brace that closes the function should be against the left margin. I myself put the function at the very bottom. Now press CTRL-F9 (Build). The program should compile and create a whole new .exe. BUT WE ARE NOT THERE YET! So...
+        NB: For very large areas, such as Amsterdam, such a function will be too long. The compiler chokes on the declarations. Which are therefore FIXED in the code. Making a large .exe. As an example you can see how this is done with Amsterdam. In D: \ PACMAN \ PACMAN_CUBERITE \ OCTANTS you will get a text file in this case AMSTERDAM.TXT, with the same code. Via a special function in this case area_data_amsterdam.cpp this is then handled, just like in area_data.cpp it is something else. Use this as an example if necessary. Beautiful.
+
+
+        We go under codeblocks to the next file, it is not under src, but under headers.
+        So Workspace -> PACMAN_CUBERITE -> Headers -> viewer -> viewer_my_sfmlviewer.h
+        This looks like a header file, but it is only one part of Workspace -> PACMAN_CUBERITE -> Src -> viewer -> viewer_my_cc.cc that pastes a lot of these header files one below the other. In fact it is one big .cc file. All of this is because of the entire history of the code being very strangely put together like this, when it works. So don't mess around with it!
+
+
+        viewer_my_sfmlviewer.h:
+                - We are looking for the following code: (search for AMSTERDAM or something, line 679)
+                
+                        if (test_area == "ENSCHEDE") {lat = 52.2; lon = 6.9; }
+                        else if (test_area == "LA") {lat = 34.08; lon = -118.29; }
+                        else if (test_area == "MIAMI") {lat = 25,789; lon = -80,206; }
+                        else if (test_area == "BRUSSELS") {lat = 50.85; lon = 4.35; }
+                        else if (test_area == "AMSTERDAM") {lat = 52.35; lon = 4.89; }
+                        else if (test_area == "DENHAAG") {lat = 52.065; lon = 4,297; }
+                        else if (test_area == "NEWYORK") {lat = 40.689242; lon = -74.04454; }
+                        else if (test_area == "SCHWEIZ") {lat = 46.7; lon = 7.55; }
+                - Here we will use the latitude longitude values ​​of Utrecht. The best thing is if you take the center of the area for that. According to these two variables, the entire plateau of our area is rotated. The whole. Not the separate octants. This way everything stays neatly stuck together. This can be changed later for the curvature of the earth. For extremely large areas. There is little evidence of the curvature of the earth in a single city. In fact, the whole area is slightly curved according to the curvature of the earth. And with a formula we can make it flat. But that's a concern for later.
+                For the bar and lon, I take the average of the values ​​that we have taken for the area. So this one:
+                        lat0 = 52.091874;
+                        100 = 5.109879;
+                        lat1 = 52.083905;
+                        lon1 = 5,127,000;
+                We add the two lats together and divide them by two and do the same for the lons. We then get (note, in the calculator in the Dutch version the decimal point is a comma):
+                lat = 52.0878895 and lon = 5.1184395 according to the virtual pocketJappanner.
+                We'll find this line somewhere in between the others:
+                
+                        else if (test_area == "UTRECHT") {lat = 52.0878895; lon = 5.1184395; }
+                        
+                And we recompile the program: ctrl-F9
+                If this is successful, we will really make things difficult, I hope that (me) will succeed.
+        
+        Convert the Wavefront .obj files to .nbt files.
+        Because the files of Amsterdam and Utrecht overlap each other, I have temporarily adjusted the std :: string get_octant_UTRECHT (int & x, int & y) function so that it also looks there for the files of Utrecht. Otherwise it will not work for me. I also disable the search in the dirs of Amsterdam in the DUMP_OBJ_CITY.js and download the other octants as well. Then it is the same with me and with you.
+        In the file D: \ PACMAN \ PACMAN_CUBERITE \ src \ viewer \ viewer_my_move_recorder.hpp (in codeblocks under include -> viewer) contains a line at 1263 that you should disable. I don't use the octants on the edges to voxelize Amsterdam. For an area of ​​3 by 3, there is not much left to process. For this purpose here, this line must ALWAYS be turned off ..... Not that relaxed, but yeah.
+
+
+        // if (! (x> 1 && x <max_x-1 && y> 1 && y <max_y-1)) continue; // outline // used on coords amsterdam
+
+
+        So we comment this line out, with two slashes in front, and compile the whole bite again.
+        Now we are going to do heavy things. We are going to convert all .obj files of the Wavefront 3d objects into much smaller .nbt files.
+        We start the pacman.exe program from pacman_cuberite. Then press BACKSPACE until we see the name Utrecht at the bottom of the screen. Utrecht is now selected, and we can press ctrl + 6 to load the middle octant.
+        For the record, pacman_cuberite contains a file lat_lon.txt. See examples, here you can define LAT and LON coords, which you can jump to in different ways, and the relevant octant will be searched for you. What is more important is the file OBJECT_ARRAY.txt in this dir.
+        THIS MUST BE OFF, OR DISABLED, otherwise the system will only handle the octants listed therein under the x and y index number. So you can put a small part of the map or on the screen if you press ctrl + 6, then the system leaves all those octants in the 3d viewer that you have mentioned there. We are not using this now, so it must be disabled, ie there must be no OBJECT_ARRAY.txt in this dir. Rename this if it is there.
+        
+        A new screen for 3d renderings will now open, and one of the octants is loaded.
+        In between: If you now press CTRL + ALT and CURSOR l / r / u / d, the viewer will also load the relevant octant next to / below / above. Etc. If you press CTRL + SYSTEM + ALT and CURSOR, it loads the next one, and erases the current one. If you look in the dos window (console), you will see that the loaded .obj files are converted to a .nbt file. This will be placed next to the .obj in the directory of the octant. This will be when it is loaded, instead of the .obj. This .nbt contains the texture names that are used, and only the data that is ultimately loaded into the GPU. Such as vertices (nodes), triangles (combination of these nodes for a triangle), normals, and texture coords. These are compressed in the .nbt. And so load much faster (instead of the .obj loader), and are much smaller.
+
+
+        If we have 1 octant in the 3d window, and this 3d window is active, we press ALT + 'b'. Is the object_array.txt disabled? Then all octants are loaded, if there is NO .NBT file, and thus converted to .nbt files.
+        In the console window you can see that the .obj files are converted to .nbt files. 
+        Did this succeed? Then all .obj files can be removed. However, keep it for a while, in a different dir or compressed. If something went wrong with the .nbt files. Like wrong lat / lon in one of the changed programs or something. Now that the .obj's have been converted to .nbt's, and the .png's and .bmp's to .jpg's, you need a lot less disk space. For a large city you have to count on many gigabytes of data. Hence the 3 locations for this one. This way you can also divide 1 area over several disks.
+        
+        If all of this has worked out so far, you are a hero. Pat yourself on the back, and don't walk next to your shoes. Because we are not there (for a long time).
+                In between: You can also use the program to turn objects into voxels. These must then be placed in the dir / pacman / models in a dir, with a reference to the .obj or .nbt file in the list.txt. If an .obj is found, it is immediately made into a .nbt for possible later use. Keep an eye on the file /pacman/models/list.txt. This is because it is re-created when pressing for example 'b', in the 3d screen. Then the program calls the .bat file MAKELIST.BAT, which creates the list.txt, containing all the found .obj files in all sub-dirs. If the program also finds a .nbt there, it is loaded instead of the .obj.
+                To close the 3d window you can press esc. However, the thread of this 3d screen will remain active for later use. Ctrl + 'q' also closes the thread.
+                If you want a model (make a copy of an octant dir and put it in / pacman / models), edit the list.txt. And press BACKSPACE in the main screen, until MODELS is at the bottom of the screen. You have now selected this dir, and not one of the areas.
+                With ctrl + 6 or '6' it will load the first from list.txt. 
+                The 3d screen now contains additional information. About how you can make 1 object into voxels, and when you are done with voxels you can save it to regions of schematic. However, we are not going to do this right now. But this way you can make a composition of 3d objects, place them bigger smaller higher lower, rotate etc., then make voxels, and then you see the composition (from above) of the region files that can be made afterwards. And or you can voxelize 1 object to schematic. All coming later. You can then add new objects to your region files based on Wavefront 3d objects.
+                Furthermore, you can make movies of 3d objects, by rotating them, placing markers, you can then smoothly interpolate between them, and you can also make a video of the path you made in this way, but we are not going to do that now. We can also make super large posters of our area. We are not going to do that now either, separate manuals are needed for this.
+                The intention is that the code can be read and used by others. All actions in this manual must also be automated with a menu on it. That is up to others so far.
+        
+        Just to recap. A number of files of the Javascript and the c / c ++ code have been changed. Octants have been downloaded, converted to new coordinate system, .jpgs made, with the program with BACKSPACE selected the Utrecht area, loaded with '6' or shift-'6 ', after which the .obj's were converted to .nbt with ALT +' b 'press in the 3d screen.
+        We are halfway there. So half way.
+        
+        Start the pacman.exe program from / pacman / pacman_cuberite.
+        Select with BACKSPACE Utrecht. Press ctrl + '6'. One octant from Utrecht is loaded. While the 3d window is activated (not ALT + 'b') press 'b'
+        If all goes well the program will now scan all octants dirs, and will determine minimums and maximums from the coordinates.
+        This will be placed in a .dot file. This is based on the NEW .nbt files, in which these values ​​are determined differently than in the existing .dat files, which are created by the Javascript program.
+        The .dat files contain the minimum and maximum values ​​of the xy and z coordinates. In the .obj Wavefront file, the octant object is rotated as it is projected on the earth, so at an angle. We want it flat, straight, and then redefine those values. Then we know the exact width, height and depth of the object. Therefore, the objects are rotated based on the lat and lon values ​​that we have stamped in the program, so that they are not placed flat, but upright. This is due to the development of the program. The object is then actually on its side. The height is then to x +, from left to right, the x-axis is then from top to bottom, and the z axis is the depth of the screen.
+        Later this x value becomes the y height in MC, and the y value the x-axis. Nice and easy ............
+        Nevertheless. If you look in that .dot file, you (therefore) see much smaller values ​​(the differences between min and max ...), especially for the height (the x values ​​now ...).
+        In the .dat file you have the minima and maxima of the object, if it is tilted as pasted on the globe.
+        .Which:
+                MIN X: X = -338.0133072528988 Y = 697.1742749765981 Z = 129.08331463485956
+                MIN Y: X = -304.4881198932417 Y = 323.1815105723799 Z = 129.08331463485956
+                MIN Z: X = -81.89592995168641 Y = 508.8316615096992 Z = -62.273694943636656
+                MAX X: X = -56.21217440534383 Y = 397.65178180055227 Z = -41.12155630066991
+                MAX Y: X = -90.45505857188255 Y = 719.3657114411471 Z = -49.084355210885406
+                MAX Z: X = -306.84647489804775 Y = 531.2229230488883 Z = 149.79245564807206
+        .dot:
+                MIN X: X = -68.195999 Y = 348.867706 Z = -9.958948
+                MIN Y: X = -68.195999 Y = 348.867706 Z = -9.958948
+                MIN Z: X = -68.195999 Y = 348.867706 Z = -9.958948
+                MAX X: X = -17.585693 Y = 724.773743 Z = 296.027161
+                MAX Y: X = -17.585693 Y = 724.773743 Z = 296.027161
+                MAX Z: X = -17.585693 Y = 724.773743 Z = 296.027161
+        
+        However, the floating point values ​​of the coords in the .nbt file remain unchanged as extracted from the .obj file. When the .obj file is loaded, it is rotated differently than the .nbt file, based on the lat and lon values.
+        When you first load a downloaded (.obj) object, you will see when you rotate the mouse in the 3d screen that the object does NOT rotate around the center (anymore). Historical cause. If you press ctrl-q, and you load the same object again, the .nbt is loaded, and you see it (so) from above, flat say. And it's all about the center. It is turned based on the lat / lon. Beautiful.
+        By pressing 'b' in the 3d screen with 1 octant, the system creates a new file in the pacman_cuberite. In this case Utrecht.dat (D: \ PACMAN \ PACMAN_CUBERITE \ Utrecht.DAT) At the top of the file:
+                TOTAL MIN: X = -116.04261016845703000 Y = -401.79827880859375000 Z = -9.95894813537597660
+                TOTAL MAX: X = 50.01991271972656300 Y = 724.77374267578125000 Z = 906.87194824218750000
+                TOTAL DIF: X = 166.06252288818359000 Y = 1126.57202148437500000 Z = 916.83089637756348000
+                LAT: NORTH = 52.09442138671875000 SOUTH = 52.08618164062500000
+                LON: WEST = 5.10864257812500000 EAST = 5.12512207031250000
+        These are the minimum and maximum values ​​of the total area.
+
+
+        The LAT AND LON values ​​are NOT our lat and lon values ​​that we have set in the program. These of us fall somewhere in the middle of one of the octants. And we need the extremes of these octants.
+        THESE ARE THESE VALUES IN UTRECHT.DAT FILE !!! Not those we have used in the Javascript program. I just made the mistake of using these lat / lon values ​​from us for the following, and can now do this all over again, so I'm going to do that (again).
+        
+        We will determine the coordinates according to the BTE 121 projection. Known to some for the / tpll command in the BTE version (Cubic Chunks) for Minecraft.
+        We need the coordinates of the 4 corners of our area. Because it is 'skewed' in the BTE version, we do not need the top left corner and bottom right corner (left / right bar is the same, just like lon top / bottom), but all four corners.
+        We can do this in 2 ways.
+        On the build the earth website we have the map. (https://buildtheearth.net/map). And if we zoom in on that, we see the region files and their coordinates. If we type in the lat / lon coordinates of our top left corner, we will enter the region filelaw, in which it falls. HOWEVER, WE CANNOT CREATE THIS REGION FILE, BECAUSE FROM THE POINT OF THE LAT / LON COORDINATES, OUR AREA GOES RIGHT (LON), AND DOWN (LAT). We do not know which region files fall within this octant. What we need is not the region file, whose coordinates we can multiply by 512 to find the x and z coordinate of a BLOCK (region file is 512 x 512 blocks), but the exact block WITHIN this region file. This folder is therefore not suitable for this. It does not display the exact coordinates. (Downside of the site).
+        1) The easiest way is to start the BTE version of MC. And unlock the Build The Earth world. Within that we can also use the / tpll command, but then EXACTLY end up on the correct block WITHIN this region file. And that's what we want.
+        2) The / tpll command is also available in Python language. (Almost javascript). With me, however, I can only get this to work (so far, you have to install Visual stuff for a part that has to be installed with pip) under Ubuntu (linux), under the Windows powershell. You just have to look up how to install Ubuntu. In Ubuntu you have to install Python, and also with pip some tools that the program needs. I succeeded, and the program is on: https://github.com/HakkaTjakka/project-obj
+
+
+        We have this data from the file utrecht.dat from pacman_cuberite with 'b' in the 3d window, and we will use it.
+                LAT: NORTH = 52.09442138671875000 SOUTH = 52.08618164062500000
+                LON: WEST = 5.10864257812500000 EAST = 5.12512207031250000
+        
+        Especially for you I will do it via the BTE version of MC. I have not (never) done this myself, so let's see if it will work. For that I start the BTE version of Minecraft. How to install it can be found on the bte website. I start the program and select the folder Build The Earth (New projection). And tap: (NORTH-WEST)
+        / tpll 52.09442138671875 5.108642578125
+        
+        And hoppa, I hit F3, and find the block coordinates of the top left corner. Behind XYZ. We only need the X and Z coordinate, and these are (so ...): x = 3173620 z = -5353991 and below we see it again under BLOCK, rounded. But it does not stick him to 1 block for a while. In the same way we find the coordinates for the lower right corner: / tpll 52.086181640625 5.1251220703125 (SOUTH-EAST) and we find: 3174501 for x and -5352657 for z. You can see that because of the map rotation, the same lat and / or lon , find a different coordinate for both the x and z.
+        But we are not there yet. We (so) also need the LEFT BOTTOM, and RIGHT TOP CORNER.
+        How do we find the bar / lon for that: For the lower left corner we need the SOUTH, and the WEST. For the top right corner the NORTH and EAST. So:
+
+
+        The lower left corner then becomes: 52.086181640625 5.108642578125 (lat lon)
+        Top right corner! will then be: 52.09442138671875 5.1251220703125
+        / tpll 52.086181640625 5.108642578125 then becomes 3173319 for x and -5353029 (rounded up because of the .639 at the end)
+        / tpll 52.09442138671875 5.1251220703125 then becomes 3174801 for x and -5353620
+
+
+        So: 
+            top_left = (3173620, -5353991) / tpll 52.09442138671875 5.108642578125 (NORTH-WEST)
+        top_right = (3174801, -5353620) / tpll 52.09442138671875 5.1251220703125 (NORTH-EAST)
+        bot_left = (3173319, -5353029) / tpll 52.086181640625 5.108642578125 (SOUTH-WEST)
+        bot_right = (3174501, -5352657) / tpll 52.086181640625 5.1251220703125 (SOUTH-EAST)
+                
+        We will see later whether it is all correct. To be on the safe side, I will also run the program under Ubuntu with it. Just hold on. For this I use and Python script the following code: Note, here lat and lon are in reverse order !!!
+
+
+        print ('top left:')
+        print (projection.fromGeo (5.108642578125, 52.09442138671875))
+          print ('top right:')                    
+        print (projection.fromGeo (5.1251220703125,52.09442138671875))
+        print ('bottom left:')                  
+        print (projection.fromGeo (5.108642578125, 52.086181640625))
+          print ('bottom right:')                 
+        print (projection.fromGeo (5.1251220703125,52.086181640625))
+
+
+        
+        And 'python utrecht.py' then returns:
+                top left: [3173619.701549666, -5353990.708839205]
+                top right: [3174801.152713919, -5353619.96164422]
+                bottom left: [3173319.705408585, -5353028.639382178]
+                bottom right: [3174501.387840918, -5352657.873705601]
+
+
+        What comes close, I must say. Well done boy! It went wrong twice with me, so watch out.
+        
+        We are going to be the programmer again for a while. In the file D: \ PACMAN \ PACMAN_CUBERITE \ src \ viewer \ viewer_my_loadobj.h, which you can find via workspace -> PACMAN_CUBERITE -> Sources -> Headers -> viewer -> viewer_my_loadobj.h so, we go to line 1660 or so . And find there for each area we are going to voxelize a piece of code, and we are going to add a new piece with else if to it, similar to the others. In between the other code for areas comes this:
+
+
+    } else if (area == "Utrecht" && mirror! = 0) {
+        vertical = bmax_total [0] - bmin_total [0];
+
+
+        float cnt_x = 0.0;
+        float cnt_z = 0.0;
+
+
+        top_left = glm :: fvec2 ((3173619.701549666 -cnt_x) * 1.0, (-5353990.708839205-cnt_z) * 1.0);
+        top_right = glm :: fvec2 ((3174801.152713919 -cnt_x) * 1.0, (-5353619.96164422 -cnt_z) * 1.0);
+        bot_left = glm :: fvec2 ((3173319.705408585 -cnt_x) * 1.0, (-5353028.639382178-cnt_z) * 1.0);
+        bot_right = glm :: fvec2 ((3174501.387840918 -cnt_x) * 1.0, (-5352657.873705601-cnt_z) * 1.0);
+
+
+        The values ​​after the comma are not that important ...
+        And we put this in between the others, but in the right way, huh? I hope it is clear. This code will soon also be on GitHub, and you can see how it should be done correctly ...;)
+        The float cnt_x and cnt_z can be used for an offset. Enter the lowest x and z value for this. The top left corner of the area with region files will then be r.0.0.mca. We want BTE projection, so we don't. The * 1.0 indicates the scale. This way you can make a larger or smaller projection. We want 1 on 1, so 1.0.
+        So we paste this in and see if the program wants to compile. Beautiful. You are now c / c ++ programmer level 3.
+        We go back to the file /pacman/pacman_cuberite/utrecht.txt, in it we see for the x, what for us THE HEIGHT !!! from the 3d data (the object is on its side when rotated internally) has the following values:
+                TOTAL MIN: X = -116.04261016845703000        
+                TOTAL MAX: X = 50.01991271972656300
+                TOTAL DIF: X = 166.06252288818359000
+        These values ​​are because we have calibrated the system by making the decimal places so small. Otherwise, there would have been many more significant digits before the comma. This leaves less room for those after the decimal point, which determine the accuracy. When rendering in the browser, the Javascript in it does exactly the same before the data is loaded into the GPU. For calculations in the 3d space you need those from the Javascript again. You should also be able to get the exact height from that. You can also combine it with height maps.
+        The height of the resulting 3d model is therefore partly determined by the z value we used there. This can be from a point on a street or on the point of a church tower. We therefore also see that it runs from -116 to 50. So within that falls our height of the MC world that we are going to make. In an attempt to get the street level at a good height, we have to make an offset. And then look at how this height works out for the entire octant in the resulting region files. You can assume that the 50 is from a church tower (the very highest point), and the -116 is therefore from the very lowest point. Please note, sometimes there are objects under the ground that you cannot see in Google 3d ...
+        We therefore go in the same .h file viewer_my_loadobj.h towards line 1920. And therefore add a piece of code there, stuff this in the right way, of course:
+        
+                } else if (area == "DenHaag") {
+                        bmin_total [0] = - 100.0;
+                        bmax_total [0] = 60.0;
+
+
+        The bmin_total [0] represents the floor of the region file. So y height 0. Just set them to -100.0 for fun
+        So everything that is at this height becomes 0 in the region file. In our case the bmax_total [0] is not important. This is normally the maximum height of a conversion to voxels. And then the scale can be determined based on these two values, so everything between the min and max in MC will be between 0 and 256. But we are going higher. And the scale (1: 1) is given by the 4 x / z sets that we got earlier with the / tpll command. And should therefore yield a scale of 1: 1. (1.0) Later in the program you will see things commented on. Where these things are used to calculate the scale. At this point you are almost in the core of the voxelizer, which will be called from this code. 1 time for each triangle. Where every triangle (texture between 3 x / y / z points) with the corresponding texture pixels will be converted. Trickie point is determining how big the step size should be when scanning this texture. The formula for this is good for BTE. To determine this, the program performs a test scan to find a good value. And you can make it bigger and / or smaller in         
+
+
+        pixels_per_block_glob = 8.0 / block_scale;
+        
+        Which produces a good result in this scale. If it is too low, you will get holes in your building. If it is too high, it will scan the same pixels multiple times. Which is okay, but then it gets slower.
+        The actual voxelizer routine is under Workspace -> PACMAN_CUBERITE -> Src -> WUPPIE.CPP for those who love trigonometry. (yuck yuck!) I have adapted the formulas from the internet and at my own discretion. With the formulas you can find the pixel in the texture that fits within the triangle. I do it the other way around. I take the pixels of the triangle using the texture coords in the data (these coordinates are also in the Wavefront .obj file) and scan (raster) these pixels, and from there calculate the 3d coordinates based on the 3 vertices in the 3 -dimensional world. You will then get the 3d location of this one pixel.
+        If this pixel (rounded to whole numbers) falls in the same place as others (about 30 pieces on average, normal, we make large blocks compared to the Google 3d texture pixels) then the rgb values ​​are simply added up, and a counter is kept of how many pixels (hits) there are. The total rgb values ​​are then later divided by this number, and you get the average rgb values ​​of about 30 pixels of the textures.
+        
+        In order not to be difficult, we are going to adjust the program a bit. Otherwise we have to press different keys in the program, which can be difficult to repeat. I will describe how that should be done later, because I don't even know it by heart. You can easily find it in the code. I think you have to press backspace until you have the area, ctrl + 6 to load an octant. Then in the main screen with shift-k MIRROR = 4 sets and ctrl-v CROSSING = set 2, and alt-b keys. Just like when converting to .nbt files, it scans all octants, but now it will make everything into voxels too. We are now building a command line option especially for utrecht.
+        For that we go to D: \ PACMAN \ PACMAN_CUBERITE \ src \ winapi.cpp which you can now find yourself in Codeblocks.
+        At roughly line 781, we find the following piece of code:
+        
+                else if (strcmp (argv [1], "newyork") == 0) {send_message = 'v'; }
+
+
+        We copy it and turn it into the following:
+
+
+                else if (strcmp (argv [1], "utrecht") == 0) {send_message = 'z'; }
+
+
+        And so it says:
+                (...)
+        else if (strcmp (argv [1], "newyork") == 0) {send_message = 'v'; }
+        else if (strcmp (argv [1], "utrecht") == 0) {send_message = 'z'; }
+        else if (strcmp (argv [1], "amsterdam") == 0) {send_message = 'w'; }
+                (...)
+        
+        At about line 581 we find the following:
+        
+                } else if (c == (char) 'v') {
+                        crossing = 2; mirror = 4; combine = 1;
+                        area = "NewYork";
+                        cubic = true;
+                        and_now_i_am_here = true;
+                        launch_SFMLGL2_b ();
+                        while (! i_am_here) {
+                                sf :: sleep (sf :: seconds (0.1));
+                        }
+                        combine = 0;
+
+
+        We also make a copy of this and paste it underneath, and change this to:
+
+
+                } else if (c == (char) 'z') {
+                        crossing = 2; mirror = 4; combine = 1;
+                        area = "Utrecht";
+                        cubic = true;
+                        and_now_i_am_here = true;
+                        launch_SFMLGL2_b ();
+                        while (! i_am_here) {
+                                sf :: sleep (sf :: seconds (0.1));
+                        }
+                        combine = 0;
+        
+        And you get something like:
+                (...)
+        } else if (c == (char) 'v') {
+                        crossing = 2; mirror = 4; combine = 1;
+                        area = "NewYork";
+                        cubic = true;
+                        and_now_i_am_here = true;
+                        launch_SFMLGL2_b ();
+                        while (! i_am_here) {
+                                sf :: sleep (sf :: seconds (0.1));
+                        }
+                        combine = 0;
+                } else if (c == (char) 'z') {
+                        crossing = 2; mirror = 4; combine = 1;
+                        area = "Utrecht";
+                        cubic = true;
+                        and_now_i_am_here = true;
+                        launch_SFMLGL2_b ();
+                        while (! i_am_here) {
+                                sf :: sleep (sf :: seconds (0.1));
+                        }
+                        combine = 0;
+                } else if (c == (char) 'w') {
+                        crossing = 2; mirror = 4; combine = 1;
+                        area = "Amsterdam";
+                (...)
+
+
+        Note the lowercase letters of Utrecht and the capital letter of Utrecht in several places. Heh?
+        And we compile. You are now on level 4.
+        
+        Tricky ....
+        Now we are going to prepare a directory that will contain the region files that will be created.
+        A directory \ saves should be located in the root. Same as the one in minecraft at "% appdata% \. Minecraft \ saves".
+        We want this in the root of the disk on which the pacman program is running. Because the program will put the region files in there, in a world dir, called test, and another world dir, called empty, which will contain one empty r.0.0.mca region file. Which serves as a template for the region that will be included there. This is necessary.
+        In my case I link the minecraft \ saves directory there too. There is a batch file in the dir \ pacman.
+        INSTALL_SAVES.bat
+        But you can also do everything by hand. If you start it from windows by double clicking, it will empty the \ saves directory in the root, with 3 worlds below it, equal to the one in the \ pacman \ directory
+        One for the template (empty), one for the region files (test), and a test.copy, in which you can copy test, and then try it out with MC, without changing the original. (Should the whole level explode, 'by accident').
+        If you then start the program as ADMIN, it links the saves directory of .minecraft to the one in the root. And your old saves will be "% appdata% \. Minecraft \ saves.byebyebaby". So when you play Minecraft, your worlds will be in \ saves in the root, if you move it from "% appdata% \. Minecraft \ saves.byebyebaby" there.
+        You can also just keep your saves in .minecraft, as long as you have only one \ saves in the root, with the three worlds. You can also create these manually. In the same way you can link your saves directly to another directory and / or disk, for example an SSD disk that is nice and fast.
+        You can also do the reverse, link the saves dir in the root to your Minecraft saves dir, and it will just be there. However, in the saves / world / region / dir, the .mca files will NOT appear. But in a dir done0 below, or done-1. Because different floors can arise. Which are actually different worlds, which can later be combined with the converter to Cubic Chunks. If you want to play these you have to copy them. You can then copy all of these while running, so you don't mess up the original. And copy the data from done0 to the region file above it, or in another world dir. Etc.
+        If the mlink commands don't work (remember for mlink you have to be admin, because of Minecraft's location in the userdir, if you want it to point to the root too) ask a neighbor. It is not necessary to link the saves in .minecraft. But then you have to move or copy the files from /saves/test/region/r.*.*.mca to the saves under .minecraft. Anyway, you see.
+        
+        Before testing, we make sure the directories in / pacman / cut are empty. Ie, run (possibly) the .bat file CLEANUP_ALL.BAT which only delete those files that need to be deleted. In this dir the images (topview) of 512x512 pixels are from the region files. And eponymous .vox files, containing the voxel data. And a .dat file. With some info. This .dat file is tested to see if it is in / pacman / cut, if so, the system knows it has already done it. If this and the .vox file has been moved to done, the system will find it and will not run it. If you want to run this octant again, delete the .vox and .dat file. The .png textures will remain in / pacman / cut. They are used by the system and if 99.95% of all columns are present (of the 512 x 512, so, if there are blocks there, of the voxels), he is going to make a region file of it. Sometimes one hangs at less than 99.99%. These are picked up at the end and / or manually. Even if voxels are added later, there is an option to read the region file again and add this data. But we'll see that later. (This can be done with pacman.exe regions r. <x>. <z> .vox, if the .vox is in / pacman / cut, with pacman.exe regions he transfers all .vox files from this dir to regions, this does the system at last, to convert the edges that are incomplete to region files as well. .on. Data that is later found for that region will then be ADDED TO THE EXISTING REGION FILE. This is therefore disabled to be able to run again after a crash from a certain point (e.g. by deleting .dat files and .vox files), whereby IF THERE IS A REGION FILE ALREADY, NO NEW WILL BE MADE TO WHICH THE DATA IS ADDED IS GOING TO BE. Otherwise he would recreate them all for free, because the added blocks are the same as those already in there. With pacman regions rxzvox you can "compile" one voxel file, and with the file on .on or .off determine whether it should be added to existing region files or not. If you have to deal with that. (Blue screen or something huh?) Otherwise he would recreate all of them for free, because the added blocks are the same as those already in there. With pacman regions rxzvox you can "compile" one voxel file, and with the file on .on or .off determine whether it should be added to existing region files or not. If you have to deal with that. (Blue screen or something huh?) Otherwise he would recreate them all for free, because the added blocks are the same as those already in there. With pacman regions rxzvox you can "compile" one voxel file, and with the file on .on or .off determine whether it should be added to existing region files or not. If you have to do with that. (Blue screen or something huh?)
+        
+        We are also going to see if the directory / saves / test / region is empty. This will contain a dir done0, containing the region files of 'floor' 0. From block y = 0 to my = 255. Those from above and below are then done0 and done-1 respectively. From 256 to 511 is then done1.
+        When starting, make sure these are empty or not present in the dir / saves / test / region
+        
+        When all of this is successful, let's pray for a moment, and see what happens when we issue the following magical command from the pacman_cuberite:
+        
+        pacman.exe utrecht
+        
+        (Without capital letters in Utrecht, as defined in the code).
+        It went wrong for me, because I didn't get the / tpll coordinates right the first time. And then you get a biased octant.
+        
+        It works for me, for you too?
+        
+        If it does work, which is a small miracle in itself and with which you earn a big fat cake if you are the first and I will also come to you, the octants are converted to voxels and put on the screen. Within the thin red lines you can see the region files. So if one is more than 99.95% finished, it will be made into a region file. When the program has finished all octants, it will also create the remaining region files. If you want a different threshold, you can change these values ​​in winmain.cpp and PACMAN_CUBERITE \ src \ viewer \ viewer_my_loadobj.h. When the last octant is ready, it will put all remaining .vox files in the region files for a while. It should add if the region already exists. The rest are partially filled regions.
+        
+        Make sure in advance that the MAXINMEM in pacman.ini is set to 80 or so if your GPU can handle it, then you can get a larger overview with ctrl-y (see earlier text about the difficult zooming in / out). If you have the MAXINMEM on less than 64, don't press ctrl-y (!!)
+        Also set the BITMAPSX and BITMAPY high enough to fit the entire map. These don't have to be that big for this demo. 10 by 10 is more than enough. Maintain a minimum of 8 by 8. The program is called PACMAN, (there is a pacman game built in, with m and M you get mazes I believe, pressing del several times makes them go away. F1 is a little help by the way.) , because the canvas when you go out to the right, you come back in to the left, and vice versa, and also for up and down. The so-called pacman effect, which exits the screen on the right through a corridor and then enters again on the left ... You know, right?
+        
+        In the end when it's going to make the edges into region files, I just see blending on the screen. Do not disturb. It's a so-called bug.
+        
+        Later, I may be going to take a series of screenshots about all this. But YOU can do that too, huh? For me.
+        Also translate this text into English for a moment. Set your chrome browser to the English language. Load this text file into the browser, and let Google translate it completely. And put it all in the cloud.
+        
+        Whoever is the first to succeed in all of this will receive a big fat cake from me (from a good bakery in your area). You can pin me to that.
+        
+        When it is finished, press ESC and 'y', then the program will close properly, and the canvas will be completely saved in / pacman / levels / XxY / level number. With some cutting and pasting you can make a poster with it.
+        The dir / pacman / cut in MAP and MAP2 also contains some tools to make an overview poster with irfanview. You may have to adjust that a bit as far as the region file numbers are concerned. Find out for yourself how it works. Or the neighbor huh?
+
+
+>>>>>>> Stashed changes
         The converter is located in / pacman / BTE, to be able to place different worlds on top of each other. In the demo there are 5, and they are placed on top of each other with the converter. With the middle floor, 0, last, so that you don't have to move a lot up and / or down. You can find out for yourself how it works. It works like an elevator, but in reverse. Not you go up or down, but all floors.
