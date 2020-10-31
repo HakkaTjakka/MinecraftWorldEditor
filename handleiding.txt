@@ -1195,4 +1195,10 @@ In de directory /pacman/pacman_cuberite staan een aantal files van het type .on 
 De .on moeten er NIET zijn, tenzij je rare dingen in je region files in wilt bouwen. Laat daarom alleen de .off staan.
 De add_to_region.on / .off wordt gebruikt om niet of wel te bepalen een region file moet worden geupdate als deze bestaat of niet.
 Je kunt dan hele octanden opnieuw bewerken dmv de <octant>.vox en .dat weg te zetten. Waarna region files die al bestaan niet worden aangemaakt opnieuw.
-		
+
+pacman.exe regions (finish left r.x.z.vox files in ../cut 0-255 vanilla (shrinks <0 & >255)
+pacman.exe regions cubic (finish left r.x.z.vox files in ../cut multiple floors)
+pacman.exe regions r.x.z.vox (finish one voxel file)
+When .dat in ../cut or ../cut/done, it will not be processed. 
+Put x/y index octants in pacman_cubiriet/OBJECT_ARRAY.TXT for only processing those. Remove for all.
+.dat and .info files in ../cut can be used for debugging when certain files need to be reprocessed.		
