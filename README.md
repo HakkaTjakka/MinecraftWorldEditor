@@ -1,10 +1,13 @@
-******************************
+***
+[![Demo CountPages alpha](https://img.youtube.com/vi/AU60JkmbHzg/maxresdefault.jpg)](https://www.youtube.com/embed/AU60JkmbHzg)
+(Click to play vid)
+***
 NOTES ACCORDING TO MANUAL.TXT AND HANDLEIDING.TXT AND THE BTE 121 PROJECTION:
 	The directory / pacman / pacman_cuberite contains a number of files of type .on and / or .off
 	The .on should NOT be there, unless you want to include weird stuff in your region files. Therefore, leave only the .off.
 	The add_to_region.on / .off is used to determine whether to update a region file if it exists or not.
 	You can then edit entire octands again by saving the <octant> .vox and .dat. After which region files that already exist are not recreated.		
-*******************************
+***
 
 Download from Google drive: 
 
