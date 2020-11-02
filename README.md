@@ -381,7 +381,6 @@ For more support: paypal.me/GerardWensink
 [![Demo CountPages alpha](https://img.youtube.com/vi/AU60JkmbHzg/maxresdefault.jpg)](https://www.youtube.com/embed/AU60JkmbHzg)
 (Click to play vid)
 ***
-***
 [![Demo CountPages alpha](https://img.youtube.com/vi/R1ZZPfQ5CzA/maxresdefault.jpg)](https://www.youtube.com/embed/R1ZZPfQ5CzA)
 (Click to play vid)
 ***
