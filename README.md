@@ -1,5 +1,5 @@
 ***
-[![Demo CountPages alpha](https://img.youtube.com/vi/AU60JkmbHzg/maxresdefault.jpg)](https://www.youtube.com/embed/AU60JkmbHzg)
+[![Demo CountPages alpha](https://img.youtube.com/vi/2zm-cQz_fbU/maxresdefault.jpg)](https://www.youtube.com/embed/2zm-cQz_fbU)
 (Click to play vid)
 ***
 NOTES ACCORDING TO MANUAL.TXT AND HANDLEIDING.TXT AND THE BTE 121 PROJECTION:
@@ -376,3 +376,8 @@ The region files should now be created from the .obj files.
 Msg me for installing and operating. Manual in progress.
 
 For more support: paypal.me/GerardWensink
+
+***
+[![Demo CountPages alpha](https://img.youtube.com/vi/AU60JkmbHzg/maxresdefault.jpg)](https://www.youtube.com/embed/AU60JkmbHzg)
+(Click to play vid)
+***
