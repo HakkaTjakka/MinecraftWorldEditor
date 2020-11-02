@@ -2544,6 +2544,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                                 MCEDITOR_running=1;
                                 main_mceditor6_fixed(x, z, region_block);
 
+/*
                                 char dat_name[300];
                                 sprintf(dat_name,"../cut/%s.DAT",fn.c_str());
                                 FILE* HOP;
@@ -2551,7 +2552,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                                     fprintf(HOP,"r.%d.%d floor %d\n",x,z,region_floor);
                                     fclose(HOP);
                                 }
-
+*/
                                 MCEDITOR_running=0;
                                 plotting=0;
                             }
@@ -2561,6 +2562,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                             plot_only=1;
                             MCEDITOR_running=1;
                             main_mceditor6_fixed(x, z, region_block);
+/*
                             char dat_name[300];
                             sprintf(dat_name,"../cut/%s.DAT",fn.c_str());
                             FILE* HOP;
@@ -2568,6 +2570,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                                 fprintf(HOP,"r.%d.%d floor %d\n",x,z,region_floor);
                                 fclose(HOP);
                             }
+*/
                             MCEDITOR_running=0;
                             plotting=0;
                         }
@@ -3592,6 +3595,7 @@ void flush_voxels_to_region_voxel_files() {
         std::vector<tinyobj::material_t> materials;
         flushing=true;
         plot_only=true;
+        plot_only=true;
         dont_clear=true;
         bool hold_voxels_o=hold_voxels;
         hold_voxels=false;
@@ -3829,6 +3833,7 @@ void make_test_schematic() {
 void region_voxel_files_to_region_files(bool display_only) {
     int x,z;
     char picture_file[200];
+    char voxel_file[200];
     struct dirent *de;
     std::string o_area=area;
     DIR* dr;
@@ -3841,10 +3846,15 @@ void region_voxel_files_to_region_files(bool display_only) {
             if (num==2) {
                 printf("../cut/%s ",de->d_name);
                 sprintf(picture_file,"../cut/r.%d.%d.png",x,z);
+                sprintf(voxel_file,"../cut/r.%d.%d.vox",x,z);
                 if (file_exists(picture_file)) {
                     scan_image.loadFromFile(picture_file);
                     plot_only=1;
-                    plotting=3;
+                    if (file_exists(voxel_file)) {
+                        plotting=1;
+                    } else {
+                        plotting=3;
+                    }
                     scan_x=x;
                     scan_z=z;
                     sprintf(mc_text1,"R.%d.%d.MCA",x,z);

@@ -2,104 +2,49 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release" />
-	<File name="..\current_settings.bat" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="fly\include\Sprite.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="205" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="viewer\viewer_my_move_recorder.hpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="78205" topLine="1548" />
+		</Cursor>
+	</File>
+	<File name="..\shaders\analyse3d.frag" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2141" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="fly\src\Model.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2723" topLine="107" />
+		</Cursor>
+	</File>
+	<File name="viewer\viewer_my_image_loader.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4538" topLine="105" />
+		</Cursor>
+	</File>
+	<File name="fly\src\Utility.cpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="MCEditor\BlockEntity.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\PACMAN2.BAT" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="0" />
+			<Cursor1 position="78" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="..\delete_windows_service.cmd" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="SimpleViewer\Viewer\view_mesh.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="41" topLine="0" />
+			<Cursor1 position="18087" topLine="772" />
 		</Cursor>
 	</File>
-	<File name="Fault.cpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="MCEditor\test.cpp" open="1" top="1" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="395" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="MCA-NBT-EDIT.HPP" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4722" topLine="139" />
-		</Cursor>
-	</File>
-	<File name="fly\src\Camera.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="368" topLine="48" />
-		</Cursor>
-	</File>
-	<File name="fly\include\Model.h" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="187" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="fly\include\Renderer.h" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="212" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="debug_memory.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="117" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="fly\include\Shader.h" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="559" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="maze_functions.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="38888" topLine="858" />
-		</Cursor>
-	</File>
-	<File name="xalloctest.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="306" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="fly\src\ParticleEmitters.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1460" topLine="11" />
-		</Cursor>
-	</File>
-	<File name="WinMain.cpp" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="574966" topLine="13912" />
-		</Cursor>
-	</File>
-	<File name="..\shaders\billboard3.geom" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5198" topLine="135" />
-		</Cursor>
-	</File>
-	<File name="viewer\area_data.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="7867" topLine="217" />
-		</Cursor>
-	</File>
-	<File name="WUPPIE.CPP" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="64782" topLine="1497" />
-		</Cursor>
-	</File>
-	<File name="..\shaders\depth_shader.frag" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2688" topLine="27" />
-		</Cursor>
-	</File>
-	<File name="network.cpp" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6916" topLine="203" />
-		</Cursor>
-	</File>
-	<File name="Pacman.ini" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="385" topLine="0" />
+			<Cursor1 position="352742" topLine="6505" />
 		</Cursor>
 	</File>
 	<File name="..\..\shaders\fragment\picture_shader 74.frag" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -107,219 +52,29 @@
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="viewer\viewer_my_make_frustum.hpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="viewer\stb_image2.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="23" topLine="0" />
+			<Cursor1 position="18237" topLine="375" />
 		</Cursor>
 	</File>
-	<File name="..\..\shaders\fragment\picture_shader 02.frag" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="12036" topLine="267" />
-		</Cursor>
-	</File>
-	<File name="..\Pacman.ini" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="487" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\greetings.txt" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="34" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="MCEditor\MCEditor.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="446" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="MCEditor\MCACoder.h" open="0" top="0" tabpos="27" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="385" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="MCA-NBT-EDIT.CPP" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="82868" topLine="1732" />
-		</Cursor>
-	</File>
-	<File name="include\SFML\Graphics\Sprite.hpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1720" topLine="10" />
-		</Cursor>
-	</File>
-	<File name="fly\include\FrameBuffer.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="522" topLine="1" />
-		</Cursor>
-	</File>
-	<File name="fly\include\CameraController.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="426" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="fly\src\Shader.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Shader.cpp" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include\SFML\Graphics\Texture.hpp" open="0" top="0" tabpos="23" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="fly\src\ParticleEmitters.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="17783" topLine="423" />
+			<Cursor1 position="1460" topLine="11" />
 		</Cursor>
 	</File>
-	<File name="viewer\viewer_my_loadobj_functions.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="516" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\text.txt" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="17" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="UserInterface.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="491" topLine="21" />
-		</Cursor>
-	</File>
-	<File name="viewer\ANGLES.CPP" open="0" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1273" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\shaders\billboard3.frag" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="89" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="OBJ-Loader\OBJ_Loader.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="7691" topLine="317" />
-		</Cursor>
-	</File>
-	<File name="NBT_DEFS.HPP" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3281" topLine="164" />
-		</Cursor>
-	</File>
-	<File name="..\MS TCP.bat" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="viewer\viewer_my_get_draw.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="15730" topLine="303" />
-		</Cursor>
-	</File>
-	<File name="..\..\shaders\fragment\picture_shader 01.frag" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="17924" topLine="475" />
-		</Cursor>
-	</File>
-	<File name="..\PACMAN.BAT" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="32" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\list32x32.txt" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="443" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Allocator.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1560" topLine="20" />
-		</Cursor>
-	</File>
-	<File name="DataTypes.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="220" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="fly\src\ParticleRenderer.cpp" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="82" />
-		</Cursor>
-	</File>
-	<File name="fly\include\ParticleSystem.h" open="0" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="10" />
-		</Cursor>
-	</File>
-	<File name="fly\src\TextureManager.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="60" />
-		</Cursor>
-	</File>
-	<File name="file_functions.cpp" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3123" topLine="145" />
-		</Cursor>
-	</File>
-	<File name="fly\src\ShadowMap.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="291" topLine="23" />
-		</Cursor>
-	</File>
-	<File name="fly\include\Camera.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Minecraft.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="maps.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\SFML\System\Time.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="12966" topLine="307" />
-		</Cursor>
-	</File>
-	<File name="winapi.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="19277" topLine="564" />
-		</Cursor>
-	</File>
-	<File name="fly\include\ShadowMap.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="222" topLine="1" />
-		</Cursor>
-	</File>
-	<File name="include\SFML\Window\Event.hpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2256" topLine="48" />
-		</Cursor>
-	</File>
-	<File name="viewer\viewer_my_sfmlviewer.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="22471" topLine="673" />
-		</Cursor>
-	</File>
-	<File name="fly\src\CameraController.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2262" topLine="17" />
-		</Cursor>
-	</File>
-	<File name="include\SFML\Graphics\Glsl.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6160" topLine="33" />
-		</Cursor>
-	</File>
-	<File name="..\settings.ini" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3156" topLine="112" />
-		</Cursor>
-	</File>
-	<File name="viewer\viewer_my_move_recorder.hpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="180780" topLine="3707" />
-		</Cursor>
-	</File>
-	<File name="..\shaders\billboard.geom" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="297" topLine="11" />
-		</Cursor>
-	</File>
-	<File name="VOXEL.HPP" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="7766" topLine="181" />
+			<Cursor1 position="2923" topLine="70" />
 		</Cursor>
 	</File>
 	<File name="viewer\stb_image.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -327,7 +82,77 @@
 			<Cursor1 position="18084" topLine="383" />
 		</Cursor>
 	</File>
-	<File name="Minecraft.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="NBT.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="96625" topLine="2837" />
+		</Cursor>
+	</File>
+	<File name="..\shaders\depth_shader - backup.frag" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3762" topLine="43" />
+		</Cursor>
+	</File>
+	<File name="keylist.hpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="19657" topLine="146" />
+		</Cursor>
+	</File>
+	<File name="recording.cpp" open="0" top="0" tabpos="21" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="10642" topLine="276" />
+		</Cursor>
+	</File>
+	<File name="..\shaders\billboard3.frag" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="89" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="MCA-NBT-EDIT.CPP" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="82868" topLine="1732" />
+		</Cursor>
+	</File>
+	<File name="fly\include\Model.h" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="187" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="fly\include\ParticleEmitters.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="537" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="fly\include\BoundingBox.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="122" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\shaders\billboard.geom" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="297" topLine="11" />
+		</Cursor>
+	</File>
+	<File name="viewer\viewer_my_plane_stuff.hpp" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="16389" topLine="329" />
+		</Cursor>
+	</File>
+	<File name="..\shaders\billboard2.geom" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3822" topLine="85" />
+		</Cursor>
+	</File>
+	<File name="winapi.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="26872" topLine="765" />
+		</Cursor>
+	</File>
+	<File name="..\settings.ini" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3156" topLine="112" />
+		</Cursor>
+	</File>
+	<File name="..\dev_dshow.bat" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
@@ -337,54 +162,14 @@
 			<Cursor1 position="2860" topLine="58" />
 		</Cursor>
 	</File>
-	<File name="..\CUBERITE2.BAT" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="blending.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="61" topLine="0" />
+			<Cursor1 position="1362" topLine="32" />
 		</Cursor>
 	</File>
-	<File name="..\brewing.txt" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="fly\src\ParticleRenderer.cpp" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="133" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="..\items.ini" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="19813" topLine="987" />
-		</Cursor>
-	</File>
-	<File name="Maze.cpp" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\dev_dshow.bat" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="MCEditor\globals.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3799" topLine="125" />
-		</Cursor>
-	</File>
-	<File name="MCEditor\NBTCoder.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1934" topLine="43" />
-		</Cursor>
-	</File>
-	<File name="fly\include\ParticleRenderer.h" open="0" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="686" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="convert.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="45066" topLine="891" />
-		</Cursor>
-	</File>
-	<File name="exit_program.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="7388" topLine="228" />
+			<Cursor1 position="0" topLine="82" />
 		</Cursor>
 	</File>
 	<File name="fly\src\ParticleUpdaters.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -392,119 +177,14 @@
 			<Cursor1 position="0" topLine="76" />
 		</Cursor>
 	</File>
-	<File name="map.cpp" open="0" top="0" tabpos="30" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="TPLL.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="28305" topLine="1034" />
+			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="viewer\tiny_obj_loader2.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Pacman.ini" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2744" topLine="417" />
-		</Cursor>
-	</File>
-	<File name="nbt.hpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="12683" topLine="411" />
-		</Cursor>
-	</File>
-	<File name="make_black_transparant.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="12905" topLine="196" />
-		</Cursor>
-	</File>
-	<File name="viewer\viewer_my_recording.hpp" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="688" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="viewer\viewer_my_todo.hpp" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="7397" topLine="154" />
-		</Cursor>
-	</File>
-	<File name="maze3d.cpp" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="329" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="SimpleViewer\MeshLib\core\bmp\RgbImage.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="187" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="main.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="xallocator.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="193" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="viewer\trackball.cc" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="10189" topLine="343" />
-		</Cursor>
-	</File>
-	<File name="NBT.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="96625" topLine="2837" />
-		</Cursor>
-	</File>
-	<File name="viewer\viewer_my_inits_more.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="257" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\..\shaders\fragment\picture_shader 45.frag" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5042" topLine="221" />
-		</Cursor>
-	</File>
-	<File name="..\CUBERITE.BAT" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="11" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="MENU.TXT" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1381" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="GetFileFromInternet.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1996" topLine="76" />
-		</Cursor>
-	</File>
-	<File name="MCEditor\MCEditor.cpp" open="0" top="0" tabpos="23" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2055" topLine="45" />
-		</Cursor>
-	</File>
-	<File name="fly\src\ParticleData.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1372" topLine="17" />
-		</Cursor>
-	</File>
-	<File name="fly\include\TerrainRenderer.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1092" topLine="10" />
-		</Cursor>
-	</File>
-	<File name="fly\include\BoundingBox.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="122" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="print_to_screen.cpp" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3118" topLine="86" />
-		</Cursor>
-	</File>
-	<File name="key_functions.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="254425" topLine="6872" />
+			<Cursor1 position="385" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="everything.hpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -512,94 +192,34 @@
 			<Cursor1 position="16268" topLine="567" />
 		</Cursor>
 	</File>
-	<File name="recording.cpp" open="0" top="0" tabpos="21" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="network.cpp" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="10642" topLine="276" />
+			<Cursor1 position="6916" topLine="203" />
 		</Cursor>
 	</File>
-	<File name="viewer\rotje.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="14569" topLine="288" />
-		</Cursor>
-	</File>
-	<File name="fly\src\Model.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2723" topLine="107" />
-		</Cursor>
-	</File>
-	<File name="viewer\stb_image2.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="18237" topLine="375" />
-		</Cursor>
-	</File>
-	<File name="plotting.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="33257" topLine="751" />
-		</Cursor>
-	</File>
-	<File name="..\shaders\depth_shader - backup.frag" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3762" topLine="43" />
-		</Cursor>
-	</File>
-	<File name="TPLL.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Maze.cpp" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="viewer\viewer_my_text.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="init.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="7509" topLine="59" />
+			<Cursor1 position="24666" topLine="435" />
 		</Cursor>
 	</File>
-	<File name="OBJ-Loader\e1_loadandprint.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="viewer\ANGLES.CPP" open="0" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1670" topLine="63" />
+			<Cursor1 position="1273" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="..\shaders\billboard2.vert" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="maze_functions.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="139" topLine="0" />
+			<Cursor1 position="38888" topLine="858" />
 		</Cursor>
 	</File>
-	<File name="viewer_my_make_frustum.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="print_to_screen.cpp" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="6394" topLine="97" />
-		</Cursor>
-	</File>
-	<File name="..\shaders\depth_shader.vert" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="849" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="viewer\viewer_my_zoomtest.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4117" topLine="173" />
-		</Cursor>
-	</File>
-	<File name="viewer\viewer_my_inits.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="9516" topLine="348" />
-		</Cursor>
-	</File>
-	<File name="..\..\shaders\fragment\picture_shader 73.frag" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5334" topLine="199" />
-		</Cursor>
-	</File>
-	<File name="..\list64x64.txt" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\..\shaders\fragment\picture_shader 03.frag" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1908" topLine="13" />
-		</Cursor>
-	</File>
-	<File name="..\logfile.txt" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="76" topLine="0" />
+			<Cursor1 position="3118" topLine="86" />
 		</Cursor>
 	</File>
 	<File name="Effect.hpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -607,24 +227,94 @@
 			<Cursor1 position="1322" topLine="36" />
 		</Cursor>
 	</File>
-	<File name="MCEditor\MCACoder.cpp" open="0" top="0" tabpos="25" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="fly\include\ShadowMap.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="222" topLine="1" />
+		</Cursor>
+	</File>
+	<File name="..\list64x64.txt" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="fly\include\Sprite.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="fly\include\ParticleSystem.h" open="0" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="205" topLine="0" />
+			<Cursor1 position="0" topLine="10" />
 		</Cursor>
 	</File>
-	<File name="fly\include\ParticleEmitters.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\monsters.ini" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="537" topLine="0" />
+			<Cursor1 position="69" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="fly\src\main.cpp" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
+	<File name="viewer_my_make_frustum.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="6108" topLine="197" />
+			<Cursor1 position="6394" topLine="97" />
+		</Cursor>
+	</File>
+	<File name="..\MS TCP.bat" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="viewer\viewer_my_zoomtest.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4117" topLine="173" />
+		</Cursor>
+	</File>
+	<File name="debug_memory.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="117" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="bitmaps.cpp" open="1" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3209" topLine="109" />
+		</Cursor>
+	</File>
+	<File name="xallocator.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="193" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="UserInterface.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="491" topLine="21" />
+		</Cursor>
+	</File>
+	<File name="MCEditor\MCACoder.h" open="0" top="0" tabpos="27" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="385" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="maps.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="12966" topLine="307" />
+		</Cursor>
+	</File>
+	<File name="viewer\viewer_my_loadobj_functions.h" open="1" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="fly\src\Controller.cpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="250" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="MCEditor\MCEditor.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="446" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="nbt.hpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="12683" topLine="411" />
+		</Cursor>
+	</File>
+	<File name="..\..\shaders\fragment\picture_shader 03.frag" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1908" topLine="13" />
 		</Cursor>
 	</File>
 	<File name="include\SFML\Graphics\RenderWindow.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -632,64 +322,19 @@
 			<Cursor1 position="1668" topLine="25" />
 		</Cursor>
 	</File>
-	<File name="commando.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="fly\src\TerrainRenderer.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4243" topLine="502" />
+			<Cursor1 position="2243" topLine="124" />
 		</Cursor>
 	</File>
-	<File name="fly\src\Terrain.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="maze3d.cpp" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5747" topLine="182" />
+			<Cursor1 position="329" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="keylist.hpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Fault.cpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="19657" topLine="146" />
-		</Cursor>
-	</File>
-	<File name="text_functions.cpp" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="7248" topLine="282" />
-		</Cursor>
-	</File>
-	<File name="fly\include\TextureManager.h" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1190" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="include\SFML\Window\Window.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="19752" topLine="479" />
-		</Cursor>
-	</File>
-	<File name="viewer\viewer_my_window.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3289" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="SimpleViewer\Viewer\view_mesh.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="18087" topLine="772" />
-		</Cursor>
-	</File>
-	<File name="..\shaders\billboard2.geom" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3822" topLine="85" />
-		</Cursor>
-	</File>
-	<File name="viewer\viewer_my_get3d.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1925" topLine="2" />
-		</Cursor>
-	</File>
-	<File name="..\shaders\billboard2.frag" open="0" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="137" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="viewer\trackball.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3438" topLine="46" />
+			<Cursor1 position="395" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="..\shaders\billboard3.vert" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -697,9 +342,124 @@
 			<Cursor1 position="208" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="viewer\viewer_my_events.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+	<File name="fly\include\Renderer.h" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="12030" topLine="191" />
+			<Cursor1 position="212" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="fly\include\Debug\Box.h" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="198" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="viewer_my_divers.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="730" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="fly\include\TextureManager.h" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1190" topLine="3" />
+		</Cursor>
+	</File>
+	<File name="..\shaders\billboard2.frag" open="0" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="137" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="viewer\viewer_my_text.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7509" topLine="59" />
+		</Cursor>
+	</File>
+	<File name="..\Pacman.ini" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="488" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="viewer\viewer_my_todo.hpp" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7397" topLine="154" />
+		</Cursor>
+	</File>
+	<File name="include\SFML\Graphics\Glsl.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6160" topLine="33" />
+		</Cursor>
+	</File>
+	<File name="fly\src\CameraController.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2262" topLine="17" />
+		</Cursor>
+	</File>
+	<File name="MCEditor\paint.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3795" topLine="120" />
+		</Cursor>
+	</File>
+	<File name="wierdo.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="147204" topLine="2974" />
+		</Cursor>
+	</File>
+	<File name="SimpleViewer\MeshLib\core\bmp\RgbImage.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="187" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="MCEditor\BlockEntity.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="plotting.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="33257" topLine="751" />
+		</Cursor>
+	</File>
+	<File name="MCEditor\MCEditor.cpp" open="0" top="0" tabpos="23" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2055" topLine="45" />
+		</Cursor>
+	</File>
+	<File name="fly\src\ShadowMap.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="291" topLine="23" />
+		</Cursor>
+	</File>
+	<File name="include\SFML\Graphics\Texture.hpp" open="0" top="0" tabpos="23" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="17783" topLine="423" />
+		</Cursor>
+	</File>
+	<File name="shaders.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7403" topLine="183" />
+		</Cursor>
+	</File>
+	<File name="include\SFML\Window\Event.hpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2256" topLine="48" />
+		</Cursor>
+	</File>
+	<File name="..\shaders\depth_shader.vert" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="849" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="fly\include\ParticleRenderer.h" open="0" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="686" topLine="3" />
+		</Cursor>
+	</File>
+	<File name="fly\include\CameraController.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="426" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\items.ini" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="19813" topLine="987" />
 		</Cursor>
 	</File>
 	<File name="..\mcrcon.log" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -707,29 +467,74 @@
 			<Cursor1 position="609" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="..\keylist.txt" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="viewer\viewer_my_recording.hpp" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4906" topLine="46" />
+			<Cursor1 position="688" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="MCEditor\globals.cpp" open="0" top="0" tabpos="26" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\record_screen.bat" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="8744" topLine="49" />
+		</Cursor>
+	</File>
+	<File name="viewer\trackball.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3438" topLine="46" />
+		</Cursor>
+	</File>
+	<File name="..\current_settings.bat" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="..\crafting.txt" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="MCEditor\NBTCoder.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="280" topLine="0" />
+			<Cursor1 position="1934" topLine="43" />
 		</Cursor>
 	</File>
-	<File name="MCEditor\test.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="viewer\area_data_amsterdam.cpp" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="341695" topLine="6002" />
+			<Cursor1 position="6160" topLine="120" />
 		</Cursor>
 	</File>
-	<File name="MCEditor\BlockEntity.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="READ.ME" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6671" topLine="73" />
+		</Cursor>
+	</File>
+	<File name="..\..\shaders\fragment\picture_shader 69.frag" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2940" topLine="70" />
+		</Cursor>
+	</File>
+	<File name="key_functions.cpp" open="1" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="229791" topLine="6222" />
+		</Cursor>
+	</File>
+	<File name="fly\src\main.cpp" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6108" topLine="197" />
+		</Cursor>
+	</File>
+	<File name="MCEditor\MCACoder.cpp" open="0" top="0" tabpos="25" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\CUBERITE2.BAT" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="61" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="viewer\area_data.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7987" topLine="217" />
+		</Cursor>
+	</File>
+	<File name="GetFileFromInternet.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1996" topLine="76" />
 		</Cursor>
 	</File>
 	<File name="fly\src\Airplane.cpp" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -737,12 +542,327 @@
 			<Cursor1 position="183" topLine="9" />
 		</Cursor>
 	</File>
+	<File name="text_functions.cpp" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7248" topLine="282" />
+		</Cursor>
+	</File>
+	<File name="..\text.txt" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="17" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="fly\include\FrameBuffer.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="522" topLine="1" />
+		</Cursor>
+	</File>
+	<File name="fly\include\Airplane.h" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="99" topLine="9" />
+		</Cursor>
+	</File>
+	<File name="..\logfile.txt" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="76" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\level.txt" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="viewer\viewer_my.cc" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="335" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\OCTANTS\AMSTERDAM.TXT" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="358766" topLine="86" />
+		</Cursor>
+	</File>
+	<File name="viewer\viewer_my_inits.h" open="1" top="0" tabpos="21" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="9740" topLine="346" />
+		</Cursor>
+	</File>
+	<File name="fly\src\FrameBuffer.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2207" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="convert.cpp" open="1" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1905" topLine="55" />
+		</Cursor>
+	</File>
+	<File name="..\crafting.txt" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="280" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="VOXEL.HPP" open="1" top="0" tabpos="22" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="22029" topLine="489" />
+		</Cursor>
+	</File>
+	<File name="MCEditor\BlockEntity.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="file_functions.cpp" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3123" topLine="145" />
+		</Cursor>
+	</File>
+	<File name="OBJ-Loader\e1_loadandprint.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1670" topLine="63" />
+		</Cursor>
+	</File>
+	<File name="..\..\shaders\fragment\picture_shader 73.frag" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5334" topLine="199" />
+		</Cursor>
+	</File>
+	<File name="fly\src\Shader.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="OBJ-Loader\OBJ_Loader.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7691" topLine="317" />
+		</Cursor>
+	</File>
+	<File name="include\SFML\System\Thread.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4142" topLine="107" />
+		</Cursor>
+	</File>
+	<File name="include\SFML\Window\Window.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="19752" topLine="479" />
+		</Cursor>
+	</File>
+	<File name="..\shaders\billboard3.geom" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5198" topLine="135" />
+		</Cursor>
+	</File>
+	<File name="include\SFML\Graphics\RenderTexture.hpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1760" topLine="45" />
+		</Cursor>
+	</File>
+	<File name="map.cpp" open="0" top="0" tabpos="30" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="28305" topLine="1034" />
+		</Cursor>
+	</File>
+	<File name="DataTypes.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="220" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\shaders\depth_shader.frag" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2688" topLine="27" />
+		</Cursor>
+	</File>
+	<File name="fly\include\Controller.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="462" topLine="10" />
+		</Cursor>
+	</File>
+	<File name="fly\include\Camera.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\setpath_seh_64_v7.bat" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="109" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="viewer\viewer_my_make_frustum.hpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="23" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\keylist.txt" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4906" topLine="46" />
+		</Cursor>
+	</File>
+	<File name="viewer\trackball.cc" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="10189" topLine="343" />
+		</Cursor>
+	</File>
+	<File name="viewer\viewer_my_get3d.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1925" topLine="2" />
+		</Cursor>
+	</File>
+	<File name="..\greetings.txt" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="34" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="fly\src\ParticleSystem.cpp" open="0" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="2" />
+		</Cursor>
+	</File>
+	<File name="xalloctest.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="306" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\PACMAN.BAT" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="32" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="fly\src\Terrain.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5747" topLine="182" />
+		</Cursor>
+	</File>
+	<File name="commando.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4243" topLine="502" />
+		</Cursor>
+	</File>
+	<File name="viewer\viewer_my_inits_more.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="257" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="MENU.TXT" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1381" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="viewer\viewer_my_sfmlviewer.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="45427" topLine="1169" />
+		</Cursor>
+	</File>
+	<File name="WUPPIE.CPP" open="1" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="71531" topLine="1652" />
+		</Cursor>
+	</File>
+	<File name="MCEditor\globals.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3799" topLine="125" />
+		</Cursor>
+	</File>
+	<File name="..\..\shaders\fragment\picture_shader 01.frag" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="17924" topLine="475" />
+		</Cursor>
+	</File>
+	<File name="fly\src\Camera.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="368" topLine="48" />
+		</Cursor>
+	</File>
+	<File name="NBT_DEFS.HPP" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3281" topLine="164" />
+		</Cursor>
+	</File>
+	<File name="make_black_transparant.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="12905" topLine="196" />
+		</Cursor>
+	</File>
+	<File name="viewer\rotje.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="14569" topLine="288" />
+		</Cursor>
+	</File>
+	<File name="..\CUBERITE.BAT" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="11" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Allocator.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="678" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\shaders\billboard2.vert" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="139" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="fly\include\TerrainRenderer.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1092" topLine="10" />
+		</Cursor>
+	</File>
+	<File name="fly\include\Sky.h" open="0" top="0" tabpos="22" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="387" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="viewer\viewer_my_get_draw.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="15730" topLine="303" />
+		</Cursor>
+	</File>
+	<File name="viewer\viewer_my_window.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3289" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\list32x32.txt" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="443" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="viewer\viewer_my_events.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="65435" topLine="898" />
+		</Cursor>
+	</File>
+	<File name="..\delete_windows_service.cmd" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="41" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\SFML\Graphics\RenderTarget.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="16058" topLine="380" />
+		</Cursor>
+	</File>
+	<File name="viewer\viewer_my_loadobj.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="152136" topLine="3368" />
+		</Cursor>
+	</File>
+	<File name="WinMain.cpp" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="573878" topLine="13885" />
+		</Cursor>
+	</File>
+	<File name="..\brewing.txt" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="133" topLine="3" />
+		</Cursor>
+	</File>
 	<File name="fly\src\Sprite.cpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="2303" topLine="49" />
 		</Cursor>
 	</File>
-	<File name="fly\src\Utility.cpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="MCEditor\globals.cpp" open="0" top="0" tabpos="26" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
@@ -752,94 +872,29 @@
 			<Cursor1 position="6908" topLine="166" />
 		</Cursor>
 	</File>
-	<File name="blending.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1362" topLine="32" />
-		</Cursor>
-	</File>
 	<File name="play.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="5183" topLine="141" />
 		</Cursor>
 	</File>
-	<File name="shaders.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="fly\src\TextureManager.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="7403" topLine="183" />
+			<Cursor1 position="0" topLine="60" />
 		</Cursor>
 	</File>
-	<File name="fly\include\Airplane.h" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="exit_program.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="99" topLine="9" />
+			<Cursor1 position="7388" topLine="228" />
 		</Cursor>
 	</File>
-	<File name="include\SFML\Graphics\RenderTexture.hpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="viewer\tiny_obj_loader2.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1760" topLine="45" />
+			<Cursor1 position="2744" topLine="417" />
 		</Cursor>
 	</File>
-	<File name="viewer\viewer_my_plane_stuff.hpp" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="fly\src\ParticleData.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="16389" topLine="329" />
-		</Cursor>
-	</File>
-	<File name="fly\src\Controller.cpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="250" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\SFML\System\Thread.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4142" topLine="107" />
-		</Cursor>
-	</File>
-	<File name="viewer\viewer_my.cc" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="335" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\setpath_seh_64_v7.bat" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="109" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="bitmaps.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="77226" topLine="1906" />
-		</Cursor>
-	</File>
-	<File name="viewer_my_divers.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="730" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\shaders\analyse3d.frag" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2141" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Shader.cpp" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="viewer\rotate_around_point.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1928" topLine="19" />
-		</Cursor>
-	</File>
-	<File name="..\PACMAN2.BAT" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="78" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="viewer\area_data_amsterdam.cpp" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6160" topLine="120" />
-		</Cursor>
-	</File>
-	<File name="..\level.txt" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4" topLine="0" />
+			<Cursor1 position="1372" topLine="17" />
 		</Cursor>
 	</File>
 	<File name="MCEditor\NBTCoder.cpp" open="0" top="0" tabpos="24" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -847,99 +902,44 @@
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="..\monsters.ini" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\..\shaders\fragment\picture_shader 02.frag" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="69" topLine="0" />
+			<Cursor1 position="12036" topLine="267" />
 		</Cursor>
 	</File>
-	<File name="MCEditor\paint.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
+	<File name="main.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3795" topLine="120" />
+			<Cursor1 position="2" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="fly\include\Debug\Box.h" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="viewer\rotate_around_point.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="198" topLine="0" />
+			<Cursor1 position="1928" topLine="19" />
 		</Cursor>
 	</File>
-	<File name="fly\src\FrameBuffer.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\SFML\Graphics\Sprite.hpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2207" topLine="0" />
+			<Cursor1 position="1720" topLine="10" />
 		</Cursor>
 	</File>
-	<File name="init.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\..\shaders\fragment\picture_shader 45.frag" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="24666" topLine="435" />
+			<Cursor1 position="5042" topLine="221" />
 		</Cursor>
 	</File>
-	<File name="fly\src\ParticleSystem.cpp" open="0" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Allocator.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="2" />
+			<Cursor1 position="1560" topLine="20" />
 		</Cursor>
 	</File>
-	<File name="include\SFML\Graphics\RenderTarget.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="MCA-NBT-EDIT.HPP" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="16058" topLine="380" />
+			<Cursor1 position="4722" topLine="139" />
 		</Cursor>
 	</File>
-	<File name="fly\include\Controller.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="fly\include\Shader.h" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="462" topLine="10" />
-		</Cursor>
-	</File>
-	<File name="wierdo.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="147204" topLine="2974" />
-		</Cursor>
-	</File>
-	<File name="fly\src\TerrainRenderer.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2243" topLine="124" />
-		</Cursor>
-	</File>
-	<File name="include\SFML\System\Time.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2923" topLine="70" />
-		</Cursor>
-	</File>
-	<File name="fly\include\Sky.h" open="0" top="0" tabpos="22" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="387" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\record_screen.bat" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="8744" topLine="49" />
-		</Cursor>
-	</File>
-	<File name="viewer\viewer_my_loadobj.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="143724" topLine="3183" />
-		</Cursor>
-	</File>
-	<File name="Allocator.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="678" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="READ.ME" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6671" topLine="73" />
-		</Cursor>
-	</File>
-	<File name="..\OCTANTS\AMSTERDAM.TXT" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="358766" topLine="86" />
-		</Cursor>
-	</File>
-	<File name="viewer\viewer_my_image_loader.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4538" topLine="105" />
-		</Cursor>
-	</File>
-	<File name="..\..\shaders\fragment\picture_shader 69.frag" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2940" topLine="70" />
+			<Cursor1 position="559" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

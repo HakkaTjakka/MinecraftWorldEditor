@@ -776,8 +776,17 @@ int WINAPI WinMain2()
         else if (   strcmp(argv[1],"repack"  )==0) { REPACK(               argv[2]);   send_message='x';   return 0; }
         else if (   strcmp(argv[1],"regions"    )==0) {
             if (argc>2) {
-                strcpy(voxel_filename,argv[2]);
-                printf("One .voxel file: %s\n",voxel_filename);
+                if (strcmp(argv[2],"cubic")==0) {
+                    cubic=true;
+                } else {
+                    strcpy(voxel_filename,argv[2]);
+                    printf("One .voxel file: %s\n",voxel_filename);
+                    if (argc>3) {
+                        if (strcmp(argv[3],"cubic")==0) {
+                            cubic=true;
+                        }
+                    }
+                }
 //                printf("strlen(voxel_filename)=%d\n",strlen(voxel_filename));
             } else {
                 strcpy(voxel_filename,"");
