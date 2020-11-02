@@ -374,6 +374,4 @@ Msg me for installing and operating. Manual in progress.
 
 For more support: paypal.me/GerardWensink
 
-[![Demo CountPages alpha](https://www.youtube.com/watch?v=AU60JkmbHzg)](https://www.youtube.com/embed/AU60JkmbHzg)
-(Click to play vid)
 
