@@ -17,6 +17,7 @@ Also: I you need manuals on other stuff, ASK!
 NOTES ACCORDING TO MANUAL.TXT AND HANDLEIDING.TXT AND THE BTE 121 PROJECTION:
 	The directory / pacman / pacman_cuberite contains a number of files of type .on and / or .off
 	The .on should NOT be there, unless you want to include weird stuff in your region files. Therefore, leave only the .off.
+	You can use it to add tunnels with glass/tnt below the surface, add mazes with rails and command blocks, add mountains/water, add tnt, add inside of buildings, etc. For nomal voxelizing they should be renamed to <extra>.OFF, and the <extra>.ON should not be there.)
 	The add_to_region.on / .off is used to determine whether to update a region file if it exists or not.
 	You can then edit entire octants again by saving the <octant> .vox and .dat. After which region files that already exist are not recreated.		
 ***
