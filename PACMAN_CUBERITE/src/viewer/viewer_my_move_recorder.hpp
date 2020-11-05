@@ -1382,6 +1382,9 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
     } else if (my_area=="Amsterdam") {
         center_x=43;
         center_y=100;
+    } else if (my_area=="Rio") {
+        center_x=80;
+        center_y=22;
 //        center_x=60;
 //        center_y=108;
     } else if (my_area=="NewYork") {
@@ -1562,6 +1565,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
 //                if (!(cnt%10)) voxel_to_file=true;
                 if (cnt==info_3d.size()-1) {
                     flushing=true;
+                    voxel_to_file=true;
                     voxel_to_file=true;
                 }
             }

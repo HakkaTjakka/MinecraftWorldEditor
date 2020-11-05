@@ -228,6 +228,14 @@ void RECALC_BMIN_BMAX2(std::vector<BufferObject> buffers, float bmin[3], float b
                 }
 //normal...
                 glm::vec4 hop = glm::vec4(v[l][0], v[l][1], v[l][2], 1.0f) * test;
+
+//shrink/enlarge object to fit
+                hop = hop - glm::vec4(tx,ty,tz,0.0f);
+                hop.x = hop.x * 0.99;
+                hop.y = hop.y * 0.99;
+                hop.z = hop.z * 0.99;
+                hop = hop + glm::vec4(tx,ty,tz,0.0f);
+
                 VertexPointer[offset]=hop.x;
                 VertexPointer[offset+1]=hop.y;
                 VertexPointer[offset+2]=hop.z;

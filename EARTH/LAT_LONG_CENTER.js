@@ -85,7 +85,7 @@ async function run() {
 	let CITY=process.argv[2];
 	let NO_EXTRA=0;
 //	if ([lat, lon].includes(undefined) || lat=="--ENSCHEDE" || lat=="--LA" || lat=="--AMSTERDAM" || lat=="--NEWYORK" || lat=="--MAIMI" || lat=="--BRUSSEL") {
-	if (CITY=="--AZORES" || CITY=="--ENSCHEDE" || CITY=="--DENHAAG" || CITY=="--LA" || CITY=="--AMSTERDAM" || CITY=="--NEWYORK" || CITY=="--MIAMI" || CITY=="--SCHWEIZ" || CITY=="--BRUSSEL" || CITY=="--UTRECHT") {
+	if (CITY=="--RIO" || CITY=="--AZORES" || CITY=="--ENSCHEDE" || CITY=="--DENHAAG" || CITY=="--LA" || CITY=="--AMSTERDAM" || CITY=="--NEWYORK" || CITY=="--MIAMI" || CITY=="--SCHWEIZ" || CITY=="--BRUSSEL" || CITY=="--UTRECHT") {
 		let CITY_NAME="";
 		let lat0=0.0;
 		let lon0=0.0;
@@ -152,88 +152,26 @@ async function run() {
 			lon0=-25.910392;
 			lat1=37.686181;
 			lon1=-25.091944;
+		} else if (CITY=="--RIO") {
+			CITY_NAME="RIO"
+			lat0=-22.897988;
+			lon0=-43.395343;
+			lat1=-22.975957;
+			lon1=-42.911523;
 		} else {
 			console.log('Add area first....');
 			process.exit(1);
 		}
 
-//Brussel
-
-/*
-	let CITY_NAME="BRUSSEL"
-	let lat0=50.921320;
-	let lon0= 4.223007;
-	let lat1=50.809327;
-	let lon1= 4.538091;
-*/
-
-//New York
-
-/*
-	let CITY_NAME="NEWYORK"
-	let lat0=40.785429;
-	let lon0=-74.192954;
-	let lat1=40.569668;
-	let lon1=-73.837601;
-*/
-
-//LA
-/*
-	let CITY_NAME="LA"
-	let lat0=34.081049;
-	let lon0= -118.258214;
-	let lat1=34.013811;
-	let lon1=-118.143811;
-*/
-
-//MIAMI
-
-/*
-	let CITY_NAME="MIAMI"
-	let lat0=25.90;
-	let lon0= -80.30;
-	let lat1=25.67;
-	let lon1=-80.10;
-*/	
-
-
-//Enschede larger
-/*
-	let CITY_NAME="ENSCHEDE"
-	let lat0=52.252913;
-	let lon0= 6.813080;
-	let lat1=52.178402;
-	let lon1= 6.974389;
-*/
-
-//Enschede
-/*
-	let CITY_NAME="ENSCHEDE"
-	let lat0=52.247224;
-	let lon0= 6.841952;
-	let lat1=52.191311;
-	let lon1= 6.943110;
-*/
-
-//Amsterdam
-/*
-	let CITY_NAME="AMSTERDAM"
-        let lat0=52.439745;
-        let lon0= 4.750032;
-        let lat1=52.286213;
-        let lon1= 5.032107;
-*/
-
-//Jocelyn
-/*
-	let CITY_NAME="JOCELYN"
-        let lat0=20.020408;
-        let lon0= 120.792236;
-        let lat1=14.895820;
-        let lon1= 120.977658;
-*/		
-
-        let [lat, lon] = [lat1, lon0];
+		let [lat, lon] = [0.0, 0.0];
+		if (lat0 < 0.0) {
+			lat=lat0;
+			lon=lon0;
+		} else {
+			lat=lat1;
+			lon=lon0;
+		}
+//			let [lat, lon] = [lat1, lon0];
         [lat, lon] = [parseFloat(lat), parseFloat(lon)];
 
         let init_foundOctants = await latLongToOctant(lat, lon, MAX_LEVEL);
@@ -261,6 +199,8 @@ async function run() {
         } else {
             console.log('Not found: ' + lat + ',' + lon);
         }
+		console.log("size_lat=" + size_lat);
+		console.log("size_lon=" + size_lon);
 		var fx,fy,f,x,y;
 		var out_cplusplus = [];
 		var out_cplusplus_lat_lon = [];
@@ -283,6 +223,8 @@ async function run() {
         var num_lons=0.0;
         if (size_lat>0) num_lats=(lat0-lat1)/size_lat+1;
         if (size_lon>0) num_lons=(lon1-lon0)/size_lon+1;
+		console.log("num_lats=" + num_lats);
+		console.log("num_lons=" + num_lons);
 		num_lats = Math.round(num_lats);
 		num_lons = Math.round(num_lons);
         var line = '';

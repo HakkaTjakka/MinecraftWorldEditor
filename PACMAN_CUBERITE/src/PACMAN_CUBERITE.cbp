@@ -460,6 +460,7 @@
 		<Unit filename="plotting.cpp" />
 		<Unit filename="print_to_screen.cpp" />
 		<Unit filename="recording.cpp" />
+		<Unit filename="scanner.cpp" />
 		<Unit filename="scripting.cpp" />
 		<Unit filename="shaders.cpp" />
 		<Unit filename="shaders/billboard.frag">

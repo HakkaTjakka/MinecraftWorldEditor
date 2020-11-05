@@ -298,8 +298,9 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                 sprintf(command_str,"\"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe\" https://www.google.com/maps/@%s,%s,18.00z >nul 2>nul",lat_str,lon_str);
                 system(command_str);
             }
-            lat=(lat_north+lat_south)/2.0;
-            lon=(lon_east+lon_west)/2.0;
+// serious mistaken!!! Sorry :(
+//            lat=(lat_north+lat_south)/2.0;
+//            lon=(lon_east+lon_west)/2.0;
         }
     } else {
         printf("\n");
@@ -1682,19 +1683,22 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
         top_right=glm::fvec2((3194832.7696658284-cnt_x)*1.0,   (-5417672.727180401 -cnt_z)*1.0);
         bot_left =glm::fvec2((3141325.945715654 -cnt_x)*1.0,   (-5364168.2744096005-cnt_z)*1.0);
         bot_right=glm::fvec2((3174801.152713919 -cnt_x)*1.0,   (-5353619.96164422  -cnt_z)*1.0);
+    } else if (area=="Rio" && mirror!=0) {
+        vertical =bmax_total[0]- bmin_total[0];
+//top_left    tpll -22.8955078125 -43.39599609375 => -5165607 2015334 => https://www.google.nl/maps/@-22.8955078125,-43.39599609375,15000m/data=!3m1!1e3
+//top_right   tpll -22.8955078125 -42.91259765625 => -5114774 2023103 => https://www.google.nl/maps/@-22.8955078125,-42.91259765625,15000m/data=!3m1!1e3
+//bot_left    tpll -23.0465698242 -43.39599609375 => -5168232 2032597 => https://www.google.nl/maps/@-23.0465698242,-43.39599609375,15000m/data=!3m1!1e3
+//bot_right   tpll -23.0465698242 -42.91259765625 => -5117418 2040340 => https://www.google.nl/maps/@-23.0465698242,-42.91259765625,15000m/data=!3m1!1e3
 
-//top left:       3161552.411711868,      -5428108.961447178
-//top right:      3194832.7696658284,     -5417672.727180401
-//bottom left:    3141325.945715654,      -5364168.2744096005
-//bottom right:   3174801.152713919,      -5353619.96164422
+
+        float cnt_x=0;
+        float cnt_z=0;
+        top_left =glm::fvec2((-5165607-cnt_x)*1.0,   (2015334-cnt_z)*1.0);
+        top_right=glm::fvec2((-5114774-cnt_x)*1.0,   (2023103-cnt_z)*1.0);
+        bot_left =glm::fvec2((-5168232-cnt_x)*1.0,   (2032597-cnt_z)*1.0);
+        bot_right=glm::fvec2((-5117418-cnt_x)*1.0,   (2040340-cnt_z)*1.0);
     } else if (area=="NewYork" && mirror!=0) {
         vertical =bmax_total[0]- bmin_total[0];
-
-//        top_left =glm::dvec2(3109621.6855937983,   -5377456.286742788);
-//        top_right=glm::dvec2(3122982.1209280635,   -5373177.931635568);
-//        bot_left =glm::dvec2(3105714.1226496957,   -5365303.167017606);
-//        bot_right=glm::dvec2(3119098.869450965,    -5361027.64235222);
-
         float cnt_x=0;
         float cnt_z=0;
 //        float cnt_x=-8544252.905233163;
@@ -1931,6 +1935,9 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
 //                bmin_total[0]=-10.0;
                 bmax_total[0]=150.0;
             } else if (area=="Amsterdam") {
+                bmin_total[0]=-30.0;
+                bmax_total[0]=150.0;
+            } else if (area=="Rio") {
                 bmin_total[0]=-30.0;
                 bmax_total[0]=150.0;
             }

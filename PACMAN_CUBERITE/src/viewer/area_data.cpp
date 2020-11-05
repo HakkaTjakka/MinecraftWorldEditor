@@ -16,7 +16,7 @@
 std::string areas(int q) {
     static int x=-1;
     if (q==0) {
-        x=(x+1)%12;
+        x=(x+1)%13;
     } else {
         x=q-1;
     }
@@ -32,11 +32,13 @@ std::string areas(int q) {
     else if (x==9) return "Canvas";
     else if (x==10) return "Azores";
     else if (x==11) return "Utrecht";
+    else if (x==12) return "Rio";
     else return "Nope...";
 }
 
 extern bool FileExists(const std::string& abs_filename);
 extern std::string get_octant_AMSTERDAM(int &x, int &y);
+extern std::string get_octant_RIO(int &x, int &y);
 std::string get_octant_SCHWEIZ(int &x, int &y);
 std::string get_octant_BRUSSEL(int &x, int &y);
 std::string get_octant_LA(int &x, int &y);
@@ -93,6 +95,7 @@ std::string get_area_data2(std::string area_name, int &x, int &y) {
     else if (area_name == "CANVAS") return get_Canvas(x,y);
     else if (area_name == "SCHWEIZ") return get_octant_SCHWEIZ(x,y);
     else if (area_name == "AMSTERDAM") return get_octant_AMSTERDAM(x,y);
+    else if (area_name == "RIO") return get_octant_RIO(x,y);
     else if (area_name == "UTRECHT") return get_octant_UTRECHT(x,y);
     else if (area_name == "AZORES") return get_octant_AZORES(x,y);
 
