@@ -228,14 +228,28 @@ void RECALC_BMIN_BMAX2(std::vector<BufferObject> buffers, float bmin[3], float b
                 }
 //normal...
                 glm::vec4 hop = glm::vec4(v[l][0], v[l][1], v[l][2], 1.0f) * test;
+
+//ON LATEST FAILURE: IF I'M CORRECT, THIS FUNCTION IS CALLED  AFTER  THE .NBT IS SAVED......SMALL GAPS WILL BE FIXED SOON... WITH THIS YOU CAN FIX/TEST IT YOURSELF IF YOU LIKE.
+//scaledown 1% (for testing, voxelize octants show small holes on edges where connected
+//                hop = hop - glm::vec4(tx,ty,tz,0.0f);
+//                hop.x=hop.x*0.99;
+//                hop.x=hop.y*0.99;
+//                hop.x=hop.z*0.99;
+//                hop = hop + glm::vec4(tx,ty,tz,0.0f);
+
+//scaleup 1% (for testing, voxelize octants show small holes on edges where connected
+//                hop = hop - glm::vec4(tx,ty,tz,0.0f);
+//                hop.x=hop.x/0.99;
+//                hop.x=hop.y/0.99;
+//                hop.x=hop.z/0.99;
+//                hop = hop + glm::vec4(tx,ty,tz,0.0f);
+
                 VertexPointer[offset]=hop.x;
                 VertexPointer[offset+1]=hop.y;
                 VertexPointer[offset+2]=hop.z;
 
 //                glm::vec4 hop = glm::vec4(v[l][0]+tx, v[l][1]+ty, v[l][2]+tz, 1.0f) * test;
 
-//                hop = hop + trot;
-//                hop = hop - glm::vec4(tx,ty,tz,0.0f);
 
                 bmin[0]=std::min(hop.x, bmin[0]);   bmax[0]=std::max(hop.x, bmax[0]);
                 bmin[1]=std::min(hop.y, bmin[1]);   bmax[1]=std::max(hop.y, bmax[1]);
