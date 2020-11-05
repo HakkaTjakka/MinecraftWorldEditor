@@ -1569,8 +1569,9 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                     voxel_to_file=true;
                 }
             }
-            lat_global=v.lat;
-            lon_global=v.lon;
+//serious failure part 2
+//            lat_global=v.lat;
+//            lon_global=v.lon;
             char kutjelikken[200];
             sprintf(kutjelikken,"N=%lf S=%lf W=%lf E=%lf", v.n, v.s, v.w, v.e);
             latitude_longditude=kutjelikken;
