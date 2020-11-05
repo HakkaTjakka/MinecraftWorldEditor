@@ -1,4 +1,5 @@
 CHECK THE ISSUES!!!
+Also: I you need manuals on other stuff, ASK!
 
 ***
 [![Demo CountPages alpha](https://img.youtube.com/vi/2zm-cQz_fbU/maxresdefault.jpg)](https://www.youtube.com/embed/2zm-cQz_fbU)
