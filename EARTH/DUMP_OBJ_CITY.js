@@ -22,7 +22,7 @@ const DL_DIR2 = 'G:/EARTH2/downloaded_files';
 const [ DUMP_NEW_NEW_DIR2,	DUMP_NEW_DIR2,		DUMP_NEW_DIR_UTRECHT2,	DUMP_NEW_DIR_RIO2,		DUMP_NEW_DIR_MIAMI2,	DUMP_NEW_DIR_AZORES2,		DUMP_NEW_DIR_DENHAAG2,		DUMP_NEW_DIR_SCHWEIZ2,		DUMP_NEW_DIR_NEWYORK2,		DUMP_NEW_DIR_BRUSSEL2,		DUMP_NEW_DIR_ENSCHEDE2,		DUMP_NEW_DIR_LA2,		DUMP_NEW_DIR_AMSTERDAM2,	DUMP_OBJ_DIR2,		DUMP_JSON_DIR2,		DUMP_RAW_DIR2	] =
 	  [	'new/new',			'new',			  	'new/Utrecht',			'new/Rio',				'new/Miami',			'new/Azores',				'new/DenHaag',				'new/Schweiz',				'new/NewYork',	  			'new/Brussel',	  			'new/Enschede',	  			'new/LA',				'new/Amsterdam',			'obj',				'json',				'raw' 		  	].map(x => path.join(DL_DIR2, x));
                                                                         
-const DL_DIR3 = 'E:/EARTH3/downloaded_files';                           
+const DL_DIR3 = 'E:/PACMAN/EARTH/downloaded_files';                           
 const [ DUMP_NEW_NEW_DIR3,	DUMP_NEW_DIR3,		DUMP_NEW_DIR_UTRECHT3,	DUMP_NEW_DIR_RIO3,		DUMP_NEW_DIR_MIAMI3,	DUMP_NEW_DIR_AZORES3,		DUMP_NEW_DIR_DENHAAG3,		DUMP_NEW_DIR_SCHWEIZ3,		DUMP_NEW_DIR_NEWYORK3,		DUMP_NEW_DIR_BRUSSEL3,		DUMP_NEW_DIR_ENSCHEDE3,		DUMP_NEW_DIR_LA3,		DUMP_NEW_DIR_AMSTERDAM3,	DUMP_OBJ_DIR3,		DUMP_JSON_DIR3,		DUMP_RAW_DIR3	] =
 	  [	'new/new',			'new',			  	'new/Utrecht',			'new/Rio',				'new/Miami',			'new/Azores',				'new/DenHaag',				'new/Schweiz',				'new/NewYork',	  			'new/Brussel',	  			'new/Enschede',	  			'new/LA',				'new/Amsterdam',			'obj',				'json',				'raw' 		  	].map(x => path.join(DL_DIR3, x));
 
@@ -196,7 +196,8 @@ async function run() {
 		else if (fs.existsSync(newDir_DENHAAGb) ) 	{	console.log('exists in: ' + newDir_DENHAAGb);	return;		}
 		else if (fs.existsSync(newDir_SCHWEIZb) ) 	{	console.log('exists in: ' + newDir_SCHWEIZb);	return;		}
 		else if (fs.existsSync(newDir_AZORESb) ) 	{	console.log('exists in: ' + newDir_AZORESb);	return;		}
-		else 										{	console.log('not exist: ' + objDir);	}
+//		else 										{	console.log('not exist: ' + objDir);	}
+		else 										{	console.log('not exist: ' + DL_DIR);	}
 
 			 if (fs.existsSync(newDir1) )			{	console.log('exists in: ' + newDir1);			return;		}
 		else if (fs.existsSync(newnewDir1) ) 		{	console.log('exists in: ' + newnewDir1);		return;		}
@@ -224,7 +225,8 @@ async function run() {
 		else if (fs.existsSync(newDir_DENHAAGb1) ) 	{	console.log('exists in: ' + newDir_DENHAAGb1);	return;		}
 		else if (fs.existsSync(newDir_SCHWEIZb1) ) 	{	console.log('exists in: ' + newDir_SCHWEIZb1);	return;		}
 		else if (fs.existsSync(newDir_AZORESb1) ) 	{	console.log('exists in: ' + newDir_AZORESb1);	return;		}
-		else 										{	console.log('not exist: ' + objDir1);	}
+//		else 										{	console.log('not exist: ' + objDir1);	}
+		else 										{	console.log('not exist: ' + DL_DIR1);	}
 
 			 if (fs.existsSync(newDir2) )			{	console.log('exists in: ' + newDir2);			return;		}
 		else if (fs.existsSync(newnewDir2) ) 		{	console.log('exists in: ' + newnewDir2);		return;		}
@@ -252,7 +254,8 @@ async function run() {
 		else if (fs.existsSync(newDir_DENHAAGb2) ) 	{	console.log('exists in: ' + newDir_DENHAAGb2);	return;		}
 		else if (fs.existsSync(newDir_SCHWEIZb2) ) 	{	console.log('exists in: ' + newDir_SCHWEIZb2);	return;		}
 		else if (fs.existsSync(newDir_AZORESb2) ) 	{	console.log('exists in: ' + newDir_AZORESb2);	return;		}
-		else 										{	console.log('not exist: ' + objDir2);	}
+//		else 										{	console.log('not exist: ' + objDir2);	}
+		else 										{	console.log('not exist: ' + DL_DIR2);	}
 
 			 if (fs.existsSync(newDir3) )			{	console.log('exists in: ' + newDir3);			return;		}
 		else if (fs.existsSync(newnewDir3) ) 		{	console.log('exists in: ' + newnewDir3);		return;		}
@@ -280,7 +283,8 @@ async function run() {
 		else if (fs.existsSync(newDir_DENHAAGb3) ) 	{	console.log('exists in: ' + newDir_DENHAAGb3);	return;		}
 		else if (fs.existsSync(newDir_SCHWEIZb3) ) 	{	console.log('exists in: ' + newDir_SCHWEIZb3);	return;		}
 		else if (fs.existsSync(newDir_AZORESb3) ) 	{	console.log('exists in: ' + newDir_AZORESb3);	return;		}
-		else 										{	console.log('not exist: ' + objDir3);	}
+//		else 										{	console.log('not exist: ' + objDir3);	}
+		else 										{	console.log('not exist: ' + DL_DIR3);	}
 	}
 
 	if (CITYNAME[0]=="--ENSCHEDE")			{	offset_x=3875099.0;					offset_y=468154.0;				offset_z=5035344.0; }

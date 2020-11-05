@@ -124,6 +124,8 @@
                                         else { sprintf(to_print,"VOXELS TOTAL: %10d",voxels_total.size());           PRINTIT_BIG }
 
                                         if (rot_plot) { sprintf(to_print,"Plotting on  Voxel_bottom=%6.3f%%  Max size: %3d (Rot: %3d)",voxel_bottom*100, (int)schematic_size,(flipflop>0)*180);           PRINTIT_RED_BIG }
+                                        if (cubic) { sprintf(to_print,"CUBIC (SHIFT+c) = ON (don't trim, make floors)");           PRINTIT_BIG }
+                                        else { sprintf(to_print,"CUBIC (SHIFT+c) = OFF (trim y<0 & y>255");           PRINTIT_BIG }
 
                                 } else {
                                     if (do_wuppie) {

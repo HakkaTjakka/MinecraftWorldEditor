@@ -1150,8 +1150,14 @@ extern void make_test_schematic();
                                         depth_shader.setUniform("TEXTURE_ARRAY", TEXTURE_ARRAY);
                                         break;
                                     case sf::Keyboard::C:
-                                        COLOR_ARRAY=!COLOR_ARRAY;
-                                        depth_shader.setUniform("COLOR_ARRAY", COLOR_ARRAY);
+                                        if (event.key.shift) {
+                                            cubic=!cubic;
+                                            break;
+                                        } else {
+                                            COLOR_ARRAY=!COLOR_ARRAY;
+                                            depth_shader.setUniform("COLOR_ARRAY", COLOR_ARRAY);
+                                            break;
+                                        }
                                         break;
                                     case sf::Keyboard::F6:
                                         if (event.key.shift) {
