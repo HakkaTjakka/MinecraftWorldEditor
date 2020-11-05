@@ -156,7 +156,7 @@ async function run() {
 			CITY_NAME="RIO"
 			lat0=-22.897988;
 			lon0=-43.395343;
-			lat1=-22.975957;
+			lat1=-23.048378; // https://www.google.nl/maps/@-23.048378,-42.911523,15000m/data=!3m1!1e3
 			lon1=-42.911523;
 		} else {
 			console.log('Add area first....');
@@ -164,21 +164,34 @@ async function run() {
 		}
 
 		let [lat, lon] = [0.0, 0.0];
-		if (lat0 < 0.0) {
-			lat=lat0;
-			lon=lon0;
-		} else {
+//		if (lat0 < 0.0) {
+//			lat=lat0;
+//			lon=lon0;
+//		} else {
 			lat=lat1;
 			lon=lon0;
-		}
+//		}
 //			let [lat, lon] = [lat1, lon0];
         [lat, lon] = [parseFloat(lat), parseFloat(lon)];
 
         let init_foundOctants = await latLongToOctant(lat, lon, MAX_LEVEL);
         var match=0;
         for (let octantLevel in init_foundOctants) {
-            if (octantLevel === '11') match=1;
+//            if (octantLevel === '11') match=1;
+            if (octantLevel === '17') match=1;
         }
+		var turn=1;
+        if (match === 0) {
+			lat=lat0;
+			lon=lon0;
+			init_foundOctants = await latLongToOctant(lat, lon, MAX_LEVEL);
+			for (let octantLevel in init_foundOctants) {
+				if (octantLevel === '17') {
+					match=1;
+					turn=-1;
+				}
+			}
+		}
 
         var size_lat=0.0; var size_lon=0.0;
         var middle_lat=0.0; var middle_lon=0.0;
@@ -223,10 +236,10 @@ async function run() {
         var num_lons=0.0;
         if (size_lat>0) num_lats=(lat0-lat1)/size_lat+1;
         if (size_lon>0) num_lons=(lon1-lon0)/size_lon+1;
-		console.log("num_lats=" + num_lats);
-		console.log("num_lons=" + num_lons);
 		num_lats = Math.round(num_lats);
 		num_lons = Math.round(num_lons);
+		console.log("num_lats=" + num_lats);
+		console.log("num_lons=" + num_lons);
         var line = '';
         var prev_line = '';
         var row_cc_extra = '{';
@@ -234,28 +247,42 @@ async function run() {
 		lon=from_lon+size_lon/2.0;
         var row_cc_lat_lon_extra = '{';
 		for (let lon_count=0; lon_count<num_lons; lon_count++) {
-            var ok;
+            var ok=1;
 //            var row = '';
             var row_cc = '{';
             var row_cc_lat_lon = '{';
             var sub_line = '';
             var prev_level = '';
             let set=0;
-			lat=from_lat+size_lat/2.0;
-			for (let lat_count=0; lat_count<num_lats; lat_count++) {
+			lat=from_lat+turn*size_lat/2.0;
+//			lat=from_lat+size_lat/2.0;
+			var lat_from = 0;
+			var lat_to = num_lats;
+			var lat_inc = 1;
+			if (turn === -1) {
+				lat_from = num_lats-1;
+				lat_to = -1;
+				lat_inc = -1;
+			}
+			for (let lat_count2=lat_from; lat_count2!=lat_to; lat_count2=lat_count2+lat_inc) {
+				let lat_count = lat_count2;
+				if (turn === -1) lat_count = lat_from - lat_count2;
+//			for (let lat_count=0; lat_count<num_lats; lat_count++) {
                 [lat, lon] = [parseFloat(lat), parseFloat(lon)];
                 let foundOctants = await latLongToOctant(lat, lon, MAX_LEVEL);
+                ok=0;
                 for (let octantLevel in foundOctants) {
                     let octants = foundOctants[octantLevel].octants;
                     let box = foundOctants[octantLevel].box;
                     if ( octantLevel === '17' ) {
-                        ok=0;
-                        let line_start= "["+lat_count.toString().padStart(3, ' ')+"]["+lon_count.toString().padStart(3, ' ')+"] (" + box.n.toFixed(13) + "," + box.w.toFixed(13) + "," + box.s.toFixed(13) + "," + box.e.toFixed(13) + ")";
+//                        ok=0;
+//                        let line_start= "["+lat_count.toString().padStart(3, ' ')+"]["+lon_count.toString().padStart(3, ' ')+"] (" + box.n.toFixed(13) + "," + box.w.toFixed(13) + "," + box.s.toFixed(13) + "," + box.e.toFixed(13) + ")";
                         let line_end="";
                         let line_end2="";
+//                        ok=1;
                         for (let i = 0; i < octants.length; i++) {
-                            ok=1;
                             if (i===octants.length-1) {
+								ok=1;
 								line_end=octants[i];
 								if (set===1) {
 									row_cc=row_cc+',';
@@ -286,8 +313,8 @@ async function run() {
 								);
 
 								numberOffoundOctants++;
-								row_cc=row_cc+"\""+line_end+"\""
-								row_cc_lat_lon=row_cc_lat_lon+"\""+"N="+box.n+" S="+box.s+" W="+box.w+" E="+box.e+"\""
+								row_cc=row_cc+"\""+line_end+"\"";
+								row_cc_lat_lon=row_cc_lat_lon+"\""+"N="+box.n+" S="+box.s+" W="+box.w+" E="+box.e+"\"";
 								size_lat=(box.n-box.s);
 								size_lon=(box.e-box.w);
 								middle_lat=(box.n+box.s)/2.0;
@@ -324,11 +351,40 @@ async function run() {
                         }
                     }
                 }
-                set=1;
-                if (ok === 0) {
-                    console.log('Not found:' + lat + ',' + lon);
+				
+                if (ok === 0 && lat_count<num_lats) {
+//					let line_end="";
+//					let line_end=lat_count.toString().padStart(17-lat_count.toString().length, '0');
+					
+					let line_end="00000000000000000";
+					let line_end2="";
+					if (set===1) {
+						row_cc=row_cc+',';
+						row_cc_lat_lon=row_cc_lat_lon+',';
+					}
+					set = 1;
+					indexedOctants[numberOffoundOctants]=line_end;
+					middle_lats[numberOffoundOctants] = 0.0;
+					middle_lons[numberOffoundOctants] = 0.0;
+					out_index[numberOffoundOctants]=numberOffoundOctants;
+					out_x[numberOffoundOctants]=lon_count;
+					out_y[numberOffoundOctants]=lat_count;
+					out[numberOffoundOctants]=0.0;
+					console.log("["+numberOffoundOctants.toString().padStart(5, ' ')+"]"+
+						 "["+lon_count.toString().padStart(3, ' ')+"]"+
+						 "["+lat_count.toString().padStart(3, ' ')+"]="+
+						 indexedOctants[numberOffoundOctants]+line_end2+
+						 " lat=0.0 to 0.0 lon=0.0 to 0.0"
+					);
+
+					numberOffoundOctants++;
+					row_cc=row_cc+"\""+line_end+"\""
+					row_cc_lat_lon=row_cc_lat_lon+"\""+"N=0.0 S=0.0 W=0.0 E=0.0\"";
+//                    console.log('Not found:' + lat + ',' + lon);
                 }
-				lat=lat+size_lat;
+                set=1;
+				lat=lat+turn*size_lat;
+//				lat=lat+size_lat;
             }
             row_cc=row_cc+"};";
 			row_cc='octants['+lon_count+']=new std::string['+num_lats+'] '+row_cc;
@@ -469,10 +525,12 @@ async function run() {
 		var fmin=99999999999.9;
 		var fmax=0.0;
 		for (let i=0; i<numberOffoundOctants; i++) {
-			console.log(
-				"node DUMP_OBJ_CITY.js "+indexedOctants[i]+" 21 --parallel-search "+"--"+CITY_NAME);
-			if (out[i]<fmin) fmin=out[i];
-			if (out[i]>fmax) fmax=out[i];
+			if (indexedOctants[i]!="00000000000000000") {
+				console.log(
+					"node DUMP_OBJ_CITY.js "+indexedOctants[i]+" 21 --parallel-search "+"--"+CITY_NAME);
+				if (out[i]<fmin) fmin=out[i];
+				if (out[i]>fmax) fmax=out[i];
+			}
 		}
 		console.log('REM EXTRA:');
 		for (let i=0; i<numberOffoundOctants_extra; i++) {
