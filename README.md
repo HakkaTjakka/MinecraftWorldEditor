@@ -1,5 +1,14 @@
 CHECK THE ISSUES!!!
 Also: I you need manuals on other stuff, ASK!
+(Super large posters of Google 3d on 300+ dpi)
+(Video's of 3d objects from 3d window, setting markers, interpolation, recording)
+(Using geometry/fragment shaders on 3d data/objects)
+(Voxelizing Wavefront objects and create schematics/region files, automation for creating very large worlds from 2d/3d objects and/or scratch/formulas)
+(Pacman maze game, using it for animations/recording/creation of very large 2d canvas)
+(Use of the very large canvas)
+(Downloading / managing sattelite/street maps endless sized canvas, zoomlevels)
+(Recording screen, converting video's, playing video's with internal/external ffmpeg player)
+(How the code-jungle works, etc)
 
 ***
 [![Demo CountPages alpha](https://img.youtube.com/vi/2zm-cQz_fbU/maxresdefault.jpg)](https://www.youtube.com/embed/2zm-cQz_fbU)
