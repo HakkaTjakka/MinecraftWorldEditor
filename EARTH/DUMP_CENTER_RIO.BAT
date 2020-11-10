@@ -1,6 +1,6 @@
+node DUMP_OBJ_CITY.js 03706263616160427 21 --parallel-search --RIO
 node DUMP_OBJ_CITY.js 03706263616160426 21 --parallel-search --RIO
 node DUMP_OBJ_CITY.js 03706263616071537 21 --parallel-search --RIO
-node DUMP_OBJ_CITY.js 03706263616160427 21 --parallel-search --RIO
 node DUMP_OBJ_CITY.js 03706263616160604 21 --parallel-search --RIO
 node DUMP_OBJ_CITY.js 03706263616071715 21 --parallel-search --RIO
 node DUMP_OBJ_CITY.js 03706263616071536 21 --parallel-search --RIO
@@ -7764,7 +7764,7 @@ node DUMP_OBJ_CITY.js 03706263607243624 21 --parallel-search --RIO
 node DUMP_OBJ_CITY.js 03706263607243663 21 --parallel-search --RIO
 node DUMP_OBJ_CITY.js 03706263617352737 21 --parallel-search --RIO
 node DUMP_OBJ_CITY.js 03706263607243662 21 --parallel-search --RIO
-REM EXTRA:
+EXTRA:
 node DUMP_OBJ_CITY.js 03706263607243626 21 --parallel-search --RIO
 node DUMP_OBJ_CITY.js 03706263607243606 21 --parallel-search --RIO
 node DUMP_OBJ_CITY.js 03706263607243604 21 --parallel-search --RIO
@@ -9607,3 +9607,4 @@ node DUMP_OBJ_CITY.js 03706263617350536 21 --parallel-search --RIO
 node DUMP_OBJ_CITY.js 03706263617350735 21 --parallel-search --RIO
 node DUMP_OBJ_CITY.js 03706263617350717 21 --parallel-search --RIO
 node DUMP_OBJ_CITY.js 03706263617350537 21 --parallel-search --RIO
+pause

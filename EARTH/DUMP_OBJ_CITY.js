@@ -290,7 +290,8 @@ async function run() {
 	if (CITYNAME[0]=="--ENSCHEDE")			{	offset_x=3875099.0;					offset_y=468154.0;				offset_z=5035344.0; }
 	else if (CITYNAME[0]=="--UTRECHT")		{	offset_x=3899275.0;					offset_y=348997.0;				offset_z=5026376.0; }
 	else if (CITYNAME[0]=="--AMSTERDAM")	{	offset_x=3876534.0;					offset_y=331582.0;				offset_z=5045027.0; }
-	else if (CITYNAME[0]=="--RIO")			{	offset_x=0.0;						offset_y=0.0;					offset_z=0.0; }
+//planet_037062636161604273407_0 4279407.080373702 -4011609.541706613 -2486650.8940397883
+	else if (CITYNAME[0]=="--RIO")			{	offset_x=4279407;					offset_y=-4011609;				offset_z=-2486650; }
 	else if (CITYNAME[0]=="--BRUSSEL")		{	offset_x=4014897.0; 				offset_y=296156.0; 				offset_z=4937953.0; }
 	else if (CITYNAME[0]=="--LA")			{	offset_x=-2490962;					offset_y=-4656517; 				offset_z=3564040; }
 	else if (CITYNAME[0]=="--NEWYORK")		{	offset_x=1323854.370856056; 		offset_y=-4649129.837542839; 	offset_z=4150030.4071031474; } 
