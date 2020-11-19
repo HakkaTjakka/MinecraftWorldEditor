@@ -10312,8 +10312,10 @@ extern bool hold_voxels;
             update_MC(scan_image,scan_x,scan_z);
             update_request=0;
 //hehehe
-            int x=(int)( ( (LONG64)(scan_x+6)*512 + (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
-            int y=(int)( ( (LONG64)(scan_z+6)*512 + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
+            int x=(int)( ( (LONG64)(scan_x)*512 + (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
+            int y=(int)( ( (LONG64)(scan_z)*512 + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
+//todo              int x=(int)( ( (LONG64)(scan_x+6)*512 + (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
+//                  int y=(int)( ( (LONG64)(scan_z+6)*512 + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
 //            int x=(int)( ( (LONG64)scan_x*512 + (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
             //int y=(int)( ( (LONG64)scan_z*512 + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
 
@@ -13864,8 +13866,8 @@ extern bool flushing_mode;
     scale_now=1.0;
     ffmpeg_move=1;
 //hehehe
-    ffmpeg_posx=x+6*512;
-    ffmpeg_posy=y+6*512;
+    ffmpeg_posx=x; //todo +6*512;
+    ffmpeg_posy=y; //todo +6*512;
     int bl_old=blending;
     blending=0;
     ffmpegfile=0;
@@ -13911,11 +13913,11 @@ extern bool rot_plot;
     if (!plot_only) {
         text_to_ffmpeg(mc_text2, 28,random_pixel,sf::Color::White);
         if (hit_one!=NULL) {
-            ffmpeg_posy=y+2+42+28*(hit_one->index12)+6*512;
+            ffmpeg_posy=y+2+42+28*(hit_one->index12); //todo +6*512;
 //            if (hit_one->index12>4) printf("Error: hit_one->index12>4\n");
         }
         else
-            ffmpeg_posy=y+2+42+28+6*512;
+            ffmpeg_posy=y+2+42+28; // todo +6*512;
 
 //        ffmpeg_posy=y+2+42+28*(region_counter[xx][yy]);
 

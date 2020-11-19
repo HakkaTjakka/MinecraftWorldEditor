@@ -1718,14 +1718,14 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
             if (voxel_bottom>0) {
                 f=(schematic_size+voxel_bottom)/(bmax_total[0]-bmin_total[0]);
 
-                if (!make_schematic)
+                if (!make_schematic && !cubic)
                     if (f*(bmax_total[0]-bmin_total[0])>(248.0-voxel_bottom)) f=(248.0-voxel_bottom)/(bmax_total[0]-bmin_total[0]);
                 else
                     if (f*(bmax_total[0]-bmin_total[0])>schematic_size) f=schematic_size/(bmax_total[0]-bmin_total[0]);
 
             } else {
                 f=schematic_size/(bmax_total[0]-bmin_total[0]);
-                if (!make_schematic)
+                if (!make_schematic && !cubic)
                     if (f*(bmax_total[0]-bmin_total[0])>248.0) f=248.0/(bmax_total[0]-bmin_total[0]);
                 else
                     if (f*(bmax_total[0]-bmin_total[0])>schematic_size) f=schematic_size/(bmax_total[0]-bmin_total[0]);
@@ -3794,7 +3794,8 @@ extern int ret_color3(int r,int g,int b);
             size_t offset= ( u->y - min_y )  +  ( u->z - min_z ) * width  +  ( u->x - min_x ) * width * length;
             schematic_block[offset]=251; //blocks id concrete
 //            schematic_data[offset]=(unsigned char) ret_color3(u->r/u->l, u->g/u->l, u->b/u->l);
-            schematic_data[offset]=(unsigned char) color; //data color
+//            schematic_data[offset]=(unsigned char) color; //data color
+            schematic_data[offset]=(unsigned char) 0; //white
 
 //            fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d)\n",
 //                    u.y, u.x, u.z,  u.r/u.l,u.g/u.l, u.b/u.l,  u.l );
