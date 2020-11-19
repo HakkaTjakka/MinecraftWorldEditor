@@ -52,6 +52,7 @@ bool rooms_on=true;
 bool coral_on=true;
 bool maze_on=true;
 bool lights_on=true;
+bool ground_on=true;
 bool stone_on=true;
 extern int replace_string(char *str, char *orig, char *rep);
 extern void ret_color_rev(int idx, int&r,int&g,int&b );
@@ -6232,6 +6233,13 @@ extern std::string area;
         printf(" Stone=on");
     } else stone_on=false;
 
+    if (file_exists("ground.on")) {
+        ground_on=true;
+        if (fff==1) printf("\n");
+        fff=0;
+        printf(" Stone=on");
+    } else ground_on=false;
+
     if (file_exists("grass.on")) {
         grass_on=true;
         if (fff==1) printf("\n");
@@ -6466,26 +6474,29 @@ extern std::string area;
                     for (int y = 0; y < 256; y++) {
                         if (AY[y].id==0) {
                             if (skylight[x][z][y]==0) {
-                                if (region_floor==0) {
-                                    if (y<=floor_y[x][z]) {
-                                        if (!(rand()%(2+((y-height_add)*(y-height_add))/5)))
-                                            AY[y]=BlockInfo(89,0,0,0);
-                                        else if (!(rand()%(50+((y-height_add)*(y-height_add))/25)))
-                                            AY[y]=BlockInfo(14,0,0,0);
-                                        else
-                                        {
-                                            if (y<=floor_y[x][z]-15+rand()%4) {
-                                                AY[y]=BlockInfo(1,0,0,0);
-                                            }
-                                            else {
-                                                if (!(rand()%5000)) AY[y]=BlockInfo(2,0,0,0);
-                                                else AY[y]=BlockInfo(3,0,0,0);
+                                if (ground_on) {
+                                    if (region_floor==0) {
+                                        if (y<=floor_y[x][z]) {
+                                            if (!(rand()%(2+((y-height_add)*(y-height_add))/5)))
+                                                AY[y]=BlockInfo(89,0,0,0);
+                                            else if (!(rand()%(50+((y-height_add)*(y-height_add))/25)))
+                                                AY[y]=BlockInfo(14,0,0,0);
+                                            else
+                                            {
+                                                if (y<=floor_y[x][z]-15+rand()%4) {
+                                                    AY[y]=BlockInfo(1,0,0,0);
+                                                }
+                                                else {
+                                                    if (!(rand()%5000)) AY[y]=BlockInfo(2,0,0,0);
+                                                    else AY[y]=BlockInfo(3,0,0,0);
+                                                }
                                             }
                                         }
+                                    } else if (region_floor<0) {
+                                        AY[y]=BlockInfo(1,0,0,0);
                                     }
-                                } else if (region_floor<0) {
-                                    AY[y]=BlockInfo(1,0,0,0);
                                 }
+
                                 if (AY[y].id==0 && !(rand()%500)) {
                                     bool ok=false;
                                     if (x!=0) {
@@ -7147,7 +7158,8 @@ extern std::string area;
                             }
                         }
                         if (stone_on) {
-                            if (AY[y].id==251) AY[y]=BlockInfo(4,0,0,0);
+//                            if (AY[y].id==251) AY[y]=BlockInfo(4,0,0,0);
+                            if (AY[y].id==251) BlockInfo(251,0,AY[y].data,0);
                         } else if (glass_on) {
                             if (AY[y].id==251) {
                                 if (AY[y].data==0) AY[y]=BlockInfo(20,0,0,0);
