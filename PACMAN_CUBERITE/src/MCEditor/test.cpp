@@ -7159,7 +7159,7 @@ extern std::string area;
                         }
                         if (stone_on) {
 //                            if (AY[y].id==251) AY[y]=BlockInfo(4,0,0,0);
-                            if (AY[y].id==251) BlockInfo(251,0,AY[y].data,0);
+                            if (AY[y].id==251) AY[y]=BlockInfo(251,0,0,0); // make white concrete (0)
                         } else if (glass_on) {
                             if (AY[y].id==251) {
                                 if (AY[y].data==0) AY[y]=BlockInfo(20,0,0,0);
