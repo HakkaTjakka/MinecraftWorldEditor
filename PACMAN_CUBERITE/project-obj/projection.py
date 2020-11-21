@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import jnius_config
+import sys
 
 jnius_config.set_classpath('terra121_classes')
 from jnius import autoclass
@@ -20,4 +21,9 @@ if __name__ == "__main__":
 #    print(projection.fromGeo(0, 51.5))
 #    print(projection.toGeo(*projection.fromGeo(0, 51.5)))
 
-        print(projection.fromGeo(40.689632,-74.045263))
+#    print(projection.fromGeo(47.58562, 6.89743))
+#    print('Number of arguments:', len(sys.argv), 'arguments.')
+#    print('Argument List:', str(sys.argv))
+
+#    print('Argument List:', str(sys.argv[0]))
+    print(projection.fromGeo( float(str(sys.argv[2])) , float(str(sys.argv[1]))) )
