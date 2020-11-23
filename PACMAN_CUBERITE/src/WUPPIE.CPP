@@ -1499,6 +1499,15 @@ void magic(double v[3][3], double tc[3][2], struct image_loader* image_buffer, i
     rasterize(v, tc, w, h, buf_count, faces, image_buffer->image, factor, image_copy, offset_x, offset_y, offset_z, box_x, box_y, box_z, mc_sub, block_scale);
 }
 
+void magic2(double v[3][3], double tc[3][2], sf::Image* image, int buf_count, int faces, sf::Image& image_copy, int offset_x, int offset_y, int offset_z, int box_x, int box_y, int box_z, unsigned short **mc_sub, double block_scale) {
+
+    double factor=1;
+    int w = image->getSize().x;
+    int h = image->getSize().y;
+
+    rasterize(v, tc, w, h, buf_count, faces, image, factor, image_copy, offset_x, offset_y, offset_z, box_x, box_y, box_z, mc_sub, block_scale);
+}
+
 extern std::vector<Voxel> voxels_total;
 extern std::string area;
 extern bool file_exists(const char * filename);

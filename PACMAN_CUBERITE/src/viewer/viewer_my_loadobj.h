@@ -483,13 +483,15 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
     //            while (window.pollEvent(event));
             }
     //        printf("\nStatus report: ");
-            if (wait_stat==1) { if (!burn && F2==1) printf("\r%d/%d Waiting for textures...Ok. ",count_ready_global,loader_index); }
-            else {
-                if (!burn && F2==1) printf("Status= NOT OK!!! File(s) not found or error loading... ");
-                clear_image_buffer();
-                return false;
+            if (wait_stat==1) {
+                if (!burn && F2==1) printf("\r%d/%d Waiting for textures...Ok. ",count_ready_global,loader_index);
+                printf("\r%d/%d Waiting for textures...Ok. ",count_ready_global,loader_index);
+            } else {
+                if (!burn && F2==1) printf("Status= NOT OK!!! File(s) not found or error loading... My nose bleeds -> continuing\n");
+//hmm
+//                clear_image_buffer();
+//                return false;
             }
-            printf("\r%d/%d Waiting for textures...Ok. ",count_ready_global,loader_index);
     //        printf("'clearing' images ");
     //        clear_image_buffer();
 
@@ -526,7 +528,10 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                             if (!image_buffer[m]->ok) {
                                 image=0;
                                 printf("Image not ok!!!!\n");
-                                return false;
+                                std::string comm=std::string() + "echo " + texture_filename + " texture not ok. >> textures_file_error.log";
+                                system( comm.c_str() );
+//hmm
+//                                return false;
                             }
                             else {
                                 w=image_buffer[m]->image->getSize().x;
@@ -546,7 +551,7 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                             std::cerr << "Unable to load texture: " << texture_filename
                                       << std::endl;
                         }
-                        if (to_gpu) {
+                        if (to_gpu && image) {
                             glGenTextures(1, &texture_id);
                             glBindTexture(GL_TEXTURE_2D, texture_id);
                             if (comp == 3) {
@@ -575,7 +580,8 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                             if (!burn && F2==1) quick_toggle();
                         }
                         if (!png) stbi_image_free(image);
-                        textures.insert(std::make_pair(mp->diffuse_texname, texture_id));
+//hmm (asshole!)
+                        if (image) textures.insert(std::make_pair(mp->diffuse_texname, texture_id));
     //                    printf("done             \r");
                     }
                 }
@@ -1685,12 +1691,6 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
         bot_right=glm::fvec2((3174801.152713919 -cnt_x)*1.0,   (-5353619.96164422  -cnt_z)*1.0);
     } else if (area=="Rio" && mirror!=0) {
         vertical =bmax_total[0]- bmin_total[0];
-//top_left    tpll -22.8955078125 -43.39599609375 => -5165607 2015334 => https://www.google.nl/maps/@-22.8955078125,-43.39599609375,15000m/data=!3m1!1e3
-//top_right   tpll -22.8955078125 -42.91259765625 => -5114774 2023103 => https://www.google.nl/maps/@-22.8955078125,-42.91259765625,15000m/data=!3m1!1e3
-//bot_left    tpll -23.0465698242 -43.39599609375 => -5168232 2032597 => https://www.google.nl/maps/@-23.0465698242,-43.39599609375,15000m/data=!3m1!1e3
-//bot_right   tpll -23.0465698242 -42.91259765625 => -5117418 2040340 => https://www.google.nl/maps/@-23.0465698242,-42.91259765625,15000m/data=!3m1!1e3
-
-
         float cnt_x=0;
         float cnt_z=0;
         top_left =glm::fvec2((-5165607-cnt_x)*1.0,   (2015334-cnt_z)*1.0);
@@ -2081,7 +2081,7 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
 
 //jaja
         sf::Image image_copy; //dummy
-        image_copy.create(256,256,sf::Color(255,255,255,255));
+        image_copy.create(256,256,sf::Color(255,0,0,255));
         sf::Image* image=&image_copy;
         if (mat_id < materials.size())
 //        if (mat_id < materials.size()-1)
@@ -2091,6 +2091,8 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
                 printf("Image not ok!!!!\n");
                 w=256;
                 h=256;
+//hmm
+                no_texture=true;
             }
             else {
                 w=image_buffer[mat_id]->image->getSize().x;
@@ -2098,9 +2100,9 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
 //                image=(unsigned char*)image_buffer[mat_id]->image->getPixelsPtr();
 //                sfml_image=image_buffer[mat_id]->image;
 //                printf("Material id: %3d  w=%3d , h=%3d  ",mat_id,w,h);
+                no_texture=false;
+                image=image_buffer[mat_id]->image;
             }
-            no_texture=false;
-            image=image_buffer[mat_id]->image;
         } else {
             printf("No material id: %d\n",mat_id);
 //            sf::sleep(sf::seconds(2.0));
@@ -2360,14 +2362,17 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
 //jaja
         sf::Image image_copy; //dummy
         image_copy.create(256,256,sf::Color(255,255,255,255));
+//hmm
+        w=256;
+        h=256;
         sf::Image* image=&image_copy;
         if (mat_id < materials.size())
         {
             if (!image_buffer[mat_id]->ok) {
 //                image=0;
                 printf("Image not ok!!!!\n");
-                w=256;
-                h=256;
+//hmm
+                no_texture=true;
             }
             else {
                 w=image_buffer[mat_id]->image->getSize().x;
@@ -2375,9 +2380,9 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
 //                image=(unsigned char*)image_buffer[mat_id]->image->getPixelsPtr();
 //                sfml_image=image_buffer[mat_id]->image;
 //                printf("Material id: %3d  w=%3d , h=%3d  ",mat_id,w,h);
+                no_texture=false;
+                image=image_buffer[mat_id]->image;
             }
-            no_texture=false;
-            image=image_buffer[mat_id]->image;
         } else {
             printf("No material id: %d\n",mat_id);
 //            sf::sleep(sf::seconds(2.0));
@@ -2439,7 +2444,13 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
 
             } // triangle
 //jaja
-                if (!no_texture) magic(v,tc,image_buffer[mat_id], buf_count, faces,image_copy, offset_x, offset_y, offset_z, box_x, box_y, box_z, mc_sub, block_scale);
+//hmm
+extern void magic2(double v[3][3], double tc[3][2], sf::Image* image, int buf_count, int faces, sf::Image& image_copy, int offset_x, int offset_y, int offset_z, int box_x, int box_y, int box_z, unsigned short **mc_sub, double block_scale);
+
+                magic2(v,tc,image, buf_count, faces,image_copy, offset_x, offset_y, offset_z, box_x, box_y, box_z, mc_sub, block_scale);
+//                magic(v,tc,image_buffer[mat_id], buf_count, faces,image_copy, offset_x, offset_y, offset_z, box_x, box_y, box_z, mc_sub, block_scale);
+//            if (!no_texture) magic(v,tc,image_buffer[mat_id], buf_count, faces,image_copy, offset_x, offset_y, offset_z, box_x, box_y, box_z, mc_sub, block_scale);
+//            else magic(v,tc,image_copy, buf_count, faces,image_copy, offset_x, offset_y, offset_z, box_x, box_y, box_z, mc_sub, block_scale);
 //            }
 
         } // faces
@@ -2485,6 +2496,7 @@ int region_floor;
 
 void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::material_t> &materials, float bmin_o[3], float bmax_o[3], double lat, double lon, std::string fn) {
     if (area=="Models") adapt_colors=false;
+//    else if (area=="Rio") adapt_colors=false;
     else adapt_colors=true;
 //printf("I am here 1\n");
 

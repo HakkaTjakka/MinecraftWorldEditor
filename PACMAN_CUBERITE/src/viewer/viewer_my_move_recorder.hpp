@@ -1579,6 +1579,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
             global_octant_x=v.pos.x;
             global_octant_y=v.pos.y;
 
+            if (crossing==2 && mirror==4) to_gpu=false;
             if (true == LoadObjAndConvert_window(pac_obj2_arr[i].bmin, pac_obj2_arr[i].bmax, pac_obj2_arr[i].gDrawObjects, pac_obj2_arr[i].materials, pac_obj2_arr[i].textures, (char*) str.c_str()))
             {
                 pac_obj2_arr[i].map_x=v.pos.x;
@@ -1598,6 +1599,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
 //                nbt_creating=false;
 //                return true;
             }
+            if (crossing==2 && mirror==4) to_gpu=true;
 
         } else {
             printf("\r#%3d NBT EXISTS: X=%4d Y=%4d %s\n",cnt,v.pos.x,v.pos.y,nbt_filename.c_str());

@@ -110,6 +110,7 @@ int ret_color(int r, int g, int b)
     }
     if (adapt_colors) {
         if (idx==6) idx=14;
+/*
         else if (idx==7) {
             if (r>g+10 && r>b+10) {
                 idx=14;
@@ -127,6 +128,7 @@ int ret_color(int r, int g, int b)
                 idx=3;
             }
         }
+*/
     }
     return idx;
 }

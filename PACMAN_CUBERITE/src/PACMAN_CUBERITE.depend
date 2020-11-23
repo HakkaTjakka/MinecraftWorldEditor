@@ -710,11 +710,11 @@
 	"StreamSelector.hpp"
 	"MediaInfo.hpp"
 
-1597970732 source:d:\pacman\pacman_cuberite\src\commando.cpp
+1597974332 source:d:\pacman\pacman_cuberite\src\commando.cpp
 	"keylist.hpp"
 	"everything.hpp"
 
-1597966014 d:\pacman\pacman_cuberite\src\keylist.hpp
+1597969614 d:\pacman\pacman_cuberite\src\keylist.hpp
 
 1582634722 d:\pacman\pacman_cuberite\src\everything.hpp
 	<wchar.h>
@@ -6063,7 +6063,7 @@
 
 1582634640 d:\pacman\pacman_cuberite\src\fault.h
 
-1588500334 source:d:\pacman\pacman_cuberite\src\file_functions.cpp
+1588503934 source:d:\pacman\pacman_cuberite\src\file_functions.cpp
 	<wchar.h>
 	<winsock2.h>
 	<io.h>
@@ -7366,7 +7366,7 @@
 	<SFML/Network.hpp>
 	<iostream>
 
-1595887486 source:d:\pacman\pacman_cuberite\src\init.cpp
+1595891086 source:d:\pacman\pacman_cuberite\src\init.cpp
 	<stdio.h>
 	<stdlib.h>
 	<iostream>
@@ -7381,7 +7381,7 @@
 	<iostream>
 	<fstream>
 
-1598061192 source:d:\pacman\pacman_cuberite\src\key_functions.cpp
+1598064792 source:d:\pacman\pacman_cuberite\src\key_functions.cpp
 	<wchar.h>
 	<winsock2.h>
 	<io.h>
@@ -7433,7 +7433,7 @@
 	<SFML/Graphics/Texture.hpp>
 	<SFML/Graphics/RenderWindow.hpp>
 
-1594936187 source:d:\pacman\pacman_cuberite\src\map.cpp
+1594939787 source:d:\pacman\pacman_cuberite\src\map.cpp
 	<winsock2.h>
 	<io.h>
 	"WinMain.h"
@@ -7471,7 +7471,7 @@
 	<glm/glm.hpp>
 	<glm/common.hpp>
 
-1585579896 source:d:\pacman\pacman_cuberite\src\maps.cpp
+1585583496 source:d:\pacman\pacman_cuberite\src\maps.cpp
 	"everything.hpp"
 
 1582634642 source:d:\pacman\pacman_cuberite\src\maze.cpp
@@ -7547,7 +7547,7 @@
 
 1582634640 source:d:\pacman\pacman_cuberite\src\mceditor\blockentity.cpp
 
-1594482029 source:d:\pacman\pacman_cuberite\src\mceditor\globals.cpp
+1594485629 source:d:\pacman\pacman_cuberite\src\mceditor\globals.cpp
 	"globals.h"
 	"zlib.h"
 
@@ -7556,7 +7556,7 @@
 	<cstring>
 	<algorithm>
 
-1594083679 source:d:\pacman\pacman_cuberite\src\mceditor\mcacoder.cpp
+1594087279 source:d:\pacman\pacman_cuberite\src\mceditor\mcacoder.cpp
 	"MCACoder.h"
 	<cstring>
 	<cstdlib>
@@ -7564,13 +7564,13 @@
 	<algorithm>
 	"globals.h"
 
-1594083682 d:\pacman\pacman_cuberite\src\mceditor\mcacoder.h
+1594087282 d:\pacman\pacman_cuberite\src\mceditor\mcacoder.h
 	<string>
 	<cstdlib>
 	"NBTCoder.h"
 	"BlockEntity.h"
 
-1594083669 d:\pacman\pacman_cuberite\src\mceditor\nbtcoder.h
+1594087269 d:\pacman\pacman_cuberite\src\mceditor\nbtcoder.h
 	<cstdio>
 	<vector>
 	<list>
@@ -7579,11 +7579,11 @@
 	<cstring>
 	"globals.h"
 
-1593449976 d:\pacman\pacman_cuberite\src\mceditor\blockentity.h
+1593453576 d:\pacman\pacman_cuberite\src\mceditor\blockentity.h
 	<string>
 	"globals.h"
 
-1602462186 source:d:\pacman\pacman_cuberite\src\mceditor\mceditor.cpp
+1602465786 source:d:\pacman\pacman_cuberite\src\mceditor\mceditor.cpp
 	"MCEditor.h"
 	<vector>
 	<algorithm>
@@ -7593,22 +7593,22 @@
 	<cstring>
 	"globals.h"
 
-1595257281 d:\pacman\pacman_cuberite\src\mceditor\mceditor.h
+1595260881 d:\pacman\pacman_cuberite\src\mceditor\mceditor.h
 	"globals.h"
 	"MCACoder.h"
 	"BlockEntity.h"
 
-1594083666 source:d:\pacman\pacman_cuberite\src\mceditor\nbtcoder.cpp
+1594087266 source:d:\pacman\pacman_cuberite\src\mceditor\nbtcoder.cpp
 	"NBTCoder.h"
 
-1592605931 source:d:\pacman\pacman_cuberite\src\mceditor\paint.cpp
+1606087488 source:d:\pacman\pacman_cuberite\src\mceditor\paint.cpp
 	<iostream>
 	<cmath>
 	<string>
 	"globals.h"
 	"MCEditor.h"
 
-1602515905 source:d:\pacman\pacman_cuberite\src\mceditor\test.cpp
+1605828167 source:d:\pacman\pacman_cuberite\src\mceditor\test.cpp
 	<windows.h>
 	<cstdio>
 	"globals.h"
@@ -7682,7 +7682,7 @@
 	<fcntl.h>
 	<io.h>
 
-1593896359 source:d:\pacman\pacman_cuberite\src\nbt.cpp
+1593899959 source:d:\pacman\pacman_cuberite\src\nbt.cpp
 	"debug_memory.hpp"
 	"MCA-NBT-EDIT.HPP"
 	"stdafx.h"
@@ -7721,7 +7721,7 @@
 	<iostream>
 	<dirent.h>
 
-1589904691 d:\pacman\pacman_cuberite\src\nbt.hpp
+1589908291 d:\pacman\pacman_cuberite\src\nbt.hpp
 	"stdafx.h"
 	"xallocator.h"
 	"debug_memory.hpp"
@@ -7776,7 +7776,7 @@
 	<fstream>
 	<math.h>
 
-1588325793 source:d:\pacman\pacman_cuberite\src\plotting.cpp
+1588329393 source:d:\pacman\pacman_cuberite\src\plotting.cpp
 	<winsock2.h>
 	<io.h>
 	"WinMain.h"
@@ -7811,7 +7811,7 @@
 1582634778 source:d:\pacman\pacman_cuberite\src\print_to_screen.cpp
 	"everything.hpp"
 
-1598062313 source:d:\pacman\pacman_cuberite\src\recording.cpp
+1598065913 source:d:\pacman\pacman_cuberite\src\recording.cpp
 	<winsock2.h>
 	<io.h>
 	"WinMain.h"
@@ -7859,7 +7859,7 @@
 
 1582634742 d:\pacman\pacman_cuberite\src\include\chaiscript\static_libs\chaiscript_stdlib.hpp
 
-1594303201 source:d:\pacman\pacman_cuberite\src\shader.cpp
+1594306801 source:d:\pacman\pacman_cuberite\src\shader.cpp
 	"Effect.hpp"
 	<vector>
 	<cmath>
@@ -8000,7 +8000,7 @@
 	<stdio.h>
 	<stdlib.h>
 
-1590160674 source:d:\pacman\pacman_cuberite\src\text_functions.cpp
+1590164274 source:d:\pacman\pacman_cuberite\src\text_functions.cpp
 	<wchar.h>
 	<winsock2.h>
 	<io.h>
@@ -8048,7 +8048,7 @@
 
 1582634778 d:\pacman\pacman_cuberite\src\viewer\trackball.h
 
-1592949195 source:d:\pacman\pacman_cuberite\src\viewer\viewer_my.cc
+1592952795 source:d:\pacman\pacman_cuberite\src\viewer\viewer_my.cc
 	"viewer_my_inits.h"
 	"viewer_my_image_loader.h"
 	"viewer_my_inits_more.h"
@@ -9018,7 +9018,7 @@
 	<GL/glext.h>
 	<GL/glu.h>
 
-1589031776 d:\pacman\pacman_cuberite\src\viewer\tiny_obj_loader2.h
+1589035376 d:\pacman\pacman_cuberite\src\viewer\tiny_obj_loader2.h
 	<map>
 	<string>
 	<vector>
@@ -9071,11 +9071,11 @@
 	<sys/time.h>
 	<ctime>
 
-1588709268 d:\pacman\pacman_cuberite\src\viewer\viewer_my_loadobj_functions.h
+1588712868 d:\pacman\pacman_cuberite\src\viewer\viewer_my_loadobj_functions.h
 
-1588705545 d:\pacman\pacman_cuberite\src\viewer\viewer_my_draw.h
+1588709145 d:\pacman\pacman_cuberite\src\viewer\viewer_my_draw.h
 
-1605817880 d:\pacman\pacman_cuberite\src\viewer\viewer_my_loadobj.h
+1606095718 d:\pacman\pacman_cuberite\src\viewer\viewer_my_loadobj.h
 	<../MCA-NBT-EDIT.HPP>
 	<winsock2.h>
 	<../VOXEL.HPP>
@@ -9090,7 +9090,7 @@
 	"viewer_my_text.h"
 	"viewer_my_text.h"
 
-1592946886 d:\pacman\pacman_cuberite\src\viewer\viewer_my_window.h
+1592950486 d:\pacman\pacman_cuberite\src\viewer\viewer_my_window.h
 
 1604597355 d:\pacman\pacman_cuberite\src\viewer\viewer_my_events.h
 
@@ -9098,7 +9098,7 @@
 
 1582634780 d:\pacman\pacman_cuberite\src\viewer\viewer_my_get3d.h
 
-1592733824 d:\pacman\pacman_cuberite\src\viewer\viewer_my_get_draw.h
+1592737424 d:\pacman\pacman_cuberite\src\viewer\viewer_my_get_draw.h
 
 1584403600 d:\pacman\pacman_cuberite\src\include\test_data.hpp
 	<algorithm>
@@ -9106,9 +9106,9 @@
 
 1583705340 d:\pacman\pacman_cuberite\src\viewer\viewer_my_recording.hpp
 
-1593015604 d:\pacman\pacman_cuberite\src\viewer\viewer_my_todo.hpp
+1593019204 d:\pacman\pacman_cuberite\src\viewer\viewer_my_todo.hpp
 
-1605275004 d:\pacman\pacman_cuberite\src\viewer\viewer_my_move_recorder.hpp
+1606095718 d:\pacman\pacman_cuberite\src\viewer\viewer_my_move_recorder.hpp
 
 1582634780 d:\pacman\pacman_cuberite\src\viewer\viewer_my_zoomtest.hpp
 	<stdio.h>
@@ -9126,7 +9126,7 @@
 
 1582634780 d:\pacman\pacman_cuberite\src\viewer\viewer_my_divers.hpp
 
-1587725367 source:d:\pacman\pacman_cuberite\src\wierdo.cpp
+1587728967 source:d:\pacman\pacman_cuberite\src\wierdo.cpp
 	<winsock2.h>
 	<io.h>
 	"WinMain.h"
@@ -9159,7 +9159,7 @@
 	<glm/glm.hpp>
 	<glm/common.hpp>
 
-1604102926 source:d:\pacman\pacman_cuberite\src\winapi.cpp
+1605966450 source:d:\pacman\pacman_cuberite\src\winapi.cpp
 	<winsock2.h>
 	<io.h>
 	<stdio.h>
@@ -18494,7 +18494,7 @@
 	<winsock2.h>
 	"tiny_obj_loader2.h"
 
-1593376302 source:d:\pacman\pacman_cuberite\src\viewer\rotate_around_point.cpp
+1593379902 source:d:\pacman\pacman_cuberite\src\viewer\rotate_around_point.cpp
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<glm/gtx/transform.hpp>
@@ -18555,7 +18555,7 @@
 	<string>
 	<cmath>
 
-1601525224 source:d:\pacman\pacman_cuberite\src\wuppie.cpp
+1606084008 source:d:\pacman\pacman_cuberite\src\wuppie.cpp
 	<SFML/Graphics.hpp>
 	<SFML/Graphics/Rect.hpp>
 	<glm/glm.hpp>
@@ -18568,14 +18568,14 @@
 	<winsock2.h>
 	<dirent.h>
 
-1602520293 d:\pacman\pacman_cuberite\src\voxel.hpp
+1602523893 d:\pacman\pacman_cuberite\src\voxel.hpp
 
-1591972541 source:d:\pacman\pacman_cuberite\src\tpll.cpp
+1591976141 source:d:\pacman\pacman_cuberite\src\tpll.cpp
 	<math.h>
 	<glm/glm.hpp>
 	<glm/common.hpp>
 
-1593157497 source:d:\pacman\pacman_cuberite\src\viewer\angles.cpp
+1593161097 source:d:\pacman\pacman_cuberite\src\viewer\angles.cpp
 	<glm/gtx/euler_angles.hpp>
 	<glm/gtc/matrix_transform.hpp>
 	<glm/gtc/type_ptr.hpp>
@@ -18586,7 +18586,7 @@
 	<glm/gtx/rotate_vector.hpp>
 	"trackball.h"
 
-1593831699 source:d:\pacman\pacman_cuberite\src\play.cpp
+1593835299 source:d:\pacman\pacman_cuberite\src\play.cpp
 	<winsock2.h>
 	<io.h>
 	"WinMain.h"
@@ -18610,7 +18610,7 @@
 	<locale.h>
 	<unistd.h>
 
-1594028811 source:d:\pacman\pacman_cuberite\src\maze3d.cpp
+1594032411 source:d:\pacman\pacman_cuberite\src\maze3d.cpp
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
