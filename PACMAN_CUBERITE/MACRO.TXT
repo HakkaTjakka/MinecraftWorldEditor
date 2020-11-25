@@ -99,8 +99,8 @@
  76 RECORD_OFF      1001401                      Recording off.
  77 RECORD_MODE     1001402 R                    Recording mode. Usage: RECORD_MODE <num>, where <num> = 1-2.
                                                  1=whole screen, 2=only movie from 'b'
- 78 PAUSE_ON        1001501 R                    Pause off, (When pressing 'R' on key625 W=-43.39599609375 E
-                  
+ 78 PAUSE_ON        1001501 R                    Pause off. (When pressing 'R' on keyboard when recording is
+                                                 OFF, select RECORDING MODE (0=screen, 1=movie from SHIFT-m)
  80 PAUSE_OFF       1001502                      Pause onCheck pacman.ini file for FFMPEG input/output
                                                  settings. Like movie 'b' loading with subtitles(FFMPEG_IN),
                                                  and/or writing (FFMPEG) output movie with audio track

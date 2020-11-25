@@ -2492,7 +2492,7 @@ hit_one_region* findRegion(int x, int z) {
     return NULL;
 }
 
-int region_floor;
+int region_floor=0;
 
 void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::material_t> &materials, float bmin_o[3], float bmax_o[3], double lat, double lon, std::string fn) {
 
@@ -2529,23 +2529,168 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
 //                region_counter[x][z]=0;
 //            }
 //        }
-        DIR* dr = opendir("/saves/test/region/done0");
-        struct dirent *de;
+
+
 //sukkel
         if (!rot_on && !make_schematic && !plot_only_on && (mirror==3 || mirror==4)) {
-            printf("SCANNING REGIONS:\n");
-            int x,z;
+
             char picture_file[200];
-            while ((de = readdir(dr)) != NULL) {
-                if ((strstr(de->d_name, ".mca")) != NULL) {
-    //                printf(de->d_name);
-                    printf("\r%s      ",de->d_name);
-                    if (!flushing) {
-                        sscanf(de->d_name,"r.%d.%d.mca",&x,&z);
-//                        printf("r.%d.%d.mca ",x,z);
-                        if (mirror==4) {
+            if (cubic) {
+
+                std::map<int, cubic_region> cubic_regions_mapped;
+                std::map<int, cubic_region>::iterator it;
+    //            std::vector<cubic_region> cubic_regions;
+
+                cubic_region one_cubic_region;
+                printf("\n");
+                DIR* dr_ROOT = opendir("/saves/test/region");
+                struct dirent *de_ROOT;
+                while ((de_ROOT = readdir(dr_ROOT)) != NULL) {
+                    if ((strstr(de_ROOT->d_name, "done")) != NULL) {
+                        sscanf(de_ROOT->d_name,"done%d",&region_floor);
+                        char floor_dir[2000];
+                        sprintf(floor_dir,"/saves/test/region/%s",de_ROOT->d_name);
+                        printf("DIR: /saves/test/region/%s\n",de_ROOT->d_name);
+                        DIR* dr = opendir(floor_dir);
+                        struct dirent *de;
+                        while ((de = readdir(dr)) != NULL) {
+                            if ((strstr(de->d_name, ".mca")) != NULL) {
+                                int x,z;
+                                sscanf(de->d_name,"r.%d.%d.mca",&x,&z);
+                                printf("r.%d.%d.mca ",x,z);
+                                one_cubic_region.x=x;
+                                one_cubic_region.z=z;
+                                one_cubic_region.region_floor=region_floor;
+    //                            cubic_regions.push_back(one_cubic_region);
+                                cubic_regions_mapped.insert(std::make_pair( z*100000000+100*x+region_floor, one_cubic_region));
+                            }
+                        }
+                        closedir(dr);
+                        printf("\n");
+                    }
+                }
+                closedir(dr_ROOT);
+
+    /*
+                if (cubic_regions.size()>0) {
+                    sort(cubic_regions.begin(), cubic_regions.end());
+                    int prev_x=-99999999;
+                    int prev_z=-99999999;
+                    for (auto u : cubic_regions) {
+                        if (u.x==prev_x && u.z==prev_z) printf(",");
+                        if (u.x!=prev_x || u.z!=prev_z) {
+                            if (prev_x!=-99999999) printf(")\n");
+
+                            printf("Region(%d,%d) Floor(",u.x,u.z);
+                        }
+                        printf("%d",u.region_floor);
+                        prev_x=u.x;
+                        prev_z=u.z;
+    //                    it = cubic_regions_mapped.find(u.z*100000000+100*u.x+u.region_floor);
+    //                    if (it != cubic_regions_mapped.end()) {
+    //                        printf("[%d,%d][%d][%d]",it->second.x,it->second.z,it->second.region_floor,it->first);
+    //                    } else printf("[MISSING!]");
+                    }
+                    printf(")\n");
+                }
+    */
+    /*
+                if (cubic_regions_mapped.size()>0) {
+                    int prev_x=-99999999;
+                    int prev_z=-99999999;
+                    it = cubic_regions_mapped.begin();
+
+                    while(it != cubic_regions_mapped.end()) {
+                        if (it->second.x==prev_x && it->second.z==prev_z) printf(",");
+                        if (it->second.x!=prev_x || it->second.z!=prev_z) {
+                            if (prev_x!=-99999999) printf(")\n");
+                            printf("Region(%d,%d) Floor(",it->second.x,it->second.z);
+                        }
+                        printf("%d",it->second.region_floor);
+                        prev_x=it->second.x;
+                        prev_z=it->second.z;
+                        it++;
+                    }
+                    printf(")\n");
+                }
+    */
+                if (cubic_regions_mapped.size()>0) {
+                    int prev_x=-99999999;
+                    int prev_z=-99999999;
+                    it = cubic_regions_mapped.begin();
+
+                    bool does_exist;
+                    while(it != cubic_regions_mapped.end()) {
+                        int x=it->second.x;
+                        int z=it->second.z;
+                        region_floor=it->second.region_floor;
+                        if (x==prev_x && z==prev_z) {
+                            printf(",");
+                        }
+                        if (x!=prev_x || z!=prev_z) {
+                            if (prev_x!=-99999999) {
+                                printf(")\n");
+                            }
                             sprintf(picture_file,"../cut/r.%d.%d.png",x,z);
-                            if (file_exists(picture_file)) {
+                            printf("Region(%d,%d)\n",x,z);
+                            does_exist=file_exists(picture_file);
+                            if (!flushing) {
+                                if (mirror==4 && does_exist) {
+                                    scan_image.loadFromFile(picture_file);
+                                    plot_only=1;
+                                    plotting=3;
+                                    scan_x=x;
+                                    scan_z=z;
+                                    sprintf(mc_text1,"R.%d.%d.MCA",x,z);
+                                    update_request=2;
+                                    while (update_request) {
+                                        sf::sleep(sf::seconds(0.005));
+                                    }
+                                    plotting=0;
+                                }
+                            }
+                            hit_one_region* hit_one=findRegion(x,z);
+                            if (hit_one==NULL) {
+                                vector_hit_regions.push_back(hit_one_region(x,z));
+                                hit_one=&vector_hit_regions[vector_hit_regions.size()-1];
+                            }
+                            hit_one->index11=1;
+                            hit_one->index12=1;
+                        }
+                        printf("Region(%d,%d) floor(%d)",x,z,region_floor);
+                        if (!flushing && (mirror==3 || does_exist==false) ) {
+                            if (mirror==3) {
+                                plot_only=1;
+                            }
+                            scan_image.create(512,512,sf::Color(128,128,128,128));
+                            plotting=1;
+                            MCEDITOR_running=1;
+                            main_mceditor6_fixed(x, z, region_block);
+                            MCEDITOR_running=0;
+                            plotting=0;
+                            plot_only=0;
+                        }
+
+                        prev_x=x;
+                        prev_z=z;
+                        it++;
+                    }
+                    printf(")\n");
+                }
+            } else {
+                DIR* dr = opendir("/saves/test/region/done0");
+                struct dirent *de;
+                printf("SCANNING REGIONS:\n");
+                int x,z;
+                while ((de = readdir(dr)) != NULL) {
+                    if ((strstr(de->d_name, ".mca")) != NULL) {
+        //                printf(de->d_name);
+                        printf("\r%s      ",de->d_name);
+                        if (!flushing) {
+                            sscanf(de->d_name,"r.%d.%d.mca",&x,&z);
+    //                        printf("r.%d.%d.mca ",x,z);
+                            sprintf(picture_file,"../cut/r.%d.%d.png",x,z);
+                            if (mirror==4 && file_exists(picture_file)) {
                                 scan_image.loadFromFile(picture_file);
                                 plot_only=1;
                                 plotting=3;
@@ -2558,62 +2703,31 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                                 }
                                 plotting=0;
                             } else {
-                                printf("\r%s ",de->d_name);
+                                if (mirror==3) {
+                                    printf("\r%s ",de->d_name);
+                                    plot_only=1;
+                                }
                                 scan_image.create(512,512,sf::Color(128,128,128,128));
                                 plotting=1;
-//                                plot_only=1;
                                 MCEDITOR_running=1;
                                 main_mceditor6_fixed(x, z, region_block);
-
-/*
-                                char dat_name[300];
-                                sprintf(dat_name,"../cut/%s.DAT",fn.c_str());
-                                FILE* HOP;
-                                if ((HOP = fopen (dat_name, "a"))!=NULL) {
-                                    fprintf(HOP,"r.%d.%d floor %d\n",x,z,region_floor);
-                                    fclose(HOP);
-                                }
-*/
                                 MCEDITOR_running=0;
                                 plotting=0;
+                                plot_only=0;
                             }
-                        } else if (mirror==3) {
-                            scan_image.create(512,512,sf::Color(128,128,128,128));
-                            plotting=1;
-                            plot_only=1;
-                            MCEDITOR_running=1;
-                            main_mceditor6_fixed(x, z, region_block);
-/*
-                            char dat_name[300];
-                            sprintf(dat_name,"../cut/%s.DAT",fn.c_str());
-                            FILE* HOP;
-                            if ((HOP = fopen (dat_name, "a"))!=NULL) {
-                                fprintf(HOP,"r.%d.%d floor %d\n",x,z,region_floor);
-                                fclose(HOP);
-                            }
-*/
-                            MCEDITOR_running=0;
-                            plotting=0;
                         }
-                        plot_only=0;
+                        hit_one_region* hit_one=findRegion(x,z);
+                        if (hit_one==NULL) {
+                            vector_hit_regions.push_back(hit_one_region(x,z));
+                            hit_one=&vector_hit_regions[vector_hit_regions.size()-1];
+                        }
+                        hit_one->index11=1;
+                        hit_one->index12=1;
                     }
-                    hit_one_region* hit_one=findRegion(x,z);
-                    if (hit_one==NULL) {
-                        vector_hit_regions.push_back(hit_one_region(x,z));
-                        hit_one=&vector_hit_regions[vector_hit_regions.size()-1];
-                    }
-//fokit
-                    hit_one->index11=1;
-//                    else hit_one->index11=0;
-//                    hit_one->index11=1;
-                    hit_one->index12=1;
-
-//                    hit_regions[x][z][11]=1;
-//                    region_counter[x][z]=1;
                 }
+                closedir(dr);
             }
         }
-        closedir(dr);
         printf("\n");
         if (mirror==3) {
 //            free(region_block);

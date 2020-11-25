@@ -1,0 +1,110 @@
+@echo off
+
+setlocal ENABLEDELAYEDEXPANSION
+
+REM When not there gives file not found message
+for /f "tokens=*" %%I in ('dir /b "*.mkv"') do (
+	if exist "%%~nI.nl.srt" (
+		call :BURN_FILE "%%~nI" "%%I"
+	)
+	if exist "%%~nI.en.srt" (
+		call :BURN_FILE "%%~nI" "%%I"
+	) 
+)
+for /f "tokens=*" %%I in ('dir /b "*.mp4"') do (
+	if exist "%%~nI.nl.srt" (
+		call :BURN_FILE "%%~nI" "%%I"
+	)
+	if exist "%%~nI.en.srt" (
+		call :BURN_FILE "%%~nI" "%%I"
+	) 
+)
+for /f "tokens=*" %%I in ('dir /b "*.webm"') do (
+	if exist "%%~nI.nl.srt" (
+		call :BURN_FILE "%%~nI" "%%I"
+	)
+	if exist "%%~nI.en.srt" (
+		call :BURN_FILE "%%~nI" "%%I"
+	) 
+)
+
+rem pause
+
+if not exist ORIGINAL mkdir ORIGINAL
+move "%%I" ORIGINAL >NUL
+move "%%~nI.*" ORIGINAL >NUL
+
+exit /b
+
+:BURN_FILE
+
+	set hoppa=%1
+	set input=%2
+	echo hoppa=!hoppa!
+	echo input=!input!
+
+	ffprobe.exe -v error -select_streams v:0 -show_entries format=bit_rate -of default=nw=1 !input! > bit_rate2.txt
+	for /F "tokens=*" %%R in (bit_rate2.txt) do (
+		for /f "tokens=1,2 delims==" %%a in ("%%R") do set NAME=%%a & set bit_rate=%%b
+	)
+
+	sof.exe "!hoppa!.nl.srt"
+
+	if not exist DUTCH mkdir DUTCH
+
+	for %%x in ("!hoppa!.nl.srt.fixed") do (
+		if not %%~zx == 0 (
+			if not  exist "DUTCH/!hoppa!.nl.mp4" (
+rem ffmpeg.exe -hide_banner -i "Incase you have not heard this   its important 10160326756397835-0wRbQRRWc80.f244.webm" -i "Incase you have not heard this   its important 10160326756397835-0wRbQRRWc80.f140.m4a" -map 0:v:0 -map 1:a:0 -strict -2 -vf subtitles="f='Incase you have not heard this   its important 10160326756397835-0wRbQRRWc80.nl.srt.fixed':force_style='FontName=Mada Black,FontSize=32'" -c:s mov_text -s 1920x1080 -c:v h264_nvenc -profile:v high -pix_fmt yuv420p -b:v 10M -bufsize 20M -bf:v 3 -preset slow -rc:v vbr_hq -rc-lookahead 32 -c:a aac -b:a 96k "out/Incase you have not heard this   its important 10160326756397835-0wRbQRRWc80.nl.mp4"
+rem :force_style='FontName=Mada Black,FontSize=32'
+rem -vf subtitles="f='subs.nl.srt.fixed':force_style='FontName=Mada Black,FontSize=32'"
+				ffmpeg -y -hide_banner -i !input! -filter_complex "[0:v]scale=1920:1080[j];[j]subtitles='!hoppa!.nl.srt.fixed':force_style='FontName=Mada Black,FontSize=32'[k]" -map "[k]" -map 0:a -strict -2 -c:v h264_nvenc -pix_fmt yuv420p -rc-lookahead 32 -b:v !bit_rate! -ac 2 -ar 44100 -acodec aac "DUTCH/!hoppa!.nl.PART.mp4"
+rem 			ffmpeg -y -hide_banner -i !input! -filter_complex "[0:v]scale=1920:1080[j];[j]subtitles='!hoppa!.nl.srt.fixed'[k]" -map "[k]" -map 0:a -strict -2 -c:v h264_nvenc -pix_fmt yuv420p -rc-lookahead 32 -b:v !bit_rate! -ac 2 -ar 44100 -acodec aac "DUTCH/!hoppa!.nl.PART.mp4"
+rem				ffmpeg -y -hide_banner -i !input! -filter_complex "[0:v]scale=1920:1080[j];[j]subtitles='!hoppa!.nl.srt.fixed'[k]" -map "[k]" -map 0:a -strict -2 -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p -b:v !bit_rate! -ac 2 -ar 44100 -acodec aac "DUTCH/!hoppa!.nl.PART.mp4"
+
+			) else (
+				echo Already exists: "DUTCH/!hoppa!.nl.mp4" 
+			)
+		) else (
+			echo Subtitle file empty: !hoppa!.nl.srt.fixed
+		)
+	)
+
+	if exist "DUTCH/!hoppa!.nl.PART.mp4" rename "DUTCH\!hoppa!.nl.PART.mp4" "!hoppa!.nl.mp4"
+
+rem	if not exist SUBTITLES mkdir SUBTITLES
+rem	if exist "!hoppa!.nl.srt.fixed" move "!hoppa!.nl.srt.fixed" SUBTITLES
+rem	if exist "!hoppa!.nl.srt" move "!hoppa!.nl.srt" SUBTITLES
+
+rem remark (rem) goto for making second language
+goto :ENDING
+
+sof.exe "!hoppa!.en.srt"
+
+if not exist ENGLISH mkdir ENGLISH
+
+for %%x in ("!hoppa!.en.srt.fixed") do (
+	if not %%~zx == 0 (
+		if not  exist "ENGLISH/!hoppa!.en.mp4" (
+			ffmpeg -y -hide_banner -i !input! -filter_complex "[0:v]scale=1920:1080[j];[j]subtitles='!hoppa!.en.srt.fixed'[k]" -map "[k]" -map 0:a -strict -2 -c:v h264_nvenc -pix_fmt yuv420p -rc-lookahead 32 -b:v !bit_rate! -ac 2 -ar 44100 -acodec aac "ENGLISH/!hoppa!.en.PART.mp4"
+rem 				ffmpeg -y -hide_banner -i !input! -filter_complex "[0:v]scale=1920:1080[j];[j]subtitles='!hoppa!.en.srt.fixed'[k]" -map "[k]" -map 0:a -strict -2 -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p -b:v !bit_rate! -ac 2 -ar 44100 -acodec aac "ENGLISH/!hoppa!.en.PART.mp4"
+		) else (
+			echo Already exists: "DUTCH/!hoppa!.en.mp4" 
+		)
+	) else (
+		echo Subtitle file empty: !hoppa!.en.srt.fixed
+	)
+)
+
+if exist "ENGLISH/!hoppa!.en.PART.mp4" rename "ENGLISH\!hoppa!.en.PART.mp4" "!hoppa!.en.mp4"
+
+rem 	if exist "!hoppa!.en.srt.fixed" move "!hoppa!.en.srt.fixed" SUBTITLES >NUL
+rem 	if exist "!hoppa!.en.srt" move "!hoppa!.en.srt" SUBTITLES >NUL
+
+:ENDING
+
+if not exist ORIGINAL mkdir ORIGINAL
+move !input! ORIGINAL >NUL
+move "!hoppa!.*" ORIGINAL >NUL
+
+exit /b

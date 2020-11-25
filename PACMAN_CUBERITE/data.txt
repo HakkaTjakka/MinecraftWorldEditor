@@ -31,3 +31,5 @@
 0 Program busy or hangs... Thread alive at: 11/11/2020 02:55:38
 1 Program busy or hangs... Thread alive at: 11/11/2020 02:57:17
 1 Program busy or hangs... Thread alive at: 11/11/2020 02:58:20
+0 Program busy or hangs... Thread alive at: 25/11/2020 00:06:55
+0 Program busy or hangs... Thread alive at: 25/11/2020 00:07:24

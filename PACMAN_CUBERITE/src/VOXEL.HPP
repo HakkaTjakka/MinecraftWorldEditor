@@ -50,6 +50,22 @@ struct Voxel {
     }
 };
 
+struct cubic_region {
+    int region_floor;
+    int x,z;
+
+    cubic_region(): region_floor(0), x(0), z(0) {};
+
+    cubic_region( int region_floor_, int x_, int z_ ) : region_floor(region_floor_), x(x_), z(z_) {};
+
+    bool operator < (const cubic_region &B) const
+    {
+        if (x != B.x) return x < B.x;
+        if (z != B.z) return z < B.z;
+        return region_floor < B.region_floor;
+    }
+};
+
 
 struct hit_one_region {
     int x,z;
