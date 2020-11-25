@@ -46,6 +46,7 @@ bool glass_on=true;
 bool massiv_on=false;
 bool turbo_on=true;
 bool boom_on=true;
+bool hills_on=true;
 bool caves_on=true;
 bool tunnels_on=true;
 bool rooms_on=true;
@@ -60,6 +61,7 @@ void add_maze_to_region(MCRegion& region, int region_x, int region_z, int bottom
 
 void print_chunk_list();
 int reversed_chunk_list[32][32];
+bool add_to_region2=false;
 bool add_to_region=false;
 int fast_build=0;
 void hoppa(BlockInfo*** AX, int x, int z, int y);
@@ -6050,10 +6052,10 @@ extern std::string area;
     sprintf(tmp, "/Saves/Test/region/%s/r.%d.%d.mca", DONE, region_x, region_z);
 //    sprintf(tmp, "/Saves/Test/region/done0/r.%d.%d.mca", region_x, region_z);
     fname=tmp;
-    if (file_exists("add_to_region.on")) {
-        add_to_region=true;
+    if (file_exists("add_to_region.on") || add_to_region) {
+        add_to_region2=true;
         printf(" Add to region=on");
-    } else add_to_region=false;
+    } else add_to_region2=false;
 
     if ( !file_exists(fname.c_str() ) ) {
         if (!plotting) printf("File %s doesn't exist, creating new ",fname.c_str());
@@ -6069,7 +6071,7 @@ extern std::string area;
 
         if (flushing && !(make_regions || flushing_mode)) {
             printf("flushing, file %s exists, adding to region...\n",fname.c_str());
-        } else if (add_to_region) {
+        } else if (add_to_region2) {
             printf("file %s exists, adding to region...\n",fname.c_str());
         } else if (!plotting) {
             printf("file %s exists, skipping...\n",fname.c_str());
@@ -6196,7 +6198,7 @@ extern std::string area;
 //           region.eraseRegion();
            return 0;
         }
-        else if ((make_regions || flushing_mode) && !add_to_region) {
+        else if ((make_regions || flushing_mode) && !add_to_region2) {
             printf("file %s exists, skipping...\n",fname.c_str());
             return 0;
         }
@@ -6237,7 +6239,7 @@ extern std::string area;
         ground_on=true;
         if (fff==1) printf("\n");
         fff=0;
-        printf(" Stone=on");
+        printf(" Ground=on");
     } else ground_on=false;
 
     if (file_exists("grass.on")) {
@@ -6269,6 +6271,13 @@ extern std::string area;
         fff=0;
         printf(" Boom=on");
     } else boom_on=false;
+
+    if (file_exists("hills.on")) {
+        hills_on=true;
+        if (fff==1) printf("\n");
+        fff=0;
+        printf(" Hills=on");
+    } else hills_on=false;
 
     if (file_exists("caves.on")) {
         caves_on=true;
@@ -6443,7 +6452,7 @@ extern std::string area;
                 }
             }
         }
-        get_floor(region, height_add);
+        if (!hills_on) get_floor(region, height_add);
 /*
         for (int x = 0; x < 512; x++) {
             BlockInfo** AZ=AX[x];
@@ -6454,7 +6463,8 @@ extern std::string area;
         }
 */
 
-        if (cubic) {
+        if (cubic && ground_on) {
+/*
             editor.x_len = region.x_len, editor.z_len = region.z_len, editor.y_len = region.y_len;
             editor.x_ori = region.x_ori, editor.z_ori = region.z_ori, editor.y_ori = region.y_ori;
             editor.block_entities = region.B;
@@ -6464,19 +6474,38 @@ extern std::string area;
             printf(" computeSkyLight\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
             editor.computeSkyLight();
             ui ***skylight=editor.skylight;
-
+*/
             for (int x = 0; x < xl; x++) {
                 BlockInfo** AZ=AX[x];
                 xx=x+chunk_offsetx*16;
                 for (int z = 0; z < zl; z++) {
                     BlockInfo* AY=AZ[z];
                     zz=z+chunk_offsetz*16;
-                    for (int y = 0; y < 256; y++) {
-                        if (AY[y].id==0) {
-                            if (skylight[x][z][y]==0) {
-                                if (ground_on) {
-                                    if (region_floor==0) {
-                                        if (y<=floor_y[x][z]) {
+                    if (floor_y[x][z]!=999999) {
+                        for (int y = 0; y < 256; y++) {
+                            if (AY[y].id==0) {
+    //                            if (skylight[x][z][y]==0) {
+    //                                if (region_floor==0) {
+    //                                    if (y<=floor_y[x][z]) {
+    //                                    if (y+region_floor*256<=floor_y[x][z]) {
+                                            int h=y+region_floor*256;
+                                            int hh=floor_y[x][z]-h;
+                                            if (hh>0) {
+                                                if ( !(rand()%int(125-sqrt(hh*10.0))) ) {
+                                                    AY[y]=BlockInfo(89,0,0,0);
+                                                } else if ( !(rand()%int(125-sqrt(hh*10.0))) ) {
+                                                    AY[y]=BlockInfo(14,0,0,0);
+                                                } else {
+                                                    if (h<=floor_y[x][z]-10+rand()%7) {
+                                                        AY[y]=BlockInfo(1,0,0,0);
+                                                    } else {
+                                                        if (!(rand()%5000)) AY[y]=BlockInfo(2,0,0,0);
+                                                        else AY[y]=BlockInfo(3,0,0,0);
+                                                    }
+                                                }
+                                            }
+
+/*
                                             if (!(rand()%(2+((y-height_add)*(y-height_add))/5)))
                                                 AY[y]=BlockInfo(89,0,0,0);
                                             else if (!(rand()%(50+((y-height_add)*(y-height_add))/25)))
@@ -6491,12 +6520,14 @@ extern std::string area;
                                                     else AY[y]=BlockInfo(3,0,0,0);
                                                 }
                                             }
-                                        }
-                                    } else if (region_floor<0) {
-                                        AY[y]=BlockInfo(1,0,0,0);
-                                    }
-                                }
+*/
+//                                        }
+    //                                } else if (region_floor<0) {
+    //                                    AY[y]=BlockInfo(1,0,0,0);
+    //                                }
+    //                            }
 
+    /*
                                 if (AY[y].id==0 && !(rand()%500)) {
                                     bool ok=false;
                                     if (x!=0) {
@@ -6521,14 +6552,16 @@ extern std::string area;
                                         AY[y]=BlockInfo(89,0,0,0);
                                     }
                                 }
+    */
                             }
                         }
                     }
                 }
             }
 
-            editor.clearArrays(editor.x_len + 00, editor.z_len + 00, 256);
+//            editor.clearArrays(editor.x_len + 00, editor.z_len + 00, 256);
         }
+
 
         vector<pair<Pos, string> > SomeStuff;
 

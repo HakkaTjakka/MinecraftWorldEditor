@@ -10435,6 +10435,11 @@ extern sf::Clock kp;
                 shut_up=1;
                 if (!movie==0 && !movie2==0 && jump_ready==1 && read_request==0 && happening_counter>500) {
                     MUTEX_MCEDITOR.unlock();
+                    if (totalchanged>0)
+                    {
+                        DONTSAVEFILES=0;
+                        SAVEALLBITMAPS();
+                    }
                     for (int t=0; t<20; t++) {
                         sf::sleep(sf::milliseconds(50));
                         MUTEX_MCEDITOR.lock();

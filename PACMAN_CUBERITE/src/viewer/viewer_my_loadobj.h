@@ -2495,9 +2495,11 @@ hit_one_region* findRegion(int x, int z) {
 int region_floor;
 
 void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::material_t> &materials, float bmin_o[3], float bmax_o[3], double lat, double lon, std::string fn) {
-    if (area=="Models") adapt_colors=false;
+
+//    if (area=="Models") adapt_colors=false;
 //    else if (area=="Rio") adapt_colors=false;
-    else adapt_colors=true;
+//    else adapt_colors=true;
+    adapt_colors=true;
 //printf("I am here 1\n");
 
     random_pixel=sf::Color(64+rand()%64,64+rand()%64,64+rand()%64,255);
@@ -3288,6 +3290,31 @@ extern float* fspeed_ghosty;
                         std::memset(region_block, 0x0, 512*256*512*4);
 //                        if (!plot_only_on) std::memset(region_block, 0x0, 512*256*512*4);
 
+extern int floor_y[512][512];
+                        for (int fx=0; fx<512; fx++) {
+                            for (int fz=0; fz<512; fz++) {
+                                floor_y[fx][fz]=999999;
+                            }
+                        }
+                        for (auto u : voxels_total) {
+                            if ( (int)(u.y/512)==x && (int)(u.z/512)==z ) {
+                                int y_mod;
+                                if (u.y>=0)
+                                    y_mod=(int)(((LONG64)u.y+100000*512)%512);
+                                else
+                                    y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
+
+                                int z_mod;
+                                if (u.z>=0)
+                                    z_mod=(int)(((LONG64)u.z+100000*512)%512);
+                                else
+                                    z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
+
+                                if (u.x<floor_y[y_mod][z_mod]) floor_y[y_mod][z_mod]=u.x;
+                            }
+                        }
+                        char fname[200];
+                        char fname2[200];
                         for (auto u : voxels_total) {
 
                             if ( (int)(u.y/512)==x && (int)(u.z/512)==z ) {
@@ -3337,6 +3364,11 @@ extern float* fspeed_ghosty;
                                                     MCEDITOR_running=1;
                     //                                add_to_region=true;
                                                     if (got_one) no_plotting=true;
+
+                                                    sprintf(fname2,"../cut/done/r.%d.%d.vox",x,z);
+                                                    bool add_prev=add_to_region;
+                                                    if (file_exists(fname2)) add_to_region=true;
+
                                                     main_mceditor6_fixed(x,z,region_block);
                                                     printf("Finished region r.%d.%d floor %d\n",x,z,region_floor);
 
@@ -3348,7 +3380,7 @@ extern float* fspeed_ghosty;
                                                         fclose(HOP);
                                                     }
                                                     if (got_one) no_plotting=false;
-                    //                                add_to_region=false;
+                                                    add_to_region=add_prev;
                                                     MCEDITOR_running=0;
                                                 }
                                                 hits=0;
@@ -3447,7 +3479,11 @@ extern float* fspeed_ghosty;
                             if ((!plot_only_on && !flushing_mode) || got_one) {
 //                            if (!plot_only_on) {
                                 MCEDITOR_running=1;
-//                                add_to_region=true;
+
+                                sprintf(fname2,"../cut/done/r.%d.%d.vox",x,z);
+                                bool add_prev=add_to_region;
+                                if (file_exists(fname2)) add_to_region=true;
+
                                 if (got_one) no_plotting=true;
 
                                 main_mceditor6_fixed(x,z,region_block);
@@ -3464,12 +3500,11 @@ extern float* fspeed_ghosty;
 
                                 if (got_one) no_plotting=false;
 
-//                                add_to_region=false;
+                                add_to_region=add_prev;
+
                                 MCEDITOR_running=0;
                             }
 
-                            char fname[200];
-                            char fname2[200];
                             sprintf (fname,"../cut/r.%d.%d.vox",x,z);
 //joepie
 //                            if (!dont_write_to_region_voxels || got_one) {
