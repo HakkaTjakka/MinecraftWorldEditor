@@ -10,6 +10,8 @@ Also: I you need manuals on other stuff, ASK!
 (Recording screen, converting video's, playing video's with internal/external ffmpeg player)
 (How the code-jungle works, etc)
 
+Source code fore sale. BTE 121 gets discount...
+
 ***
 [![Demo CountPages alpha](https://img.youtube.com/vi/2zm-cQz_fbU/maxresdefault.jpg)](https://www.youtube.com/embed/2zm-cQz_fbU)
 (Click to play vid)
