@@ -19,6 +19,7 @@
 using namespace std;
 extern bool no_plotting;
 extern int SEED;
+extern int playsound;
 #include <glm/glm.hpp>
 
 //#include <queue>
@@ -6072,6 +6073,7 @@ extern std::string area;
         if (flushing && !(make_regions || flushing_mode)) {
             printf("flushing, file %s exists, adding to region...\n",fname.c_str());
         } else if (add_to_region2) {
+            playsound=playsound|8;
             printf("file %s exists, adding to region...\n",fname.c_str());
         } else if (!plotting) {
             printf("file %s exists, skipping...\n",fname.c_str());
@@ -6149,7 +6151,8 @@ extern std::string area;
                 int max_y=-1;
                 for (int y = 0; y < 256; y++) {
                     BlockInfo bi=editor.mca_coder.getBlock(x,z,y);
-                    if (bi.id!=0) {
+                    if ((bi.id==251 && cubic) || (bi.id!=0 && !cubic)) {
+//                    if (bi.id!=0) {
                         num_blocks++;
                         AY[y]=BlockInfo(bi.id,bi.add,bi.data,bi.block_light,bi.sky_light);
                         if (mcglobal==6) {
@@ -7782,7 +7785,8 @@ extern std::string area;
             int max_y=-1;
             for (int y = 0; y < 256; y++) {
                 BlockInfo bi=AY[y];
-                if (bi.id!=0) {
+                if ((bi.id==251 && cubic) || (bi.id!=0 && !cubic)) {
+//                if (bi.id!=0) {
                     num_blocks++;
                     if (mcglobal==6) {
                         if (mcglobal3>0 && y<=mcglobal3) {
@@ -7939,6 +7943,7 @@ extern std::string area;
 
 //        region_counter[region_x][region_z]=0;
         sprintf(mc_text2,"SAVED");
+        playsound=playsound|4;
 
 //        if (!no_plotting) {
             update_request=2;

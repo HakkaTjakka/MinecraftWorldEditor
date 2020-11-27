@@ -2,6 +2,37 @@
 #include <winsock2.h>
 #include <../VOXEL.HPP>
 
+int region_center_z;
+int region_center_x;
+bool sort_regions_circle=false;
+
+struct cubic_region {
+    int region_floor;
+    int x,z;
+
+    cubic_region(): region_floor(0), x(0), z(0) {};
+
+    cubic_region( int region_floor_, int x_, int z_ ) : region_floor(region_floor_), x(x_), z(z_) {};
+
+/*
+    bool operator < (const cubic_region &B) const
+    {
+        if (sort_regions_circle) {
+            if (x!=B.x || z!=B.z) {
+                double dist=sqrt( (x-region_center_x)*(x-region_center_x) + (z-region_center_z)*(z-region_center_z) );
+                double Bdist=sqrt( (B.x-region_center_x)*(B.x-region_center_x) + (B.z-region_center_z)*(B.z-region_center_z) );
+                return( dist < Bdist );
+            }
+            return region_floor < B.region_floor;
+        }
+
+        if (x != B.x) return x < B.x;
+        if (z != B.z) return z < B.z;
+        return region_floor < B.region_floor;
+    }
+*/
+};
+
 extern bool make_region_from_voxel(int x, int z);
 extern std::vector<hit_one_region> ready_regions;
 extern bool no_plotting;
@@ -2521,7 +2552,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
     vector_hit_regions.clear();
 //FOKIT
 //    first_wuppie=0;
-    if (first_wuppie==1) {
+    if (first_wuppie==1 && !make_regions) {
         first_wuppie=0;
 //        for (int z=0; z<1000; z++) {
 //            for (int x=0; x<1000; x++) {
@@ -2534,26 +2565,53 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
 //sukkel
         if (!rot_on && !make_schematic && !plot_only_on && (mirror==3 || mirror==4)) {
 
-            char picture_file[200];
-            if (cubic) {
 
+            char picture_file[200];
+            if (cubic || 1) {
+                region_center_x=0;
+                region_center_z=0;
+                int num_regions=0;
                 std::map<int, cubic_region> cubic_regions_mapped;
+                std::map<int, cubic_region> cubic_regions_mapped_unique;
                 std::map<int, cubic_region>::iterator it;
     //            std::vector<cubic_region> cubic_regions;
 
                 cubic_region one_cubic_region;
                 printf("\n");
+
+                if (mirror==4) { //also display unfinished ones
+//                    printf("Unfinished: ");
+                    DIR* dr = opendir("../cut");
+                    struct dirent *de;
+                    while ((de = readdir(dr)) != NULL) {
+                        if ((strstr(de->d_name, ".png")) != NULL) {
+                            int x,z;
+                            sscanf(de->d_name,"r.%d.%d.png",&x,&z);
+//                            printf("%s ",de->d_name);
+                            one_cubic_region.x=x;
+                            one_cubic_region.z=z;
+                            one_cubic_region.region_floor=0;
+                            cubic_regions_mapped_unique.insert(std::make_pair( z*100000000+100*x, one_cubic_region));
+                        }
+                    }
+                    closedir(dr);
+//                    printf("\n");
+                }
+
                 DIR* dr_ROOT = opendir("/saves/test/region");
                 struct dirent *de_ROOT;
                 while ((de_ROOT = readdir(dr_ROOT)) != NULL) {
+//                    printf("DIR: /saves/test/region/%s\n",de_ROOT->d_name);
                     if ((strstr(de_ROOT->d_name, "done")) != NULL) {
                         sscanf(de_ROOT->d_name,"done%d",&region_floor);
                         char floor_dir[2000];
                         sprintf(floor_dir,"/saves/test/region/%s",de_ROOT->d_name);
                         printf("DIR: /saves/test/region/%s\n",de_ROOT->d_name);
+
                         DIR* dr = opendir(floor_dir);
                         struct dirent *de;
                         while ((de = readdir(dr)) != NULL) {
+//                            printf("DIR: /saves/test/region/%s/%s\n",de_ROOT->d_name,de->d_name);
                             if ((strstr(de->d_name, ".mca")) != NULL) {
                                 int x,z;
                                 sscanf(de->d_name,"r.%d.%d.mca",&x,&z);
@@ -2563,6 +2621,12 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                                 one_cubic_region.region_floor=region_floor;
     //                            cubic_regions.push_back(one_cubic_region);
                                 cubic_regions_mapped.insert(std::make_pair( z*100000000+100*x+region_floor, one_cubic_region));
+                                if (mirror==4) {
+                                    it = cubic_regions_mapped_unique.find(z*100000000+100*x);
+                                    if (it != cubic_regions_mapped_unique.end()) {
+                                        cubic_regions_mapped_unique.erase(it);
+                                    }
+                                }
                             }
                         }
                         closedir(dr);
@@ -2570,6 +2634,34 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                     }
                 }
                 closedir(dr_ROOT);
+                bool does_exist;
+
+                if (mirror==4) {
+                    it = cubic_regions_mapped_unique.begin();
+                    printf("Unfinished: ");
+                    while(it != cubic_regions_mapped_unique.end()) {
+                        int x=it->second.x;
+                        int z=it->second.z;
+                        sprintf(picture_file,"../cut/r.%d.%d.png",x,z);
+                        does_exist=file_exists(picture_file);
+                        if (does_exist) {
+                            printf("Region(%d,%d) ",x,z);
+                            scan_image.loadFromFile(picture_file);
+                            plot_only=1;
+                            plotting=3;
+                            scan_x=x;
+                            scan_z=z;
+                            sprintf(mc_text1,"R.%d.%d.MCA",x,z);
+                            update_request=2;
+                            while (update_request) {
+                                sf::sleep(sf::seconds(0.005));
+                            }
+                            plotting=0;
+                        }
+                        it++;
+                    }
+                    printf("\n");
+                }
 
     /*
                 if (cubic_regions.size()>0) {
@@ -2619,23 +2711,26 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                     int prev_z=-99999999;
                     it = cubic_regions_mapped.begin();
 
-                    bool does_exist;
                     while(it != cubic_regions_mapped.end()) {
                         int x=it->second.x;
                         int z=it->second.z;
                         region_floor=it->second.region_floor;
                         if (x==prev_x && z==prev_z) {
-                            printf(",");
+//                            printf(",");
                         }
                         if (x!=prev_x || z!=prev_z) {
                             if (prev_x!=-99999999) {
-                                printf(")\n");
+//                                printf("\n");
                             }
-                            sprintf(picture_file,"../cut/r.%d.%d.png",x,z);
-                            printf("Region(%d,%d)\n",x,z);
+                            if (mirror==4)
+                                sprintf(picture_file,"../cut/r.%d.%d.png",x,z);
+                            else
+                                sprintf(picture_file,"../cut/png/r.%d.%d.png",x,z);
                             does_exist=file_exists(picture_file);
                             if (!flushing) {
-                                if (mirror==4 && does_exist) {
+//                                if (mirror==4 && does_exist) {
+                                if (does_exist) {
+                                    printf("Region(%d,%d) ",x,z);
                                     scan_image.loadFromFile(picture_file);
                                     plot_only=1;
                                     plotting=3;
@@ -2647,7 +2742,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                                         sf::sleep(sf::seconds(0.005));
                                     }
                                     plotting=0;
-                                }
+                                } else printf("\n");
                             }
                             hit_one_region* hit_one=findRegion(x,z);
                             if (hit_one==NULL) {
@@ -2657,8 +2752,9 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                             hit_one->index11=1;
                             hit_one->index12=1;
                         }
-                        printf("Region(%d,%d) floor(%d)",x,z,region_floor);
-                        if (!flushing && (mirror==3 || does_exist==false) ) {
+//                        if (!flushing && (mirror==3 || does_exist==false) ) {
+                        if (!flushing && does_exist==false ) {
+                            printf("\rRegion(%d,%d) floor(%d)",x,z,region_floor);
                             if (mirror==3) {
                                 plot_only=1;
                             }
@@ -2669,13 +2765,14 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                             MCEDITOR_running=0;
                             plotting=0;
                             plot_only=0;
+//                            printf("\n");
                         }
 
                         prev_x=x;
                         prev_z=z;
                         it++;
                     }
-                    printf(")\n");
+                    printf("\n");
                 }
             } else {
                 DIR* dr = opendir("/saves/test/region/done0");

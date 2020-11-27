@@ -10433,12 +10433,15 @@ extern sf::Clock kp;
             }
             if (MCEDITOR_running || slow_down) {
                 shut_up=1;
-                if (!movie==0 && !movie2==0 && jump_ready==1 && read_request==0 && update_request==0 && happening_counter>500) {
+                if (!movie==0 && !movie2==0 && jump_ready==1 && read_request==0 && update_request==0 && happening_counter>1000) {
                     MUTEX_MCEDITOR.unlock();
                     if (totalchanged>0)
                     {
                         DONTSAVEFILES=0;
                         SAVEALLBITMAPS();
+extern void merge_back_to_front();
+
+                        merge_back_to_front();
                     }
                     for (int t=0; t<20; t++) {
                         sf::sleep(sf::milliseconds(50));
@@ -13751,40 +13754,45 @@ extern bool hold_voxels;
         }
 extern bool flushing_mode;
     if (!hold_voxels) {
+        sf::Image back;
+        char fname[200];
         if (plot_only && !flushing_mode) {
             mkdir("../cut/png");
-            char fname[200]; sprintf(fname,"../cut/png/r.%d.%d.png",xx,yy);
-            texture_from_ffmpeg.copyToImage().saveToFile(fname);
+            sprintf(fname,"../cut/png/r.%d.%d.png",xx,yy);
+//            texture_from_ffmpeg.copyToImage().saveToFile(fname);
         } else {
-            sf::Image back;
-            char fname[200]; sprintf(fname,"../cut/r.%d.%d.png",xx,yy);
-            if (file_exists(fname)) {
-                back.loadFromFile(fname);
-                if (back.getSize().x==512 && back.getSize().y==512) {
-                    pixel_count=0;
-                    for (int y=0; y<512; y++)
-                        for (int x=0; x<512; x++) {
-                            bool hit=false;
-                            sf::Color pixel = image_local.getPixel(x,y);
-                            sf::Color pixel_back = back.getPixel(x,y);
-
-                            if (pixel.a!=0) {
-                                hit=true;
-                                back.setPixel(x,y,pixel);
-                            }
-                            if (pixel_back.a!=0 && hit==false) {
-                                image_local.setPixel(x,y,pixel);
-                                hit=true;
-                            }
-                            if (hit) pixel_count++;
-                            if (hit) pixel_count2++;
-                        }
-                    texture_from_ffmpeg.update(back);
-                } else printf("\nError 512*512\n");
-                remove(fname);
-            }
-            texture_from_ffmpeg.copyToImage().saveToFile(fname);
+            sprintf(fname,"../cut/r.%d.%d.png",xx,yy);
         }
+        if (file_exists(fname)) {
+            back.loadFromFile(fname);
+            if (back.getSize().x==512 && back.getSize().y==512) {
+                pixel_count=0;
+                for (int y=0; y<512; y++)
+                    for (int x=0; x<512; x++) {
+                        bool hit=false;
+                        sf::Color pixel = image_local.getPixel(x,y);
+                        sf::Color pixel_back = back.getPixel(x,y);
+
+                        if (pixel.a!=0) {
+                            hit=true;
+                            back.setPixel(x,y,pixel);
+                        } else {
+                            image_local.setPixel(x,y,pixel_back);
+                            if (pixel_back.a!=0) hit=true;
+                        }
+//                        if (pixel_back.a!=0 && hit==false) {
+//                            image_local.setPixel(x,y,pixel);
+//                            image_local.setPixel(x,y,pixel_back);
+//                            hit=true;
+//                        }
+                        if (hit) pixel_count++;
+                        if (hit) pixel_count2++;
+                    }
+                texture_from_ffmpeg.update(back);
+            } else printf("\nError 512*512\n");
+            remove(fname);
+        }
+        texture_from_ffmpeg.copyToImage().saveToFile(fname);
     }
     if (pixel_count==512*512) complete=true;
     float complete_f2=100.0*float(pixel_count)/(512.0*512.0);
@@ -13877,11 +13885,11 @@ extern bool flushing_mode;
     blending=0;
     ffmpegfile=0;
 extern bool rot_plot;
-    if (!plotting || hold_voxels || flushing || rot_plot)
-        { plot_back=0;plot_front=1; }
-    else
-         { plot_back=1;plot_front=0; }
-//    plot_back=0;plot_front=1;
+//    if (!plotting || hold_voxels || flushing || rot_plot || plot_only)
+//        { plot_back=0;plot_front=1; }
+//    else
+//         { plot_back=1;plot_front=0; }
+    plot_back=0;plot_front=1;
     setffmpegfile();
 
     fposx=(int)(fposx);

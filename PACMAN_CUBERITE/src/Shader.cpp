@@ -659,7 +659,7 @@ public:
         vector.x+=plot_all_rotate_x/180.0*PI; vector.y+=plot_all_rotate_y/180.0*PI; vector.z+=plot_all_rotate_z/180.0*PI;
         m_shader.setUniform("rotate", vector); // radar
         m_shader.setUniform("draw_model", draw_model);
-        m_shader.setUniform("iZoom", iZoom);
+//        m_shader.setUniform("iZoom", iZoom);
 
         int add=0;
     }
@@ -741,7 +741,7 @@ public:
                 m_shader.setUniform("draw_mode", (int)0); // main screen
                 m_shader.setUniform("texture", sfml_mazedot2);
                 m_shader.setUniform("size", sf::Vector2f(64.0-9.0,72.0-10.0));  // size texture in pixels.
-                m_shader.setUniform("iZoom", (float)1.0);
+//                m_shader.setUniform("iZoom", (float)1.0);
 
         } else {
                 // scale = 1.0/BITMAPSX,1.0/BITMAPSY radar screen drawing. draw_scale=BITMAPSX,BITMAPSY !!! (matrix = 1.0/(total number of screens to compress)
@@ -758,7 +758,7 @@ public:
                     m_shader.setUniform("texture", sfml_mazedot2);
                 else
                     m_shader.setUniform("texture", sfml_mazedot);
-                m_shader.setUniform("iZoom", iZoom);
+//                m_shader.setUniform("iZoom", iZoom);
         }
         m_shader.setUniform("render_pos", sf::Vector2f(smooth_x,smooth_y));  // size texture in pixels.
 //        m_shader.setUniform("render_pos", sf::Vector2f(render_picturex*1920-render_posx,render_picturey*1080-render_posy));  // size texture in pixels.
@@ -1030,7 +1030,7 @@ public:
         } else {
             m_shader.setUniform("size", sf::Vector2f(64.0,72.0));  // size texture in pixels.
         }
-        m_shader.setUniform("iZoom", iZoom);
+//        m_shader.setUniform("iZoom", iZoom);
     }
 
     void onDraw(sf::RenderTarget& target, sf::RenderStates states) const

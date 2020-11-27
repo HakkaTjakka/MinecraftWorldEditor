@@ -5,7 +5,7 @@ uniform int num_pacman;
 uniform vec2 draw_scale;
 uniform vec2 draw_translate;
 uniform vec2 resolution;
-uniform float iZoom;
+//uniform float iZoom;
 uniform vec2 BITMAPS;
 uniform vec2 render_pos;
 uniform vec2 size;
