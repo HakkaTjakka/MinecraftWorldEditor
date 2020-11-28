@@ -2647,6 +2647,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                         if (does_exist) {
                             printf("Region(%d,%d) ",x,z);
                             scan_image.loadFromFile(picture_file);
+                            bool plot_only_old=plot_only;
                             plot_only=1;
                             plotting=3;
                             scan_x=x;
@@ -2657,6 +2658,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                                 sf::sleep(sf::seconds(0.005));
                             }
                             plotting=0;
+                            plot_only=plot_only_old;
                         }
                         it++;
                     }
@@ -2732,6 +2734,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                                 if (does_exist) {
                                     printf("Region(%d,%d) ",x,z);
                                     scan_image.loadFromFile(picture_file);
+                                    bool plot_only_old=plot_only;
                                     plot_only=1;
                                     plotting=3;
                                     scan_x=x;
@@ -2742,6 +2745,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                                         sf::sleep(sf::seconds(0.005));
                                     }
                                     plotting=0;
+                                    plot_only=plot_only_old;
                                 } else printf("\n");
                             }
                             hit_one_region* hit_one=findRegion(x,z);
@@ -2755,6 +2759,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
 //                        if (!flushing && (mirror==3 || does_exist==false) ) {
                         if (!flushing && does_exist==false ) {
                             printf("\rRegion(%d,%d) floor(%d)",x,z,region_floor);
+                            bool plot_only_old=plot_only;
                             if (mirror==3) {
                                 plot_only=1;
                             }
@@ -2764,7 +2769,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                             main_mceditor6_fixed(x, z, region_block);
                             MCEDITOR_running=0;
                             plotting=0;
-                            plot_only=0;
+                            plot_only=plot_only_old;
 //                            printf("\n");
                         }
 
@@ -2787,6 +2792,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                             sscanf(de->d_name,"r.%d.%d.mca",&x,&z);
     //                        printf("r.%d.%d.mca ",x,z);
                             sprintf(picture_file,"../cut/r.%d.%d.png",x,z);
+                            bool plot_only_old=plot_only;
                             if (mirror==4 && file_exists(picture_file)) {
                                 scan_image.loadFromFile(picture_file);
                                 plot_only=1;
@@ -2810,8 +2816,8 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                                 main_mceditor6_fixed(x, z, region_block);
                                 MCEDITOR_running=0;
                                 plotting=0;
-                                plot_only=0;
                             }
+                            plot_only=plot_only_old;
                         }
                         hit_one_region* hit_one=findRegion(x,z);
                         if (hit_one==NULL) {
