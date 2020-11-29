@@ -3217,7 +3217,8 @@ extern float* fspeed_ghosty;
                     if (!xz11 && prev_y_mod==511 && prev_z_mod==511) xz11=true;
                     one_region[prev_y_mod][prev_z_mod]=total_voxels_column;
                     total_voxels_region+=total_voxels_column;
-                    scan_image.setPixel(prev_y_mod , prev_z_mod,sf::Color(prev.r/prev.l,prev.g/prev.l,prev.b/prev.l,255));
+                    if (prev.l!=0)
+                        scan_image.setPixel(prev_y_mod , prev_z_mod,sf::Color(prev.r/prev.l,prev.g/prev.l,prev.b/prev.l,255));
                     if (plot_region==false && prev.status==0) { // new top block.... display top view.
                         plot_region=true;
                     }
@@ -3343,7 +3344,10 @@ extern float* fspeed_ghosty;
             printf("\r");
             printf("TOTAL VOXELS:                        %9d  ",total_voxels_all_regions);
             printf("TOTAL HITS:                         %10d  ",total_hits_all_regions);
-            printf("HITS/VOXEL=%f                                                              \n", (double)total_hits_all_regions/(double)total_voxels_all_regions );
+            if (total_voxels_all_regions!=0.0)
+                printf("HITS/VOXEL=%f                                                              \n", (double)total_hits_all_regions/(double)total_voxels_all_regions );
+            else
+                printf("HITS/VOXEL=err                                                              \n" );
 
             total_voxels_all_regions=0;
             total_hits_all_regions=0;
