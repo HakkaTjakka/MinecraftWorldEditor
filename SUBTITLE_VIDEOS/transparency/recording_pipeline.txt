@@ -1,0 +1,2 @@
+FFMPEG_CROP_RGBA="ffmpeg -hide_banner -f rawvideo -vcodec rawvideo -pix_fmt rgba -s %dx%d -r 60 -i - -filter_complex scale=300:-1 -an -c:v png ../record/output%d_rgba.avi"
+

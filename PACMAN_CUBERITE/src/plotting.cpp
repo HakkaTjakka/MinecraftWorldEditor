@@ -687,8 +687,10 @@ void setffmpegfile()
     } else if (ffmpeg_move==1) {
         if (smooth)
             sprite_from_ffmpeg.setPosition(
-                (float)(ffmpeg_posx+render_posx-render_picturex*1920)+(float)texture_from_ffmpeg.getSize().x/2-(float)smooth_x+(float)((int)smooth_x),
-                (float)(ffmpeg_posy+render_posy-render_picturey*1080)+(float)texture_from_ffmpeg.getSize().y/2-(float)smooth_y+(float)((int)smooth_y)
+                (float)(ffmpeg_posx+render_posx-render_picturex*1920)+(float)texture_from_ffmpeg.getSize().x/2-(float)smooth_x+(float)((int)(smooth_x+0.5)),
+                (float)(ffmpeg_posy+render_posy-render_picturey*1080)+(float)texture_from_ffmpeg.getSize().y/2-(float)smooth_y+(float)((int)(smooth_y+0.5))
+//                (float)(ffmpeg_posx+render_posx-render_picturex*1920)+(float)texture_from_ffmpeg.getSize().x/2-(float)smooth_x+(float)((int)smooth_x),
+//                (float)(ffmpeg_posy+render_posy-render_picturey*1080)+(float)texture_from_ffmpeg.getSize().y/2-(float)smooth_y+(float)((int)smooth_y)
             );
         else
             sprite_from_ffmpeg.setPosition(

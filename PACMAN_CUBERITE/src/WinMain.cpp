@@ -521,7 +521,10 @@ char BLENDINGPICTUREDIR[2000];
 char URLDIR[2000];
 char FONTDIR[2000];
 char FFMPEGCOMMAND_CROP[5000]="";
+char FFMPEGCOMMAND_CROP_RGBA[5000]="";
 char FFMPEGCOMMAND[5000]="";
+int RGBA=0;
+char FFMPEGCOMMAND_RGBA[5000]="";
 char FFMPEGCOMMANDIN[5000]="";
 char FFMPEGCOMMANDIN_SUBS[5000]="";
 char FFMPEGCOMMAND_BURN_SUBS[5000]="";
@@ -815,6 +818,7 @@ int texture_2y;
 sf::Sprite sprite_from_canvas;
 sf::Sprite sprite_from_internet;
 sf::Sprite sprite_from_ffmpeg;
+sf::Sprite sprite_from_crop;
 sf::Sprite sprite_from_movie;
 sf::Sprite sprite_from_movie2;
 sf::Texture texture_from_internet;
@@ -822,6 +826,7 @@ sf::RenderTexture texture_from_buffer;
 sf::RenderTexture texture_from_buffer2;
 int swapper=0;
 sf::Texture texture_from_ffmpeg;
+sf::Texture texture_from_crop;
 extern sf::Texture texture_from_movie_new;
 extern sf::Texture texture_from_movie2_new;
 extern sfe::Movie* live_movie;
@@ -1237,7 +1242,7 @@ void DoAnimate2(HINSTANCE hInstance, HWND hWndMain)
         if (connected==1)
         {
         }
-        ghost=1;
+//        ghost=1;
 
         savelevel();
 
@@ -1743,6 +1748,16 @@ extern int trace_line4(std::string in);
         size_movie=1;
         size_movie2=1;
 
+        sf::Image im;
+        im.create(1,1);
+        im.setPixel(0,0,sf::Color(255,128,0,128));
+        texture_from_crop.create(1,1);
+        texture_from_crop.update(im);
+        sprite_from_crop.setTexture(texture_from_crop,false);
+        sprite_from_crop.setScale(1920.0/2,1080.0/2);
+        sprite_from_crop.setTextureRect({0,0,1,1});
+        sprite_from_crop.setPosition(0.0,0.0);
+
         handler[MOVIE_SELECT].blending=0;
         handler[MOVIE_SELECT].plot_front=0;
         handler[MOVIE_SELECT].show=1;
@@ -2129,7 +2144,7 @@ extern int timenow;
     float fpen_speedy=fspeedy;
     int pencontrol=0;
 
-    if (drawmazes==0 && eatmode==1)
+    if (drawmazes==0 && eatmode)  //hoihoi
     {
         strcpy(error_msg,"SETTING EAT MODE=OFF WHEN DRAWMODE=OFF!!!");
         error_flag=1;
@@ -5919,6 +5934,8 @@ extern sf::Sprite ding_sprite_render[];
         }
         else if (movie==0 && ((plot_front==1 && handler[MOVIE_SELECT].plot_front==0) || handler[MOVIE_SELECT].plot_front==1))
             timer_movie--;
+
+
     }
 
 extern int rectangle_paper_pos_x;
@@ -6903,15 +6920,15 @@ extern int overlap_pixels;
                                 }
                             }
                         }
-                        if (eatmode==1)
+                        if (eatmode==2 || (eatmode==1 && num_ghost==follow_ghost_num && flippo)) //hoihoi
                             if ( ((mazemovex==(hoog-1-59+maze_plotsizex)%maze_plotsizex)   && (mazemovey==(breed-1-30+maze_plotsizey)%maze_plotsizey))    && (blokje==1 || blokje==4 || blokje==17 || blokje==20) )
                                 endpoint=1;
-                        if (eatmode==1)
+                        if (eatmode==2 || (eatmode==1 && num_ghost==follow_ghost_num && flippo)) //hoihoi
                             if (mazemovex==(0-59+maze_plotsizex)%maze_plotsizex && mazemovey==(0-30+maze_plotsizey)%maze_plotsizey )
                                 endpoint=1;
                         if (    !(flippo==1 && number==1) &&
 //                                !(abs(verschilx)<300 && abs(verschily)<300 && flippo==1 && follow_ghost_num!=num_ghost) &&
-                                (((blokje&128)==128 && eatmode==1) || ((blokje&15)==0) || endpoint==1)
+                                (((blokje&128)==128 && (eatmode==2 || (eatmode==1 && num_ghost==follow_ghost_num && flippo))) || ((blokje&15)==0) || endpoint==1) //hoihoi
                            )
                         {
                             if ((flippo==1 && num_ghost==follow_ghost_num) && !endpoint==1)
@@ -7015,7 +7032,7 @@ extern int overlap_pixels;
                                     pen_mode=old_pen_mode;
                                 }
                             }
-                            else if (eatmode==1)
+                            else if (eatmode==2 || (eatmode==1 && num_ghost==follow_ghost_num && flippo)) //hoihoi
                             {
 //                              if (!(number==1 && flippo==1 && num_ghost==follow_ghost_num))
 //!!!!!!
@@ -7697,7 +7714,8 @@ extern int overlap_pixels;
                     }
 //!!!!!!!!!!
                     int protect=!(abs(verschilx)<300 && abs(verschily)<300 && flippo==1 && follow_ghost_num!=num_ghost);
-                    if (protect && do_mid && eatmode==1 && flip==0 && (blokje&128)==0 && ((blokje&15)==1 || (blokje&15)==2 || (blokje&15)==4 || (blokje&15)==8))
+//hoihoi
+                    if (protect && do_mid && (eatmode==2 || (eatmode==1 && num_ghost==follow_ghost_num && flippo)) && flip==0 && (blokje&128)==0 && ((blokje&15)==1 || (blokje&15)==2 || (blokje&15)==4 || (blokje&15)==8))
 //                    if (flip==0)
 //                    if ((blokje&128)==0)
 //                    if ((blokje&15)==1 || (blokje&15)==2 || (blokje&15)==4 || (blokje&15)==8)
@@ -8456,7 +8474,9 @@ extern int overlap_pixels;
     static int total_time=0;
     static int old_time_mem=0;
 
+
     SFMLView1.setActive(false);
+
 
 //    if (plot_cubes) plot_cubes_vertex();
     plot_ghosts();
@@ -8469,6 +8489,8 @@ extern int overlap_pixels;
         sprite_final.setTexture(texture_final.getTexture(),false);
         sprite_final.setTextureRect({0,0,1920,1080});
         sprite_final.setPosition(0,0);
+
+
         texture_final.display();
         if (shade_main!=0)
         {
@@ -8490,6 +8512,16 @@ extern int overlap_pixels;
             do_the_recording_stuff();
         }
     */
+    if (crop) {
+        static bool first=true;
+        static sf::RenderStates crop_RenderStates;
+        static sf::BlendMode crop_BlendMode=sf::BlendAlpha;
+        if (first) {
+            first=false;
+            crop_RenderStates.blendMode=crop_BlendMode;
+        }
+        SFMLView1.draw(sprite_from_crop,crop_RenderStates);
+    }
     if (SFML==1)
     {
         if (F2==1)
@@ -9505,14 +9537,29 @@ extern int overlap_pixels;
                     else if (pen_mode==2)
                         strcat(writer,"MOVE");
                 }
+int extern pacman_move;
+int extern move_config;
+                if (pacman_move) {
+                    if (pacman_move==1) strcat(writer,"  PM1=H/V");
+                    else if (pacman_move==2) strcat(writer,"  PM1=H");
+                    else if (pacman_move==3) strcat(writer,"  PM1=V");
+                }
+                if (move_config) {
+                    if (move_config==1) strcat(writer,"  PM2=H/V");
+                    else if (move_config==2) strcat(writer,"  PM2=H");
+                    else if (move_config==3) strcat(writer,"  PM2=V");
+                }
                 if (pacman==0)
-                    strcat(writer," PACMAN=OFF");
+                    strcat(writer,"  P=OFF");
                 if (ghost==0)
-                    strcat(writer," GHOSTS=OFF");
+                    strcat(writer,"  G=OFF");
                 if (DONTSAVEFILES==1)
-                    strcat(writer,"  SAVE BITMAPS=OFF");
-                if (eatmode==1)
-                    strcat(writer,"  GHOST EAT MODE=ON");
+                    strcat(writer,"  SAVE=OFF");
+                if (eatmode) {
+                    if (eatmode==1) {
+                        strcat(writer,"  EAT=P");
+                    } else strcat(writer,"  EAT=P+G");
+                }
                 if (drawmazes==1)
                 {
                     if (blank_maze==0)
@@ -9533,9 +9580,9 @@ extern int overlap_pixels;
                         strcat(writer,"/P");
                 }
                 if (blending==1)
-                    strcat(writer,"  BLENDING=ON");
+                    strcat(writer,"  BLEND=ON");
                 else if (blending==2)
-                    strcat(writer,"  BLENDING=CUSTOM");
+                    strcat(writer,"  BLEND=CUSTOM");
                 if (movie==0 || movie2==0 || ffmpegfile==0 || internetfile==0 || blending>=1)
                 {
                     if (plot_front==1)
@@ -9622,9 +9669,13 @@ extern int overlap_pixels;
                     strcat(writer,"  PLOT MAP 2");
                 if (loadbackground==0)
                     strcat(writer,"  BACKGROUND=OFF");
+                if (RGBA==1)
+                    strcat(writer,"  RBGA=ON");
                 if (crop==1)
                 {
-                    sprintf(line,"  CROP=%d,%d",crop_x,crop_x_size);
+                    sf::FloatRect fr=sprite_from_crop.getGlobalBounds();
+                    sprintf(line,"  CROP=%d:%d:%d:%d",int(fr.width+0.5),int(fr.height+0.5),int(fr.left+0.5),int(fr.top+0.5));
+//                    sprintf(line,"  CROP=%d,%d",crop_x,crop_x_size);
                     strcat(writer,line);
                 }
                 if (set_transparant==0)
@@ -9895,6 +9946,16 @@ extern sf::Text mytext2;
 //joepie
         if (F2==1)
         {
+            if (crop==1) {
+                sf::FloatRect fr=sprite_from_crop.getGlobalBounds();
+
+                sprintf(writer,"CROP SIZE: %d x %d  POS: (%d,%d) TO (%d,%d)",
+                        (int)fr.width, (int)fr.height,
+                        (int)fr.left, (int)fr.top,
+                        (int)(fr.left+fr.width),(int)(fr.top+fr.height));
+                draw2(writer,0,500+32*9,sf::Color::Blue,sf::Color::White);
+            }
+
             if (ffmpegfile==0)
             {
                 int abs_x,abs_y;
@@ -9918,11 +9979,10 @@ extern sf::Text mytext2;
                 int size_y=texture_from_ffmpeg.getSize().y;
                 int scale_x=texture_from_ffmpeg.getSize().x*sprite_from_ffmpeg.getScale().x;
                 int scale_y=texture_from_ffmpeg.getSize().y*sprite_from_ffmpeg.getScale().y;
-
                 extern float plot_abs_x,plot_abs_y;
 
                 if (ffmpeg_move==1)
-                    sprintf(writer,"PICTURE SIZE: %d x %d SCALED: %d x %d POS: %d,%d TO %d,%d (%.6f,%.6f)",
+                    sprintf(writer,"SIZE: %d x %d SCALED: %d x %d POS: %d,%d TO %d,%d (%.6f,%.6f)",
                             size_x,size_y,
                             scale_x,scale_y,
 
@@ -9932,7 +9992,7 @@ extern sf::Text mytext2;
                             plot_abs_x,plot_abs_y
                            );
                 else
-                    sprintf(writer,"PICTURE SIZE: %d x %d SCALED: %d x %d POS: %d,%d TO %d,%d (%.6f,%.6f)",
+                    sprintf(writer,"SIZE: %d x %d SCALED: %d x %d POS: %d,%d TO %d,%d (%.6f,%.6f)",
                             size_x,size_y,
                             scale_x,scale_y,
 
@@ -9946,6 +10006,7 @@ extern sf::Text mytext2;
 //                        (int)(texture_from_ffmpeg.getSize().x*sprite_from_ffmpeg.getScale().x),(int)(texture_from_ffmpeg.getSize().y*sprite_from_ffmpeg.getScale().y)
 //                        );
                 draw2(writer,0,500+5*32,sf::Color::Blue,sf::Color::White);
+
             }
             if (internetfile==0)
             {

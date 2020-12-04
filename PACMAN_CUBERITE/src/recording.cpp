@@ -42,6 +42,10 @@ sf::Clock rec_clock_frame;
 sf::Clock play_clock_tot;
 sf::Clock play_clock_frame;
 
+extern sf::RenderTexture texture_final;
+sf::RenderTexture texture_final_part;
+sf::Sprite sprite_texture_final;
+
 extern int record_pause;
 float fps_record_tot=0.0;
 float fps_record_frame=0.0;
@@ -86,7 +90,6 @@ float playing_time=0.0;
 float recording_time=0.0;
 extern int record_screen_num;
 int playing_screen_num=0;
-extern char FFMPEGCOMMAND_CROP[];
 extern int crop_x;
 extern int crop_x_size;
 extern int crop;
@@ -131,6 +134,7 @@ extern void setinternetfile();
 extern float rotation_ffmpeg;
 extern float rotation_internet;
 extern sf::Sprite sprite_from_ffmpeg;
+extern sf::Sprite sprite_from_crop;
 extern sf::Sprite sprite_from_internet;
 extern float rot_speed_ffmpeg;
 extern float rot_speed_internet;
@@ -155,10 +159,14 @@ extern sfe::Movie* live_movie;
 extern int reload_init();
 
 extern char FFMPEGCOMMAND[];
+extern char FFMPEGCOMMAND_RGBA[];
+extern int RGBA;
 extern char FFMPEGCOMMANDIN[];
 extern char FFMPEGCOMMANDIN_SUBS[]; //WHEN BURNING SUBS WITH "GET_VIDEOS" & "BURN_SUBS"
 extern char FFMPEGCOMMAND_M_ORIG[];
 extern char FFMPEGCOMMAND_M_ORIG_AUDIO[];
+extern char FFMPEGCOMMAND_CROP[];
+extern char FFMPEGCOMMAND_CROP_RGBA[];
 
 char command_line[2000];
 
@@ -177,6 +185,7 @@ sf::Texture rec_texture;
 sf::Texture rec_texture_in;
 
 sf::Image * rec_image=NULL;
+sf::Image * rec_image_part=NULL;
 sf::Image * rec_image_in=NULL;
 
 extern sf::Texture texture_from_ffmpeg;
@@ -777,24 +786,66 @@ int recording_start(int x, int y)
 
 //FFMPEG_M_CROP="ffmpeg -hide_banner -f rawvideo -vcodec rawvideo -pix_fmt rgb24 -s 1920x1080 -r 60 -i - -filter:v "crop=%d:1080:%d:0" -an -c:v libx264 -preset slow -crf 23 -c:a copy -pix_fmt yuv420p ../record/output%d.mp4"
     if (crop==0) {
-        if (strlen(FFMPEGCOMMAND)>0)
-            sprintf(command_line,FFMPEGCOMMAND,x,y,timenow);
-        else
-            sprintf(command_line,"ffmpeg.exe -f rawvideo -vcodec rawvideo -pix_fmt rgb24 -s %dx%d -r 60 -i - -an -c:v libx264 record/output%d.mp4",x,y,timenow);
-    } else {
-        if (strlen(FFMPEGCOMMAND_CROP)>0) {
-            int scale_x=texture_from_ffmpeg.getSize().x*sprite_from_ffmpeg.getScale().x;
-            int scale_y=texture_from_ffmpeg.getSize().y*sprite_from_ffmpeg.getScale().y;
-            if (scale_x>1920) scale_x=1920;
-            if (scale_y>1080) scale_y=1080;
-            if (float(scale_x)/2.0!=int(scale_x/2.0)) scale_x-=1;
-            if (float(scale_y)/2.0!=int(scale_y/2.0)) scale_y-=1;
-
-            sprintf(command_line,FFMPEGCOMMAND_CROP,scale_x,scale_y,int((1920-scale_x)/2),int((1080-scale_y)/2),timenow);
-/////////            sprintf(command_line,FFMPEGCOMMAND_CROP,crop_x_size,crop_x,timenow);
+        if (RGBA) {
+            if (strlen(FFMPEGCOMMAND_RGBA)>0)
+                sprintf(command_line,FFMPEGCOMMAND_RGBA,x,y,timenow);
+            else
+                sprintf(command_line,"ffmpeg.exe -hide_banner -f rawvideo -vcodec rawvideo -pix_fmt rgba -s %dx%d -r 60 -i - -an -c:v libx264 -pix_fmt yuv444p -preset veryfast -crf 23 ../record/output%d_rgba.mp4",x,y,timenow);
+        } else {
+            if (strlen(FFMPEGCOMMAND)>0)
+                sprintf(command_line,FFMPEGCOMMAND,x,y,timenow);
+            else
+                sprintf(command_line,"ffmpeg.exe -hide_banner -f rawvideo -vcodec rawvideo -pix_fmt rgb24 -s %dx%d -r 60 -i - -an -c:v libx264 -pix_fmt yuv420p -preset veryfast -crf 23 ../record/output%d.mp4",x,y,timenow);
         }
-        else
-            sprintf(command_line,"ffmpeg -hide_banner -f rawvideo -vcodec rawvideo -pix_fmt rgb24 -s 1920x1080 -r 60 -i - -filter:v crop=%d:1080:%d:0 -an -c:v libx264 -preset slow -crf 23 -c:a copy -pix_fmt yuv420p ../record/output%d.mp4",crop_x_size,crop_x,timenow);
+    } else {
+        sf::FloatRect fr=sprite_from_crop.getGlobalBounds();
+
+        sprite_texture_final.setTexture(texture_final.getTexture(),false);
+        sprite_texture_final.setTextureRect({fr.left,fr.top,fr.width,fr.height});
+        texture_final_part.create(fr.width,fr.height,false);
+        texture_final_part.setSmooth(true);
+        texture_final_part.clear(sf::Color(0,0,0,0));
+        if (rec_image_part==NULL) {
+            rec_image_part = new sf::Image();
+        }
+//sf::RenderTexture texture_final_part;
+//sf::Sprite sprite_texture_final;
+
+/*
+        int scale_x=texture_from_ffmpeg.getSize().x*sprite_from_ffmpeg.getScale().x;
+        int scale_y=texture_from_ffmpeg.getSize().y*sprite_from_ffmpeg.getScale().y;
+        if (scale_x>1920) scale_x=1920;
+        if (scale_y>1080) scale_y=1080;
+        if (float(scale_x)/2.0!=int(scale_x/2.0)) scale_x-=1;
+        if (float(scale_y)/2.0!=int(scale_y/2.0)) scale_y-=1;
+*/
+
+        if (RGBA) {
+            if (strlen(FFMPEGCOMMAND_CROP_RGBA)>0)
+//                sprintf(command_line,FFMPEGCOMMAND_CROP_RGBA,scale_x,scale_y,int((1920-scale_x)/2),int((1080-scale_y)/2),timenow);
+                sprintf(command_line,FFMPEGCOMMAND_CROP_RGBA, int(fr.width),int(fr.height),timenow);
+//                    int(fr.width),int(fr.height),int(fr.left),int(fr.top),timenow);
+//-filter_complex "scale=300:-"
+//                sprintf(command_line,"ffmpeg -hide_banner -f rawvideo -vcodec rawvideo -pix_fmt rgba -s %dx%d -r 60 -i - -an -filter_complex \"scale=300:-1\" -c:v png ../record/output%d_rgba.avi",
+//                sprintf(command_line,"ffmpeg -hide_banner -f rawvideo -vcodec rawvideo -pix_fmt rgba -s %dx%d -r 60 -i - -an -c:v png ../record/output%d_rgba.avi",
+//                   int(fr.width),int(fr.height),timenow);
+
+            else
+                sprintf(command_line,"ffmpeg -hide_banner -f rawvideo -vcodec rawvideo -pix_fmt rgba -s %dx%d -r 60 -i - -an -c:v png ../record/output%d_rgba.avi",
+                   int(fr.width),int(fr.height),timenow);
+//                sprintf(command_line,"ffmpeg -hide_banner -f rawvideo -vcodec rawvideo -pix_fmt rgba -s 1920x1080 -r 60 -i - -filter:v crop=%d:%d:%d:%d -an -c:v png ../record/output%d_rgba.avi",
+//                   int(fr.width),int(fr.height),int(fr.left),int(fr.top),timenow);
+        } else {
+            if (strlen(FFMPEGCOMMAND_CROP)>0)
+                sprintf(command_line,FFMPEGCOMMAND_CROP,
+//                    int(fr.width),int(fr.height),int(fr.left),int(fr.top),timenow);
+                    int(fr.width),int(fr.height),timenow);
+            else
+                sprintf(command_line,"ffmpeg -hide_banner -f rawvideo -vcodec rawvideo -pix_fmt rgb24 -s %dx%d -r 60 -i - -filter:v crop=%d:%d:%d:%d -an -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p ../record/output%d.mp4",
+                        int(fr.width),int(fr.height),timenow);
+//                sprintf(command_line,"ffmpeg -hide_banner -f rawvideo -vcodec rawvideo -pix_fmt rgb24 -s 1920x1080 -r 60 -i - -filter:v crop=%d:%d:%d:%d -an -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p ../record/output%d.mp4",
+//                        int(fr.width),int(fr.height),int(fr.left),int(fr.top),timenow);
+        }
     }
 
     printf(command_line);
@@ -805,8 +856,6 @@ int recording_start(int x, int y)
     else
         return -1;
 }
-
-extern sf::RenderTexture texture_final;
 
 void Screenshot3_window(sf::RenderWindow& window) {
 	static sf::Vector2u windowSize = window.getSize();
@@ -821,6 +870,8 @@ void Screenshot3_window(sf::RenderWindow& window) {
     recording_time=(float)record_screen_num/60.0;
 }
 
+void recording_part();
+
 void Screenshot3() {
 	static sf::Vector2u windowSize = texture_final.getSize();
 //	static sf::Sprite testimage;
@@ -828,11 +879,19 @@ void Screenshot3() {
         rec_texture.create(windowSize.x, windowSize.y);
         rec_image = new sf::Image();
 	}
+	if (crop) {
+        texture_final_part.draw(sprite_texture_final);
+        texture_final_part.display();
+        *rec_image_part=texture_final_part.getTexture().copyToImage();
+        texture_final_part.clear(sf::Color(0,0,0,0));
+        recording_part();
+	} else {
+        *rec_image=texture_final.getTexture().copyToImage();
+        recording();
+	}
+    recording_time=(float)record_screen_num/60.0;
 //	rec_texture.update(texture_final.getTexture());
 //	*rec_image=rec_texture.copyToImage();
-	*rec_image=texture_final.getTexture().copyToImage();
-    recording();
-    recording_time=(float)record_screen_num/60.0;
 }
 
 void Screenshot3_sfmlview1() {
@@ -849,6 +908,43 @@ void Screenshot3_sfmlview1() {
     recording_time=(float)record_screen_num/60.0;
 }
 
+void recording_part()
+{
+//    sf::Color Color;
+    static const sf::Uint8* ImageBytes;
+
+    ImageBytes=rec_image_part->getPixelsPtr();
+    int x=rec_image_part->getSize().x, y=rec_image_part->getSize().y;
+//    sf::Clock clock_timer;
+//    clock_timer.restart();
+//    INT64 the_time;
+    register int pos_in=0;
+    register int pos_out=0;
+    register int total_pixels=x*y;
+    register int byte_counter;
+    if (RGBA) {
+        for (byte_counter=0 ; byte_counter++<total_pixels;) {
+                frame[pos_out++] = (char) ImageBytes[pos_in++];
+                frame[pos_out++] = (char) ImageBytes[pos_in++];
+                frame[pos_out++] = (char) ImageBytes[pos_in++];
+                frame[pos_out++] = (char) ImageBytes[pos_in++];
+        }
+        fwrite(frame, 1, x*y*4, pipeout);
+    } else {
+        for (byte_counter=0 ; byte_counter++<total_pixels;) {
+                frame[pos_out++] = (char) ImageBytes[pos_in++];
+                frame[pos_out++] = (char) ImageBytes[pos_in++];
+                frame[pos_out++] = (char) ImageBytes[pos_in++];
+                pos_in++;
+        }
+        fwrite(frame, 1, x*y*3, pipeout);
+    }
+    fflush(pipeout);
+
+//    the_time=clock_timer.getElapsedTime().asMicroseconds();
+//    printf("Elapsed time write frame to ffmpeg: %zd microseconds\n",the_time);
+}
+
 void recording()
 {
 //    sf::Color Color;
@@ -863,20 +959,23 @@ void recording()
     register int pos_out=0;
     register int total_pixels=x*y;
     register int byte_counter;
-    for (byte_counter=0 ; byte_counter++<total_pixels;)
-//    for (y=0 ; y<1080 ; y++) {
-//        for (x=0 ; x<1920 ; x++)
-        {
-            frame[pos_out++] = (char) ImageBytes[pos_in++];
-            frame[pos_out++] = (char) ImageBytes[pos_in++];
-            frame[pos_out++] = (char) ImageBytes[pos_in++];
-            pos_in++;
-//            frame[(y*1920+x)*3+0] = (char) ImageBytes[(y*1920+x)*4+0];
-//            frame[(y*1920+x)*3+1] = (char) ImageBytes[(y*1920+x)*4+1];
-//            frame[(y*1920+x)*3+2] = (char) ImageBytes[(y*1920+x)*4+2];
+    if (RGBA) {
+        for (byte_counter=0 ; byte_counter++<total_pixels;) {
+                frame[pos_out++] = (char) ImageBytes[pos_in++];
+                frame[pos_out++] = (char) ImageBytes[pos_in++];
+                frame[pos_out++] = (char) ImageBytes[pos_in++];
+                frame[pos_out++] = (char) ImageBytes[pos_in++];
         }
-//    }
-    fwrite(frame, 1, x*y*3, pipeout);
+        fwrite(frame, 1, x*y*4, pipeout);
+    } else {
+        for (byte_counter=0 ; byte_counter++<total_pixels;) {
+                frame[pos_out++] = (char) ImageBytes[pos_in++];
+                frame[pos_out++] = (char) ImageBytes[pos_in++];
+                frame[pos_out++] = (char) ImageBytes[pos_in++];
+                pos_in++;
+        }
+        fwrite(frame, 1, x*y*3, pipeout);
+    }
     fflush(pipeout);
 
 //    the_time=clock_timer.getElapsedTime().asMicroseconds();

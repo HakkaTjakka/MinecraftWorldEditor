@@ -59,9 +59,10 @@ extern int shift;
 extern int drawmazes;
 int first1=0;
 int first2=0;
+extern int pacman_move;
 #include <glm/glm.hpp>
 #include <glm/common.hpp>
-
+extern int move_config;
 extern std::vector<glm::ivec2> wierdo_requests;
 extern std::vector<glm::ivec2> wierdo_requests_ready;
 extern std::vector<std::string> wierdo_filenames;
@@ -745,6 +746,8 @@ void load_map()
                         {
                             blokje=blokje & (15+32+64);
                             if ((blokje&15)==1 || (blokje&15)==2 || (blokje&15)==4 || (blokje&15)==8) {
+//hoihoi
+//                                    if (!(rand()%10)) blokje=blokje|16;
                                     blokje=blokje|16;
                             }
                         }
@@ -1048,6 +1051,8 @@ void set_pacman()
 #define array_len  400
 
 extern int DO_ADAPT;
+extern int combine;
+extern int crossing;
 
 void follow_ghost_pos()
 {
@@ -1094,6 +1099,10 @@ void follow_ghost_pos()
 
     int old_render_picturex=render_picturex;
     int old_render_picturey=render_picturey;
+    int old_render_posx=render_posx;
+    int old_render_posy=render_posy;
+    int old_smoothx=smooth_x;
+    int old_smoothy=smooth_y;
     int old_picturex=picturex;
     int old_picturey=picturey;
     int old_posx=posx;
@@ -1282,6 +1291,9 @@ void follow_ghost_pos()
         ydiff2=smooth_y;
         soft_jump=0;
     }
+//    if (pacman_move==1) {
+//        long_jump=1;
+//    }
 
     if (long_jump==1 || first_follow==1 || forced_jump==1)
     {
@@ -1319,12 +1331,13 @@ void follow_ghost_pos()
     static double py_sub_old;
 
     double totx=0.0,toty=0.0;
-    double filter_count=0;
     double divx=0.0;
     double divy=0.0;
+
+/*
+    double filter_count=0;
     int swappit=1;
     int swap_count=array_len/2;
-
     for (int i=follow_countx; i<follow_countx+array_len; i++)
     {
         totx=totx+(double)followx[i%array_len]*filter_count;
@@ -1333,6 +1346,7 @@ void follow_ghost_pos()
         swap_count--;
         if (swap_count==0) swappit=-1;
     }
+
     swappit=1;
     swap_count=array_len/2;
     filter_count=0;
@@ -1343,6 +1357,17 @@ void follow_ghost_pos()
         filter_count=filter_count+0.1*(float)swappit;;
         swap_count--;
         if (swap_count==0) swappit=-1;
+    }
+*/
+    for (int i=follow_countx; i<follow_countx+array_len; i++)
+    {
+        totx=totx+(double)followx[i%array_len];
+        divx++;
+    }
+    for (int i=follow_county; i<follow_county+array_len; i++)
+    {
+        toty=toty+(double)followy[i%array_len];
+        divy++;
     }
 
     px_sub=fmod((double)(totx/divx),(double)maxpixelsx);
@@ -1362,7 +1387,6 @@ void follow_ghost_pos()
     x=(int)(px_sub);
     y=(int)(py_sub);
 
-
     avg_speedx=(px_sub - px_sub_old);
     avg_speedy=(py_sub - py_sub_old);
 
@@ -1371,6 +1395,10 @@ void follow_ghost_pos()
 
     smooth_x=px_sub;
     smooth_y=py_sub;
+
+//    if (avg_speedx<0.0) smooth_x--;
+//    if (avg_speedy<0.0) smooth_y--;
+
 
     x=(x+maxpixelsx)%maxpixelsx;
     y=(y+maxpixelsy)%maxpixelsy;
@@ -1409,6 +1437,7 @@ void follow_ghost_pos()
         sprintf(writer,"AFTER: ghostx=%d ghosty=%d follow_ghost_pos before: posx=%d, posy=%d, picturex=%d, picturey=%d follow_ghost=%d",x,y,posx,posy,picturex,picturey,follow_ghost);
         savedata(writer,0);
     }
+
 
     new_picturex=picturex;
     new_picturey=picturey;
@@ -1503,31 +1532,51 @@ void follow_ghost_pos()
         }
 */
         int addx,addy;
-        if (plot_all==0 && plot_cubes==0) {
-            if (fps_float>65.0) {
-                addx=(int)((new_verschilx/(1.0+mfspeedx/2.0))*(1920.0/1080.0)*1.2*(60.0/fps_float));
-                addy=(int)((new_verschily/(1.0+mfspeedy/2.0))*1.2*(60.0/fps_float));
+/*
+        if (pacman_move) {
+            if (plot_all==0 && plot_cubes==0) {
+                if (fps_float>65.0) {
+                    addx=(int)((verschilx/(1.0))*(1920.0/1080.0)*1.2*(60.0/fps_float));
+                    addy=(int)((verschily/(1.0))*1.2*(60.0/fps_float));
+                } else {
+                    addx=(int)((verschilx/(1.0))*(1920.0/1080.0)*1.2);
+                    addy=(int)((verschily/(1.0))*1.2);
+                }
             } else {
-                addx=(int)((new_verschilx/(1.0+mfspeedx/2.0))*(1920.0/1080.0)*1.2);
-                addy=(int)((new_verschily/(1.0+mfspeedy/2.0))*1.2);
+                if (fps_float>65.0) {
+                    addx=(int)((verschilx/(1.0))*(1920.0/1080.0)*1.2*60.0/(sqrt(sprite_from_canvas.getScale().x/3.0+0.1)*3.0*fps_float));
+                    addy=(int)((verschily/(1.0))*1.2*60.0/(sqrt(sprite_from_canvas.getScale().y/3.0+0.1)*3.0*fps_float));
+                } else {
+                    addx=(int)((verschilx/(1.0))*(1920.0/1080.0)*1.2/(sqrt(sprite_from_canvas.getScale().x/3.0+0.1)*3.0));
+                    addy=(int)((verschily/(1.0))*1.2/(sqrt(sprite_from_canvas.getScale().y/3.0+0.1)*3.0));
+                }
             }
         } else {
-            if (fps_float>65.0) {
-                addx=(int)((new_verschilx/(1.0+mfspeedx/2.0))*(1920.0/1080.0)*1.2*60.0/(sqrt(sprite_from_canvas.getScale().x/3.0+0.1)*3.0*fps_float));
-                addy=(int)((new_verschily/(1.0+mfspeedy/2.0))*1.2*60.0/(sqrt(sprite_from_canvas.getScale().y/3.0+0.1)*3.0*fps_float));
+*/
+            if (plot_all==0 && plot_cubes==0) {
+                if (fps_float>65.0) {
+                    addx=(int)((new_verschilx/(1.0+mfspeedx/2.0))*(1920.0/1080.0)*1.2*(60.0/fps_float));
+                    addy=(int)((new_verschily/(1.0+mfspeedy/2.0))*1.2*(60.0/fps_float));
+                } else {
+                    addx=(int)((new_verschilx/(1.0+mfspeedx/2.0))*(1920.0/1080.0)*1.2);
+                    addy=(int)((new_verschily/(1.0+mfspeedy/2.0))*1.2);
+                }
             } else {
-                addx=(int)((new_verschilx/(1.0+mfspeedx/2.0))*(1920.0/1080.0)*1.2/(sqrt(sprite_from_canvas.getScale().x/3.0+0.1)*3.0));
-                addy=(int)((new_verschily/(1.0+mfspeedy/2.0))*1.2/(sqrt(sprite_from_canvas.getScale().y/3.0+0.1)*3.0));
+                if (fps_float>65.0) {
+                    addx=(int)((new_verschilx/(1.0+mfspeedx/2.0))*(1920.0/1080.0)*1.2*60.0/(sqrt(sprite_from_canvas.getScale().x/3.0+0.1)*3.0*fps_float));
+                    addy=(int)((new_verschily/(1.0+mfspeedy/2.0))*1.2*60.0/(sqrt(sprite_from_canvas.getScale().y/3.0+0.1)*3.0*fps_float));
+                } else {
+                    addx=(int)((new_verschilx/(1.0+mfspeedx/2.0))*(1920.0/1080.0)*1.2/(sqrt(sprite_from_canvas.getScale().x/3.0+0.1)*3.0));
+                    addy=(int)((new_verschily/(1.0+mfspeedy/2.0))*1.2/(sqrt(sprite_from_canvas.getScale().y/3.0+0.1)*3.0));
+                }
             }
-        }
+//        }
 //        if (fspeedx*addx>0) addx=0;
 //        if (fspeedy*addy>0) addy=0;
         addx=addx/(1.0+sfspeedx/25.0);
         addy=addy/(1.0+sfspeedy/25.0);
         x=(x+addx+maxpixelsx)%maxpixelsx;
         y=(y+addy+maxpixelsy)%maxpixelsy;
-
-
 
         if ((xdiff2-(double)x)<-(double)maxpixelsx/2) { xdiff2=xdiff2+(double)maxpixelsx; } else if ((xdiff2-(double)x)>(double)maxpixelsx/2) { xdiff2=xdiff2-(double)maxpixelsx; }
         if ((ydiff2-(double)y)<-(double)maxpixelsy/2) { ydiff2=ydiff2+(double)maxpixelsy; } else if ((ydiff2-(double)y)>(double)maxpixelsy/2) { ydiff2=ydiff2-(double)maxpixelsy; }
@@ -1582,7 +1631,96 @@ void follow_ghost_pos()
         new_verschily=0;
         new_verschilx2=0;
         new_verschily2=0;
+    }
 
+    if (pacman_move==1) {
+        render_picturex=old_render_picturex;
+        render_picturey=old_render_picturey;
+        render_posx=old_render_posx;
+        render_posy=old_render_posy;
+        smooth_x=old_smoothx;
+        smooth_y=old_smoothy;
+        new_verschilx=-((picturex*1920-posx)-(render_picturex*1920-render_posx));
+        new_verschily=-((picturey*1080-posy)-(render_picturey*1080-render_posy));
+        while (new_verschilx<-maxpixelsx/2) { new_verschilx=new_verschilx+maxpixelsx; }
+        while (new_verschilx>maxpixelsx/2) { new_verschilx=new_verschilx-maxpixelsx; }
+        while (new_verschily<-maxpixelsy/2) { new_verschily=new_verschily+maxpixelsy; }
+        while (new_verschily>maxpixelsy/2) { new_verschily=new_verschily-maxpixelsy; }
+        new_verschilx2=-new_verschilx*2;
+        new_verschily2=-new_verschily*2;
+        while (new_verschilx2<-maxpixelsx/2) { new_verschilx2=new_verschilx2+maxpixelsx; }
+        while (new_verschilx2>maxpixelsx/2) { new_verschilx2=new_verschilx2-maxpixelsx; }
+        while (new_verschily2<-maxpixelsy/2) { new_verschily2=new_verschily2+maxpixelsy; }
+        while (new_verschily2>maxpixelsy/2) { new_verschily2=new_verschily2-maxpixelsy; }
+//        xdiff2=(old_picturex*1920-old_posx)-1920;
+//        ydiff2=(old_picturey*1080-old_posy)-1080;
+//        xdiff2=rx;
+//        ydiff2=ry;
+//        if ((xdiff2)<-(double)maxpixelsx/2) { xdiff2=xdiff2+(double)maxpixelsx; } else if ((xdiff2)>(double)maxpixelsx/2) { xdiff2=xdiff2-(double)maxpixelsx; }
+//        if ((ydiff2)<-(double)maxpixelsy/2) { ydiff2=ydiff2+(double)maxpixelsy; } else if ((ydiff2)>(double)maxpixelsy/2) { ydiff2=ydiff2-(double)maxpixelsy; }
+//        xdiff2=smooth_x;
+//        ydiff2=smooth_y;
+//        xdiff2=-(old_picturex*1920-old_posx);
+//        ydiff2=-(old_picturey*1080-old_posy);
+    } else if (pacman_move==2) {
+//        ydiff2=smooth_y;
+//        xdiff2=0;
+        render_picturex=old_render_picturex;
+        render_posx=old_render_posx;
+        smooth_x=old_smoothx;
+//        ydiff2=y_old;
+        new_verschilx=-((picturex*1920-posx)-(render_picturex*1920-render_posx));
+        while (new_verschilx<-maxpixelsx/2) { new_verschilx=new_verschilx+maxpixelsx; }
+        while (new_verschilx>maxpixelsx/2) { new_verschilx=new_verschilx-maxpixelsx; }
+        new_verschilx2=-new_verschilx*2;
+        while (new_verschilx2<-maxpixelsx/2) { new_verschilx2=new_verschilx2+maxpixelsx; }
+        while (new_verschilx2>maxpixelsx/2) { new_verschilx2=new_verschilx2-maxpixelsx; }
+//        xdiff2=(picturex*1920-posx)-1920;
+//        xdiff2=(old_picturex*1920-old_posx);
+//        if ((xdiff2)<-(double)maxpixelsx/2) { xdiff2=xdiff2+(double)maxpixelsx; } else if ((xdiff2)>(double)maxpixelsx/2) { xdiff2=xdiff2-(double)maxpixelsx; }
+//        xdiff2=smooth_x;
+//        xdiff2=-(old_picturex*1920-old_posx);
+    } else if (pacman_move==3) {
+//        ydiff2=0;
+//        xdiff2=smooth_x;
+//        xdiff2=(x_old+xdiff2*5.0)/6.0;
+//        xdiff2=x_old;
+//        if (xdiff2<-maxpixelsx/2) { xdiff2=xdiff2+maxpixelsx; } else if (xdiff2>maxpixelsx/2) { xdiff2=xdiff2-maxpixelsx; }
+//        if (ydiff2<-maxpixelsy/2) { ydiff2=ydiff2+maxpixelsy; } else if (ydiff2>maxpixelsy/2) { ydiff2=ydiff2-maxpixelsy; }
+//        ydiff2=y_old;
+
+        render_picturey=old_render_picturey;
+        render_posy=old_render_posy;
+        smooth_y=old_smoothy;
+        new_verschily=-((picturey*1080-posy)-(render_picturey*1080-render_posy));
+        while (new_verschily<-maxpixelsy/2) { new_verschily=new_verschily+maxpixelsy; }
+        while (new_verschily>maxpixelsy/2) { new_verschily=new_verschily-maxpixelsy; }
+        new_verschily2=-new_verschily*2;
+        while (new_verschily2<-maxpixelsy/2) { new_verschily2=new_verschily2+maxpixelsy; }
+        while (new_verschily2>maxpixelsy/2) { new_verschily2=new_verschily2-maxpixelsy; }
+//        ydiff2=(picturey*1080-posy)-1080;
+//        ydiff2=(old_picturey*1920-old_posy);
+//        if ((ydiff2)<-(double)maxpixelsy/2) { ydiff2=ydiff2+(double)maxpixelsy; } else if ((ydiff2)>(double)maxpixelsy/2) { ydiff2=ydiff2-(double)maxpixelsy; }
+//        ydiff2=smooth_y;
+//        ydiff2=-(old_picturey*1080-old_posy);
+
+    }
+
+    if (move_config) {
+        switch(move_config) {
+            case 1:
+                xdiff2=x_old;
+                ydiff2=y_old;
+                break;
+            case 2:
+                xdiff2=x_old;
+                break;
+            case 3:
+                ydiff2=y_old;
+                break;
+            default:
+                break;
+        }
     }
     if (DONTREADBITMAPS==0)
         ReadBitmaps2();
@@ -3553,6 +3691,8 @@ void zetom()
                         {
                             blokje=blokje & (15+32+64);
                             if ((blokje&15)==1 || (blokje&15)==2 || (blokje&15)==4 || (blokje&15)==8) {
+//hoihoi
+//                                    if (!(rand()%10)) blokje=blokje|16;
                                     blokje=blokje|16;
                             }
                         }
@@ -3583,7 +3723,9 @@ void zetom()
             {
                 blokje=maze_plot[xx][yy];
                 if (blokje==1 || blokje==2 || blokje==4 || blokje==8)
+//hoihoi
                     blokje=blokje|16;
+//                    if (!(rand()%10)) blokje=blokje|16;
                 maze_plot[xx][yy]=blokje;
 
             }

@@ -61,6 +61,9 @@
 #define TILE_SELECT 3
 #define SHADER_SELECT 4
 
+int move_config=0;
+extern int RGBA;
+extern sf::Sprite sprite_from_crop;
 extern int iFrame;
 static std::string GetFileName(const std::string& filepath)
 {
@@ -584,6 +587,7 @@ extern int pen;
 extern int pen_mode;
 extern void cleanupbitmaps_mazes();
 extern int combine;
+int pacman_move=0;
 extern int loaded_from_maze;
 extern void load_maze(int lastmap);
 extern void save_maze(int lastmap);
@@ -1264,13 +1268,12 @@ VOID HANDLECHAR(WPARAM wparam)
         }
         break;
     case 'e':
-        if (eatmode==0)
-        {
+        if (eatmode==0) {
             eatmode=1;
             skipclear=1;
-        }
-        else
-        {
+        }  else if (eatmode==1) {
+            eatmode=2;
+        }  else {
             eatmode=0;
             skipclear=0;
         }
@@ -1283,9 +1286,9 @@ VOID HANDLECHAR(WPARAM wparam)
         }
         else
         {
-            strcpy(error_msg,"SETTING SAVE FILES=OFF!!!");
-            if (eatmode==1)
-                DONTSAVEFILES=1;
+//            strcpy(error_msg,"SETTING SAVE FILES=OFF!!!");
+//            if (eatmode==1)
+//                DONTSAVEFILES=1;
         }
         break;
     case 'Z':
@@ -4284,11 +4287,48 @@ void HANDLEEVENTS()
             happening=1;
             if (mouse_move==1)
                 continue;
+            if (crop && !isrecording) {
+                if ( (event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseMoved) && (sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right) ) )  {
+                    sf::Vector2f crop_pos=sprite_from_crop.getPosition();
+                    sf::Vector2f crop_size=sprite_from_crop.getScale();
+                    int x=event.mouseMove.x;
+                    int y=event.mouseMove.y;
+                    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                        if (event.type == sf::Event::MouseButtonPressed) {
+                            sf::Mouse::setPosition(sf::Vector2i((int)crop_pos.x,(int)crop_pos.y));
+                            x=(int)crop_pos.x;
+                            y=(int)crop_pos.y;
+                        } else if (event.type == sf::Event::MouseMoved && !(event.type == sf::Event::MouseButtonPressed)) {
+                            if (x+crop_size.x>1920) x=1920-crop_size.x;
+                            if (y+crop_size.y>1080) y=1080-crop_size.y;
+                            sprite_from_crop.setPosition(x,y);
+                        }
+                    }
+                    if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+                        if (event.type == sf::Event::MouseButtonPressed ) {
+                            sf::Mouse::setPosition(sf::Vector2i((int)(crop_pos.x+crop_size.x),(int)(crop_pos.y+crop_size.y)));
+                            x=(int)(crop_pos.x+crop_size.x);
+                            y=(int)(crop_pos.y+crop_size.y);
+                        } else if (event.type == sf::Event::MouseMoved && !(event.type == sf::Event::MouseButtonPressed)) {
+                            if ( (float)(x-(int)crop_pos.x+1)/2.0 != int((float)(x-(int)crop_pos.x+1)/2.0) ) {
+                                x=x+1;
+                            }
+                            if (crop_pos.x+x > 1920) x-=2;
+                            if ( (float)(y-(int)crop_pos.y+1)/2.0 != int((float)(y-(int)crop_pos.y+1)/2.0) ) {
+                                y=y+1;
+                            }
+                            if (crop_pos.y+y > 1080) y-=2;
+                            sprite_from_crop.setScale(x-crop_pos.x+1,y-crop_pos.y+1);
+                        }
+                    }
+                }
+            }
             if (event.type == sf::Event::MouseButtonPressed || (event.type == sf::Event::MouseMoved && (sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right) ) ) )
             {
                 static int xPos = 0;
                 sf::Time targetTime;
                 float ratio;
+                sf::Vector2f crop_pos;
                 if (event.type == sf::Event::MouseButtonPressed && (sf::Mouse::isButtonPressed(sf::Mouse::Left)))
                 {
                     xPos = event.mouseButton.x;
@@ -4327,6 +4367,7 @@ void HANDLEEVENTS()
                         time_movie2=targetTime;
                     }
                 }
+
                 if (movie==0)
                 {
                     if (xPos!=1919)
@@ -4758,19 +4799,9 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
         rotate_ffmpeg=0;
         sprite_from_ffmpeg.setScale(1.0,1.0);
         scale_now=1.0;
-        if (file_exists("resources/black.png"))
-        {
-            if (texture_from_ffmpeg.loadFromFile("resources/black.png"))
-            {
-                ffmpegfile=0;
-                pen=1;
-                pen_mode=2;
-            }
-            else
-            {
-                savedata((char*)"failed resources/black.png",0);
-                ffmpegfile=1;
-            }
+        if (file_exists("resources/black.png")) {
+            if (texture_from_ffmpeg.loadFromFile("resources/black.png")) { ffmpegfile=0; pen=1; pen_mode=2; }
+            else { savedata((char*)"failed resources/black.png",0); ffmpegfile=1; }
         }
         if (ffmpegfile==0)
         {
@@ -6576,6 +6607,7 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
             fpstime_factor=fpstime_factor/0.99;
             break;
         }
+/*
         if (blending==2)
         {
             if (MyBlendMode_num<4)
@@ -6585,6 +6617,7 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
             set_blending();
             break;
         }
+*/
         int i;
         int ghostx;
         int ghosty;
@@ -6696,6 +6729,7 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
             fpstime_factor=fpstime_factor*0.99;
             break;
         }
+/*
         if (blending==2)
         {
             if (MyBlendMode_num>0)
@@ -6705,6 +6739,7 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
             set_blending();
             break;
         }
+*/
         add=1;
         if (number>500000)
             add=50000;
@@ -7630,7 +7665,7 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
                     sprite_from_ffmpeg.setScale(scale,scale);
                     break;
                 }
-                if (rotate_ffmpeg==0 && ffmpegfile==0)
+                if (rotate_ffmpeg==0 && ffmpegfile==0 && !event.key.system)
                 {
                     rotate_ffmpeg=1;
                     rot_speed_ffmpeg=0;
@@ -7676,12 +7711,15 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
                 }
                 else
                 {
-                    if (event.key.system)
+                    if (event.key.system) {
                         sprite_from_ffmpeg.setScale(sprite_from_ffmpeg.getScale().x*0.995,sprite_from_ffmpeg.getScale().y);
-                    else
+                    }
+                    else {
                         sprite_from_ffmpeg.setScale(sprite_from_ffmpeg.getScale().x*0.995,sprite_from_ffmpeg.getScale().y*0.995);
+                    }
                 }
                 scale_now=sprite_from_ffmpeg.getScale().x;
+                break;
             }
             if (internetfile==0 && selector==INTERNET_SELECT)
             {
@@ -8020,11 +8058,14 @@ extern int bukkit_running;
                     else
                         sprite_from_ffmpeg.setScale(sprite_from_ffmpeg.getScale().x*1.05,sprite_from_ffmpeg.getScale().y*1.05);
                 }
-                else if (event.key.system)
+                else if (event.key.system) {
                     sprite_from_ffmpeg.setScale(sprite_from_ffmpeg.getScale().x*1.005,sprite_from_ffmpeg.getScale().y);
-                else
+                }
+                else {
                     sprite_from_ffmpeg.setScale(sprite_from_ffmpeg.getScale().x*1.005,sprite_from_ffmpeg.getScale().y*1.005);
+                }
                 scale_now=sprite_from_ffmpeg.getScale().x;
+                break;
             }
             if (internetfile==0  && selector==INTERNET_SELECT)
             {
@@ -8531,20 +8572,22 @@ extern int bukkit_running;
         }
         break;
     case sf::Keyboard::R:
+        if (event.key.control && event.key.shift) {
+            if (crop==0) crop=1;
+            else crop=0;
+            break;
+        }
+        if (event.key.control && event.key.alt) {
+            if (RGBA==0) RGBA=1;
+            else RGBA=0;
+            break;
+        }
         if (event.key.alt)
         {
             if (record_debug==0)
                 record_debug=1;
             else
                 record_debug=0;
-            break;
-        }
-        if (event.key.control && event.key.shift)
-        {
-            if (crop==0)
-                crop=1;
-            else
-                crop=0;
             break;
         }
         if (event.key.control)
@@ -8586,10 +8629,26 @@ extern int bukkit_running;
         }
         break;
     case sf::Keyboard::U:
-        if (event.key.control) {
+        if (event.key.control && event.key.alt) {
             if (plot_cubes==1) plot_cubes=0; else plot_cubes=1;
             if (plot_cubes) set_cube();
 
+            break;
+        }
+        if (event.key.control) {
+            move_config++;
+            if (move_config>3) move_config=0;
+            break;
+        }
+        if (event.key.alt) {
+            if (pacman_move==0)
+                pacman_move=1;
+            else if (pacman_move==1)
+                pacman_move=2;
+            else if (pacman_move==2)
+                pacman_move=3;
+            else if (pacman_move==3)
+                pacman_move=0;
             break;
         }
         if (shade_map>=1)

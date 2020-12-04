@@ -33,3 +33,326 @@
 1 Program busy or hangs... Thread alive at: 11/11/2020 02:58:20
 0 Program busy or hangs... Thread alive at: 25/11/2020 00:06:55
 0 Program busy or hangs... Thread alive at: 25/11/2020 00:07:24
+59 Error loading picture
+1 Program busy or hangs... Thread alive at: 30/11/2020 18:45:17
+1 Program busy or hangs... Thread alive at: 30/11/2020 18:53:36
+0 Program busy or hangs... Thread alive at: 30/11/2020 19:45:28
+0 Program busy or hangs... Thread alive at: 30/11/2020 19:45:33
+0 Program busy or hangs... Thread alive at: 30/11/2020 19:45:38
+0 Program busy or hangs... Thread alive at: 30/11/2020 19:45:43
+1 Program busy or hangs... Thread alive at: 30/11/2020 19:45:48
+1 Program busy or hangs... Thread alive at: 30/11/2020 19:45:58
+0 Program busy or hangs... Thread alive at: 30/11/2020 19:47:26
+0 Program busy or hangs... Thread alive at: 30/11/2020 19:47:31
+0 Program busy or hangs... Thread alive at: 30/11/2020 19:47:36
+0 Program busy or hangs... Thread alive at: 30/11/2020 19:47:41
+0 Program busy or hangs... Thread alive at: 30/11/2020 19:47:46
+0 Program busy or hangs... Thread alive at: 30/11/2020 19:47:51
+1 Program busy or hangs... Thread alive at: 30/11/2020 19:47:56
+1 Program busy or hangs... Thread alive at: 30/11/2020 19:48:07
+1 Program busy or hangs... Thread alive at: 30/11/2020 19:48:43
+0 Program busy or hangs... Thread alive at: 30/11/2020 19:50:48
+0 Program busy or hangs... Thread alive at: 30/11/2020 20:59:28
+0 Program busy or hangs... Thread alive at: 30/11/2020 20:59:33
+0 Program busy or hangs... Thread alive at: 30/11/2020 20:59:38
+0 Program busy or hangs... Thread alive at: 30/11/2020 20:59:43
+0 Program busy or hangs... Thread alive at: 30/11/2020 20:59:48
+0 Program busy or hangs... Thread alive at: 30/11/2020 20:59:53
+0 Program busy or hangs... Thread alive at: 30/11/2020 20:59:58
+1 Program busy or hangs... Thread alive at: 30/11/2020 23:27:06
+1 Program busy or hangs... Thread alive at: 30/11/2020 23:27:15
+1 Program busy or hangs... Thread alive at: 30/11/2020 23:27:25
+0 Program busy or hangs... Thread alive at: 30/11/2020 23:27:31
+0 Program busy or hangs... Thread alive at: 30/11/2020 23:27:36
+0 Program busy or hangs... Thread alive at: 30/11/2020 23:27:41
+0 Program busy or hangs... Thread alive at: 30/11/2020 23:27:46
+0 Program busy or hangs... Thread alive at: 30/11/2020 23:27:51
+0 Program busy or hangs... Thread alive at: 30/11/2020 23:27:56
+0 MOVIE: D:\PACMAN\movies\files\rec_sound_fade.mp4
+0 invalid movie: D:\PACMAN\movies\files\rec_sound_fade.mp4
+
+0 MOVIE: D:\PACMAN\movies\files\output1606776250.mp4
+1 Program busy or hangs... Thread alive at: 30/11/2020 23:51:51
+0 Program busy or hangs... Thread alive at: 30/11/2020 23:51:57
+0 Program busy or hangs... Thread alive at: 30/11/2020 23:52:02
+0 Program busy or hangs... Thread alive at: 30/11/2020 23:52:07
+0 Program busy or hangs... Thread alive at: 30/11/2020 23:52:12
+0 Program busy or hangs... Thread alive at: 30/11/2020 23:52:17
+0 Program busy or hangs... Thread alive at: 30/11/2020 23:52:22
+0 Program busy or hangs... Thread alive at: 30/11/2020 23:52:27
+0 Program busy or hangs... Thread alive at: 30/11/2020 23:52:32
+0 MOVIE: D:\PACMAN\movies\files\output1606776250.mp4
+0 MOVIE: D:\PACMAN\movies\files\output1606776250.mp4
+0 MOVIE2: D:\PACMAN\movies\files\output1606776250.mp4
+1 Program busy or hangs... Thread alive at: 30/11/2020 23:57:14
+1 Program busy or hangs... Thread alive at: 30/11/2020 23:59:06
+0 MOVIE2: D:\PACMAN\movies\files\output1606776250.mp4
+1 Program busy or hangs... Thread alive at: 01/12/2020 00:25:38
+1 Program busy or hangs... Thread alive at: 01/12/2020 00:26:17
+1 Program busy or hangs... Thread alive at: 01/12/2020 00:27:20
+1 Program busy or hangs... Thread alive at: 01/12/2020 00:27:36
+1 Program busy or hangs... Thread alive at: 01/12/2020 00:27:45
+1 Program busy or hangs... Thread alive at: 01/12/2020 00:27:56
+1 Program busy or hangs... Thread alive at: 01/12/2020 00:35:08
+1 Program busy or hangs... Thread alive at: 01/12/2020 11:50:13
+0 invalid internet:  b=
+
+0 Program busy or hangs... Thread alive at: 01/12/2020 17:15:26
+0 Program busy or hangs... Thread alive at: 01/12/2020 17:15:31
+1 Program busy or hangs... Thread alive at: 01/12/2020 20:16:54
+1 Program busy or hangs... Thread alive at: 01/12/2020 20:17:04
+1 Program busy or hangs... Thread alive at: 01/12/2020 20:17:16
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+0 BEFORE: ghostx=-2048 ghosty=-11648 follow_ghost_pos before: posx=128, posy=848, picturex=-1, picturey=-10 follow_ghost=0
+1 Program busy or hangs... Thread alive at: 02/12/2020 19:32:01
+0 invalid internet: 
+
+0 Program busy or hangs... Thread alive at: 03/12/2020 01:15:13
+0 Program busy or hangs... Thread alive at: 03/12/2020 01:15:18
+1 Program busy or hangs... Thread alive at: 03/12/2020 01:15:23
+0 MOVIE: D:\PACMAN\movies\files\output1606776250.mp4
+0 MOVIE: D:\PACMAN\movies\files\output1606776250.mp4
+1 Program busy or hangs... Thread alive at: 03/12/2020 14:26:02
