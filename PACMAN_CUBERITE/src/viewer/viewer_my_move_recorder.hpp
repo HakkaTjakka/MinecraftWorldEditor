@@ -1139,6 +1139,7 @@ extern bool load_voxels();
 extern std::string *extra_octants_belong_to_string_pointer;
 
 bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool pac_obj2_arr_used[100], Pacman_Object pac_obj2_arr[100]) {
+    ShowTaskBar(true);
     FILE* report;
 //    int region_counter[200][200];
     if (crossing==2 && mirror==3) {
