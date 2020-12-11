@@ -60,6 +60,7 @@ bool fix_on=false;
 extern int replace_string(char *str, char *orig, char *rep);
 extern void ret_color_rev(int idx, int&r,int&g,int&b );
 void add_maze_to_region(MCRegion& region, int region_x, int region_z, int bottom, int extra_height, int type);
+void fix(MCRegion &region, int region_x, int region_z);
 
 void print_chunk_list();
 int reversed_chunk_list[32][32];
@@ -6009,6 +6010,8 @@ void fok_floor(MCRegion &region, int height_add);
 extern int region_floor;
 extern bool cubic;
 
+sf::Image top_view;
+
 int main_mceditor6_fixed(int region_x, int region_z, unsigned char* mc) {
 //printf("hier 6\n");
    fast_sin_init();
@@ -6090,7 +6093,6 @@ extern std::string area;
     MCRegion region(x00, z00, y00, xl, zl, yl);
 
     int num_blocks=0;
-    sf::Image top_view;
 
     if (file_exists("fix.on")) {
         printf(" FIXING=ON\n");
@@ -6152,17 +6154,9 @@ extern std::string area;
         region_x_old=0,region_z_old=0;
         printf("Ok. Testing: ");
         scan_image.create(512,512,sf::Color(0,0,0,0));
-        static sf::Image top_layer;
         static int prev_region_x=-99999999;
         static int prev_region_z=-99999999;
         static bool first=true;
-        bool same_region=false;
-        if (!first && prev_region_x==region_x && prev_region_z==region_z) {
-            same_region=true;
-        } else {
-//            same_region=true;
-            top_layer.create(512,512,sf::Color(0,0,0,0));
-        }
 
         int num_pixels=0;
         for (int x = 0; x < xl; x++) {
@@ -6197,7 +6191,6 @@ extern std::string area;
                 }
                 floor_y[x][z]=max_y;
                 if (max_y!=-1) {
-                    if (!same_region) top_layer.setPixel(x,z,sf::Color(1,0,0,255));
 
                     int r_m,g_m,b_m;
                     ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
@@ -6215,7 +6208,6 @@ extern std::string area;
                 }
             }
         }
-        same_region=true;
         printf(" Ok.\n");
         scan_x=region_x;
         scan_z=region_z;
@@ -6228,11 +6220,7 @@ extern std::string area;
 //        }
         if (plotting) {
             scan_image.create(512,512,sf::Color(0,0,0,0));
-//            if (fix_on && num_pixels!=512*512) {
-//                printf("NUMBER OF PIXELS < %d (%d)  NOT FIXING\n",512*512,num_pixels);
-//            }
             if (fix_on) {
-//                std::memset(region_block, 0x0, 512*256*512*4);
                 sf::Image mask_image;
                 char mask_file[1000];
                 sprintf(mask_file,"../cut/r.%d.%d.png",region_x,region_z);
@@ -6244,10 +6232,13 @@ extern std::string area;
                 char mask[512][512];
                 for (int z=0; z<512; z++) {
                     for (int x=0; x<512; x++) {
-                        if (mask_image.getPixel(x,z).a>0) mask[x][z]=1;
+                        if (mask_image.getPixel(x,z).a>0) {
+                            mask[x][z]=1;
+                        }
                         else mask[x][z]=0;
                     }
                 }
+//hohoho
                 printf("FIXING\n");
                 bool cured=false;
                 int added=0;
@@ -6263,123 +6254,45 @@ extern std::string area;
                         for (int z = 0; z < zl; z++) {
                             BlockInfo* AY=AZ[z];
                             int added_y=0;
-//                            int id_east,id_west,id_north,id_south;
-//                            int id_up,id_down;
-//                            floor_y[x][z]=0;
                             int max_y=-1;
                             if (floor_y[x][z]!=-1) {
 //                                int y_end=floor_y[x][z];
                                 int y_end=255;
                                 for (int y = 0; y <= y_end; y++) {
-//                                for (int y = 0; y < 256; y++) {
-    //                                size_t offset=(y+z*256+x*256*512);
-    //                                mc[offset]=0;
                                     if (AY[y].id==0) {
-    //                                    id_east=0;id_west=0;id_north=0;id_south=0;
-    //                                    id_up=0;id_down=0;
                                         int id=0;
                                         int id0,id1,id2,id3,id4,id5;
-/*
-                                        int concrete=0;
-                                        for (int xx = x-1; xx <= x+1; xx++) {
-                                            for (int zz = z-1; zz <= z+1; zz++) {
-                                                for (int yy = y-1; yy <= y+1; yy++) {
-                                                    if (yy>=-1 && yy<256 && xx>=0 && xx<512 && zz>=0 && zz<512) {
-                                                        if (yy==-1 && same_region) {
-                                                            sf::Color pixel=top_layer.getPixel(x,z);
-                                                            if (pixel.r==251) concrete++;
-                                                        }
-                                                        else if (yy>=0) {
-                                                            if (AX[xx][zz][yy].id==251) concrete++;
-                                                        }
-                                                    }
-                                                    if (concrete) break;
-                                                }
-                                                if (concrete) break;
-                                            }
-                                            if (concrete) break;
-                                        }
-                                        if (concrete) continue;
-*/
 
-
-/*
-                                        if (y==0 && same_region) {
-                                            sf::Color pixel=top_layer.getPixel(x,z);
-                                            id=pixel.r;
-                                            id0=id;
-                                            if (id==251) continue;
-                                        }
-                                        if (y>0) {
-                                            id=AX[x][z][y-1].id;
-                                            id0=id;
-                                            if (id==251) continue;
-                                        } else continue;
-                                        if (y<255) {
-                                            id=AX[x][z][y+1].id;
-                                            id1=id;
-                                            if (id==251) continue;
-                                        } else continue;
-*/
                                         if (x>0) {
                                             id=AX[x-1][z][y].id;
                                             id2=id;
                                             if (id==251) continue;
-                                        }// else continue;
+                                        }
                                         if (x<511) {
                                             id=AX[x+1][z][y].id;
                                             id3=id;
                                             if (id==251) continue;
-                                        }// else continue;
+                                        }
                                         if (z>0) {
                                             id=AX[x][z-1][y].id;
                                             id4=id;
                                             if (id==251) continue;
-                                        }// else continue;
+                                        }
                                         if (z<511) {
                                             id=AX[x][z+1][y].id;
                                             id5=id;
                                             if (id==251) continue;
-                                        }// else continue;
-//                                        if (id0==0 && id1==0 && id2==0 && id3==0 && id4==0 && id5==0) continue;
+                                        }
 
-/*
-                                        if (y>0) {
-                                            id=AX[x][z][y-1].id;
-    //                                        if (id==251) continue;
-                                            int a=0;
-                                            while (id==1 || id==2) {
-                                                if (AX[x][z][y+a].id==0) {
-                                                    AX[x][z][y+a] = BlockInfo(id, 0, 0, 0 );
-                                                    cured=false; added++; added_loop++; added_y++;
-                                                }
-                                                a++;
-                                                if ((y+a)<256) id=AX[x][z][y-1+a].id;
-                                                else id=0;
-                                            }
-                                        }
-                                        if (y<255) {
-                                            id=AX[x][z][y+1].id;
-    //                                        if (id==251) continue;
-                                            if (id==1 || id==2) {
-                                                if (AY[y].id==0) {
-                                                    AY[y] = BlockInfo(id, 0, 0, 0 );
-                                                    cured=false; added++; added_loop++; added_y++;
-                                                }
-                                            }
-                                        }
-*/
                                         int num=0;
                                         if (x>0) {
                                             id=AX[x-1][z][y].id;
-//                                            if ((id==1 || id==2 || id==3 || id==14 || id==89) && floor_y[x-1][z]!=-1) {
                                             if ((id==1 || id==2 || id==3 || id==14 || id==89) ) {
                                                 int a=0;
                                                 bool end_loop=false;
                                                 do {
                                                     id=0;
                                                     a++;
-//                                                    if (x+a<512 && floor_y[x+a][z]!=-1) {
                                                     if (x+a<512) {
                                                         id=AX[x+a][z][y].id;
                                                         if (id!=0) end_loop=true;
@@ -6388,10 +6301,6 @@ extern std::string area;
                                                 } while (!end_loop);
                                                 if ( (x+a<512 && floor_y[x+a][z]!=-1 && (id==1 || id==2 || id==3 || id==14 || id==89))
                                                     || (x+a==512 && floor_y[511][z]==-1)) {
-
-//                                                if (x+a<512 && floor_y[x+a][z]!=-1 && (id==1 || id==2 || id==3 || id==14 || id==89)) {
-
-//                                                if (x+a==512 || (id==1 || id==2 || id==3 || id==14 || id==89)) {
                                                     a--;
                                                     while (a>0) {
                                                         if (mask[x+a][z]) {
@@ -6419,7 +6328,6 @@ extern std::string area;
                                                 do {
                                                     id=0;
                                                     a--;
-//                                                    if (x+a>=0 && floor_y[x+a][z]!=-1) {
                                                     if (x+a>=0) {
                                                         id=AX[x+a][z][y].id;
                                                         if (id!=0) end_loop=true;
@@ -6428,8 +6336,6 @@ extern std::string area;
                                                 } while (!end_loop);
                                                 if ( (x+a>=0 && floor_y[x+a][z]!=-1 && (id==1 || id==2 || id==3 || id==14 || id==89))
                                                     || (x+a<0 && floor_y[0][z]==-1)) {
-//                                                if (x+a>=0 && floor_y[x+a][z]!=-1 && (id==1 || id==2 || id==3 || id==14 || id==89)) {
-//                                                if (x+a<0 || (id==1 || id==2 || id==3 || id==14 || id==89)) {
                                                     a++;
                                                     while (a<0) {
                                                         if (mask[x+a][z]) {
@@ -6458,7 +6364,6 @@ extern std::string area;
                                                 do {
                                                     id=0;
                                                     a++;
-//                                                    if (z+a<512 && floor_y[x][z+a]!=-1) {
                                                     if (z+a<512) {
                                                         id=AX[x][z+a][y].id;
                                                         if (id!=0) end_loop=true;
@@ -6467,8 +6372,6 @@ extern std::string area;
                                                 } while (!end_loop);
                                                 if ( (z+a<512 && floor_y[x][z+a]!=-1 && (id==1 || id==2 || id==3 || id==14 || id==89))
                                                     || (z+a==512 && floor_y[x][511]==-1)) {
-//                                                if (z+a<512 && floor_y[x][z+a]!=-1&& (id==1 || id==2 || id==3 || id==14 || id==89)) {
-//                                                if (z+a==512 || (id==1 || id==2 || id==3 || id==14 || id==89)) {
                                                     a--;
                                                     while (a>0) {
                                                         if (mask[x][z+a]) {
@@ -6497,7 +6400,6 @@ extern std::string area;
                                                 do {
                                                     id=0;
                                                     a--;
-//                                                    if (z+a>=0 && floor_y[x][z+a]!=-1) {
                                                     if (z+a>=0) {
                                                         id=AX[x][z+a][y].id;
                                                         if (id!=0) end_loop=true;
@@ -6506,8 +6408,6 @@ extern std::string area;
                                                 } while (!end_loop);
                                                 if ( (z+a>=0 && floor_y[x][z+a]!=-1 && (id==1 || id==2 || id==3 || id==14 || id==89))
                                                     || (z+a<0 && floor_y[x][0]==-1)) {
-//                                                if (z+a>=0 && floor_y[x][z+a]!=-1 && (id==1 || id==2 || id==3 || id==14 || id==89)) {
-//                                                if (z+a<0 || (id==1 || id==2 || id==3 || id==14 || id==89)) {
                                                     a++;
                                                     while (a<0) {
                                                         if (mask[x][z+a]) {
@@ -6526,50 +6426,6 @@ extern std::string area;
                                                     }
                                                     num=1;
                                                 }
-                                            }
-                                        }
-
-                                        if ((y==0 && same_region) || y>0) {
-                                            if (y==0) {
-                                                sf::Color pixel=top_layer.getPixel(x,z);
-                                                id=pixel.r;
-                                            } else id=AX[x][z][y-1].id;
-
-                                            int a=0;
-                                            while (y+a<floor_y[x][z] && (id==1 || id==2 || id==3 || id==14 || id==89)) {
-                                                num=num|2;
-                                                if (id==2 || id==14 || id==89 || id==251) id=3;
-                                                if (AX[x][z][y+a].id==0 && y+a<floor_y[x][z]) {
-
-                                                    int h=y+a;
-                                                    int hh=floor_y[x][z]-h;
-                                                    if (hh>0) {
-                                                        if ( !(rand()%int(125-sqrt(hh*10.0))) ) {
-                                                            AX[x][z][y+a]=BlockInfo(89,0,0,0);
-                                                        } else if ( !(rand()%int(125-sqrt(hh*10.0))) ) {
-                                                            AX[x][z][y+a]=BlockInfo(14,0,0,0);
-                                                        } else {
-                                                            if (h<=floor_y[x][z]-10+rand()%7) {
-                                                                AX[x][z][y+a]=BlockInfo(1,0,0,0);
-                                                            } else {
-                                                                if (!(rand()%5000)) AX[x][z][y+a]=BlockInfo(2,0,0,0);
-                                                                else AX[x][z][y+a]=BlockInfo(3,0,0,0);
-                                                            }
-                                                        }
-                                                    }
-
-//                                                    AX[x][z][y+a] = BlockInfo(id, 0, 0, 0 );
-
-                                                    cured=false; added++; added_loop++; added_y++;
-                                                    if (y+a>floor_y[x][z]) scan_image.setPixel(x,z,sf::Color(0,255,255,255));
-                                                    else {
-                                                        sf::Color col=top_view.getPixel(x,z);
-                                                        scan_image.setPixel(x,z,sf::Color((col.r)/2,(255+col.g)/2,(255+col.b)/2,255));
-                                                    }
-                                                }
-                                                a++;
-                                                if ((y+a)<256 && y+a<floor_y[x][z]) id=AX[x][z][y-1+a].id;
-                                                else id=0;
                                             }
                                         }
 
@@ -6588,47 +6444,9 @@ extern std::string area;
                                                 scan_image.setPixel(x,z,sf::Color((mix.r+col.r)/2,(mix.g+col.g)/2,(mix.b+col.b)/2,255));
                                             }
                                         }
-/*
-                                        if (y<255) {
-                                            id=AX[x][z][y+1].id;
-//                                            if (id==251) continue;
-                                            int a=0;
-                                            while (id==1 || id==2 || id==3) {
-                                                if (id==2) id=3;
-                                                if (AX[x][z][y+a].id==0 && y+a<floor_y[x][z]) {
-                                                    AX[x][z][y+a] = BlockInfo(id, 0, 0, 0 );
-                                                    cured=false; added++; added_loop++; added_y++;
-                                                    if (y+a>=floor_y[x][z]) scan_image.setPixel(x,z,sf::Color(255,0,255,255));
-                                                    else {
-                                                        sf::Color col=top_view.getPixel(x,z);
-                                                        scan_image.setPixel(x,z,sf::Color((255+col.r)/2,(col.g)/2,(255+col.b)/2,255));
-                                                    }
-                                                }
-                                                a--;
-//                                                if ((y+a)>0 && y+a<floor_y[x][z]) id=AX[x][z][y+1+a].id;
-//                                                else id=0;
-                                                id=0;
-                                            }
-                                        }
-*/
-
-
-    /*
-                                        if (id_east || id_west || id_north || id_south) {
-                                            cured=false; added++; added_loop++; added_y++;
-                                            if (id_east==2 || id_west==2 || id_north==2 || id_south==2 || id_up==2 || id_down==2) {
-                                                AY[y] = BlockInfo(2, 0, 0, 0 );
-    //                                            mc[offset]=2;
-                                            } else {
-                                                AY[y] = BlockInfo(1, 0, 0, 0 );
-    //                                            mc[offset]=1;
-                                            }
-                                        }
-    */
                                     }
                                 }
                             }
-
 
                             count++;
                             if (added_loop!=added_prev && count>100) {
@@ -6636,14 +6454,6 @@ extern std::string area;
                                 added_prev=added_loop;
                                 count=0;
                             }
-//                            if (added_y)  {
-//                                if (max_y>=floor_y[x][z]) scan_image.setPixel(x,z,sf::Color(255,255,0,255));
-//                                else {
-//                                    sf::Color col=top_view.getPixel(x,z);
-//                                    scan_image.setPixel(x,z,sf::Color((255+col.r)/2,(255+col.g)/2,col.b/2,255));
-//                                }
-//                            }
-
                         }
                     }
 
@@ -6656,31 +6466,6 @@ extern std::string area;
                     }
                 }
 
-                if (first) {
-                    first=false;
-                }
-                top_layer.create(512,512,sf::Color(0,0,0,0));
-                prev_region_x=region_x;
-                prev_region_z=region_z;
-                for (int x = 0; x < xl; x++) {
-                    BlockInfo** AZ=AX[x];
-                    for (int z = 0; z < zl; z++) {
-                        BlockInfo* AY=AZ[z];
-                        if (AY[255].id!=0) {
-                            top_layer.setPixel(x,z,sf::Color(AY[255].id,0,255,255));
-                            sf::Color col=scan_image.getPixel(x,z);
-                            if (AY[255].id!=251) scan_image.setPixel(x,z,sf::Color((col.r)/2,(col.g)/2,(255+col.b)/2,255));
-                        }
-//                        for (int y = 0; y < 256; y++) {
-//                            size_t offset=(y+z*256+x*256*512);
-//                            if (mc[offset]!=0) {
-//                                scan_image.setPixel(x,z,sf::Color(255,255,0,255));
-//                                AY[y] = BlockInfo(mc[offset], 0, 0, 0 );
-//                            }
-//                        }
-                    }
-                }
-//                    scan_image.copy(top_layer,0,0,sf::IntRect(0,0,512,512),true);
                 update_request=2;
                 while (update_request) {
                     sf::sleep(sf::seconds(0.005));
@@ -6974,6 +6759,7 @@ extern std::string area;
                     if (max_y!=-1) {
                         ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
                         scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                        if (fix_on) top_view.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
                     }
                     else scan_image.setPixel(x,z,sf::Color(0,0,0,0));
                 }
@@ -7097,7 +6883,9 @@ extern std::string area;
 
 //            editor.clearArrays(editor.x_len + 00, editor.z_len + 00, 256);
         }
-
+        if (fix_on) {
+            fix(region, region_x, region_z);
+        }
 
         vector<pair<Pos, string> > SomeStuff;
 
@@ -10267,3 +10055,247 @@ void get_floor(MCRegion &region, int height_add) {
 }
 
 
+void fix(MCRegion &region, int region_x, int region_z) {
+    BlockInfo*** AX=region.A;
+    scan_image.create(512,512,sf::Color(0,0,0,0));
+
+    char mask[512][512];
+    for (int z=0; z<512; z++) {
+        for (int x=0; x<512; x++) {
+            if (floor_y[x][z]!=999999) {
+                mask[x][z]=1;
+            }
+            else mask[x][z]=0;
+        }
+    }
+    printf("FIXING\n");
+    bool cured=false;
+    int added=0;
+    int loop=0;
+    while (!cured) {
+        cured=true;
+        loop++;
+        int added_loop=0;
+        int added_prev=0;
+        int count=0;
+        for (int x = 0; x < xl; x++) {
+            BlockInfo** AZ=AX[x];
+            for (int z = 0; z < zl; z++) {
+                BlockInfo* AY=AZ[z];
+                int added_y=0;
+                if (floor_y[x][z]!=999999) {
+                    for (int y = 0; y < 256; y++) {
+                        if (AY[y].id==0) {
+                            int id=0;
+
+                            if (x>0) {
+                                id=AX[x-1][z][y].id;
+                                if (id==251) continue;
+                            }
+                            if (x<511) {
+                                id=AX[x+1][z][y].id;
+                                if (id==251) continue;
+                            }
+                            if (z>0) {
+                                id=AX[x][z-1][y].id;
+                                if (id==251) continue;
+                            }
+                            if (z<511) {
+                                id=AX[x][z+1][y].id;
+                                if (id==251) continue;
+                            }
+
+                            int num=0;
+                            if (x>0) {
+                                id=AX[x-1][z][y].id;
+                                if ((id==1 || id==2 || id==3 || id==14 || id==89) ) {
+                                    int a=0;
+                                    bool end_loop=false;
+                                    do {
+                                        id=0;
+                                        a++;
+                                        if (x+a<512) {
+                                            id=AX[x+a][z][y].id;
+                                            if (id!=0) end_loop=true;
+                                        }
+                                        else end_loop=true;
+                                    } while (!end_loop);
+//                                    if ( (x+a<512 && floor_y[x+a][z]!=999999 && (id==1 || id==2 || id==3 || id==14 || id==89))
+//                                        || (x+a==512 && floor_y[511][z]==999999)) {
+                                    if ( (x+a<512 && floor_y[x+a][z]!=999999 && (id==1 || id==2 || id==3 || id==14 || id==89))
+                                        || (x+a==512 && floor_y[511][z]==999999)) {
+                                        a--;
+                                        while (a>0) {
+                                            if (mask[x+a][z]) {
+                                                AX[x+a][z][y] = BlockInfo(1, 0, 0, 0 );
+//                                                    floor_y[x+a][z]=y;
+                                                cured=false; added++; added_loop++; added_y++;
+
+                                                if (y+region_floor*256>floor_y[x+a][z]) scan_image.setPixel(x+a,z,sf::Color(255,255,0,255));
+                                                else {
+                                                    sf::Color col=top_view.getPixel(x+a,z);
+                                                    scan_image.setPixel(x+a,z,sf::Color((255+col.r)/2,(255+col.g)/2,col.b/2,255));
+                                                }
+                                            }
+
+                                            a--;
+                                        }
+                                        num=1;
+                                    }
+                                }
+                            }
+                            if (x<511) {
+                                id=AX[x+1][z][y].id;
+                                if ((id==1 || id==2 || id==3 || id==14 || id==89) ) {
+                                    int a=0;
+                                    bool end_loop=false;
+                                    do {
+                                        id=0;
+                                        a--;
+                                        if (x+a>=0) {
+                                            id=AX[x+a][z][y].id;
+                                            if (id!=0) end_loop=true;
+                                        }
+                                        else end_loop=true;
+                                    } while (!end_loop);
+                                    if ( (x+a>=0 && floor_y[x+a][z]!=999999 && (id==1 || id==2 || id==3 || id==14 || id==89))
+                                        || (x+a<0 && floor_y[0][z]==999999)) {
+                                        a++;
+                                        while (a<0) {
+                                            if (mask[x+a][z]) {
+                                                AX[x+a][z][y] = BlockInfo(1, 0, 0, 0 );
+//                                                floor_y[x+a][z]=y;
+
+                                                cured=false; added++; added_loop++; added_y++;
+                                                if (y+region_floor*256>floor_y[x+a][z]) scan_image.setPixel(x+a,z,sf::Color(255,255,0,255));
+                                                else {
+                                                    sf::Color col=top_view.getPixel(x+a,z);
+                                                    scan_image.setPixel(x+a,z,sf::Color((255+col.r)/2,(255+col.g)/2,col.b/2,255));
+                                                }
+                                            }
+                                            a++;
+                                        }
+                                        num=1;
+                                    }
+                                }
+                            }
+
+                            if (z>0) {
+                                id=AX[x][z-1][y].id;
+                                if ((id==1 || id==2 || id==3 || id==14 || id==89) ) {
+                                    int a=0;
+                                    bool end_loop=false;
+                                    do {
+                                        id=0;
+                                        a++;
+                                        if (z+a<512) {
+                                            id=AX[x][z+a][y].id;
+                                            if (id!=0) end_loop=true;
+                                        }
+                                        else end_loop=true;
+                                    } while (!end_loop);
+                                    if ( (z+a<512 && floor_y[x][z+a]!=999999 && (id==1 || id==2 || id==3 || id==14 || id==89))
+                                        || (z+a==512 && floor_y[x][511]==999999)) {
+                                        a--;
+                                        while (a>0) {
+                                            if (mask[x][z+a]) {
+                                                AX[x][z+a][y] = BlockInfo(1, 0, 0, 0 );
+
+//                                                floor_y[x][z+a]=y;
+                                                cured=false; added++; added_loop++; added_y++;
+                                                if (y+region_floor*256>floor_y[x][z+a]) scan_image.setPixel(x,z+a,sf::Color(255,255,0,255));
+                                                else {
+                                                    sf::Color col=top_view.getPixel(x,z+a);
+                                                    scan_image.setPixel(x,z+a,sf::Color((255+col.r)/2,(255+col.g)/2,col.b/2,255));
+                                                }
+                                            }
+
+                                            a--;
+                                        }
+                                        num=1;
+                                    }
+                                }
+                            }
+                            if (z<511) {
+                                id=AX[x][z+1][y].id;
+                                if ((id==1 || id==2 || id==3 || id==14 || id==89) ) {
+                                    int a=0;
+                                    bool end_loop=false;
+                                    do {
+                                        id=0;
+                                        a--;
+                                        if (z+a>=0) {
+                                            id=AX[x][z+a][y].id;
+                                            if (id!=0) end_loop=true;
+                                        }
+                                        else end_loop=true;
+                                    } while (!end_loop);
+                                    if ( (z+a>=0 && floor_y[x][z+a]!=999999 && (id==1 || id==2 || id==3 || id==14 || id==89))
+                                        || (z+a<0 && floor_y[x][0]==999999)) {
+                                        a++;
+                                        while (a<0) {
+                                            if (mask[x][z+a]) {
+                                                AX[x][z+a][y] = BlockInfo(1, 0, 0, 0 );
+//                                                floor_y[x][z+a]=y;
+
+                                                cured=false; added++; added_loop++; added_y++;
+                                                if (y+region_floor*256>floor_y[x][z+a]) scan_image.setPixel(x,z+a,sf::Color(255,255,0,255));
+                                                else {
+                                                    sf::Color col=top_view.getPixel(x,z+a);
+                                                    scan_image.setPixel(x,z+a,sf::Color((255+col.r)/2,(255+col.g)/2,col.b/2,255));
+                                                }
+                                            }
+
+                                            a++;
+                                        }
+                                        num=1;
+                                    }
+                                }
+                            }
+
+                            if (num>0) {
+                                if (AY[y].id==0) {
+                                    AX[x][z][y] = BlockInfo(3, 0, 0, 0 );
+                                    cured=false; added++; added_loop++; added_y++;
+                                }
+                                sf::Color mix;
+                                mix=sf::Color(255,255,0,255);
+                                if (y+region_floor*256>floor_y[x][z]) scan_image.setPixel(x,z,mix);
+                                else {
+                                    sf::Color col=top_view.getPixel(x,z);
+                                    scan_image.setPixel(x,z,sf::Color((mix.r+col.r)/2,(mix.g+col.g)/2,(mix.b+col.b)/2,255));
+                                }
+                            }
+                        }
+                    }
+                }
+
+                count++;
+                if (added_loop!=added_prev && count>100) {
+                    printf("\r(%3d,%3d)Added=%8d",x,z,added_loop);
+                    added_prev=added_loop;
+                    count=0;
+                }
+            }
+        }
+
+        printf("\r(%3d,%3d)Added=%8d  Loop=%d  Total=%d/%8d\n",512,512,added_loop,loop,added,512*512*256);
+        if (added_loop) {
+            update_request=2;
+            while (update_request) {
+                sf::sleep(sf::seconds(0.005));
+            }
+        }
+    }
+
+    if (added) {
+        update_request=2;
+        while (update_request) {
+            sf::sleep(sf::seconds(0.005));
+        }
+        printf("CHANGED\n");
+    } else {
+        printf("NOT CHANGED\n");
+    }
+    return;
+}
