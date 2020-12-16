@@ -1181,6 +1181,8 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
 //tuuttuut2
 //                    flushing_mode=true;
 
+                    ShowTaskBar(true);
+                    bar_on[win_num]=1;
                     if (strlen(voxel_filename)!=0) {
                         int x,z;
                         int num=sscanf(voxel_filename,"r.%d.%d.vox",&x,&z);
