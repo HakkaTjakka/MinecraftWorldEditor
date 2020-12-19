@@ -1,4 +1,5 @@
 #include "MCEditor.h"
+#include "MCEditor.h"
 #include <vector>
 #include <algorithm>
 #include <queue>
@@ -371,7 +372,7 @@ void MCEditor::computeBlockLight(const MCRegion &R)
         for (int z = 0; z < z_len; z++) {
             ui* AY_blocks=AZ_blocks[z];
             for (int y = 0; y < 256; y++) {
-                if (AY_blocks[y]==50) {
+                if (AY_blocks[y]==50 || AY_blocks[y]==76) {
                     AY_blocks[y]=0;
                 }
 //                if (blocks[x][z][y]==50) {

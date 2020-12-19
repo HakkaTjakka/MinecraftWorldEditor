@@ -559,6 +559,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
             else if (c==(char)'s') {
                 crossing=2; mirror=4;combine=1;
                 area="Enschede";
+                cubic=true;
                 and_now_i_am_here=true;
                 launch_SFMLGL2_b();
 //                while (!and_now_i_am_here) {

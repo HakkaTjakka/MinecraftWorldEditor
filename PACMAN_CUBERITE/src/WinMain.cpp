@@ -10850,6 +10850,7 @@ void check_memory()
 
     //setlocale(LC_NUMERIC, "");
     setlocale(LC_ALL,"");
+    //std::setlocale(LC_NUMERIC, "en_US");
 
     addx+=200;
     addy=180;

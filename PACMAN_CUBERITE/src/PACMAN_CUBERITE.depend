@@ -7547,7 +7547,7 @@
 
 1582634640 source:d:\pacman\pacman_cuberite\src\mceditor\blockentity.cpp
 
-1594485629 source:d:\pacman\pacman_cuberite\src\mceditor\globals.cpp
+1608261638 source:d:\pacman\pacman_cuberite\src\mceditor\globals.cpp
 	"globals.h"
 	"zlib.h"
 
@@ -7583,7 +7583,8 @@
 	<string>
 	"globals.h"
 
-1602465786 source:d:\pacman\pacman_cuberite\src\mceditor\mceditor.cpp
+1608261098 source:d:\pacman\pacman_cuberite\src\mceditor\mceditor.cpp
+	"MCEditor.h"
 	"MCEditor.h"
 	<vector>
 	<algorithm>
@@ -7608,7 +7609,7 @@
 	"globals.h"
 	"MCEditor.h"
 
-1607686333 source:d:\pacman\pacman_cuberite\src\mceditor\test.cpp
+1608261623 source:d:\pacman\pacman_cuberite\src\mceditor\test.cpp
 	<windows.h>
 	<cstdio>
 	"globals.h"
@@ -9075,7 +9076,7 @@
 
 1588709145 d:\pacman\pacman_cuberite\src\viewer\viewer_my_draw.h
 
-1607421886 d:\pacman\pacman_cuberite\src\viewer\viewer_my_loadobj.h
+1608140395 d:\pacman\pacman_cuberite\src\viewer\viewer_my_loadobj.h
 	<../MCA-NBT-EDIT.HPP>
 	<winsock2.h>
 	<../VOXEL.HPP>
@@ -9159,7 +9160,7 @@
 	<glm/glm.hpp>
 	<glm/common.hpp>
 
-1605966450 source:d:\pacman\pacman_cuberite\src\winapi.cpp
+1608252405 source:d:\pacman\pacman_cuberite\src\winapi.cpp
 	<winsock2.h>
 	<io.h>
 	<stdio.h>
@@ -9197,7 +9198,7 @@
 	<iostream>
 	<glm/glm.hpp>
 
-1607524830 source:d:\pacman\pacman_cuberite\src\winmain.cpp
+1608252386 source:d:\pacman\pacman_cuberite\src\winmain.cpp
 	<winsock2.h>
 	<io.h>
 	"WinMain.h"

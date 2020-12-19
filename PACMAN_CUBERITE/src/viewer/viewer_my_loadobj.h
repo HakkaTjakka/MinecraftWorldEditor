@@ -1696,11 +1696,13 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
 //        bot_left =glm::dvec2(3300154.6704858197, -5326818.811974641);
 //        bot_right=glm::dvec2(3310446.4741736553, -5323728.268546224);
         vertical =bmax_total[0]- bmin_total[0];
+        float cnt_x=0.0;
+        float cnt_z=0.0;
 
-        top_left =glm::fvec2((3302480-3300154)*2.5, (-5334572+5334572)*2.5);
-        top_right=glm::fvec2((3312756-3300154)*2.5, (-5331483+5334572)*2.5);
-        bot_left =glm::fvec2((3300154-3300154)*2.5, (-5326818+5334572)*2.5);
-        bot_right=glm::fvec2((3310446-3300154)*2.5, (-5323728+5334572)*2.5);
+        top_left =glm::fvec2((3302480.6863125535-cnt_x)*1.0, (-5334572.906513852-cnt_z)*1.0);
+        top_right=glm::fvec2((3312756.4245311604-cnt_x)*1.0, (-5331483.703731423-cnt_z)*1.0);
+        bot_left =glm::fvec2((3300154.6704858197-cnt_x)*1.0, (-5326818.811974641-cnt_z)*1.0);
+        bot_right=glm::fvec2((3310446.4741736553-cnt_x)*1.0, (-5323728.268546224-cnt_z)*1.0);
     } else if (area=="Utrecht" && mirror!=0) {
         vertical =bmax_total[0]- bmin_total[0];
 
@@ -1952,8 +1954,8 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
 
             fclose(HOP);
             if (area=="Enschede") {
-                bmin_total[0]+=15.0;
-                bmax_total[0]+=15.0;
+//                bmin_total[0]+=15.0;
+//                bmax_total[0]+=15.0;
             } else if (area=="DenHaag") {
                 bmin_total[0]=-80.0;
                 bmax_total[0]=60.0;
@@ -2220,8 +2222,8 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
 //        printf("\n");
     } else {
 //tuuttuut3
-        pixels_per_block_glob=8.0/block_scale;
-        pixels_per_block_glob_rev=block_scale/8.0;
+        pixels_per_block_glob=6.0/block_scale;
+        pixels_per_block_glob_rev=block_scale/6.0;
 //        pixels_per_block_glob=4.0;
 //        pixels_per_block_glob_rev=1.0/4.0;
     }

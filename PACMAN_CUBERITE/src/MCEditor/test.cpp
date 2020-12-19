@@ -38,6 +38,7 @@ extern int playsound;
 //#include <SFML/System/Mutex.hpp>
 //#include <SFML/Network/IpAddress.hpp>
 
+char mask[512][512];
 using namespace std;
 vector<pair<Pos, string> > SomeStuff;
 bool grass_on=true;
@@ -6158,6 +6159,12 @@ extern std::string area;
         static int prev_region_z=-99999999;
         static bool first=true;
 
+        for (int z=0; z<512; z++) {
+            for (int x=0; x<512; x++) {
+                mask[x][z]=999999;
+            }
+        }
+
         int num_pixels=0;
         for (int x = 0; x < xl; x++) {
             BlockInfo** AZ=AX[x];
@@ -6190,6 +6197,7 @@ extern std::string area;
                     if (y<real_min_y) real_min_y=y;
                 }
                 floor_y[x][z]=max_y;
+                mask[x][z]=min_y;
                 if (max_y!=-1) {
 
                     int r_m,g_m,b_m;
@@ -6746,6 +6754,7 @@ extern std::string area;
                     else if (o_id!=0 && AY[y].id==0) num_blocks_deleted++;
                     else if (AY[y].id!=0 && o_id==AY[y].id) num_blocks_same++;
                 }
+                if (min_y<mask[x][z]) mask[x][z]=min_y;
 //                if ((AY[0].id==0 && AY[1].id==0)) {
 //                    AY[0] = BlockInfo(8, 0, 0, 0 );
 //                    if (max_y<0) max_y=0;
@@ -6774,7 +6783,19 @@ extern std::string area;
                 }
             }
         }
-        if (!hills_on) get_floor(region, height_add);
+        for (int z=0; z<512; z++) {
+            for (int x=0; x<512; x++) {
+                mask[x][z]=floor_y[x][z];
+            }
+        }
+        if (!hills_on && region_floor==0) get_floor(region, height_add);
+        else {
+            for (int z=0; z<512; z++) {
+                for (int x=0; x<512; x++) {
+                    floor_y[x][z]=0;
+                }
+            }
+        }
 /*
         for (int x = 0; x < 512; x++) {
             BlockInfo** AZ=AX[x];
@@ -6786,17 +6807,6 @@ extern std::string area;
 */
 
         if (cubic && ground_on) {
-/*
-            editor.x_len = region.x_len, editor.z_len = region.z_len, editor.y_len = region.y_len;
-            editor.x_ori = region.x_ori, editor.z_ori = region.z_ori, editor.y_ori = region.y_ori;
-            editor.block_entities = region.B;
-            editor.initArrays(editor.x_len + 00, editor.z_len + 00, 256);
-            printf(" initBlocks\b\b\b\b\b\b\b\b\b\b\b");
-            editor.initBlocks(region);
-            printf(" computeSkyLight\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
-            editor.computeSkyLight();
-            ui ***skylight=editor.skylight;
-*/
             for (int x = 0; x < xl; x++) {
                 BlockInfo** AZ=AX[x];
                 xx=x+chunk_offsetx*16;
@@ -6806,75 +6816,24 @@ extern std::string area;
                     if (floor_y[x][z]!=999999) {
                         for (int y = 0; y < 256; y++) {
                             if (AY[y].id==0) {
-    //                            if (skylight[x][z][y]==0) {
-    //                                if (region_floor==0) {
-    //                                    if (y<=floor_y[x][z]) {
-    //                                    if (y+region_floor*256<=floor_y[x][z]) {
-                                            int h=y+region_floor*256;
-                                            int hh=floor_y[x][z]-h;
-                                            if (hh>0) {
-                                                if ( !(rand()%int(125-sqrt(hh*10.0))) ) {
-                                                    AY[y]=BlockInfo(89,0,0,0);
-                                                } else if ( !(rand()%int(125-sqrt(hh*10.0))) ) {
-                                                    AY[y]=BlockInfo(14,0,0,0);
-                                                } else {
-                                                    if (h<=floor_y[x][z]-10+rand()%7) {
-                                                        AY[y]=BlockInfo(1,0,0,0);
-                                                    } else {
-                                                        if (!(rand()%5000)) AY[y]=BlockInfo(2,0,0,0);
-                                                        else AY[y]=BlockInfo(3,0,0,0);
-                                                    }
-                                                }
-                                            }
-
-/*
-                                            if (!(rand()%(2+((y-height_add)*(y-height_add))/5)))
-                                                AY[y]=BlockInfo(89,0,0,0);
-                                            else if (!(rand()%(50+((y-height_add)*(y-height_add))/25)))
-                                                AY[y]=BlockInfo(14,0,0,0);
-                                            else
-                                            {
-                                                if (y<=floor_y[x][z]-15+rand()%4) {
-                                                    AY[y]=BlockInfo(1,0,0,0);
-                                                }
-                                                else {
-                                                    if (!(rand()%5000)) AY[y]=BlockInfo(2,0,0,0);
-                                                    else AY[y]=BlockInfo(3,0,0,0);
-                                                }
-                                            }
-*/
-//                                        }
-    //                                } else if (region_floor<0) {
-    //                                    AY[y]=BlockInfo(1,0,0,0);
-    //                                }
-    //                            }
-
-    /*
-                                if (AY[y].id==0 && !(rand()%500)) {
-                                    bool ok=false;
-                                    if (x!=0) {
-                                        if (AX[x-1][z][y].id==251) ok=true;
-                                    }
-                                    if (x!=511 && !ok) {
-                                        if (AX[x+1][z][y].id==251) ok=true;
-                                    }
-                                    if (z!=0 && !ok) {
-                                        if (AX[x][z-1][y].id==251) ok=true;
-                                    }
-                                    if (z!=511 && !ok) {
-                                        if (AX[x][z+1][y].id==251) ok=true;
-                                    }
-                                    if (y!=0) {
-                                        if (AX[x][z][y-1].id==251) ok=true;
-                                    }
-                                    if (y!=255 && !ok) {
-                                        if (AX[x][z][y+1].id==251) ok=true;
-                                    }
-                                    if (ok) {
+                                int h=y+region_floor*256;
+                                int hh=floor_y[x][z]-h;
+                                if (hh>0) {
+                                    if ( !(rand()%int(125-sqrt(hh*10.0))) ) {
                                         AY[y]=BlockInfo(89,0,0,0);
+                                    } else if ( !(rand()%int(125-sqrt(hh*10.0))) ) {
+                                        AY[y]=BlockInfo(14,0,0,0);
+                                    } else {
+                                        int flow = int((   sin((xx)/(33.23) + sin((zz)/23.75)/3 )  +  sin((zz)/(19.75) + sin((xx)/24.87)/7.2  )  )*5.0);
+
+                                        if (h<=floor_y[x][z]-13+rand()%5 +flow ) {
+                                            AY[y]=BlockInfo(1,0,0,0);
+                                        } else {
+                                            if (!(rand()%5000)) AY[y]=BlockInfo(2,0,0,0);
+                                            else AY[y]=BlockInfo(3,0,0,0);
+                                        }
                                     }
                                 }
-    */
                             }
                         }
                     }
@@ -6893,7 +6852,14 @@ extern std::string area;
         int tears=0;
         int water=0;
 
-        if (boom_on || rooms_on || caves_on || tunnels_on) {
+        int room_lights=0;
+        int filled=0;
+        num_blocks_total=0;
+        int room_x=12;
+        int room_y=5;
+        int room_z=12;
+
+        if (rooms_on || boom_on || caves_on || tunnels_on) {
             editor.x_len = region.x_len, editor.z_len = region.z_len, editor.y_len = region.y_len;
             editor.x_ori = region.x_ori, editor.z_ori = region.z_ori, editor.y_ori = region.y_ori;
             editor.block_entities = region.B;
@@ -6904,7 +6870,84 @@ extern std::string area;
             editor.computeSkyLight();
             ui ***skylight=editor.skylight;
 
-            if (cubic && region_floor==0) {
+            int changed=1;
+            bool f=true;
+            while (changed) {
+                changed=0;
+                for (int x = 0; x < 512; x++) {
+                    BlockInfo** AZ=AX[x]; ui** LZ=skylight[x];
+                    for (int z = 0; z < 512; z++) {
+                        BlockInfo* AY=AZ[z]; ui* LY=LZ[z];
+                        if (mask[x][z]!=999999) {
+                            for (int y = 0; y < 256; y++) {
+                                BlockInfo A=AY[y]; ui* L=&LY[y];
+                                if (A.id==0) {
+                                    int LIGHT;
+                                    if (*L!=15) {
+                                        int changed2=0;
+                                        if (x>0)   { if (AX[x-1][z][y].id==0) { if ((LIGHT=skylight[x-1][z][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x-1][z][y]=BlockInfo(50,0,0,0);} } }
+                                        if (x<511) { if (AX[x+1][z][y].id==0) { if ((LIGHT=skylight[x+1][z][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x+1][z][y]=BlockInfo(50,0,0,0);} } }
+                                        if (z>0)   { if (AX[x][z-1][y].id==0) { if ((LIGHT=skylight[x][z-1][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z-1][y]=BlockInfo(50,0,0,0);} } }
+                                        if (z<511) { if (AX[x][z+1][y].id==0) { if ((LIGHT=skylight[x][z+1][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z+1][y]=BlockInfo(50,0,0,0);} } }
+                                        if (y>0)   { if (AX[x][z][y-1].id==0) { if ((LIGHT=skylight[x][z][y-1])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z][y-1]=BlockInfo(50,0,0,0);} } }
+                                        if (y<255) { if (AX[x][z][y+1].id==0) { if ((LIGHT=skylight[x][z][y+1])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z][y+1]=BlockInfo(50,0,0,0);} } }
+                                        if (changed2) AY[y]=BlockInfo(50,0,0,0);
+//                                        if (changed2) AY[y]=BlockInfo(76,0,0,0);
+                                    }
+                                }
+                                if (region_floor==0) {
+                                    if (y==floor_y[x][z]) {
+                                        if (A.id==251) {
+                                            int r=3;
+                                            if (y+r<256 & y+r>=0)
+                                            if (AX[x][z][y+r].id==0)
+                                                AX[x][z][y+r]=BlockInfo(76,0,0,0);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (f) printf("\n");
+                printf("\rSkylight upgraded %d    ",changed);
+                changed=0;
+            }
+
+/*
+            int changed=1;
+            bool f=true;
+            while (changed) {
+                changed=0;
+                for (int x = 0; x < 512; x++) {
+                    BlockInfo** AZ=AX[x]; ui** LZ=skylight[x];
+                    for (int z = 0; z < 512; z++) {
+                        BlockInfo* AY=AZ[z]; ui* LY=LZ[z];
+                        if (mask[x][z]!=999999) {
+                            for (int y = 0; y < 256; y++) {
+                                BlockInfo A=AY[y]; ui* L=&LY[y];
+                                if (A.id==0) {
+                                    int LIGHT;
+                                    if (*L!=15) {
+
+                                        if (x>0)   { if (AX[x-1][z][y].id==0) { if ((LIGHT=skylight[x-1][z][y])>*L) { *L=LIGHT; changed++; } } }
+                                        if (x<511) { if (AX[x+1][z][y].id==0) { if ((LIGHT=skylight[x+1][z][y])>*L) { *L=LIGHT; changed++; } } }
+                                        if (z>0)   { if (AX[x][z-1][y].id==0) { if ((LIGHT=skylight[x][z-1][y])>*L) { *L=LIGHT; changed++; } } }
+                                        if (z<511) { if (AX[x][z+1][y].id==0) { if ((LIGHT=skylight[x][z+1][y])>*L) { *L=LIGHT; changed++; } } }
+                                        if (y>0)   { if (AX[x][z][y-1].id==0) { if ((LIGHT=skylight[x][z][y-1])>*L) { *L=LIGHT; changed++; } } }
+                                        if (y<255) { if (AX[x][z][y+1].id==0) { if ((LIGHT=skylight[x][z][y+1])>*L) { *L=LIGHT; changed++; } } }
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (f) printf("\n");
+                printf("\rSkylight upgraded %d    ",changed);
+            }
+*/
+            if (cubic && region_floor==0 && !ground_on) {
                 for (int x = 0; x < xl; x++) {
                     BlockInfo** AZ=AX[x];
                     xx=x+chunk_offsetx*16;
@@ -6983,13 +7026,8 @@ extern std::string area;
                     }
                 }
             }
-            int room_lights=0;
             printf("\ncounted=%d",num_blocks_total);
-            int filled=0;
-            num_blocks_total=0;
-            int room_x=16;
-            int room_y=14;
-            int room_z=16;
+
 
             if (rooms_on)
             for (int x = 0; x < xl; x++) {
@@ -6998,14 +7036,30 @@ extern std::string area;
                 for (int z = 0; z < zl; z++) {
                     BlockInfo* AY=AZ[z];
                     zz=z+chunk_offsetz*16;
-                    for (int y = height_add; y < 254; y++) {
-                        if (skylight[x][z][y]==0) {
-//                            if (y>floor_y[x][z] &&       xx%8==4                 &&  zz%10==5                 &&  (y-floor_y[x][z])%8==0) {
+                    for (int y = height_add; y < 256; y++) {
+                        int yyy=region_floor*256+y;
 
-                            if (y>floor_y[x][z] &&
-                                ( (abs(xx)%room_x)==int(room_x/2) && (abs(zz)%room_z)==int(room_z/2)  && ((y-floor_y[x][z])%room_y)==0 ) ||
-                                ( (abs(xx)%room_x)==0             && (abs(zz)%room_z)==int(room_z/2)  && ((y-floor_y[x][z])%room_y)==int(room_y/2) ) ||
-                                ( (abs(xx)%room_x)==int(room_x/2) && (abs(zz)%room_z)==0              && ((y-floor_y[x][z])%room_y)==int(room_y/2) )
+//                        if (y<=mask[x][z] && yyy>=floor_y[x][y]-1) {
+                        if (y<mask[x][z] && mask[x][z]!=999999 && yyy<floor_y[x][y]+2 && AY[y].id==0) AY[y]=BlockInfo(3,0,0,0);
+/*
+                        if (mask[x][z]!=999999 && y<=mask[x][z] && yyy<floor_y[x][y]) {
+                            if (y<255 && AX[x][z][y+1].id==0) {
+                                if (y<254 && AX[x][z][y+2].id!=0) {
+//                                    AX[x][z][y+1]=BlockInfo(AX[x][z][y+2].id,0,AX[x][z][y+2].data,0);
+                                    AX[x][z][y+1]=BlockInfo(3,0,0,0);
+                                }
+                                if (AX[x][z][y+1].id!=0) {
+//                                    AX[x][z][y]=BlockInfo(AX[x][z][y+1].id,0,AX[x][z][y+1].data,0);
+                                    AX[x][z][y]=BlockInfo(3,0,0,0);
+                                }
+                            }
+                        }
+*/
+                        if (skylight[x][z][y]==0) {
+                            if (yyy>=floor_y[x][z] &&
+                                ( ( (abs(xx)%room_x)==int(room_x/2) || (abs(xx)%room_x)==int(room_x/2)+1 ) && ( (abs(zz)%room_z)==int(room_z/2) || (abs(zz)%room_z)==int(room_z/2)+1 )  && (abs(yyy-floor_y[x][z])%room_y)==0 ) // ||
+//                                ( (abs(xx)%room_x)==0             && (abs(zz)%room_z)==int(room_z/2)  && ((yyy-floor_y[x][z])%room_y)==int(room_y/2) ) ||
+//                                ( (abs(xx)%room_x)==int(room_x/2) && (abs(zz)%room_z)==0              && ((yyy-floor_y[x][z])%room_y)==int(room_y/2) )
                                 ) {
                                 if (skylight[x][z][y+1]==0) {
                                     if (x>0 && x<511 && z>0 && z<511) {
@@ -7019,18 +7073,20 @@ extern std::string area;
                             }
 //                            if (((zz%10==0 && (xx%8==4||xx%8==3)) || (xx%8==0 && (zz%10==5||zz%10==4))) && (y%8==1 || y%8==2)) {
 //willem
-                            if (    y>floor_y[x][z] &&
+                            int hop=int(int(abs(zz)/room_z)*29.3+int(abs(xx)/room_x)*81.7+int(abs((yyy-floor_y[x][z])/room_y))*72.9)%20;
+                            if ( hop>7 &&   yyy>=floor_y[x][z] &&
                                     (
-                                        ((abs(zz)%room_z)==0 && ((abs(xx)%room_x)==int(room_x/2)||(abs(xx)%room_x)==int(room_x/2)+1)) ||
-                                        ((abs(xx)%room_x)==0 && ((abs(zz)%room_z)==int(room_z/2)||(abs(zz)%room_z)==int(room_z/2)+1))
+                                        ((abs(zz)%room_z)==0 && ((abs(xx)%room_x)==int(room_x/2) ||(abs(xx)%room_x)==int(room_x/2)+1 ) ) ||
+                                        ((abs(xx)%room_x)==0 && ((abs(zz)%room_z)==int(room_z/2) ||(abs(zz)%room_z)==int(room_z/2)+1 ) )
                                      ) && (
-                                        ((y-floor_y[x][z]))%room_y==1 ||
-                                        ((y-floor_y[x][z]))%room_y==2 ||
-                                        ((y-floor_y[x][z]))%room_y==3
+                                        (abs(yyy-floor_y[x][z]))%room_y==1 ||
+                                        (abs(yyy-floor_y[x][z]))%room_y==2 ||
+                                        (abs(yyy-floor_y[x][z]))%room_y==3
                                     )
                                 ) {
                                 continue;
                             } else {
+/*
                                 if (y<=floor_y[x][z] && y<253) {
                                     if (AY[y].id==0) {
                                         if (!(rand()%(2+((y-height_add)*(y-height_add))/5)))
@@ -7053,6 +7109,7 @@ extern std::string area;
                                     }
                                     continue;
                                 }
+*/
                             }
                             static int ran[1000];
                             static bool first=true;
@@ -7061,23 +7118,44 @@ extern std::string area;
                                 first=false;
                             }
 
-                            if (AY[y].id==0 && ((abs(zz)%room_z)==0 || (abs(xx)%room_x)==0 || ((y-floor_y[x][z]))%room_y==0) && y>floor_y[x][z]) {
-                                int hop=int((y-int(floor_y[x][z]))/room_y)+int(abs(zz)/room_z)+int(abs(xx)/room_x);
-                                if ( !(int(float(hop*y)*7.423+101*(sin(float(y)*11.77)+1.0)+ran[(hop+y*5+int(33.31*(sin(float(y+int(abs(zz)/(room_z*2))+int(abs(xx)/(room_x*2)))/1.77)+1.0)))%1000])%2) && (zz%room_z)!=0 && (xx%room_x)!=0) {
-                                    int c_r=ran[int(y*39.434+3.3214*float(hop))%1000];
+                            if (AY[y].id==0 && ( (abs(zz)%room_z)==0 || (abs(xx)%room_x)==0 || (abs(yyy-floor_y[x][z]))%room_y==0) && yyy>=floor_y[x][z]) {
+
+                                int hop=int(abs(yyy-int(floor_y[x][z]))/room_y)+int(abs(zz)/room_z)+int(abs(xx)/room_x);
+
+                                if ( !(int(float(hop*yyy)*7.423+101*(sin(float(yyy)*11.77)+1.0)+ran[(hop+yyy*5+int(33.31*(sin(float(yyy+int(abs(zz)/(room_z*2))+int(abs(xx)/(room_x*2)))/1.77)+1.0)))%1000])%2) && (zz%room_z)!=0 && (xx%room_x)!=0) {
+                                    int c_r=ran[int(yyy*39.434+3.3214*float(hop))%1000];
                                     int c_r2;
-                                    if ( !(int(y*39.434+4.7143*float(hop))%2) ) c_r2=ran[int(float(y*y)*7.334+2.4234*float(hop))%1000];
+                                    if ( !(int(yyy*39.434+4.7143*float(hop))%2) ) c_r2=ran[int(float(yyy*yyy)*7.334+2.4234*float(hop))%1000];
                                     else c_r2=c_r;
                                     if (abs(xx+zz)%2)
                                         AY[y]=BlockInfo(251,0,c_r,0);
                                     else
                                         AY[y]=BlockInfo(251,0,c_r2,0);
+                                    num_blocks_total++;
+                                    filled++;
                                 } else {
-                                        AY[y]=BlockInfo(5,0,0,0);
+//                                        AY[y]=BlockInfo(5,0,0,0);
+                                    if ( (abs(zz)%room_z)==0 ) {
+                                        if ( int(int(abs(zz)/room_z)*22.3+int(abs(xx)/room_x)*31.7+int(abs((yyy-floor_y[x][z])/room_y))*12.9)%20 > 7 ) {
+                                            AY[y]=BlockInfo(251,0,0,0);
+                                            num_blocks_total++;
+                                            filled++;
+                                        }
+                                    } else if ( (abs(xx)%room_x)==0 ) {
+                                        if ( int(int(abs(zz)/room_z)*32.3+int(abs(xx)/room_x)*21.7+int(abs((yyy-floor_y[x][z])/room_y))*17.9)%20 > 7 ) {
+                                            AY[y]=BlockInfo(251,0,0,0);
+                                            num_blocks_total++;
+                                            filled++;
+                                        }
+                                    }
+                                    if ( (abs(yyy-floor_y[x][z])%room_y)==0 ) {
+                                            AY[y]=BlockInfo(251,0,0,0);
+                                            num_blocks_total++;
+                                            filled++;
+                                    }
                                 }
-                                num_blocks_total++;
-                                filled++;
-                                if ((y-floor_y[x][z])%room_y==0 && !(abs(xx)%room_x==0 || abs(zz)%room_z==0) && y<254) {
+
+                                if (abs(yyy-floor_y[x][z])%room_y==0 && !(abs(xx)%room_x==0 || abs(zz)%room_z==0) && y<254) {
                                     if (AY[y+1].id==0 && !(rand()%1000)) {
                                         AY[y+1]=BlockInfo(255,0,0,0);
 
@@ -9858,6 +9936,7 @@ void get_floor(MCRegion &region, int height_add) {
             }
             floor_y[x][z]=min_y;
             floor_second[x][z]=min_y;
+//koekoek
             if (one_block[x][z]==1) heights_global_ar[min_y]++;
         }
     }
@@ -9876,8 +9955,11 @@ void get_floor(MCRegion &region, int height_add) {
     for (int z = 0; z < zl; z++) {
         for (int x = 0; x < xl; x++) {
 
-            if (floor_y[x][z]>max_height_y-3) {
-                floor_y[x][z]=max_height_y-3;
+//koekoek
+//            if (floor_y[x][z]>max_height_y-3) {
+//                floor_y[x][z]=max_height_y-3;
+            if (floor_y[x][z]>max_height_y) {
+                floor_y[x][z]=max_height_y;
                 if (floor_y[x][z]<height_add) floor_y[x][z]=height_add;
                 floor_second[x][z]=floor_y[x][z];
             }
@@ -10056,10 +10138,11 @@ void get_floor(MCRegion &region, int height_add) {
 
 
 void fix(MCRegion &region, int region_x, int region_z) {
+    scan_x=region_x;
+    scan_z=region_z;
     BlockInfo*** AX=region.A;
     scan_image.create(512,512,sf::Color(0,0,0,0));
 
-    char mask[512][512];
     for (int z=0; z<512; z++) {
         for (int x=0; x<512; x++) {
             if (floor_y[x][z]!=999999) {
@@ -10088,6 +10171,14 @@ void fix(MCRegion &region, int region_x, int region_z) {
                         if (AY[y].id==0) {
                             int id=0;
 
+                            if (y>0) {
+                                id=AX[x][z][y-1].id;
+                                if (id==251) continue;
+                            }
+                            if (y<255) {
+                                id=AX[x][z][y+1].id;
+                                if (id==251) continue;
+                            }
                             if (x>0) {
                                 id=AX[x-1][z][y].id;
                                 if (id==251) continue;

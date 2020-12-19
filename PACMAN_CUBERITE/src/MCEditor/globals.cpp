@@ -184,7 +184,11 @@ int get_block_light(ui id)
     if (id>255) return 14;
     switch (id)
     {
-        case 50: return 14;
+        case 50: {
+            if ( ! (rand()%3) ) return 15;
+            else return 0;
+        }
+        case 76: return 6;
         case 89: return 14;
         default: return 0;
     }
