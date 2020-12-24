@@ -1703,6 +1703,21 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
         top_right=glm::fvec2((3312756.4245311604-cnt_x)*1.0, (-5331483.703731423-cnt_z)*1.0);
         bot_left =glm::fvec2((3300154.6704858197-cnt_x)*1.0, (-5326818.811974641-cnt_z)*1.0);
         bot_right=glm::fvec2((3310446.4741736553-cnt_x)*1.0, (-5323728.268546224-cnt_z)*1.0);
+    } else if (area=="DenHaag" && mirror!=0) {
+        vertical =bmax_total[0]- bmin_total[0];
+
+        float cnt_x=0.0;
+        float cnt_z=0.0;
+
+//top left:    X=3108938.5207950193 , Z=-5378028.899472017
+//top right:   X=3123476.748590296  , Z=-5373372.681653784
+//bottom left: X=3104929.045771468  , Z=-5365556.354371216
+//bottom right:X=3119492.6521769455 , Z=-5360902.305020416
+
+        top_left =glm::fvec2((3108938.5207950193 -cnt_x)*1.0,   (-5378028.899472017-cnt_z)*1.0);
+        top_right=glm::fvec2((3123476.748590296  -cnt_x)*1.0,   (-5373372.681653784-cnt_z)*1.0);
+        bot_left =glm::fvec2((3104929.045771468  -cnt_x)*1.0,   (-5365556.354371216-cnt_z)*1.0);
+        bot_right=glm::fvec2((3119492.6521769455 -cnt_x)*1.0,   (-5360902.305020416-cnt_z)*1.0);
     } else if (area=="Utrecht" && mirror!=0) {
         vertical =bmax_total[0]- bmin_total[0];
 
@@ -1957,8 +1972,8 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
 //                bmin_total[0]+=15.0;
 //                bmax_total[0]+=15.0;
             } else if (area=="DenHaag") {
-                bmin_total[0]=-80.0;
-                bmax_total[0]=60.0;
+//                bmin_total[0]=-80.0;
+//                bmax_total[0]=60.0;
             } else if (area=="Utrecht") {
                 bmin_total[0]=-100.0;
                 bmax_total[0]=60.0;

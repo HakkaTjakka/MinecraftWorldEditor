@@ -571,6 +571,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
                 do_pong=true;
             } else if (c==(char)'t') {
                 crossing=2; mirror=4;combine=1;
+                cubic=true;
                 area="DenHaag";
                 and_now_i_am_here=true;
                 launch_SFMLGL2_b();

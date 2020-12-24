@@ -4,10 +4,10 @@ block_cipher = None
 
 
 a = Analysis(['projection.py'],
-             pathex=['D:\\demo\\MinecraftWorldEditor\\PACMAN_CUBERITE\\project-obj'],
+             pathex=['D:\\PACMAN\\PACMAN_CUBERITE\\project-obj'],
              binaries=[],
              datas=[],
-             hiddenimports=[],
+             hiddenimports=['jnius_config'],
              hookspath=[],
              runtime_hooks=[],
              excludes=[],
