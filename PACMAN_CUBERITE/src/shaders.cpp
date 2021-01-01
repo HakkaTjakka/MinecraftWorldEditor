@@ -68,6 +68,7 @@ extern sf::Texture texture_from_movie_new;
 extern sf::Texture texture_from_movie2_new;
 extern sf::RenderTexture texture_from_buffer;
 extern sf::RenderTexture texture_from_buffer2;
+sf::RenderTexture texture_data;
 
 int shader_ok=0;
 //sf::RenderTexture iChannel0;
@@ -229,7 +230,27 @@ int update_shader() {
 
     }
 
-    if (vertex_shader==1 || fragment_shader==1) { picture_states.shader = &picture_shader; shader_ok=1; }
+    if (vertex_shader==1 || fragment_shader==1) {
+        picture_states.shader = &picture_shader; shader_ok=1;
+        bool first=true;
+        if (first) {
+            first=false;
+
+            texture_data.setSmooth(TRUE);
+            texture_data.generateMipmap();
+            texture_data.setRepeated(true);
+
+            sf::Texture texture_load;
+            sf::Sprite sprite_load;
+            texture_load.loadFromFile("resources/random001.png");
+            sprite_load.setTexture(texture_load,true);
+            texture_data.create( texture_load.getSize().x , texture_load.getSize().y );
+            texture_data.draw(sprite_load);
+            texture_data.display();
+        }
+        picture_shader.setUniform("dResolution",  sf::Vector2f( (float)texture_data.getSize().x,(float)texture_data.getSize().y) );
+        picture_shader.setUniform("texture_data", texture_data.getTexture());
+    }
     else picture_states.shader=NULL;
 
     return 0;

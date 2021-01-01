@@ -55,6 +55,7 @@ void rotate_around_point(glm::vec3 move_object, glm::vec3 &add_xyz, std::string 
     NORMALz = glm::normalize(NORMALz);
     test=glm::mat4(1.0f);
 
+//kloten
     if (area!="Models") {
         add_xyz4 = glm::vec4(move_object.x,move_object.y,move_object.z,1.0f) * test;
         test = glm::rotate(test, float(g_rotate_object_x*M_PI/180.0), {1.0,0.0,0.0} ) ;

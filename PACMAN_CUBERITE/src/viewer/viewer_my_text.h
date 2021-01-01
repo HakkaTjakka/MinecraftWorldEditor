@@ -70,63 +70,65 @@
                                     sprintf(to_print,"TOT. SIZE Y: %d",int(window.getSize().y*frustum_size_y));              PRINTIT
                                 }
                             }
-
                             if (show_text) {
+                                if (depth_shader_on) {
+                                    sprintf(to_print,"SHADER ON: %d",whattodo);           PRINTIT
+                                }
+
                                 if (do_model) {
-                                        sprintf(to_print,"SECONDS:   %.2f   FPS: %.2f   CPU: %3.2f%%   MISSES: %d",render_time,render_fps, cpu_usage*100.0, misses);          PRINTIT
-                                        sprintf(to_print,"ANGELS:    % 10.6f % 10.6f % 10.6f",rotate_object_x,rotate_object_y,rotate_object_z);                    PRINTIT_BIG
-                                        glm::quat myquaternion = glm::quat(glm::vec3( (rotate_object_x)*M_PI/180.0, rotate_object_y*M_PI/180.0, (rotate_object_z+0.0)*M_PI/180.0 ));
-                                        myquaternion[0]=-myquaternion[0]; myquaternion[1]=-myquaternion[1];
-                                        sprintf(to_print,"TO QUAT:   % 10.6f % 10.6f % 10.6f% 10.6f",myquaternion[0],myquaternion[1],myquaternion[2],myquaternion[3]);                    PRINTIT_BIG
+                                    sprintf(to_print,"SECONDS:   %.2f   FPS: %.2f   CPU: %3.2f%%   MISSES: %d",render_time,render_fps, cpu_usage*100.0, misses);          PRINTIT
+                                    sprintf(to_print,"ANGELS:    % 10.6f % 10.6f % 10.6f",rotate_object_x,rotate_object_y,rotate_object_z);                    PRINTIT_BIG
+                                    glm::quat myquaternion = glm::quat(glm::vec3( (rotate_object_x)*M_PI/180.0, rotate_object_y*M_PI/180.0, (rotate_object_z+0.0)*M_PI/180.0 ));
+                                    myquaternion[0]=-myquaternion[0]; myquaternion[1]=-myquaternion[1];
+                                    sprintf(to_print,"TO QUAT:   % 10.6f % 10.6f % 10.6f% 10.6f",myquaternion[0],myquaternion[1],myquaternion[2],myquaternion[3]);                    PRINTIT_BIG
 
-                                        i+=20;
-                                        sprintf(to_print,"QUAT:      % 10.6f % 10.6f % 10.6f% 10.6f",curr_quat2[0],curr_quat2[1],curr_quat2[2],curr_quat2[3]);                    PRINTIT_BIG
-                                        i+=20;
-                                        sprintf(to_print,"TRANSLATE: % 10.6f % 10.6f % 10.6f%",move_object_x, move_object_y, move_object_z);                    PRINTIT_BIG
+                                    i+=20;
+                                    sprintf(to_print,"QUAT:      % 10.6f % 10.6f % 10.6f% 10.6f",curr_quat2[0],curr_quat2[1],curr_quat2[2],curr_quat2[3]);                    PRINTIT_BIG
+                                    i+=20;
+                                    sprintf(to_print,"TRANSLATE: % 10.6f % 10.6f % 10.6f%",move_object_x, move_object_y, move_object_z);                    PRINTIT_BIG
 
-                                        glm::quat q=glm::quat(curr_quat2[0], curr_quat2[1], curr_quat2[2], curr_quat2[3]);
-                                        glm::vec3 euler = glm::eulerAngles(q);
-                                        euler.x=euler.x*(180.0/M_PI); euler.y=euler.y*(180.0/M_PI); euler.z=euler.z*(180.0/M_PI);
-                                        euler.z-=180.0;
-                                        if (euler.z<=-180.0) euler.z+=360;
-                                        sprintf(to_print,"TO ANGLES: % 10.6f % 10.6f % 10.6f",euler.z,euler.y,euler.x);                    PRINTIT_BIG
+                                    glm::quat q=glm::quat(curr_quat2[0], curr_quat2[1], curr_quat2[2], curr_quat2[3]);
+                                    glm::vec3 euler = glm::eulerAngles(q);
+                                    euler.x=euler.x*(180.0/M_PI); euler.y=euler.y*(180.0/M_PI); euler.z=euler.z*(180.0/M_PI);
+                                    euler.z-=180.0;
+                                    if (euler.z<=-180.0) euler.z+=360;
+                                    sprintf(to_print,"TO ANGLES: % 10.6f % 10.6f % 10.6f",euler.z,euler.y,euler.x);                    PRINTIT_BIG
 
-                                        i+=20;
-                                        sprintf(to_print,"Max schematic size: %10d",(int)schematic_size);           PRINTIT_BIG
-                                        i+=20;
-                                        sprintf(to_print,"REGIONS:   F1 voxelize, CTRL-F1 finish them all to region files");           PRINTIT
-                                        sprintf(to_print,"SCHEMATIC: SHIFT-F1 Create schematic from object (destroys F1 made...)");           PRINTIT
-                                        sprintf(to_print,"      CTRL+SHIFT-F1 Create schematic from object plot with F1");           PRINTIT
-                                        sprintf(to_print,"CTRL+SYSTEM+SHIFT + left/right prev/next model (see ../models/list.txt)");           PRINTIT
-                                        sprintf(to_print,"CTRL+SHIFT + left|right ADD prev/next model");           PRINTIT
-                                        sprintf(to_print,"ANGLES: ALT + left|right|up|down|pgup|pgdn rotate x/y/z");           PRINTIT
-                                        sprintf(to_print,"QUATS: CTRL + left|right|up|down|pgup|pgdn rotate x/y/z");           PRINTIT
-                                        sprintf(to_print,"F5 Text on/of  F6|F7|F8 reset view");           PRINTIT
-                                        sprintf(to_print,"ALT-F6|ALT-F7|ALT-F8 reset angle x|y|z");           PRINTIT
-                                        sprintf(to_print,"F11 Full screen / window");           PRINTIT
-                                        sprintf(to_print,"SHIFT-F5 Round Angles(1)  SHIFT-F6(5)  SHIFT-F7(10)  SHIFT-F8(90)");           PRINTIT
-                                        sprintf(to_print,"ALT-F1 Plot regions on canvas window  DELETE Clear voxels (from F1)");           PRINTIT
-                                        sprintf(to_print,"CANVAS WINDOW: ALT+DEL(3x) Clear screen  SHIFT-D foreground/background screen");           PRINTIT
-                                        sprintf(to_print,"F2: WRITE REGION.VOX VOXEL FILES TO REGION.MCA FILES  CTRL-F2: FLUSH VOXELS TO REGION VOXEL FILES");           PRINTIT
-                                        sprintf(to_print,"SHIFT-F2: PLOT REGION.VOX VOXEL FILES");           PRINTIT
-                                        sprintf(to_print,"F10: Rotate on  ALT-F10: Plot when rotate on");           PRINTIT
-                                        if (voxel_bottom!=0.0) {
-                                            sprintf(to_print,"+/- Voxel bottom=%d",(int)voxel_bottom);           PRINTIT_RED_BIG
-                                        }
-                                        else {
-                                            sprintf(to_print,"+/- Voxel bottom=%d",(int)voxel_bottom);           PRINTIT
-                                        }
+                                    i+=20;
+                                    sprintf(to_print,"Max schematic size: %10d",(int)schematic_size);           PRINTIT_BIG
+                                    i+=20;
+                                    sprintf(to_print,"REGIONS:   F1 voxelize, CTRL-F1 finish them all to region files");           PRINTIT
+                                    sprintf(to_print,"SCHEMATIC: SHIFT-F1 Create schematic from object (destroys F1 made...)");           PRINTIT
+                                    sprintf(to_print,"      CTRL+SHIFT-F1 Create schematic from object plot with F1");           PRINTIT
+                                    sprintf(to_print,"CTRL+SYSTEM+SHIFT + left/right prev/next model (see ../models/list.txt)");           PRINTIT
+                                    sprintf(to_print,"CTRL+SHIFT + left|right ADD prev/next model");           PRINTIT
+                                    sprintf(to_print,"ANGLES: ALT + left|right|up|down|pgup|pgdn rotate x/y/z");           PRINTIT
+                                    sprintf(to_print,"QUATS: CTRL + left|right|up|down|pgup|pgdn rotate x/y/z");           PRINTIT
+                                    sprintf(to_print,"F5 Text on/of  F6|F7|F8 reset view");           PRINTIT
+                                    sprintf(to_print,"ALT-F6|ALT-F7|ALT-F8 reset angle x|y|z");           PRINTIT
+                                    sprintf(to_print,"F11 Full screen / window");           PRINTIT
+                                    sprintf(to_print,"SHIFT-F5 Round Angles(1)  SHIFT-F6(5)  SHIFT-F7(10)  SHIFT-F8(90)");           PRINTIT
+                                    sprintf(to_print,"ALT-F1 Plot regions on canvas window  DELETE Clear voxels (from F1)");           PRINTIT
+                                    sprintf(to_print,"CANVAS WINDOW: ALT+DEL(3x) Clear screen  SHIFT-D foreground/background screen");           PRINTIT
+                                    sprintf(to_print,"F2: WRITE REGION.VOX VOXEL FILES TO REGION.MCA FILES  CTRL-F2: FLUSH VOXELS TO REGION VOXEL FILES");           PRINTIT
+                                    sprintf(to_print,"SHIFT-F2: PLOT REGION.VOX VOXEL FILES");           PRINTIT
+                                    sprintf(to_print,"F10: Rotate on  ALT-F10: Plot when rotate on");           PRINTIT
+                                    if (voxel_bottom!=0.0) {
+                                        sprintf(to_print,"+/- Voxel bottom=%d",(int)voxel_bottom);           PRINTIT_RED_BIG
+                                    }
+                                    else {
+                                        sprintf(to_print,"+/- Voxel bottom=%d",(int)voxel_bottom);           PRINTIT
+                                    }
 
-                                        if (voxels.size()) { sprintf(to_print,"VOXELS:       %10d",voxels.size());           PRINTIT_RED_BIG }
-                                        else { sprintf(to_print,"VOXELS:       %10d",voxels.size());           PRINTIT_BIG }
+                                    if (voxels.size()) { sprintf(to_print,"VOXELS:       %10d",voxels.size());           PRINTIT_RED_BIG }
+                                    else { sprintf(to_print,"VOXELS:       %10d",voxels.size());           PRINTIT_BIG }
 
-                                        if (voxels_total.size()) { sprintf(to_print,"VOXELS TOTAL: %10d",voxels_total.size());           PRINTIT_RED_BIG }
-                                        else { sprintf(to_print,"VOXELS TOTAL: %10d",voxels_total.size());           PRINTIT_BIG }
+                                    if (voxels_total.size()) { sprintf(to_print,"VOXELS TOTAL: %10d",voxels_total.size());           PRINTIT_RED_BIG }
+                                    else { sprintf(to_print,"VOXELS TOTAL: %10d",voxels_total.size());           PRINTIT_BIG }
 
-                                        if (rot_plot) { sprintf(to_print,"Plotting on  Voxel_bottom=%6.3f%%  Max size: %3d (Rot: %3d)",voxel_bottom*100, (int)schematic_size,(flipflop>0)*180);           PRINTIT_RED_BIG }
-                                        if (cubic) { sprintf(to_print,"CUBIC (SHIFT+c) = ON (don't trim, make floors)");           PRINTIT_BIG }
-                                        else { sprintf(to_print,"CUBIC (SHIFT+c) = OFF (trim y<0 & y>255");           PRINTIT_BIG }
-
+                                    if (rot_plot) { sprintf(to_print,"Plotting on  Voxel_bottom=%6.3f%%  Max size: %3d (Rot: %3d)",voxel_bottom*100, (int)schematic_size,(flipflop>0)*180);           PRINTIT_RED_BIG }
+                                    if (cubic) { sprintf(to_print,"CUBIC (SHIFT+c) = ON (don't trim, make floors)");           PRINTIT_BIG }
+                                    else { sprintf(to_print,"CUBIC (SHIFT+c) = OFF (trim y<0 & y>255");           PRINTIT_BIG }
                                 } else {
                                     if (do_wuppie) {
                                         sprintf(to_print,"WUPPIE READY!");                    PRINTIT_RED_BIG

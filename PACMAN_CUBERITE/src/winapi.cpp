@@ -52,6 +52,7 @@ extern bool and_now_i_am_here;
 char voxel_filename[200];
 std::string obj_filename="";
 bool make_regions=false;
+bool make_object=false;
 extern bool file_exists(const char * filename);
 extern glm::mat4 exporter;
 extern glm::mat4 exporter2;
@@ -547,6 +548,18 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
                 sf::sleep(sf::seconds(0.1));
                 make_regions=true;
             }
+            else if (c==(char)'m') {
+                combine=1;
+                area="Models";
+                launch_SFMLGL2_b();
+                while (!i_am_here) {
+                    sf::sleep(sf::seconds(0.1));
+                }
+
+                sf::sleep(sf::seconds(0.1));
+                make_object=true;
+                make_regions=true;
+            }
             else if (c==(char)'q') {
                 combine=1;
                 area="Models";
@@ -804,6 +817,15 @@ int WINAPI WinMain2()
                 strcpy(voxel_filename,"");
             }
             send_message='r';
+        }
+        else if (   strcmp(argv[1],"object"    )==0) {
+            if (argc>2) {
+                strcpy(voxel_filename,argv[2]);
+                printf("One .voxel file: %s\n",voxel_filename);
+            } else {
+                strcpy(voxel_filename,"");
+            }
+            send_message='m';
         }
         else if (   strcmp(argv[1],"enschede"    )==0) { send_message='s'; }
         else if (   strcmp(argv[1],"pong"    )==0) { send_message='u'; }

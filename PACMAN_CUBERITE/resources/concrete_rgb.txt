@@ -1,0 +1,16 @@
+white		White Concrete			255, 255, 255
+orange		Orange Concrete			216, 127, 51
+magenta		Magenta Concrete		178, 76, 216
+light_blue	Light Blue Concrete		102, 153, 216
+yellow		Yellow Concrete			229, 229, 51
+lime		Lime Concrete			127, 204, 25
+pink		Pink Concrete			242, 127, 165
+gray		Gray Concrete			76, 76, 76
+silver		Light Gray Concrete		153, 153, 153
+cyan		Cyan Concrete			76, 127, 153
+purple		Purple Concrete			127, 63, 178
+blue		Blue Concrete			51, 76, 178
+brown		Brown Concrete			102, 76, 51
+green		Green Concrete			102, 127, 51
+red			Red	Concrete			153, 51, 51
+black		Black Concrete			25, 25, 25

@@ -368,3 +368,62 @@
 40 Error loading picture
 86 Error loading picture
 21 Error loading picture
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 Program busy or hangs... Thread alive at: 26/12/2020 15:19:09
+1 Program busy or hangs... Thread alive at: 26/12/2020 15:19:14
+0 Program busy or hangs... Thread alive at: 26/12/2020 15:20:02
+1 Program busy or hangs... Thread alive at: 26/12/2020 15:25:33
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 Program busy or hangs... Thread alive at: 26/12/2020 16:10:10
+0 Program busy or hangs... Thread alive at: 26/12/2020 16:16:21
+0 Program busy or hangs... Thread alive at: 26/12/2020 16:16:26
+0 Program busy or hangs... Thread alive at: 26/12/2020 16:16:31
+1 Program busy or hangs... Thread alive at: 26/12/2020 16:16:36
+1 Program busy or hangs... Thread alive at: 26/12/2020 16:20:21
+0 Program busy or hangs... Thread alive at: 26/12/2020 16:20:38
+1 Program busy or hangs... Thread alive at: 26/12/2020 16:20:43
+0 Program busy or hangs... Thread alive at: 26/12/2020 16:21:07
+0 Program busy or hangs... Thread alive at: 26/12/2020 16:21:12
+0 Program busy or hangs... Thread alive at: 26/12/2020 16:21:17
+0 Program busy or hangs... Thread alive at: 26/12/2020 16:21:22
+1 Program busy or hangs... Thread alive at: 26/12/2020 16:21:27
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 Program busy or hangs... Thread alive at: 26/12/2020 17:06:51
+0 Program busy or hangs... Thread alive at: 26/12/2020 17:06:56
+1 Program busy or hangs... Thread alive at: 26/12/2020 17:07:01
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: D:\PACMAN\movies\files\output_2020-12-23_20.09.38_001.mp4
+0 MOVIE: G:\FILMS\TODO\Overspel Seizoen 01 DvdRip NL Subs DutchReleaseTeam\Overspel Se01Ep10 DvdRip NL Subs DutchReleaseTeam.avi
+0 MOVIE2: G:\FILMS\TODO\Simulation Theory Film (2020) [1080p] [WEBRip] [5.1] [YTS.MX]\Simulation.Theory.Film.2020.1080p.WEBRip.x264.AAC5.1-[YTS.MX].mp4
+0 MOVIE2: G:\FILMS\TODO\The Quiet Ones (2014) BRRiP 1080p x264 DD5.1 EN NL Subs\The.Quiet.Ones.2014.1080p.BluRay.X264-AMIABLE.mkv-muxed-muxed.mkv
+1 Program busy or hangs... Thread alive at: 26/12/2020 18:39:22
+0 Program busy or hangs... Thread alive at: 26/12/2020 18:42:37
+1 Program busy or hangs... Thread alive at: 26/12/2020 18:42:42
+0 MOVIE2: G:\FILMS\TODO\The Last Ship (2014) S01E09 1080p Web-DL NL Subs SAM TBS\Movie\The Last Ship (2014) S01E09 1080p Web-DL NL Subs SAM TBS.mkv
+0 MOVIE2: G:\FILMS\TODO\Spiderman 1 (2002) 1080p x264 DD5.1 EN NL Subs [Asian Planet]\Spiderman 1 2002 1080p x264.mkv
+0 MOVIE: G:\FILMS\TODO\Loophole (2019) [WEBRip] [1080p] [YTS.AM]\Loophole.2019.1080p.WEBRip.x264-[YTS.AM].mp4
+1 Program busy or hangs... Thread alive at: 26/12/2020 19:44:20
+1 Program busy or hangs... Thread alive at: 26/12/2020 19:44:54
+0 MOVIE2: G:\FILMS\TODO\WarGames.1983.1080p.BluRay.H264.AAC-RARBG\RARBG.COM.mp4
+0 MOVIE2: G:\FILMS\TODO\Taken Steven Spielberg - Sci-Fi Mini-Series 2002 Eng Multi-Subs [H264-mp4]\Taken Miniseries And  Interviews 2002\06 Charlie And Lisa - Miniseries 2002 Eng Subs [H264-mp4].mp4
+0 Program busy or hangs... Thread alive at: 30/12/2020 13:51:59

@@ -1,3 +1,5 @@
+D:\PACMAN\shaders\fragment\pencil.frag
+D:\PACMAN\shaders\fragment\pencil2.frag
 D:\PACMAN\shaders\fragment\picture_shader 00.frag
 D:\PACMAN\shaders\fragment\picture_shader 01.frag
 D:\PACMAN\shaders\fragment\picture_shader 02.frag
@@ -71,3 +73,5 @@ D:\PACMAN\shaders\fragment\picture_shader 69.frag
 D:\PACMAN\shaders\fragment\picture_shader 70.frag
 D:\PACMAN\shaders\fragment\picture_shader 71.frag
 D:\PACMAN\shaders\fragment\picture_shader 72.frag
+D:\PACMAN\shaders\fragment\picture_shader 73.frag
+D:\PACMAN\shaders\fragment\picture_shader 74.frag

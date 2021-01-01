@@ -338,6 +338,7 @@ extern void make_test_schematic();
                                             {
                                                 printf("FRAGMENT SHADER ERROR: %s\n","shaders/depth_shader.frag");
                                             } else {
+//                                                depth_shader.setUniform("texture", sf::Shader::CurrentTexture);
                                                 depth_shader.setUniform("the_texture", sf::Shader::CurrentTexture);
                                                 depth_shader.setUniform("wave_amplitude", sf::Vector2f(5.0, 5.0));
                                                 depth_shader.setUniform("WIRE_FRAME", WIRE_FRAME);
@@ -917,6 +918,11 @@ extern void make_test_schematic();
                                             window.setVerticalSyncEnabled(true);
                                             break;
                                         }
+                                        if (event.key.shift && event.key.alt) {
+                                            window.setActive(false);
+                                            window.setVerticalSyncEnabled(false);
+                                            break;
+                                        }
                                         if (event.key.control) {
                                             if (contextSettings.antialiasingLevel>0)  {
                                                 contextSettings.antialiasingLevel--;
@@ -1216,7 +1222,7 @@ extern void make_test_schematic();
                                         break;
                                     case sf::Keyboard::Tab:
                                         whattodo++;
-                                        if (whattodo>2) whattodo=0;
+                                        if (whattodo>3) whattodo=0;
                                         break;
                                     case sf::Keyboard::F10:
                                         if (event.key.control) {

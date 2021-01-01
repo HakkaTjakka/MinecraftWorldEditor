@@ -42,6 +42,7 @@ void get_view(float &rotate_object_z, float curr_quat2[4],float eye2[3],float lo
     curr_quat2[1]=int_q[1]; eye2[1]=int_e[1]; lookat2[1]=int_l[1]; translation[1]=int_t[1]; //perspective[1]=(float)int_l[1]; don't use...
     curr_quat2[2]=int_q[2]; eye2[2]=int_e[2]; lookat2[2]=int_l[2]; translation[2]=int_t[2]; //perspective[2]=(float)int_l[2]; don't use...
     curr_quat2[3]=int_q[3];                                                                 //perspective[3]=(float)int_l[3]; don't use...
+//kloten
     if (area!="Models") {
 //        RECALC_BMIN_BMAX(buffers, bmin,bmax, 0.0, 0.0);
         bmin[0]=int_bmin[0]; bmin[1]=int_bmin[1]; bmin[2]=int_bmin[2];
@@ -287,7 +288,7 @@ void interpolate_spline(int what) {
         bool first=true;
         bool second=false;
         while (fgets (line,2000, movement_file)!=NULL ) {
-
+            while (replace_str(line,",","."));
             sscanf(line,"QUATS=%e %e %e %e EYE=%e %e %e LOOKAT=%e %e %e TRANSLATION=%e %e %e PERSPECTIVE=%e %e %e %e BMIN=%e %e %e BMAX=%e %e %e FRUSTUM=%d\n",
                 &int_q[0], &int_q[1], &int_q[2], &int_q[3],
                 &int_e[0], &int_e[1], &int_e[2],
@@ -309,6 +310,7 @@ void interpolate_spline(int what) {
                 strcpy(fline,line);
             }
             fgets (line,2000, movement_file);
+            while (replace_str(line,",","."));
             sscanf(line,"MATRIX=%e %e %e %e %e %e %e %e %e %e %e %e %e %e %e %e %e\n",
                 &int_arr[0], &int_arr[1], &int_arr[2], &int_arr[3],
                 &int_arr[4], &int_arr[5], &int_arr[6], &int_arr[7],
@@ -434,11 +436,15 @@ void interpolate_spline(int what) {
         int_bmin[0]=(float)splinterpEval(sp_bmin0, starting); int_bmin[1]=(float)splinterpEval(sp_bmin1, starting); int_bmin[2]=(float)splinterpEval(sp_bmin2, starting);
         int_bmax[0]=(float)splinterpEval(sp_bmax0, starting); int_bmax[1]=(float)splinterpEval(sp_bmax1, starting); int_bmax[2]=(float)splinterpEval(sp_bmax2, starting);
         int_frustum_toggle=s_frustum_toggle[tt];
-        rot_arr[0]=(float)splinterpEval(sp_r0, starting); rot_arr[4]=(float)splinterpEval(sp_r4, starting); rot_arr[8]=(float)splinterpEval(sp_r8, starting); rot_arr[12]=(float)splinterpEval(sp_r12, starting);
-        rot_arr[1]=(float)splinterpEval(sp_r1, starting); rot_arr[5]=(float)splinterpEval(sp_r5, starting); rot_arr[9]=(float)splinterpEval(sp_r9, starting); rot_arr[13]=(float)splinterpEval(sp_r13, starting);
-        rot_arr[2]=(float)splinterpEval(sp_r2, starting); rot_arr[6]=(float)splinterpEval(sp_r6, starting); rot_arr[10]=(float)splinterpEval(sp_r10, starting); rot_arr[14]=(float)splinterpEval(sp_r14, starting);
-        rot_arr[3]=(float)splinterpEval(sp_r3, starting); rot_arr[7]=(float)splinterpEval(sp_r7, starting); rot_arr[11]=(float)splinterpEval(sp_r11, starting); rot_arr[15]=(float)splinterpEval(sp_r15, starting);
-        int_arr[16]=(float)splinterpEval(sp_r16, starting);
+//        if (area!="Models") {
+            rot_arr[0]=(float)splinterpEval(sp_r0, starting); rot_arr[4]=(float)splinterpEval(sp_r4, starting); rot_arr[8]=(float)splinterpEval(sp_r8, starting); rot_arr[12]=(float)splinterpEval(sp_r12, starting);
+            rot_arr[1]=(float)splinterpEval(sp_r1, starting); rot_arr[5]=(float)splinterpEval(sp_r5, starting); rot_arr[9]=(float)splinterpEval(sp_r9, starting); rot_arr[13]=(float)splinterpEval(sp_r13, starting);
+            rot_arr[2]=(float)splinterpEval(sp_r2, starting); rot_arr[6]=(float)splinterpEval(sp_r6, starting); rot_arr[10]=(float)splinterpEval(sp_r10, starting); rot_arr[14]=(float)splinterpEval(sp_r14, starting);
+            rot_arr[3]=(float)splinterpEval(sp_r3, starting); rot_arr[7]=(float)splinterpEval(sp_r7, starting); rot_arr[11]=(float)splinterpEval(sp_r11, starting); rot_arr[15]=(float)splinterpEval(sp_r15, starting);
+            int_arr[16]=(float)splinterpEval(sp_r16, starting);
+//        } else {
+//            rot_mat=glm::mat4(1.0);
+//        }
 
         sprintf(calc,"c=%d t=%-+f q0=%-+f q1=%-+f q2=%-+f q3=%-+f  e0=%-+f e1=%-+f e2=%-+f  l0=%-+f l1=%-+f l2=%-+f  t0=%-+f t1=%-+f t2=%-+f  p0=%-+f  bmin=%-+f %-+f %-+f  bmax=%-+f %-+f %-+f  frustum=%d",c,starting,
                 int_q[0],int_q[1],int_q[2],int_q[3],
@@ -507,14 +513,15 @@ void interpolate_spline(int what) {
         int_bmin[0]=(float)splinterpEval(sp_bmin0, starting); int_bmin[1]=(float)splinterpEval(sp_bmin1, starting); int_bmin[2]=(float)splinterpEval(sp_bmin2, starting);
         int_bmax[0]=(float)splinterpEval(sp_bmax0, starting); int_bmax[1]=(float)splinterpEval(sp_bmax1, starting); int_bmax[2]=(float)splinterpEval(sp_bmax2, starting);
         int_frustum_toggle=s_frustum_toggle[tt];
-        rot_arr[0]=(float)splinterpEval(sp_r0, starting); rot_arr[4]=(float)splinterpEval(sp_r4, starting); rot_arr[8]=(float)splinterpEval(sp_r8, starting); rot_arr[12]=(float)splinterpEval(sp_r12, starting);
-        rot_arr[1]=(float)splinterpEval(sp_r1, starting); rot_arr[5]=(float)splinterpEval(sp_r5, starting); rot_arr[9]=(float)splinterpEval(sp_r9, starting); rot_arr[13]=(float)splinterpEval(sp_r13, starting);
-        rot_arr[2]=(float)splinterpEval(sp_r2, starting); rot_arr[6]=(float)splinterpEval(sp_r6, starting); rot_arr[10]=(float)splinterpEval(sp_r10, starting); rot_arr[14]=(float)splinterpEval(sp_r14, starting);
-        rot_arr[3]=(float)splinterpEval(sp_r3, starting); rot_arr[7]=(float)splinterpEval(sp_r7, starting); rot_arr[11]=(float)splinterpEval(sp_r11, starting); rot_arr[15]=(float)splinterpEval(sp_r15, starting);
-        int_arr[16]=(float)splinterpEval(sp_r16, starting);
-
-
-
+//        if (area!="Models") {
+            rot_arr[0]=(float)splinterpEval(sp_r0, starting); rot_arr[4]=(float)splinterpEval(sp_r4, starting); rot_arr[8]=(float)splinterpEval(sp_r8, starting); rot_arr[12]=(float)splinterpEval(sp_r12, starting);
+            rot_arr[1]=(float)splinterpEval(sp_r1, starting); rot_arr[5]=(float)splinterpEval(sp_r5, starting); rot_arr[9]=(float)splinterpEval(sp_r9, starting); rot_arr[13]=(float)splinterpEval(sp_r13, starting);
+            rot_arr[2]=(float)splinterpEval(sp_r2, starting); rot_arr[6]=(float)splinterpEval(sp_r6, starting); rot_arr[10]=(float)splinterpEval(sp_r10, starting); rot_arr[14]=(float)splinterpEval(sp_r14, starting);
+            rot_arr[3]=(float)splinterpEval(sp_r3, starting); rot_arr[7]=(float)splinterpEval(sp_r7, starting); rot_arr[11]=(float)splinterpEval(sp_r11, starting); rot_arr[15]=(float)splinterpEval(sp_r15, starting);
+            int_arr[16]=(float)splinterpEval(sp_r16, starting);
+//        } else {
+//            rot_mat=glm::mat4(1.0);
+//        }
 
 
 
@@ -1567,7 +1574,6 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
 //                if (!(cnt%10)) voxel_to_file=true;
                 if (cnt==info_3d.size()-1) {
                     flushing=true;
-                    voxel_to_file=true;
                     voxel_to_file=true;
                 }
             }

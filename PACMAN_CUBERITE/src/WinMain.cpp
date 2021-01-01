@@ -5197,7 +5197,16 @@ extern sf::Sprite ding_sprite_render[];
         picture_shader.setUniform("texture_surround[1]",  texturemaxinmempoint[used2[(render_picturex+1)%(maxpicturex+1)][(render_picturey+0)%(maxpicturey+1)]]->getTexture());
         picture_shader.setUniform("texture_surround[2]",  texturemaxinmempoint[used2[(render_picturex+0)%(maxpicturex+1)][(render_picturey+1)%(maxpicturey+1)]]->getTexture());
         picture_shader.setUniform("texture_surround[3]",  texturemaxinmempoint[used2[(render_picturex+1)%(maxpicturex+1)][(render_picturey+1)%(maxpicturey+1)]]->getTexture());
-        picture_shader.setUniform("iSubpixel",  sf::Vector2f((float)smooth_x,(float)smooth_y ) );
+//        picture_shader.setUniform("iSubpixel",  sf::Vector2f((float)smooth_x,(float)smooth_y ) );
+
+
+        picture_shader.setUniform("iSubpixel",  sf::Vector2f(
+                        (float)render_posx-(float)smooth_x+(float)((int)smooth_x) ,
+                        (float)render_posy-(float)smooth_y+(float)((int)smooth_y)
+                                                             )
+                                );
+
+//        picture_shader.setUniform("iSubpixel",  sf::Vector2f((float)smooth_x,(float)smooth_y ) );
     }
 
     SFMLView1.setActive(true);

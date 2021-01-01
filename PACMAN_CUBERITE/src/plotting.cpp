@@ -689,6 +689,7 @@ void setffmpegfile()
             sprite_from_ffmpeg.setPosition(
                 (float)(ffmpeg_posx+render_posx-render_picturex*1920)+(float)texture_from_ffmpeg.getSize().x/2-(float)smooth_x+(float)((int)(smooth_x+0.5)),
                 (float)(ffmpeg_posy+render_posy-render_picturey*1080)+(float)texture_from_ffmpeg.getSize().y/2-(float)smooth_y+(float)((int)(smooth_y+0.5))
+
 //                (float)(ffmpeg_posx+render_posx-render_picturex*1920)+(float)texture_from_ffmpeg.getSize().x/2-(float)smooth_x+(float)((int)smooth_x),
 //                (float)(ffmpeg_posy+render_posy-render_picturey*1080)+(float)texture_from_ffmpeg.getSize().y/2-(float)smooth_y+(float)((int)smooth_y)
             );
@@ -749,6 +750,10 @@ extern int no_scale;
         corrx=(float) sprite_from_ffmpeg.getPosition().x - sizex/2.0;
         corry=(float) -sprite_from_ffmpeg.getPosition().y + 1080.0 - sizey/2.0;
 
+//        if (ffmpeg_move==1 && smooth) {
+//            corrx=corrx-(float)smooth_x+(float)((int)smooth_x+0.5);
+//            corry=corry-(float)smooth_y+(float)((int)smooth_y+0.5);
+//        }
 
         picture_shader.setUniform("iScale",  sf::Vector2f( sprite_from_ffmpeg.getScale().x,sprite_from_ffmpeg.getScale().y) );
         picture_shader.setUniform("iResolution",  sf::Vector2f( sizex,sizey) );

@@ -274,7 +274,9 @@ int do_SFMLGL2(int what)
                 first=1;
             }
             if (area!="Models" && area!="Canvas") lat_lon=get_lat_lon(area);
-            else { lat_lon.x=999; lat_lon.y=999; }
+//            else { lat_lon.x=999; lat_lon.y=999; }
+            else { lat_lon.x=0; lat_lon.y=0; }
+
             if (first==1 || lat_lon.x!=999) {
                 max_x=-1;max_y=-1;
                 str=get_area_data(area,max_x,max_y);
@@ -464,12 +466,12 @@ std::vector<glm::ivec2> wierdo_requests;
 std::vector<glm::ivec2> wierdo_requests_ready;
 std::vector<std::string> wierdo_filenames;
 
+int whattodo=0;
 
 double found_lat=0.0;
 double found_lon=0.0;
 bool lat_lon_found=false;
 bool rot_on=false;
-int whattodo=0;
 sf::RenderWindow* windows_3d[10];
 int bar_on[10]={1,1,1,1,1,1,1,1,1,1};
 
@@ -1177,6 +1179,7 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                     make_regions=true;
                     crossing=0; mirror=0;
                 }
+extern char send_message;
                 if (make_regions) {
 //tuuttuut2
 //                    flushing_mode=true;
@@ -1186,12 +1189,21 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                     if (strlen(voxel_filename)!=0) {
                         int x,z;
                         int num=sscanf(voxel_filename,"r.%d.%d.vox",&x,&z);
-                        printf("Converting ../cut/%s voxel region file to /saves/test/region/done0/r.%d.%d.mca minecraft files\n",voxel_filename,x,z);
+                        if (make_object) {
+                            std::string name=voxel_filename;
+                            name=name.substr(0,name.find_last_of("."));
+                            printf("Converting ../cut/%s voxel region file to ../objects/%s.obj wavefront\n",voxel_filename,name.c_str());
+                        } else {
+                            printf("Converting ../cut/%s voxel region file to /saves/test/region/done0/r.%d.%d.mca minecraft files\n",voxel_filename,x,z);
+                        }
                         one_region_voxel_files_to_region_files(false, voxel_filename);
-extern char send_message;
                         send_message='x';
                     } else {
-                        printf("Converting ../cut/r.*.*.vox voxel region files to /saves/test/region/done0/r.*.*.mca minecraft files\n");
+                        if (make_object) {
+                            printf("Converting ../cut/*.vox voxel files to ../objects/*.obj wavefront\n");
+                        } else {
+                            printf("Converting ../cut/r.*.*.vox voxel region files to /saves/test/region/done0/r.*.*.mca minecraft files\n");
+                        }
                         region_voxel_files_to_region_files(false);
                     }
                     make_regions=false;
@@ -1750,11 +1762,6 @@ extern double schematic_size;
 
 
 
-
-
-
-
-
                 glMatrixMode(GL_PROJECTION);
                 glLoadIdentity();
                 make_lookat(perspective, frustum_toggle, eye2, lookat2, up2, move_object, window.getSize(), rot_on, maxExtent);
@@ -1838,6 +1845,7 @@ extern double schematic_size;
                             {
                                 fpstime=fpstime_factor*clock_shader.getElapsedTime().asSeconds();
                             }
+//                            depth_shader.setUniform("texture", sf::Shader::CurrentTexture);
                             depth_shader.setUniform("whattodo",         whattodo);
                             depth_shader.setUniform("wave_phase",       fpstime);
                             depth_shader.setUniform("mouse",            mf);
