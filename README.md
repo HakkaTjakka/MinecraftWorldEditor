@@ -16,6 +16,9 @@ Source code fore sale. BTE 121 gets discount...
 [![Demo CountPages alpha](https://img.youtube.com/vi/2zm-cQz_fbU/maxresdefault.jpg)](https://www.youtube.com/embed/2zm-cQz_fbU)
 (Click to play vid)
 ***
+[![Demo CountPages alpha](https://github.com/HakkaTjakka/MinecraftWorldEditor/blob/master/Untitled.jpg)](https://www.youtube.com/watch?v=EIRvaGTWDZI)
+(Click to play vid)
+***
 NOTES ACCORDING TO MANUAL.TXT AND HANDLEIDING.TXT AND THE BTE 121 PROJECTION:
 	The directory / pacman / pacman_cuberite contains a number of files of type .on and / or .off
 	The .on should NOT be there, unless you want to include weird stuff in your region files. Therefore, leave only the .off.
