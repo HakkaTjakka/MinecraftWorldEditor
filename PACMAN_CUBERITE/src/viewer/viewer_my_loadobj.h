@@ -6,6 +6,9 @@ int region_center_z;
 int region_center_x;
 bool sort_regions_circle=false;
 extern bool make_object;
+extern int ret_color(int r, int g, int b);
+extern int ret_color3(int r,int g,int b);
+bool sort_voxels_on_l=false;
 
 struct voxel_map {
     int x,i;
@@ -4086,8 +4089,6 @@ void make_schematic_nbt(std::string fn, std::vector<Voxel>& voxels,size_t first,
     std::memset(schematic_data, 0x0, width*height*length);
     printf("Creating: ");
 
-extern int ret_color(int r, int g, int b);
-extern int ret_color3(int r,int g,int b);
 
     for (int n=first; n<first+num_voxels; n++) {
         Voxel* u=&voxels[n];
@@ -4508,11 +4509,18 @@ void voxels_to_object(char* picture_file) {
     printf("Number of voxels=%d -> compressing\n",voxels_total.size());
 
     if (voxels_total.size()>0) {
+        printf("Sorting on position ");
         sort(voxels_total.begin(), voxels_total.end());
+        printf("ready.\n");
         Voxel last=voxels_total[0];
         Voxel total_pos=Voxel(last.x,last.y,last.z,0,0,0,0,0);
-
-        for (size_t n=0; n<voxels_total.size(); n++) {
+        size_t n;
+        for (n=0; n<voxels_total.size(); n++) {
+            if (!(n%1000)) {
+                float perc=100.0*(float)n/(float)voxels.size();
+                printf("\r%5.3f%% ",perc);
+                quick_toggle();
+            }
             if (last.x==voxels_total[n].x && last.y==voxels_total[n].y && last.z==voxels_total[n].z) {
                 total_pos.r+=voxels_total[n].r*voxels_total[n].l;
                 total_pos.g+=voxels_total[n].g*voxels_total[n].l;
@@ -4526,6 +4534,8 @@ void voxels_to_object(char* picture_file) {
                         total_pos.b/=total_pos.l;
 //                        total_pos.l=1;
                     }
+//kloten
+                    total_pos.l=ret_color(total_pos.r,total_pos.g,total_pos.b);
                     voxels.push_back(total_pos);
                 }
             } else {
@@ -4536,6 +4546,8 @@ void voxels_to_object(char* picture_file) {
                     total_pos.b/=total_pos.l;
 //                    total_pos.l=1;
                 }
+//kloten
+                total_pos.l=ret_color(total_pos.r,total_pos.g,total_pos.b);
                 voxels.push_back(total_pos);
                 last=voxels_total[n];
                 total_pos=last;
@@ -4547,13 +4559,19 @@ void voxels_to_object(char* picture_file) {
                         total_pos.b/=total_pos.l;
 //                        total_pos.l=1;
                     }
+//kloten
+                    total_pos.l=ret_color(total_pos.r,total_pos.g,total_pos.b);
                     voxels.push_back(total_pos);
                 }
             }
         }
+        float perc=100.0*(float)n/(float)voxels.size();
+        printf("\r%5.3f%% ",perc);
     }
     voxels_total.clear();
     printf("Number of voxels=%d (compressed)\n",voxels.size());
+
+//    sort(voxels.begin(), voxels.end());
 
     for (auto u : voxels) {
         one=u;
@@ -4609,6 +4627,12 @@ void voxels_to_object(char* picture_file) {
 
     int x_z=bdif_x*bdif_z;
 
+    sort_voxels_on_l=true;
+    printf("Sorting on color ");
+    sort(voxels.begin(), voxels.end());
+    printf("ready. Indexing:\n");
+    sort_voxels_on_l=false;
+
     std::map<unsigned long long int, int> voxels_indexed;
     std::map<unsigned long long int, int>::iterator it;
     int index_second=0;
@@ -4616,9 +4640,19 @@ void voxels_to_object(char* picture_file) {
         one=u;
         unsigned long long int index_first=(one.x-bmin_x) + (one.z-bmin_z)*bdif_x + (one.y-bmin_y)*x_z;
         voxels_indexed.insert(std::make_pair(index_first,index_second));
+        if (!(index_second%1000)) {
+            float perc=100.0*(float)index_second/(float)voxels.size();
+            printf("\r%5.3f%% ",perc);
+            quick_toggle();
+        }
+
         index_second++;
     }
-    printf("Number indexed  =%d\n",voxels_indexed.size());
+    if (voxels.size()>0) {
+        float perc=100.0*(float)index_second/(float)voxels.size();
+        printf("\r%5.3f%% ",perc);
+    }
+    printf("Number indexed  =%d Testing:",voxels_indexed.size());
     index_second=0;
 //    getchar();
 
@@ -4632,9 +4666,10 @@ void voxels_to_object(char* picture_file) {
 //                u.second, index_first, one.y, one.x, one.z, one.r, one.g, one.b, one.l );
         index_second++;
     }
+    printf("\n");
 
     index_second=0;
-    printf("Finding (common/shared/reduced) vertices/cube corners ");
+    printf("Finding (common/shared/reduced) vertices/cube corners:\n");
 
     std::map<unsigned long long int, glm::ivec2> voxels_corners;
     std::map<unsigned long long int, glm::ivec2>::iterator it_corners;
@@ -4800,8 +4835,18 @@ void voxels_to_object(char* picture_file) {
             t_tot+=tot;
             z0[tot]++;
         }
-        if (!(index_second%100)) quick_toggle();
+        if (!(index_second%1000)) {
+            float perc=100.0*(float)index_second/(float)voxels.size();
+            printf("\r%5.3f%% ",perc);
+            quick_toggle();
+        }
+
+//        if (!(index_second%100)) quick_toggle();
         index_second++;
+    }
+    if (voxels.size()>0) {
+        float perc=100.0*(float)index_second/(float)voxels.size();
+        printf("\r%5.3f%% ",perc);
     }
     printf(" ready (%d)\n",index_second);
     if (index_second>0) {
@@ -4845,12 +4890,20 @@ void voxels_to_object(char* picture_file) {
         return;
     }
     char line[2000];
-    system("if not exist ..\\objects\\concrete.png copy resources\\concrete.png ..\\objects");
+    for (int n=0; n<16; n++) {
+        sprintf(line,"if not exist ..\\objects\\concrete_%02d.png copy resources\\concrete_%02d.png ..\\objects\\concrete_%02d.png",n,n,n);
+        system(line);
+    }
+
+//    system("if not exist ..\\objects\\concrete.png copy resources\\concrete_64x64.png ..\\objects\\concrete.png");
+
     system("if not exist ..\\objects\\concrete.mtl copy resources\\concrete.mtl ..\\objects");
+
     sprintf(line, "mtllib concrete.mtl\n"); fprintf(out,line); // printf(line);
 
-    sprintf(line, "o %s\n",picture_file); fprintf(out,line); // printf(line);
-    fprintf(out, "# vertices\n");
+//kloten
+//    sprintf(line, "o %s\n",picture_file); fprintf(out,line); // printf(line);
+//    fprintf(out, "# vertices\n");
 
     index_second=0;
 
@@ -4863,7 +4916,6 @@ void voxels_to_object(char* picture_file) {
 //            unsigned long long int index_first=u.first;  // (one.x-bmin_x) + (one.z-bmin_z)*bdif_x + (one.y-bmin_y)*x_z;
 
             unsigned long long int index_first=it_corners->first;  // (one.x-bmin_x) + (one.z-bmin_z)*bdif_x + (one.y-bmin_y)*x_z;
-
 
             int y=(int)(index_first/(unsigned long long int)x_z);
             index_first=index_first-(unsigned long long int)y*(unsigned long long int)x_z;
@@ -4883,13 +4935,24 @@ void voxels_to_object(char* picture_file) {
             zv[it_corners->second.x]++;
 //            t_tot+=u.second.x;
             t_tot+=it_corners->second.x;
-            if (!(index_second%100)) quick_toggle();
+
+            if (!(index_second%1000)) {
+                float perc=100.0*(float)index_second/(float)voxels_corners.size();
+                printf("\r%5.3f%% ",perc);
+                quick_toggle();
+            }
+
+//            if (!(index_second%100)) quick_toggle();
             index_second++;
 //            u.second.y=index_second;
             it_corners->second.y=index_second;
 //            it_corners->second=glm::ivec2(it_corners->second.x,index_second);
 //            printf(line,"v %.1f %.1f %.1f #index=%d\n",(float)y,(float)x,(float)z,u.second.y);
 //            printf("v %.1f %.1f %.1f #index=%d\n",(float)y,(float)x,(float)z,it_corners->second.y);
+        }
+        if (voxels_corners.size()>0) {
+            float perc=100.0*(float)index_second/(float)voxels_corners.size();
+            printf("\r%5.3f%% ",perc);
         }
         for (int n=0; n<24; n++) {
             if (zv[n]!=0) printf("#%2d = %6d",n,zv[n]);
@@ -4904,24 +4967,38 @@ void voxels_to_object(char* picture_file) {
     }
 
     fprintf(out, "# UV\n");
-    for (int n=0; n<16; n++) {
-        float left=(float)n*1.0/16.0+0.5/256.0;
-        float right=((float)n+1.0)*1.0/16.0-0.5/256.0;
-        sprintf(line,"vt %f %f\n",left,0.0); while (replace_str(line,",",".")); fprintf(out,line);
-        sprintf(line,"vt %f %f\n",right,0.0); while (replace_str(line,",",".")); fprintf(out,line);
-        sprintf(line,"vt %f %f\n",right,1.0); while (replace_str(line,",",".")); fprintf(out,line);
-        sprintf(line,"vt %f %f\n",left,1.0); while (replace_str(line,",",".")); fprintf(out,line);
+    for (int n=0; n<1; n++) {
+        float left=(float)n*1.0/1.0+2.0/64.0;
+        float right=((float)n+1.0)*1.0/1.0-2.0/64.0;
+        sprintf(line,"vt %f %f\n",left,2.0/64.0); while (replace_str(line,",",".")); fprintf(out,line);
+        sprintf(line,"vt %f %f\n",right,2.0/64.0); while (replace_str(line,",",".")); fprintf(out,line);
+        sprintf(line,"vt %f %f\n",right,1.0-2.0/64.0); while (replace_str(line,",",".")); fprintf(out,line);
+        sprintf(line,"vt %f %f\n",left,1.0-2.0/64.0); while (replace_str(line,",",".")); fprintf(out,line);
+    }
+    for (int n=0; n<1; n++) {
+        float left=(float)n*1.0/1.0+12.0/64.0;
+        float right=((float)n+1.0)*1.0/1.0-12.0/64.0;
+        sprintf(line,"vt %f %f\n",left,12.0/64.0); while (replace_str(line,",",".")); fprintf(out,line);
+        sprintf(line,"vt %f %f\n",right,12.0/64.0); while (replace_str(line,",",".")); fprintf(out,line);
+        sprintf(line,"vt %f %f\n",right,1.0-12.0/64.0); while (replace_str(line,",",".")); fprintf(out,line);
+        sprintf(line,"vt %f %f\n",left,1.0-12.0/64.0); while (replace_str(line,",",".")); fprintf(out,line);
     }
 //    fprintf(out, "vt 0.0 0.0\n");
 //    fprintf(out, "vt 0.0625 0.0\n");
 //    fprintf(out, "vt 0.0625 1.0\n");
 
-    fprintf(out, "usemtl concrete\n");
+//    fprintf(out, "usemtl concrete\n");
 
     index_second=0;
 
+    int color_index_previous=-1;
     for (auto u : voxels) {
         one=u;
+        if (one.l!=color_index_previous) {
+            fprintf(out, "o concrete_%02d\n",one.l);
+            fprintf(out, "usemtl concrete_%02d\n",one.l);
+            color_index_previous=one.l;
+        }
         int one_x=(one.x-bmin_x);
         int one_y=(one.y-bmin_y);
         int one_z=(one.z-bmin_z);
@@ -4933,13 +5010,14 @@ void voxels_to_object(char* picture_file) {
             printf("voxels[%6d]=%15llu -> (%d,%d,%d),(%d,%d,%d),(%d)\n",
                     index_second, index_first, one.y, one.x, one.z, one.r, one.g, one.b, one.l );
         } else {
-extern int ret_color(int r, int g, int b);
 
-            int color=ret_color(u.r,u.g,u.b);
-            int color_index=1 + color*4;
+//            int color=ret_color(u.r,u.g,u.b);
+//            int color_index=1 + color*4;
+            int color_index=1; // add side index....kloten
 
 //            it=voxels_indexed.find(index_first-1); if (it!=voxels_indexed.end()) {
 
+//          BOTTOM
             if (voxels_indexed.find(index_first-1)!=voxels_indexed.end()) {
             } else {
                 it_corners = voxels_corners.find(index_first+x_z);
@@ -4949,7 +5027,7 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line,"f %d/%d",vertice_index,color_index); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line,"f %d/%d",vertice_index,color_index+3); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
 
@@ -4960,7 +5038,7 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line," %d/%d",vertice_index,color_index+1); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line," %d/%d",vertice_index,color_index+0); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
 
@@ -4971,7 +5049,7 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line," %d/%d",vertice_index,color_index+2); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line," %d/%d",vertice_index,color_index+1); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
 
@@ -4982,11 +5060,12 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line," %d/%d\n",vertice_index,color_index+3); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line," %d/%d\n",vertice_index,color_index+2); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
             }
 
+//          TOP
             if (voxels_indexed.find(index_first+1)!=voxels_indexed.end()) {
             } else {
 
@@ -5035,6 +5114,7 @@ extern int ret_color(int r, int g, int b);
                 }
             }
 
+            //back
             if (voxels_indexed.find(index_first-bdif_x)!=voxels_indexed.end()) {
             } else {
 
@@ -5045,7 +5125,7 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line,"f %d/%d",vertice_index,color_index); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line,"f %d/%d",vertice_index,color_index+2); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
 
@@ -5056,7 +5136,7 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line," %d/%d",vertice_index,color_index+1); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line," %d/%d",vertice_index,color_index+3); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
 
@@ -5067,7 +5147,7 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line," %d/%d",vertice_index,color_index+2); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line," %d/%d",vertice_index,color_index+0); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
 
@@ -5078,11 +5158,12 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line," %d/%d\n",vertice_index,color_index+3); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line," %d/%d\n",vertice_index,color_index+1); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
             }
 
+//          front
             if (voxels_indexed.find(index_first+bdif_x)!=voxels_indexed.end()) {
             } else {
 
@@ -5093,7 +5174,7 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line,"f %d/%d",vertice_index,color_index); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line,"f %d/%d",vertice_index,color_index+1); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
 
@@ -5104,7 +5185,7 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line," %d/%d",vertice_index,color_index+1); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line," %d/%d",vertice_index,color_index+2); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
 
@@ -5115,7 +5196,7 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line," %d/%d",vertice_index,color_index+2); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line," %d/%d",vertice_index,color_index+3); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
 
@@ -5126,11 +5207,12 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line," %d/%d\n",vertice_index,color_index+3); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line," %d/%d\n",vertice_index,color_index+0); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
             }
 
+//          left?
             if (voxels_indexed.find(index_first-x_z)!=voxels_indexed.end()) {
             } else {
 
@@ -5141,7 +5223,7 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line,"f %d/%d",vertice_index,color_index); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line,"f %d/%d",vertice_index,color_index+1); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
 
@@ -5152,7 +5234,7 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line," %d/%d",vertice_index,color_index+1); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line," %d/%d",vertice_index,color_index+2); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
 
@@ -5163,7 +5245,7 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line," %d/%d",vertice_index,color_index+2); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line," %d/%d",vertice_index,color_index+3); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
 
@@ -5174,11 +5256,12 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line," %d/%d\n",vertice_index,color_index+3); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line," %d/%d\n",vertice_index,color_index+0); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
             }
 
+//          right?
             if (voxels_indexed.find(index_first+x_z)!=voxels_indexed.end()) {
             } else {
 
@@ -5189,7 +5272,7 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line,"f %d/%d",vertice_index,color_index); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line,"f %d/%d",vertice_index,color_index+2); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
 
@@ -5200,7 +5283,7 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line," %d/%d",vertice_index,color_index+1); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line," %d/%d",vertice_index,color_index+3); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
 
@@ -5211,7 +5294,7 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line," %d/%d",vertice_index,color_index+2); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line," %d/%d",vertice_index,color_index+0); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
 
@@ -5222,7 +5305,7 @@ extern int ret_color(int r, int g, int b);
                     it_corners->second.x--;
                     if (it_corners->second.x<0) printf("Error 2\n");
                     else {
-                        sprintf(line," %d/%d\n",vertice_index,color_index+3); while (replace_str(line,",",".")); fprintf(out,line);
+                        sprintf(line," %d/%d\n",vertice_index,color_index+1); while (replace_str(line,",",".")); fprintf(out,line);
                     }
                 }
             }
@@ -5234,8 +5317,10 @@ extern int ret_color(int r, int g, int b);
         }
         index_second++;
     }
-    float perc=100.0*(float)index_second/(float)voxels.size();
-    printf("\r%5.3f%% ",perc);
+    if (voxels.size()>0) {
+        float perc=100.0*(float)index_second/(float)voxels.size();
+        printf("\r%5.3f%% ",perc);
+    }
 
     fclose(out);
     printf("Ready\n");

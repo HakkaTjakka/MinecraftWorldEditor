@@ -1,4 +1,4 @@
-#version 330 compatibility
+#version 460 compatibility
 
 
 //layout(location = 0) in vec3 gl_Vertex;
@@ -9,6 +9,9 @@
 //out vec3 p_color;
 //out vec3 p_normal;
 
+uniform bool WIRE_FRAME;
+uniform bool TEXTURE_ARRAY;
+uniform bool COLOR_ARRAY;
 uniform int whattodo;
 uniform float wave_phase;
 uniform vec2 wave_amplitude;
@@ -20,9 +23,14 @@ uniform vec3 move;
 uniform vec4 add_xyz;
 uniform vec3 translation;
 
-out vec3 my_normal;
-out mat4 my_modelviewmatrix;
-//out vec4 out_color;
+//out vec3 my_normal;
+out vec3 kS_x_spec_;
+out float diff_;
+
+
+//out mat4 my_modelviewmatrix;
+out vec4 out_color;
+//out float z_;
 
 //varying vec3 my_light;
 //varying vec4 out_color;
@@ -34,10 +42,11 @@ out mat4 my_modelviewmatrix;
 
 void main()
 {
-//    out_color = gl_Color;
+//    my_normal=gl_Normal.xyz;
 //     p_position;
 //     p_color;
 //     p_normal;
+    out_color = gl_Color;
     switch(whattodo){
         case 0 : {
             gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
@@ -57,10 +66,13 @@ void main()
             vec4 vertex2 = vertex;
             float z = sqrt(vertex.x*vertex.x+vertex.y*vertex.y+vertex.z*vertex.z)*5.0;
             float cntr=1.0/(1.0+pow(z,1.5));
-
-            vertex2.x =  vertex.x + vertex.x*cntr*(1.0+sin( wave_phase* wave_amplitude.x*0.2  )) * wave_amplitude.x*0.5;
-            vertex2.y =  vertex.y + vertex.y*cntr*(1.0+sin( wave_phase* wave_amplitude.x*0.3  )) * wave_amplitude.y*0.5;
-            vertex2.z =  vertex.z + vertex.z*cntr*(1.0+sin( wave_phase* wave_amplitude.x*0.4  )) * wave_amplitude.y*0.5;
+            float p1=(1.0+0.2*vertex.x*sin( wave_phase* 0.931));
+            float p2=(1.0+0.2*vertex.y*sin( wave_phase* 0.719+p1/2.0));
+            float p3=(1.0+0.2*vertex.z*sin( wave_phase* 1.219+p2/2.0));
+            float p4=(1.0+0.2*(vertex.z+vertex.y)*sin( wave_phase* 0.819+p3/2.0));
+            vertex2.x =  vertex.x + vertex.x*cntr*(1.0+sin( p1+(p4+12)/(p4+12.2)*wave_phase* wave_amplitude.x*0.151  )) * wave_amplitude.x*0.5;
+            vertex2.y =  vertex.y + vertex.y*cntr*(1.0+sin( p2+(p1+12)/(p1+13)*wave_phase* wave_amplitude.x*0.172  )) * wave_amplitude.y*0.5;
+            vertex2.z =  vertex.z + vertex.z*cntr*(1.0+sin( p3+(p2+12)/(p2+11)*wave_phase* wave_amplitude.x*0.193  )) * wave_amplitude.y*0.5;
 
 //            vertex2.x =  vertex.x + vertex.x*cntr*(1.0+sin( wave_phase*1.2  )) * wave_amplitude.x*0.5;
 //            vertex2.y =  vertex.y + vertex.y*cntr*(1.0+sin( wave_phase*1.2  )) * wave_amplitude.y*0.5;
@@ -68,39 +80,176 @@ void main()
 
             gl_Position = gl_ProjectionMatrix * vertex2;
             gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
+
+            vec3 ro = normalize( (  vec4(0.0, .0, -1.0, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+            vec3 n = normalize(gl_Normal);
+
+//            vec2 off1=vec2( sin(wave_phase/3.0) , cos(wave_phase/3.0) )  ;
+
+            vec2 off1=7.4*vec2( sin(wave_phase/9.3) ,           cos(wave_phase/9.3)        )  ;
+            vec2 off2=7.4*vec2( sin(wave_phase/7.6+off1.x) ,    cos(wave_phase/7.6+off1.y) )  ;
+            vec2 off3=7.4*vec2( sin(wave_phase/9.3+off2.x/4.8) ,           cos(wave_phase/9.3+off2.y/3.5)        )  ;
+            vec2 off4=7.4*vec2( sin(wave_phase/7.6+off3.x/2.5) ,    cos(wave_phase/7.6+off3.y/1.9) )  ;
+
+            vec3 lp1=normalize( (  vec4(off4.x,  0.0-(+1.0+off1.y/8.8), off4.y, 1.0) *      gl_ModelViewMatrix  ).xyz) ; // zzzzz 2.0
+            vec3 lp2=normalize( (  vec4(off2.x,  2.0+1.0+off1.x/8.8, off2.y, 1.0) *         gl_ModelViewMatrix  ).xyz) ; // zzzzz 2.0
+            vec3 lp3=normalize( (  vec4(-off4.x, 2.0+off2.x/8.8, -off4.y, 1.0) *            gl_ModelViewMatrix  ).xyz) ; // zzzzz 2.0
+            vec3 lp4=normalize( (  vec4(-off2.x,  -2.0-(1.0+off2.y/8.8), -off2.y, 1.0) *    gl_ModelViewMatrix  ).xyz) ; // zzzzz 2.0
+//            vec3 lp1=normalize( (  vec4(-4.0,  0.0, 0.0, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+//            vec3 lp2=normalize( (  vec4( 0.0,  1.0, 0.0, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+
+
+
+//            vec3 lp1=normalize( (  vec4(-4.0,  0.0, 0.0, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+//            vec3 lp2=normalize( (  vec4( 0.0,  1.0, 0.0, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+
+            float spec1 = (2.0) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.0,1.0);
+            float spec2 = (2.0) * clamp(pow(max( dot(reflect(lp2, n), ro), 0.), 120.),0.0,1.0);
+            float spec3 = (2.0) * clamp(pow(max( dot(reflect(lp3, n), ro), 0.), 120.),0.0,1.0);
+            float spec4 = (2.0) * clamp(pow(max( dot(reflect(lp4, n), ro), 0.), 120.),0.0,1.0);
+
+            float diff1 = 1.5 * clamp(dot( n,lp1), 0.1, 1.);
+            float diff2 = 1.5 * clamp(dot( n,lp2), 0.2, 1.);
+            float diff3 = 1.5 * clamp(dot( n,lp3), 0.05,1.);
+            float diff4 = 1.5 * clamp(dot( n,lp4), 0.0, 1.);
+
+//            diff_ = (diff1+diff2)/2.0;
+//            diff_ = diff1;
+//            diff_ = diff2;
+            diff_=diff1;
+            if (diff2>diff_) diff_=diff2;
+            if (diff3>diff_) diff_=diff3;
+            if (diff4>diff_) diff_=diff4;
+
+
+            if (spec1>spec2) kS_x_spec_ =  spec1*vec3(1.0, 1.0, 1.0) + vec3(0.10, 0.10, 0.10);
+            else             kS_x_spec_ =  spec2*vec3(1.0, 1.0, 1.0) + vec3(0.10, 0.10, 0.10);
+
+//            kS_x_spec_ =  spec1 + spec2 + vec3(0.10, 0.10, 0.10);
+//            kS_x_spec_ = spec1 + vec3(0.10, 0.10, 0.10);
+//            kS_x_spec_ = spec2 + vec3(0.10, 0.10, 0.10);
+
             break;
         }
         case 2 : {
-//            vec4 c0 = gl_ModelViewMatrix[0].xyzw;
-//            vec4 c1 = gl_ModelViewMatrix[1].xyzw;
-//            vec4 c2 = gl_ModelViewMatrix[2].xyzw;
-//            vec4 c3 = gl_ModelViewMatrix[3].xyzw;
+//            if (!COLOR_ARRAY && WIRE_FRAME) out_color = vec4(gl_Color.xyz,1.0-gl_Position.z/.3);
 
             gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;
+
+            if (!COLOR_ARRAY && WIRE_FRAME) {
+//                if ( (gl_VertexID%3)==0 ) out_color=vec4(1.0,0.0,0.0,0.5);
+//                else if ( (gl_VertexID%3)==1 ) out_color=vec4(0.0,1.0,0.0,0.5);
+//                else if ( (gl_VertexID%3)==2 ) out_color=vec4(0.0,0.0,1.0,0.5);
+//                if (  (gl_VertexID%6)==0 || (gl_VertexID%6)==1 || (gl_VertexID%6==2) ) {
+                    out_color = vec4(1.0,0.2,0.8,1.0-gl_Position.z/1.8);
+//                    out_color = vec4(0.0,0.0,0.0,1.0);
+//                } else {
+//                    out_color = vec4(0.0,0.0,0.0,1.0-gl_Position.z/.3);
+//                    out_color = vec4(0.0,0.0,0.0,0.0);
+//                }
+            }
+
             gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
-//or
-//            gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-//or
-//            gl_Position = gl_ModelViewMatrix * gl_Vertex;
-//            gl_Position = gl_ProjectionMatrix  * gl_Position;
+
+            vec3 ro = normalize( (  vec4(0.0, .0, -1.0, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+            vec3 n = normalize(gl_Normal);
+
+//            vec2 off1=vec2( sin(wave_phase/3.0) , cos(wave_phase/3.0) )  ;
+
+            vec2 off1=4.4*vec2( sin(wave_phase/9.3) ,           cos(wave_phase/9.3)        )  ;
+            vec2 off2=4.4*vec2( sin(wave_phase/7.6+off1.x) ,    cos(wave_phase/7.6+off1.y) )  ;
+            vec2 off3=4.4*vec2( sin(wave_phase/9.3+off2.x/4.8) ,           cos(wave_phase/9.3+off2.y/3.5)        )  ;
+            vec2 off4=4.4*vec2( sin(wave_phase/7.6+off3.x/2.5) ,    cos(wave_phase/7.6+off3.y/1.9) )  ;
+
+            vec3 lp1=normalize( (  vec4(off4.x,  0.0-(+1.0+off1.y/8.8), off4.y, 1.0) *      gl_ModelViewMatrix  ).xyz) ; // zzzzz 2.0
+            vec3 lp2=normalize( (  vec4(off2.x,  1.0+1.0+off1.x/8.8, off2.y, 1.0) *         gl_ModelViewMatrix  ).xyz) ; // zzzzz 2.0
+            vec3 lp3=normalize( (  vec4(-off4.x, 1.0+off2.x/8.8, -off4.y, 1.0) *            gl_ModelViewMatrix  ).xyz) ; // zzzzz 2.0
+            vec3 lp4=normalize( (  vec4(-off2.x,  -1.0-(1.0+off2.y/8.8), -off2.y, 1.0) *    gl_ModelViewMatrix  ).xyz) ; // zzzzz 2.0
+//            vec3 lp1=normalize( (  vec4(-4.0,  0.0, 0.0, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+//            vec3 lp2=normalize( (  vec4( 0.0,  1.0, 0.0, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+
+
+
+//            vec3 lp1=normalize( (  vec4(-4.0,  0.0, 0.0, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+//            vec3 lp2=normalize( (  vec4( 0.0,  1.0, 0.0, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+
+            float spec1 = (2.0) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.0,1.0);
+            float spec2 = (2.0) * clamp(pow(max( dot(reflect(lp2, n), ro), 0.), 120.),0.0,1.0);
+            float spec3 = (2.0) * clamp(pow(max( dot(reflect(lp3, n), ro), 0.), 120.),0.0,1.0);
+            float spec4 = (2.0) * clamp(pow(max( dot(reflect(lp4, n), ro), 0.), 120.),0.0,1.0);
+
+            float diff1 = 1.5 * clamp(dot( n,lp1), 0.1, 1.);
+            float diff2 = 1.5 * clamp(dot( n,lp2), 0.2, 1.);
+            float diff3 = 1.5 * clamp(dot( n,lp3), 0.05,1.);
+            float diff4 = 1.5 * clamp(dot( n,lp4), 0.0, 1.);
+
+//            diff_ = (diff1+diff2)/2.0;
+//            diff_ = diff1;
+//            diff_ = diff2;
+            diff_=diff1;
+            if (diff2>diff_) diff_=diff2;
+            if (diff3>diff_) diff_=diff3;
+            if (diff4>diff_) diff_=diff4;
+
+
+            if (spec1>spec2) kS_x_spec_ =  spec1*vec3(1.0, 1.0, 1.0) + vec3(0.10, 0.10, 0.10);
+            else             kS_x_spec_ =  spec2*vec3(1.0, 1.0, 1.0) + vec3(0.10, 0.10, 0.10);
+
+//            kS_x_spec_ =  spec1 + spec2 + vec3(0.10, 0.10, 0.10);
+//            kS_x_spec_ = spec1 + vec3(0.10, 0.10, 0.10);
+//            kS_x_spec_ = spec2 + vec3(0.10, 0.10, 0.10);
 
             break;
         }
         case 3 : {
             gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;
+
+            if (!COLOR_ARRAY && WIRE_FRAME) {
+//                if ( (gl_VertexID%3)==0 ) out_color=vec4(1.0,0.0,0.0,0.5);
+//                else if ( (gl_VertexID%3)==1 ) out_color=vec4(0.0,1.0,0.0,0.5);
+//                else if ( (gl_VertexID%3)==2 ) out_color=vec4(0.0,0.0,1.0,0.5);
+//                if (  (gl_VertexID%6)==0 || (gl_VertexID%6)==1 || (gl_VertexID%6==2) ) {
+                    out_color = vec4(0.0,0.0,0.0,1.0-gl_Position.z/.3);
+//                } else {
+//                    out_color = vec4(0.0,0.0,0.0,1.0-gl_Position.z/.3);
+//                    out_color = vec4(0.0,0.0,0.0,0.0);
+//                }
+            }
+
             gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
-//            my_light=vec4(length(normalize(gl_Color.xyz)));
-//            my_light=vec4(length(normalize(gl_Normal.xyz)));
-            my_normal=gl_Normal.xyz;
-//            my_modelviewmatrix=inverse(gl_ModelViewMatrix);
-            my_modelviewmatrix=inverse(gl_ProjectionMatrix);
-//            my_modelviewmatrix=gl_ModelViewMatrix;
 
-//            my_modelviewmatrix=inverse(gl_ProjectionMatrix * gl_ModelViewMatrix);
-//            my_light=vec4(1.0);
-//            out_color = gl_Color;
 
-//            my_light=vec4((sin(wave_phase)+1)/2.0);
+            vec3 ro = normalize( (  vec4(0.0, .0, -1.0, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+            vec3 n = normalize(gl_Normal);
+
+            vec2 off1=vec2( sin(wave_phase/3.0) , cos(wave_phase/3.0) )  ;
+
+            vec3 lp1=normalize( (  vec4(-1.0,  1.0, 4.0, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+            vec3 lp2=normalize( (  vec4( 1.0,  1.0, -0.7, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+
+            float spec1 = (1.0) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.0,1.0);
+            float spec2 = (1.0) * clamp(pow(max( dot(reflect(lp2, n), ro), 0.), 120.),0.0,1.0);
+
+            float diff1 = 1.5 * clamp(dot( n,lp1), 0.2, 1.);
+            float diff2 = 1.5 * clamp(dot( n,lp2), 0.2, 1.);
+
+            diff_ = (diff1+diff2)/2.0;
+//            diff_ = diff1;
+//            diff_ = diff2;
+            if (diff1>diff2) diff_=diff1;
+            else             diff_=diff2;
+
+            vec3 kS_x_spec_1 =  spec1*vec3(0.5, .5, .5) + vec3(0.10, 0.10, 0.10);
+            vec3 kS_x_spec_2 =  spec2*vec3(.5, .5, .5) + vec3(0.10, 0.10, 0.10);
+            kS_x_spec_ = (kS_x_spec_1+kS_x_spec_2)/2.0;
+
+//            if (spec1>spec2) kS_x_spec_ =  spec1*vec3(0.5, .5, .5) + vec3(0.10, 0.10, 0.10);
+//            else             kS_x_spec_ =  spec2*vec3(.5, .5, .5) + vec3(0.10, 0.10, 0.10);
+
+//            kS_x_spec_ =  spec1 + spec2 + vec3(0.10, 0.10, 0.10);
+//            kS_x_spec_ = spec1 + vec3(0.10, 0.10, 0.10);
+//            kS_x_spec_ = spec2 + vec3(0.10, 0.10, 0.10);
+
             break;
         }
     }

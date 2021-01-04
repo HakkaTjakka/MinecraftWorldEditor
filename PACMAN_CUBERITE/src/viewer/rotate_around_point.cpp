@@ -47,9 +47,13 @@ void rotate_around_point(glm::vec3 move_object, glm::vec3 &add_xyz, std::string 
     }
 
     static glm::mat4 rot_matrix2(1.0f);
+
     if (interpolate_on) rot_matrix2=glm::mat4(rot_mat);
 //    else if (rot_on) rot_matrix2=exporter2;
-    else build_rotmatrix_glm(rot_matrix2, curr_quat2);
+    else {
+        build_rotmatrix_glm(rot_matrix2, curr_quat2);
+//        rot_mat=rot_matrix2;
+    }
 
     glm::vec3 NORMALz = glm::vec3((float)(cos(lat*M_PI/180.0)*cos(lon*M_PI/180.0)), (float)(cos(lat*M_PI/180)*sin(lon*M_PI/180)), (float)(sin(lat*M_PI/180)));
     NORMALz = glm::normalize(NORMALz);

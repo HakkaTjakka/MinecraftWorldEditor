@@ -248,7 +248,7 @@ bool interpolate_on=false;
 
 #define STB_IMAGE_IMPLEMENTATION
 
-bool COLOR_ARRAY=true;
+bool COLOR_ARRAY=false;
 bool TEXTURE_ARRAY=true;
 bool WIRE_FRAME=false;
 sf::Mutex thread_loader;

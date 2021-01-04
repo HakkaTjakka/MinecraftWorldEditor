@@ -20,7 +20,7 @@ void quat_to_angles(float curr_quat2[4], float prev_quat2[4],float &rotate_objec
     glm::quat q(curr_quat2[0], curr_quat2[1], curr_quat2[2], curr_quat2[3]);
     glm::vec3 euler = glm::eulerAngles(q);
     euler.x=euler.x*(180.0/M_PI); euler.y=euler.y*(180.0/M_PI); euler.z=euler.z*(180.0/M_PI)-180.0;
-    if (euler.z<=-180.0) euler.z+=360.0; if (euler.z>180.0) euler.z-=360.0;
+//    if (euler.z<=-180.0) euler.z+=360.0; if (euler.z>180.0) euler.z-=360.0;
     rotate_object_x=euler.z; rotate_object_y=euler.y; rotate_object_z=euler.x;
     trackball(curr_quat2, 0, 0, 0, 0);
 }

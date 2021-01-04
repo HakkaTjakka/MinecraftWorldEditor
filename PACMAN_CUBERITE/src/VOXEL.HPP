@@ -4,6 +4,7 @@
 typedef unsigned short us;
 
 extern bool sort_cubic;
+extern bool sort_voxels_on_l;
 
 struct Voxel {
     int x,y,z;
@@ -18,6 +19,7 @@ struct Voxel {
     bool operator < (const Voxel &B) const
     {
 
+        if (sort_voxels_on_l) return l < B.l;
 
         int ay = y , by = B.y;
         if ((int)(ay / 512) != (int)(by / 512)) {
@@ -46,7 +48,6 @@ struct Voxel {
                 }
             }
         }
-
     }
 };
 

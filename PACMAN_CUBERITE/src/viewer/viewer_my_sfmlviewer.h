@@ -274,8 +274,8 @@ int do_SFMLGL2(int what)
                 first=1;
             }
             if (area!="Models" && area!="Canvas") lat_lon=get_lat_lon(area);
-//            else { lat_lon.x=999; lat_lon.y=999; }
-            else { lat_lon.x=0; lat_lon.y=0; }
+            else { lat_lon.x=999; lat_lon.y=999; }
+//            else { lat_lon.x=0; lat_lon.y=0; }
 
             if (first==1 || lat_lon.x!=999) {
                 max_x=-1;max_y=-1;
@@ -466,7 +466,7 @@ std::vector<glm::ivec2> wierdo_requests;
 std::vector<glm::ivec2> wierdo_requests_ready;
 std::vector<std::string> wierdo_filenames;
 
-int whattodo=0;
+int whattodo=3;
 
 double found_lat=0.0;
 double found_lon=0.0;
@@ -476,6 +476,8 @@ sf::RenderWindow* windows_3d[10];
 int bar_on[10]={1,1,1,1,1,1,1,1,1,1};
 
 bool rot_plot=false;
+
+bool depth_shader_on=false;
 
 int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, int yo_combine)
 {
@@ -489,7 +491,6 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
     } else {
         printf("FRAGMENT SHADER LOADED: %s\n","shaders/depth_shader.frag");
     }
-    bool depth_shader_on=false;
 //    sf::Shader::bind(&depth_shader);
 
     running_3d[window_num]=true;
@@ -1307,7 +1308,9 @@ extern char send_message;
                     window.setPosition(old_pos[win_num]);
                     width2 = old_size[win_num].x;
                     height2 = old_size[win_num].y;
-                    window.clear(sf::Color(50,20,30,128));
+//                    window.clear(sf::Color(50,20,30,128));
+//kloten
+                    window.clear(sf::Color(0,0,0,0));
                     window.display();
 
                     auto win = window.getSystemHandle();
@@ -1574,7 +1577,8 @@ extern char send_message;
 //                float fun_g=0.5+sin(run_time/(16.132+sin(run_time/50.324)*7))/2;
 //                float fun_b=0.5+sin(run_time/(18.343+sin(run_time/43.3243)*8))/2;
 
-                glClearColor(0.7,0.8,1.0,0);
+//kloten
+                glClearColor(0.0,0.0,0.0,0);
 //                glClearColor(fun_r,fun_g,fun_b,1.0f);
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                 glEnable(GL_DEPTH_TEST);
@@ -1620,12 +1624,6 @@ extern double schematic_size;
                 add_xyz = glm::vec3(0.0, 0.0, 0.0);
 
 
-
-
-
-
-
-
                 static float old_time;
                 static float flipje;
                 static int ccc=0;
@@ -1634,8 +1632,23 @@ extern double schematic_size;
 
                 schematic_size=6000.0/(eye2[2]*10.0);
                 eye22=eye2[2];
-//                if (rot_on) rotate_object_z++;
-                if ((rot_on || rot_plot) && !interpolate_on) {
+                if (rot_on) {
+                    if (mirror==1) rotate_object_y+=0.1;
+                    else if (mirror==2) rotate_object_z+=0.1;
+                    else if (mirror==3) rotate_object_x+=0.1;
+/*
+                    angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+                    trackball(prev_quat2,
+                          rotScale * (2.0f *  0.5) / 1000.0,
+                          0,
+                          rotScale * (2.0f * -0.5) / 1000.0,
+                          0);
+                    add_quats(prev_quat2, curr_quat2, curr_quat2);
+                    quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+*/
+                }
+
+                if (0 && (rot_on || rot_plot) && !interpolate_on) {
                     int flits=true;
 
                     rotate_object_y+=(rotate_object_y_to_add - rotate_object_y)/13.0;
