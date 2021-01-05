@@ -10858,8 +10858,7 @@ void check_memory()
     addy+=32;
 
     //setlocale(LC_NUMERIC, "");
-    setlocale(LC_ALL,"");
-    //std::setlocale(LC_NUMERIC, "en_US");
+//    setlocale(LC_ALL,"");
 
     addx+=200;
     addy=180;

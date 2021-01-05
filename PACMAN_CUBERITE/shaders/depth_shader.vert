@@ -47,10 +47,28 @@ void main()
 //     p_color;
 //     p_normal;
     out_color = gl_Color;
+//    gl_Position.x=-gl_Position.x;
+//    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0);
+//    mat4 m=gl_TextureMatrix[0];
+//    m[3][1]=-m[3][1];
+//    gl_TextureMatrix[0][0]=gl_TextureMatrix[0][0];
+//    vec4 c=gl_MultiTexCoord0;
+//    gl_MultiTexCoord0[0]=1.0 - gl_MultiTexCoord0[0];
+//    c.x=0.5-c.x;
+//    gl_TexCoord[0] = m * c;
+//    gl_TexCoord[0].x=--gl_TexCoord[0].x;
+
+    gl_TexCoord[0] = gl_MultiTexCoord0;
+//    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
+
+//    vec4 newTCoord = gl_TexCoord[0];
+//    newTCoord.x = 1.0 - newTCoord.x;
+//    gl_TexCoord[0] =newTCoord;
+
     switch(whattodo){
         case 0 : {
             gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-            gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
+//    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
 
 //            vec4 vertex4 = gl_ModelViewMatrix * gl_Vertex;
 //            hit_center_rot =sqrt( pow(vertex4.x,2.0) + pow(vertex4.y,2.0) + pow(vertex4.z,2.0) ) ;
@@ -79,7 +97,7 @@ void main()
 //            vertex2.z =  vertex.z + vertex.z*cntr*(1.0+sin( wave_phase*1.2  )) * wave_amplitude.y*2.5;
 
             gl_Position = gl_ProjectionMatrix * vertex2;
-            gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
+//            gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
 
             vec3 ro = normalize( (  vec4(0.0, .0, -1.0, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
             vec3 n = normalize(gl_Normal);
@@ -149,7 +167,7 @@ void main()
 //                }
             }
 
-            gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
+//            gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
 
             vec3 ro = normalize( (  vec4(0.0, .0, -1.0, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
             vec3 n = normalize(gl_Normal);
@@ -204,6 +222,23 @@ void main()
         case 3 : {
             gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;
 
+//            mat4 m=gl_ModelViewMatrix;
+//            gl_Position = gl_ProjectionMatrix * m * gl_Vertex;
+//            gl_Position.x=1.0-gl_Position.x;
+
+//            mat4 m=gl_ProjectionMatrix;
+//            gl_Position = m * gl_ModelViewMatrix * gl_Vertex;
+
+//            m[3][0]=-m[3][0];
+//            m[0][0]=-m[0][0];
+//            m[1][1]=-m[1][1];
+//            m[2][2]=-m[2][2];
+//            gl_Position = gl_ModelViewMatrix*gl_Vertex;
+//            gl_Position = gl_ProjectionMatrix * gl_Position;
+
+//            gl_Position.x = - gl_Position.x;
+//            gl_Position.y = 1.0 - gl_Position.y;
+//            gl_Position.z = 1.0 - gl_Position.z;
             if (!COLOR_ARRAY && WIRE_FRAME) {
 //                if ( (gl_VertexID%3)==0 ) out_color=vec4(1.0,0.0,0.0,0.5);
 //                else if ( (gl_VertexID%3)==1 ) out_color=vec4(0.0,1.0,0.0,0.5);
@@ -216,7 +251,7 @@ void main()
 //                }
             }
 
-            gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
+//            gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
 
 
             vec3 ro = normalize( (  vec4(0.0, .0, -1.0, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0

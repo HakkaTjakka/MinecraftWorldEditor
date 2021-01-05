@@ -49,7 +49,7 @@ void get_view(float &rotate_object_z, float curr_quat2[4],float eye2[3],float lo
         bmax[0]=int_bmax[0]; bmax[1]=int_bmax[1]; bmax[2]=int_bmax[2];
     }
     frustum_toggle=int_frustum_toggle;
-    rotate_object_z=int_arr[16];
+//    rotate_object_z=int_arr[16];
 //    if (set_end_of_movement) {
 //        interpolate_on=false;
 //        movement_file=NULL;
@@ -213,7 +213,7 @@ double splinterpEval( std::vector<cv::Vec4d> spline, double t ) {
     }
 }
 
-float playbackspeed=0.001;
+float playbackspeed=0.05;
 
 
 
@@ -330,10 +330,12 @@ void interpolate_spline(int what) {
             s_bmin1.push_back((double)int_bmin[1]); s_bmax1.push_back((double)int_bmax[1]);
             s_bmin2.push_back((double)int_bmin[2]); s_bmax2.push_back((double)int_bmax[2]);
             s_frustum_toggle.push_back(int_frustum_toggle);
+
             s_r0.push_back((double)int_arr[0]);     s_r1.push_back((double)int_arr[1]);     s_r2.push_back((double)int_arr[2]);     s_r3.push_back((double)int_arr[3]);
             s_r4.push_back((double)int_arr[4]);     s_r5.push_back((double)int_arr[5]);     s_r6.push_back((double)int_arr[6]);     s_r7.push_back((double)int_arr[7]);
             s_r8.push_back((double)int_arr[8]);     s_r9.push_back((double)int_arr[9]);     s_r10.push_back((double)int_arr[10]);  s_r11.push_back((double)int_arr[11]);
             s_r12.push_back((double)int_arr[12]);   s_r13.push_back((double)int_arr[13]);   s_r14.push_back((double)int_arr[14]);  s_r15.push_back((double)int_arr[15]);
+
             s_r16.push_back((double)int_arr[16]);
 
             c++;
@@ -530,7 +532,7 @@ void interpolate_spline(int what) {
 
 
 //        if (tt==starting) {
-        if ((int)(starting-0.005)!=(int)(starting)) {
+        if ((int)(starting-0.05)!=(int)(starting)) {
             sprintf(calc,"c=%d t=%-+f q0=%-+f q1=%-+f q2=%-+f q3=%-+f  e0=%-+f e1=%-+f e2=%-+f  l0=%-+f l1=%-+f l2=%-+f\n  t0=%-+f t1=%-+f t2=%-+f  p0=%-+f  bmin=%-+f %-+f %-+f  bmax=%-+f %-+f %-+f\n  frustum=%d",c,starting,
                     int_q[0],int_q[1],int_q[2],int_q[3],
                     int_e[0],int_e[1],int_e[2],
@@ -676,7 +678,9 @@ bool create_boundaries(std::string my_area, sf::RenderWindow& window) {
                     if (latitude_longditude!="") {
                         char line[2000];
                         strcpy(line,latitude_longditude.c_str());
-                        while (replace_str(line,".",","));
+//decimal_point
+                        while (replace_str(line,",","."));
+//                        while (replace_str(line,".",","));
                         int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
 
 //                        if (num==4) {
@@ -726,7 +730,9 @@ bool create_boundaries(std::string my_area, sf::RenderWindow& window) {
                     if (latitude_longditude!="") {
                         char line[2000];
                         strcpy(line,latitude_longditude.c_str());
-                        while (replace_str(line,".",","));
+//decimal_point
+                                            while (replace_str(line,",","."));
+//                        while (replace_str(line,".",","));
                         int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
 //                        "N=52.0916748046875 S=52.08892822265625 W=5.0811767578125 E=5.086669921875"
 //                        if (num==4) {
@@ -763,7 +769,9 @@ bool create_boundaries(std::string my_area, sf::RenderWindow& window) {
                 if (latitude_longditude!="") {
                     char line[2000];
                     strcpy(line,latitude_longditude.c_str());
-                    while (replace_str(line,".",","));
+//decimal_point
+                                            while (replace_str(line,",","."));
+//                    while (replace_str(line,".",","));
                     int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
 //                        if (num==4) {
 //                        }
@@ -829,12 +837,12 @@ bool create_boundaries(std::string my_area, sf::RenderWindow& window) {
             min_yy_x=0.0; min_yy_y=0.0; min_yy_z=0.0;
             min_zz_x=0.0; min_zz_y=0.0; min_zz_z=0.0;
 
-            if (fgets (line,200, file_arr)!=NULL) { while (replace_str(line,".",","));  sscanf(line,"MIN X: X=%lf Y=%lf Z=%lf\n",&min_xx_x,&min_xx_y,&min_xx_z); }
-            if (fgets (line,200, file_arr)!=NULL) { while (replace_str(line,".",","));  sscanf(line,"MIN Y: X=%lf Y=%lf Z=%lf\n",&min_yy_x,&min_yy_y,&min_yy_z); }
-            if (fgets (line,200, file_arr)!=NULL) { while (replace_str(line,".",","));  sscanf(line,"MIN Z: X=%lf Y=%lf Z=%lf\n",&min_zz_x,&min_zz_y,&min_zz_z); }
-            if (fgets (line,200, file_arr)!=NULL) { while (replace_str(line,".",","));  sscanf(line,"MAX X: X=%lf Y=%lf Z=%lf\n",&max_xx_x,&max_xx_y,&max_xx_z); }
-            if (fgets (line,200, file_arr)!=NULL) { while (replace_str(line,".",","));  sscanf(line,"MAX Y: X=%lf Y=%lf Z=%lf\n",&max_yy_x,&max_yy_y,&max_yy_z); }
-            if (fgets (line,200, file_arr)!=NULL) { while (replace_str(line,".",","));  sscanf(line,"MAX Z: X=%lf Y=%lf Z=%lf\n",&max_zz_x,&max_zz_y,&max_zz_z); }
+            if (fgets (line,200, file_arr)!=NULL) { while (replace_str(line,",","."));  sscanf(line,"MIN X: X=%lf Y=%lf Z=%lf\n",&min_xx_x,&min_xx_y,&min_xx_z); }
+            if (fgets (line,200, file_arr)!=NULL) { while (replace_str(line,",","."));  sscanf(line,"MIN Y: X=%lf Y=%lf Z=%lf\n",&min_yy_x,&min_yy_y,&min_yy_z); }
+            if (fgets (line,200, file_arr)!=NULL) { while (replace_str(line,",","."));  sscanf(line,"MIN Z: X=%lf Y=%lf Z=%lf\n",&min_zz_x,&min_zz_y,&min_zz_z); }
+            if (fgets (line,200, file_arr)!=NULL) { while (replace_str(line,",","."));  sscanf(line,"MAX X: X=%lf Y=%lf Z=%lf\n",&max_xx_x,&max_xx_y,&max_xx_z); }
+            if (fgets (line,200, file_arr)!=NULL) { while (replace_str(line,",","."));  sscanf(line,"MAX Y: X=%lf Y=%lf Z=%lf\n",&max_yy_x,&max_yy_y,&max_yy_z); }
+            if (fgets (line,200, file_arr)!=NULL) { while (replace_str(line,",","."));  sscanf(line,"MAX Z: X=%lf Y=%lf Z=%lf\n",&max_zz_x,&max_zz_y,&max_zz_z); }
             if (fgets (line,200, file_arr)!=NULL) {
                 sscanf(line,"VERTICES=%d\n",    &num_vertices);
                 if (fgets (line,200, file_arr)!=NULL) sscanf(line,"OBJECTS=%d\n",     &num_objects);    else num_vertices=0;
@@ -953,7 +961,9 @@ bool create_boundaries(std::string my_area, sf::RenderWindow& window) {
                         num_vertices++;
                         int l=strlen(line);
                         for (int c=0; c<l; c++) if (line[c]=='.') line[c]=',';
-//                        while (replace_str(line,".",","));
+//decimal_point
+                        while (replace_str(line,",","."));
+////                        while (replace_str(line,".",","));
                         sscanf(line,"v %lf %lf %lf\n",&xx,&yy,&zz);
 
                         if (xx<min_xx_x) { min_xx_x=xx; min_xx_y=yy; min_xx_z=zz; }
@@ -1242,7 +1252,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                     if (latitude_longditude!="") {
                         char line[2000];
                         strcpy(line,latitude_longditude.c_str());
-                        while (replace_str(line,".",","));
+                        while (replace_str(line,",","."));
                         int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
                     }
                     info_3d_elem.lat=(lat_north+lat_south)/2.0;
@@ -1293,7 +1303,10 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                     if (latitude_longditude!="") {
                         char line[2000];
                         strcpy(line,latitude_longditude.c_str());
-                        while (replace_str(line,".",","));
+//decimal_point
+//decimal_point
+                        while (replace_str(line,",","."));
+//                        while (replace_str(line,".",","));
                         int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
                     }
                     info_3d_elem.lat=(lat_north+lat_south)/2.0;
@@ -1340,7 +1353,9 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                 if (latitude_longditude!="") {
                     char line[2000];
                     strcpy(line,latitude_longditude.c_str());
-                    while (replace_str(line,".",","));
+//decimal_point
+                        while (replace_str(line,",","."));
+//                    while (replace_str(line,".",","));
                     int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
 //                    printf("N=%f S=%f W=%f E=%f\n", &lat_north, &lat_south, &lon_west, &lon_east);
                 }
@@ -1989,6 +2004,8 @@ bool get_one_3d_init(int cur_x, std::string& my_area, int win_num, bool pac_obj2
     char area[30];
     if (fgets (line,2000, in)!=NULL ) {
         float pos_x,pos_y,size_x,size_y;
+//decimal_point
+                        while (replace_str(line,",","."));
 //        while (replace_str(line,".",","));
         sscanf(line,"POSITION_X=%e POSITION_Y=%e SIZE_X=%e SIZE_Y=%e FRUSTUMS_X=%d FRUSTUMS_Y=%d AREA=%30[^\n]",
             &pos_x,&pos_y,&size_x,&size_y,&frustum_size_x,&frustum_size_y,area);
@@ -2130,7 +2147,9 @@ bool set_view_3d(int cur_x, std::string& my_area, int win_num, bool pac_obj2_arr
     char area[30];
     if (fgets (line,2000, in)!=NULL ) {
         float pos_x,pos_y,size_x,size_y;
-//        while (replace_str(line,".",","));
+//decimal_point
+                        while (replace_str(line,",","."));
+////        while (replace_str(line,".",","));
         sscanf(line,"POSITION_X=%e POSITION_Y=%e SIZE_X=%e SIZE_Y=%e FRUSTUMS_X=%d FRUSTUMS_Y=%d AREA=%30[^\n]",
             &pos_x,&pos_y,&size_x,&size_y,&frustum_size_x,&frustum_size_y,area);
 
@@ -2388,7 +2407,9 @@ bool load_3d_objects(int frustum_count_x,int frustum_count_y,std::string my_area
 
             char line[2000];
             strcpy(line,latitude_longditude.c_str());
-            while (replace_str(line,".",","));
+//decimal_point
+                        while (replace_str(line,",","."));
+//            while (replace_str(line,".",","));
             double lat_north=0.0;
             double lat_south=0.0;
             double lon_west=0.0;
@@ -2550,7 +2571,9 @@ bool reanalyse_3d(int cur_x, std::string& my_area, int win_num, bool pac_obj2_ar
     char area[30];
     if (fgets (line,2000, in)!=NULL ) {
         float pos_x,pos_y,size_x,size_y;
-//        while (replace_str(line,".",","));
+//decimal_point
+                        while (replace_str(line,",","."));
+////        while (replace_str(line,".",","));
         sscanf(line,"POSITION_X=%e POSITION_Y=%e SIZE_X=%e SIZE_Y=%e FRUSTUMS_X=%d FRUSTUMS_Y=%d AREA=%30[^\n]",
             &pos_x,&pos_y,&size_x,&size_y,&frustum_size_x,&frustum_size_y,area);
 
@@ -3613,7 +3636,9 @@ glm::ivec2 get_lat_lon(std::string my_area) {
         char line[2000];
         if (fgets (line,2000, file)!=NULL ) {
             fclose(file);
-            while (replace_str(line,".",","));
+//decimal_point
+                        while (replace_str(line,",","."));
+//            while (replace_str(line,".",","));
             char rest[999]="";
             char rest2[999]="";
             int num=sscanf(line,"LAT=%lf LON=%lf %999[^\n]", &lat, &lon, rest);
@@ -3632,7 +3657,9 @@ glm::ivec2 get_lat_lon(std::string my_area) {
                 for (y=0; y<max_y; y++) {
                     get_area_data(my_area,x,y);
                     strcpy(line,latitude_longditude.c_str());
-                    while (replace_str(line,".",","));
+//decimal_point
+                        while (replace_str(line,",","."));
+//                    while (replace_str(line,".",","));
                     int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
                     if (num==4 && lat>=lat_south && lat<=lat_north) {
     //                    printf("FOUND!!!! LAT: LAT=%lf LON=%lf Testing: N=%lf S=%lf W=%lf E=%lf\n",lat,lon, lat_north, lat_south, lon_west, lon_east);
@@ -3647,7 +3674,9 @@ glm::ivec2 get_lat_lon(std::string my_area) {
                 for (x=0; x<max_x; x++) {
                     get_area_data(my_area,x,y);
                     strcpy(line,latitude_longditude.c_str());
-                    while (replace_str(line,".",","));
+//decimal_point
+                        while (replace_str(line,",","."));
+//                    while (replace_str(line,".",","));
                     int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
                     if (num==4 && lon>=lon_west && lon<=lon_east) {
 //                        printf("FOUND!!!! LON: LAT=%lf LON=%lf Testing: N=%lf S=%lf W=%lf E=%lf\n",lat,lon, lat_north, lat_south, lon_west, lon_east);
@@ -3702,7 +3731,9 @@ glm::ivec2 GET_LAT_LON2(std::string my_area) {
     printf("Got %d : %s from ../LAT_LON/list.txt\n",ret,line);
     if ( ret!=0) {
         if (strlen(line)!=0 ) {
-            while (replace_str(line,".",","));
+//decimal_point
+                        while (replace_str(line,",","."));
+//            while (replace_str(line,".",","));
             char rest[999]="";
             char rest2[999]="";
             int num=sscanf(line,"LAT=%lf LON=%lf %999[^\n]", &lat, &lon, rest);
@@ -3721,7 +3752,9 @@ glm::ivec2 GET_LAT_LON2(std::string my_area) {
                 for (y=0; y<max_y; y++) {
                     get_area_data(my_area,x,y);
                     strcpy(line,latitude_longditude.c_str());
-                    while (replace_str(line,".",","));
+//decimal_point
+                        while (replace_str(line,",","."));
+//                    while (replace_str(line,".",","));
                     int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
                     if (num==4 && lat>=lat_south && lat<=lat_north) {
     //                    printf("FOUND!!!! LAT: LAT=%lf LON=%lf Testing: N=%lf S=%lf W=%lf E=%lf\n",lat,lon, lat_north, lat_south, lon_west, lon_east);
@@ -3736,7 +3769,9 @@ glm::ivec2 GET_LAT_LON2(std::string my_area) {
                 for (x=0; x<max_x; x++) {
                     get_area_data(my_area,x,y);
                     strcpy(line,latitude_longditude.c_str());
-                    while (replace_str(line,".",","));
+//decimal_point
+                        while (replace_str(line,",","."));
+//                    while (replace_str(line,".",","));
                     int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
                     if (num==4 && lon>=lon_west && lon<=lon_east) {
 //                        printf("FOUND!!!! LON: LAT=%lf LON=%lf Testing: N=%lf S=%lf W=%lf E=%lf\n",lat,lon, lat_north, lat_south, lon_west, lon_east);
@@ -3795,7 +3830,9 @@ glm::ivec2 GET_LAT_LON3(std::string my_area, double lat, double lon) {
     sprintf(line,"LAT=%f LON=%f\n",lat,lon);
     if ( ret!=0) {
         if (strlen(line)!=0 ) {
-            while (replace_str(line,".",","));
+//decimal_point
+                        while (replace_str(line,",","."));
+//            while (replace_str(line,".",","));
             char rest[999]="";
             char rest2[999]="";
             int num=sscanf(line,"LAT=%lf LON=%lf %999[^\n]", &lat, &lon, rest);
@@ -3814,7 +3851,9 @@ glm::ivec2 GET_LAT_LON3(std::string my_area, double lat, double lon) {
                 for (y=0; y<max_y; y++) {
                     get_area_data(my_area,x,y);
                     strcpy(line,latitude_longditude.c_str());
-                    while (replace_str(line,".",","));
+//decimal_point
+                        while (replace_str(line,",","."));
+//                    while (replace_str(line,".",","));
                     int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
                     if (num==4 && lat>=lat_south && lat<=lat_north) {
     //                    printf("FOUND!!!! LAT: LAT=%lf LON=%lf Testing: N=%lf S=%lf W=%lf E=%lf\n",lat,lon, lat_north, lat_south, lon_west, lon_east);
@@ -3829,7 +3868,9 @@ glm::ivec2 GET_LAT_LON3(std::string my_area, double lat, double lon) {
                 for (x=0; x<max_x; x++) {
                     get_area_data(my_area,x,y);
                     strcpy(line,latitude_longditude.c_str());
-                    while (replace_str(line,".",","));
+//decimal_point
+                        while (replace_str(line,",","."));
+//                    while (replace_str(line,".",","));
                     int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
                     if (num==4 && lon>=lon_west && lon<=lon_east) {
 //                        printf("FOUND!!!! LON: LAT=%lf LON=%lf Testing: N=%lf S=%lf W=%lf E=%lf\n",lat,lon, lat_north, lat_south, lon_west, lon_east);

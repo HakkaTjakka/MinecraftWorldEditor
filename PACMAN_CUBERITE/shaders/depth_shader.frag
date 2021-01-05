@@ -74,7 +74,9 @@ void main() {
         case 3 : {
             if (TEXTURE_ARRAY) {
                 vec4 kD;
-                kD =  texture2D(the_texture,  gl_TexCoord[0].xy);
+//                kD =  texture2D(the_texture,  gl_TexCoord[0].xy);
+                kD =  texture2D(the_texture,  vec2(gl_TexCoord[0].s,gl_TexCoord[0].t));
+//                kD =  texture2D(the_texture,  vec2(gl_MultiTexCoord0.s,gl_MultiTexCoord0.t));
 
 //              fragcolor = clamp(   vec4(kA.xyz + kD.xyz * (diff_ ) + kS_x_spec_, kD.a) , 0.0 , 1.0);
               fragcolor = clamp(   vec4( kD.xyz * (diff_ ) + kS_x_spec_, kD.a) , 0.0 , 1.0);

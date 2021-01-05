@@ -193,7 +193,9 @@ extern void make_test_schematic();
                                             get_area_data(my_area,x,y);
                                             char line[2000];
                                             strcpy(line,latitude_longditude.c_str());
-                                            while (replace_str(line,".",","));
+//decimal_point
+                                            while (replace_str(line,",","."));
+//                                            while (replace_str(line,".",","));
                                             double lat_north=0.0;
                                             double lat_south=0.0;
                                             double lon_west=0.0;
@@ -376,7 +378,15 @@ extern void make_test_schematic();
                                                 first_m=false;
                                             }
                                         }
+
+                                        angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+
+                                        build_rotmatrix_glm(rot_mat, curr_quat2);
+
                                         qx=curr_quat2[0]; qy=curr_quat2[1]; qz=curr_quat2[2]; qw=curr_quat2[3];
+
+                                        quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+
                                         if (frustum_toggle==1) {
                                             ex=eye2[0];     ey=eye2[1];         ez=eye2[2]; //  ez=eye2[2]+3.0f; hoppa
                                             lx=lookat2[0];  ly=lookat2[1];      lz=lookat2[2];
@@ -391,9 +401,6 @@ extern void make_test_schematic();
                                         bmin0=bmin[0];bmin1=bmin[1];bmin2=bmin[2];
                                         bmax0=bmax[0];bmax1=bmax[1];bmax2=bmax[2];
 
-                                        angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
-                                        build_rotmatrix_glm(rot_mat, curr_quat2);
-                                        quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
 
                                         char test[1000];
                                         marker_file = fopen (marker_filename, "a"); //reopen, continue marking...
@@ -1680,7 +1687,10 @@ extern void make_test_schematic();
 
                                             char line[2000];
                                             strcpy(line,latitude_longditude.c_str());
-                                            while (replace_str(line,".",","));
+
+//decimal_point
+                                            while (replace_str(line,",","."));
+//                                            while (replace_str(line,".",","));
                                             double lat_north=0.0;
                                             double lat_south=0.0;
                                             double lon_west=0.0;

@@ -48,11 +48,14 @@ void rotate_around_point(glm::vec3 move_object, glm::vec3 &add_xyz, std::string 
 
     static glm::mat4 rot_matrix2(1.0f);
 
-    if (interpolate_on) rot_matrix2=glm::mat4(rot_mat);
-//    else if (rot_on) rot_matrix2=exporter2;
-    else {
+    if (interpolate_on) {
         build_rotmatrix_glm(rot_matrix2, curr_quat2);
-//        rot_mat=rot_matrix2;
+        rot_mat=rot_matrix2;
+
+//        rot_matrix2=glm::mat4(rot_mat);
+    } else {
+        build_rotmatrix_glm(rot_matrix2, curr_quat2);
+        rot_mat=rot_matrix2;
     }
 
     glm::vec3 NORMALz = glm::vec3((float)(cos(lat*M_PI/180.0)*cos(lon*M_PI/180.0)), (float)(cos(lat*M_PI/180)*sin(lon*M_PI/180)), (float)(sin(lat*M_PI/180)));
@@ -86,10 +89,13 @@ void rotate_around_point(glm::vec3 move_object, glm::vec3 &add_xyz, std::string 
     add_xyz.y = add_xyz4.y;
     add_xyz.z = add_xyz4.z;
 
+//    if (interpolate_on) test=rot_matrix2;
+//    else test = rot_matrix2 * test;
     test = rot_matrix2 * test;
     exporter=test;
     glMultMatrixf((float*)&test);
 
+//    if (interpolate_on) rot_mat=test;
     return;
 }
 

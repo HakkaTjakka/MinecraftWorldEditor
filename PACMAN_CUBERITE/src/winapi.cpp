@@ -684,7 +684,25 @@ int WINAPI WinMain2()
     int    result;
 
 //define language decimal point / comma .... shit!
+    std::lconv* lc;
+
+    lc = localeconv();
+    printf("Currency symbol: '%s' (%d)\n",lc->currency_symbol , lc->int_curr_symbol );
+    printf("Decimal token:   '%s'\n",lc->decimal_point );
+
+/*
     setlocale(LC_ALL, "");
+    lc = localeconv();
+    printf("Currency symbol: '%s' (%d)\n",lc->currency_symbol , lc->int_curr_symbol );
+    printf("Decimal token:   '%s'\n",lc->decimal_point );
+
+    setlocale(LC_NUMERIC, "en_US");
+    lc = localeconv();
+    printf("Currency symbol: '%s' (%d)\n",lc->currency_symbol , lc->int_curr_symbol );
+    printf("Decimal token:   '%s'\n",lc->decimal_point );
+
+printf("hoppa");
+*/
 //    setlocale(LC_ALL, "en_US.UTF-8");
 //change if dirs can not be created / found
 

@@ -322,7 +322,9 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
     if (latitude_longditude!="") {
         char line[2000];
         strcpy(line,latitude_longditude.c_str());
-        while (replace_str(line,".",","));
+//decimal_point
+                                            while (replace_str(line,",","."));
+//        while (replace_str(line,".",","));
         int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
         if (num==4) {
             char lat_str[100];
@@ -1933,7 +1935,9 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
         FILE* HOP;
         if ((HOP = fopen (dat_name, "r"))!=NULL) {
             if (fgets (line,200, HOP)!=NULL) {
-                while (replace_str(line,".",","));
+  //decimal_point
+                                            while (replace_str(line,",","."));
+//              while (replace_str(line,".",","));
                 if ( sscanf(line,"TOTAL MIN: X=%lf Y=%lf Z=%lf\n",&bmin_total[0],&bmin_total[1],&bmin_total[2]) != 3) {
                     printf("ERROR READING TOTAL MIN from %s\n",dat_name);
                     return -1;
@@ -1944,7 +1948,9 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
                 printf("ERROR READING TOTAL MIN from %s\n",dat_name);
             }
             if (fgets (line,200, HOP)!=NULL) {
-                while (replace_str(line,".",","));
+//decimal_point
+                                            while (replace_str(line,",","."));
+//                while (replace_str(line,".",","));
                 if (sscanf(line,"TOTAL MAX: X=%lf Y=%lf Z=%lf\n",&bmax_total[0],&bmax_total[1],&bmax_total[2]) != 3) {
                     printf("ERROR READING TOTAL MAX from %s\n",dat_name);
                     return -1;
@@ -1961,13 +1967,17 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
             printf("LOADED TOTAL DIF: X=%24.17f Y=%24.17f Z=%24.17f\n",bmax_total[0]-bmin_total[0],bmax_total[1]-bmin_total[1],bmax_total[2]-bmin_total[2]);
 
             if (fgets (line,200, HOP)!=NULL) {
-                while (replace_str(line,".",","));
+  //decimal_point
+                                            while (replace_str(line,",","."));
+//              while (replace_str(line,".",","));
                 if (sscanf(line,"LAT: NORTH=%lf SOUTH=%lf\n",&tot_lat[0],&tot_lat[1]) != 2) {
                     printf("ERROR READING LAT FROM %s\n",dat_name);
                 }
             }
             if (fgets (line,200, HOP)!=NULL) {
-                while (replace_str(line,".",","));
+  //decimal_point
+                                            while (replace_str(line,",","."));
+//              while (replace_str(line,".",","));
                 if (sscanf(line,"LON:  WEST=%lf  EAST=%lf\n",&tot_lon[0],&tot_lon[1]) != 2) {
                     printf("ERROR READING LON FROM %s\n",dat_name);
                 }
