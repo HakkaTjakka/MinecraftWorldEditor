@@ -55,13 +55,13 @@ extern void make_test_schematic();
                         } else if (event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseButtonReleased) {
                             if (event.type == sf::Event::MouseButtonPressed) {
 //                                if (rotate_object_x!=0.0 ||rotate_object_y!=0.0 ||rotate_object_z!=0.0 ) {
-                                    angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+//                                    angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
 //                                }
                             } else {
                                 float r_x=rotate_object_x,r_y=rotate_object_y,r_z=rotate_object_z;
 //                                if (curr_quat2[0]!=0.0 || curr_quat2[1]!=0.0 || curr_quat2[2]!=0.0 || curr_quat2[3]!=0.0) {
 //                                    quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
-                                    quat_to_angles(curr_quat2, prev_quat2, rotate_object_x,rotate_object_y, rotate_object_z);
+//                                    quat_to_angles(curr_quat2, prev_quat2, rotate_object_x,rotate_object_y, rotate_object_z);
                                     rotate_object_x+=r_x; rotate_object_y+=r_y; rotate_object_z+=r_z;
 //                                }
                             }
@@ -212,7 +212,7 @@ extern void make_test_schematic();
                                             }
                                             break;
                                         }
-                                        get_view(rotate_object_z, curr_quat2,eye2,lookat2,translation,perspective,bmin,bmax,frustum_toggle);
+                                        get_view(rotate_object_x, rotate_object_y, rotate_object_z, curr_quat2,eye2,lookat2,translation,perspective,bmin,bmax,frustum_toggle);
 
                                         maxExtent = 0.5f * (bmax[0] - bmin[0]);
                                         if (maxExtent < 0.5f * (bmax[1] - bmin[1])) maxExtent = 0.5f * (bmax[1] - bmin[1]);
@@ -225,7 +225,7 @@ extern void make_test_schematic();
                                             set_view_3d(cur_x,my_area,win_num,pac_obj2_arr_used,pac_obj2_arr, window);
                                             frustum=true;
 //                                            plot_func=false;
-                                            get_view(rotate_object_z, curr_quat2,eye2,lookat2,translation,perspective,bmin,bmax,frustum_toggle);
+                                            get_view(rotate_object_x,rotate_object_y,rotate_object_z, curr_quat2,eye2,lookat2,translation,perspective,bmin,bmax,frustum_toggle);
 
                                             maxExtent = 0.5f * (bmax[0] - bmin[0]);
                                             if (maxExtent < 0.5f * (bmax[1] - bmin[1])) maxExtent = 0.5f * (bmax[1] - bmin[1]);
@@ -264,7 +264,7 @@ extern void make_test_schematic();
                                                 show_text=false;
                                                 frustum=true;
                                                 plot_func=false;
-                                                get_view(rotate_object_z, curr_quat2,eye2,lookat2,translation,perspective,bmin,bmax,frustum_toggle);
+                                                get_view(rotate_object_x,rotate_object_y,rotate_object_z, curr_quat2,eye2,lookat2,translation,perspective,bmin,bmax,frustum_toggle);
                                                 maxExtent = 0.5f * (bmax[0] - bmin[0]);
                                                 if (maxExtent < 0.5f * (bmax[1] - bmin[1])) maxExtent = 0.5f * (bmax[1] - bmin[1]);
                                                 if (maxExtent < 0.5f * (bmax[2] - bmin[2])) maxExtent = 0.5f * (bmax[2] - bmin[2]);
@@ -379,13 +379,13 @@ extern void make_test_schematic();
                                             }
                                         }
 
-                                        angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+//                                        angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
 
                                         build_rotmatrix_glm(rot_mat, curr_quat2);
 
                                         qx=curr_quat2[0]; qy=curr_quat2[1]; qz=curr_quat2[2]; qw=curr_quat2[3];
 
-                                        quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+//                                        quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
 
                                         if (frustum_toggle==1) {
                                             ex=eye2[0];     ey=eye2[1];         ez=eye2[2]; //  ez=eye2[2]+3.0f; hoppa
@@ -404,7 +404,7 @@ extern void make_test_schematic();
 
                                         char test[1000];
                                         marker_file = fopen (marker_filename, "a"); //reopen, continue marking...
-                                        fprintf(marker_file, "QUATS=%-+e %-+e %-+e %-+e EYE=%-+e %-+e %-+e LOOKAT=%-+e %-+e %-+e TRANSLATION=%-+e %-+e %-+e PERSPECTIVE=%-+e %-+e %-+e %-+e BMIN=%-+e %-+e %-+e BMAX=%-+e %-+e %-+e FRUSTUM=%d\n",
+                                        fprintf(marker_file, "QUATS=%-+e %-+e %-+e %-+e EYE=%-+e %-+e %-+e LOOKAT=%-+e %-+e %-+e TRANSLATION=%-+e %-+e %-+e PERSPECTIVE=%-+e %-+e %-+e %-+e BMIN=%-+e %-+e %-+e BMAX=%-+e %-+e %-+e FRUSTUM=%d ",
                                                   qx,   qy,  qz,  qw,
                                                   ex,   ey,  ez,
                                                   lx,   ly,  lz,
@@ -413,12 +413,15 @@ extern void make_test_schematic();
                                                   bmin0,bmin1,bmin2,
                                                   bmax0,bmax1,bmax2,frustum_toggle
                                                   );
-                                        fprintf(marker_file, "MATRIX=%-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e\n",
+                                        fprintf(marker_file, "MATRIX=%-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e %-+e ROTATION=%-+e %-+e %-+e\n",
                                                   (double)rot_arr[0], (double)rot_arr[1], (double)rot_arr[2], (double)rot_arr[3],
                                                   (double)rot_arr[4], (double)rot_arr[5], (double)rot_arr[6], (double)rot_arr[7],
                                                   (double)rot_arr[8], (double)rot_arr[9], (double)rot_arr[10],(double)rot_arr[11],
                                                   (double)rot_arr[12],(double)rot_arr[13],(double)rot_arr[14],(double)rot_arr[15],
-                                                  (double)rotate_object_z+rotate_object_z_to_add);
+                                                  (double)rotate_object_x+rotate_object_x_to_add,
+                                                  (double)rotate_object_y+rotate_object_y_to_add,
+                                                  (double)rotate_object_z+rotate_object_z_to_add
+                                                );
 
                                         fclose(marker_file);
                                         printf("MARK: c=%d t=%-+f q0=%-+f q1=%-+f q2=%-+f q3=%-+f  e0=%-+f e1=%-+f e2=%-+f  l0=%-+f l1=%-+f l2=%-+f  t0=%-+f t1=%-+f t2=%-+f  p0=%-+f  bmin=%-+f %-+f %-+f  bmax=%-+f %-+f %-+f  frustum=%d\n",0,0,
@@ -430,17 +433,14 @@ extern void make_test_schematic();
                                                   (float)bmin0,(float)bmin1,(float)bmin2,
                                                   (float)bmax0,(float)bmax1,(float)bmax2,frustum_toggle
                                                );
-                                        printf("MARK: R00=%-+f R01=%-+f R02=%-+f R03=%-+f\n",
-                                                rot_arr[0], rot_arr[1], rot_arr[2], rot_arr[3]);
-                                        printf("      R10=%-+f R11=%-+f R12=%-+f R13=%-+f\n",
-                                                rot_arr[4], rot_arr[5], rot_arr[6], rot_arr[7]);
-                                        printf("      R20=%-+f R21=%-+f R22=%-+f R23=%-+f\n",
-                                                rot_arr[8], rot_arr[9], rot_arr[10],rot_arr[11]);
-                                        printf("      R30=%-+f R31=%-+f R32=%-+f R33=%-+f\n",
-                                                rot_arr[12],rot_arr[13],rot_arr[14],rot_arr[15]);
+                                        printf("MARK: R00=%-+f R01=%-+f R02=%-+f R03=%-+f\n",   rot_arr[0], rot_arr[1], rot_arr[2], rot_arr[3]);
+                                        printf("      R10=%-+f R11=%-+f R12=%-+f R13=%-+f\n",   rot_arr[4], rot_arr[5], rot_arr[6], rot_arr[7]);
+                                        printf("      R20=%-+f R21=%-+f R22=%-+f R23=%-+f\n",   rot_arr[8], rot_arr[9], rot_arr[10],rot_arr[11]);
+                                        printf("      R30=%-+f R31=%-+f R32=%-+f R33=%-+f\n",   rot_arr[12],rot_arr[13],rot_arr[14],rot_arr[15]);
 
-
-                                        printf("ROTATION_Z%=%-+f\n",rotate_object_z+rotate_object_z_to_add);
+                                        printf("ROTATION: X=%-+f ",rotate_object_x+rotate_object_x_to_add);
+                                        printf("Y=%-+f ",rotate_object_y+rotate_object_y_to_add);
+                                        printf("Z=%-+f\n",rotate_object_z+rotate_object_z_to_add);
     /*
                                         sprintf(test, "QUATS=%-+e %-+e %-+e %-+e EYE=%-+e %-+e %-+e LOOKAT=%-+e %-+e %-+e TRANSLATION=%-+e %-+e %-+e PERSPECTIVE=%-+e %-+e %-+e %-+e\n",
                                                   qx,   qy,  qz,  qw,
@@ -834,14 +834,14 @@ extern void make_test_schematic();
                                                     start_view(marker_file,marker_filename);
                                                } else {
                                                     interpolate_spline(1);
-                                                    get_view(rotate_object_z, curr_quat2,eye2,lookat2,translation,perspective,bmin,bmax,frustum_toggle);
+                                                    get_view(rotate_object_x,rotate_object_y,rotate_object_z, curr_quat2,eye2,lookat2,translation,perspective,bmin,bmax,frustum_toggle);
                                                }
                                             } else {
                                                 if (!splines_loaded) {
                                                     start_view(marker_file,marker_filename);
                                                 } else {
                                                     interpolate_spline(1);
-                                                    get_view(rotate_object_z, curr_quat2,eye2,lookat2,translation,perspective,bmin,bmax,frustum_toggle);
+                                                    get_view(rotate_object_x,rotate_object_y,rotate_object_z, curr_quat2,eye2,lookat2,translation,perspective,bmin,bmax,frustum_toggle);
                                                 }
                                             }
     /*
@@ -1336,14 +1336,14 @@ extern void make_test_schematic();
                                             break;
                                         }
                                         if (event.key.control) {
-                                            angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+//                                            angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
                                             trackball(prev_quat2,
                                                   rot * (2.0f *  5.0) / 1000.0,
                                                   0,
                                                   rot * (2.0f * -5.0) / 1000.0,
                                                   0);
                                             add_quats(prev_quat2, curr_quat2, curr_quat2);
-                                            quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+//                                            quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
                                             break;
                                         }
                                         if (rot_on || 1) {
@@ -1383,14 +1383,14 @@ extern void make_test_schematic();
                                             break;
                                         }
                                         if (event.key.control) {
-                                            angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+//                                            angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
                                             trackball(prev_quat2,
                                                       rot * (2.0f * -5.0) / 1000.0,
                                                       0,
                                                       rot * (2.0f * +5.0) / 1000.0,
                                                       0);
                                                 add_quats(prev_quat2, curr_quat2, curr_quat2);
-                                            quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+//                                            quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
                                             break;
                                         }
                                         if (rot_on || 1) {
@@ -1428,14 +1428,14 @@ extern void make_test_schematic();
                                             break;
                                         }
                                         if (event.key.control) {
-                                            angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+//                                            angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
                                             trackball(prev_quat2,
                                                       0,
                                                       rot * (2.0f * -5.0) / (float)1000,
                                                       0,
                                                       rot * (2.0f *  5.0) / (float)1000);
                                                 add_quats(prev_quat2, curr_quat2, curr_quat2);
-                                            quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+//                                            quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
                                             break;
                                         }
                                         if (rot_on || 1) {
@@ -1473,14 +1473,14 @@ extern void make_test_schematic();
                                             break;
                                         }
                                         if (event.key.control) {
-                                            angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+//                                            angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
                                             trackball(prev_quat2,
                                                       0,
                                                       rot * (2.0f *  5.0) / 1000.0,
                                                       0,
                                                       rot * (2.0f * -5.0) / 1000.0);
                                                 add_quats(prev_quat2, curr_quat2, curr_quat2);
-                                            quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+//                                            quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
                                             break;
                                         }
                                         if (rot_on || 1) {
@@ -1505,14 +1505,14 @@ extern void make_test_schematic();
                                             break;
                                         }
                                         if (event.key.control) {
-                                            angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+//                                            angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
                                             trackballz(prev_quat2,
                                                        0,
                                                       rot * (2.0f *  5.0) / 1000.0,
                                                        0,
                                                       rot * (2.0f * -5.0) / 1000.0);
                                             add_quats(prev_quat2, curr_quat2, curr_quat2);
-                                            quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+//                                            quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
 
                                             break;
                                         }
@@ -1528,14 +1528,14 @@ extern void make_test_schematic();
                                             break;
                                         }
                                         if (event.key.control) {
-                                            angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+//                                            angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
                                             trackballz(prev_quat2,
                                                         0,
                                                         rot * (2.0f * -5.0) / 1000.0,
                                                         0,
                                                         rot * (2.0f *  5.0) / 1000.0);
                                             add_quats(prev_quat2, curr_quat2, curr_quat2);
-                                            quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+//                                            quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
                                             break;
                                         }
                                         move_object_z=move_object_z-5.0*trans;

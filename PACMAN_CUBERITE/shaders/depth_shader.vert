@@ -159,7 +159,7 @@ void main()
 //                else if ( (gl_VertexID%3)==1 ) out_color=vec4(0.0,1.0,0.0,0.5);
 //                else if ( (gl_VertexID%3)==2 ) out_color=vec4(0.0,0.0,1.0,0.5);
 //                if (  (gl_VertexID%6)==0 || (gl_VertexID%6)==1 || (gl_VertexID%6==2) ) {
-                    out_color = vec4(1.0,0.2,0.8,1.0-gl_Position.z/1.8);
+                    out_color = vec4(1.0,0.2,0.8,1.0-gl_Position.z/0.3);
 //                    out_color = vec4(0.0,0.0,0.0,1.0);
 //                } else {
 //                    out_color = vec4(0.0,0.0,0.0,1.0-gl_Position.z/.3);
@@ -259,10 +259,10 @@ void main()
 
             vec2 off1=vec2( sin(wave_phase/3.0) , cos(wave_phase/3.0) )  ;
 
-            vec3 lp1=normalize( (  vec4(-1.0,  1.0, 4.0, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
-            vec3 lp2=normalize( (  vec4( 1.0,  1.0, -0.7, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+            vec3 lp1=normalize( (  vec4(1.4,   -1.8, -0.7, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+            vec3 lp2=normalize( (  vec4(-1.4,  -1.5, 1.4, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
 
-            float spec1 = (1.0) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.0,1.0);
+            float spec1 = (1.0) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.1,1.0);
             float spec2 = (1.0) * clamp(pow(max( dot(reflect(lp2, n), ro), 0.), 120.),0.0,1.0);
 
             float diff1 = 1.5 * clamp(dot( n,lp1), 0.2, 1.);

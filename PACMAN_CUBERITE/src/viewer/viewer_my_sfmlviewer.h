@@ -1338,8 +1338,9 @@ extern char send_message;
 
                 if (interpolate_on) {
                     interpolate_spline(3);
-                    get_view(rotate_object_z, curr_quat2,eye2,lookat2,translation,perspective,bmin,bmax,frustum_toggle);
-                    quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
+                    get_view(rotate_object_x, rotate_object_y, rotate_object_z, curr_quat2,eye2,lookat2,translation,perspective,bmin,bmax,frustum_toggle);
+//manmanman
+//                    quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
 
                 }
 

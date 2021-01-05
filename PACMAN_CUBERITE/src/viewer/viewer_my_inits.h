@@ -119,7 +119,7 @@ extern int level;
 extern int combine;
 extern int next;
 void stop_view();
-void get_view(float &rotate_object_z, float curr_quat2[4],float eye2[3],float lookat2[3],float translation[3],float perspective[4],float bmin[3], float bmax[3], int& frustum_toggle);
+void get_view(float &rotate_object_x, float &rotate_object_y, float &rotate_object_z, float curr_quat2[4],float eye2[3],float lookat2[3],float translation[3],float perspective[4],float bmin[3], float bmax[3], int& frustum_toggle);
 void start_view(FILE* file, char* filename);
 bool splines_loaded=false;
 void interpolate_spline(int what);

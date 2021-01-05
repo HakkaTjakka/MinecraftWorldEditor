@@ -1,3 +1,5 @@
+float playbackspeed=0.002;
+
 FILE* movement_file=NULL;
 extern int extra_octants;
 //extern bool show_text;
@@ -32,12 +34,12 @@ float int_t[3];
 float int_p[4];
 float int_bmin[3];
 float int_bmax[3];
-float int_arr[17];
+float int_arr[19];
 int int_frustum_toggle;
 
 extern int mirror;
 
-void get_view(float &rotate_object_z, float curr_quat2[4],float eye2[3],float lookat2[3],float translation[3],float perspective[4],float bmin[3],float bmax[3], int& frustum_toggle) {
+void get_view(float &rotate_object_x, float &rotate_object_y, float &rotate_object_z, float curr_quat2[4],float eye2[3],float lookat2[3],float translation[3],float perspective[4],float bmin[3],float bmax[3], int& frustum_toggle) {
     curr_quat2[0]=int_q[0]; eye2[0]=int_e[0]; lookat2[0]=int_l[0]; translation[0]=int_t[0]; perspective[0]=(float)int_p[0];    //angle.
     curr_quat2[1]=int_q[1]; eye2[1]=int_e[1]; lookat2[1]=int_l[1]; translation[1]=int_t[1]; //perspective[1]=(float)int_l[1]; don't use...
     curr_quat2[2]=int_q[2]; eye2[2]=int_e[2]; lookat2[2]=int_l[2]; translation[2]=int_t[2]; //perspective[2]=(float)int_l[2]; don't use...
@@ -49,7 +51,9 @@ void get_view(float &rotate_object_z, float curr_quat2[4],float eye2[3],float lo
         bmax[0]=int_bmax[0]; bmax[1]=int_bmax[1]; bmax[2]=int_bmax[2];
     }
     frustum_toggle=int_frustum_toggle;
-//    rotate_object_z=int_arr[16];
+//    rotate_object_x=int_arr[16];
+//    rotate_object_y=int_arr[17];
+//    rotate_object_z=int_arr[18];
 //    if (set_end_of_movement) {
 //        interpolate_on=false;
 //        movement_file=NULL;
@@ -213,19 +217,18 @@ double splinterpEval( std::vector<cv::Vec4d> spline, double t ) {
     }
 }
 
-float playbackspeed=0.05;
 
 
 
 void interpolate_spline(int what) {
     static int cnt;
     static double starting=0.0;
-    static char line[2000];
+    static char line[4096];
     static int c=0;
-    static char calc[1000];
-    static char store[1000];
-    static char fline[2000];
-    static char fline2[2000];
+    static char calc[4096];
+    static char store[4096];
+    static char fline[4096];
+    static char fline2[4096];
 
     //static keep data for ...
     static std::vector<double> s_q0; static std::vector<double> s_e0; static std::vector<double> s_l0; static std::vector<double> s_t0; static std::vector<double> s_p0;
@@ -239,7 +242,7 @@ void interpolate_spline(int what) {
     static std::vector<double> s_r4; static std::vector<double> s_r5; static std::vector<double> s_r6; static std::vector<double> s_r7;
     static std::vector<double> s_r8; static std::vector<double> s_r9; static std::vector<double> s_r10; static std::vector<double> s_r11;
     static std::vector<double> s_r12; static std::vector<double> s_r13; static std::vector<double> s_r14; static std::vector<double> s_r15;
-    static std::vector<double> s_r16;
+    static std::vector<double> s_r16; static std::vector<double> s_r17; static std::vector<double> s_r18;
     static std::vector<int> s_frustum_toggle;
 
     static std::vector<cv::Vec4d> sp_q0; static std::vector<cv::Vec4d> sp_e0; static std::vector<cv::Vec4d> sp_l0; static std::vector<cv::Vec4d> sp_t0; static std::vector<cv::Vec4d> sp_p0;
@@ -253,7 +256,7 @@ void interpolate_spline(int what) {
     static std::vector<cv::Vec4d> sp_r4; static std::vector<cv::Vec4d> sp_r5; static std::vector<cv::Vec4d> sp_r6; static std::vector<cv::Vec4d> sp_r7;
     static std::vector<cv::Vec4d> sp_r8; static std::vector<cv::Vec4d> sp_r9; static std::vector<cv::Vec4d> sp_r10; static std::vector<cv::Vec4d> sp_r11;
     static std::vector<cv::Vec4d> sp_r12; static std::vector<cv::Vec4d> sp_r13; static std::vector<cv::Vec4d> sp_r14; static std::vector<cv::Vec4d> sp_r15;
-    static std::vector<cv::Vec4d> sp_r16;
+    static std::vector<cv::Vec4d> sp_r16; static std::vector<cv::Vec4d> sp_r17; static std::vector<cv::Vec4d> sp_r18;
 
 
     if (what==0) {
@@ -269,7 +272,7 @@ void interpolate_spline(int what) {
         s_r4.clear(); s_r5.clear(); s_r6.clear(); s_r7.clear();
         s_r8.clear(); s_r9.clear(); s_r10.clear(); s_r11.clear();
         s_r12.clear(); s_r13.clear(); s_r14.clear(); s_r15.clear();
-        s_r16.clear();
+        s_r16.clear(); s_r17.clear(); s_r18.clear();
 
         sp_q0.clear(); sp_e0.clear(); sp_l0.clear(); sp_t0.clear(); sp_p0.clear();
         sp_q1.clear(); sp_e1.clear(); sp_l1.clear(); sp_t1.clear();
@@ -282,33 +285,44 @@ void interpolate_spline(int what) {
         sp_r4.clear(); sp_r5.clear(); sp_r6.clear(); sp_r7.clear();
         sp_r8.clear(); sp_r9.clear(); sp_r10.clear(); sp_r11.clear();
         sp_r12.clear(); sp_r13.clear(); sp_r14.clear(); sp_r15.clear();
-        sp_r16.clear();
+        sp_r16.clear(); sp_r17.clear(); sp_r18.clear();
 
         c=0;
         bool first=true;
         bool second=false;
-        while (fgets (line,2000, movement_file)!=NULL ) {
+        while (fgets (line,4096, movement_file)!=NULL ) {
             while (replace_str(line,",","."));
-            sscanf(line,"QUATS=%e %e %e %e EYE=%e %e %e LOOKAT=%e %e %e TRANSLATION=%e %e %e PERSPECTIVE=%e %e %e %e BMIN=%e %e %e BMAX=%e %e %e FRUSTUM=%d\n",
+            sscanf(line,"QUATS=%e %e %e %e EYE=%e %e %e LOOKAT=%e %e %e TRANSLATION=%e %e %e PERSPECTIVE=%e %e %e %e BMIN=%e %e %e BMAX=%e %e %e FRUSTUM=%d MATRIX=%e %e %e %e %e %e %e %e %e %e %e %e %e %e %e %e ROTATION=%e %e %e\n",
                 &int_q[0], &int_q[1], &int_q[2], &int_q[3],
                 &int_e[0], &int_e[1], &int_e[2],
                 &int_l[0], &int_l[1], &int_l[2],
                 &int_t[0], &int_t[1], &int_t[2],
                 &int_p[0], &int_p[1], &int_p[2], &int_p[3],
                 &int_bmin[0], &int_bmin[1], &int_bmin[2],
-                &int_bmax[0], &int_bmax[1], &int_bmax[2], &int_frustum_toggle);
-            printf("LOAD:c=%d t=%-+f q0=%-+f q1=%-+f q2=%-+f q3=%-+f  e0=%-+f e1=%-+f e2=%-+f  l0=%-+f l1=%-+f l2=%-+f  t0=%-+f t1=%-+f t2=%-+f  p0=%-+f  bmin=%-+f %-+f %-+f  bmax=%-+f %-+f %-+f  frustum=%d\n",c,starting,
+                &int_bmax[0], &int_bmax[1], &int_bmax[2], &int_frustum_toggle,
+                &int_arr[0], &int_arr[1], &int_arr[2], &int_arr[3],
+                &int_arr[4], &int_arr[5], &int_arr[6], &int_arr[7],
+                &int_arr[8], &int_arr[9], &int_arr[10], &int_arr[11],
+                &int_arr[12], &int_arr[13], &int_arr[14], &int_arr[15],
+                &int_arr[16],&int_arr[17],&int_arr[18]);
+
+            printf("LOAD:c=%d t=%-+f q0=%-+f q1=%-+f q2=%-+f q3=%-+f  e0=%-+f e1=%-+f e2=%-+f  l0=%-+f l1=%-+f l2=%-+f  t0=%-+f t1=%-+f t2=%-+f  p0=%-+f  bmin=%-+f %-+f %-+f  bmax=%-+f %-+f %-+f  frustum=%d r0=%-+f r1=%-+f r2=%-+f r3=%-+f r4=%-+f r5=%-+f r6=%-+f r7=%-+f r8=%-+f r9=%-+f r10=%-+f r11=%-+f r12=%-+f r13=%-+f r14=%-+f r15=%-+f ROTATION=%-+f %-+f %-+f\n",c,starting,
                     int_q[0],int_q[1],int_q[2],int_q[3],
                     int_e[0],int_e[1],int_e[2],
                     int_l[0],int_l[1],int_l[2],
                     int_t[0],int_t[1],int_t[2],
                     int_p[0],
                     int_bmin[0], int_bmin[1], int_bmin[2],
-                    int_bmax[0], int_bmax[1], int_bmax[2], int_frustum_toggle
-                   );
+                    int_bmax[0], int_bmax[1], int_bmax[2], int_frustum_toggle,
+                    (float)int_arr[0],(float)int_arr[1],(float)int_arr[2],(float)int_arr[3],
+                    (float)int_arr[4],(float)int_arr[5],(float)int_arr[6],(float)int_arr[7],
+                    (float)int_arr[8],(float)int_arr[9],(float)int_arr[10],(float)int_arr[11],
+                    (float)int_arr[12],(float)int_arr[13],(float)int_arr[14],(float)int_arr[15],
+                    (float)int_arr[16],(float)int_arr[17],(float)int_arr[18]);
             if (first) {
                 strcpy(fline,line);
             }
+/*
             fgets (line,2000, movement_file);
             while (replace_str(line,",","."));
             sscanf(line,"MATRIX=%e %e %e %e %e %e %e %e %e %e %e %e %e %e %e %e %e\n",
@@ -321,6 +335,7 @@ void interpolate_spline(int what) {
                     (float)int_arr[4],(float)int_arr[5],(float)int_arr[6],(float)int_arr[7],
                     (float)int_arr[8],(float)int_arr[9],(float)int_arr[10],(float)int_arr[11],
                     (float)int_arr[12],(float)int_arr[13],(float)int_arr[14],(float)int_arr[15],(float)int_arr[16]);
+*/
 
             s_q0.push_back((double)int_q[0]); s_e0.push_back((double)int_e[0]);  s_l0.push_back((double)int_l[0]); s_t0.push_back((double)int_t[0]); s_p0.push_back((double)int_p[0]);
             s_q1.push_back((double)int_q[1]); s_e1.push_back((double)int_e[1]);  s_l1.push_back((double)int_l[1]); s_t1.push_back((double)int_t[1]);
@@ -335,13 +350,12 @@ void interpolate_spline(int what) {
             s_r4.push_back((double)int_arr[4]);     s_r5.push_back((double)int_arr[5]);     s_r6.push_back((double)int_arr[6]);     s_r7.push_back((double)int_arr[7]);
             s_r8.push_back((double)int_arr[8]);     s_r9.push_back((double)int_arr[9]);     s_r10.push_back((double)int_arr[10]);  s_r11.push_back((double)int_arr[11]);
             s_r12.push_back((double)int_arr[12]);   s_r13.push_back((double)int_arr[13]);   s_r14.push_back((double)int_arr[14]);  s_r15.push_back((double)int_arr[15]);
-
-            s_r16.push_back((double)int_arr[16]);
+            s_r16.push_back((double)int_arr[16]);   s_r17.push_back((double)int_arr[17]);   s_r18.push_back((double)int_arr[18]);
 
             c++;
             if (first) {
                 first=false;
-                strcpy(fline2,line);
+//                strcpy(fline2,line);
             }
         }
         fclose(movement_file);
@@ -355,12 +369,12 @@ void interpolate_spline(int what) {
             s_bmin1.push_back((double)s_bmin1[0]); s_bmax1.push_back((double)s_bmax1[0]);
             s_bmin2.push_back((double)s_bmin2[0]); s_bmax2.push_back((double)s_bmax2[0]);
             s_frustum_toggle.push_back(s_frustum_toggle[0]);
-            s_r0.push_back((double)s_r0[0]); s_r4.push_back((double)s_r4[0]); s_r8.push_back((double)s_r8[0]);   s_r12.push_back((double)s_r12[0]);
-            s_r1.push_back((double)s_r1[0]); s_r5.push_back((double)s_r5[0]); s_r9.push_back((double)s_r9[0]);   s_r13.push_back((double)s_r13[0]);
-            s_r2.push_back((double)s_r2[0]); s_r6.push_back((double)s_r6[0]); s_r10.push_back((double)s_r10[0]); s_r14.push_back((double)s_r14[0]);
-            s_r3.push_back((double)s_r3[0]); s_r7.push_back((double)s_r7[0]); s_r11.push_back((double)s_r11[0]); s_r15.push_back((double)s_r15[0]);
-//            s_r16.push_back((double)s_r16[0]);
-            s_r16.push_back((double)   s_r16[s_r16.size()-1] +  (s_r16[s_r16.size()-1] - s_r16[s_r16.size()-2] ) );
+            s_r0.push_back((double)s_r0[0]);    s_r4.push_back((double)s_r4[0]);    s_r8.push_back((double)s_r8[0]);   s_r12.push_back((double)s_r12[0]);
+            s_r1.push_back((double)s_r1[0]);    s_r5.push_back((double)s_r5[0]);    s_r9.push_back((double)s_r9[0]);   s_r13.push_back((double)s_r13[0]);
+            s_r2.push_back((double)s_r2[0]);    s_r6.push_back((double)s_r6[0]);    s_r10.push_back((double)s_r10[0]); s_r14.push_back((double)s_r14[0]);
+            s_r3.push_back((double)s_r3[0]);    s_r7.push_back((double)s_r7[0]);    s_r11.push_back((double)s_r11[0]); s_r15.push_back((double)s_r15[0]);
+            s_r16.push_back((double)s_r16[0]);  s_r17.push_back((double)s_r17[0]);  s_r18.push_back((double)s_r18[0]);
+//            s_r16.push_back((double)   s_r16[s_r16.size()-1] +  (s_r16[s_r16.size()-1] - s_r16[s_r16.size()-2] ) );
             c++;
             s_q0.push_back((double)s_q0[1]); s_e0.push_back((double)s_e0[1]);  s_l0.push_back((double)s_l0[1]); s_t0.push_back((double)s_t0[1]); s_p0.push_back((double)s_p0[1]);
             s_q1.push_back((double)s_q1[1]); s_e1.push_back((double)s_e1[1]);  s_l1.push_back((double)s_l1[1]); s_t1.push_back((double)s_t1[1]);
@@ -370,12 +384,12 @@ void interpolate_spline(int what) {
             s_bmin1.push_back((double)s_bmin1[1]); s_bmax1.push_back((double)s_bmax1[1]);
             s_bmin2.push_back((double)s_bmin2[1]); s_bmax2.push_back((double)s_bmax2[1]);
             s_frustum_toggle.push_back(s_frustum_toggle[1]);
-            s_r0.push_back((double)s_r0[1]); s_r4.push_back((double)s_r4[1]); s_r8.push_back((double)s_r8[1]);   s_r12.push_back((double)s_r12[1]);
-            s_r1.push_back((double)s_r1[1]); s_r5.push_back((double)s_r5[1]); s_r9.push_back((double)s_r9[1]);   s_r13.push_back((double)s_r13[1]);
-            s_r2.push_back((double)s_r2[1]); s_r6.push_back((double)s_r6[1]); s_r10.push_back((double)s_r10[1]); s_r14.push_back((double)s_r14[1]);
-            s_r3.push_back((double)s_r3[1]); s_r7.push_back((double)s_r7[1]); s_r11.push_back((double)s_r11[1]); s_r15.push_back((double)s_r15[1]);
-//            s_r16.push_back((double)s_r16[1]);
-            s_r16.push_back((double)   s_r16[s_r16.size()-1] +  (s_r16[s_r16.size()-1] - s_r16[s_r16.size()-2] ) );
+            s_r0.push_back((double)s_r0[1]);    s_r4.push_back((double)s_r4[1]);    s_r8.push_back((double)s_r8[1]);   s_r12.push_back((double)s_r12[1]);
+            s_r1.push_back((double)s_r1[1]);    s_r5.push_back((double)s_r5[1]);    s_r9.push_back((double)s_r9[1]);   s_r13.push_back((double)s_r13[1]);
+            s_r2.push_back((double)s_r2[1]);    s_r6.push_back((double)s_r6[1]);    s_r10.push_back((double)s_r10[1]); s_r14.push_back((double)s_r14[1]);
+            s_r3.push_back((double)s_r3[1]);    s_r7.push_back((double)s_r7[1]);    s_r11.push_back((double)s_r11[1]); s_r15.push_back((double)s_r15[1]);
+            s_r16.push_back((double)s_r16[1]);  s_r17.push_back((double)s_r17[1]);  s_r18.push_back((double)s_r18[1]);
+//            s_r16.push_back((double)   s_r16[s_r16.size()-1] +  (s_r16[s_r16.size()-1] - s_r16[s_r16.size()-2] ) );
         }
 
         printf("size=%d\n",s_q0.size());
@@ -395,11 +409,11 @@ void interpolate_spline(int what) {
         splinterp(sp_bmin1,s_bmin1); splinterp(sp_bmax1,s_bmax1);
         splinterp(sp_bmin2,s_bmin2); splinterp(sp_bmax2,s_bmax2);
 
-        splinterp(sp_r0,s_r0); splinterp(sp_r4,s_r4); splinterp(sp_r8,s_r8); splinterp(sp_r12,s_r12);
-        splinterp(sp_r1,s_r1); splinterp(sp_r5,s_r5); splinterp(sp_r9,s_r9); splinterp(sp_r13,s_r13);
-        splinterp(sp_r2,s_r2); splinterp(sp_r6,s_r6); splinterp(sp_r10,s_r10); splinterp(sp_r14,s_r14);
-        splinterp(sp_r3,s_r3); splinterp(sp_r7,s_r7); splinterp(sp_r11,s_r11); splinterp(sp_r15,s_r15);
-        splinterp(sp_r16,s_r16);
+        splinterp(sp_r0,s_r0);      splinterp(sp_r4,s_r4);      splinterp(sp_r8,s_r8); splinterp(sp_r12,s_r12);
+        splinterp(sp_r1,s_r1);      splinterp(sp_r5,s_r5);      splinterp(sp_r9,s_r9); splinterp(sp_r13,s_r13);
+        splinterp(sp_r2,s_r2);      splinterp(sp_r6,s_r6);      splinterp(sp_r10,s_r10); splinterp(sp_r14,s_r14);
+        splinterp(sp_r3,s_r3);      splinterp(sp_r7,s_r7);      splinterp(sp_r11,s_r11); splinterp(sp_r15,s_r15);
+        splinterp(sp_r16,s_r16);    splinterp(sp_r17,s_r17);    splinterp(sp_r18,s_r18);
 
         printf("...loaded and ready\n");
         splines_loaded=true;
@@ -439,13 +453,11 @@ void interpolate_spline(int what) {
         int_bmax[0]=(float)splinterpEval(sp_bmax0, starting); int_bmax[1]=(float)splinterpEval(sp_bmax1, starting); int_bmax[2]=(float)splinterpEval(sp_bmax2, starting);
         int_frustum_toggle=s_frustum_toggle[tt];
 //        if (area!="Models") {
-
-            rot_arr[0]=(float)splinterpEval(sp_r0, starting); rot_arr[4]=(float)splinterpEval(sp_r4, starting); rot_arr[8]=(float)splinterpEval(sp_r8, starting); rot_arr[12]=(float)splinterpEval(sp_r12, starting);
-            rot_arr[1]=(float)splinterpEval(sp_r1, starting); rot_arr[5]=(float)splinterpEval(sp_r5, starting); rot_arr[9]=(float)splinterpEval(sp_r9, starting); rot_arr[13]=(float)splinterpEval(sp_r13, starting);
-            rot_arr[2]=(float)splinterpEval(sp_r2, starting); rot_arr[6]=(float)splinterpEval(sp_r6, starting); rot_arr[10]=(float)splinterpEval(sp_r10, starting); rot_arr[14]=(float)splinterpEval(sp_r14, starting);
-            rot_arr[3]=(float)splinterpEval(sp_r3, starting); rot_arr[7]=(float)splinterpEval(sp_r7, starting); rot_arr[11]=(float)splinterpEval(sp_r11, starting); rot_arr[15]=(float)splinterpEval(sp_r15, starting);
-
-            int_arr[16]=(float)splinterpEval(sp_r16, starting);
+            rot_arr[0]=(float)splinterpEval(sp_r0, starting);   rot_arr[4]=(float)splinterpEval(sp_r4, starting);   rot_arr[8]=(float)splinterpEval(sp_r8, starting); rot_arr[12]=(float)splinterpEval(sp_r12, starting);
+            rot_arr[1]=(float)splinterpEval(sp_r1, starting);   rot_arr[5]=(float)splinterpEval(sp_r5, starting);   rot_arr[9]=(float)splinterpEval(sp_r9, starting); rot_arr[13]=(float)splinterpEval(sp_r13, starting);
+            rot_arr[2]=(float)splinterpEval(sp_r2, starting);   rot_arr[6]=(float)splinterpEval(sp_r6, starting);   rot_arr[10]=(float)splinterpEval(sp_r10, starting); rot_arr[14]=(float)splinterpEval(sp_r14, starting);
+            rot_arr[3]=(float)splinterpEval(sp_r3, starting);   rot_arr[7]=(float)splinterpEval(sp_r7, starting);   rot_arr[11]=(float)splinterpEval(sp_r11, starting); rot_arr[15]=(float)splinterpEval(sp_r15, starting);
+            int_arr[16]=(float)splinterpEval(sp_r16, starting); int_arr[17]=(float)splinterpEval(sp_r17, starting); int_arr[18]=(float)splinterpEval(sp_r18, starting);
 //        } else {
 //            rot_mat=glm::mat4(1.0);
 //        }
@@ -471,7 +483,7 @@ void interpolate_spline(int what) {
         int_arr[4]  = (float)s_r4[tt]; int_arr[5]  = (float)s_r5[tt]; int_arr[6]  = (float)s_r6[tt]; int_arr[7]  = (float)s_r7[tt];
         int_arr[8]  = (float)s_r8[tt]; int_arr[9]  = (float)s_r9[tt]; int_arr[10] = (float)s_r10[tt];int_arr[11] = (float)s_r11[tt];
         int_arr[12] = (float)s_r12[tt];int_arr[13] = (float)s_r13[tt];int_arr[14] = (float)s_r14[tt];int_arr[15] = (float)s_r15[tt];
-        int_arr[16] = (float)s_r16[tt];
+        int_arr[16] = (float)s_r16[tt];int_arr[17] = (float)s_r17[tt];int_arr[18] = (float)s_r18[tt];
 
         sprintf(store,"c=%d t=%-+f q0=%-+f q1=%-+f q2=%-+f q3=%-+f  e0=%-+f e1=%-+f e2=%-+f  l0=%-+f l1=%-+f l2=%-+f  t0=%-+f t1=%-+f t2=%-+f  p0=%-+f  bmin=%-+f %-+f %-+f  bmax=%-+f %-+f %-+f  frustum=%d",c,starting,
                 int_q[0],int_q[1],int_q[2],int_q[3],
@@ -518,21 +530,19 @@ void interpolate_spline(int what) {
         int_bmax[0]=(float)splinterpEval(sp_bmax0, starting); int_bmax[1]=(float)splinterpEval(sp_bmax1, starting); int_bmax[2]=(float)splinterpEval(sp_bmax2, starting);
         int_frustum_toggle=s_frustum_toggle[tt];
 //        if (area!="Models") {
-
             rot_arr[0]=(float)splinterpEval(sp_r0, starting); rot_arr[4]=(float)splinterpEval(sp_r4, starting); rot_arr[8]=(float)splinterpEval(sp_r8, starting); rot_arr[12]=(float)splinterpEval(sp_r12, starting);
             rot_arr[1]=(float)splinterpEval(sp_r1, starting); rot_arr[5]=(float)splinterpEval(sp_r5, starting); rot_arr[9]=(float)splinterpEval(sp_r9, starting); rot_arr[13]=(float)splinterpEval(sp_r13, starting);
             rot_arr[2]=(float)splinterpEval(sp_r2, starting); rot_arr[6]=(float)splinterpEval(sp_r6, starting); rot_arr[10]=(float)splinterpEval(sp_r10, starting); rot_arr[14]=(float)splinterpEval(sp_r14, starting);
             rot_arr[3]=(float)splinterpEval(sp_r3, starting); rot_arr[7]=(float)splinterpEval(sp_r7, starting); rot_arr[11]=(float)splinterpEval(sp_r11, starting); rot_arr[15]=(float)splinterpEval(sp_r15, starting);
-
             int_arr[16]=(float)splinterpEval(sp_r16, starting);
+            int_arr[17]=(float)splinterpEval(sp_r17, starting);
+            int_arr[18]=(float)splinterpEval(sp_r18, starting);
 //        } else {
 //            rot_mat=glm::mat4(1.0);
 //        }
-
-
-
 //        if (tt==starting) {
-        if ((int)(starting-0.05)!=(int)(starting)) {
+/*
+        if ((int)(starting-0.01)!=(int)(starting)) {
             sprintf(calc,"c=%d t=%-+f q0=%-+f q1=%-+f q2=%-+f q3=%-+f  e0=%-+f e1=%-+f e2=%-+f  l0=%-+f l1=%-+f l2=%-+f\n  t0=%-+f t1=%-+f t2=%-+f  p0=%-+f  bmin=%-+f %-+f %-+f  bmax=%-+f %-+f %-+f\n  frustum=%d",c,starting,
                     int_q[0],int_q[1],int_q[2],int_q[3],
                     int_e[0],int_e[1],int_e[2],
@@ -547,17 +557,23 @@ void interpolate_spline(int what) {
 //            if (strcmp(calc,store)!=0) printf("DIFFERENT!!! THIS SUCKS!!!!\n");
             printf("\n");
         }
+*/
+        if (c>0) {
+            float perc=starting/(float)c;
+            printf("\rtime=%7.2f %5.2f%%",starting,100.0*perc);
+        }
 
         starting=starting+playbackspeed;
         if ((int)starting>c-1) {
-            tt=0;
+            printf("\n");
+            tt=1;
             starting=0.0;
             if (record_window) {
-                printf("Recording paused. Press shift-R to continue recording, r to stop\n");
-                record_pause=1;
+//                printf("Recording paused. Press shift-R to continue recording, r to stop\n");
+//                record_pause=1;
             }
             printf("Setting start to 0.0\n");
-            stop_view();
+//            stop_view();
         }
 
 /*        if (tt>c-1) {

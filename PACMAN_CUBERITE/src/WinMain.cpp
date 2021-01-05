@@ -1929,8 +1929,8 @@ extern int replace_string(char *str, char *orig, char *rep);
         }
     }
 extern int timenow;
-
-    if (combine==1 && record_screen==1 && record_screen_num==200*5) {
+extern int record_window;
+    if (combine==1 && record_screen==1 && record_screen_num==200*5 && !record_window) {
         if (sync==1)
             SFMLView1.setVerticalSyncEnabled(true);
         else
