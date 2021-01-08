@@ -1,4 +1,16 @@
-CHECK THE ISSUES!!!
+from pacman_cuberite dir (also check pacman.ini):
+
+pacman.exe object <filename>
+-converts ../cut/*.vox files to ../objects/*.obj files
+
+pacman.exe regions <filename> <cubic>
+-converts ../cut/*.vox to /saves/test/region/done#/*.mca files
+
+pacman.exe region2voxel
+-converts /saves/tovoxel/region/*.mca and /saves/tovoxel/region/done#/*.mca files  to ../voxel/*.vox files
+
+CHECK THE ISSUES
+
 Also: I you need manuals on other stuff, ASK!
 (Super large posters of Google 3d on 300+ dpi)
 (Video's of 3d objects from 3d window, setting markers, interpolation, recording)
