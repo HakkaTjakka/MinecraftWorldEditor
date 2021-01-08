@@ -6559,7 +6559,7 @@ extern std::string area;
                     zz=z+chunk_offsetz*16;
                     BlockInfo* AY=AZ[z];
                     toggle2();
-                    for (int y = 1; y < yl; y++) {
+                    for (int y = 0; y < yl; y++) {
                         if (AY[y].id!=0) {
                             if (y>0 && y<255 && x>0 && x<511 & z>1 && z<511) {
                                 if (  (    //                                (AX[x-1][z-1][y-1].id!=0) &&    //                                (AX[x+0][z-1][y-1].id!=0) &&    //                                (AX[x+1][z-1][y-1].id!=0) &&    //                                (AX[x-1][z+0][y-1].id!=0) &&
