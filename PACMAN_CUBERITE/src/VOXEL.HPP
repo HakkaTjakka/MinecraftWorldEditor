@@ -85,6 +85,35 @@ struct hit_one_region {
 */
 };
 
+struct cubic_region {
+    int region_floor;
+    int x,z;
+
+    cubic_region(): region_floor(0), x(0), z(0) {};
+
+    cubic_region( int region_floor_, int x_, int z_ ) : region_floor(region_floor_), x(x_), z(z_) {};
+
+/*
+    bool operator < (const cubic_region &B) const
+    {
+        if (sort_regions_circle) {
+            if (x!=B.x || z!=B.z) {
+                double dist=sqrt( (x-region_center_x)*(x-region_center_x) + (z-region_center_z)*(z-region_center_z) );
+                double Bdist=sqrt( (B.x-region_center_x)*(B.x-region_center_x) + (B.z-region_center_z)*(B.z-region_center_z) );
+                return( dist < Bdist );
+            }
+            return region_floor < B.region_floor;
+        }
+
+        if (x != B.x) return x < B.x;
+        if (z != B.z) return z < B.z;
+        return region_floor < B.region_floor;
+    }
+*/
+};
+
+
+
 #endif // VOXEL_HPP_INCLUDED
 
 

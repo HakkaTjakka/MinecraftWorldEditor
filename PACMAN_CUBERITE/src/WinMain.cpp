@@ -73,6 +73,7 @@ extern int bar_on[];
 extern void text_to_ffmpeg(char * in,int font_size, sf::Color inner, sf::Color outer);
 extern sf::Color random_pixel;
 extern int plot_all_factor;
+
 extern std::vector<glm::ivec2> wierdo_requests_ready;
 extern sf::RectangleShape rectangle_paper;
 extern int paper_select;

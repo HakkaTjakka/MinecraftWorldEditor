@@ -21,6 +21,8 @@ extern bool no_plotting;
 extern int SEED;
 extern int playsound;
 #include <glm/glm.hpp>
+#include <../VOXEL.HPP>
+extern std::vector<Voxel> voxels;
 
 //#include <queue>
 //#include <utility>
@@ -2445,7 +2447,7 @@ int main_mceditor2()
 }
 
 
-MCEditor editor2;
+//MCEditor editor2;
 
 // set from_empty=1 for also creating non existing files (when data in texture, otherwise also skipped...), otherwise they are skipped.....
 // aternative you can set a file in the pacman_cuberite dir called from_empty.txt, then it does the same, don't forget to remove it when need skipping non existing files....
@@ -5926,7 +5928,7 @@ int main_mceditor6(int box_x, int box_y, int box_z, unsigned char* mc,
                     printf("\r%8d added. %8d replaced. %8d deleted. %8d same. Total = %8d = %5.2f%%  ",
                            num_blocks_added, num_blocks_replaced, num_blocks_deleted, num_blocks_same, num_blocks_total, 100.0*(float)num_blocks_total/(512*512*256));
                 }
-                printf("REGION=[%d][%d]  RR=[%3d-%3d] Y=[%3d-%3d] ZZ=[%3d-%3d] ",region_x,region_z,real_min_x,real_max_x,real_min_y,real_max_y,real_min_z,real_max_z);
+                printf("REGION=[%d][%d]  XX=[%3d-%3d] Y=[%3d-%3d] ZZ=[%3d-%3d] ",region_x,region_z,real_min_x,real_max_x,real_min_y,real_max_y,real_min_z,real_max_z);
 
                 scan_x=region_x;
                 scan_z=region_z;
@@ -5973,7 +5975,6 @@ int main_mceditor6(int box_x, int box_y, int box_z, unsigned char* mc,
     return 0;
 }
 
-#include <../VOXEL.HPP>
 
 extern std::vector<hit_one_region> vector_hit_regions;
 extern hit_one_region* findRegion(int x, int z);
@@ -6012,6 +6013,7 @@ extern int region_floor;
 extern bool cubic;
 
 sf::Image top_view;
+extern bool get_block;
 
 int main_mceditor6_fixed(int region_x, int region_z, unsigned char* mc) {
 //printf("hier 6\n");
@@ -6055,7 +6057,14 @@ extern std::string area;
     char tmp[256];
     char DONE[16];
     sprintf(DONE,"done%d",region_floor);
-    sprintf(tmp, "/Saves/Test/region/%s/r.%d.%d.mca", DONE, region_x, region_z);
+    if (get_block) {
+        sprintf(tmp, "/Saves/tovoxels/region/%s/r.%d.%d.mca", DONE, region_x, region_z);
+        if ( !file_exists(tmp) ) {
+            sprintf(tmp, "/Saves/tovoxels/region/r.%d.%d.mca", region_x, region_z);
+        }
+    }
+    else
+        sprintf(tmp, "/Saves/Test/region/%s/r.%d.%d.mca", DONE, region_x, region_z);
 //    sprintf(tmp, "/Saves/Test/region/done0/r.%d.%d.mca", region_x, region_z);
     fname=tmp;
     if (file_exists("add_to_region.on") || add_to_region) {
@@ -6085,7 +6094,8 @@ extern std::string area;
             return 0;
         }
         else {
-            if (plotting) printf(" Plotting: %s",fname.c_str());
+            if (get_block) printf(" Region file to voxel file: %s",fname.c_str());
+            else if (plotting) printf(" Plotting: %s",fname.c_str());
         }
     }
 
@@ -6095,12 +6105,13 @@ extern std::string area;
 
     int num_blocks=0;
 
-    if (file_exists("fix.on")) {
-        printf(" FIXING=ON\n");
-        fix_on=true;
-        top_view.create(512,512,sf::Color(0,0,0,0));
+    if (!get_block) {
+        if (file_exists("fix.on")) {
+            printf(" FIXING=ON\n");
+            fix_on=true;
+            top_view.create(512,512,sf::Color(0,0,0,0));
+        }
     }
-
 
     BlockInfo*** AX=region.A;
 
@@ -6153,7 +6164,12 @@ extern std::string area;
         editor.mca_coder.loadMCA(fname.c_str());
         first_MCEDIT=0;
         region_x_old=0,region_z_old=0;
+
+//        if (get_block) {
+//            return;
+//        }
         printf("Ok. Testing: ");
+
         scan_image.create(512,512,sf::Color(0,0,0,0));
         static int prev_region_x=-99999999;
         static int prev_region_z=-99999999;
@@ -6166,15 +6182,20 @@ extern std::string area;
         }
 
         int num_pixels=0;
+//printf("here 1\n");
         for (int x = 0; x < xl; x++) {
             BlockInfo** AZ=AX[x];
+//printf("here 2\n");
             for (int z = 0; z < zl; z++) {
                 toggle2();
                 BlockInfo* AY=AZ[z];
                 int max_y=-1;
                 int min_y=-1;
+//printf("here 3\n");
                 for (int y = 0; y < 256; y++) {
+//printf("here 4\n");
                     BlockInfo bi=editor.mca_coder.getBlock(x,z,y);
+//printf("here 5\n");
                     if ((fix_on && bi.id!=0) || (bi.id==251 && cubic) || (bi.id!=0 && !cubic)) {
 //                    if (bi.id!=0) {
                         if (min_y==-1 && bi.id==251) min_y=y;
@@ -6220,13 +6241,11 @@ extern std::string area;
         scan_x=region_x;
         scan_z=region_z;
         sprintf(mc_text1,"R.%d.%d.MCA",region_x,region_z);
-//        if (!no_plotting) {
-            update_request=2;
-            while (update_request) {
-                sf::sleep(sf::seconds(0.005));
-            }
-//        }
-        if (plotting) {
+        update_request=2;
+        while (update_request) {
+            sf::sleep(sf::seconds(0.005));
+        }
+        if (plotting && !get_block) {
             scan_image.create(512,512,sf::Color(0,0,0,0));
             if (fix_on) {
                 sf::Image mask_image;
@@ -6525,13 +6544,56 @@ extern std::string area;
                     }
                 }
             }
-           return 0;
+            return 0;
         }
-        else if ((make_regions || flushing_mode) && !add_to_region2) {
+        if ((make_regions || flushing_mode) && !add_to_region2) {
             printf("file %s exists, skipping...\n",fname.c_str());
             return 0;
         }
+        if (get_block) {
+            int blocks_shown=0;
+            for (int x = 0; x < 512; x++) {
+                xx=x+chunk_offsetx*16;
+                BlockInfo** AZ=AX[x];
+                for (int z = 0; z < 512; z++) {
+                    zz=z+chunk_offsetz*16;
+                    BlockInfo* AY=AZ[z];
+                    toggle2();
+                    for (int y = 1; y < yl; y++) {
+                        if (AY[y].id!=0) {
+                            if (y>0 && y<255 && x>0 && x<511 & z>1 && z<511) {
+                                if (  (    //                                (AX[x-1][z-1][y-1].id!=0) &&    //                                (AX[x+0][z-1][y-1].id!=0) &&    //                                (AX[x+1][z-1][y-1].id!=0) &&    //                                (AX[x-1][z+0][y-1].id!=0) &&
+                                    (AX[x+0][z+0][y-1].id!=0) &&    //                                (AX[x+1][z+0][y-1].id!=0) &&    //                                (AX[x-1][z+1][y-1].id!=0) &&    //                                (AX[x+0][z+1][y-1].id!=0) &&    //                                (AX[x+1][z+1][y-1].id!=0) &&    //                                (AX[x-1][z-1][y+0].id!=0) &&
+                                    (AX[x+0][z-1][y+0].id!=0) &&    //                                (AX[x+1][z-1][y+0].id!=0) &&
+                                    (AX[x-1][z+0][y+0].id!=0) &&    //                                (AX[x+0][z+0][y+0].id!=0) &&
+                                    (AX[x+1][z+0][y+0].id!=0) &&    //                                (AX[x-1][z+1][y+0].id!=0) &&
+                                    (AX[x+0][z+1][y+0].id!=0) &&    //                                (AX[x+1][z+1][y+0].id!=0) &&    //                                (AX[x-1][z-1][y+1].id!=0) &&    //                                (AX[x+0][z-1][y+1].id!=0) &&    //                                (AX[x+1][z-1][y+1].id!=0) &&    //                                (AX[x-1][z+0][y+1].id!=0) &&
+                                    (AX[x+0][z+0][y+1].id!=0)    //                                (AX[x+1][z+0][y+1].id!=0) &&    //                                (AX[x-1][z+1][y+1].id!=0) &&    //                                (AX[x+0][z+1][y+1].id!=0) &&    //                                (AX[x+1][z+1][y+1].id!=0)
+                                 ) ) {
+                                     continue;
+                                 }
+                            }
+                            int r,g,b;
+                            ret_color_rev(AX[x][z][y].data,r,g,b);
+                            int xxx=xx;
+                            int zzz=zz;
+                            int yyy=y+region_floor*256;
+//                            if (xxx<0) xxx++;
+//                            if (yyy<0) yyy--;
+//                            if (zzz<0) zzz++;
+                            Voxel one=Voxel(yyy,xxx,zzz,r,g,b,1,(unsigned char)0); // new
 
+                            voxels.push_back(one);
+
+                            blocks_shown++;
+                        }
+                    }
+                }
+            }
+            printf("\n%d blocks added to voxels\n",blocks_shown);
+
+            return 0;
+        }
         printf("  %d Blocks.  Adding: ",num_blocks);
     }
 
@@ -8166,7 +8228,7 @@ extern std::string area;
         printf("\r%8d added. %8d replaced. Total = %8d = %5.2f%%  tears = %d  water=%d  coral=%d  tnt=%d\n",
             num_blocks_added, num_blocks_replaced, num_blocks_total, 100.0*(float)num_blocks_total/(512*512*256),tears,water,coral,tnt_blocks);
     }
-    printf("REGION=[%d][%d]  RR=[%3d-%3d] Y=[%3d-%3d] ZZ=[%3d-%3d] ",region_x,region_z,real_min_x,real_max_x,real_min_y,real_max_y,real_min_z,real_max_z);
+    printf("REGION=[%d][%d]  XX=[%3d-%3d] Y=[%3d-%3d] ZZ=[%3d-%3d] ",region_x,region_z,real_min_x,real_max_x,real_min_y,real_max_y,real_min_z,real_max_z);
 
     scan_x=region_x;
     scan_z=region_z;

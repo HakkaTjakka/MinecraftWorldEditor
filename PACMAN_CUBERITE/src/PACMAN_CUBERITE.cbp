@@ -165,7 +165,6 @@
 		<Unit filename="../../shaders/fragment/picture_shader 74.frag" />
 		<Unit filename="../CUBERITE.BAT" />
 		<Unit filename="../CUBERITE2.BAT" />
-		<Unit filename="../LIST.TXT" />
 		<Unit filename="../MS TCP.bat" />
 		<Unit filename="../MS UPD.bat" />
 		<Unit filename="../MojangAPI.sqlite" />
@@ -193,6 +192,7 @@
 		<Unit filename="../items.ini" />
 		<Unit filename="../keylist.txt" />
 		<Unit filename="../level.txt" />
+		<Unit filename="../list.txt" />
 		<Unit filename="../list32x32.txt" />
 		<Unit filename="../list64x64.txt" />
 		<Unit filename="../logfile.txt" />
@@ -272,6 +272,7 @@
 		<Unit filename="UserInterface.cpp" />
 		<Unit filename="UserInterface.hpp" />
 		<Unit filename="VOXEL.HPP" />
+		<Unit filename="VOXEL_TO_REGION.CPP" />
 		<Unit filename="WUPPIE.CPP" />
 		<Unit filename="WinMain.cpp" />
 		<Unit filename="WinMain.h" />

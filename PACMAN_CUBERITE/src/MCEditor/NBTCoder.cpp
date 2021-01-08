@@ -27,6 +27,7 @@ void NBTCoder::Clear(node* T)
     for (node* u : T->ch)
         Clear(u);
     delete(T);
+    T=NULL;
 }
 
 void NBTCoder::setIntContent(node *T, ll x)

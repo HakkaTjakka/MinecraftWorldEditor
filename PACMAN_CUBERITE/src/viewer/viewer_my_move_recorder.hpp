@@ -569,11 +569,11 @@ void interpolate_spline(int what) {
             tt=1;
             starting=0.0;
             if (record_window) {
-//                printf("Recording paused. Press shift-R to continue recording, r to stop\n");
-//                record_pause=1;
+                printf("Recording paused. Press shift-R to continue recording, r to stop\n");
+                record_pause=1;
             }
             printf("Setting start to 0.0\n");
-//            stop_view();
+            stop_view();
         }
 
 /*        if (tt>c-1) {
@@ -2810,7 +2810,7 @@ bool analyse_3d(double lat, double lon, std::string my_area, int cur_x, int win_
                         up2[0],   up2[1], up2[2]);
         }
         glMatrixMode(GL_MODELVIEW);  glLoadIdentity(); glMultMatrixf((float*)&adapt);
-        glScalef(1.0f / maxExtent, 1.0f / maxExtent, 1.0f / maxExtent); glTranslatef(translation[0] ,translation[1] ,  translation[2]);
+            glScalef(1.0f / maxExtent, 1.0f / maxExtent, 1.0f / maxExtent); glTranslatef(translation[0] ,translation[1] ,  translation[2]);
 
         if (smooth) glShadeModel(GL_SMOOTH); else glShadeModel(GL_FLAT);
 

@@ -46,11 +46,13 @@
 #define EVENT_CONTROL 4
 #define EVENT_SYSTEM 8
 extern bool cubic;
+extern void launch_REGION_TO_VOXEL();
 
 extern bool do_pong=false;
 extern bool and_now_i_am_here;
 char voxel_filename[200];
 std::string obj_filename="";
+std::string region_filename="";
 bool make_regions=false;
 bool make_object=false;
 extern bool file_exists(const char * filename);
@@ -560,6 +562,9 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
                 make_object=true;
                 make_regions=true;
             }
+            else if (c==(char)'A') {
+                launch_REGION_TO_VOXEL();
+            }
             else if (c==(char)'q') {
                 combine=1;
                 area="Models";
@@ -860,6 +865,15 @@ printf("hoppa");
                 automate=true;
                 if (argc>2) { obj_filename=argv[2]; }
                 send_message='p';
+        }
+        else if (   strcmp(argv[1],"region2voxel"    )==0) {
+            if (argc>2) {
+                region_filename=argv[2];
+                printf("One .mca file: %s\n",region_filename);
+            } else {
+                region_filename=std::string()+"";
+            }
+            send_message='A';
         }
         else if (   strcmp(argv[1],"taskbar"    )==0) {
                 ShowTaskBar(true);

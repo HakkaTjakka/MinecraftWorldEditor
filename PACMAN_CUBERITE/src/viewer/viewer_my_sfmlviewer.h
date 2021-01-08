@@ -95,6 +95,7 @@ int main_hoppa2(int argc, char** argv, int cur_x, int cur_y, int max_x, int max_
 */
 
 bool init_window_ok[10]={false,false,false,false,false,false,false,false,false,false};
+
 void launch_SFMLGL2()
 {
     strcpy(window_name,"SFML OPENGL");
@@ -1270,6 +1271,11 @@ extern char send_message;
                     if (bar_on[win_num]==0) ShowTaskBar(true);
                     bar_on[win_num]=1;
                 }
+
+
+
+
+
                 if (burn) running_3d[win_num]=true;
 
                 if (switch_to_full_screen && videomode[win_num]==1) {
@@ -1361,10 +1367,31 @@ extern char send_message;
                 int local_request_3d_y_next=-1;
 //                send_flag=0;
                 bool wait_one_loop=false;
+
+
+                bool w1=false;
                 while ((formula==1 || drawmazes==0) &&  wierdo_requests.size()>0) {
                     sf::sleep(sf::seconds(1.0));
                     printf("\nWaiting for formula=0 (shift-f) and drawmazes=on (shift-d)\n");
+//                    w1=true;
                 }
+
+/*
+                if (w1) {
+                    b_o_x=-1;
+                    b_o_y=-1;
+                    start_burn=true;
+                    burn=true;
+                    switch_to_full_screen=true;
+                    contextSettings.antialiasingLevel = 4;
+                    videomode[win_num]=1;
+                    show_text=false;
+                    frustum=true;
+                    plot_func=false;
+
+                }
+*/
+
                 if (formula==0 && drawmazes==1 && wierdo_requests.size()>0) {
 //                if (formula==1 && shade_map==0 || wierdo_requests.size()>0) {
 //                    remember_911_3=true;
@@ -1441,7 +1468,7 @@ extern char send_message;
                                 window.setActive(true);
                                 running_3d[win_num]=true;
 
-                                if (!(load_3d_objects(frustum_count_x,frustum_count_y, my_area,  pac_obj2_arr_used,pac_obj2_arr, win_num, window))) {
+                                if (mirror!=0 && !(load_3d_objects(frustum_count_x,frustum_count_y, my_area,  pac_obj2_arr_used,pac_obj2_arr, win_num, window))) {
                                     printf("Empty?: X=%d,Y=%d\n",frustum_count_x,frustum_count_y);
                                 } else {
                                     wait_one_loop=true;
@@ -1509,8 +1536,10 @@ extern char send_message;
                             }
                             if (local_request_3d_y==frustum_size_y-1 && local_request_3d_x==frustum_size_x-1) {
                                 if (contextSettings.antialiasingLevel==0) {
-                                    if (!(load_3d_objects(frustum_count_x,frustum_count_y, my_area,  pac_obj2_arr_used,pac_obj2_arr, win_num, window))) {
+                                    if (mirror!=0 && !(load_3d_objects(frustum_count_x,frustum_count_y, my_area,  pac_obj2_arr_used,pac_obj2_arr, win_num, window))) {
                                         printf("Empty?: X=%d,Y=%d\n",frustum_count_x,frustum_count_y);
+//rotzak
+//                                        wait_one_loop=true;
                                     } else {
                                         wait_one_loop=true;
                                     }
@@ -1853,26 +1882,29 @@ extern double schematic_size;
     //                    if (loaded==1) printf("7-");
                         if (depth_shader_on) {
                             sf::Shader::bind(&depth_shader);
-                            if (record_screen==1)
-                            {
-                                fpstime=fpstime_factor*(float)record_screen_num*(float)rate/60.0;
+                            if (!remember_911) {
+                                if (record_screen==1)
+                                {
+                                    fpstime=fpstime_factor*(float)record_screen_num*(float)rate/60.0;
+                                }
+                                else
+                                {
+                                    fpstime=fpstime_factor*clock_shader.getElapsedTime().asSeconds();
+                                }
+    //                            depth_shader.setUniform("texture", sf::Shader::CurrentTexture);
+                                depth_shader.setUniform("whattodo",         whattodo);
+                                depth_shader.setUniform("wave_phase",       fpstime);
+                                depth_shader.setUniform("mouse",            mf);
+                                depth_shader.setUniform("ratio",            (float)ms.y/(float)ms.x);
+                                depth_shader.setUniform("resolution",       sf::Glsl::Vec2((float)ms.x,(float)ms.y));
+                                depth_shader.setUniform("move",             sf::Glsl::Vec3(move_object_x,   move_object_y , move_object_z));
+                                depth_shader.setUniform("bmin",             sf::Glsl::Vec3(bmin[0],         bmin[1],        bmin[2]));
+                                depth_shader.setUniform("bmax",             sf::Glsl::Vec3(bmax[0],         bmax[1],        bmax[2]));
+                                depth_shader.setUniform("translation",      sf::Glsl::Vec3(translation[0],  translation[1], translation[2]));
+                                depth_shader.setUniform("add_xyz",          sf::Glsl::Vec4(add_xyz4.x,      add_xyz4.y,     add_xyz4.z,     add_xyz4.w));
+                                depth_shader.setUniform("maxExtent", maxExtent);
+
                             }
-                            else
-                            {
-                                fpstime=fpstime_factor*clock_shader.getElapsedTime().asSeconds();
-                            }
-//                            depth_shader.setUniform("texture", sf::Shader::CurrentTexture);
-                            depth_shader.setUniform("whattodo",         whattodo);
-                            depth_shader.setUniform("wave_phase",       fpstime);
-                            depth_shader.setUniform("mouse",            mf);
-                            depth_shader.setUniform("ratio",            (float)ms.y/(float)ms.x);
-                            depth_shader.setUniform("resolution",       sf::Glsl::Vec2((float)ms.x,(float)ms.y));
-                            depth_shader.setUniform("move",             sf::Glsl::Vec3(move_object_x,   move_object_y , move_object_z));
-                            depth_shader.setUniform("bmin",             sf::Glsl::Vec3(bmin[0],         bmin[1],        bmin[2]));
-                            depth_shader.setUniform("bmax",             sf::Glsl::Vec3(bmax[0],         bmax[1],        bmax[2]));
-                            depth_shader.setUniform("translation",      sf::Glsl::Vec3(translation[0],  translation[1], translation[2]));
-                            depth_shader.setUniform("add_xyz",          sf::Glsl::Vec4(add_xyz4.x,      add_xyz4.y,     add_xyz4.z,     add_xyz4.w));
-                            depth_shader.setUniform("maxExtent", maxExtent);
                         }
                         else sf::Shader::bind(NULL);
                         for (auto u : Pacman_Objects[win_num]) {

@@ -427,3 +427,28 @@
 0 MOVIE2: G:\FILMS\TODO\WarGames.1983.1080p.BluRay.H264.AAC-RARBG\RARBG.COM.mp4
 0 MOVIE2: G:\FILMS\TODO\Taken Steven Spielberg - Sci-Fi Mini-Series 2002 Eng Multi-Subs [H264-mp4]\Taken Miniseries And  Interviews 2002\06 Charlie And Lisa - Miniseries 2002 Eng Subs [H264-mp4].mp4
 0 Program busy or hangs... Thread alive at: 30/12/2020 13:51:59
+1 Program busy or hangs... Thread alive at: 06/01/2021 19:22:52
+1 Program busy or hangs... Thread alive at: 06/01/2021 19:50:37
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:50:40
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:50:51
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:51:01
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:51:14
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:51:34
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:51:43
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:52:10
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:52:17
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:52:43
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:53:12
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:53:53
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:54:05
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:54:19
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:54:30
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:55:55
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:56:04
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:56:15
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:56:46
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:57:04
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:57:18
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:57:26
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:57:52
+1 Program busy or hangs... Thread alive at: 06/01/2021 20:58:04

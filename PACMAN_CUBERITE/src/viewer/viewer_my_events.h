@@ -62,7 +62,7 @@ extern void make_test_schematic();
 //                                if (curr_quat2[0]!=0.0 || curr_quat2[1]!=0.0 || curr_quat2[2]!=0.0 || curr_quat2[3]!=0.0) {
 //                                    quat_to_angles(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
 //                                    quat_to_angles(curr_quat2, prev_quat2, rotate_object_x,rotate_object_y, rotate_object_z);
-                                    rotate_object_x+=r_x; rotate_object_y+=r_y; rotate_object_z+=r_z;
+//                                    rotate_object_x+=r_x; rotate_object_y+=r_y; rotate_object_z+=r_z;
 //                                }
                             }
                             if (event.mouseButton.button == sf::Mouse::Left) {
@@ -70,7 +70,7 @@ extern void make_test_schematic();
         //                            printf("Pressed left\n");
                                     mouseLeftPressed2 = true;
                                     last_left_mouse = true;
-                                    trackball(prev_quat2, 0.0, 0.0, 0.0, 0.0);
+//                                    trackball(prev_quat2, 0.0, 0.0, 0.0, 0.0);
                                 } else if (event.type == sf::Event::MouseButtonReleased) {
         //                            printf("Released left\n");
                                     mouseLeftPressed2 = false;
