@@ -11,6 +11,9 @@ region tiles will be in ../cut
 Some blocks do not have the right color indexed (yet) and will be red. Chunks that are empty will be white.
 Soon: convert region to voxels (done 90%), convert voxels to wavefront 3d .obj/.mtl (done 90%), convert wavefront 3d to video's and (orthographic projection) 3d view posters (super large) (done 90%)
 
+Uses blockstates dir, models/block (textures) and models/blocks directory from %appdata%/.minecraft/version/1.12.2 directory to create average color of blocks.
+Soon in wavefront 3d .obj/.mtl/.textures format with original (or resource texture pack) textures for posters import/export video's/recording etc. and stuff.
+
 ***
 
 from pacman_cuberite dir (also check pacman.ini):
