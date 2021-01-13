@@ -850,9 +850,25 @@ printf("21");
 
         do
         {
+extern void toggle5();
+            toggle5();
 
+//            quick_toggle();
             flush = Z_NO_FLUSH;
             size_t bytes_read = 0;
+
+/*
+            size_t w_length=write_stream.size - write_stream.offset;
+            if (w_length>NBT_BUFFER_SIZE) {
+                w_length=NBT_BUFFER_SIZE;
+            } else {
+                flush = Z_FINISH;
+            }
+            memcpy( in_buffer , write_stream.buffer+write_stream.offset , w_length );
+            bytes_read+=w_length;
+            write_stream.offset+=w_length;
+*/
+
             for (size_t i = 0; i < NBT_BUFFER_SIZE; i++)
             {
 
@@ -867,6 +883,8 @@ printf("21");
                 }
 
             }
+
+
 
             stream.avail_in = bytes_read;
             stream.next_in = in_buffer;

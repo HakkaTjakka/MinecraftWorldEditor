@@ -1754,7 +1754,7 @@ extern void make_test_schematic();
                                                     if (u.bmin[1]<bmin[1]) bmin[1]=u.bmin[1]; if (u.bmax[1]>bmax[1]) bmax[1]=u.bmax[1];
                                                     if (u.bmin[2]<bmin[2]) bmin[2]=u.bmin[2]; if (u.bmax[2]>bmax[2]) bmax[2]=u.bmax[2];
                                                 }
-                                                printf("New object loaded: %d,%d: %s\n",cur_x,cur_y,str.c_str());
+                                                printf("\nNew object loaded: %d,%d: %s\n",cur_x,cur_y,str.c_str());
 
 //                                                loaded=1;round=2;
 
@@ -1764,7 +1764,7 @@ extern void make_test_schematic();
 //                                                loaded=1; round=3;
 
                                             } else {
-                                                printf("Error loading new object: %d,%d: %s\n",cur_x,cur_y,str.c_str());
+                                                printf("\nError loading new object: %d,%d: %s\n",cur_x,cur_y,str.c_str());
                                             }
                                             window.setActive(false);
 

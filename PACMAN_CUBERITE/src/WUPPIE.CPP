@@ -1606,13 +1606,13 @@ bool make_region_from_voxel(int x, int z) {
     size_t check_tot_voxels=0;
     size_t check_tot_errors=0;
 
+    voxels_temp.clear();
     if (file_exists(fname)) {
         FILE* voxel_file_pointer=NULL;
 
         printf("OPENING VOXEL FILE: %s ",fname);
         voxel_file_pointer=fopen(fname,"r");
         if (voxel_file_pointer!=NULL) {
-            voxels_temp.clear();
             printf("OK. READING VOXELS\n");
             char fline[200]="";
             Voxel one;
@@ -1681,6 +1681,7 @@ bool make_region_from_voxel(int x, int z) {
         printf("\nERROR: voxels=%d\n", voxels);
         return 0;
     }
+    voxels_temp.clear();
     return 1;
 }
 

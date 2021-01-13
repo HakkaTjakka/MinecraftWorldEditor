@@ -1,5 +1,4 @@
 #define SFML_STATIC
-#define SFML_STATIC
 #undef UNICODE
 #include <winsock2.h>
 #include <io.h>
@@ -850,6 +849,18 @@ printf("hoppa");
             }
             send_message='m';
         }
+        else if (   strcmp(argv[1],"minecraft"    )==0) {
+
+extern void make_colors_from_blocks();
+
+            if (argc>2) {
+                if (   strcmp(argv[2],"block"    )==0) {
+                    make_colors_from_blocks();
+//                    sf::sleep(sf::seconds(5.0));
+
+                }
+            }
+        }
         else if (   strcmp(argv[1],"enschede"    )==0) { send_message='s'; }
         else if (   strcmp(argv[1],"pong"    )==0) { send_message='u'; }
         else if (   strcmp(argv[1],"denhaag"    )==0) { send_message='t'; }
@@ -1101,9 +1112,9 @@ printf("hoppa");
     free(argv);
 
     if (!shader_test.loadFromFile("shaders/analyse3d.frag", sf::Shader::Fragment)) { printf("can not load shader shaders/analyse3d.frag\n"); }
-    shader_test.setUniform("texture_current", sf::Shader::CurrentTexture);
+//    shader_test.setUniform("texture_current", sf::Shader::CurrentTexture);
     shader_test.setUniform("texture_in", texture_test);
-    shader_test.setUniform("texture_size", sf::Vector2i(texture_test.getSize()));
+//    shader_test.setUniform("texture_size", sf::Vector2i(texture_test.getSize()));
     shader_test.setUniform("iResolution", sf::Vector2f(texture_test.getSize().x,texture_test.getSize().y));
     states_test.shader = &shader_test;
 

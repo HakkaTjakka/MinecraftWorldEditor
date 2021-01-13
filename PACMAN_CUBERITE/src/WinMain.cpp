@@ -1810,7 +1810,8 @@ extern int trace_line4(std::string in);
         if (MAXGHOSTS>0)
             maxnumber=MAXGHOSTS;
         logfile((char*)"Entering loop first time");
-        first=0;
+//asshole
+//        first=0;
         hWindow=hWndMain;
 
 //        texture_cube.loadFromFile("resources/CUBE3.png");
@@ -1897,6 +1898,8 @@ extern int trace_line4(std::string in);
         update_map(0,0);
 //        m_pointCloud_map0.resize(450);
 //        insert_key((WPARAM)'m');
+        first=0;
+
         return;
     }
 extern void parse_command(char * text);

@@ -164,19 +164,23 @@ int handle_init() {
 	fspeed_ghosty=	(float*)	calloc(MAXGHOSTS,sizeof(float));	if (fspeed_ghosty==NULL) 	{msgboxID=MessageBox(NULL, "ERROR ALLECATING MEMORY", "ERROR",MB_OK); {cleanupmem();exit(1);} }
 	check=			(int*)		calloc(MAXGHOSTS,sizeof(int));		if (check==NULL) 			{msgboxID=MessageBox(NULL, "ERROR ALLECATING MEMORY", "ERROR",MB_OK); {cleanupmem();exit(1);} }
 
-	mazesizex=BITMAPSX*30*2;
-	mazesizey=BITMAPSY*15*2;
 
     line=		(char*)		calloc(mazesizex+100,sizeof(char));	if (line==NULL)	            	{msgboxID=MessageBox(NULL, "ERROR ALLECATING MEMORY", "ERROR",MB_OK); {cleanupmem();exit(1);} }
 
     int i;
 
+	mazesizex=BITMAPSX*30*2; totalpicturex=BITMAPSX; maxpicturex=BITMAPSX-1; maze_plotsizex=BITMAPSX*30;
+	mazesizey=BITMAPSY*15*2; totalpicturey=BITMAPSY; maxpicturey=BITMAPSY-1; maze_plotsizey=BITMAPSY*15;
+
+
     Maze  		= (char **)	calloc(mazesizex+16 ,						sizeof(char *)); 	if (Maze==NULL)		{msgboxID=MessageBox(NULL, "ERROR ALLECATING MEMORY", "ERROR",MB_OK); {cleanupmem();exit(1);} }
     Maze[0] 	= (char *)	calloc((mazesizex+16) * (mazesizey+16) ,	sizeof(char));		if (Maze[0]==NULL)	{msgboxID=MessageBox(NULL, "ERROR ALLECATING MEMORY", "ERROR",MB_OK); {cleanupmem();exit(1);} }
     for(i=0; i<mazesizex+16; i++) Maze[i] = (*Maze+(mazesizey+16)*i);
 
-	totalpicturex=BITMAPSX;
-	totalpicturey=BITMAPSY;
+    maze_plot  	= (char **)	calloc(maze_plotsizex ,					sizeof(char *)); 	if (maze_plot==NULL)	{msgboxID=MessageBox(NULL, "ERROR ALLECATING MEMORY", "ERROR",MB_OK); {cleanupmem();exit(1);} }
+    maze_plot[0]= (char *)	calloc(maze_plotsizex*maze_plotsizey ,	sizeof(char));		if (maze_plot[0]==NULL)	{msgboxID=MessageBox(NULL, "ERROR ALLECATING MEMORY", "ERROR",MB_OK); {cleanupmem();exit(1);} }
+    for(i=0; i<maze_plotsizex; i++) maze_plot[i] = (*maze_plot+maze_plotsizey*i);
+
 
     used  		= (char **)	calloc(totalpicturex ,					sizeof(char *)); 	if (used==NULL)			{msgboxID=MessageBox(NULL, "ERROR ALLECATING MEMORY", "ERROR",MB_OK); {cleanupmem();exit(1);} }
     used[0] 	= (char *)	calloc(totalpicturex*totalpicturey ,	sizeof(char));		if (used[0]==NULL)		{msgboxID=MessageBox(NULL, "ERROR ALLECATING MEMORY", "ERROR",MB_OK); {cleanupmem();exit(1);} }
@@ -197,16 +201,6 @@ int handle_init() {
     files_mazes     = (char **)	calloc(totalpicturex ,					sizeof(char *)); 	if (files_mazes==NULL)		{msgboxID=MessageBox(NULL, "ERROR ALLECATING MEMORY", "ERROR",MB_OK); {cleanupmem();exit(1);} }
     files_mazes[0] 	= (char *)	calloc(totalpicturex*totalpicturey ,	sizeof(char));		if (files_mazes[0]==NULL)	{msgboxID=MessageBox(NULL, "ERROR ALLECATING MEMORY", "ERROR",MB_OK); {cleanupmem();exit(1);} }
     for(i=0; i<totalpicturex; i++) files_mazes[i] = (*files_mazes+totalpicturey*i);
-
-	maxpicturex=BITMAPSX-1;
-	maxpicturey=BITMAPSY-1;
-
-	maze_plotsizex=BITMAPSX*30;
-	maze_plotsizey=BITMAPSY*15;
-
-    maze_plot  	= (char **)	calloc(maze_plotsizex ,					sizeof(char *)); 	if (maze_plot==NULL)	{msgboxID=MessageBox(NULL, "ERROR ALLECATING MEMORY", "ERROR",MB_OK); {cleanupmem();exit(1);} }
-    maze_plot[0]= (char *)	calloc(maze_plotsizex*maze_plotsizey ,	sizeof(char));		if (maze_plot[0]==NULL)	{msgboxID=MessageBox(NULL, "ERROR ALLECATING MEMORY", "ERROR",MB_OK); {cleanupmem();exit(1);} }
-    for(i=0; i<maze_plotsizex; i++) maze_plot[i] = (*maze_plot+maze_plotsizey*i);
 
 	logfile((char*)"Allocating memory done succesfully");
     memory_set=1;

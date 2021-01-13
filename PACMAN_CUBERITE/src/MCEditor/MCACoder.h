@@ -6,6 +6,27 @@
 #include "NBTCoder.h"
 #include "BlockEntity.h"
 
+class MCRegion
+{
+public:
+    BlockInfo*** A;
+    BlockEntity**** B;
+
+    int x_len, z_len, y_len,
+        x_ori, z_ori, y_ori;
+
+    MCRegion() {};
+
+    MCRegion(int x0, int z0, int y0,
+             int xl, int zl, int yl);
+
+    ~MCRegion();
+
+    void delBlockEntity(BlockEntity* entity);
+//private:
+};
+
+
 class MCACoder
 {
 public:
@@ -24,6 +45,8 @@ public:
     void setBlock(const Pos &position, const BlockInfo &info);
 
     BlockInfo getBlock(int x, int z, int y);
+//    BlockInfo getBlock_FAST2(int x, int z, int y);
+    void getBlock_FAST(const MCRegion &region);
 
     void removeBlockEntity(const Pos &position);
 

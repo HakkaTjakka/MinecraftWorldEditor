@@ -1,4 +1,5 @@
 #undef UNICODE
+//rotzak
 #define NBT_OWN_ZLIB
 #include "debug_memory.hpp"
 #include "MCA-NBT-EDIT.HPP"

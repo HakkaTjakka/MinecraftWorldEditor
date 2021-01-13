@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="PACMAN_CUBERITE" />
+		<Option platforms="Windows;" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Release">
+				<Option platforms="Windows;" />
+				<Option output="../bin/PACMAN" prefix_auto="1" extension_auto="1" />
+				<Option working_dir=".." />
+				<Option object_output="../../obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+				<Option projectCompilerOptionsRelation="0" />
+				<Option projectLinkerOptionsRelation="0" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-w" />
+					<Add option="-std=c++14" />
+					<Add option="-m64" />
+					<Add option="-DSFML_STATIC" />
+					<Add option="-DFREEGLUT_STATIC" />
+					<Add option="-DGLEW_STATIC" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-static-libstdc++" />
+					<Add option="-static-libgcc" />
+					<Add option="-static" />
+					<Add option="-m64" />
+					<Add option="-Wl,-u,vfscanf -lscanf_flt -lm" />
+				</Linker>
+			</Target>
+			<Target title="Debug">
+				<Option platforms="Windows;" />
+				<Option output="../../PACMAN_DEBUG" prefix_auto="1" extension_auto="1" />
+				<Option working_dir=".." />
+				<Option object_output="../../obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+				<Option parameters="schematic skull/skull.obj" />
+				<Option projectLinkerOptionsRelation="0" />
+				<Compiler>
+					<Add option="-march=corei7" />
+					<Add option="-w" />
+					<Add option="-std=c++14" />
+					<Add option="-m64" />
+					<Add option="-Og" />
+					<Add option="-g" />
+					<Add option="-DSFML_STATIC" />
+				</Compiler>
+				<Linker>
+					<Add option="-static-libstdc++" />
+					<Add option="-static-libgcc" />
+					<Add option="-static" />
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-O3" />
+			<Add option="-w" />
+			<Add option="-Wextra" />
+			<Add option="-std=c++14" />
+			<Add option="-m64" />
+			<Add option="-U__STRICT_ANSI__" />
+			<Add option="-DSFML_STATIC" />
+			<Add option="-DFREEGLUT_STATIC" />
+			<Add option="-DGLEW_STATIC" />
+			<Add directory="include" />
+			<Add directory="include/cuberite" />
+			<Add directory="cuberite/lib/fmt" />
+			<Add directory="cuberite/lib/mbedtls/include" />
+			<Add directory="cuberite/lib/SQLiteCpp/include" />
+			<Add directory="cuberite/lib/SQLiteCpp/sqlite3" />
+			<Add directory="cuberite/lib/TCLAP/include" />
+			<Add directory="cuberite/lib/libevent/include" />
+			<Add directory="cuberite/src" />
+			<Add directory="cuberite/lib" />
+			<Add directory="cuberite/lib/jsoncpp/include" />
+			<Add directory="include/MeshLib/core" />
+			<Add directory="fly/include" />
+			<Add directory="fly/extlibs" />
+		</Compiler>
+		<Linker>
+			<Add option="-s" />
+			<Add option="-m64" />
+			<Add option="-static-libgcc -static-libstdc++" />
+			<Add option="-fstack-protector" />
+			<Add library="lib/libsfml-graphics-s.a" />
+			<Add library="lib/libsfml-window-s.a" />
+			<Add library="lib/libsfml-audio-s.a" />
+			<Add library="lib/libsfml-system-s.a" />
+			<Add library="lib/libsfml-network-s.a" />
+			<Add library="lib/libsfml-main.a" />
+			<Add library="lib/glew32s.lib" />
+			<Add library="lib/libfreeglut_static.a" />
+			<Add library="lib/libglfw3.a" />
+			<Add library="lib/libglu32.a" />
+			<Add library="lib/libopengl32.a" />
+			<Add library="lib/libopenal32.a" />
+			<Add library="lib/libFLAC.a" />
+			<Add library="lib/libfreetype.a" />
+			<Add library="lib/libjpeg.a" />
+			<Add library="lib/libvorbisfile.a" />
+			<Add library="lib/libvorbis.a" />
+			<Add library="lib/libvorbisenc.a" />
+			<Add library="lib/libogg.a" />
+			<Add library="lib/libwinmm.a" />
+			<Add library="lib/libgdi32.a" />
+			<Add library="lib/libsfeMovie-s.a" />
+			<Add library="lib/libavdevice.a" />
+			<Add library="lib/libavformat.a" />
+			<Add library="lib/libavfilter.a" />
+			<Add library="lib/libavcodec.a" />
+			<Add library="lib/libswresample.a" />
+			<Add library="lib/libswscale.a" />
+			<Add library="lib/libavutil.a" />
+			<Add library="lib/libpsapi.a" />
+			<Add library="lib/libwsock32.a" />
+			<Add library="lib/libkernel32.a" />
+			<Add library="lib/libparser.a" />
+			<Add library="lib/libstdlib.a" />
+			<Add library="lib/libstdc++.a" />
+			<Add library="lib/libz.a" />
+			<Add library="lib/libiconv.a" />
+			<Add library="lib/libiphlpapi.a" />
+			<Add library="lib/libssp.a" />
+			<Add library="lib/libversion.a" />
+			<Add library="lib/cuberite/fmt/fmt/libfmt.a" />
+			<Add library="lib/cuberite/jsoncpp/src/lib_json/libjsoncpp.a" />
+			<Add library="lib/cuberite/libevent/lib/libevent_core.a" />
+			<Add library="lib/cuberite/libevent/lib/libevent_extra.a" />
+			<Add library="lib/cuberite/mbedtls/library/libmbedtls.a" />
+			<Add library="lib/cuberite/mbedtls/library/libmbedcrypto.a" />
+			<Add library="lib/cuberite/mbedtls/library/libmbedx509.a" />
+			<Add library="lib/cuberite/sqlite/libsqlite.a" />
+			<Add library="lib/cuberite/SQLiteCpp/libSQLiteCpp.a" />
+			<Add library="lib/cuberite/zlib/libzlib.a" />
+			<Add library="lib/cuberite/luaexpat/libluaexpat.a" />
+			<Add library="lib/cuberite/tolua++/libtolualib.a" />
+			<Add library="lib/cuberite/luaproxy/CMakeFiles/luaproxy.dir/objects.a" />
+			<Add library="lib/cuberite/expat/libexpat.a" />
+			<Add library="lib/cuberite/lua/CMakeFiles/luaexe.dir/objects.a" />
+			<Add library="lib/cuberite/liblua5.1.dll.a" />
+			<Add library="lib/cuberite/liblua51.dll.a" />
+			<Add library="lib/cuberite/lua/CMakeFiles/lua.dir/objects.a" />
+			<Add library="lib/libws2_32.a" />
+			<Add directory="lib" />
+			<Add directory="C:/mingw-w64/x86_64-7.3.0-release-posix-seh-rt_v5-rev0/mingw64/lib" />
+			<Add directory="C:/mingw-w64/x86_64-7.3.0-release-posix-seh-rt_v5-rev0/mingw64/x86_64-w64-mingw32/lib" />
+			<Add directory="C:/mingw-w64/x86_64-7.3.0-release-posix-seh-rt_v5-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/7.3.0" />
+		</Linker>
+		<Unit filename="../../shaders/fragment/picture_shader 01.frag" />
+		<Unit filename="../../shaders/fragment/picture_shader 02.frag" />
+		<Unit filename="../../shaders/fragment/picture_shader 03.frag" />
+		<Unit filename="../../shaders/fragment/picture_shader 45.frag" />
+		<Unit filename="../../shaders/fragment/picture_shader 69.frag" />
+		<Unit filename="../../shaders/fragment/picture_shader 73.frag" />
+		<Unit filename="../../shaders/fragment/picture_shader 74.frag" />
+		<Unit filename="../CUBERITE.BAT" />
+		<Unit filename="../CUBERITE2.BAT" />
+		<Unit filename="../MS TCP.bat" />
+		<Unit filename="../MS UPD.bat" />
+		<Unit filename="../MojangAPI.sqlite" />
+		<Unit filename="../OCTANTS/AMSTERDAM.TXT" />
+		<Unit filename="../PACMAN.BAT" />
+		<Unit filename="../PACMAN2.BAT" />
+		<Unit filename="../Pacman.ini" />
+		<Unit filename="../RECONNECT CLIENT TCP.bat" />
+		<Unit filename="../RECONNECT CLIENT UDP.bat" />
+		<Unit filename="../RECONNECT SERVER TCP.bat" />
+		<Unit filename="../RECONNECT SERVER UDP.bat" />
+		<Unit filename="../Ranks.sqlite" />
+		<Unit filename="../banlist.sqlite" />
+		<Unit filename="../brewing.txt" />
+		<Unit filename="../crafting.txt" />
+		<Unit filename="../current_settings.bat" />
+		<Unit filename="../data.txt" />
+		<Unit filename="../delete_windows_service.cmd" />
+		<Unit filename="../dev_dshow.bat" />
+		<Unit filename="../dev_vfwcap.bat" />
+		<Unit filename="../furnace.txt" />
+		<Unit filename="../greetings.txt" />
+		<Unit filename="../install_windows_service.cmd" />
+		<Unit filename="../itemblacklist" />
+		<Unit filename="../items.ini" />
+		<Unit filename="../keylist.txt" />
+		<Unit filename="../level.txt" />
+		<Unit filename="../list.txt" />
+		<Unit filename="../list32x32.txt" />
+		<Unit filename="../list64x64.txt" />
+		<Unit filename="../logfile.txt" />
+		<Unit filename="../macros/files/macro1.txt" />
+		<Unit filename="../makelist.bat" />
+		<Unit filename="../map.txt" />
+		<Unit filename="../mcrcon.log" />
+		<Unit filename="../memory.log" />
+		<Unit filename="../memory.txt" />
+		<Unit filename="../monsters.ini" />
+		<Unit filename="../motd.txt" />
+		<Unit filename="../record_screen.bat" />
+		<Unit filename="../record_webcam.bat" />
+		<Unit filename="../scripts/fun.chai" />
+		<Unit filename="../setpath_seh_64_v7.bat" />
+		<Unit filename="../settings.ini" />
+		<Unit filename="../shaders/analyse3d.frag" />
+		<Unit filename="../shaders/billboard.geom" />
+		<Unit filename="../shaders/billboard2.frag" />
+		<Unit filename="../shaders/billboard2.geom" />
+		<Unit filename="../shaders/billboard2.vert" />
+		<Unit filename="../shaders/billboard3.frag" />
+		<Unit filename="../shaders/billboard3.geom" />
+		<Unit filename="../shaders/billboard3.vert" />
+		<Unit filename="../shaders/depth_shader - backup.frag" />
+		<Unit filename="../shaders/depth_shader -backup.vert" />
+		<Unit filename="../shaders/depth_shader.frag" />
+		<Unit filename="../shaders/depth_shader.vert" />
+		<Unit filename="../shaders/fragment/picture_shader 02.frag" />
+		<Unit filename="../shaders/fragment/picture_shader 16.frag" />
+		<Unit filename="../shaders/fragment/picture_shader 40.frag" />
+		<Unit filename="../text.txt" />
+		<Unit filename="../webadmin.ini" />
+		<Unit filename="../whitelist.sqlite" />
+		<Unit filename="Allocator.cpp" />
+		<Unit filename="Allocator.h" />
+		<Unit filename="CUBERITE2.BAT" />
+		<Unit filename="DataTypes.h" />
+		<Unit filename="Effect.hpp" />
+		<Unit filename="Fault.cpp" />
+		<Unit filename="Fault.h" />
+		<Unit filename="GetFileFromInternet.cpp" />
+		<Unit filename="MCA-NBT-EDIT.CPP" />
+		<Unit filename="MCA-NBT-EDIT.HPP" />
+		<Unit filename="MCEditor/BlockEntity.cpp" />
+		<Unit filename="MCEditor/BlockEntity.h" />
+		<Unit filename="MCEditor/MCACoder.cpp" />
+		<Unit filename="MCEditor/MCACoder.h" />
+		<Unit filename="MCEditor/MCEditor.cpp" />
+		<Unit filename="MCEditor/MCEditor.h" />
+		<Unit filename="MCEditor/NBTCoder.cpp" />
+		<Unit filename="MCEditor/NBTCoder.h" />
+		<Unit filename="MCEditor/globals.cpp" />
+		<Unit filename="MCEditor/globals.h" />
+		<Unit filename="MCEditor/paint.cpp" />
+		<Unit filename="MCEditor/test.cpp" />
+		<Unit filename="MENU.TXT" />
+		<Unit filename="Maze.cpp" />
+		<Unit filename="MediaInfo.cpp" />
+		<Unit filename="MediaInfo.hpp" />
+		<Unit filename="Minecraft.cpp" />
+		<Unit filename="NBT.TXT" />
+		<Unit filename="NBT.cpp" />
+		<Unit filename="NBT_DEFS.HPP" />
+		<Unit filename="OBJ-Loader/OBJ_Loader.h" />
+		<Unit filename="OBJ-Loader/e1_loadandprint.cpp" />
+		<Unit filename="Pacman.ini" />
+		<Unit filename="READ.ME" />
+		<Unit filename="Shader.cpp" />
+		<Unit filename="SimpleViewer/MeshLib/core/bmp/RgbImage.cpp" />
+		<Unit filename="SimpleViewer/Viewer/view_mesh.cpp" />
+		<Unit filename="StreamSelector.cpp" />
+		<Unit filename="StreamSelector.hpp" />
+		<Unit filename="TCP.cpp" />
+		<Unit filename="TPLL.cpp" />
+		<Unit filename="UDP.cpp" />
+		<Unit filename="UserInterface.cpp" />
+		<Unit filename="UserInterface.hpp" />
+		<Unit filename="VOXEL.HPP" />
+		<Unit filename="VOXEL_TO_REGION.CPP" />
+		<Unit filename="WUPPIE.CPP" />
+		<Unit filename="WinMain.cpp" />
+		<Unit filename="WinMain.h" />
+		<Unit filename="bitmaps.cpp" />
+		<Unit filename="blending.cpp" />
+		<Unit filename="colorcodes.hpp" />
+		<Unit filename="commando.cpp" />
+		<Unit filename="convert.cpp" />
+		<Unit filename="cuberite/src/Resources/Cuberite.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Unit filename="debug_memory.hpp" />
+		<Unit filename="everything.hpp" />
+		<Unit filename="exit_program.cpp" />
+		<Unit filename="file_functions.cpp" />
+		<Unit filename="fly/extlibs/src/simplexnoise.cpp" />
+		<Unit filename="fly/include/Airplane.h" />
+		<Unit filename="fly/include/BoundingBox.h" />
+		<Unit filename="fly/include/BoundingBox2.h" />
+		<Unit filename="fly/include/Camera.h" />
+		<Unit filename="fly/include/CameraController.h" />
+		<Unit filename="fly/include/Controller.h" />
+		<Unit filename="fly/include/Debug/Box.h" />
+		<Unit filename="fly/include/FrameBuffer.h" />
+		<Unit filename="fly/include/Log.h" />
+		<Unit filename="fly/include/Model.h" />
+		<Unit filename="fly/include/ParticleData.h" />
+		<Unit filename="fly/include/ParticleEmitters.h" />
+		<Unit filename="fly/include/ParticleRenderer.h" />
+		<Unit filename="fly/include/ParticleSystem.h" />
+		<Unit filename="fly/include/ParticleUpdaters.h" />
+		<Unit filename="fly/include/Renderer.h" />
+		<Unit filename="fly/include/Shader.h" />
+		<Unit filename="fly/include/ShadowMap.h" />
+		<Unit filename="fly/include/Sky.h" />
+		<Unit filename="fly/include/Sprite.h" />
+		<Unit filename="fly/include/Terrain.h" />
+		<Unit filename="fly/include/TerrainRenderer.h" />
+		<Unit filename="fly/include/TextureManager.h" />
+		<Unit filename="fly/include/Utility.h" />
+		<Unit filename="fly/include/Vertex.h" />
+		<Unit filename="fly/include/VertexArrayObject.h" />
+		<Unit filename="fly/src/Airplane.cpp" />
+		<Unit filename="fly/src/BoundingBox.cpp" />
+		<Unit filename="fly/src/Camera.cpp" />
+		<Unit filename="fly/src/CameraController.cpp" />
+		<Unit filename="fly/src/Controller.cpp" />
+		<Unit filename="fly/src/Debug/Box.cpp" />
+		<Unit filename="fly/src/FrameBuffer.cpp" />
+		<Unit filename="fly/src/Log.cpp" />
+		<Unit filename="fly/src/Model.cpp" />
+		<Unit filename="fly/src/ParticleData.cpp" />
+		<Unit filename="fly/src/ParticleEmitters.cpp" />
+		<Unit filename="fly/src/ParticleRenderer.cpp" />
+		<Unit filename="fly/src/ParticleSystem.cpp" />
+		<Unit filename="fly/src/ParticleUpdaters.cpp" />
+		<Unit filename="fly/src/Shader.cpp" />
+		<Unit filename="fly/src/ShadowMap.cpp" />
+		<Unit filename="fly/src/Sky.cpp" />
+		<Unit filename="fly/src/Sprite.cpp" />
+		<Unit filename="fly/src/Terrain.cpp" />
+		<Unit filename="fly/src/TerrainRenderer.cpp" />
+		<Unit filename="fly/src/TextureManager.cpp" />
+		<Unit filename="fly/src/Utility.cpp" />
+		<Unit filename="fly/src/main.cpp" />
+		<Unit filename="include/SFML/Audio.hpp" />
+		<Unit filename="include/SFML/Audio/AlResource.hpp" />
+		<Unit filename="include/SFML/Audio/Export.hpp" />
+		<Unit filename="include/SFML/Audio/InputSoundFile.hpp" />
+		<Unit filename="include/SFML/Audio/Listener.hpp" />
+		<Unit filename="include/SFML/Audio/Music.hpp" />
+		<Unit filename="include/SFML/Audio/OutputSoundFile.hpp" />
+		<Unit filename="include/SFML/Audio/Sound.hpp" />
+		<Unit filename="include/SFML/Audio/SoundBuffer.hpp" />
+		<Unit filename="include/SFML/Audio/SoundBufferRecorder.hpp" />
+		<Unit filename="include/SFML/Audio/SoundFileFactory.hpp" />
+		<Unit filename="include/SFML/Audio/SoundFileReader.hpp" />
+		<Unit filename="include/SFML/Audio/SoundFileWriter.hpp" />
+		<Unit filename="include/SFML/Audio/SoundRecorder.hpp" />
+		<Unit filename="include/SFML/Audio/SoundSource.hpp" />
+		<Unit filename="include/SFML/Audio/SoundStream.hpp" />
+		<Unit filename="include/SFML/Config.hpp" />
+		<Unit filename="include/SFML/GpuPreference.hpp" />
+		<Unit filename="include/SFML/Graphics.hpp" />
+		<Unit filename="include/SFML/Graphics/BlendMode.hpp" />
+		<Unit filename="include/SFML/Graphics/CircleShape.hpp" />
+		<Unit filename="include/SFML/Graphics/Color.hpp" />
+		<Unit filename="include/SFML/Graphics/ConvexShape.hpp" />
+		<Unit filename="include/SFML/Graphics/Drawable.hpp" />
+		<Unit filename="include/SFML/Graphics/Export.hpp" />
+		<Unit filename="include/SFML/Graphics/Font.hpp" />
+		<Unit filename="include/SFML/Graphics/Glsl.hpp" />
+		<Unit filename="include/SFML/Graphics/Glyph.hpp" />
+		<Unit filename="include/SFML/Graphics/Image.hpp" />
+		<Unit filename="include/SFML/Graphics/PrimitiveType.hpp" />
+		<Unit filename="include/SFML/Graphics/Rect.hpp" />
+		<Unit filename="include/SFML/Graphics/RectangleShape.hpp" />
+		<Unit filename="include/SFML/Graphics/RenderStates.hpp" />
+		<Unit filename="include/SFML/Graphics/RenderTarget.hpp" />
+		<Unit filename="include/SFML/Graphics/RenderTexture.hpp" />
+		<Unit filename="include/SFML/Graphics/RenderWindow.hpp" />
+		<Unit filename="include/SFML/Graphics/Shader.hpp" />
+		<Unit filename="include/SFML/Graphics/Shape.hpp" />
+		<Unit filename="include/SFML/Graphics/Sprite.hpp" />
+		<Unit filename="include/SFML/Graphics/Text.hpp" />
+		<Unit filename="include/SFML/Graphics/Texture.hpp" />
+		<Unit filename="include/SFML/Graphics/Transform.hpp" />
+		<Unit filename="include/SFML/Graphics/Transformable.hpp" />
+		<Unit filename="include/SFML/Graphics/Vertex.hpp" />
+		<Unit filename="include/SFML/Graphics/VertexArray.hpp" />
+		<Unit filename="include/SFML/Graphics/VertexBuffer.hpp" />
+		<Unit filename="include/SFML/Graphics/View.hpp" />
+		<Unit filename="include/SFML/Main.hpp" />
+		<Unit filename="include/SFML/Network.hpp" />
+		<Unit filename="include/SFML/Network/Export.hpp" />
+		<Unit filename="include/SFML/Network/Ftp.hpp" />
+		<Unit filename="include/SFML/Network/Http.hpp" />
+		<Unit filename="include/SFML/Network/IpAddress.hpp" />
+		<Unit filename="include/SFML/Network/Packet.hpp" />
+		<Unit filename="include/SFML/Network/Socket.hpp" />
+		<Unit filename="include/SFML/Network/SocketHandle.hpp" />
+		<Unit filename="include/SFML/Network/SocketSelector.hpp" />
+		<Unit filename="include/SFML/Network/TcpListener.hpp" />
+		<Unit filename="include/SFML/Network/TcpSocket.hpp" />
+		<Unit filename="include/SFML/Network/UdpSocket.hpp" />
+		<Unit filename="include/SFML/OpenGL.hpp" />
+		<Unit filename="include/SFML/System.hpp" />
+		<Unit filename="include/SFML/System/Clock.hpp" />
+		<Unit filename="include/SFML/System/Err.hpp" />
+		<Unit filename="include/SFML/System/Export.hpp" />
+		<Unit filename="include/SFML/System/FileInputStream.hpp" />
+		<Unit filename="include/SFML/System/InputStream.hpp" />
+		<Unit filename="include/SFML/System/Lock.hpp" />
+		<Unit filename="include/SFML/System/MemoryInputStream.hpp" />
+		<Unit filename="include/SFML/System/Mutex.hpp" />
+		<Unit filename="include/SFML/System/NativeActivity.hpp" />
+		<Unit filename="include/SFML/System/NonCopyable.hpp" />
+		<Unit filename="include/SFML/System/Sleep.hpp" />
+		<Unit filename="include/SFML/System/String.hpp" />
+		<Unit filename="include/SFML/System/Thread.hpp" />
+		<Unit filename="include/SFML/System/ThreadLocal.hpp" />
+		<Unit filename="include/SFML/System/ThreadLocalPtr.hpp" />
+		<Unit filename="include/SFML/System/Time.hpp" />
+		<Unit filename="include/SFML/System/Utf.hpp" />
+		<Unit filename="include/SFML/System/Vector2.hpp" />
+		<Unit filename="include/SFML/System/Vector3.hpp" />
+		<Unit filename="include/SFML/Window.hpp" />
+		<Unit filename="include/SFML/Window/Clipboard.hpp" />
+		<Unit filename="include/SFML/Window/Context.hpp" />
+		<Unit filename="include/SFML/Window/ContextSettings.hpp" />
+		<Unit filename="include/SFML/Window/Cursor.hpp" />
+		<Unit filename="include/SFML/Window/Event.hpp" />
+		<Unit filename="include/SFML/Window/Export.hpp" />
+		<Unit filename="include/SFML/Window/GlResource.hpp" />
+		<Unit filename="include/SFML/Window/Joystick.hpp" />
+		<Unit filename="include/SFML/Window/Keyboard.hpp" />
+		<Unit filename="include/SFML/Window/Mouse.hpp" />
+		<Unit filename="include/SFML/Window/Sensor.hpp" />
+		<Unit filename="include/SFML/Window/Touch.hpp" />
+		<Unit filename="include/SFML/Window/VideoMode.hpp" />
+		<Unit filename="include/SFML/Window/Window.hpp" />
+		<Unit filename="include/SFML/Window/WindowHandle.hpp" />
+		<Unit filename="include/SFML/Window/WindowStyle.hpp" />
+		<Unit filename="include/sfeMovie/Movie.hpp" />
+		<Unit filename="init.cpp" />
+		<Unit filename="key_functions.cpp" />
+		<Unit filename="keylist.hpp" />
+		<Unit filename="keylist.txt" />
+		<Unit filename="level.txt" />
+		<Unit filename="main.cpp" />
+		<Unit filename="make_black_transparant.cpp" />
+		<Unit filename="map.cpp" />
+		<Unit filename="maps.cpp" />
+		<Unit filename="maps.txt" />
+		<Unit filename="maze3d.cpp" />
+		<Unit filename="maze_functions.cpp" />
+		<Unit filename="miniz.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="miniz.h" />
+		<Unit filename="moviedemo.cpp" />
+		<Unit filename="myzpipe.cpp" />
+		<Unit filename="nbt.hpp" />
+		<Unit filename="network.cpp" />
+		<Unit filename="play.cpp" />
+		<Unit filename="plotting.cpp" />
+		<Unit filename="print_to_screen.cpp" />
+		<Unit filename="recording.cpp" />
+		<Unit filename="scanner.cpp" />
+		<Unit filename="scripting.cpp" />
+		<Unit filename="shaders.cpp" />
+		<Unit filename="shaders/billboard.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/billboard.geom">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/billboard.vert">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/billboard2.frag" />
+		<Unit filename="shaders/billboard2.geom" />
+		<Unit filename="shaders/billboard2.vert" />
+		<Unit filename="shaders/buffer_shader 1.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/buffer_shader 2.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/buffer_shader 3.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader 1.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader 10.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader 11.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader 12.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader 13.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader 15.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader 2.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader 3.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader 4.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader 40.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader 5.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader 50.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader 6.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader 64.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader 7.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader 8.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader 9.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/picture_shader.vert">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/pixelate.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="shaders/wave.vert">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="stdafx.cpp" />
+		<Unit filename="stdafx.h" />
+		<Unit filename="targetver.h" />
+		<Unit filename="text.txt" />
+		<Unit filename="text_functions.cpp" />
+		<Unit filename="viewer/ANGLES.CPP" />
+		<Unit filename="viewer/area_data.cpp" />
+		<Unit filename="viewer/area_data_amsterdam.cpp" />
+		<Unit filename="viewer/rotate_around_point.cpp" />
+		<Unit filename="viewer/rotje.cpp" />
+		<Unit filename="viewer/stb_image.h" />
+		<Unit filename="viewer/stb_image2.h" />
+		<Unit filename="viewer/tiny_obj_loader2.h" />
+		<Unit filename="viewer/trackball.cc" />
+		<Unit filename="viewer/trackball.h" />
+		<Unit filename="viewer/viewer_my.cc" />
+		<Unit filename="viewer/viewer_my_draw.h" />
+		<Unit filename="viewer/viewer_my_events.h" />
+		<Unit filename="viewer/viewer_my_get3d.h" />
+		<Unit filename="viewer/viewer_my_get_draw.h" />
+		<Unit filename="viewer/viewer_my_image_loader.h" />
+		<Unit filename="viewer/viewer_my_inits.h" />
+		<Unit filename="viewer/viewer_my_inits_more.h" />
+		<Unit filename="viewer/viewer_my_loadobj.h" />
+		<Unit filename="viewer/viewer_my_loadobj_functions.h" />
+		<Unit filename="viewer/viewer_my_make_frustum.hpp" />
+		<Unit filename="viewer/viewer_my_move_recorder.hpp" />
+		<Unit filename="viewer/viewer_my_plane_stuff.hpp" />
+		<Unit filename="viewer/viewer_my_recording.hpp" />
+		<Unit filename="viewer/viewer_my_sfmlviewer.h" />
+		<Unit filename="viewer/viewer_my_text.h" />
+		<Unit filename="viewer/viewer_my_todo.hpp" />
+		<Unit filename="viewer/viewer_my_window.h" />
+		<Unit filename="viewer/viewer_my_zoomtest.hpp" />
+		<Unit filename="viewer_my_divers.hpp" />
+		<Unit filename="viewer_my_make_frustum.hpp" />
+		<Unit filename="wierdo.cpp" />
+		<Unit filename="winapi.cpp" />
+		<Unit filename="xallocator.cpp">
+			<Option compiler="gcc" use="1" buildCommand="$compiler -O2 -Wall -O2  -c $file -o $object" />
+		</Unit>
+		<Unit filename="xallocator.h" />
+		<Unit filename="xalloctest.cpp" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

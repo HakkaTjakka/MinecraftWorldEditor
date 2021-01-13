@@ -1,5 +1,4 @@
 #ifndef NBT_DEFS_HPP
-
 #define NBT_DEFS_HPP
 
 #define NBT_IMPLEMENTATION
@@ -46,6 +45,9 @@ extern size_t CNT_XFREE;
 
 #define NBT_OWN_ZLIB
 
+//rotzak
+//#define __x86_64__
+
 #ifdef NBT_OWN_ZLIB
 #include "zlib.h"
 #else
@@ -56,8 +58,10 @@ extern size_t CNT_XFREE;
 #define Z_DEFAULT_WINDOW_BITS 15
 #endif
 
+//rotzak
 #ifndef NBT_BUFFER_SIZE
 #define NBT_BUFFER_SIZE 32768
+//#define NBT_BUFFER_SIZE 1048576
 #endif
 
 #define NBT_COMPRESSION_LEVEL 9

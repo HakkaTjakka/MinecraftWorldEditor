@@ -116,7 +116,7 @@
 
 
 
-/* Defines to completely disable specific portions of miniz.c: 
+/* Defines to completely disable specific portions of miniz.c:
    If all macros here are defined the only functionality remaining will be CRC-32, adler-32, tinfl, and tdefl. */
 
 /* Define MINIZ_NO_STDIO to disable all usage and any functions which rely on stdio for file I/O. */
@@ -139,7 +139,7 @@
 /* Define MINIZ_NO_ZLIB_COMPATIBLE_NAME to disable zlib names, to prevent conflicts against stock zlib. */
 /*#define MINIZ_NO_ZLIB_COMPATIBLE_NAMES */
 
-/* Define MINIZ_NO_MALLOC to disable all calls to malloc, free, and realloc. 
+/* Define MINIZ_NO_MALLOC to disable all calls to malloc, free, and realloc.
    Note if MINIZ_NO_MALLOC is defined then the user must always provide custom user alloc/free/realloc
    callbacks to the zlib and archive API's, and a few stand-alone helper API's which don't provide custom user
    functions (such as tdefl_compress_mem_to_heap() and tinfl_decompress_mem_to_heap()) won't work. */
@@ -155,6 +155,9 @@
 #if !defined(MINIZ_NO_TIME) && !defined(MINIZ_NO_ARCHIVE_APIS)
 #include <time.h>
 #endif
+
+//rotzak
+#define __x86_64__
 
 #if defined(_M_IX86) || defined(_M_X64) || defined(__i386__) || defined(__i386) || defined(__i486__) || defined(__i486) || defined(i386) || defined(__ia64__) || defined(__x86_64__)
 /* MINIZ_X86_OR_X64_CPU is only used to help set the below macros. */
@@ -647,6 +650,9 @@ enum
     TDEFL_MAX_HUFF_SYMBOLS_0 = 288,
     TDEFL_MAX_HUFF_SYMBOLS_1 = 32,
     TDEFL_MAX_HUFF_SYMBOLS_2 = 19,
+//rotzak
+//1048576
+//    TDEFL_LZ_DICT_SIZE = 1048576,
     TDEFL_LZ_DICT_SIZE = 32768,
     TDEFL_LZ_DICT_SIZE_MASK = TDEFL_LZ_DICT_SIZE - 1,
     TDEFL_MIN_MATCH_LEN = 3,
@@ -808,7 +814,9 @@ void tinfl_decompressor_free(tinfl_decompressor *pDecomp);
 #endif
 
 /* Max size of LZ dictionary. */
+//rotzak
 #define TINFL_LZ_DICT_SIZE 32768
+//#define TINFL_LZ_DICT_SIZE 1048576
 
 /* Return status. */
 typedef enum {

@@ -30,7 +30,7 @@ out float diff_;
 
 //out mat4 my_modelviewmatrix;
 out vec4 out_color;
-//out float z_;
+out float z_;
 
 //varying vec3 my_light;
 //varying vec4 out_color;
@@ -147,6 +147,7 @@ void main()
 //            kS_x_spec_ = spec1 + vec3(0.10, 0.10, 0.10);
 //            kS_x_spec_ = spec2 + vec3(0.10, 0.10, 0.10);
 
+            z_=1.0-gl_Position.z/3.0;
             break;
         }
         case 2 : {
@@ -159,7 +160,7 @@ void main()
 //                else if ( (gl_VertexID%3)==1 ) out_color=vec4(0.0,1.0,0.0,0.5);
 //                else if ( (gl_VertexID%3)==2 ) out_color=vec4(0.0,0.0,1.0,0.5);
 //                if (  (gl_VertexID%6)==0 || (gl_VertexID%6)==1 || (gl_VertexID%6==2) ) {
-                    out_color = vec4(1.0,0.2,0.8,1.0-gl_Position.z/0.3);
+                    out_color =- vec4(1.0,0.2,0.8,1.0-gl_Position.z/0.3);
 //                    out_color = vec4(0.0,0.0,0.0,1.0);
 //                } else {
 //                    out_color = vec4(0.0,0.0,0.0,1.0-gl_Position.z/.3);
@@ -217,6 +218,7 @@ void main()
 //            kS_x_spec_ = spec1 + vec3(0.10, 0.10, 0.10);
 //            kS_x_spec_ = spec2 + vec3(0.10, 0.10, 0.10);
 
+            z_=1.0-gl_Position.z/3.0;
             break;
         }
         case 3 : {
@@ -285,6 +287,7 @@ void main()
 //            kS_x_spec_ = spec1 + vec3(0.10, 0.10, 0.10);
 //            kS_x_spec_ = spec2 + vec3(0.10, 0.10, 0.10);
 
+            z_=1.0-gl_Position.z/3.0;
             break;
         }
     }

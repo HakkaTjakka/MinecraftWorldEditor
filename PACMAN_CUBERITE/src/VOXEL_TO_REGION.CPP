@@ -130,8 +130,10 @@ void voxels_to_object(char* picture_file) {
     int num=sscanf(picture_file,"r.%d.%d.vox",&offset_x,&offset_z);
     if (num==2) {
         printf("Assuming region voxelfile: %s : r.%d.%d.vox\n",picture_file,offset_x,offset_z);
-        offset_x=offset_x*512;
-        offset_z=offset_z*512;
+        offset_x=0;
+        offset_z=0;
+//        offset_x=offset_x*512;
+//        offset_z=offset_z*512;
     } else {
         offset_x=bmin_x;
         offset_y=bmin_y;
@@ -868,9 +870,11 @@ int REGION_TO_VOXEL_running=0;
 void REGION_TO_VOXEL_THREAD();
 
 sf::Thread REGION_TO_VOXEL(&REGION_TO_VOXEL_THREAD);
+extern int shut_up;
 
 void launch_REGION_TO_VOXEL()
 {
+    shut_up=1;
     if (REGION_TO_VOXEL_running==1)
     {
         printf("Region to voxel thread already running\n");
@@ -882,18 +886,28 @@ void launch_REGION_TO_VOXEL()
 
 void regions_to_voxelfiles();
 
+extern int first;
 void REGION_TO_VOXEL_THREAD()
 {
-    printf("Region to voxel thread starting");
-    sf::sleep(sf::seconds(0.5));
+    printf("Waiting for main first loop");
+    while (first==1) {
+        sf::sleep(sf::seconds(0.1));
+        printf(".");
+    }
+
+    printf(". Region to voxel thread starting");
+/*
+    sf::sleep(sf::seconds(0.05));
     printf(".");
-    sf::sleep(sf::seconds(0.5));
+    sf::sleep(sf::seconds(0.05));
     printf(".");
-    sf::sleep(sf::seconds(0.5));
+    sf::sleep(sf::seconds(0.05));
     printf(".");
-    sf::sleep(sf::seconds(0.5));
+    sf::sleep(sf::seconds(0.05));
     printf(".\n");
+*/
     regions_to_voxelfiles();
+
     REGION_TO_VOXEL_stop=0;
     REGION_TO_VOXEL_running=0;
     SFMLView1.requestFocus();
@@ -906,8 +920,24 @@ void terminate_REGION_TO_VOXEL()
     REGION_TO_VOXEL.terminate();
 }
 
+//MCRegion *region_extern;
+
+extern void toggle2();
+extern void ret_color_rev(int idx, int&r,int&g,int&b );
+extern int remove_block_entities;
+extern void reset_block();
+extern int region_x_old;
+extern int region_z_old;
+extern int first_MCEDIT;
+extern int scan_x;
+extern int scan_z;
+extern char mc_text1[];
+extern int update_request;
+extern std::string file_name_MCA;
+extern unsigned char color_table[16][3];
+
 void regions_to_voxelfiles() {
-    char voxel_file[200];
+    char voxel_file[1024];
     mkdir("../voxels");
     cubic=false;
     int num_regions=0;
@@ -925,7 +955,6 @@ void regions_to_voxelfiles() {
         for(int i=0;i<strlen(de_ROOT->d_name);i++){
             de_ROOT->d_name[i] = tolower(de_ROOT->d_name[i]);
         }
-
         if ((strstr(de_ROOT->d_name, "done")) != NULL) {
             sscanf(de_ROOT->d_name,"done%d",&region_floor);
             char floor_dir[2000];
@@ -952,8 +981,7 @@ void regions_to_voxelfiles() {
             }
             closedir(dr);
         }
-
-        printf("\n\n");
+//        printf("\n\n");
     }
     closedir(dr_ROOT);
 
@@ -974,7 +1002,7 @@ void regions_to_voxelfiles() {
             printf("r.%d.%d.mca ",x,z);
             one_cubic_region.x=x;
             one_cubic_region.z=z;
-            one_cubic_region.region_floor=region_floor;
+            one_cubic_region.region_floor=0;
 //                            cubic_regions.push_back(one_cubic_region);
             cubic_regions_mapped.insert(std::make_pair( z*100000000+100*x+region_floor, one_cubic_region));
         }
@@ -982,16 +1010,43 @@ void regions_to_voxelfiles() {
     closedir(dr2);
     voxels.clear();
 
+    int tot_max_x=-std::numeric_limits<int>::max();
+    int tot_min_x=std::numeric_limits<int>::max();
+
+    int tot_max_z=-std::numeric_limits<int>::max();
+    int tot_min_z=std::numeric_limits<int>::max();
+
+    int tot_max_y=-std::numeric_limits<int>::max();
+    int tot_min_y=std::numeric_limits<int>::max();
+
+    int max_x_region=-std::numeric_limits<int>::max();
+    int min_x_region=std::numeric_limits<int>::max();
+
+    int max_y_region=-std::numeric_limits<int>::max();
+    int min_y_region=std::numeric_limits<int>::max();
+
+    int max_z_region=-std::numeric_limits<int>::max();
+    int min_z_region=std::numeric_limits<int>::max();
+
     if (cubic_regions_mapped.size()>0) {
         int prev_x=-99999999;
         int prev_z=-99999999;
         it = cubic_regions_mapped.begin();
 
         bool does_exist;
+        voxels.clear();
         while(it != cubic_regions_mapped.end()) {
             int x=it->second.x;
             int z=it->second.z;
             region_floor=it->second.region_floor;
+
+            if (x<min_x_region) min_x_region=x;
+            if (x>max_x_region) max_x_region=x;
+            if (region_floor>max_y_region) max_y_region=region_floor;
+            if (region_floor<min_y_region) min_y_region=region_floor;
+            if (z>max_z_region) max_z_region=z;
+            if (z<min_z_region) min_z_region=z;
+
             if (x==prev_x && z==prev_z) {
 //                printf(",");
             }
@@ -1008,52 +1063,301 @@ void regions_to_voxelfiles() {
 
                 hit_one_region* hit_one=findRegion(x,z);
                 if (hit_one==NULL) {
+                    if (file_exists(voxel_file)) {
+                        printf("Warning: First region floor file from ../tovoxels/region/done%d or ../tovoxels/region (floor 0) but voxelfile exists: %s\n",it->second.region_floor,voxel_file);
+                        printf("Warning: Appending voxels to %s\n",voxel_file);
+                    } else {
+                        printf("Ok. Creating new file. Writing to %s\n",voxel_file);
+                    }
                     vector_hit_regions.push_back(hit_one_region(x,z));
                     hit_one=&vector_hit_regions[vector_hit_regions.size()-1];
+                } else {
+                    if (file_exists(voxel_file)) {
+                        printf("Ok/(Warning when not cubic). NOT first region floor file from ../tovoxels/region/done%d or ../tovoxels/region (floor 0) Voxelfile exists: %s\n",it->second.region_floor,voxel_file);
+                        printf("Appending voxels to %s\n",voxel_file);
+                    } else {
+                        printf("Warning/ERROR?: NOT first region floor file from ../tovoxels/region/done%d or ../tovoxels/region (floor 0) BUT NO VOXELFILE EXISTS. (MOVED/DELETED?): %s\n",it->second.region_floor,voxel_file);
+                        printf("Warning/ERROR?: New file BUT NOT FIRST REGION FILES (DOUBLE/CUBIC). Writing to %s\n",voxel_file);
+                    }
                 }
                 hit_one->index11=1;
                 hit_one->index12=1;
             }
 //                        if (!flushing && (mirror==3 || does_exist==false) ) {
 
-            if (does_exist==false ) {
-                printf("floor (%d)\n",region_floor);
-                bool plot_only_old=plot_only;
-                mirror==3;
-                plot_only=1;
-                scan_image.create(512,512,sf::Color(128,128,128,128));
-                plotting=1;
-                MCEDITOR_running=1;
-                get_block=true;
-                main_mceditor6_fixed(x, z, region_block);
-                printf("Loaded region file. Clearing: ");
-                editor.mca_coder.clearModification();
-//                printf(" 2");
-//                editor.clearArrays(512,512,256);
-                printf(" Ready\n");
+            int max_x=-std::numeric_limits<int>::max();
+            int min_x=std::numeric_limits<int>::max();
 
-                if (voxels.size()>0) {
-                    char fname[200];
-                    FILE* voxel_file_pointer=fopen(voxel_file,"a");
-                    if (voxel_file_pointer!=NULL) {
-                        printf("Appending voxels to %s\n",voxel_file);
-                        for (auto u : voxels) {
-                            if (u.l>0) {
-                                fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d)\n",
-                                        u.y, u.x, u.z,  u.r/u.l,u.g/u.l, u.b/u.l,  u.l );
-                            }
-                        }
-                        fclose(voxel_file_pointer);
-                    } else {
-                        printf("Error writing to %s\n",fname);
-                    }
-                    voxels.clear();
+            int max_z=-std::numeric_limits<int>::max();
+            int min_z=std::numeric_limits<int>::max();
+
+            int max_y=-std::numeric_limits<int>::max();
+            int min_y=std::numeric_limits<int>::max();
+
+            if (does_exist==false ) {
+                printf("floor (%d) ",region_floor);
+
+//                bool plot_only_old=plot_only;
+//                mirror==3;
+//                plot_only=1;
+                scan_image.create(512,512,sf::Color(168,128,128,128));
+//                plotting=1;
+//                MCEDITOR_running=1;
+//                get_block=true;
+//                main_mceditor6_fixed(x, z, region_block);
+
+                char tmp[1024];
+                sprintf(tmp, "/Saves/tovoxels/region/done%d/r.%d.%d.mca", region_floor, x, z);
+                if ( !file_exists(tmp) ) {
+                    sprintf(tmp, "/Saves/tovoxels/region/r.%d.%d.mca", x, z);
+                }
+                if (!file_exists(tmp)) {
+                    printf("Can not find file %s\n",tmp);
+                    continue;
+                } else {
+//                    printf("Loading %s",tmp);
                 }
 
-                get_block=false;
+                reset_block();
+                remove_block_entities=0;
+                first_MCEDIT=1;
+
+                editor.mca_coder.loadMCA(tmp);
+
+                first_MCEDIT=0;
+                region_x_old=0,region_z_old=0;
+
+                MCRegion region(0,0,0, 512, 512, 256);
+
+                BlockInfo*** AX=region.A;
+
+                printf(" Ready. Converting.");
+
+                int region_x=x,region_z=z;
+                int num_blocks=0;
+
+//                BlockInfo bi;
+
+                editor.mca_coder.getBlock_FAST(region);
+
+                printf(" Ready. Plotting.");
+
+                for (int x = 0; x < 512; x++) {
+                    BlockInfo** AZ=AX[x];
+                    for (int z = 0; z < 512; z++) {
+//                        toggle2();
+                        BlockInfo* AY=AZ[z];
+                        int max_y=-1;
+                        int min_y=-1;
+
+                        for (int y = 0; y < 256; y++) {
+                            if (AY[y].id!=0) {
+                                if (min_y==-1) min_y=y;
+                                max_y=y;
+                            }
+                        }
+
+                        if (max_y!=-1) {
+                            int r_m,g_m,b_m;
+                            ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
+                            scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+//                            r_m=color_table[AY[max_y].data][0];
+//                            g_m=color_table[AY[max_y].data][1];
+//                            b_m=color_table[AY[max_y].data][2];
+                            scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                        } else {
+                            scan_image.setPixel(x,z,sf::Color(255,0,0,255));
+                        }
+
+                    }
+                }
+
+                scan_x=region_x;
+                scan_z=region_z;
+                sprintf(mc_text1,"R.%d.%d.MCA",region_x,region_z);
+                update_request=2;
+                while (update_request) {
+                    sf::sleep(sf::seconds(0.005));
+                }
+
+                char done_dir[200];
+                if (0) {
+                    sprintf(tmp, "/Saves/test/region/done%d/r.%d.%d.mca", region_floor, region_x, region_z);
+                    mkdir("/Saves");
+                    mkdir("/Saves/test");
+                    mkdir("/Saves/test/region");
+                    sprintf(done_dir,"/Saves/test/region/done%d",region_floor);
+                    mkdir(done_dir);
+                    file_name_MCA = tmp;
+                    printf(" Saving original region back to: %s\n",tmp);
+                    editor.mca_coder.current_filename_mca = tmp;
+                    editor.mca_coder.writeMCA();
+//                    printf(" Saving original region back to: %s and clear.\n",tmp);
+//                    editor.mca_coder.saveModification();
+                }
+
+
+                printf(" Clearing.\n",tmp);
+                editor.mca_coder.clearModification();
+
+                if (0) {
+                    sprintf(tmp, "/Saves/test/region/done%d/modified/r.%d.%d.mca", region_floor, region_x, region_z);
+                    sprintf(done_dir,"/Saves/test/region/done%d/modified",region_floor);
+                    mkdir(done_dir);
+                    file_name_MCA = tmp;
+                    printf("Saving modified region back to: %s\n",tmp);
+                    first_MCEDIT=0; region_x_old=0; region_z_old=0;
+                    editor.setRegion(region);
+                }
+
+                int n=0;
+
+                if (0) {
+                    printf(" Ok. Testing hidden. ");
+                    scan_image.create(512,512);
+
+                    int blocks_shown=0;
+                    for (int x = 0; x < 512; x++) {
+                        int xx=x+512*region_x;
+                        BlockInfo** AZ=AX[x];
+                        for (int z = 0; z < 512; z++) {
+                            int zz=z+region_z*512;
+                            BlockInfo* AY=AZ[z];
+    //                        toggle2();
+
+                            int max_y=-1;
+                            int min_y=-1;
+                            for (int y = 0; y < 256; y++) {
+                                if (!(n++%256)) toggle2();
+                                if (AY[y].id!=0) {
+                                    if (min_y==-1) min_y=y;
+                                    max_y=y;
+                                    if (y>0 && y<255 && x>0 && x<511 & z>0 && z<511) {
+                                        if (  (    //                                (AX[x-1][z-1][y-1].id!=0) &&    //                                (AX[x+0][z-1][y-1].id!=0) &&    //                                (AX[x+1][z-1][y-1].id!=0) &&    //                                (AX[x-1][z+0][y-1].id!=0) &&
+                                            (AX[x+0][z+0][y-1].id!=0) &&    //                                (AX[x+1][z+0][y-1].id!=0) &&    //                                (AX[x-1][z+1][y-1].id!=0) &&    //                                (AX[x+0][z+1][y-1].id!=0) &&    //                                (AX[x+1][z+1][y-1].id!=0) &&    //                                (AX[x-1][z-1][y+0].id!=0) &&
+                                            (AX[x+0][z-1][y+0].id!=0) &&    //                                (AX[x+1][z-1][y+0].id!=0) &&
+                                            (AX[x-1][z+0][y+0].id!=0) &&    //                                (AX[x+0][z+0][y+0].id!=0) &&
+                                            (AX[x+1][z+0][y+0].id!=0) &&    //                                (AX[x-1][z+1][y+0].id!=0) &&
+                                            (AX[x+0][z+1][y+0].id!=0) &&    //                                (AX[x+1][z+1][y+0].id!=0) &&    //                                (AX[x-1][z-1][y+1].id!=0) &&    //                                (AX[x+0][z-1][y+1].id!=0) &&    //                                (AX[x+1][z-1][y+1].id!=0) &&    //                                (AX[x-1][z+0][y+1].id!=0) &&
+                                            (AX[x+0][z+0][y+1].id!=0)    //                                (AX[x+1][z+0][y+1].id!=0) &&    //                                (AX[x-1][z+1][y+1].id!=0) &&    //                                (AX[x+0][z+1][y+1].id!=0) &&    //                                (AX[x+1][z+1][y+1].id!=0)
+                                         ) ) {
+                                             continue;
+                                         }
+                                    }
+                                    int r,g,b;
+                                    ret_color_rev(AX[x][z][y].data,r,g,b);
+                                    int xxx=xx;
+                                    int zzz=zz;
+                                    int yyy=y+region_floor*256;
+
+                                    Voxel one=Voxel(yyy,xxx,zzz,r,g,b,1,(unsigned char)0); // new
+
+                                    voxels.push_back(one);
+
+                                    blocks_shown++;
+                                }
+                            }
+                            if (max_y!=-1) {
+                                int r_m,g_m,b_m;
+                                ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
+                                scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                            } else {
+                                scan_image.setPixel(x,z,sf::Color(0,0,0,0));
+                            }
+
+                        }
+                    }
+
+                    printf(" Plotting.");
+                    scan_x=region_x;
+                    scan_z=region_z;
+                    sprintf(mc_text1,"R.%d.%d.MCA",region_x,region_z);
+                    update_request=2;
+                    while (update_request) {
+                        sf::sleep(sf::seconds(0.005));
+                    }
+
+                    printf("\n%d blocks added to voxels\n",blocks_shown);
+
+                    printf(" Ready. Converting to voxels .obj\n");
+
+                    if (voxels.size()>0) {
+                        char fname[200];
+                        FILE* voxel_file_pointer=fopen(voxel_file,"a");
+                        if (voxel_file_pointer!=NULL) {
+                            for (auto u : voxels) {
+                                if (u.l>0) {
+                                    fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d)\n",
+                                            u.y, u.x, u.z,  u.r/u.l,u.g/u.l, u.b/u.l,  u.l );
+                                    if (u.x<min_x) min_x=u.x;
+                                    if (u.x>max_x) max_x=u.x;
+                                    if (u.y>max_y) max_y=u.y;
+                                    if (u.y<min_y) min_y=u.y;
+                                    if (u.z>max_z) max_z=u.z;
+                                    if (u.z<min_z) min_z=u.z;
+                                    if (!(n++%100)) toggle2();
+
+                                }
+                            }
+                            fclose(voxel_file_pointer);
+
+                            int size_print1=0;
+                            int size_print2=0;
+                            int size_print3=0;
+                            int size_print4=0;
+                            char test[200];
+                            sprintf(test,"%d",min_y-512*x); if ( strlen(test)>size_print1 ) size_print1=strlen(test);
+                            sprintf(test,"%d",min_x-256*region_floor); if ( strlen(test)>size_print1 ) size_print1=strlen(test);
+                            sprintf(test,"%d",min_z-512*z); if ( strlen(test)>size_print1 ) size_print1=strlen(test);
+
+                            sprintf(test,"%d",max_y-512*x); if ( strlen(test)>size_print2 ) size_print2=strlen(test);
+                            sprintf(test,"%d",max_x-256*region_floor); if ( strlen(test)>size_print2 ) size_print2=strlen(test);
+                            sprintf(test,"%d",max_z-512*z); if ( strlen(test)>size_print2 ) size_print2=strlen(test);
+
+                            sprintf(test,"%d",min_y); if ( strlen(test)>size_print3 ) size_print3=strlen(test);
+                            sprintf(test,"%d",min_x); if ( strlen(test)>size_print3 ) size_print3=strlen(test);
+                            sprintf(test,"%d",min_z); if ( strlen(test)>size_print3 ) size_print3=strlen(test);
+
+                            sprintf(test,"%d",max_y); if ( strlen(test)>size_print4 ) size_print4=strlen(test);
+                            sprintf(test,"%d",max_x); if ( strlen(test)>size_print4 ) size_print4=strlen(test);
+                            sprintf(test,"%d",max_z); if ( strlen(test)>size_print4 ) size_print4=strlen(test);
+
+                            if (min_x<tot_min_x) tot_min_x=min_x;
+                            if (max_x>tot_max_x) tot_max_x=max_x;
+                            if (max_y>tot_max_y) tot_max_y=max_y;
+                            if (min_y<tot_min_y) tot_min_y=min_y;
+                            if (max_z>tot_max_z) tot_max_z=max_z;
+                            if (min_z<tot_min_z) tot_min_z=min_z;
+
+                            int t_width= tot_max_y-tot_min_y+1;
+                            int t_heigth=tot_max_x-tot_min_x+1;
+                            int t_depth= tot_max_z-tot_min_z+1;
+
+                            int r_width= max_x_region-min_x_region+1;
+                            int r_heigth=max_y_region-min_y_region+1;
+                            int r_depth= max_z_region-min_z_region+1;
+
+                            float surface=100.0*(float)(max_y-min_y+1)*(float)(max_z-min_z+1)/(512.0*512.0);
+                            float volume =100.0*(float)(max_y-min_y+1)*(float)(max_z-min_z+1)*(float)(max_x-min_x+1)/(512.0*512.0*256.0);
+                            float blocks =100.0*(float)voxels.size()/(512.0*512.0*256.0);
+                            sprintf(test,"REGION=[%d][%d][%d]  X=[%%%dd/%%%dd]  REAL=[%%%dd/%%%dd]  WIDTH= [%5d] TOTAL=[%5d] SURFACE=%7.3f%%%%  REGION MAX WIDTH= [%3d]\n", x, z, region_floor, size_print1,  size_print2,  size_print3,  size_print4,max_y-min_y+1, t_width,   surface,r_width );
+                            printf(test,min_y-512*x,            max_y-512*x,           min_y, max_y);
+                            sprintf(test,"REGION=[%d][%d][%d]  Y=[%%%dd/%%%dd]  REAL=[%%%dd/%%%dd]  HEIGHT=[%5d] TOTAL=[%5d] VOLUME =%7.3f%%%%  REGION MAX HEIGHT=[%3d]\n", x, z, region_floor, size_print1,  size_print2,  size_print3,  size_print4,max_x-min_x+1, t_heigth,  volume ,r_heigth);
+                            printf(test,min_x-256*region_floor, max_x-256*region_floor, min_x, max_x);
+                            sprintf(test,"REGION=[%d][%d][%d]  Z=[%%%dd/%%%dd]  REAL=[%%%dd/%%%dd]  DEPTH= [%5d] TOTAL=[%5d] BLOCKS =%7.3f%%%%  REGION MAX DEPTH= [%3d]\n", x, z, region_floor, size_print1,  size_print2,  size_print3,  size_print4,max_z-min_z+1, t_depth,   blocks ,r_depth );
+                            printf(test,min_z-512*z,            max_z-512*z,           min_z, max_z);
+
+    //                        printf("REGION=[%d][%d]  X=[%3d-%3d]  REAL=[%7d - %7d]\n", x,z, min_y-512*x,            max_y-512*x,            min_y, max_y);
+    //                        printf("REGION=[%d][%d]  Y=[%3d-%3d]  REAL=[%7d - %7d]\n", x,z, min_x-256*region_floor, max_x-256*region_floor, min_x, max_x);
+    //                        printf("REGION=[%d][%d]  Z=[%3d-%3d]  REAL=[%7d - %7d]\n", x,z, min_z-512*z,            max_z-512*z,            min_z, max_z);
+
+                        } else {
+                            printf("Error writing to %s\n",fname);
+                        }
+                        voxels.clear();
+                    }
+                }
                 MCEDITOR_running=0;
-                plotting=0;
-                plot_only=plot_only_old;
             }
             prev_x=x;
             prev_z=z;
@@ -1061,5 +1365,713 @@ void regions_to_voxelfiles() {
         }
         printf("\n");
     }
+    voxels.clear();
 }
 
+/*
+const std::string WHITESPACE = " \n\r\t\f\v";
+
+std::string ltrim(const std::string& s)
+{
+    size_t start = s.find_first_not_of(WHITESPACE);
+    return (start == std::string::npos) ? "" : s.substr(start);
+}
+
+std::string rtrim(const std::string& s)
+{
+    size_t end = s.find_last_not_of(WHITESPACE);
+    return (end == std::string::npos) ? "" : s.substr(0, end + 1);
+}
+
+std::string trim(const std::string& s)
+{
+    return rtrim(ltrim(s));
+}
+
+void get_block_color(int id, int data) {
+}
+
+struct json_list {
+//    std::string parent;
+    std::vector<std::string> texture_kind;
+    std::vector<std::string> texture_block;
+} typedef;
+
+struct model_list {
+    std::map<std::string, int> models;  // model
+};
+
+struct block_list {
+    std::string Item;
+    std::string Description;
+    std::string IDName;
+    int ID;
+    int DataValue;
+    std::map<std::string, std::string> variant;   // blocksstate - variant
+    std::map<std::string, struct model_list> variant2;  //variant - blockstate
+
+    bool operator < (const block_list &B) const
+    {
+        if (ID != B.ID) return ID > B.ID;
+        return DataValue < B.DataValue;
+    }
+
+} typedef;
+
+struct ID_list {
+    int ID;
+    int DataValue;
+    std::string Filename;
+
+} typedef;
+
+*/
+
+/*
+void make_colors_from_blocks2() {
+
+//    std::vector<struct json_list> json_texture_list;
+
+    std::string filename;
+
+    FILE* names;
+    std::vector<struct block_list> names_list;
+    if ((names = fopen("../minecraft/blocks.txt","r"))!=NULL) {
+        char line[200];
+        struct block_list one_block;
+        int l=1;
+        while (fgets(line,200,names)!=NULL) {
+            char Item[100];
+            char Description[100];
+            char IDName[100];
+            char IDDataValue[100];
+            int ID=0;
+            int DataValue=0;
+            int num=sscanf(line, "\"%100[^\"]\",\"%199[^\"]\",\"%199[^\"]\"", IDDataValue, Item, IDName);
+            if (num!=3) printf("Error/Warning: line %d : %s\n",l,line);
+            num=sscanf(IDDataValue,"%d:%d", &ID, &DataValue);
+//            replace_str(Item,"light gray","silver");
+            one_block.Description=Item;
+            for(auto& c : Item) c = tolower(c);
+            one_block.Item=Item;
+            one_block.IDName=IDName;
+            one_block.ID=ID;
+            one_block.DataValue=DataValue;
+            names_list.push_back(one_block);
+            l++;
+//            printf("ID=\"%d\",DataValue=\"%d\",Item=\"%s\",Description=\"%s\",IDName=\"%s\"\n",ID,DataValue,Item,Description,IDName);
+        }
+        fclose(names);
+    } else {
+        printf("Can not open %s\n","../minecraft/blocks.txt");
+    }
+
+    sort(names_list.begin(), names_list.end());
+
+    for (auto u : names_list) {
+        printf("ID=\"%d\",DataValue=\"%d\",Item=\"%s\",Description=\"%s\",IDName=\"%s\"\n",u.ID,u.DataValue,u.Item.c_str(),u.Description.c_str(),u.IDName.c_str());
+    }
+
+    std::map<std::string, struct json_list> json_texture_map;
+
+    DIR* dr2 = opendir("../minecraft/block");
+    struct dirent *de2;
+    struct json_list one_json;
+    std::string extension;
+    std::string block;
+
+    while ((de2 = readdir(dr2)) != NULL) {
+        filename=de2->d_name;
+//        printf("FILE: ../minecraft/block/%s\n",filename.c_str());
+        if (filename.find_last_of(".") != std::string::npos) block=filename.substr(0,filename.find_last_of("."));
+        std::string::size_type idx=filename.rfind('.');
+        if(idx != std::string::npos) extension = filename.substr(idx+1);
+        for(auto& c : extension) c = tolower(c);
+        if (extension=="json") {
+//            printf("JSONNAME=%s\n",block.c_str());
+            FILE* json_file;
+            filename="../minecraft/block/" + filename;
+//            one_json.parent=""; //who needs parents?
+            if ((json_file = fopen(filename.c_str(),"r"))!=NULL) {
+//                one_json.name=block;
+                char line[200];
+                bool found_parent=false;
+                while (fgets(line,200,json_file)!=NULL) {
+//                    printf(line);
+                    bool ready=false;
+                    std::string strline=ltrim(line);
+
+                    if (strline.find("{   \"parent\": \"") != std::string::npos) {
+//                        char parent[200];
+//                        sscanf(strline.c_str(), "{   \"parent\": \"block/%199[^\"]\"", parent);
+//                        one_json.parent=parent;
+//                        printf("file=%s  parent=%s  line=%s\n",filename.c_str(),parent,line );
+                        found_parent=true;
+                    } else if (strline.find("\"parent\": \"") != std::string::npos) {
+//                        char parent[200];
+//                        sscanf(strline.c_str(), "\"parent\": \"block/%199[^\"]\"", parent);
+//                        one_json.parent=parent;
+                        found_parent=true;
+//                        printf("file=%s  parent=%s  line=%s\n",filename.c_str(),parent,line );
+                    }
+                    if (strline.find("\"textures\": {") != std::string::npos) {
+                        if (!found_parent) { //no parent found, so = parent...
+                            ready=true;
+                            break;
+                        }
+//                        printf("\tTEXTURES":)
+                        while (fgets(line,200,json_file)!=NULL) {
+                            std::string strline=ltrim(line);
+                            if (strline.find("}") != std::string::npos) {
+//                                printf(line);
+                                ready=true;
+                                break;
+                            } else {
+                                char block_filename[200];
+                                char kind[200];
+                                sscanf(strline.c_str(), "\"%199[^\"]\": \"blocks/%199[^\"]\"", kind, block_filename );
+//                                long csize = std::remove(line, line + strlen(line), '\n') - line;
+//                                line[csize] = 0; // optional
+
+//                                printf("\t\t%s (TEXTURE)\n",line);
+//                                printf("\t\t KIND=%s\t\tFILENAME=%s\n",kind,block_filename);
+                                one_json.texture_kind.push_back(kind);
+                                one_json.texture_block.push_back(block_filename);
+                            }
+                        }
+                        if (ready) break;
+                    }
+                }
+                fclose(json_file);
+//                json_texture_list.push_back(one_json);
+
+                if (found_parent) json_texture_map.insert(std::make_pair(block,one_json));
+
+                one_json.texture_kind.clear();
+                one_json.texture_block.clear();
+            } else {
+                printf("Can not open file %s\n",filename.c_str());
+            }
+        }
+
+    }
+    closedir(dr2);
+
+
+    for (auto u : json_texture_map) {
+        std::string name=u.first;
+        std::string parent=u.second.parent;
+        printf(".JSON FILENAME: \"%s\" PARENT=\"%s\"\n", name.c_str(), parent.c_str());
+        size_t text_len=u.second.texture_kind.size();
+        for (int n=0; n<text_len;n++) {
+            std::string block_filename;
+            std::string kind;
+            kind = u.second.texture_kind[n];
+            block_filename = u.second.texture_block[n];
+            printf("\tTYPE=%s \tTEXTURE=\"%s\"\n",kind.c_str(),block_filename.c_str());
+        }
+    }
+
+
+
+    dr2 = opendir("../minecraft/blocks");
+    std::map<std::string,int> texture_block_map;
+//    std::vector<std::string> texture_block;
+    while ((de2 = readdir(dr2)) != NULL) {
+        filename=de2->d_name;
+        if (filename.find_last_of(".") != std::string::npos) block=filename.substr(0,filename.find_last_of(".")); else block="";
+        std::string::size_type idx=filename.rfind('.');
+        if(idx != std::string::npos) extension = filename.substr(idx+1); else extension="";
+        for(auto& c : extension) c = tolower(c);
+        if (extension=="png") {
+//            texture_block.push_back(filename);
+            texture_block_map.insert(std::make_pair(block,0));
+        }
+    }
+    closedir(dr2);
+    for (auto u : texture_block_map) printf("../minecraft/blocks/%s\n",u.first.c_str());
+
+
+
+    FILE* names;
+    std::vector<struct block_list> names_list;
+    if ((names = fopen("../minecraft/names.txt","r"))!=NULL) {
+        char line[200];
+        struct block_list one_block;
+        int l=1;
+        while (fgets(line,200,names)!=NULL) {
+            char Item[100];
+            char Description[100];
+            char IDName[100];
+            int ID;
+            int DataValue;
+            int num=sscanf(line, "\"%100[^\"]\",\"%199[^\"]\",\"%199[^\"]\",\"%d\",\"%d\"", Item, Description, IDName, &ID, &DataValue);
+            if (num!=5) printf("Error/Warning: line %d : %s\n",l,line);
+            replace_str(Item,"light gray","silver");
+            one_block.Item=Item;
+            one_block.Description=Description;
+            one_block.IDName=IDName;
+            one_block.ID=ID;
+            one_block.DataValue=DataValue;
+            names_list.push_back(one_block);
+            l++;
+        }
+        fclose(names);
+    } else {
+        printf("Can not open %s\n","../minecraft/names.txt");
+    }
+
+
+
+
+    std::map<std::string, struct json_list>::iterator it_json_texture_map;
+    std::map<std::string,int>::iterator it_texture_block_map;
+
+    std::map<int, struct ID_list> ID_list_map;
+    printf("************************\n");
+    struct ID_list one_ID;
+    for (auto u : names_list) {
+        char Item[100];
+        strcpy(Item,u.Item.c_str());
+        while (replace_str(Item," ","_"));
+        u.Item=Item;
+        it_json_texture_map = json_texture_map.find(std::string()+Item);
+//        printf("Item=\"%s\"",u.Item.c_str());
+        printf("ID=\"%d\",DataValue=\"%d\",Item=\"%s\",Description=\"%s\",IDName=\"%s\"",u.ID,u.DataValue,u.Item.c_str(),u.Description.c_str(),u.IDName.c_str());
+        if ( it_json_texture_map != json_texture_map.end() ) {
+//            printf(" json=\"%s\" parent=\"%s\"\n",it_json_texture_map->first.c_str(),it_json_texture_map->second.parent.c_str());
+            printf(" json=\"%s\"\n",it_json_texture_map->first.c_str());
+            size_t text_len=it_json_texture_map->second.texture_kind.size();
+            for (int n=0; n<text_len;n++) {
+                std::string block_filename;
+                std::string kind;
+                kind = it_json_texture_map->second.texture_kind[n];
+                block_filename = it_json_texture_map->second.texture_block[n];
+                printf("\tTYPE=%s \tTEXTURE=%s",kind.c_str(),block_filename.c_str());
+
+                it_texture_block_map = texture_block_map.find(block_filename);
+
+                if ( it_texture_block_map != texture_block_map.end() ) {
+                    printf(" FILENAME=\"../minecraft/blocks/%s.png\"\n",it_texture_block_map->first.c_str());
+                    one_ID.ID=u.ID;
+                    one_ID.DataValue=u.DataValue;
+                    one_ID.Filename=it_texture_block_map->first;
+                    ID_list_map.insert(std::make_pair(u.ID*16+u.DataValue,one_ID));
+                } else {
+                    printf(" TEXTURE NOT FOUND %s\n",block_filename.c_str());
+                }
+
+            }
+            if (text_len==0) {
+                printf("\tNO TEXTURE(S) -> ");
+                it_texture_block_map = texture_block_map.find(u.Item);
+                if ( it_texture_block_map != texture_block_map.end() ) {
+                    printf(" FILENAME=\"../minecraft/blocks/%s.png\"",it_texture_block_map->first.c_str());
+                    one_ID.ID=u.ID;
+                    one_ID.DataValue=u.DataValue;
+                    one_ID.Filename=it_texture_block_map->first;
+                    ID_list_map.insert(std::make_pair(u.ID*16+u.DataValue,one_ID));
+                } else {
+                }
+                printf(" TEXTURE NOT FOUND %s\n",u.Item.c_str());
+
+            }
+
+        } else {
+
+            printf(" JSON NOT FOUND\n");
+        }
+
+
+//        printf("Item: %s\n",Item);
+    }
+
+    for (auto u : ID_list_map) {
+        printf("ID=\"%d\",DataValue=\"%d\",Filename=\"%s\"\n",u.second.ID,u.second.DataValue,u.second.Filename.c_str());
+    }
+
+//    std::map<int, struct ID_list>::iterator it_ID_list_map;
+
+}
+*/
+
+
+/*
+
+void make_colors_from_blocks() {
+
+    FILE* names;
+    std::vector<struct block_list> names_list;
+    if ((names = fopen("../minecraft/names.txt","r"))!=NULL) {
+        char line[200];
+        struct block_list one_block;
+        int l=1;
+        while (fgets(line,200,names)!=NULL) {
+            char Item[100];
+            char Description[100];
+            char IDName[100];
+            int ID;
+            int DataValue;
+            int num=sscanf(line, "\"%100[^\"]\",\"%199[^\"]\",\"%199[^\"]\",\"%d\",\"%d\"", Item, Description, IDName, &ID, &DataValue);
+            if (num!=5) printf("Error/Warning: line %d : %s\n",l,line);
+            replace_str(Item,"light gray","silver");
+            replace_str(Item,"polished","smooth");
+            one_block.Item=Item;
+            one_block.Description=Description;
+            one_block.IDName=IDName;
+            one_block.ID=ID;
+            one_block.DataValue=DataValue;
+            names_list.push_back(one_block);
+            l++;
+        }
+        fclose(names);
+    } else {
+        printf("Can not open %s\n","../minecraft/names.txt");
+    }
+    sort(names_list.begin(), names_list.end());
+
+//    FILE* HOPPA=fopen("names.srt","w");
+    for (auto u : names_list) {
+//        printf("ID=\"%d\",DataValue=\"%d\",Item=\"%s\",Description=\"%s\",IDName=\"%s\"\n",u.ID,u.DataValue,u.Item.c_str(),u.Description.c_str(),u.IDName.c_str());
+//        fprintf(HOPPA,"\"%s\",\"%s\",\"%s\",\"%d\",\"%d\"\n",u.Item.c_str(),u.Description.c_str(),u.IDName.c_str(),u.ID,u.DataValue);
+//        printf("\"%s\",\"%s\",\"%s\",\"%d\",\"%d\"\n",u.Item.c_str(),u.Description.c_str(),u.IDName.c_str(),u.ID,u.DataValue);
+    }
+//    fclose(HOPPA);
+
+    std::map<std::string,int> texture_block_map;
+//    std::vector<std::string> texture_block;
+    DIR* dr2 = opendir("../minecraft/blocks");
+    struct dirent *de2;
+    std::string filename;
+    std::string block;
+    std::string extension;
+    while ((de2 = readdir(dr2)) != NULL) {
+        filename=de2->d_name;
+        if (filename.find_last_of(".") != std::string::npos) block=filename.substr(0,filename.find_last_of(".")); else block="";
+        std::string::size_type idx=filename.rfind('.');
+        if(idx != std::string::npos) extension = filename.substr(idx+1); else extension="";
+        for(auto& c : extension) c = tolower(c);
+        if (extension=="png") {
+//            texture_block.push_back(filename);
+            texture_block_map.insert(std::make_pair(block,0));
+        }
+    }
+    closedir(dr2);
+//    for (auto u : texture_block_map) {
+//        printf("../minecraft/blocks/%s\n",u.first.c_str());
+//    }
+
+    std::vector<struct block_list>::iterator it_names_list;
+
+    for (it_names_list = names_list.begin(); it_names_list != names_list.end(); it_names_list++) {
+//    for (auto u : names_list) {
+        char Item[100];
+        strcpy(Item,it_names_list->Item.c_str());
+        while (replace_str(Item," ","_"));
+        it_names_list->Item=Item;
+        bool exists=false;
+        std::string blockstates_filename="../minecraft/blockstates/" + it_names_list->Item + ".json";
+        std::string filename;
+        if (file_exists(blockstates_filename.c_str())) {
+//            printf("ID=\"%d\",DataValue=\"%d\",Item=\"%s\",IDName=\"%s\"\n",it_names_list->ID,it_names_list->DataValue,it_names_list->Item.c_str(),it_names_list->IDName.c_str());
+//            printf("\tBLOCKSTATES= \"%s\" exists\n",blockstates_filename.c_str());
+            exists=true;
+            filename=it_names_list->Item;
+        } else {
+            char IDName[100];
+            int num=sscanf(it_names_list->IDName.c_str(), "(minecraft:%100[^\)])",IDName);
+            if (num==1) {
+                blockstates_filename="../minecraft/blockstates/" + std::string()+IDName + ".json";
+                if (file_exists(blockstates_filename.c_str())) {
+//                    printf("ID=\"%d\",DataValue=\"%d\",Item=\"%s\",IDName=\"%s\"\n",it_names_list->ID,it_names_list->DataValue,it_names_list->Item.c_str(),it_names_list->IDName.c_str());
+//                    printf("\tBLOCKSTATES= \"%s\" exists\n",blockstates_filename.c_str());
+                    exists=true;
+                    filename=std::string()+IDName;
+                } else {
+//                    printf("\tBLOCKSTATES NOT FOUND\n",blockstates_filename.c_str());
+                }
+            } else {
+                printf("Error in IDName : %s\n",it_names_list->IDName.c_str());
+            }
+        }
+        if (exists) {
+            FILE* json_file;
+            if ((json_file = fopen(blockstates_filename.c_str(),"r"))!=NULL) {
+                char line[200];
+                while (fgets(line,200,json_file)!=NULL) {
+//                    printf(line);
+                    bool ready=false;
+                    std::string strline=ltrim(line);
+                    if (strline.find("\"variants\": {") != std::string::npos) {
+//                        printf("\tTEXTURES":)
+                        while (fgets(line,200,json_file)!=NULL) {
+                            std::string strline=ltrim(line);
+//                            printf(line);
+                            if (strline.find("}") == 0) {
+//                                printf(line);
+                                ready=true;
+                                break;
+                            } else {
+                                if (strline.find(": [") != std::string::npos) {
+                                    char variant[200];
+
+                                    sscanf(strline.c_str(), "\"%199[^\"]\": [", variant );
+                                    while (fgets(line,200,json_file)!=NULL) {
+                                        std::string strline=ltrim(line);
+                                        if (strline.find("]") == 0) {
+            //                                printf(line);
+//                                            ready=true;
+                                            break;
+                                        } else {
+                                            if (strline.find("\{ \"model\": ") != std::string::npos) {
+                                                char block_filename[200];
+                                                sscanf(strline.c_str(), "{ \"model\": \"%199[^\"]\"", block_filename );
+
+                                                std::map<std::string,std::string>::iterator it_variant;
+                                                it_variant = it_names_list->variant.find(block_filename);
+                                                if ( it_variant == it_names_list->variant.end() ) {
+                                                    it_names_list->variant.insert(std::make_pair(block_filename,variant));
+//                                                    printf("\t\t \"VARIANT='%s'\" MODEL=\"%s.json\"\n",variant,block_filename);
+                                                }
+
+                                                std::map<std::string, struct model_list>::iterator it_variant2;
+                                                it_variant2 = it_names_list->variant2.find(variant);
+                                                if ( it_variant2 == it_names_list->variant2.end() ) {
+//                                                    printf("\t\t \"VARIANT='%s'\"\n",variant,block_filename);
+
+                                                    struct model_list one_model_list;
+                                                    one_model_list.models.insert(std::make_pair(block_filename,1));
+                                                    it_names_list->variant2.insert(std::make_pair(variant,one_model_list));
+//                                                    printf("\t\t\t MODEL=\"%s.json\"\n",block_filename);
+
+                                                } else {
+                                                    std::map<std::string, int>::iterator it_model_list;
+//hoe
+                                                    it_model_list = it_variant2->second.models.find(block_filename);
+                                                    if ( it_model_list == it_variant2->second.models.end() ) {
+                                                        it_variant2->second.models.insert(std::make_pair(block_filename,1));
+//                                                        printf("\t\t\t MODEL=\"%s.json\"\n",block_filename);
+                                                    } else {
+                                                        it_model_list->second++;
+                                                    }
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    if (strline.find("{ \"model\": ") != std::string::npos) {
+                                        char block_filename[200];
+                                        char variant[200];
+                                        sscanf(strline.c_str(), "\"%199[^\"]\": { \"model\": \"%199[^\"]\"", variant, block_filename );
+    //                                    printf("\t\t variant=%s TEXTURE=%s\n",variant,block_filename);
+        //                                long csize = std::remove(line, line + strlen(line), '\n') - line;
+        //                                line[csize] = 0; // optional
+
+        //                                printf("\t\t%s (TEXTURE)\n",line);
+        //                                printf("\t\t variant=%s\t\tFILENAME=%s\n",variant,block_filename);
+
+                                        std::map<std::string,std::string>::iterator it_variant;
+                                        it_variant = it_names_list->variant.find(block_filename);
+                                        if ( it_variant == it_names_list->variant.end() ) {
+                                            it_names_list->variant.insert(std::make_pair(block_filename,variant));
+//                                            printf("\t\t \"VARIANT='%s'\" MODEL=\"%s.json\"\n",variant,block_filename);
+                                        }
+
+                                        std::map<std::string, struct model_list>::iterator it_variant2;
+                                        it_variant2 = it_names_list->variant2.find(variant);
+                                        if ( it_variant2 == it_names_list->variant2.end() ) {
+//                                            printf("\t\t \"VARIANT='%s'\"\n",variant,block_filename);
+
+                                            struct model_list one_model_list;
+                                            one_model_list.models.insert(std::make_pair(block_filename,1));
+                                            it_names_list->variant2.insert(std::make_pair(variant,one_model_list));
+//                                            printf("\t\t\t MODEL=\"%s.json\"\n",block_filename);
+
+                                        } else {
+                                            std::map<std::string, int>::iterator it_model_list;
+
+                                            it_model_list = it_variant2->second.models.find(block_filename);
+                                            if ( it_model_list == it_variant2->second.models.end() ) {
+                                                it_variant2->second.models.insert(std::make_pair(block_filename,1));
+//                                                printf("\t\t\t MODEL=\"%s.json\"\n",block_filename);
+                                            } else {
+                                                it_model_list->second++;
+                                            }
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                        if (ready) break;
+                    }
+                }
+                fclose(json_file);
+//                json_texture_list.push_back(one_json);
+            } else {
+                printf("Can not open file %s\n",filename.c_str());
+            }
+        }
+    }
+
+
+    std::map<std::string, struct json_list> json_texture_map;
+
+    dr2 = opendir("../minecraft/block"); // models/block...
+//    struct dirent *de2;
+    struct json_list one_json;
+//    std::string extension;
+//    std::string block;
+
+    while ((de2 = readdir(dr2)) != NULL) {
+        filename=de2->d_name;
+//        printf("FILE: ../minecraft/block/%s\n",filename.c_str());
+        if (filename.find_last_of(".") != std::string::npos) block=filename.substr(0,filename.find_last_of("."));
+        std::string::size_type idx=filename.rfind('.');
+        if(idx != std::string::npos) extension = filename.substr(idx+1);
+        for(auto& c : extension) c = tolower(c);
+        if (extension=="json") {
+//            printf("JSONNAME=%s\n",block.c_str());
+            FILE* json_file;
+            filename="../minecraft/block/" + filename;
+//            one_json.parent=""; //who needs parents?
+            if ((json_file = fopen(filename.c_str(),"r"))!=NULL) {
+//                one_json.name=block;
+                char line[200];
+                bool found_parent=false;
+                while (fgets(line,200,json_file)!=NULL) {
+//                    printf(line);
+                    bool ready=false;
+                    std::string strline=ltrim(line);
+
+                    if (strline.find("{   \"parent\": \"") != std::string::npos) {
+//                        char parent[200];
+//                        sscanf(strline.c_str(), "{   \"parent\": \"block/%199[^\"]\"", parent);
+//                        one_json.parent=parent;
+//                        printf("file=%s  parent=%s  line=%s\n",filename.c_str(),parent,line );
+                        found_parent=true;
+                    } else if (strline.find("\"parent\": \"") != std::string::npos) {
+//                        char parent[200];
+//                        sscanf(strline.c_str(), "\"parent\": \"block/%199[^\"]\"", parent);
+//                        one_json.parent=parent;
+                        found_parent=true;
+//                        printf("file=%s  parent=%s  line=%s\n",filename.c_str(),parent,line );
+                    }
+                    if (strline.find("\"textures\": {") != std::string::npos) {
+                        if (!found_parent) { //no parent found, so = parent...
+                            ready=true;
+                            break;
+                        }
+//                        printf("\tTEXTURES":)
+                        while (fgets(line,200,json_file)!=NULL) {
+                            std::string strline=ltrim(line);
+                            if (strline.find("}") != std::string::npos) {
+//                                printf(line);
+                                ready=true;
+                                break;
+                            } else {
+                                char block_filename[200];
+                                char kind[200];
+                                sscanf(strline.c_str(), "\"%199[^\"]\": \"blocks/%199[^\"]\"", kind, block_filename );
+//                                long csize = std::remove(line, line + strlen(line), '\n') - line;
+//                                line[csize] = 0; // optional
+
+//                                printf("\t\t%s (TEXTURE)\n",line);
+//                                printf("\t\t KIND=%s\t\tFILENAME=%s\n",kind,block_filename);
+                                one_json.texture_kind.push_back(kind);
+                                one_json.texture_block.push_back(block_filename);
+                            }
+                        }
+                        if (ready) break;
+                    }
+                }
+                fclose(json_file);
+//                json_texture_list.push_back(one_json);
+
+                if (found_parent) json_texture_map.insert(std::make_pair(block,one_json));
+
+                one_json.texture_kind.clear();
+                one_json.texture_block.clear();
+            } else {
+                printf("Can not open file %s\n",filename.c_str());
+            }
+        }
+
+    }
+    closedir(dr2);
+
+
+//    for (auto u : json_texture_map) {
+//        std::string name=u.first;
+
+////        std::string parent=u.second.parent;
+
+//  //      printf("\t\t\t\t\t\t\t\t\t\t\tPARENT=\"../minecraft/block/%s\"\r", parent.c_str());
+//        printf("MODEL= \"../minecraft/block/%s\"\n", name.c_str());
+//        size_t text_len=u.second.texture_kind.size();
+//        for (int n=0; n<text_len;n++) {
+//            std::string block_filename;
+//            std::string kind;
+//            kind = u.second.texture_kind[n];
+//            block_filename = u.second.texture_block[n];
+//            printf("\t\t\t\tTEXTURE=\"../minecraft/blocks/%s.png\"\r",block_filename.c_str());
+//            printf("\tTYPE='%s'\n",kind.c_str());
+//        }
+//    }
+
+
+
+    std::map<std::string,int>::iterator it_texture_block_map;
+
+    std::map<std::string, struct json_list>::iterator it_json_texture_map;
+
+    for (it_names_list = names_list.begin(); it_names_list != names_list.end(); it_names_list++) {
+        std::string blockstates_filename="../minecraft/blockstates/" + it_names_list->Item + ".json";
+
+        printf("ID=\"%d\",DataValue=\"%d\",Item=\"%s\",IDName=\"%s\"\n",it_names_list->ID,it_names_list->DataValue,it_names_list->Item.c_str(),it_names_list->IDName.c_str());
+        if (file_exists(blockstates_filename.c_str())) {
+            printf("BLOCKSTATES= \"%s\" exists\n",blockstates_filename.c_str());
+        } else {
+            char IDName[100];
+            int num=sscanf(it_names_list->IDName.c_str(), "(minecraft:%100[^\)])",IDName);
+            if (num==1) {
+                blockstates_filename="../minecraft/blockstates/" + std::string()+IDName + ".json";
+                if (file_exists(blockstates_filename.c_str())) {
+                    printf("BLOCKSTATES= \"%s\" exists (by IDName %s)\n",blockstates_filename.c_str(),it_names_list->IDName.c_str());
+                } else {
+                    printf("BLOCKSTATES= \"%s\" DOES NOT exist (also not by IDName %s)\n",blockstates_filename.c_str(),it_names_list->IDName.c_str());
+                }
+            } else {
+                printf("Error in IDName : %s\n",it_names_list->IDName.c_str());
+            }
+        }
+        std::map<std::string, struct model_list>::iterator it_variant2;
+        for (it_variant2 = it_names_list->variant2.begin(); it_variant2 != it_names_list->variant2.end(); it_variant2++) {
+            printf("\t \"VARIANT='%s'\"\n",it_variant2->first.c_str());
+            std::map<std::string, int>::iterator it_model_list;
+            for (it_model_list = it_variant2->second.models.begin(); it_model_list != it_variant2->second.models.end(); it_model_list++) {
+                printf("\t\t MODEL=\"../minecraft/block/%s.json\" (%dx)",it_model_list->first.c_str(),it_model_list->second);
+
+                it_json_texture_map = json_texture_map.find(it_model_list->first);
+                if ( it_json_texture_map != json_texture_map.end() ) {
+                    printf(" found\n");
+                    size_t text_len=it_json_texture_map->second.texture_kind.size();
+                    for (int n=0; n<text_len;n++) {
+                        std::string block_filename;
+                        std::string kind;
+                        kind = it_json_texture_map->second.texture_kind[n];
+                        block_filename = it_json_texture_map->second.texture_block[n];
+                        printf("\t\t\t TEXTURE=\"../minecraft/blocks/%s.png\"",block_filename.c_str());
+                        printf(" (TYPE='%s')\n",kind.c_str());
+                    }
+                } else {
+                    printf(" NOT FOUND!\n");
+                }
+            }
+        }
+    }
+
+}
+
+*/

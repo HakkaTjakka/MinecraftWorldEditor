@@ -1188,6 +1188,7 @@ extern char send_message;
 
                     ShowTaskBar(true);
                     bar_on[win_num]=1;
+
                     if (strlen(voxel_filename)!=0) {
                         int x,z;
                         int num=sscanf(voxel_filename,"r.%d.%d.vox",&x,&z);
@@ -1209,6 +1210,7 @@ extern char send_message;
                         region_voxel_files_to_region_files(false);
                     }
                     make_regions=false;
+
                 }
 
                 if (flick==false && pull_off2==false && pull_off==false && !load_extra && !load_more_remember && !load_more
@@ -1271,10 +1273,6 @@ extern char send_message;
                     if (bar_on[win_num]==0) ShowTaskBar(true);
                     bar_on[win_num]=1;
                 }
-
-
-
-
 
                 if (burn) running_3d[win_num]=true;
 

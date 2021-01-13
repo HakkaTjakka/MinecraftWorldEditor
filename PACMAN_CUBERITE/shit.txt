@@ -1,1 +1,1592 @@
-PATH=D:\PACMAN\PACMAN_CUBERITE\bin;c:\cmake\bin;C:\mingw-w64\x86_64-7.3.0-release-posix-seh-rt_v5-rev0\mingw64\bin;;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python27\;C:\Python27\Scripts;C:\Program Files (x86)\Common Files\Oracle\Java\javapath.out\weg;C:\Program Files\Java\jdk-12.0.2\bin;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\WINDOWS\System32\OpenSSH\;d:\pacman\ffmpeg\bin;d:\pacman\bin;c:\cmake\bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Gradle\gradle-5.6.2\bin;D:\PACMAN\PACMAN_CUBERITE\BIN;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Common Files\Autodesk Shared\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Go\bin;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\NVIDIA Corporation\Nsight Compute 2019.4.0\;C:\Program Files\Git LFS;C:\Users\Gerard Wensink\AppData\Local\Programs\Python\Python38\Scripts\;C:\Users\Gerard Wensink\AppData\Local\Programs\Python\Python38\;C:\Users\Gerard Wensink\.cargo\bin;C:\Users\Gerard Wensink\AppData\Local\Microsoft\WindowsApps;C:\Program Files\GPAC;C:\Users\Gerard Wensink\AppData\Local\GitHubDesktop\bin;C:\Users\Gerard Wensink\AppData\Local\atom\bin;C:\Users\Gerard Wensink\go\bin;C:\Program Files (x86)\Graphviz2.38\bin;;
+Currency symbol: '' (-1482573774)
+Decimal token:   '.'
+Error/Warning: line 322 : "lava","Lava","(minecraft:lava)"," ","0"
+
+Error/Warning: line 770 : "water","Water","(minecraft:water)"," ","0"
+
+ID="2267",DataValue="0",Item="music_disc_(c418_-_wait)",IDName="(minecraft:record_wait)"
+	BLOCKSTATES NOT FOUND
+ID="2266",DataValue="0",Item="music_disc_(c418_-_11)",IDName="(minecraft:record_11)"
+	BLOCKSTATES NOT FOUND
+ID="2265",DataValue="0",Item="music_disc_(c418_-_ward)",IDName="(minecraft:record_ward)"
+	BLOCKSTATES NOT FOUND
+ID="2264",DataValue="0",Item="music_disc_(c418_-_strad)",IDName="(minecraft:record_strad)"
+	BLOCKSTATES NOT FOUND
+ID="2263",DataValue="0",Item="music_disc_(c418_-_stal)",IDName="(minecraft:record_stal)"
+	BLOCKSTATES NOT FOUND
+ID="2262",DataValue="0",Item="music_disc_(c418_-_mellohi)",IDName="(minecraft:record_mellohi)"
+	BLOCKSTATES NOT FOUND
+ID="2261",DataValue="0",Item="music_disc_(c418_-_mall)",IDName="(minecraft:record_mall)"
+	BLOCKSTATES NOT FOUND
+ID="2260",DataValue="0",Item="music_disc_(c418_-_far)",IDName="(minecraft:record_far)"
+	BLOCKSTATES NOT FOUND
+ID="2259",DataValue="0",Item="music_disc_(c418_-_chirp)",IDName="(minecraft:record_chirp)"
+	BLOCKSTATES NOT FOUND
+ID="2258",DataValue="0",Item="music_disc_(c418_-_blocks)",IDName="(minecraft:record_blocks)"
+	BLOCKSTATES NOT FOUND
+ID="2257",DataValue="0",Item="music_disc_(c418_-_cat)",IDName="(minecraft:record_cat)"
+	BLOCKSTATES NOT FOUND
+ID="2256",DataValue="0",Item="music_disc_(c418_-_13)",IDName="(minecraft:record_13)"
+	BLOCKSTATES NOT FOUND
+ID="452",DataValue="0",Item="iron_nugget",IDName="(minecraft:iron_nugget)"
+	BLOCKSTATES NOT FOUND
+ID="450",DataValue="0",Item="shulker_shell",IDName="(minecraft:shulker_shell)"
+	BLOCKSTATES NOT FOUND
+ID="449",DataValue="0",Item="totem_of_undying",IDName="(minecraft:totem_of_undying)"
+	BLOCKSTATES NOT FOUND
+ID="448",DataValue="0",Item="dark_oak_boat",IDName="(minecraft:dark_oak_boat)"
+	BLOCKSTATES NOT FOUND
+ID="447",DataValue="0",Item="acacia_boat",IDName="(minecraft:acacia_boat)"
+	BLOCKSTATES NOT FOUND
+ID="446",DataValue="0",Item="jungle_boat",IDName="(minecraft:jungle_boat)"
+	BLOCKSTATES NOT FOUND
+ID="445",DataValue="0",Item="birch_boat",IDName="(minecraft:birch_boat)"
+	BLOCKSTATES NOT FOUND
+ID="444",DataValue="0",Item="spruce_boat",IDName="(minecraft:spruce_boat)"
+	BLOCKSTATES NOT FOUND
+ID="443",DataValue="0",Item="elytra",IDName="(minecraft:elytra)"
+	BLOCKSTATES NOT FOUND
+ID="442",DataValue="0",Item="shield",IDName="(minecraft:shield)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_regeneration_(0:11)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_slowness_(0:22)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_regeneration_(0:22)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_poison_(0:05_-_poison_ii)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_regeneration_(0:05_-_regeneration_ii)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_poison_(0:22)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_poison_(0:11)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_swiftness_(0:45_-_speed)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_slowness_(1:00)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_strength_(0:22_-_strength_ii)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_strength_(0:45)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_water_breathing_(2:00)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_strength_(2:00)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_swiftness_(0:22_-_speed_ii)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_water_breathing_(0:45)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_swiftness_(2:00_-_speed)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_night_vision_(0:45)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_fire_resistance_(0:45)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_fire_resistance_(2:00)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_harming_(instant_damage_ii)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_harming_(instant_damage)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_healing_(instant_health_ii)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_healing_(instant_health)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_weakness_(1:00)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_weakness_(0:22)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_invisibility_(0:45)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_invisibility_(2:00)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_leaping_(0:22_-_jump_boost_ii)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_leaping_(0:45_-_jump_boost)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_leaping_(2:00_-_jump_boost)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_luck_(1:15)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="441",DataValue="0",Item="lingering_potion_of_night_vision_(2:00)",IDName="(minecraft:lingering_potion)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_leaping_(0:22_-_jump_boost)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_fire_resistance_(0:22)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_fire_resistance_(1:00)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_harming_(instant_damage_ii)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_healing_(instant_health_ii)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_weakness_(0:30)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_weakness_(0:11)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_water_breathing_(1:00)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_water_breathing_(0:22)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_swiftness_(1:00_-_speed)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_swiftness_(0:22_-_speed)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_swiftness_(0:11_-_speed_ii)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_strength_(1:00)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_strength_(0:22)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_strength_(0:11_-_strength_ii)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_slowness_(0:30)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_slowness_(0:11)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_regeneration_(0:11)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_regeneration_(0:05)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_poison_(0:11)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_harming_(instant_damage)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_healing_(instant_health)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_invisibility_(0:22)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_invisibility_(1:00)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_leaping_(0:11_-_jump_boost_ii)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_leaping_(1:00_-_jump_boost)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_luck_(0:37)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_night_vision_(0:22)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_night_vision_(1:00)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_poison_(0:02_-_poison_ii)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_poison_(0:05)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="440",DataValue="0",Item="arrow_of_regeneration_(0:02_-_regeneration_ii)",IDName="(minecraft:tipped_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="439",DataValue="0",Item="spectral_arrow",IDName="(minecraft:spectral_arrow)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_poison_(0:22/0:16_-_poison_ii)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_fire_resistance_(3:00/2:15)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_fire_resistance_(6:00)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_harming_(instant_damage_ii)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_harming_(instant_damage)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_regeneration_(1:30)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_weakness_(1:30/1:07)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_water_breathing_(8:00/6:00)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_water_breathing_(3:00/2:15)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_swiftness_(8:00/6:00_-_speed)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_swiftness_(3:00/2:15_-_speed)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_swiftness_(1:30/1:07_-_speed_ii)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_strength_(8:00/6:00)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_weakness_(4:00/3:00)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_strength_(3:00/2:15)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_healing_(instant_health_ii)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_strength_(1:30/1:07_-_strength_ii)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_slowness_(4:00/3:00)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_slowness_(1:30/1:07)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_regeneration_(0:45/0:33)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_regeneration_(0:22/0:16_-_regeneration_ii)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_poison_(1:30)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_poison_(0:45/0:33)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_night_vision_(8:00/6:00)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_night_vision_(3:00/2:15)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_luck_(5:00)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_leaping_(8:00/6:00_-_jump_boost)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_leaping_(3:00/2:15_-_jump_boost)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_leaping_(1:30/1:07_-_jump_boost_ii)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_invisibility_(8:00/6:00)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_invisibility_(3:00/2:15)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="438",DataValue="0",Item="splash_potion_of_healing_(instant_health)",IDName="(minecraft:splash_potion)"
+	BLOCKSTATES NOT FOUND
+ID="437",DataValue="0",Item="dragon's_breath",IDName="(minecraft:dragon_breath)"
+	BLOCKSTATES NOT FOUND
+ID="436",DataValue="0",Item="beetroot_soup",IDName="(minecraft:beetroot_soup)"
+	BLOCKSTATES NOT FOUND
+ID="435",DataValue="0",Item="beetroot_seeds",IDName="(minecraft:beetroot_seeds)"
+	BLOCKSTATES NOT FOUND
+ID="434",DataValue="0",Item="beetroot",IDName="(minecraft:beetroot)"
+	BLOCKSTATES NOT FOUND
+ID="433",DataValue="0",Item="popped_chorus_fruit",IDName="(minecraft:chorus_fruit_popped)"
+	BLOCKSTATES NOT FOUND
+ID="432",DataValue="0",Item="chorus_fruit",IDName="(minecraft:chorus_fruit)"
+	BLOCKSTATES NOT FOUND
+ID="431",DataValue="0",Item="dark_oak_door",IDName="(minecraft:dark_oak_door)"
+	BLOCKSTATES= "../minecraft/blockstates/dark_oak_door.json" exists
+ID="430",DataValue="0",Item="acacia_door",IDName="(minecraft:acacia_door)"
+	BLOCKSTATES= "../minecraft/blockstates/acacia_door.json" exists
+ID="429",DataValue="0",Item="jungle_door",IDName="(minecraft:jungle_door)"
+	BLOCKSTATES= "../minecraft/blockstates/jungle_door.json" exists
+ID="428",DataValue="0",Item="birch_door",IDName="(minecraft:birch_door)"
+	BLOCKSTATES= "../minecraft/blockstates/birch_door.json" exists
+ID="427",DataValue="0",Item="spruce_door",IDName="(minecraft:spruce_door)"
+	BLOCKSTATES= "../minecraft/blockstates/spruce_door.json" exists
+ID="426",DataValue="0",Item="end_crystal",IDName="(minecraft:end_crystal)"
+	BLOCKSTATES NOT FOUND
+ID="425",DataValue="0",Item="black_banner",IDName="(minecraft:banner)"
+	BLOCKSTATES NOT FOUND
+ID="425",DataValue="1",Item="red_banner",IDName="(minecraft:banner)"
+	BLOCKSTATES NOT FOUND
+ID="425",DataValue="2",Item="green_banner",IDName="(minecraft:banner)"
+	BLOCKSTATES NOT FOUND
+ID="425",DataValue="3",Item="brown_banner",IDName="(minecraft:banner)"
+	BLOCKSTATES NOT FOUND
+ID="425",DataValue="4",Item="blue_banner",IDName="(minecraft:banner)"
+	BLOCKSTATES NOT FOUND
+ID="425",DataValue="5",Item="purple_banner",IDName="(minecraft:banner)"
+	BLOCKSTATES NOT FOUND
+ID="425",DataValue="6",Item="cyan_banner",IDName="(minecraft:banner)"
+	BLOCKSTATES NOT FOUND
+ID="425",DataValue="7",Item="silver_banner",IDName="(minecraft:banner)"
+	BLOCKSTATES NOT FOUND
+ID="425",DataValue="8",Item="gray_banner",IDName="(minecraft:banner)"
+	BLOCKSTATES NOT FOUND
+ID="425",DataValue="9",Item="pink_banner",IDName="(minecraft:banner)"
+	BLOCKSTATES NOT FOUND
+ID="425",DataValue="10",Item="lime_banner",IDName="(minecraft:banner)"
+	BLOCKSTATES NOT FOUND
+ID="425",DataValue="11",Item="yellow_banner",IDName="(minecraft:banner)"
+	BLOCKSTATES NOT FOUND
+ID="425",DataValue="12",Item="light_blue_banner",IDName="(minecraft:banner)"
+	BLOCKSTATES NOT FOUND
+ID="425",DataValue="13",Item="magenta_banner",IDName="(minecraft:banner)"
+	BLOCKSTATES NOT FOUND
+ID="425",DataValue="14",Item="orange_banner",IDName="(minecraft:banner)"
+	BLOCKSTATES NOT FOUND
+ID="425",DataValue="15",Item="white_banner",IDName="(minecraft:banner)"
+	BLOCKSTATES NOT FOUND
+ID="424",DataValue="0",Item="cooked_mutton",IDName="(minecraft:cooked_mutton)"
+	BLOCKSTATES NOT FOUND
+ID="423",DataValue="0",Item="raw_mutton",IDName="(minecraft:mutton)"
+	BLOCKSTATES NOT FOUND
+ID="422",DataValue="0",Item="minecart_with_command_block",IDName="(minecraft:command_block_minecart)"
+	BLOCKSTATES NOT FOUND
+ID="421",DataValue="0",Item="name_tag",IDName="(minecraft:name_tag)"
+	BLOCKSTATES NOT FOUND
+ID="420",DataValue="0",Item="lead",IDName="(minecraft:lead)"
+	BLOCKSTATES NOT FOUND
+ID="419",DataValue="0",Item="diamond_horse_armor",IDName="(minecraft:diamond_horse_armor)"
+	BLOCKSTATES NOT FOUND
+ID="418",DataValue="0",Item="gold_horse_armor",IDName="(minecraft:golden_horse_armor)"
+	BLOCKSTATES NOT FOUND
+ID="417",DataValue="0",Item="iron_horse_armor",IDName="(minecraft:iron_horse_armor)"
+	BLOCKSTATES NOT FOUND
+ID="416",DataValue="0",Item="armor_stand",IDName="(minecraft:armor_stand)"
+	BLOCKSTATES NOT FOUND
+ID="415",DataValue="0",Item="rabbit_hide",IDName="(minecraft:rabbit_hide)"
+	BLOCKSTATES NOT FOUND
+ID="414",DataValue="0",Item="rabbit's_foot",IDName="(minecraft:rabbit_foot)"
+	BLOCKSTATES NOT FOUND
+ID="413",DataValue="0",Item="rabbit_stew",IDName="(minecraft:rabbit_stew)"
+	BLOCKSTATES NOT FOUND
+ID="412",DataValue="0",Item="cooked_rabbit",IDName="(minecraft:cooked_rabbit)"
+	BLOCKSTATES NOT FOUND
+ID="411",DataValue="0",Item="raw_rabbit",IDName="(minecraft:rabbit)"
+	BLOCKSTATES NOT FOUND
+ID="410",DataValue="0",Item="prismarine_crystals",IDName="(minecraft:prismarine_crystals)"
+	BLOCKSTATES NOT FOUND
+ID="409",DataValue="0",Item="prismarine_shard",IDName="(minecraft:prismarine_shard)"
+	BLOCKSTATES NOT FOUND
+ID="408",DataValue="0",Item="minecart_with_hopper",IDName="(minecraft:hopper_minecart)"
+	BLOCKSTATES NOT FOUND
+ID="407",DataValue="0",Item="minecart_with_tnt",IDName="(minecraft:tnt_minecart)"
+	BLOCKSTATES NOT FOUND
+ID="406",DataValue="0",Item="nether_quartz",IDName="(minecraft:quartz)"
+	BLOCKSTATES NOT FOUND
+ID="405",DataValue="0",Item="nether_brick",IDName="(minecraft:netherbrick)"
+	BLOCKSTATES= "../minecraft/blockstates/nether_brick.json" exists
+ID="404",DataValue="0",Item="redstone_comparator",IDName="(minecraft:comparator)"
+	BLOCKSTATES NOT FOUND
+ID="403",DataValue="0",Item="enchanted_book",IDName="(minecraft:enchanted_book)"
+	BLOCKSTATES NOT FOUND
+ID="402",DataValue="0",Item="firework_star",IDName="(minecraft:firework_charge)"
+	BLOCKSTATES NOT FOUND
+ID="401",DataValue="0",Item="firework_rocket",IDName="(minecraft:fireworks)"
+	BLOCKSTATES NOT FOUND
+ID="400",DataValue="0",Item="pumpkin_pie",IDName="(minecraft:pumpkin_pie)"
+	BLOCKSTATES NOT FOUND
+ID="399",DataValue="0",Item="nether_star",IDName="(minecraft:nether_star)"
+	BLOCKSTATES NOT FOUND
+ID="398",DataValue="0",Item="carrot_on_a_stick",IDName="(minecraft:carrot_on_a_stick)"
+	BLOCKSTATES NOT FOUND
+ID="397",DataValue="0",Item="skeleton_skull",IDName="(minecraft:skull)"
+	BLOCKSTATES NOT FOUND
+ID="397",DataValue="1",Item="wither_skeleton_skull",IDName="(minecraft:skull)"
+	BLOCKSTATES NOT FOUND
+ID="397",DataValue="2",Item="zombie_head",IDName="(minecraft:skull)"
+	BLOCKSTATES NOT FOUND
+ID="397",DataValue="3",Item="steve_head",IDName="(minecraft:skull)"
+	BLOCKSTATES NOT FOUND
+ID="397",DataValue="4",Item="creeper_head",IDName="(minecraft:skull)"
+	BLOCKSTATES NOT FOUND
+ID="397",DataValue="5",Item="dragon_head",IDName="(minecraft:skull)"
+	BLOCKSTATES NOT FOUND
+ID="396",DataValue="0",Item="golden_carrot",IDName="(minecraft:golden_carrot)"
+	BLOCKSTATES NOT FOUND
+ID="395",DataValue="0",Item="map",IDName="(minecraft:map)"
+	BLOCKSTATES NOT FOUND
+ID="394",DataValue="0",Item="poisonous_potato",IDName="(minecraft:poisonous_potato)"
+	BLOCKSTATES NOT FOUND
+ID="393",DataValue="0",Item="baked_potato",IDName="(minecraft:baked_potato)"
+	BLOCKSTATES NOT FOUND
+ID="392",DataValue="0",Item="potato",IDName="(minecraft:potato)"
+	BLOCKSTATES NOT FOUND
+ID="391",DataValue="0",Item="carrot",IDName="(minecraft:carrot)"
+	BLOCKSTATES NOT FOUND
+ID="390",DataValue="0",Item="flower_pot",IDName="(minecraft:flower_pot)"
+	BLOCKSTATES= "../minecraft/blockstates/flower_pot.json" exists
+ID="389",DataValue="0",Item="item_frame",IDName="(minecraft:item_frame)"
+	BLOCKSTATES= "../minecraft/blockstates/item_frame.json" exists
+ID="388",DataValue="0",Item="emerald",IDName="(minecraft:emerald)"
+	BLOCKSTATES NOT FOUND
+ID="387",DataValue="0",Item="written_book",IDName="(minecraft:written_book)"
+	BLOCKSTATES NOT FOUND
+ID="386",DataValue="0",Item="book_and_quill",IDName="(minecraft:writable_book)"
+	BLOCKSTATES NOT FOUND
+ID="385",DataValue="0",Item="fire_charge",IDName="(minecraft:fire_charge)"
+	BLOCKSTATES NOT FOUND
+ID="384",DataValue="0",Item="bottle_o'enchanting",IDName="(minecraft:experience_bottle)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="mule_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="rabbit_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="bat_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="polar_bear_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="pig_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="parrot_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="ocelot_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="sheep_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="mooshroom_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="zombie_villager_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="zombified_piglin_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="magma_cube_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="blaze_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="llama_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="elder_guardian_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="wither_skeleton_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="shulker_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="zombie_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="zombie_horse_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="silverfish_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="skeleton_horse_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="skeleton_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="slime_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="spider_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="squid_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="stray_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="wolf_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="vex_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="villager_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="vindicator_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="witch_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="horse_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="cave_spider_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="guardian_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="husk_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="chicken_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="donkey_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="creeper_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="cow_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="enderman_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="endermite_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="evoker_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="383",DataValue="0",Item="ghast_spawn_egg",IDName="(minecraft:spawn_egg)"
+	BLOCKSTATES NOT FOUND
+ID="382",DataValue="0",Item="glistering_melon",IDName="(minecraft:speckled_melon)"
+	BLOCKSTATES NOT FOUND
+ID="381",DataValue="0",Item="eye_of_ender",IDName="(minecraft:ender_eye)"
+	BLOCKSTATES NOT FOUND
+ID="380",DataValue="0",Item="cauldron",IDName="(minecraft:cauldron)"
+	BLOCKSTATES= "../minecraft/blockstates/cauldron.json" exists
+ID="379",DataValue="0",Item="brewing_stand",IDName="(minecraft:brewing_stand)"
+	BLOCKSTATES= "../minecraft/blockstates/brewing_stand.json" exists
+ID="378",DataValue="0",Item="magma_cream",IDName="(minecraft:magma_cream)"
+	BLOCKSTATES NOT FOUND
+ID="377",DataValue="0",Item="blaze_powder",IDName="(minecraft:blaze_powder)"
+	BLOCKSTATES NOT FOUND
+ID="376",DataValue="0",Item="fermented_spider_eye",IDName="(minecraft:fermented_spider_eye)"
+	BLOCKSTATES NOT FOUND
+ID="375",DataValue="0",Item="spider_eye",IDName="(minecraft:spider_eye)"
+	BLOCKSTATES NOT FOUND
+ID="374",DataValue="0",Item="glass_bottle",IDName="(minecraft:glass_bottle)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_strength_(8:00)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_regeneration_(0:45)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_swiftness_(1:30_-_speed_ii)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_strength_(3:00)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_swiftness_(3:00_-_speed)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_swiftness_(8:00_-_speed)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_water_breathing_(3:00)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_water_breathing_(8:00)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_weakness_(1:30)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_weakness_(4:00)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="water_bottle",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_slowness_(4:00)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_fire_resistance_(3:00)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_fire_resistance_(8:00)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_harming_(instant_damage_ii)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_harming_(instant_damage)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_healing_(instant_health_ii)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_healing_(instant_health)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_invisibility_(3:00)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_invisibility_(8:00)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_leaping_(1:30_-_jump_boost_ii)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_leaping_(3:00_-_jump_boost)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_leaping_(8:00_-_jump_boost)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_luck_(5:00)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_night_vision_(3:00)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_night_vision_(8:00)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_poison_(0:22_-_poison_ii)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_poison_(0:45)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_poison_(2:00)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_regeneration_(0:22_-_regeneration_ii)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_regeneration_(1:30)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_slowness_(1:30)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="373",DataValue="0",Item="potion_of_strength_(1:30_-_strength_ii)",IDName="(minecraft:potion)"
+	BLOCKSTATES NOT FOUND
+ID="372",DataValue="0",Item="nether_wart",IDName="(minecraft:nether_wart)"
+	BLOCKSTATES= "../minecraft/blockstates/nether_wart.json" exists
+ID="371",DataValue="0",Item="gold_nugget",IDName="(minecraft:gold_nugget)"
+	BLOCKSTATES NOT FOUND
+ID="370",DataValue="0",Item="ghast_tear",IDName="(minecraft:ghast_tear)"
+	BLOCKSTATES NOT FOUND
+ID="369",DataValue="0",Item="blaze_rod",IDName="(minecraft:blaze_rod)"
+	BLOCKSTATES NOT FOUND
+ID="368",DataValue="0",Item="ender_pearl",IDName="(minecraft:ender_pearl)"
+	BLOCKSTATES NOT FOUND
+ID="367",DataValue="0",Item="rotten_flesh",IDName="(minecraft:rotten_flesh)"
+	BLOCKSTATES NOT FOUND
+ID="366",DataValue="0",Item="cooked_chicken",IDName="(minecraft:cooked_chicken)"
+	BLOCKSTATES NOT FOUND
+ID="365",DataValue="0",Item="raw_chicken",IDName="(minecraft:chicken)"
+	BLOCKSTATES NOT FOUND
+ID="364",DataValue="0",Item="steak",IDName="(minecraft:cooked_beef)"
+	BLOCKSTATES NOT FOUND
+ID="363",DataValue="0",Item="raw_beef",IDName="(minecraft:beef)"
+	BLOCKSTATES NOT FOUND
+ID="362",DataValue="0",Item="melon_seeds",IDName="(minecraft:melon_seeds)"
+	BLOCKSTATES NOT FOUND
+ID="361",DataValue="0",Item="pumpkin_seeds",IDName="(minecraft:pumpkin_seeds)"
+	BLOCKSTATES NOT FOUND
+ID="360",DataValue="0",Item="melon_slice",IDName="(minecraft:melon)"
+	BLOCKSTATES NOT FOUND
+ID="359",DataValue="0",Item="shears",IDName="(minecraft:shears)"
+	BLOCKSTATES NOT FOUND
+ID="358",DataValue="0",Item="map_(filled)",IDName="(minecraft:filled_map)"
+	BLOCKSTATES NOT FOUND
+ID="357",DataValue="0",Item="cookie",IDName="(minecraft:cookie)"
+	BLOCKSTATES NOT FOUND
+ID="356",DataValue="0",Item="redstone_repeater",IDName="(minecraft:repeater)"
+	BLOCKSTATES NOT FOUND
+ID="355",DataValue="0",Item="white_bed",IDName="(minecraft:bed)"
+	BLOCKSTATES NOT FOUND
+ID="355",DataValue="1",Item="orange_bed",IDName="(minecraft:bed)"
+	BLOCKSTATES NOT FOUND
+ID="355",DataValue="2",Item="magenta_bed",IDName="(minecraft:bed)"
+	BLOCKSTATES NOT FOUND
+ID="355",DataValue="3",Item="light_blue_bed",IDName="(minecraft:bed)"
+	BLOCKSTATES NOT FOUND
+ID="355",DataValue="4",Item="yellow_bed",IDName="(minecraft:bed)"
+	BLOCKSTATES NOT FOUND
+ID="355",DataValue="5",Item="lime_bed",IDName="(minecraft:bed)"
+	BLOCKSTATES NOT FOUND
+ID="355",DataValue="6",Item="pink_bed",IDName="(minecraft:bed)"
+	BLOCKSTATES NOT FOUND
+ID="355",DataValue="7",Item="gray_bed",IDName="(minecraft:bed)"
+	BLOCKSTATES NOT FOUND
+ID="355",DataValue="8",Item="silver_bed",IDName="(minecraft:bed)"
+	BLOCKSTATES NOT FOUND
+ID="355",DataValue="9",Item="cyan_bed",IDName="(minecraft:bed)"
+	BLOCKSTATES NOT FOUND
+ID="355",DataValue="10",Item="purple_bed",IDName="(minecraft:bed)"
+	BLOCKSTATES NOT FOUND
+ID="355",DataValue="11",Item="blue_bed",IDName="(minecraft:bed)"
+	BLOCKSTATES NOT FOUND
+ID="355",DataValue="12",Item="brown_bed",IDName="(minecraft:bed)"
+	BLOCKSTATES NOT FOUND
+ID="355",DataValue="13",Item="green_bed",IDName="(minecraft:bed)"
+	BLOCKSTATES NOT FOUND
+ID="355",DataValue="14",Item="red_bed",IDName="(minecraft:bed)"
+	BLOCKSTATES NOT FOUND
+ID="355",DataValue="15",Item="black_bed",IDName="(minecraft:bed)"
+	BLOCKSTATES NOT FOUND
+ID="354",DataValue="0",Item="cake",IDName="(minecraft:cake)"
+	BLOCKSTATES= "../minecraft/blockstates/cake.json" exists
+ID="353",DataValue="0",Item="sugar",IDName="(minecraft:sugar)"
+	BLOCKSTATES NOT FOUND
+ID="352",DataValue="0",Item="bone",IDName="(minecraft:bone)"
+	BLOCKSTATES NOT FOUND
+ID="351",DataValue="0",Item="ink_sac",IDName="(minecraft:dye)"
+	BLOCKSTATES NOT FOUND
+ID="351",DataValue="1",Item="red_dye",IDName="(minecraft:dye)"
+	BLOCKSTATES NOT FOUND
+ID="351",DataValue="2",Item="green_dye",IDName="(minecraft:dye)"
+	BLOCKSTATES NOT FOUND
+ID="351",DataValue="3",Item="cocoa_beans",IDName="(minecraft:dye)"
+	BLOCKSTATES NOT FOUND
+ID="351",DataValue="4",Item="lapis_lazuli",IDName="(minecraft:dye)"
+	BLOCKSTATES NOT FOUND
+ID="351",DataValue="5",Item="purple_dye",IDName="(minecraft:dye)"
+	BLOCKSTATES NOT FOUND
+ID="351",DataValue="6",Item="cyan_dye",IDName="(minecraft:dye)"
+	BLOCKSTATES NOT FOUND
+ID="351",DataValue="7",Item="silver_dye",IDName="(minecraft:dye)"
+	BLOCKSTATES NOT FOUND
+ID="351",DataValue="8",Item="gray_dye",IDName="(minecraft:dye)"
+	BLOCKSTATES NOT FOUND
+ID="351",DataValue="9",Item="pink_dye",IDName="(minecraft:dye)"
+	BLOCKSTATES NOT FOUND
+ID="351",DataValue="10",Item="lime_dye",IDName="(minecraft:dye)"
+	BLOCKSTATES NOT FOUND
+ID="351",DataValue="11",Item="yellow_dye",IDName="(minecraft:dye)"
+	BLOCKSTATES NOT FOUND
+ID="351",DataValue="12",Item="light_blue_dye",IDName="(minecraft:dye)"
+	BLOCKSTATES NOT FOUND
+ID="351",DataValue="13",Item="magenta_dye",IDName="(minecraft:dye)"
+	BLOCKSTATES NOT FOUND
+ID="351",DataValue="14",Item="orange_dye",IDName="(minecraft:dye)"
+	BLOCKSTATES NOT FOUND
+ID="351",DataValue="15",Item="bone_meal",IDName="(minecraft:dye)"
+	BLOCKSTATES NOT FOUND
+ID="350",DataValue="0",Item="cooked_fish",IDName="(minecraft:cooked_fish)"
+	BLOCKSTATES NOT FOUND
+ID="350",DataValue="1",Item="cooked_salmon",IDName="(minecraft:cooked_fish)"
+	BLOCKSTATES NOT FOUND
+ID="349",DataValue="0",Item="raw_fish",IDName="(minecraft:fish)"
+	BLOCKSTATES NOT FOUND
+ID="349",DataValue="1",Item="raw_salmon",IDName="(minecraft:fish)"
+	BLOCKSTATES NOT FOUND
+ID="349",DataValue="2",Item="tropical_fish_(clownfish)",IDName="(minecraft:fish)"
+	BLOCKSTATES NOT FOUND
+ID="349",DataValue="3",Item="pufferfish",IDName="(minecraft:fish)"
+	BLOCKSTATES NOT FOUND
+ID="348",DataValue="0",Item="glowstone_dust",IDName="(minecraft:glowstone_dust)"
+	BLOCKSTATES NOT FOUND
+ID="347",DataValue="0",Item="clock",IDName="(minecraft:clock)"
+	BLOCKSTATES NOT FOUND
+ID="346",DataValue="0",Item="fishing_rod",IDName="(minecraft:fishing_rod)"
+	BLOCKSTATES NOT FOUND
+ID="345",DataValue="0",Item="compass",IDName="(minecraft:compass)"
+	BLOCKSTATES NOT FOUND
+ID="344",DataValue="0",Item="egg",IDName="(minecraft:egg)"
+	BLOCKSTATES NOT FOUND
+ID="343",DataValue="0",Item="minecart_with_furnace",IDName="(minecraft:furnace_minecart)"
+	BLOCKSTATES NOT FOUND
+ID="342",DataValue="0",Item="minecart_with_chest",IDName="(minecraft:chest_minecart)"
+	BLOCKSTATES NOT FOUND
+ID="341",DataValue="0",Item="slimeball",IDName="(minecraft:slime_ball)"
+	BLOCKSTATES NOT FOUND
+ID="340",DataValue="0",Item="book",IDName="(minecraft:book)"
+	BLOCKSTATES NOT FOUND
+ID="339",DataValue="0",Item="paper",IDName="(minecraft:paper)"
+	BLOCKSTATES NOT FOUND
+ID="338",DataValue="0",Item="sugar_canes",IDName="(minecraft:reeds)"
+	BLOCKSTATES= "../minecraft/blockstates/reeds.json" exists
+ID="337",DataValue="0",Item="clay",IDName="(minecraft:clay_ball)"
+	BLOCKSTATES= "../minecraft/blockstates/clay.json" exists
+ID="336",DataValue="0",Item="brick",IDName="(minecraft:brick)"
+	BLOCKSTATES NOT FOUND
+ID="335",DataValue="0",Item="milk",IDName="(minecraft:milk_bucket)"
+	BLOCKSTATES NOT FOUND
+ID="334",DataValue="0",Item="leather",IDName="(minecraft:leather)"
+	BLOCKSTATES NOT FOUND
+ID="333",DataValue="0",Item="oak_boat",IDName="(minecraft:boat)"
+	BLOCKSTATES NOT FOUND
+ID="332",DataValue="0",Item="snowball",IDName="(minecraft:snowball)"
+	BLOCKSTATES NOT FOUND
+ID="331",DataValue="0",Item="redstone_dust",IDName="(minecraft:redstone)"
+	BLOCKSTATES NOT FOUND
+ID="330",DataValue="0",Item="iron_door",IDName="(minecraft:iron_door)"
+	BLOCKSTATES= "../minecraft/blockstates/iron_door.json" exists
+ID="329",DataValue="0",Item="saddle",IDName="(minecraft:saddle)"
+	BLOCKSTATES NOT FOUND
+ID="328",DataValue="0",Item="minecart",IDName="(minecraft:minecart)"
+	BLOCKSTATES NOT FOUND
+ID="327",DataValue="0",Item="lava_bucket",IDName="(minecraft:lava_bucket)"
+	BLOCKSTATES NOT FOUND
+ID="326",DataValue="0",Item="water_bucket",IDName="(minecraft:water_bucket)"
+	BLOCKSTATES NOT FOUND
+ID="325",DataValue="0",Item="bucket",IDName="(minecraft:bucket)"
+	BLOCKSTATES NOT FOUND
+ID="324",DataValue="0",Item="oak_door",IDName="(minecraft:wooden_door)"
+	BLOCKSTATES= "../minecraft/blockstates/wooden_door.json" exists
+ID="323",DataValue="0",Item="oak_sign",IDName="(minecraft:sign)"
+	BLOCKSTATES NOT FOUND
+ID="322",DataValue="0",Item="golden_apple",IDName="(minecraft:golden_apple)"
+	BLOCKSTATES NOT FOUND
+ID="322",DataValue="1",Item="enchanted_golden_apple",IDName="(minecraft:golden_apple)"
+	BLOCKSTATES NOT FOUND
+ID="321",DataValue="0",Item="painting",IDName="(minecraft:painting)"
+	BLOCKSTATES NOT FOUND
+ID="320",DataValue="0",Item="cooked_porkchop",IDName="(minecraft:cooked_porkchop)"
+	BLOCKSTATES NOT FOUND
+ID="319",DataValue="0",Item="raw_porkchop",IDName="(minecraft:porkchop)"
+	BLOCKSTATES NOT FOUND
+ID="318",DataValue="0",Item="flint",IDName="(minecraft:flint)"
+	BLOCKSTATES NOT FOUND
+ID="317",DataValue="0",Item="golden_boots",IDName="(minecraft:golden_boots)"
+	BLOCKSTATES NOT FOUND
+ID="316",DataValue="0",Item="golden_leggings",IDName="(minecraft:golden_leggings)"
+	BLOCKSTATES NOT FOUND
+ID="315",DataValue="0",Item="golden_chestplate",IDName="(minecraft:golden_chestplate)"
+	BLOCKSTATES NOT FOUND
+ID="314",DataValue="0",Item="golden_helmet",IDName="(minecraft:golden_helmet)"
+	BLOCKSTATES NOT FOUND
+ID="313",DataValue="0",Item="diamond_boots",IDName="(minecraft:diamond_boots)"
+	BLOCKSTATES NOT FOUND
+ID="312",DataValue="0",Item="diamond_leggings",IDName="(minecraft:diamond_leggings)"
+	BLOCKSTATES NOT FOUND
+ID="311",DataValue="0",Item="diamond_chestplate",IDName="(minecraft:diamond_chestplate)"
+	BLOCKSTATES NOT FOUND
+ID="310",DataValue="0",Item="diamond_helmet",IDName="(minecraft:diamond_helmet)"
+	BLOCKSTATES NOT FOUND
+ID="309",DataValue="0",Item="iron_boots",IDName="(minecraft:iron_boots)"
+	BLOCKSTATES NOT FOUND
+ID="308",DataValue="0",Item="iron_leggings",IDName="(minecraft:iron_leggings)"
+	BLOCKSTATES NOT FOUND
+ID="307",DataValue="0",Item="iron_chestplate",IDName="(minecraft:iron_chestplate)"
+	BLOCKSTATES NOT FOUND
+ID="306",DataValue="0",Item="iron_helmet",IDName="(minecraft:iron_helmet)"
+	BLOCKSTATES NOT FOUND
+ID="305",DataValue="0",Item="chain_boots",IDName="(minecraft:chainmail_boots)"
+	BLOCKSTATES NOT FOUND
+ID="304",DataValue="0",Item="chain_leggings",IDName="(minecraft:chainmail_leggings)"
+	BLOCKSTATES NOT FOUND
+ID="303",DataValue="0",Item="chain_chestplate",IDName="(minecraft:chainmail_chestplate)"
+	BLOCKSTATES NOT FOUND
+ID="302",DataValue="0",Item="chain_helmet",IDName="(minecraft:chainmail_helmet)"
+	BLOCKSTATES NOT FOUND
+ID="301",DataValue="0",Item="leather_boots",IDName="(minecraft:leather_boots)"
+	BLOCKSTATES NOT FOUND
+ID="300",DataValue="0",Item="leather_pants",IDName="(minecraft:leather_leggings)"
+	BLOCKSTATES NOT FOUND
+ID="299",DataValue="0",Item="leather_tunic",IDName="(minecraft:leather_chestplate)"
+	BLOCKSTATES NOT FOUND
+ID="298",DataValue="0",Item="leather_cap",IDName="(minecraft:leather_helmet)"
+	BLOCKSTATES NOT FOUND
+ID="297",DataValue="0",Item="bread",IDName="(minecraft:bread)"
+	BLOCKSTATES NOT FOUND
+ID="296",DataValue="0",Item="wheat",IDName="(minecraft:wheat)"
+	BLOCKSTATES= "../minecraft/blockstates/wheat.json" exists
+ID="295",DataValue="0",Item="seeds",IDName="(minecraft:wheat_seeds)"
+	BLOCKSTATES NOT FOUND
+ID="294",DataValue="0",Item="golden_hoe",IDName="(minecraft:golden_hoe)"
+	BLOCKSTATES NOT FOUND
+ID="293",DataValue="0",Item="diamond_hoe",IDName="(minecraft:diamond_hoe)"
+	BLOCKSTATES NOT FOUND
+ID="292",DataValue="0",Item="iron_hoe",IDName="(minecraft:iron_hoe)"
+	BLOCKSTATES NOT FOUND
+ID="291",DataValue="0",Item="stone_hoe",IDName="(minecraft:stone_hoe)"
+	BLOCKSTATES NOT FOUND
+ID="290",DataValue="0",Item="wooden_hoe",IDName="(minecraft:wooden_hoe)"
+	BLOCKSTATES NOT FOUND
+ID="289",DataValue="0",Item="gunpowder",IDName="(minecraft:gunpowder)"
+	BLOCKSTATES NOT FOUND
+ID="288",DataValue="0",Item="feather",IDName="(minecraft:feather)"
+	BLOCKSTATES NOT FOUND
+ID="287",DataValue="0",Item="string",IDName="(minecraft:string)"
+	BLOCKSTATES NOT FOUND
+ID="286",DataValue="0",Item="golden_axe",IDName="(minecraft:golden_axe)"
+	BLOCKSTATES NOT FOUND
+ID="285",DataValue="0",Item="golden_pickaxe",IDName="(minecraft:golden_pickaxe)"
+	BLOCKSTATES NOT FOUND
+ID="284",DataValue="0",Item="golden_shovel",IDName="(minecraft:golden_shovel)"
+	BLOCKSTATES NOT FOUND
+ID="283",DataValue="0",Item="golden_sword",IDName="(minecraft:golden_sword)"
+	BLOCKSTATES NOT FOUND
+ID="282",DataValue="0",Item="mushroom_stew",IDName="(minecraft:mushroom_stew)"
+	BLOCKSTATES NOT FOUND
+ID="281",DataValue="0",Item="bowl",IDName="(minecraft:bowl)"
+	BLOCKSTATES NOT FOUND
+ID="280",DataValue="0",Item="stick",IDName="(minecraft:stick)"
+	BLOCKSTATES NOT FOUND
+ID="279",DataValue="0",Item="diamond_axe",IDName="(minecraft:diamond_axe)"
+	BLOCKSTATES NOT FOUND
+ID="278",DataValue="0",Item="diamond_pickaxe",IDName="(minecraft:diamond_pickaxe)"
+	BLOCKSTATES NOT FOUND
+ID="277",DataValue="0",Item="diamond_shovel",IDName="(minecraft:diamond_shovel)"
+	BLOCKSTATES NOT FOUND
+ID="276",DataValue="0",Item="diamond_sword",IDName="(minecraft:diamond_sword)"
+	BLOCKSTATES NOT FOUND
+ID="275",DataValue="0",Item="stone_axe",IDName="(minecraft:stone_axe)"
+	BLOCKSTATES NOT FOUND
+ID="274",DataValue="0",Item="stone_pickaxe",IDName="(minecraft:stone_pickaxe)"
+	BLOCKSTATES NOT FOUND
+ID="273",DataValue="0",Item="stone_shovel",IDName="(minecraft:stone_shovel)"
+	BLOCKSTATES NOT FOUND
+ID="272",DataValue="0",Item="stone_sword",IDName="(minecraft:stone_sword)"
+	BLOCKSTATES NOT FOUND
+ID="271",DataValue="0",Item="wooden_axe",IDName="(minecraft:wooden_axe)"
+	BLOCKSTATES NOT FOUND
+ID="270",DataValue="0",Item="wooden_pickaxe",IDName="(minecraft:wooden_pickaxe)"
+	BLOCKSTATES NOT FOUND
+ID="269",DataValue="0",Item="wooden_shovel",IDName="(minecraft:wooden_shovel)"
+	BLOCKSTATES NOT FOUND
+ID="268",DataValue="0",Item="wooden_sword",IDName="(minecraft:wooden_sword)"
+	BLOCKSTATES NOT FOUND
+ID="267",DataValue="0",Item="iron_sword",IDName="(minecraft:iron_sword)"
+	BLOCKSTATES NOT FOUND
+ID="266",DataValue="0",Item="gold_ingot",IDName="(minecraft:gold_ingot)"
+	BLOCKSTATES NOT FOUND
+ID="265",DataValue="0",Item="iron_ingot",IDName="(minecraft:iron_ingot)"
+	BLOCKSTATES NOT FOUND
+ID="264",DataValue="0",Item="diamond",IDName="(minecraft:diamond)"
+	BLOCKSTATES NOT FOUND
+ID="263",DataValue="0",Item="coal",IDName="(minecraft:coal)"
+	BLOCKSTATES NOT FOUND
+ID="263",DataValue="1",Item="charcoal",IDName="(minecraft:coal)"
+	BLOCKSTATES NOT FOUND
+ID="262",DataValue="0",Item="arrow",IDName="(minecraft:arrow)"
+	BLOCKSTATES NOT FOUND
+ID="261",DataValue="0",Item="bow",IDName="(minecraft:bow)"
+	BLOCKSTATES NOT FOUND
+ID="260",DataValue="0",Item="apple",IDName="(minecraft:apple)"
+	BLOCKSTATES NOT FOUND
+ID="259",DataValue="0",Item="flint_and_steel",IDName="(minecraft:flint_and_steel)"
+	BLOCKSTATES NOT FOUND
+ID="258",DataValue="0",Item="iron_axe",IDName="(minecraft:iron_axe)"
+	BLOCKSTATES NOT FOUND
+ID="257",DataValue="0",Item="iron_pickaxe",IDName="(minecraft:iron_pickaxe)"
+	BLOCKSTATES NOT FOUND
+ID="256",DataValue="0",Item="iron_shovel",IDName="(minecraft:iron_shovel)"
+	BLOCKSTATES NOT FOUND
+ID="255",DataValue="0",Item="structure_block",IDName="(minecraft:structure_block)"
+	BLOCKSTATES= "../minecraft/blockstates/structure_block.json" exists
+ID="252",DataValue="0",Item="white_concrete_powder",IDName="(minecraft:concrete_powder)"
+	BLOCKSTATES= "../minecraft/blockstates/white_concrete_powder.json" exists
+ID="252",DataValue="1",Item="orange_concrete_powder",IDName="(minecraft:concrete_powder)"
+	BLOCKSTATES= "../minecraft/blockstates/orange_concrete_powder.json" exists
+ID="252",DataValue="2",Item="magenta_concrete_powder",IDName="(minecraft:concrete_powder)"
+	BLOCKSTATES= "../minecraft/blockstates/magenta_concrete_powder.json" exists
+ID="252",DataValue="3",Item="light_blue_concrete_powder",IDName="(minecraft:concrete_powder)"
+	BLOCKSTATES= "../minecraft/blockstates/light_blue_concrete_powder.json" exists
+ID="252",DataValue="4",Item="yellow_concrete_powder",IDName="(minecraft:concrete_powder)"
+	BLOCKSTATES= "../minecraft/blockstates/yellow_concrete_powder.json" exists
+ID="252",DataValue="5",Item="lime_concrete_powder",IDName="(minecraft:concrete_powder)"
+	BLOCKSTATES= "../minecraft/blockstates/lime_concrete_powder.json" exists
+ID="252",DataValue="6",Item="pink_concrete_powder",IDName="(minecraft:concrete_powder)"
+	BLOCKSTATES= "../minecraft/blockstates/pink_concrete_powder.json" exists
+ID="252",DataValue="7",Item="gray_concrete_powder",IDName="(minecraft:concrete_powder)"
+	BLOCKSTATES= "../minecraft/blockstates/gray_concrete_powder.json" exists
+ID="252",DataValue="8",Item="silver_concrete_powder",IDName="(minecraft:concrete_powder)"
+	BLOCKSTATES= "../minecraft/blockstates/silver_concrete_powder.json" exists
+ID="252",DataValue="9",Item="cyan_concrete_powder",IDName="(minecraft:concrete_powder)"
+	BLOCKSTATES= "../minecraft/blockstates/cyan_concrete_powder.json" exists
+ID="252",DataValue="10",Item="purple_concrete_powder",IDName="(minecraft:concrete_powder)"
+	BLOCKSTATES= "../minecraft/blockstates/purple_concrete_powder.json" exists
+ID="252",DataValue="11",Item="blue_concrete_powder",IDName="(minecraft:concrete_powder)"
+	BLOCKSTATES= "../minecraft/blockstates/blue_concrete_powder.json" exists
+ID="252",DataValue="12",Item="brown_concrete_powder",IDName="(minecraft:concrete_powder)"
+	BLOCKSTATES= "../minecraft/blockstates/brown_concrete_powder.json" exists
+ID="252",DataValue="13",Item="green_concrete_powder",IDName="(minecraft:concrete_powder)"
+	BLOCKSTATES= "../minecraft/blockstates/green_concrete_powder.json" exists
+ID="252",DataValue="14",Item="red_concrete_powder",IDName="(minecraft:concrete_powder)"
+	BLOCKSTATES= "../minecraft/blockstates/red_concrete_powder.json" exists
+ID="252",DataValue="15",Item="black_concrete_powder",IDName="(minecraft:concrete_powder)"
+	BLOCKSTATES= "../minecraft/blockstates/black_concrete_powder.json" exists
+ID="251",DataValue="0",Item="white_concrete",IDName="(minecraft:concrete)"
+	BLOCKSTATES= "../minecraft/blockstates/white_concrete.json" exists
+ID="251",DataValue="1",Item="orange_concrete",IDName="(minecraft:concrete)"
+	BLOCKSTATES= "../minecraft/blockstates/orange_concrete.json" exists
+ID="251",DataValue="2",Item="magenta_concrete",IDName="(minecraft:concrete)"
+	BLOCKSTATES= "../minecraft/blockstates/magenta_concrete.json" exists
+ID="251",DataValue="3",Item="light_blue_concrete",IDName="(minecraft:concrete)"
+	BLOCKSTATES= "../minecraft/blockstates/light_blue_concrete.json" exists
+ID="251",DataValue="4",Item="yellow_concrete",IDName="(minecraft:concrete)"
+	BLOCKSTATES= "../minecraft/blockstates/yellow_concrete.json" exists
+ID="251",DataValue="5",Item="lime_concrete",IDName="(minecraft:concrete)"
+	BLOCKSTATES= "../minecraft/blockstates/lime_concrete.json" exists
+ID="251",DataValue="6",Item="pink_concrete",IDName="(minecraft:concrete)"
+	BLOCKSTATES= "../minecraft/blockstates/pink_concrete.json" exists
+ID="251",DataValue="7",Item="gray_concrete",IDName="(minecraft:concrete)"
+	BLOCKSTATES= "../minecraft/blockstates/gray_concrete.json" exists
+ID="251",DataValue="8",Item="silver_concrete",IDName="(minecraft:concrete)"
+	BLOCKSTATES= "../minecraft/blockstates/silver_concrete.json" exists
+ID="251",DataValue="9",Item="cyan_concrete",IDName="(minecraft:concrete)"
+	BLOCKSTATES= "../minecraft/blockstates/cyan_concrete.json" exists
+ID="251",DataValue="10",Item="purple_concrete",IDName="(minecraft:concrete)"
+	BLOCKSTATES= "../minecraft/blockstates/purple_concrete.json" exists
+ID="251",DataValue="11",Item="blue_concrete",IDName="(minecraft:concrete)"
+	BLOCKSTATES= "../minecraft/blockstates/blue_concrete.json" exists
+ID="251",DataValue="12",Item="brown_concrete",IDName="(minecraft:concrete)"
+	BLOCKSTATES= "../minecraft/blockstates/brown_concrete.json" exists
+ID="251",DataValue="13",Item="green_concrete",IDName="(minecraft:concrete)"
+	BLOCKSTATES= "../minecraft/blockstates/green_concrete.json" exists
+ID="251",DataValue="14",Item="red_concrete",IDName="(minecraft:concrete)"
+	BLOCKSTATES= "../minecraft/blockstates/red_concrete.json" exists
+ID="251",DataValue="15",Item="black_concrete",IDName="(minecraft:concrete)"
+	BLOCKSTATES= "../minecraft/blockstates/black_concrete.json" exists
+ID="250",DataValue="0",Item="black_glazed_terracotta",IDName="(minecraft:black_glazed_terracotta)"
+	BLOCKSTATES= "../minecraft/blockstates/black_glazed_terracotta.json" exists
+ID="249",DataValue="0",Item="red_glazed_terracotta",IDName="(minecraft:red_glazed_terracotta)"
+	BLOCKSTATES= "../minecraft/blockstates/red_glazed_terracotta.json" exists
+ID="248",DataValue="0",Item="green_glazed_terracotta",IDName="(minecraft:green_glazed_terracotta)"
+	BLOCKSTATES= "../minecraft/blockstates/green_glazed_terracotta.json" exists
+ID="247",DataValue="0",Item="brown_glazed_terracotta",IDName="(minecraft:brown_glazed_terracotta)"
+	BLOCKSTATES= "../minecraft/blockstates/brown_glazed_terracotta.json" exists
+ID="246",DataValue="0",Item="blue_glazed_terracotta",IDName="(minecraft:blue_glazed_terracotta)"
+	BLOCKSTATES= "../minecraft/blockstates/blue_glazed_terracotta.json" exists
+ID="245",DataValue="0",Item="purple_glazed_terracotta",IDName="(minecraft:purple_glazed_terracotta)"
+	BLOCKSTATES= "../minecraft/blockstates/purple_glazed_terracotta.json" exists
+ID="244",DataValue="0",Item="cyan_glazed_terracotta",IDName="(minecraft:cyan_glazed_terracotta)"
+	BLOCKSTATES= "../minecraft/blockstates/cyan_glazed_terracotta.json" exists
+ID="243",DataValue="0",Item="silver_glazed_terracotta",IDName="(minecraft:silver_glazed_terracotta)"
+	BLOCKSTATES= "../minecraft/blockstates/silver_glazed_terracotta.json" exists
+ID="242",DataValue="0",Item="gray_glazed_terracotta",IDName="(minecraft:gray_glazed_terracotta)"
+	BLOCKSTATES= "../minecraft/blockstates/gray_glazed_terracotta.json" exists
+ID="241",DataValue="0",Item="pink_glazed_terracotta",IDName="(minecraft:pink_glazed_terracotta)"
+	BLOCKSTATES= "../minecraft/blockstates/pink_glazed_terracotta.json" exists
+ID="240",DataValue="0",Item="lime_glazed_terracotta",IDName="(minecraft:lime_glazed_terracotta)"
+	BLOCKSTATES= "../minecraft/blockstates/lime_glazed_terracotta.json" exists
+ID="239",DataValue="0",Item="yellow_glazed_terracotta",IDName="(minecraft:yellow_glazed_terracotta)"
+	BLOCKSTATES= "../minecraft/blockstates/yellow_glazed_terracotta.json" exists
+ID="238",DataValue="0",Item="light_blue_glazed_terracotta",IDName="(minecraft:light_blue_glazed_terracotta)"
+	BLOCKSTATES= "../minecraft/blockstates/light_blue_glazed_terracotta.json" exists
+ID="237",DataValue="0",Item="magenta_glazed_terracotta",IDName="(minecraft:magenta_glazed_terracotta)"
+	BLOCKSTATES= "../minecraft/blockstates/magenta_glazed_terracotta.json" exists
+ID="236",DataValue="0",Item="orange_glazed_terracotta",IDName="(minecraft:orange_glazed_terracotta)"
+	BLOCKSTATES= "../minecraft/blockstates/orange_glazed_terracotta.json" exists
+ID="235",DataValue="0",Item="white_glazed_terracotta",IDName="(minecraft:white_glazed_terracotta)"
+	BLOCKSTATES= "../minecraft/blockstates/white_glazed_terracotta.json" exists
+ID="234",DataValue="0",Item="black_shulker_box",IDName="(minecraft:black_shulker_box)"
+	BLOCKSTATES NOT FOUND
+ID="233",DataValue="0",Item="red_shulker_box",IDName="(minecraft:red_shulker_box)"
+	BLOCKSTATES NOT FOUND
+ID="232",DataValue="0",Item="green_shulker_box",IDName="(minecraft:green_shulker_box)"
+	BLOCKSTATES NOT FOUND
+ID="231",DataValue="0",Item="brown_shulker_box",IDName="(minecraft:brown_shulker_box)"
+	BLOCKSTATES NOT FOUND
+ID="230",DataValue="0",Item="blue_shulker_box",IDName="(minecraft:blue_shulker_box)"
+	BLOCKSTATES NOT FOUND
+ID="229",DataValue="0",Item="purple_shulker_box",IDName="(minecraft:purple_shulker_box)"
+	BLOCKSTATES NOT FOUND
+ID="228",DataValue="0",Item="cyan_shulker_box",IDName="(minecraft:cyan_shulker_box)"
+	BLOCKSTATES NOT FOUND
+ID="227",DataValue="0",Item="silver_shulker_box",IDName="(minecraft:silver_shulker_box)"
+	BLOCKSTATES NOT FOUND
+ID="226",DataValue="0",Item="gray_shulker_box",IDName="(minecraft:gray_shulker_box)"
+	BLOCKSTATES NOT FOUND
+ID="225",DataValue="0",Item="pink_shulker_box",IDName="(minecraft:pink_shulker_box)"
+	BLOCKSTATES NOT FOUND
+ID="224",DataValue="0",Item="lime_shulker_box",IDName="(minecraft:lime_shulker_box)"
+	BLOCKSTATES NOT FOUND
+ID="223",DataValue="0",Item="yellow_shulker_box",IDName="(minecraft:yellow_shulker_box)"
+	BLOCKSTATES NOT FOUND
+ID="222",DataValue="0",Item="light_blue_shulker_box",IDName="(minecraft:light_blue_shulker_box)"
+	BLOCKSTATES NOT FOUND
+ID="221",DataValue="0",Item="magenta_shulker_box",IDName="(minecraft:magenta_shulker_box)"
+	BLOCKSTATES NOT FOUND
+ID="220",DataValue="0",Item="orange_shulker_box",IDName="(minecraft:orange_shulker_box)"
+	BLOCKSTATES NOT FOUND
+ID="219",DataValue="0",Item="white_shulker_box",IDName="(minecraft:white_shulker_box)"
+	BLOCKSTATES NOT FOUND
+ID="218",DataValue="0",Item="observer",IDName="(minecraft:observer)"
+	BLOCKSTATES= "../minecraft/blockstates/observer.json" exists
+ID="217",DataValue="0",Item="structure_void",IDName="(minecraft:structure_void)"
+	BLOCKSTATES NOT FOUND
+ID="216",DataValue="0",Item="bone_block",IDName="(minecraft:bone_block)"
+	BLOCKSTATES= "../minecraft/blockstates/bone_block.json" exists
+ID="215",DataValue="0",Item="red_nether_brick",IDName="(minecraft:red_nether_brick)"
+	BLOCKSTATES= "../minecraft/blockstates/red_nether_brick.json" exists
+ID="214",DataValue="0",Item="nether_wart_block",IDName="(minecraft:nether_wart_block)"
+	BLOCKSTATES= "../minecraft/blockstates/nether_wart_block.json" exists
+ID="213",DataValue="0",Item="magma_block",IDName="(minecraft:magma)"
+	BLOCKSTATES= "../minecraft/blockstates/magma.json" exists
+ID="211",DataValue="0",Item="chain_command_block",IDName="(minecraft:chain_command_block)"
+	BLOCKSTATES= "../minecraft/blockstates/chain_command_block.json" exists
+ID="210",DataValue="0",Item="repeating_command_block",IDName="(minecraft:repeating_command_block)"
+	BLOCKSTATES= "../minecraft/blockstates/repeating_command_block.json" exists
+ID="208",DataValue="0",Item="grass_path",IDName="(minecraft:grass_path)"
+	BLOCKSTATES= "../minecraft/blockstates/grass_path.json" exists
+ID="206",DataValue="0",Item="end_stone_bricks",IDName="(minecraft:end_bricks)"
+	BLOCKSTATES= "../minecraft/blockstates/end_bricks.json" exists
+ID="205",DataValue="0",Item="purpur_slab",IDName="(minecraft:purpur_slab)"
+	BLOCKSTATES= "../minecraft/blockstates/purpur_slab.json" exists
+ID="203",DataValue="0",Item="purpur_stairs",IDName="(minecraft:purpur_stairs)"
+	BLOCKSTATES= "../minecraft/blockstates/purpur_stairs.json" exists
+ID="202",DataValue="0",Item="purpur_pillar",IDName="(minecraft:purpur_pillar)"
+	BLOCKSTATES= "../minecraft/blockstates/purpur_pillar.json" exists
+ID="201",DataValue="0",Item="purpur_block",IDName="(minecraft:purpur_block)"
+	BLOCKSTATES= "../minecraft/blockstates/purpur_block.json" exists
+ID="200",DataValue="0",Item="chorus_flower",IDName="(minecraft:chorus_flower)"
+	BLOCKSTATES= "../minecraft/blockstates/chorus_flower.json" exists
+ID="199",DataValue="0",Item="chorus_plant",IDName="(minecraft:chorus_plant)"
+	BLOCKSTATES= "../minecraft/blockstates/chorus_plant.json" exists
+ID="198",DataValue="0",Item="end_rod",IDName="(minecraft:end_rod)"
+	BLOCKSTATES= "../minecraft/blockstates/end_rod.json" exists
+ID="192",DataValue="0",Item="acacia_fence",IDName="(minecraft:acacia_fence)"
+	BLOCKSTATES= "../minecraft/blockstates/acacia_fence.json" exists
+ID="191",DataValue="0",Item="dark_oak_fence",IDName="(minecraft:dark_oak_fence)"
+	BLOCKSTATES= "../minecraft/blockstates/dark_oak_fence.json" exists
+ID="190",DataValue="0",Item="jungle_fence",IDName="(minecraft:jungle_fence)"
+	BLOCKSTATES= "../minecraft/blockstates/jungle_fence.json" exists
+ID="189",DataValue="0",Item="birch_fence",IDName="(minecraft:birch_fence)"
+	BLOCKSTATES= "../minecraft/blockstates/birch_fence.json" exists
+ID="188",DataValue="0",Item="spruce_fence",IDName="(minecraft:spruce_fence)"
+	BLOCKSTATES= "../minecraft/blockstates/spruce_fence.json" exists
+ID="187",DataValue="0",Item="acacia_fence_gate",IDName="(minecraft:acacia_fence_gate)"
+	BLOCKSTATES= "../minecraft/blockstates/acacia_fence_gate.json" exists
+ID="186",DataValue="0",Item="dark_oak_fence_gate",IDName="(minecraft:dark_oak_fence_gate)"
+	BLOCKSTATES= "../minecraft/blockstates/dark_oak_fence_gate.json" exists
+ID="185",DataValue="0",Item="jungle_fence_gate",IDName="(minecraft:jungle_fence_gate)"
+	BLOCKSTATES= "../minecraft/blockstates/jungle_fence_gate.json" exists
+ID="184",DataValue="0",Item="birch_fence_gate",IDName="(minecraft:birch_fence_gate)"
+	BLOCKSTATES= "../minecraft/blockstates/birch_fence_gate.json" exists
+ID="183",DataValue="0",Item="spruce_fence_gate",IDName="(minecraft:spruce_fence_gate)"
+	BLOCKSTATES= "../minecraft/blockstates/spruce_fence_gate.json" exists
+ID="182",DataValue="0",Item="red_sandstone_slab",IDName="(minecraft:stone_slab2)"
+	BLOCKSTATES= "../minecraft/blockstates/red_sandstone_slab.json" exists
+ID="180",DataValue="0",Item="red_sandstone_stairs",IDName="(minecraft:red_sandstone_stairs)"
+	BLOCKSTATES= "../minecraft/blockstates/red_sandstone_stairs.json" exists
+ID="179",DataValue="0",Item="red_sandstone",IDName="(minecraft:red_sandstone)"
+	BLOCKSTATES= "../minecraft/blockstates/red_sandstone.json" exists
+ID="179",DataValue="1",Item="chiseled_red_sandstone",IDName="(minecraft:red_sandstone)"
+	BLOCKSTATES= "../minecraft/blockstates/chiseled_red_sandstone.json" exists
+ID="179",DataValue="2",Item="smooth_red_sandstone",IDName="(minecraft:red_sandstone)"
+	BLOCKSTATES= "../minecraft/blockstates/smooth_red_sandstone.json" exists
+ID="175",DataValue="0",Item="sunflower",IDName="(minecraft:double_plant)"
+	BLOCKSTATES= "../minecraft/blockstates/sunflower.json" exists
+ID="175",DataValue="1",Item="lilac",IDName="(minecraft:double_plant)"
+	BLOCKSTATES NOT FOUND
+ID="175",DataValue="2",Item="double_tallgrass",IDName="(minecraft:double_plant)"
+	BLOCKSTATES NOT FOUND
+ID="175",DataValue="3",Item="large_fern",IDName="(minecraft:double_plant)"
+	BLOCKSTATES NOT FOUND
+ID="175",DataValue="4",Item="rose_bush",IDName="(minecraft:double_plant)"
+	BLOCKSTATES NOT FOUND
+ID="175",DataValue="5",Item="peony",IDName="(minecraft:double_plant)"
+	BLOCKSTATES NOT FOUND
+ID="174",DataValue="0",Item="packed_ice",IDName="(minecraft:packed_ice)"
+	BLOCKSTATES= "../minecraft/blockstates/packed_ice.json" exists
+ID="173",DataValue="0",Item="coal_block",IDName="(minecraft:coal_block)"
+	BLOCKSTATES= "../minecraft/blockstates/coal_block.json" exists
+ID="172",DataValue="0",Item="terracotta",IDName="(minecraft:hardened_clay)"
+	BLOCKSTATES= "../minecraft/blockstates/hardened_clay.json" exists
+ID="171",DataValue="0",Item="white_carpet",IDName="(minecraft:carpet)"
+	BLOCKSTATES= "../minecraft/blockstates/white_carpet.json" exists
+ID="171",DataValue="1",Item="orange_carpet",IDName="(minecraft:carpet)"
+	BLOCKSTATES= "../minecraft/blockstates/orange_carpet.json" exists
+ID="171",DataValue="2",Item="magenta_carpet",IDName="(minecraft:carpet)"
+	BLOCKSTATES= "../minecraft/blockstates/magenta_carpet.json" exists
+ID="171",DataValue="3",Item="light_blue_carpet",IDName="(minecraft:carpet)"
+	BLOCKSTATES= "../minecraft/blockstates/light_blue_carpet.json" exists
+ID="171",DataValue="4",Item="yellow_carpet",IDName="(minecraft:carpet)"
+	BLOCKSTATES= "../minecraft/blockstates/yellow_carpet.json" exists
+ID="171",DataValue="5",Item="lime_carpet",IDName="(minecraft:carpet)"
+	BLOCKSTATES= "../minecraft/blockstates/lime_carpet.json" exists
+ID="171",DataValue="6",Item="pink_carpet",IDName="(minecraft:carpet)"
+	BLOCKSTATES= "../minecraft/blockstates/pink_carpet.json" exists
+ID="171",DataValue="7",Item="gray_carpet",IDName="(minecraft:carpet)"
+	BLOCKSTATES= "../minecraft/blockstates/gray_carpet.json" exists
+ID="171",DataValue="8",Item="silver_carpet",IDName="(minecraft:carpet)"
+	BLOCKSTATES= "../minecraft/blockstates/silver_carpet.json" exists
+ID="171",DataValue="9",Item="cyan_carpet",IDName="(minecraft:carpet)"
+	BLOCKSTATES= "../minecraft/blockstates/cyan_carpet.json" exists
+ID="171",DataValue="10",Item="purple_carpet",IDName="(minecraft:carpet)"
+	BLOCKSTATES= "../minecraft/blockstates/purple_carpet.json" exists
+ID="171",DataValue="11",Item="blue_carpet",IDName="(minecraft:carpet)"
+	BLOCKSTATES= "../minecraft/blockstates/blue_carpet.json" exists
+ID="171",DataValue="12",Item="brown_carpet",IDName="(minecraft:carpet)"
+	BLOCKSTATES= "../minecraft/blockstates/brown_carpet.json" exists
+ID="171",DataValue="13",Item="green_carpet",IDName="(minecraft:carpet)"
+	BLOCKSTATES= "../minecraft/blockstates/green_carpet.json" exists
+ID="171",DataValue="14",Item="red_carpet",IDName="(minecraft:carpet)"
+	BLOCKSTATES= "../minecraft/blockstates/red_carpet.json" exists
+ID="171",DataValue="15",Item="black_carpet",IDName="(minecraft:carpet)"
+	BLOCKSTATES= "../minecraft/blockstates/black_carpet.json" exists
+ID="170",DataValue="0",Item="hay_bale",IDName="(minecraft:hay_block)"
+	BLOCKSTATES= "../minecraft/blockstates/hay_block.json" exists
+ID="169",DataValue="0",Item="sea_lantern",IDName="(minecraft:sea_lantern)"
+	BLOCKSTATES= "../minecraft/blockstates/sea_lantern.json" exists
+ID="168",DataValue="0",Item="prismarine",IDName="(minecraft:prismarine)"
+	BLOCKSTATES= "../minecraft/blockstates/prismarine.json" exists
+ID="168",DataValue="1",Item="prismarine_bricks",IDName="(minecraft:prismarine)"
+	BLOCKSTATES= "../minecraft/blockstates/prismarine_bricks.json" exists
+ID="168",DataValue="2",Item="dark_prismarine",IDName="(minecraft:prismarine)"
+	BLOCKSTATES= "../minecraft/blockstates/dark_prismarine.json" exists
+ID="167",DataValue="0",Item="iron_trapdoor",IDName="(minecraft:iron_trapdoor)"
+	BLOCKSTATES= "../minecraft/blockstates/iron_trapdoor.json" exists
+ID="166",DataValue="0",Item="barrier",IDName="(minecraft:barrier)"
+	BLOCKSTATES NOT FOUND
+ID="165",DataValue="0",Item="slime_block",IDName="(minecraft:slime)"
+	BLOCKSTATES= "../minecraft/blockstates/slime.json" exists
+ID="164",DataValue="0",Item="dark_oak_wood_stairs",IDName="(minecraft:dark_oak_stairs)"
+	BLOCKSTATES= "../minecraft/blockstates/dark_oak_stairs.json" exists
+ID="163",DataValue="0",Item="acacia_wood_stairs",IDName="(minecraft:acacia_stairs)"
+	BLOCKSTATES= "../minecraft/blockstates/acacia_stairs.json" exists
+ID="162",DataValue="0",Item="acacia_log",IDName="(minecraft:log2)"
+	BLOCKSTATES= "../minecraft/blockstates/acacia_log.json" exists
+ID="162",DataValue="1",Item="dark_oak_log",IDName="(minecraft:log2)"
+	BLOCKSTATES= "../minecraft/blockstates/dark_oak_log.json" exists
+ID="161",DataValue="0",Item="acacia_leaves",IDName="(minecraft:leaves2)"
+	BLOCKSTATES= "../minecraft/blockstates/acacia_leaves.json" exists
+ID="161",DataValue="1",Item="dark_oak_leaves",IDName="(minecraft:leaves2)"
+	BLOCKSTATES= "../minecraft/blockstates/dark_oak_leaves.json" exists
+ID="160",DataValue="0",Item="white_stained_glass_pane",IDName="(minecraft:stained_glass_pane)"
+	BLOCKSTATES= "../minecraft/blockstates/white_stained_glass_pane.json" exists
+ID="160",DataValue="1",Item="orange_stained_glass_pane",IDName="(minecraft:stained_glass_pane)"
+	BLOCKSTATES= "../minecraft/blockstates/orange_stained_glass_pane.json" exists
+ID="160",DataValue="2",Item="magenta_stained_glass_pane",IDName="(minecraft:stained_glass_pane)"
+	BLOCKSTATES= "../minecraft/blockstates/magenta_stained_glass_pane.json" exists
+ID="160",DataValue="3",Item="light_blue_stained_glass_pane",IDName="(minecraft:stained_glass_pane)"
+	BLOCKSTATES= "../minecraft/blockstates/light_blue_stained_glass_pane.json" exists
+ID="160",DataValue="4",Item="yellow_stained_glass_pane",IDName="(minecraft:stained_glass_pane)"
+	BLOCKSTATES= "../minecraft/blockstates/yellow_stained_glass_pane.json" exists
+ID="160",DataValue="5",Item="lime_stained_glass_pane",IDName="(minecraft:stained_glass_pane)"
+	BLOCKSTATES= "../minecraft/blockstates/lime_stained_glass_pane.json" exists
+ID="160",DataValue="6",Item="pink_stained_glass_pane",IDName="(minecraft:stained_glass_pane)"
+	BLOCKSTATES= "../minecraft/blockstates/pink_stained_glass_pane.json" exists
+ID="160",DataValue="7",Item="gray_stained_glass_pane",IDName="(minecraft:stained_glass_pane)"
+	BLOCKSTATES= "../minecraft/blockstates/gray_stained_glass_pane.json" exists
+ID="160",DataValue="8",Item="silver_stained_glass_pane",IDName="(minecraft:stained_glass_pane)"
+	BLOCKSTATES= "../minecraft/blockstates/silver_stained_glass_pane.json" exists
+ID="160",DataValue="9",Item="cyan_stained_glass_pane",IDName="(minecraft:stained_glass_pane)"
+	BLOCKSTATES= "../minecraft/blockstates/cyan_stained_glass_pane.json" exists
+ID="160",DataValue="10",Item="purple_stained_glass_pane",IDName="(minecraft:stained_glass_pane)"
+	BLOCKSTATES= "../minecraft/blockstates/purple_stained_glass_pane.json" exists
+ID="160",DataValue="11",Item="blue_stained_glass_pane",IDName="(minecraft:stained_glass_pane)"
+	BLOCKSTATES= "../minecraft/blockstates/blue_stained_glass_pane.json" exists
+ID="160",DataValue="12",Item="brown_stained_glass_pane",IDName="(minecraft:stained_glass_pane)"
+	BLOCKSTATES= "../minecraft/blockstates/brown_stained_glass_pane.json" exists
+ID="160",DataValue="13",Item="green_stained_glass_pane",IDName="(minecraft:stained_glass_pane)"
+	BLOCKSTATES= "../minecraft/blockstates/green_stained_glass_pane.json" exists
+ID="160",DataValue="14",Item="red_stained_glass_pane",IDName="(minecraft:stained_glass_pane)"
+	BLOCKSTATES= "../minecraft/blockstates/red_stained_glass_pane.json" exists
+ID="160",DataValue="15",Item="black_stained_glass_pane",IDName="(minecraft:stained_glass_pane)"
+	BLOCKSTATES= "../minecraft/blockstates/black_stained_glass_pane.json" exists
+ID="159",DataValue="0",Item="white_stained_hardened_clay",IDName="(minecraft:stained_hardened_clay)"
+	BLOCKSTATES= "../minecraft/blockstates/white_stained_hardened_clay.json" exists
+ID="159",DataValue="1",Item="orange_stained_hardened_clay",IDName="(minecraft:stained_hardened_clay)"
+	BLOCKSTATES= "../minecraft/blockstates/orange_stained_hardened_clay.json" exists
+ID="159",DataValue="2",Item="magenta_stained_hardened_clay",IDName="(minecraft:stained_hardened_clay)"
+	BLOCKSTATES= "../minecraft/blockstates/magenta_stained_hardened_clay.json" exists
+ID="159",DataValue="3",Item="light_blue_stained_hardened_clay",IDName="(minecraft:stained_hardened_clay)"
+	BLOCKSTATES= "../minecraft/blockstates/light_blue_stained_hardened_clay.json" exists
+ID="159",DataValue="4",Item="yellow_stained_hardened_clay",IDName="(minecraft:stained_hardened_clay)"
+	BLOCKSTATES= "../minecraft/blockstates/yellow_stained_hardened_clay.json" exists
+ID="159",DataValue="5",Item="lime_stained_hardened_clay",IDName="(minecraft:stained_hardened_clay)"
+	BLOCKSTATES= "../minecraft/blockstates/lime_stained_hardened_clay.json" exists
+ID="159",DataValue="6",Item="pink_stained_hardened_clay",IDName="(minecraft:stained_hardened_clay)"
+	BLOCKSTATES= "../minecraft/blockstates/pink_stained_hardened_clay.json" exists
+ID="159",DataValue="7",Item="gray_stained_hardened_clay",IDName="(minecraft:stained_hardened_clay)"
+	BLOCKSTATES= "../minecraft/blockstates/gray_stained_hardened_clay.json" exists
+ID="159",DataValue="8",Item="silver_stained_hardened_clay",IDName="(minecraft:stained_hardened_clay)"
+	BLOCKSTATES= "../minecraft/blockstates/silver_stained_hardened_clay.json" exists
+ID="159",DataValue="9",Item="cyan_stained_hardened_clay",IDName="(minecraft:stained_hardened_clay)"
+	BLOCKSTATES= "../minecraft/blockstates/cyan_stained_hardened_clay.json" exists
+ID="159",DataValue="10",Item="purple_stained_hardened_clay",IDName="(minecraft:stained_hardened_clay)"
+	BLOCKSTATES= "../minecraft/blockstates/purple_stained_hardened_clay.json" exists
+ID="159",DataValue="11",Item="blue_stained_hardened_clay",IDName="(minecraft:stained_hardened_clay)"
+	BLOCKSTATES= "../minecraft/blockstates/blue_stained_hardened_clay.json" exists
+ID="159",DataValue="12",Item="brown_stained_hardened_clay",IDName="(minecraft:stained_hardened_clay)"
+	BLOCKSTATES= "../minecraft/blockstates/brown_stained_hardened_clay.json" exists
+ID="159",DataValue="13",Item="green_stained_hardened_clay",IDName="(minecraft:stained_hardened_clay)"
+	BLOCKSTATES= "../minecraft/blockstates/green_stained_hardened_clay.json" exists
+ID="159",DataValue="14",Item="red_stained_hardened_clay",IDName="(minecraft:stained_hardened_clay)"
+	BLOCKSTATES= "../minecraft/blockstates/red_stained_hardened_clay.json" exists
+ID="159",DataValue="15",Item="black_stained_hardened_clay",IDName="(minecraft:stained_hardened_clay)"
+	BLOCKSTATES= "../minecraft/blockstates/black_stained_hardened_clay.json" exists
+ID="158",DataValue="0",Item="dropper",IDName="(minecraft:dropper)"
+	BLOCKSTATES= "../minecraft/blockstates/dropper.json" exists
+ID="157",DataValue="0",Item="activator_rails",IDName="(minecraft:activator_rail)"
+	BLOCKSTATES= "../minecraft/blockstates/activator_rail.json" exists
+ID="156",DataValue="0",Item="quartz_stairs",IDName="(minecraft:quartz_stairs)"
+	BLOCKSTATES= "../minecraft/blockstates/quartz_stairs.json" exists
+ID="155",DataValue="0",Item="block_of_quartz",IDName="(minecraft:quartz_block)"
+	BLOCKSTATES= "../minecraft/blockstates/quartz_block.json" exists
+ID="155",DataValue="1",Item="chiseled_quartz_block",IDName="(minecraft:quartz_block)"
+	BLOCKSTATES= "../minecraft/blockstates/chiseled_quartz_block.json" exists
+ID="155",DataValue="2",Item="pillar_quartz_block",IDName="(minecraft:quartz_block)"
+	BLOCKSTATES= "../minecraft/blockstates/quartz_block.json" exists
+ID="154",DataValue="0",Item="hopper",IDName="(minecraft:hopper)"
+	BLOCKSTATES= "../minecraft/blockstates/hopper.json" exists
+ID="153",DataValue="0",Item="nether_quartz_ore",IDName="(minecraft:quartz_ore)"
+	BLOCKSTATES= "../minecraft/blockstates/quartz_ore.json" exists
+ID="152",DataValue="0",Item="block_of_redstone",IDName="(minecraft:redstone_block)"
+	BLOCKSTATES= "../minecraft/blockstates/redstone_block.json" exists
+ID="151",DataValue="0",Item="daylight_sensor",IDName="(minecraft:daylight_detector)"
+	BLOCKSTATES= "../minecraft/blockstates/daylight_detector.json" exists
+ID="148",DataValue="0",Item="heavy_weighted_pressure_plate",IDName="(minecraft:heavy_weighted_pressure_plate)"
+	BLOCKSTATES= "../minecraft/blockstates/heavy_weighted_pressure_plate.json" exists
+ID="147",DataValue="0",Item="light_weighted_pressure_plate",IDName="(minecraft:light_weighted_pressure_plate)"
+	BLOCKSTATES= "../minecraft/blockstates/light_weighted_pressure_plate.json" exists
+ID="146",DataValue="0",Item="trapped_chest",IDName="(minecraft:trapped_chest)"
+	BLOCKSTATES NOT FOUND
+ID="145",DataValue="0",Item="anvil",IDName="(minecraft:anvil)"
+	BLOCKSTATES= "../minecraft/blockstates/anvil.json" exists
+ID="145",DataValue="1",Item="slightly_damaged_anvil",IDName="(minecraft:anvil)"
+	BLOCKSTATES= "../minecraft/blockstates/anvil.json" exists
+ID="145",DataValue="2",Item="very_damaged_anvil",IDName="(minecraft:anvil)"
+	BLOCKSTATES= "../minecraft/blockstates/anvil.json" exists
+ID="143",DataValue="0",Item="oak_button",IDName="(minecraft:wooden_button)"
+	BLOCKSTATES= "../minecraft/blockstates/wooden_button.json" exists
+ID="139",DataValue="0",Item="cobblestone_wall",IDName="(minecraft:cobblestone_wall)"
+	BLOCKSTATES= "../minecraft/blockstates/cobblestone_wall.json" exists
+ID="139",DataValue="1",Item="mossy_cobblestone_wall",IDName="(minecraft:cobblestone_wall)"
+	BLOCKSTATES= "../minecraft/blockstates/mossy_cobblestone_wall.json" exists
+ID="138",DataValue="0",Item="beacon",IDName="(minecraft:beacon)"
+	BLOCKSTATES= "../minecraft/blockstates/beacon.json" exists
+ID="137",DataValue="0",Item="command_block",IDName="(minecraft:command_block)"
+	BLOCKSTATES= "../minecraft/blockstates/command_block.json" exists
+ID="136",DataValue="0",Item="jungle_wood_stairs",IDName="(minecraft:jungle_stairs)"
+	BLOCKSTATES= "../minecraft/blockstates/jungle_stairs.json" exists
+ID="135",DataValue="0",Item="birch_wood_stairs",IDName="(minecraft:birch_stairs)"
+	BLOCKSTATES= "../minecraft/blockstates/birch_stairs.json" exists
+ID="134",DataValue="0",Item="spruce_wood_stairs",IDName="(minecraft:spruce_stairs)"
+	BLOCKSTATES= "../minecraft/blockstates/spruce_stairs.json" exists
+ID="133",DataValue="0",Item="block_of_emerald",IDName="(minecraft:emerald_block)"
+	BLOCKSTATES= "../minecraft/blockstates/emerald_block.json" exists
+ID="131",DataValue="0",Item="tripwire_hook",IDName="(minecraft:tripwire_hook)"
+	BLOCKSTATES= "../minecraft/blockstates/tripwire_hook.json" exists
+ID="130",DataValue="0",Item="ender_chest",IDName="(minecraft:ender_chest)"
+	BLOCKSTATES NOT FOUND
+ID="129",DataValue="0",Item="emerald_ore",IDName="(minecraft:emerald_ore)"
+	BLOCKSTATES= "../minecraft/blockstates/emerald_ore.json" exists
+ID="128",DataValue="0",Item="sandstone_stairs",IDName="(minecraft:sandstone_stairs)"
+	BLOCKSTATES= "../minecraft/blockstates/sandstone_stairs.json" exists
+ID="126",DataValue="0",Item="oak_wooden_slab",IDName="(minecraft:wooden_slab)"
+	BLOCKSTATES NOT FOUND
+ID="126",DataValue="1",Item="spruce_wooden_slab",IDName="(minecraft:wooden_slab)"
+	BLOCKSTATES NOT FOUND
+ID="126",DataValue="2",Item="birch_wooden_slab",IDName="(minecraft:wooden_slab)"
+	BLOCKSTATES NOT FOUND
+ID="126",DataValue="3",Item="jungle_wooden_slab",IDName="(minecraft:wooden_slab)"
+	BLOCKSTATES NOT FOUND
+ID="126",DataValue="4",Item="acacia_wooden_slab",IDName="(minecraft:wooden_slab)"
+	BLOCKSTATES NOT FOUND
+ID="126",DataValue="5",Item="dark_oak_wooden_slab",IDName="(minecraft:wooden_slab)"
+	BLOCKSTATES NOT FOUND
+ID="123",DataValue="0",Item="redstone_lamp",IDName="(minecraft:redstone_lamp)"
+	BLOCKSTATES= "../minecraft/blockstates/redstone_lamp.json" exists
+ID="122",DataValue="0",Item="dragon_egg",IDName="(minecraft:dragon_egg)"
+	BLOCKSTATES= "../minecraft/blockstates/dragon_egg.json" exists
+ID="121",DataValue="0",Item="end_stone",IDName="(minecraft:end_stone)"
+	BLOCKSTATES= "../minecraft/blockstates/end_stone.json" exists
+ID="120",DataValue="0",Item="end_portal_frame",IDName="(minecraft:end_portal_frame)"
+	BLOCKSTATES= "../minecraft/blockstates/end_portal_frame.json" exists
+ID="116",DataValue="0",Item="enchanting_table",IDName="(minecraft:enchanting_table)"
+	BLOCKSTATES= "../minecraft/blockstates/enchanting_table.json" exists
+ID="114",DataValue="0",Item="nether_brick_stairs",IDName="(minecraft:nether_brick_stairs)"
+	BLOCKSTATES= "../minecraft/blockstates/nether_brick_stairs.json" exists
+ID="113",DataValue="0",Item="nether_brick_fence",IDName="(minecraft:nether_brick_fence)"
+	BLOCKSTATES= "../minecraft/blockstates/nether_brick_fence.json" exists
+ID="112",DataValue="0",Item="block_of_nether_bricks",IDName="(minecraft:nether_brick)"
+	BLOCKSTATES= "../minecraft/blockstates/nether_brick.json" exists
+ID="111",DataValue="0",Item="lily_pad",IDName="(minecraft:waterlily)"
+	BLOCKSTATES= "../minecraft/blockstates/waterlily.json" exists
+ID="110",DataValue="0",Item="mycelium",IDName="(minecraft:mycelium)"
+	BLOCKSTATES= "../minecraft/blockstates/mycelium.json" exists
+ID="109",DataValue="0",Item="stone_brick_stairs",IDName="(minecraft:stone_brick_stairs)"
+	BLOCKSTATES= "../minecraft/blockstates/stone_brick_stairs.json" exists
+ID="108",DataValue="0",Item="brick_stairs",IDName="(minecraft:brick_stairs)"
+	BLOCKSTATES= "../minecraft/blockstates/brick_stairs.json" exists
+ID="107",DataValue="0",Item="oak_fence_gate",IDName="(minecraft:fence_gate)"
+	BLOCKSTATES= "../minecraft/blockstates/fence_gate.json" exists
+ID="106",DataValue="0",Item="vines",IDName="(minecraft:vine)"
+	BLOCKSTATES= "../minecraft/blockstates/vine.json" exists
+ID="106",DataValue="0",Item="water",IDName="(minecraft:water)"
+	BLOCKSTATES NOT FOUND
+ID="103",DataValue="0",Item="block_of_melon",IDName="(minecraft:melon_block)"
+	BLOCKSTATES= "../minecraft/blockstates/melon_block.json" exists
+ID="102",DataValue="0",Item="glass_pane",IDName="(minecraft:glass_pane)"
+	BLOCKSTATES= "../minecraft/blockstates/glass_pane.json" exists
+ID="101",DataValue="0",Item="iron_bars",IDName="(minecraft:iron_bars)"
+	BLOCKSTATES= "../minecraft/blockstates/iron_bars.json" exists
+ID="100",DataValue="0",Item="red_mushroom_block",IDName="(minecraft:red_mushroom_block)"
+	BLOCKSTATES= "../minecraft/blockstates/red_mushroom_block.json" exists
+ID="99",DataValue="0",Item="brown_mushroom_block",IDName="(minecraft:brown_mushroom_block)"
+	BLOCKSTATES= "../minecraft/blockstates/brown_mushroom_block.json" exists
+ID="98",DataValue="0",Item="stone_bricks",IDName="(minecraft:stonebrick)"
+	BLOCKSTATES= "../minecraft/blockstates/stonebrick.json" exists
+ID="98",DataValue="1",Item="mossy_stone_bricks",IDName="(minecraft:stonebrick)"
+	BLOCKSTATES= "../minecraft/blockstates/stonebrick.json" exists
+ID="98",DataValue="2",Item="cracked_stone_bricks",IDName="(minecraft:stonebrick)"
+	BLOCKSTATES= "../minecraft/blockstates/stonebrick.json" exists
+ID="98",DataValue="3",Item="chiseled_stone_bricks",IDName="(minecraft:stonebrick)"
+	BLOCKSTATES= "../minecraft/blockstates/stonebrick.json" exists
+ID="97",DataValue="0",Item="stone_monster_egg_(infested_stone)",IDName="(minecraft:monster_egg)"
+	BLOCKSTATES NOT FOUND
+ID="97",DataValue="1",Item="cobblestone_monster_egg_(infested_cobblestone)",IDName="(minecraft:monster_egg)"
+	BLOCKSTATES NOT FOUND
+ID="97",DataValue="2",Item="stone_brick_monster_egg_(infested_stone_brick)",IDName="(minecraft:monster_egg)"
+	BLOCKSTATES NOT FOUND
+ID="97",DataValue="3",Item="mossy_stone_brick_monster_egg_(infested_mossy_stone_brick)",IDName="(minecraft:monster_egg)"
+	BLOCKSTATES NOT FOUND
+ID="97",DataValue="4",Item="cracked_stone_brick_monster_egg_(infested_cracked_stone_brick)",IDName="(minecraft:monster_egg)"
+	BLOCKSTATES NOT FOUND
+ID="97",DataValue="5",Item="chiseled_stone_brick_monster_egg_(infested_chiseled_stone_brick)",IDName="(minecraft:monster_egg)"
+	BLOCKSTATES NOT FOUND
+ID="96",DataValue="0",Item="oak_trapdoor",IDName="(minecraft:trapdoor)"
+	BLOCKSTATES= "../minecraft/blockstates/trapdoor.json" exists
+ID="95",DataValue="0",Item="white_stained_glass",IDName="(minecraft:stained_glass)"
+	BLOCKSTATES= "../minecraft/blockstates/white_stained_glass.json" exists
+ID="95",DataValue="1",Item="orange_stained_glass",IDName="(minecraft:stained_glass)"
+	BLOCKSTATES= "../minecraft/blockstates/orange_stained_glass.json" exists
+ID="95",DataValue="2",Item="magenta_stained_glass",IDName="(minecraft:stained_glass)"
+	BLOCKSTATES= "../minecraft/blockstates/magenta_stained_glass.json" exists
+ID="95",DataValue="3",Item="light_blue_stained_glass",IDName="(minecraft:stained_glass)"
+	BLOCKSTATES= "../minecraft/blockstates/light_blue_stained_glass.json" exists
+ID="95",DataValue="4",Item="yellow_stained_glass",IDName="(minecraft:stained_glass)"
+	BLOCKSTATES= "../minecraft/blockstates/yellow_stained_glass.json" exists
+ID="95",DataValue="5",Item="lime_stained_glass",IDName="(minecraft:stained_glass)"
+	BLOCKSTATES= "../minecraft/blockstates/lime_stained_glass.json" exists
+ID="95",DataValue="6",Item="pink_stained_glass",IDName="(minecraft:stained_glass)"
+	BLOCKSTATES= "../minecraft/blockstates/pink_stained_glass.json" exists
+ID="95",DataValue="7",Item="gray_stained_glass",IDName="(minecraft:stained_glass)"
+	BLOCKSTATES= "../minecraft/blockstates/gray_stained_glass.json" exists
+ID="95",DataValue="8",Item="silver_stained_glass",IDName="(minecraft:stained_glass)"
+	BLOCKSTATES= "../minecraft/blockstates/silver_stained_glass.json" exists
+ID="95",DataValue="9",Item="cyan_stained_glass",IDName="(minecraft:stained_glass)"
+	BLOCKSTATES= "../minecraft/blockstates/cyan_stained_glass.json" exists
+ID="95",DataValue="10",Item="purple_stained_glass",IDName="(minecraft:stained_glass)"
+	BLOCKSTATES= "../minecraft/blockstates/purple_stained_glass.json" exists
+ID="95",DataValue="11",Item="blue_stained_glass",IDName="(minecraft:stained_glass)"
+	BLOCKSTATES= "../minecraft/blockstates/blue_stained_glass.json" exists
+ID="95",DataValue="12",Item="brown_stained_glass",IDName="(minecraft:stained_glass)"
+	BLOCKSTATES= "../minecraft/blockstates/brown_stained_glass.json" exists
+ID="95",DataValue="13",Item="green_stained_glass",IDName="(minecraft:stained_glass)"
+	BLOCKSTATES= "../minecraft/blockstates/green_stained_glass.json" exists
+ID="95",DataValue="14",Item="red_stained_glass",IDName="(minecraft:stained_glass)"
+	BLOCKSTATES= "../minecraft/blockstates/red_stained_glass.json" exists
+ID="95",DataValue="15",Item="black_stained_glass",IDName="(minecraft:stained_glass)"
+	BLOCKSTATES= "../minecraft/blockstates/black_stained_glass.json" exists
+ID="91",DataValue="0",Item="jack_o'lantern",IDName="(minecraft:lit_pumpkin)"
+	BLOCKSTATES= "../minecraft/blockstates/lit_pumpkin.json" exists
+ID="89",DataValue="0",Item="glowstone",IDName="(minecraft:glowstone)"
+	BLOCKSTATES= "../minecraft/blockstates/glowstone.json" exists
+ID="88",DataValue="0",Item="soul_sand",IDName="(minecraft:soul_sand)"
+	BLOCKSTATES= "../minecraft/blockstates/soul_sand.json" exists
+ID="87",DataValue="0",Item="netherrack",IDName="(minecraft:netherrack)"
+	BLOCKSTATES= "../minecraft/blockstates/netherrack.json" exists
+ID="86",DataValue="0",Item="pumpkin",IDName="(minecraft:pumpkin)"
+	BLOCKSTATES= "../minecraft/blockstates/pumpkin.json" exists
+ID="85",DataValue="0",Item="oak_fence",IDName="(minecraft:fence)"
+	BLOCKSTATES= "../minecraft/blockstates/fence.json" exists
+ID="84",DataValue="0",Item="jukebox",IDName="(minecraft:jukebox)"
+	BLOCKSTATES= "../minecraft/blockstates/jukebox.json" exists
+ID="82",DataValue="0",Item="clay_block",IDName="(minecraft:clay)"
+	BLOCKSTATES= "../minecraft/blockstates/clay.json" exists
+ID="81",DataValue="0",Item="cactus",IDName="(minecraft:cactus)"
+	BLOCKSTATES= "../minecraft/blockstates/cactus.json" exists
+ID="80",DataValue="0",Item="snow_block",IDName="(minecraft:snow)"
+	BLOCKSTATES= "../minecraft/blockstates/snow.json" exists
+ID="79",DataValue="0",Item="ice",IDName="(minecraft:ice)"
+	BLOCKSTATES= "../minecraft/blockstates/ice.json" exists
+ID="78",DataValue="0",Item="snow",IDName="(minecraft:snow_layer)"
+	BLOCKSTATES= "../minecraft/blockstates/snow.json" exists
+ID="77",DataValue="0",Item="stone_button",IDName="(minecraft:stone_button)"
+	BLOCKSTATES= "../minecraft/blockstates/stone_button.json" exists
+ID="76",DataValue="0",Item="redstone_torch",IDName="(minecraft:redstone_torch)"
+	BLOCKSTATES= "../minecraft/blockstates/redstone_torch.json" exists
+ID="73",DataValue="0",Item="redstone_ore",IDName="(minecraft:redstone_ore)"
+	BLOCKSTATES= "../minecraft/blockstates/redstone_ore.json" exists
+ID="72",DataValue="0",Item="oak_pressure_plate",IDName="(minecraft:wooden_pressure_plate)"
+	BLOCKSTATES= "../minecraft/blockstates/wooden_pressure_plate.json" exists
+ID="70",DataValue="0",Item="stone_pressure_plate",IDName="(minecraft:stone_pressure_plate)"
+	BLOCKSTATES= "../minecraft/blockstates/stone_pressure_plate.json" exists
+ID="69",DataValue="0",Item="lever",IDName="(minecraft:lever)"
+	BLOCKSTATES= "../minecraft/blockstates/lever.json" exists
+ID="67",DataValue="0",Item="cobblestone_stairs",IDName="(minecraft:stone_stairs)"
+	BLOCKSTATES= "../minecraft/blockstates/stone_stairs.json" exists
+ID="66",DataValue="0",Item="rails",IDName="(minecraft:rail)"
+	BLOCKSTATES= "../minecraft/blockstates/rail.json" exists
+ID="65",DataValue="0",Item="ladder",IDName="(minecraft:ladder)"
+	BLOCKSTATES= "../minecraft/blockstates/ladder.json" exists
+ID="61",DataValue="0",Item="furnace",IDName="(minecraft:furnace)"
+	BLOCKSTATES= "../minecraft/blockstates/furnace.json" exists
+ID="60",DataValue="0",Item="farmland",IDName="(minecraft:farmland)"
+	BLOCKSTATES= "../minecraft/blockstates/farmland.json" exists
+ID="58",DataValue="0",Item="crafting_table",IDName="(minecraft:crafting_table)"
+	BLOCKSTATES= "../minecraft/blockstates/crafting_table.json" exists
+ID="57",DataValue="0",Item="block_of_diamond",IDName="(minecraft:diamond_block)"
+	BLOCKSTATES= "../minecraft/blockstates/diamond_block.json" exists
+ID="56",DataValue="0",Item="diamond_ore",IDName="(minecraft:diamond_ore)"
+	BLOCKSTATES= "../minecraft/blockstates/diamond_ore.json" exists
+ID="54",DataValue="0",Item="chest",IDName="(minecraft:chest)"
+	BLOCKSTATES NOT FOUND
+ID="53",DataValue="0",Item="oak_wood_stairs",IDName="(minecraft:oak_stairs)"
+	BLOCKSTATES= "../minecraft/blockstates/oak_stairs.json" exists
+ID="52",DataValue="0",Item="monster_spawner",IDName="(minecraft:mob_spawner)"
+	BLOCKSTATES= "../minecraft/blockstates/mob_spawner.json" exists
+ID="50",DataValue="0",Item="torch",IDName="(minecraft:torch)"
+	BLOCKSTATES= "../minecraft/blockstates/torch.json" exists
+ID="49",DataValue="0",Item="obsidian",IDName="(minecraft:obsidian)"
+	BLOCKSTATES= "../minecraft/blockstates/obsidian.json" exists
+ID="48",DataValue="0",Item="mossy_cobblestone",IDName="(minecraft:mossy_cobblestone)"
+	BLOCKSTATES= "../minecraft/blockstates/mossy_cobblestone.json" exists
+ID="47",DataValue="0",Item="bookshelf",IDName="(minecraft:bookshelf)"
+	BLOCKSTATES= "../minecraft/blockstates/bookshelf.json" exists
+ID="46",DataValue="0",Item="tnt",IDName="(minecraft:tnt)"
+	BLOCKSTATES= "../minecraft/blockstates/tnt.json" exists
+ID="45",DataValue="0",Item="bricks",IDName="(minecraft:brick_block)"
+	BLOCKSTATES= "../minecraft/blockstates/brick_block.json" exists
+ID="44",DataValue="0",Item="stone_slab",IDName="(minecraft:stone_slab)"
+	BLOCKSTATES= "../minecraft/blockstates/stone_slab.json" exists
+ID="44",DataValue="1",Item="sandstone_slab",IDName="(minecraft:stone_slab)"
+	BLOCKSTATES= "../minecraft/blockstates/sandstone_slab.json" exists
+ID="44",DataValue="3",Item="cobblestone_slab",IDName="(minecraft:stone_slab)"
+	BLOCKSTATES= "../minecraft/blockstates/cobblestone_slab.json" exists
+ID="44",DataValue="4",Item="brick_slab",IDName="(minecraft:stone_slab)"
+	BLOCKSTATES= "../minecraft/blockstates/brick_slab.json" exists
+ID="44",DataValue="5",Item="stone_brick_slab",IDName="(minecraft:stone_slab)"
+	BLOCKSTATES= "../minecraft/blockstates/stone_brick_slab.json" exists
+ID="44",DataValue="6",Item="nether_brick_slab",IDName="(minecraft:stone_slab)"
+	BLOCKSTATES= "../minecraft/blockstates/nether_brick_slab.json" exists
+ID="44",DataValue="7",Item="quartz_slab",IDName="(minecraft:stone_slab)"
+	BLOCKSTATES= "../minecraft/blockstates/quartz_slab.json" exists
+ID="42",DataValue="0",Item="block_of_iron",IDName="(minecraft:iron_block)"
+	BLOCKSTATES= "../minecraft/blockstates/iron_block.json" exists
+ID="41",DataValue="0",Item="block_of_gold",IDName="(minecraft:gold_block)"
+	BLOCKSTATES= "../minecraft/blockstates/gold_block.json" exists
+ID="40",DataValue="0",Item="mushroom_(red_with_white_spots)",IDName="(minecraft:red_mushroom)"
+	BLOCKSTATES= "../minecraft/blockstates/red_mushroom.json" exists
+ID="39",DataValue="0",Item="mushroom_(brown)",IDName="(minecraft:brown_mushroom)"
+	BLOCKSTATES= "../minecraft/blockstates/brown_mushroom.json" exists
+ID="38",DataValue="0",Item="poppy",IDName="(minecraft:red_flower)"
+	BLOCKSTATES= "../minecraft/blockstates/poppy.json" exists
+ID="38",DataValue="1",Item="blue_orchid",IDName="(minecraft:red_flower)"
+	BLOCKSTATES= "../minecraft/blockstates/blue_orchid.json" exists
+ID="38",DataValue="2",Item="allium",IDName="(minecraft:red_flower)"
+	BLOCKSTATES= "../minecraft/blockstates/allium.json" exists
+ID="38",DataValue="3",Item="azure_bluet",IDName="(minecraft:red_flower)"
+	BLOCKSTATES NOT FOUND
+ID="38",DataValue="4",Item="red_tulip",IDName="(minecraft:red_flower)"
+	BLOCKSTATES= "../minecraft/blockstates/red_tulip.json" exists
+ID="38",DataValue="5",Item="orange_tulip",IDName="(minecraft:red_flower)"
+	BLOCKSTATES= "../minecraft/blockstates/orange_tulip.json" exists
+ID="38",DataValue="6",Item="white_tulip",IDName="(minecraft:red_flower)"
+	BLOCKSTATES= "../minecraft/blockstates/white_tulip.json" exists
+ID="38",DataValue="7",Item="pink_tulip",IDName="(minecraft:red_flower)"
+	BLOCKSTATES= "../minecraft/blockstates/pink_tulip.json" exists
+ID="38",DataValue="8",Item="oxeye_daisy",IDName="(minecraft:red_flower)"
+	BLOCKSTATES= "../minecraft/blockstates/oxeye_daisy.json" exists
+ID="37",DataValue="0",Item="dandelion",IDName="(minecraft:yellow_flower)"
+	BLOCKSTATES= "../minecraft/blockstates/dandelion.json" exists
+ID="35",DataValue="0",Item="white_wool",IDName="(minecraft:wool)"
+	BLOCKSTATES= "../minecraft/blockstates/white_wool.json" exists
+ID="35",DataValue="1",Item="orange_wool",IDName="(minecraft:wool)"
+	BLOCKSTATES= "../minecraft/blockstates/orange_wool.json" exists
+ID="35",DataValue="2",Item="magenta_wool",IDName="(minecraft:wool)"
+	BLOCKSTATES= "../minecraft/blockstates/magenta_wool.json" exists
+ID="35",DataValue="3",Item="light_blue_wool",IDName="(minecraft:wool)"
+	BLOCKSTATES= "../minecraft/blockstates/light_blue_wool.json" exists
+ID="35",DataValue="4",Item="yellow_wool",IDName="(minecraft:wool)"
+	BLOCKSTATES= "../minecraft/blockstates/yellow_wool.json" exists
+ID="35",DataValue="5",Item="lime_wool",IDName="(minecraft:wool)"
+	BLOCKSTATES= "../minecraft/blockstates/lime_wool.json" exists
+ID="35",DataValue="6",Item="pink_wool",IDName="(minecraft:wool)"
+	BLOCKSTATES= "../minecraft/blockstates/pink_wool.json" exists
+ID="35",DataValue="7",Item="gray_wool",IDName="(minecraft:wool)"
+	BLOCKSTATES= "../minecraft/blockstates/gray_wool.json" exists
+ID="35",DataValue="8",Item="silver_wool",IDName="(minecraft:wool)"
+	BLOCKSTATES= "../minecraft/blockstates/silver_wool.json" exists
+ID="35",DataValue="9",Item="cyan_wool",IDName="(minecraft:wool)"
+	BLOCKSTATES= "../minecraft/blockstates/cyan_wool.json" exists
+ID="35",DataValue="10",Item="purple_wool",IDName="(minecraft:wool)"
+	BLOCKSTATES= "../minecraft/blockstates/purple_wool.json" exists
+ID="35",DataValue="11",Item="blue_wool",IDName="(minecraft:wool)"
+	BLOCKSTATES= "../minecraft/blockstates/blue_wool.json" exists
+ID="35",DataValue="12",Item="brown_wool",IDName="(minecraft:wool)"
+	BLOCKSTATES= "../minecraft/blockstates/brown_wool.json" exists
+ID="35",DataValue="13",Item="green_wool",IDName="(minecraft:wool)"
+	BLOCKSTATES= "../minecraft/blockstates/green_wool.json" exists
+ID="35",DataValue="14",Item="red_wool",IDName="(minecraft:wool)"
+	BLOCKSTATES= "../minecraft/blockstates/red_wool.json" exists
+ID="35",DataValue="15",Item="black_wool",IDName="(minecraft:wool)"
+	BLOCKSTATES= "../minecraft/blockstates/black_wool.json" exists
+ID="33",DataValue="0",Item="piston",IDName="(minecraft:piston)"
+	BLOCKSTATES= "../minecraft/blockstates/piston.json" exists
+ID="32",DataValue="0",Item="dead_bush",IDName="(minecraft:deadbush)"
+	BLOCKSTATES= "../minecraft/blockstates/dead_bush.json" exists
+ID="31",DataValue="1",Item="grass",IDName="(minecraft:tallgrass)"
+	BLOCKSTATES= "../minecraft/blockstates/grass.json" exists
+ID="31",DataValue="2",Item="fern",IDName="(minecraft:tallgrass)"
+	BLOCKSTATES= "../minecraft/blockstates/fern.json" exists
+ID="30",DataValue="0",Item="cobweb",IDName="(minecraft:web)"
+	BLOCKSTATES= "../minecraft/blockstates/web.json" exists
+ID="29",DataValue="0",Item="sticky_piston",IDName="(minecraft:sticky_piston)"
+	BLOCKSTATES= "../minecraft/blockstates/sticky_piston.json" exists
+ID="28",DataValue="0",Item="detector_rails",IDName="(minecraft:detector_rail)"
+	BLOCKSTATES= "../minecraft/blockstates/detector_rail.json" exists
+ID="27",DataValue="0",Item="powered_rails",IDName="(minecraft:golden_rail)"
+	BLOCKSTATES= "../minecraft/blockstates/golden_rail.json" exists
+ID="25",DataValue="0",Item="note_block",IDName="(minecraft:noteblock)"
+	BLOCKSTATES= "../minecraft/blockstates/noteblock.json" exists
+ID="24",DataValue="0",Item="sandstone",IDName="(minecraft:sandstone)"
+	BLOCKSTATES= "../minecraft/blockstates/sandstone.json" exists
+ID="24",DataValue="1",Item="chiseled_sandstone",IDName="(minecraft:sandstone)"
+	BLOCKSTATES= "../minecraft/blockstates/chiseled_sandstone.json" exists
+ID="24",DataValue="2",Item="smooth_sandstone",IDName="(minecraft:sandstone)"
+	BLOCKSTATES= "../minecraft/blockstates/smooth_sandstone.json" exists
+ID="23",DataValue="0",Item="dispenser",IDName="(minecraft:dispenser)"
+	BLOCKSTATES= "../minecraft/blockstates/dispenser.json" exists
+ID="22",DataValue="0",Item="lapis_lazuli_block",IDName="(minecraft:lapis_block)"
+	BLOCKSTATES= "../minecraft/blockstates/lapis_block.json" exists
+ID="21",DataValue="0",Item="lava",IDName="(minecraft:lava)"
+	BLOCKSTATES NOT FOUND
+ID="21",DataValue="0",Item="lapis_lazuli_ore",IDName="(minecraft:lapis_ore)"
+	BLOCKSTATES= "../minecraft/blockstates/lapis_ore.json" exists
+ID="20",DataValue="0",Item="glass",IDName="(minecraft:glass)"
+	BLOCKSTATES= "../minecraft/blockstates/glass.json" exists
+ID="19",DataValue="0",Item="sponge",IDName="(minecraft:sponge)"
+	BLOCKSTATES= "../minecraft/blockstates/sponge.json" exists
+ID="19",DataValue="1",Item="wet_sponge",IDName="(minecraft:sponge)"
+	BLOCKSTATES= "../minecraft/blockstates/sponge.json" exists
+ID="18",DataValue="0",Item="oak_leaves",IDName="(minecraft:leaves)"
+	BLOCKSTATES= "../minecraft/blockstates/oak_leaves.json" exists
+ID="18",DataValue="1",Item="spruce_leaves",IDName="(minecraft:leaves)"
+	BLOCKSTATES= "../minecraft/blockstates/spruce_leaves.json" exists
+ID="18",DataValue="2",Item="birch_leaves",IDName="(minecraft:leaves)"
+	BLOCKSTATES= "../minecraft/blockstates/birch_leaves.json" exists
+ID="18",DataValue="3",Item="jungle_leaves",IDName="(minecraft:leaves)"
+	BLOCKSTATES= "../minecraft/blockstates/jungle_leaves.json" exists
+ID="17",DataValue="0",Item="oak_log",IDName="(minecraft:log)"
+	BLOCKSTATES= "../minecraft/blockstates/oak_log.json" exists
+ID="17",DataValue="1",Item="spruce_log",IDName="(minecraft:log)"
+	BLOCKSTATES= "../minecraft/blockstates/spruce_log.json" exists
+ID="17",DataValue="2",Item="birch_log",IDName="(minecraft:log)"
+	BLOCKSTATES= "../minecraft/blockstates/birch_log.json" exists
+ID="17",DataValue="3",Item="jungle_log",IDName="(minecraft:log)"
+	BLOCKSTATES= "../minecraft/blockstates/jungle_log.json" exists
+ID="16",DataValue="0",Item="coal_ore",IDName="(minecraft:coal_ore)"
+	BLOCKSTATES= "../minecraft/blockstates/coal_ore.json" exists
+ID="15",DataValue="0",Item="iron_ore",IDName="(minecraft:iron_ore)"
+	BLOCKSTATES= "../minecraft/blockstates/iron_ore.json" exists
+ID="14",DataValue="0",Item="gold_ore",IDName="(minecraft:gold_ore)"
+	BLOCKSTATES= "../minecraft/blockstates/gold_ore.json" exists
+ID="13",DataValue="0",Item="gravel",IDName="(minecraft:gravel)"
+	BLOCKSTATES= "../minecraft/blockstates/gravel.json" exists
+ID="12",DataValue="0",Item="sand",IDName="(minecraft:sand)"
+	BLOCKSTATES= "../minecraft/blockstates/sand.json" exists
+ID="12",DataValue="1",Item="red_sand",IDName="(minecraft:sand)"
+	BLOCKSTATES= "../minecraft/blockstates/red_sand.json" exists
+ID="7",DataValue="0",Item="bedrock",IDName="(minecraft:bedrock)"
+	BLOCKSTATES= "../minecraft/blockstates/bedrock.json" exists
+ID="6",DataValue="0",Item="oak_sapling",IDName="(minecraft:sapling)"
+	BLOCKSTATES= "../minecraft/blockstates/oak_sapling.json" exists
+ID="6",DataValue="1",Item="spruce_sapling",IDName="(minecraft:sapling)"
+	BLOCKSTATES= "../minecraft/blockstates/spruce_sapling.json" exists
+ID="6",DataValue="2",Item="birch_sapling",IDName="(minecraft:sapling)"
+	BLOCKSTATES= "../minecraft/blockstates/birch_sapling.json" exists
+ID="6",DataValue="3",Item="jungle_sapling",IDName="(minecraft:sapling)"
+	BLOCKSTATES= "../minecraft/blockstates/jungle_sapling.json" exists
+ID="6",DataValue="4",Item="acacia_sapling",IDName="(minecraft:sapling)"
+	BLOCKSTATES= "../minecraft/blockstates/acacia_sapling.json" exists
+ID="6",DataValue="5",Item="dark_oak_sapling",IDName="(minecraft:sapling)"
+	BLOCKSTATES= "..

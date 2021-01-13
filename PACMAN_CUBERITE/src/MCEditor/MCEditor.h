@@ -5,6 +5,7 @@
 #include "MCACoder.h"
 #include "BlockEntity.h"
 
+/*
 class MCRegion
 {
 public:
@@ -24,6 +25,7 @@ public:
     void delBlockEntity(BlockEntity* entity);
 //private:
 };
+*/
 
 class MCEditor
 {

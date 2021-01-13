@@ -1,5 +1,4 @@
 #include "MCEditor.h"
-#include "MCEditor.h"
 #include <vector>
 #include <algorithm>
 #include <queue>
@@ -414,6 +413,8 @@ void MCEditor::computeSkyLight()
     lightPropagate(skylight);
 }
 
+extern int remove_block_entities;
+
 void MCEditor::updateMCA()
 {
     //remove block entities in the editing region;
@@ -433,15 +434,26 @@ void MCEditor::updateMCA()
 
 //hoppa
     printf("-");
-extern int remove_block_entities;
-    if (remove_block_entities)
-        for (auto position : VP) {  toggle3();   mca_coder.removeBlockEntity(position);  }
+    if (remove_block_entities) for (auto position : VP) {  toggle3();   mca_coder.removeBlockEntity(position);  }
     printf("-");
 
     //update blocks
-    vector<Block> VB;
+//    vector<Block> VB;
 
     int x0 = x_ori , z0 = z_ori ;
+
+    addnew_counter=0;
+    lookup_counter1=0;
+    lookup_counter2=0;
+    lookup_counter3=0;
+    lookup_counter4=0;
+    lookup_counter5=0;
+    lookup_counter6=0;
+
+    old_idx=0;
+    old_sec_no=0;
+    old_T=0;
+    old_sec_root=0;
 
     for (int x = 0; x < x_len ; x+=16) {
         for (int z = 0; z < z_len ; z+=16) {
@@ -464,16 +476,14 @@ extern int remove_block_entities;
                             int y_tot=y+y_inner;
 
                             ui id = AY_blocks[y_tot] & (ui)0xFF;
-//                            ui id = blocks[x+x_inner][z+z_inner][y+y_inner] & (ui)0xFF;
                             ui add = (AY_blocks[y_tot] >> 8) & 0xF;
-//                            ui add = (blocks[x+x_inner][z+z_inner][y+y_inner] >> 8) & 0xF;
-//                            if (add>0 || (z==0 && y==1 && x<4))
-//                                printf("hier 2: add=%u  x=%d, z=%d, y=%d\n",add,x+x_inner,z+z_inner,y+y_inner);
                             ui data = AY_blockdata[y_tot];
-//                            ui data = blockdata[x+x_inner][z+z_inner][y+y_inner];
+
                             BlockInfo info = BlockInfo(id, add, data, AY_blocklight[y_tot], AY_skylight[y_tot]);
-//                            BlockInfo info = BlockInfo(id, add, data, blocklight[x+x_inner][z+z_inner][y+y_inner], skylight[x+x_inner][z+z_inner][y+y_inner]);
-                            VB.push_back(Block(position, info));
+//                            VB.push_back(Block(position, info));
+//smurf
+                            mca_coder.setBlock( position, info );
+
                         }
                     }
                 }
@@ -487,20 +497,10 @@ extern int remove_block_entities;
 //    printf("sort()\n");
 //    sort(VB.begin(), VB.end());
 
-    addnew_counter=0;
-    lookup_counter1=0;
-    lookup_counter2=0;
-    lookup_counter3=0;
-    lookup_counter4=0;
-    lookup_counter5=0;
-    lookup_counter6=0;
+//smurf
 
-    old_idx=0;
-    old_sec_no=0;
-    old_T=0;
-    old_sec_root=0;
+//    for (Block u : VB) {  mca_coder.setBlock(u.position, u.info);/*  toggle3();*/  }
 
-    for (Block u : VB) {  mca_coder.setBlock(u.position, u.info);/*  toggle3();*/  }
 //    printf("4");
     printf("-");
 
@@ -542,7 +542,10 @@ extern int remove_block_entities;
         for (int z = 0; z < z_len; z++) {
             BlockEntity** AY_block_entities=AZ_block_entities[z];
             toggle2();
-            for (int y = 0; y < y_len; y++) { VE.push_back(make_pair(Pos(x + x_ori, z + z_ori, y + y_ori), AY_block_entities[y])); }
+            for (int y = 0; y < y_len; y++) {
+                if (AY_block_entities[y])
+                    VE.push_back(make_pair(Pos(x + x_ori, z + z_ori, y + y_ori), AY_block_entities[y]));
+            }
 //            for (int y = 0; y < y_len; y++) { VE.push_back(make_pair(Pos(x + x_ori, z + z_ori, y + y_ori), block_entities[x][z][y])); }
         }
     }

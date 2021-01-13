@@ -1,8 +1,8 @@
 //#version 460 core
 //#version 330 core
 uniform sampler2D texture_in;
-uniform sampler2D texture_current;
-uniform ivec2 texture_size;
+//uniform sampler2D texture_current;
+//uniform ivec2 texture_size;
 uniform vec2 iResolution;
 uniform vec2 iObject;
 //in vec4 tex_coord;

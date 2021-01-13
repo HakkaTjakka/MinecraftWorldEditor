@@ -229,6 +229,7 @@
 		<Unit filename="../whitelist.sqlite" />
 		<Unit filename="Allocator.cpp" />
 		<Unit filename="Allocator.h" />
+		<Unit filename="BLOCKSTATES.CPP" />
 		<Unit filename="CUBERITE2.BAT" />
 		<Unit filename="DataTypes.h" />
 		<Unit filename="Effect.hpp" />

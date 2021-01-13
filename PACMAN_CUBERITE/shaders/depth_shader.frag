@@ -14,7 +14,7 @@ in float diff_;
 
 //in mat4 my_modelviewmatrix;
 in vec4 out_color;
-//in float z_;
+in float z_;
 
 //varying vec4 my_light;
 //varying vec4 out_color;
@@ -75,7 +75,7 @@ void main() {
             if (TEXTURE_ARRAY) {
                 vec4 kD;
 //                kD =  texture2D(the_texture,  gl_TexCoord[0].xy);
-                kD =  texture2D(the_texture,  vec2(gl_TexCoord[0].s,gl_TexCoord[0].t));
+                kD =  texture2D(the_texture,  vec2(gl_TexCoord[0].s,gl_TexCoord[0].t))*z_;
 //                kD =  texture2D(the_texture,  vec2(gl_MultiTexCoord0.s,gl_MultiTexCoord0.t));
 
 //              fragcolor = clamp(   vec4(kA.xyz + kD.xyz * (diff_ ) + kS_x_spec_, kD.a) , 0.0 , 1.0);

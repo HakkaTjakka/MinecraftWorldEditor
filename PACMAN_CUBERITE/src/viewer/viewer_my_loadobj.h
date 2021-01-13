@@ -14,7 +14,7 @@ struct voxel_map {
     int x,i;
 };
 
-
+int already_loaded=false;
 extern bool make_region_from_voxel(int x, int z);
 extern std::vector<hit_one_region> ready_regions;
 extern bool no_plotting;
@@ -1098,9 +1098,9 @@ void OBJECT3D_TO_NBT(std::vector<BufferObject> &buffers, std::vector<tinyobj::ma
 
 
     if (!burn) {
-        printf("\rSaving to file %s\n",nbt_filename.c_str());
+        printf("\rSaving to file %s ",nbt_filename.c_str());
     } else {
-        printf("\rSaving to file %s\n",nbt_filename.c_str());
+        printf("\rSaving to file %s ",nbt_filename.c_str());
     }
     write_nbt_file(nbt_filename.c_str(), tag_object, NBT_WRITE_FLAG_USE_GZIP);
 
@@ -3491,8 +3491,25 @@ extern float* fspeed_ghosty;
 //                        printf("SCANNING READY REGIONs: [%d][%d]",ready_regions[n].x,ready_regions[n].z);
                         if (ready_regions[n].x==x && ready_regions[n].z==z) {
                             printf(" HIT FOUND! ");
+
+//                            if (make_region_from_voxel(x,z)) {
+                            if (already_loaded) printf("ALREADY LOADED ");
+                            else {
+                                if (make_region_from_voxel(x,z)) {
+                                    printf(" AND LOADED!");
+                                } else {
+                                    printf(" NO VOXELFILE.");
+                                }
+                            }
+                            if (cubic) {
+                                sort_cubic=true;
+                                sort(voxels_total.begin(), voxels_total.end());
+                                sort_cubic=false;
+                                printf(" SORTED CUBIC!!!");
+                            }
+
+/*
                             if (make_region_from_voxel(x,z)) {
-                                printf(" AND LOADED!");
                                 if (cubic) sort_cubic=true;
                                 sort(voxels_total.begin(), voxels_total.end());
                                 sort_cubic=false;
@@ -3507,6 +3524,7 @@ extern float* fspeed_ghosty;
                                     printf(" SORTED CUBIC!!!");
                                 }
                             }
+*/
                             got_one=true;
 //huh
                             printf("\n");
@@ -3517,22 +3535,22 @@ extern float* fspeed_ghosty;
                 }
                 if (hit_one->index8 > (int)(512.0*512.0*0.9990) || flushing ) {
                     if (!got_one) {
-                        if (make_region_from_voxel(x,z)) {
-                            printf("LOADED VOXEL FILE!");
-                            if (cubic) sort_cubic=true;
-                            sort(voxels_total.begin(), voxels_total.end());
-                            sort_cubic=false;
-                            if (!cubic) printf(" SORTED!!!");
-                            else  printf(" SORTED CUBIC!!!");
-                        } else {
-                            printf(" NO VOXELFILE.");
-                            if (cubic) {
-                                sort_cubic=true;
-                                sort(voxels_total.begin(), voxels_total.end());
-                                sort_cubic=false;
-                                printf(" SORTED CUBIC!!!");
+
+                        if (already_loaded) printf("ALREADY LOADED ");
+                        else {
+                            if (make_region_from_voxel(x,z)) {
+                                printf(" AND LOADED!");
+                            } else {
+                                printf(" NO VOXELFILE.");
                             }
                         }
+                        if (cubic) {
+                            sort_cubic=true;
+                            sort(voxels_total.begin(), voxels_total.end());
+                            sort_cubic=false;
+                            printf(" SORTED CUBIC!!!");
+                        }
+
                     }
                     got_one=true;
                 }
@@ -3592,7 +3610,7 @@ extern int floor_y[512][512];
                                     y_mod=(int)(((LONG64)u.y+100000*512)%512);
 //                                    if (u.y<0) y_mod--;
 //                                else
-                                    y_mod=(int)(((LONG64)u.y+1+100000*512)%512);
+//                                    y_mod=(int)(((LONG64)u.y+1+100000*512)%512);
 //                                    y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
 
                                 int z_mod;
@@ -3636,13 +3654,22 @@ extern int floor_y[512][512];
 
                                 if (first==-1) {
                                     first=count;
-                                    floor=(int)((u.x)/256);
-                                    if (u.x<0) floor--;
+
+                                    if (u.x>=0)
+                                        floor=u.x/256;
+                                    else
+                                        floor=(u.x-255)/256;
+
+//                                    floor=(int)((u.x)/256);
+//                                    if (u.x<0) floor--;
+
                                     num_floors++;
                                     region_floor=floor;
                                     prev_x=u.y; prev_z=u.z;
                                 }
-                                if ( (u.x>=0 && (int)(u.x/256)!=floor) || (u.x<0 && (int)(u.x/256)-1 != floor) ) {
+//kloten
+//                                if ( (u.x>=0 && (int)(u.x/256)!=floor) || (u.x<0 && (int)(u.x/256)-1 != floor) ) {
+                                if ( (u.x>=0 && (int)(u.x/256)!=floor) || (u.x<0 && (int)((u.x-255)/256) != floor) ) {
                                     NEXT_FLOOR=true;
                                     num_floors++;
                                 }
@@ -3700,8 +3727,13 @@ extern int floor_y[512][512];
 
                                             std::memset(region_block, 0x0, 512*256*512*4);
 
-                                            floor=(int)((u.x)/256);
-                                            if (u.x<0) floor--;
+                                            if (u.x>=0)
+                                                floor=u.x/256;
+                                            else
+                                                floor=(u.x-255)/256;
+
+//                                            floor=(int)((u.x)/256);
+//                                            if (u.x<0) floor--;
                                             region_floor=floor;
                                             NEXT_FLOOR=false;
                                         }
@@ -4316,7 +4348,9 @@ void region_voxel_files_to_region_files(bool display_only) {
                             dont_write_to_region_voxels=true;
     //                        dont_clear=true;
                             crossing=2;mirror=4;
+                            already_loaded=true;
                             WUPPIE_SUBS(buffers, materials, minimum, maximum, 0, 0, picture_file);
+                            already_loaded=false;
                             crossing=0;mirror=0;
                             dont_write_to_region_voxels=false;
     //                        dont_clear=false;
@@ -4383,7 +4417,9 @@ void one_region_voxel_files_to_region_files(bool display_only, char* voxel_filen
                         dont_write_to_region_voxels=true;
     //                        dont_clear=true;
                         crossing=2;mirror=4;
+                        already_loaded=true;
                         WUPPIE_SUBS(buffers, materials, minimum, maximum, 0, 0, picture_file);
+                        already_loaded=false;
                         crossing=0;mirror=0;
                         dont_write_to_region_voxels=false;
     //                        dont_clear=false;
