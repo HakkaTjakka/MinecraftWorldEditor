@@ -14,6 +14,11 @@ Soon: convert region to voxels (done 90%), convert voxels to wavefront 3d .obj/.
 Uses blockstates dir, models/block (textures) and models/blocks directory from %appdata%/.minecraft/version/1.12.2 directory to create average color of blocks.
 Soon in wavefront 3d .obj/.mtl/.textures format with original (or resource texture pack) textures for posters import/export video's/recording etc. and stuff.
 
+For blockstates also see https://github.com/HakkaTjakka/blockstates
+or this repo:
+https://github.com/HakkaTjakka/MinecraftWorldEditor/blob/master/PACMAN_CUBERITE/src/BLOCKSTATES.CPP
+https://github.com/HakkaTjakka/MinecraftWorldEditor/blob/master/PACMAN_CUBERITE/src/VOXEL_TO_REGION.CPP 
+
 ***
 
 from pacman_cuberite dir (also check pacman.ini):
