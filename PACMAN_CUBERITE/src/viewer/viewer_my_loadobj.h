@@ -418,6 +418,7 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
         } else {
             printf("# of vertices  = %d  ", (int)(attrib.vertices.size()) / 3);
             printf("# of normals   = %d  ", (int)(attrib.normals.size()) / 3);
+            printf("# of colors    = %d  ", (int)(attrib.colors.size()) / 3);
             printf("# of texcoords = %d  ", (int)(attrib.texcoords.size()) / 2);
             printf("# of materials = %d  ", (int)materials.size());
             printf("# of shapes    = %d\n", (int)shapes.size());
