@@ -19,6 +19,8 @@ or this repo:
 https://github.com/HakkaTjakka/MinecraftWorldEditor/blob/master/PACMAN_CUBERITE/src/BLOCKSTATES.CPP
 https://github.com/HakkaTjakka/MinecraftWorldEditor/blob/master/PACMAN_CUBERITE/src/VOXEL_TO_REGION.CPP 
 
+https://www.youtube.com/watch?v=KxsNOwbERC8
+
 ***
 
 from pacman_cuberite dir (also check pacman.ini):
