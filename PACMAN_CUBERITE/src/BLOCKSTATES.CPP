@@ -534,15 +534,18 @@ void make_colors_from_blocks()
     std::map<std::string, struct json_list>::iterator it_json_texture_map;
     IdDataColor_map.clear();
     FILE* best_colors=fopen("best_colors.txt","w");
+    FILE* blockstates=fopen("blockstates.txt","w");
     for (it_names_list = names_list.begin(); it_names_list != names_list.end(); it_names_list++)
     {
         std::string blockstates_filename="../minecraft/blockstates/" + it_names_list->Item + ".json";
         std::string by_Item_filename="";
         bool by_Item=false;
         if (!shut_up) printf("ID=\"%d\",DataValue=\"%d\",Item=\"%s\",Description=\"%s\",IDName=\"%s\"\n",it_names_list->ID,it_names_list->DataValue,it_names_list->Item.c_str(),it_names_list->Description.c_str(),it_names_list->IDName.c_str());
+        fprintf(blockstates,"ID=\"%d\",DataValue=\"%d\",Item=\"%s\",Description=\"%s\",IDName=\"%s\"\n",it_names_list->ID,it_names_list->DataValue,it_names_list->Item.c_str(),it_names_list->Description.c_str(),it_names_list->IDName.c_str());
         if (file_exists(blockstates_filename.c_str()))
         {
             if (!shut_up) printf("BLOCKSTATES= \"%s\" exists\n",blockstates_filename.c_str());
+            fprintf(blockstates,"BLOCKSTATES= \"%s\" exists\n",blockstates_filename.c_str());
         }
         else
         {
@@ -554,6 +557,7 @@ void make_colors_from_blocks()
                 if (file_exists(blockstates_filename.c_str()))
                 {
                     if (!shut_up) printf("BLOCKSTATES= \"%s\" exists (by IDName %s)\n",blockstates_filename.c_str(),it_names_list->IDName.c_str());
+                    fprintf(blockstates,"BLOCKSTATES= \"%s\" exists (by IDName %s)\n",blockstates_filename.c_str(),it_names_list->IDName.c_str());
                 }
                 else
                 {
@@ -561,18 +565,22 @@ void make_colors_from_blocks()
                     if ( it != texture_block_map.end() )
                     {
                         if (!shut_up) printf("BLOCKSTATES= \"%s\" DOES NOT exist (also not by IDName %s)\n",blockstates_filename.c_str(),it_names_list->IDName.c_str());
+                        fprintf(blockstates,"BLOCKSTATES= \"%s\" DOES NOT exist (also not by IDName %s)\n",blockstates_filename.c_str(),it_names_list->IDName.c_str());
                         if (!shut_up) printf("\t\t\t TEXTURE=\"../minecraft/blocks/%s.png\" (FOUND BY Item %s)\n",it->first.c_str(),it->first.c_str());
+                        fprintf(blockstates,"\t\t\t TEXTURE=\"../minecraft/blocks/%s.png\" (FOUND BY Item %s)\n",it->first.c_str(),it->first.c_str());
                         by_Item_filename=it->first.c_str(); by_Item=true;
                     }
                     else
                     {
                         if (!shut_up) printf("BLOCKSTATES= \"%s\" DOES NOT exist (also not by IDName %s or Item %s)\n",blockstates_filename.c_str(),it_names_list->IDName.c_str(),it_names_list->Item.c_str());
+                        fprintf(blockstates,"BLOCKSTATES= \"%s\" DOES NOT exist (also not by IDName %s or Item %s)\n",blockstates_filename.c_str(),it_names_list->IDName.c_str(),it_names_list->Item.c_str());
                     }
                 }
             }
             else
             {
                 if (!shut_up) printf("Error in IDName : %s\n",it_names_list->IDName.c_str());
+                fprintf(blockstates,"Error in IDName : %s\n",it_names_list->IDName.c_str());
             }
         }
         std::map<std::string, struct model_list>::iterator it_variant;
@@ -580,7 +588,7 @@ void make_colors_from_blocks()
 
         std::string best_variant="";
         std::string best_type="";
-        int best_tot=0;
+        int best_tot=-1;
         std::string best_texture="";
         if (!by_Item) {
             for (it_variant = it_names_list->variant.begin(); it_variant != it_names_list->variant.end(); it_variant++)
@@ -596,20 +604,25 @@ void make_colors_from_blocks()
                 int type_weight=0;
 
                 if (!shut_up) printf("\t VARIANT=\"%s\"\n",variant.c_str());
+                fprintf(blockstates,"\t VARIANT=\"%s\"\n",variant.c_str());
                 std::map<std::string, int>::iterator it_model_list;
                 for (it_model_list = it_variant->second.models.begin(); it_model_list != it_variant->second.models.end(); it_model_list++)
                 {
                     if (!shut_up) printf("\t MODEL=\"../minecraft/block/%s.json\" (%dx)",it_model_list->first.c_str(),it_model_list->second);
+                    fprintf(blockstates,"\t MODEL=\"../minecraft/block/%s.json\" (%dx)",it_model_list->first.c_str(),it_model_list->second);
 
                     it_json_texture_map = json_texture_map.find(it_model_list->first);
                     if ( it_json_texture_map != json_texture_map.end() )
                     {
                         if (!shut_up) printf(" found ");
+                        fprintf(blockstates," found ");
                         it = block_filenames_map.find(it_model_list->first);
                         if ( it != block_filenames_map.end() ) {
                             if (!shut_up) printf("(Tot %dx)",it->second);
+                            fprintf(blockstates,"(Tot %dx)",it->second);
                         }
                         if (!shut_up) printf(" \n");
+                        fprintf(blockstates," \n");
 
                         size_t text_len=it_json_texture_map->second.texture_kind.size();
                         for (size_t n=0; n<text_len; n++)
@@ -636,19 +649,25 @@ void make_colors_from_blocks()
 
                             int t=strlen(kind.c_str());
                             if (!shut_up) printf("\t\t (TYPE=\"%s\")",kind.c_str());
+                            fprintf(blockstates,"\t\t (TYPE=\"%s\")",kind.c_str());
                             if (!shut_up) for (int i=0; i<15-t; i++) putchar(' ');
+                            for (int i=0; i<15-t; i++) fputc(' ',blockstates);
                             if (!shut_up) printf(" TEXTURE=\"../minecraft/blocks/%s.png\"",block_filename.c_str());
+                            fprintf(blockstates," TEXTURE=\"../minecraft/blocks/%s.png\"",block_filename.c_str());
                             it_texture_block_map=texture_block_map.find(block_filename);
                             if ( it_texture_block_map != texture_block_map.end() )
                             {
                                 if (!shut_up) printf(" (exists, used %dx)",it_texture_block_map->second);
+                                fprintf(blockstates," (exists, used %dx)",it_texture_block_map->second);
                             }
                             if (!shut_up) printf("\n");
+                            fprintf(blockstates,"\n");
                         }
                     }
                     else
                     {
                         if (!shut_up) printf(" NOT FOUND!\n");
+                        fprintf(blockstates," NOT FOUND!\n");
                     }
                 }
             }
@@ -656,6 +675,7 @@ void make_colors_from_blocks()
             best_texture=by_Item_filename;
         }
         if (!shut_up) printf("\n");
+        fprintf(blockstates,"\n");
         fprintf(best_colors,"ID=\"%d\",DataValue=\"%d\",Item=\"%s\",Description=\"%s\",IDName=\"%s\",VARIANT=\"%s\",TYPE=\"%s\",TEXTURE=\"%s.png\"\n",
                 it_names_list->ID,it_names_list->DataValue,it_names_list->Item.c_str(),it_names_list->Description.c_str(),it_names_list->IDName.c_str(),
                 best_variant.c_str(), best_type.c_str(),best_texture.c_str());
@@ -699,6 +719,36 @@ void make_colors_from_blocks()
         printf("\n");
         printf("#include <stdio.h> first\n");
     }
+    fprintf(blockstates,"USED MODELS:\n");
+    for (it = block_filenames_map.begin(); it != block_filenames_map.end(); it++)
+    {
+        fprintf(blockstates,"\"block/%s.json\" (%d)\n",it->first.c_str(),it->second);
+    }
+    fprintf(blockstates,"\n");
+
+    fprintf(blockstates,"USED TEXTURES:\n");
+    for (it = texture_block_map.begin(); it != texture_block_map.end(); it++)
+    {
+        fprintf(blockstates,"\"blocks/%s.png\" (%d)\n",it->first.c_str(),it->second);
+    }
+    fprintf(blockstates,"\n");
+
+    printf("USED MODEL VARIANTS:\n");
+    for (it = model_variants_map.begin(); it != model_variants_map.end(); it++)
+    {
+        fprintf(blockstates,"'%s' (%d)\n",it->first.c_str(),it->second);
+    }
+    fprintf(blockstates,"\n");
+
+    fprintf(blockstates,"\nUSED MODEL TEXTURE TYPES:\n");
+    for (it = texture_types_map.begin(); it != texture_types_map.end(); it++)
+    {
+        fprintf(blockstates,"'%s' (%d)\n",it->first.c_str(),it->second);
+    }
+    fprintf(blockstates,"\n");
+    fprintf(blockstates,"#include <stdio.h> first\n");
+
+    fclose(blockstates);
 
     printf("Getting average color from textures\n");
 
@@ -765,15 +815,15 @@ void make_colors_from_blocks()
         int data=it_IdDataColor_map->first & 15;
         printf("ID=%3d DATA=%2d color=rgb(%d,%d,%d) (%s)\n",id,data,it_IdDataColor_map->second.r,it_IdDataColor_map->second.g,it_IdDataColor_map->second.b, it_IdDataColor_map->second.texture_name.c_str());
     }
-
-    it_IdDataColor_map=IdDataColor_map.find(9*16);
+*/
+    it_IdDataColor_map=IdDataColor_map.find(127*16);
     if ( it_IdDataColor_map != IdDataColor_map.end() ) {
         int id=it_IdDataColor_map->first >> 4;
         int data=it_IdDataColor_map->first & 15;
-        printf("FOUND WATER!!!\n");
+        printf("FOUND cocoa!!!\n");
         printf("ID=%3d DATA=%2d color=rgb(%d,%d,%d) (%s)\n",id,data,it_IdDataColor_map->second.r,it_IdDataColor_map->second.g,it_IdDataColor_map->second.b, it_IdDataColor_map->second.texture_name.c_str());
     } else {
-        printf("FOUND NO WATER!!!\n");
+        printf("FOUND NO cocoa!!!\n");
     }
-*/
+
 }

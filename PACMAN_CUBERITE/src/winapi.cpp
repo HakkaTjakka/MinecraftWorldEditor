@@ -689,6 +689,10 @@ int WINAPI WinMain2()
 
 //define language decimal point / comma .... shit!
     std::lconv* lc;
+    setlocale(LC_ALL, "");
+    setlocale(LC_NUMERIC, "C");
+//    setlocale(LC_NUMERIC, "en_US");
+//    setlocale(LC_NUMERIC, "");
 
     lc = localeconv();
     printf("Currency symbol: '%s' (%d)\n",lc->currency_symbol , lc->int_curr_symbol );

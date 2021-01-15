@@ -1,0 +1,90 @@
+# depslib dependency file v1.0
+1565977341 source:d:\pacman\mceditor\blockentity.cpp
+
+1565977341 source:d:\pacman\mceditor\globals.cpp
+	"globals.h"
+	"zlib.h"
+
+1565977341 d:\pacman\mceditor\globals.h
+	<string>
+	<cstring>
+	<algorithm>
+
+1566071678 source:d:\pacman\mceditor\mcacoder.cpp
+	"MCACoder.h"
+	<cstring>
+	<cstdlib>
+	<queue>
+	<algorithm>
+	"globals.h"
+
+1566070696 d:\pacman\mceditor\mcacoder.h
+	<string>
+	<cstdlib>
+	"NBTCoder.h"
+	"BlockEntity.h"
+
+1565977341 d:\pacman\mceditor\nbtcoder.h
+	<cstdio>
+	<vector>
+	<list>
+	<string>
+	<algorithm>
+	<cstring>
+	"globals.h"
+
+1565977341 d:\pacman\mceditor\blockentity.h
+	<string>
+	"globals.h"
+
+1566078688 source:d:\pacman\mceditor\mceditor.cpp
+	"MCEditor.h"
+	<vector>
+	<algorithm>
+	<queue>
+	<utility>
+	<set>
+	<cstring>
+	"globals.h"
+
+1566054603 d:\pacman\mceditor\mceditor.h
+	"globals.h"
+	"MCACoder.h"
+	"BlockEntity.h"
+
+1565977341 source:d:\pacman\mceditor\music.cpp
+	<cstdio>
+	"MCEditor.h"
+	"BlockEntity.h"
+	<vector>
+	<cstdlib>
+
+1565977341 source:d:\pacman\mceditor\nbtcoder.cpp
+	"NBTCoder.h"
+
+1566078434 source:d:\pacman\mceditor\test.cpp
+	<cstdio>
+	"globals.h"
+	"MCEditor.h"
+	"BlockEntity.h"
+	"MCACoder.h"
+	<math.h>
+
+1565977341 source:d:\pacman\mceditor\video.cpp
+	<cstdio>
+	<vector>
+	<string>
+	<cstdlib>
+	<algorithm>
+	"globals.h"
+	"MCEditor.h"
+
+1565977341 source:d:\pacman\mceditor\video2.cpp
+	<cstdio>
+	<vector>
+	<string>
+	<cstdlib>
+	<algorithm>
+	"globals.h"
+	"MCEditor.h"
+

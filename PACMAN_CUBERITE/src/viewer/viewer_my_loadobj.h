@@ -3173,18 +3173,16 @@ extern float* fspeed_ghosty;
 //            }
             int y=one.y,z=one.z;
 
-            if (y>=0)
-                rx=y/512;
-            else
-                rx=(y-511)/512;
+//fucked
+//            if (y>=0) rx=y/512;
+//            else rx=(y-511)/512;
+//            if (z>=0) rz=z/512;
+//            else rz=(z-511)/512;
 
-            if (z>=0)
-                rz=z/512;
-            else
-                rz=(z-511)/512;
-
-//            if (y<0) rx--;
-//            if (z<0) rz--;
+            rx=y/512;
+            rz=z/512;
+            if (y<0) rx--;
+            if (z<0) rz--;
 
             Voxel prev;
             int rx_prev;
@@ -3229,47 +3227,33 @@ extern float* fspeed_ghosty;
                         if (n<voxels_total.size()) {
                             one=voxels_total[n];
                             y=one.y; z=one.z;
+//fucked
+//                            if (y>=0) rx=y/512;
+//                            else rx=(y-511)/512;
+//                            if (z>=0) rz=z/512;
+//                            else rz=(z-511)/512;
 
-                            if (y>=0)
-                                rx=y/512;
-                            else
-                                rx=(y-511)/512;
-
-                            if (z>=0)
-                                rz=z/512;
-                            else
-                                rz=(z-511)/512;
-
-//                            rx=y/512;
-//                            rz=z/512;
-
-//                            rx=y/512; rz=z/512;
-//                            if (y<0) rx--;
-//                            if (z<0) rz--;
+                            rx=y/512; rz=z/512;
+                            if (y<0) rx--;
+                            if (z<0) rz--;
 
 //                            printf("region[%3d][%3d] POS[%3d][%3d][%3d] voxels_total[%3d]=Voxel(%6d,%6d,%6d,%4d,%4d,%4d,%4d)\n",
 //                                   rx,rz,one.y%512,one.x,one.z%512,n,one.x,one.y,one.z,one.r,one.g,one.b,one.l);
                         }
                     }
                     total_columns++;
-//hopla
-//                    int prev_y_mod=prev.y%512;
-//                    int prev_z_mod=prev.z%512;
+
+//fucked
                     int prev_y_mod;
-//                    if (prev.y>=0)
-                        prev_y_mod=(int)(((LONG64)prev.y+100000*512)%512);
-//                        if (prev.y<0) prev_y_mod--;
-//                    else
-//                        prev_y_mod=(int)(((LONG64)prev.y-1+100000*512)%512);
-//                        prev_y_mod=(int)(((LONG64)prev.y+1+100000*512)%512);
+//                    prev_y_mod=(int)(((LONG64)prev.y+100000*512)%512);
+                    if (prev.y>=0) prev_y_mod=(int)(((LONG64)prev.y+100000*512)%512);
+                    else prev_y_mod=(int)(((LONG64)prev.y-1+100000*512)%512);
 
                     int prev_z_mod;
-//                    if (prev.z>=0)
-                        prev_z_mod=(int)(((LONG64)prev.z+100000*512)%512);
-//                        if (prev.z<0) prev_z_mod--;
-//                    else
-//                        prev_z_mod=(int)(((LONG64)prev.z-1+100000*512)%512);
-//                        prev_z_mod=(int)(((LONG64)prev.z+1+100000*512)%512);
+//                    prev_z_mod=(int)(((LONG64)prev.z+100000*512)%512);
+                    if (prev.z>=0) prev_z_mod=(int)(((LONG64)prev.z+100000*512)%512);
+                    else prev_z_mod=(int)(((LONG64)prev.z-1+100000*512)%512);
+
                     if (!xz00 && prev_y_mod==  0 && prev_z_mod==  0) xz00=true;
                     if (!xz01 && prev_y_mod==  0 && prev_z_mod==511) xz01=true;
                     if (!xz10 && prev_y_mod==511 && prev_z_mod==  0) xz10=true;
@@ -3597,30 +3581,28 @@ extern int floor_y[512][512];
                         for (auto u : voxels_total) {
                             int a_y;
                             int a_z;
-                            if (u.y>=0) a_y=u.y/512;
-                            else  a_y=(u.y-511)/512;
+//fucked
+//                            if (u.y>=0) a_y=u.y/512;
+//                            else  a_y=(u.y-511)/512;
+//                            if (u.z>=0) a_z=u.z/512;
+//                            else  a_z=(u.z-511)/512;
+                            a_y=u.y/512;
+                            a_z=u.z/512;
+                            if (u.y<0) a_y--;
+                            if (u.z<0) a_z--;
 
-                            if (u.z>=0) a_z=u.z/512;
-                            else  a_z=(u.z-511)/512;
 
-//                            if (u.y<0) a_y--;
-//                            if (u.z<0) a_z--;
                             if ( (a_y)==x && (a_z)==z ) {
                                 int y_mod;
-//                                if (u.y>=0)
-                                    y_mod=(int)(((LONG64)u.y+100000*512)%512);
-//                                    if (u.y<0) y_mod--;
-//                                else
-//                                    y_mod=(int)(((LONG64)u.y+1+100000*512)%512);
-//                                    y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
+//fucked
+//                                y_mod=(int)(((LONG64)u.y+100000*512)%512);
+                                if (u.y>=0) y_mod=(int)(((LONG64)u.y+100000*512)%512);
+                                else y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
 
                                 int z_mod;
-//                                if (u.z>=0)
-                                    z_mod=(int)(((LONG64)u.z+100000*512)%512);
-//                                    if (u.z<0) z_mod--;
-//                                else
-//                                    z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
-//                                    z_mod=(int)(((LONG64)u.z+1+100000*512)%512);
+//                                z_mod=(int)(((LONG64)u.z+100000*512)%512);
+                                if (u.z>=0) z_mod=(int)(((LONG64)u.z+100000*512)%512);
+                                else z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
 
                                 if (u.x<floor_y[y_mod][z_mod]) floor_y[y_mod][z_mod]=u.x;
                             }
@@ -3632,19 +3614,16 @@ extern int floor_y[512][512];
                             int a_y;
                             int a_z;
 
-//                            a_y=u.y/512;
-//                            a_z=u.z/512;
-                            if (u.y>=0) a_y=u.y/512;
-                            else  a_y=(u.y-511)/512;
+//fucked
+//                            if (u.y>=0) a_y=u.y/512;
+//                            else  a_y=(u.y-511)/512;
+//                            if (u.z>=0) a_z=u.z/512;
+//                            else  a_z=(u.z-511)/512;
+                            a_y=u.y/512;
+                            a_z=u.z/512;
+                            if (u.y<0) a_y--;
+                            if (u.z<0) a_z--;
 
-                            if (u.z>=0) a_z=u.z/512;
-                            else  a_z=(u.z-511)/512;
-
-//                            int a_y=u.y/512;
-//                            int a_z=u.z/512;
-
-//                            if (u.y<0) a_y--;
-//                            if (u.z<0) a_z--;
                             if ( (a_y)==x && (a_z)==z ) {
 
 //                            if ( (int)(u.y/512)==x && (int)(u.z/512)==z ) {
@@ -3656,21 +3635,19 @@ extern int floor_y[512][512];
                                 if (first==-1) {
                                     first=count;
 
-                                    if (u.x>=0)
-                                        floor=u.x/256;
-                                    else
-                                        floor=(u.x-255)/256;
-
-//                                    floor=(int)((u.x)/256);
-//                                    if (u.x<0) floor--;
+//fucked
+//                                    if (u.x>=0) floor=u.x/256;
+//                                    else floor=(u.x-255)/256;
+                                    floor=(int)((u.x)/256);
+                                    if (u.x<0) floor--;
 
                                     num_floors++;
                                     region_floor=floor;
                                     prev_x=u.y; prev_z=u.z;
                                 }
-//kloten
-//                                if ( (u.x>=0 && (int)(u.x/256)!=floor) || (u.x<0 && (int)(u.x/256)-1 != floor) ) {
-                                if ( (u.x>=0 && (int)(u.x/256)!=floor) || (u.x<0 && (int)((u.x-255)/256) != floor) ) {
+//fucked
+                                if ( (u.x>=0 && (int)(u.x/256)!=floor) || (u.x<0 && (int)(u.x/256)-1 != floor) ) {
+//                                if ( (u.x>=0 && (int)(u.x/256)!=floor) || (u.x<0 && (int)((u.x-255)/256) != floor) ) {
                                     NEXT_FLOOR=true;
                                     num_floors++;
                                 }
@@ -3728,29 +3705,25 @@ extern int floor_y[512][512];
 
                                             std::memset(region_block, 0x0, 512*256*512*4);
 
-                                            if (u.x>=0)
-                                                floor=u.x/256;
-                                            else
-                                                floor=(u.x-255)/256;
+//fucked
+//                                            if (u.x>=0) floor=u.x/256;
+//                                            else floor=(u.x-255)/256;
+                                            floor=(int)((u.x)/256);
+                                            if (u.x<0) floor--;
 
-//                                            floor=(int)((u.x)/256);
-//                                            if (u.x<0) floor--;
                                             region_floor=floor;
                                             NEXT_FLOOR=false;
                                         }
-//                                        if (u.y>=0)
-                                            prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
+//fucked
+//                                        prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
 //                                            if (u.y<0) prev_y_mod--;
-//                                        else
-//                                            prev_y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
-//                                            prev_y_mod=(int)(((LONG64)u.y+1+100000*512)%512);
+                                        if (u.y>=0) prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
+                                        else prev_y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
 
-//                                        if (u.z>=0)
-                                            prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
+//                                        prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
 //                                            if (u.z<0) prev_z_mod--;
-//                                        else
-//                                            prev_z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
-//                                            prev_z_mod=(int)(((LONG64)u.z+1+100000*512)%512);
+                                        if (u.z>=0) prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
+                                        else prev_z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
 
                                         if (u.l>0) {
                                             size_t off_x=(u.x-floor*256+256*prev_y_mod+prev_z_mod*512*256)*4;
@@ -3763,21 +3736,20 @@ extern int floor_y[512][512];
                                         }
                                     } else {
 
-//                                        if (u.y>=0)
-                                            prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
+//fucked
+//                                            prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
 //                                            if (u.y<0) prev_y_mod--;
-//                                        else
-//                                            prev_y_mod=(int)(((LONG64)u.y+1+100000*512)%512);
-//                                            prev_y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
+                                        if (u.y>=0) prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
+                                        else prev_y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
 
-//                                        if (u.z>=0)
-                                            prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
+//                                       prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
 //                                            if (u.z<0) prev_z_mod--;
-//                                        else
-//                                            prev_z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
-//                                            prev_z_mod=(int)(((LONG64)u.z+1+100000*512)%512);
 
-                                        if (u.x>=0 && u.x<230 && u.l>0) {
+                                        if (u.z>=0) prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
+                                        else prev_z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
+
+                                        if (0) {
+//                                        if (u.x>=0 && u.x<230 && u.l>0) {
                                             size_t off_x=(u.x+256*prev_y_mod+prev_z_mod*512*256)*4;
                                             region_block[off_x]=u.r/u.l;
                                             region_block[off_x+1]=u.g/u.l;

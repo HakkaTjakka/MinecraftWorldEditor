@@ -26,7 +26,6 @@ public:
 //private:
 };
 
-
 class MCACoder
 {
 public:
@@ -45,7 +44,7 @@ public:
     void setBlock(const Pos &position, const BlockInfo &info);
 
     BlockInfo getBlock(int x, int z, int y);
-//    BlockInfo getBlock_FAST2(int x, int z, int y);
+
     void getBlock_FAST(const MCRegion &region);
 
     void removeBlockEntity(const Pos &position);

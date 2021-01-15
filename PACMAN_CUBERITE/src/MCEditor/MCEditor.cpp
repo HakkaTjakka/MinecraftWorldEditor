@@ -7,6 +7,7 @@
 #include <cstring>
 #include "globals.h"
 
+
 using namespace std;
 extern int old_idx;
 extern int old_sec_no;
@@ -413,8 +414,6 @@ void MCEditor::computeSkyLight()
     lightPropagate(skylight);
 }
 
-extern int remove_block_entities;
-
 void MCEditor::updateMCA()
 {
     //remove block entities in the editing region;
@@ -434,26 +433,15 @@ void MCEditor::updateMCA()
 
 //hoppa
     printf("-");
-    if (remove_block_entities) for (auto position : VP) {  toggle3();   mca_coder.removeBlockEntity(position);  }
+extern int remove_block_entities;
+    if (remove_block_entities)
+        for (auto position : VP) {  toggle3();   mca_coder.removeBlockEntity(position);  }
     printf("-");
 
     //update blocks
-//    vector<Block> VB;
+    vector<Block> VB;
 
     int x0 = x_ori , z0 = z_ori ;
-
-    addnew_counter=0;
-    lookup_counter1=0;
-    lookup_counter2=0;
-    lookup_counter3=0;
-    lookup_counter4=0;
-    lookup_counter5=0;
-    lookup_counter6=0;
-
-    old_idx=0;
-    old_sec_no=0;
-    old_T=0;
-    old_sec_root=0;
 
     for (int x = 0; x < x_len ; x+=16) {
         for (int z = 0; z < z_len ; z+=16) {
@@ -476,14 +464,16 @@ void MCEditor::updateMCA()
                             int y_tot=y+y_inner;
 
                             ui id = AY_blocks[y_tot] & (ui)0xFF;
+//                            ui id = blocks[x+x_inner][z+z_inner][y+y_inner] & (ui)0xFF;
                             ui add = (AY_blocks[y_tot] >> 8) & 0xF;
+//                            ui add = (blocks[x+x_inner][z+z_inner][y+y_inner] >> 8) & 0xF;
+//                            if (add>0 || (z==0 && y==1 && x<4))
+//                                printf("hier 2: add=%u  x=%d, z=%d, y=%d\n",add,x+x_inner,z+z_inner,y+y_inner);
                             ui data = AY_blockdata[y_tot];
-
+//                            ui data = blockdata[x+x_inner][z+z_inner][y+y_inner];
                             BlockInfo info = BlockInfo(id, add, data, AY_blocklight[y_tot], AY_skylight[y_tot]);
-//                            VB.push_back(Block(position, info));
-//smurf
-                            mca_coder.setBlock( position, info );
-
+//                            BlockInfo info = BlockInfo(id, add, data, blocklight[x+x_inner][z+z_inner][y+y_inner], skylight[x+x_inner][z+z_inner][y+y_inner]);
+                            VB.push_back(Block(position, info));
                         }
                     }
                 }
@@ -497,10 +487,20 @@ void MCEditor::updateMCA()
 //    printf("sort()\n");
 //    sort(VB.begin(), VB.end());
 
-//smurf
+    addnew_counter=0;
+    lookup_counter1=0;
+    lookup_counter2=0;
+    lookup_counter3=0;
+    lookup_counter4=0;
+    lookup_counter5=0;
+    lookup_counter6=0;
 
-//    for (Block u : VB) {  mca_coder.setBlock(u.position, u.info);/*  toggle3();*/  }
+    old_idx=0;
+    old_sec_no=0;
+    old_T=0;
+    old_sec_root=0;
 
+    for (Block u : VB) {  mca_coder.setBlock(u.position, u.info);/*  toggle3();*/  }
 //    printf("4");
     printf("-");
 
@@ -542,10 +542,7 @@ void MCEditor::updateMCA()
         for (int z = 0; z < z_len; z++) {
             BlockEntity** AY_block_entities=AZ_block_entities[z];
             toggle2();
-            for (int y = 0; y < y_len; y++) {
-                if (AY_block_entities[y])
-                    VE.push_back(make_pair(Pos(x + x_ori, z + z_ori, y + y_ori), AY_block_entities[y]));
-            }
+            for (int y = 0; y < y_len; y++) { VE.push_back(make_pair(Pos(x + x_ori, z + z_ori, y + y_ori), AY_block_entities[y])); }
 //            for (int y = 0; y < y_len; y++) { VE.push_back(make_pair(Pos(x + x_ori, z + z_ori, y + y_ori), block_entities[x][z][y])); }
         }
     }
@@ -598,4 +595,83 @@ void MCEditor::lightPropagate(ui*** light)
         }
     }
 //    fprintf(stderr, "Finished Propagating Light.\n");
+}
+
+void MCACoder::getBlock_FAST(const MCRegion &region) {
+
+//    ui** AZ_skylight=skylight[3];
+
+    int n=0;
+    BlockInfo*** AX=region.A;
+    int num_blocks=0;
+    for (int x_outer = 0; x_outer < 512 ; x_outer+=16) {
+        int chunk_x = x_outer >> 4;
+        int region_x = chunk_x >> 5;
+        for (int z_outer = 0; z_outer < 512 ; z_outer+=16) {
+            int chunk_z = z_outer >> 4;
+            int region_z = chunk_z >> 5;
+            int idx = (chunk_x & 31) + 32 * (chunk_z & 31);
+            node *chunk_root = Chunk[idx];
+            if (!chunk_root) { continue; }
+            node *level_root = chunk_root->childWithName("Level");
+            node *sec_root = level_root->childWithName("Sections");
+            for (int y_outer = 0; y_outer < 256; y_outer+=16) {
+                int sec_no = y_outer >> 4;
+                node *T = sectionNodeWithY(sec_root, sec_no);
+                if (!T) { continue; }
+                node *u;
+
+                node *old_u_blocks = T->childWithName("Blocks");
+                node *old_u_add = T->childWithName("Add");
+                node *old_u_data = T->childWithName("Data");
+                node *old_u_blocklight=T->childWithName("BlockLight");
+                node *old_u_skylight = T->childWithName("SkyLight");
+
+                for (int x_inner = 0; x_inner < 16 ; x_inner++) {
+                    int x=x_outer + x_inner;
+                    BlockInfo** AZ=AX[x];
+                    for (int z_inner = 0; z_inner < 16 ; z_inner++) {
+                        int z=z_outer + z_inner;
+                        BlockInfo* AY=AZ[z];
+                        if (!(n++&31)) toggle2();
+
+
+                        for (int y_inner = 0; y_inner < 16 ; y_inner++) {
+                            int y=y_outer + y_inner;
+                            int block_pos = y_inner * 256 + z_inner * 16 + x_inner;
+
+
+                            int id= old_u_blocks->tag.va[block_pos];
+
+                            uc res;
+                            int add;
+                            if (old_u_add) {
+                                res = old_u_add->tag.va[block_pos >> 1];
+                                add = (block_pos & 1) ? ((res >> 4) & 0xF): (res & 0xF);
+                            } else add=0;
+
+                            int data;
+                            if (old_u_data) {
+                                res = old_u_data->tag.va[block_pos >> 1];
+                                data = (block_pos & 1) ? ((res >> 4) & 0xF): (res & 0xF);
+                            } else data=0;
+
+                            res = old_u_blocklight->tag.va[block_pos >> 1];
+                            int block_light = (block_pos & 1) ? ((res >> 4) & 0xF): (res & 0xF);
+
+                            res = old_u_skylight->tag.va[block_pos >> 1];
+                            int sky_light = (block_pos & 1) ? ((res >> 4) & 0xF): (res & 0xF);
+
+                            if (id!=0) {
+                                num_blocks++;
+                                AY[y]=BlockInfo(id,add,data,block_light,sky_light);
+                            } else {
+                                AY[y]=BlockInfo();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

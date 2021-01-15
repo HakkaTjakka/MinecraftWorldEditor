@@ -6235,8 +6235,8 @@ extern std::string area;
 //printf("here 4\n");
                     BlockInfo bi=editor.mca_coder.getBlock(x,z,y);
 //printf("here 5\n");
-                    if ((fix_on && bi.id!=0) || (bi.id==251 && cubic) || (bi.id!=0 && !cubic)) {
-//                    if (bi.id!=0) {
+//                    if ((fix_on && bi.id!=0) || (bi.id==251 && cubic) || (bi.id!=0 && !cubic)) {
+                    if (bi.id!=0) {
                         if (min_y==-1 && bi.id==251) min_y=y;
                         num_blocks++;
                         AY[y]=BlockInfo(bi.id,bi.add,bi.data,bi.block_light,bi.sky_light);

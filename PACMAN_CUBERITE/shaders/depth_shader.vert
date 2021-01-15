@@ -287,7 +287,7 @@ void main()
 //            kS_x_spec_ = spec1 + vec3(0.10, 0.10, 0.10);
 //            kS_x_spec_ = spec2 + vec3(0.10, 0.10, 0.10);
 
-            z_=1.0-gl_Position.z/3.0;
+            z_=1.0-gl_Position.z/5.0;
             break;
         }
     }

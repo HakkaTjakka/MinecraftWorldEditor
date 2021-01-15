@@ -7556,16 +7556,15 @@
 	<cstring>
 	<algorithm>
 
-1610301081 source:d:\pacman\pacman_cuberite\src\mceditor\mcacoder.cpp
+1594087279 source:d:\pacman\pacman_cuberite\src\mceditor\mcacoder.cpp
+	"MCACoder.h"
 	<cstring>
 	<cstdlib>
 	<queue>
 	<algorithm>
 	"globals.h"
-	"MCACoder.h"
-	"MCEditor.h"
 
-1610295868 d:\pacman\pacman_cuberite\src\mceditor\mcacoder.h
+1610674054 d:\pacman\pacman_cuberite\src\mceditor\mcacoder.h
 	<string>
 	<cstdlib>
 	"NBTCoder.h"
@@ -7584,7 +7583,7 @@
 	<string>
 	"globals.h"
 
-1610300747 source:d:\pacman\pacman_cuberite\src\mceditor\mceditor.cpp
+1610673964 source:d:\pacman\pacman_cuberite\src\mceditor\mceditor.cpp
 	"MCEditor.h"
 	<vector>
 	<algorithm>
@@ -7594,12 +7593,12 @@
 	<cstring>
 	"globals.h"
 
-1610287972 d:\pacman\pacman_cuberite\src\mceditor\mceditor.h
+1610674054 d:\pacman\pacman_cuberite\src\mceditor\mceditor.h
 	"globals.h"
 	"MCACoder.h"
 	"BlockEntity.h"
 
-1610286336 source:d:\pacman\pacman_cuberite\src\mceditor\nbtcoder.cpp
+1594087266 source:d:\pacman\pacman_cuberite\src\mceditor\nbtcoder.cpp
 	"NBTCoder.h"
 
 1606260782 source:d:\pacman\pacman_cuberite\src\mceditor\paint.cpp
@@ -7609,7 +7608,7 @@
 	"globals.h"
 	"MCEditor.h"
 
-1610495454 source:d:\pacman\pacman_cuberite\src\mceditor\test.cpp
+1610707068 source:d:\pacman\pacman_cuberite\src\mceditor\test.cpp
 	<windows.h>
 	<cstdio>
 	"globals.h"
@@ -9076,7 +9075,7 @@
 
 1609717751 d:\pacman\pacman_cuberite\src\viewer\viewer_my_draw.h
 
-1610560252 d:\pacman\pacman_cuberite\src\viewer\viewer_my_loadobj.h
+1610714297 d:\pacman\pacman_cuberite\src\viewer\viewer_my_loadobj.h
 	<../MCA-NBT-EDIT.HPP>
 	<winsock2.h>
 	<../VOXEL.HPP>
@@ -9160,7 +9159,7 @@
 	<glm/glm.hpp>
 	<glm/common.hpp>
 
-1610514189 source:d:\pacman\pacman_cuberite\src\winapi.cpp
+1610709676 source:d:\pacman\pacman_cuberite\src\winapi.cpp
 	<winsock2.h>
 	<io.h>
 	<stdio.h>
@@ -18514,7 +18513,7 @@
 	<string>
 	<cmath>
 
-1604488322 source:d:\pacman\pacman_cuberite\src\viewer\area_data.cpp
+1610707068 source:d:\pacman\pacman_cuberite\src\viewer\area_data.cpp
 	<stdio.h>
 	<stdlib.h>
 	<sys/stat.h>
@@ -18620,7 +18619,7 @@
 	<fcntl.h>
 	<iostream>
 
-1604742002 source:d:\pacman\pacman_cuberite\src\scanner.cpp
+1610657249 source:d:\pacman\pacman_cuberite\src\scanner.cpp
 	<winsock2.h>
 	<io.h>
 	"WinMain.h"
@@ -18662,7 +18661,7 @@
 	<GL/glu.h>
 	<GL/gl.h>
 
-1610576673 source:d:\pacman\pacman_cuberite\src\voxel_to_region.cpp
+1610673871 source:d:\pacman\pacman_cuberite\src\voxel_to_region.cpp
 	<../MCA-NBT-EDIT.HPP>
 	<../VOXEL.HPP>
 	<map>
@@ -18672,8 +18671,9 @@
 	"MCEditor/MCEditor.h"
 	"MCEditor/BlockEntity.h"
 	"MCEditor/MCACoder.h"
+	<SFML/System.hpp>
 
-1610577001 source:d:\pacman\pacman_cuberite\src\blockstates.cpp
+1610660886 source:d:\pacman\pacman_cuberite\src\blockstates.cpp
 	<stdio.h>
 	<sys/stat.h>
 	<map>
