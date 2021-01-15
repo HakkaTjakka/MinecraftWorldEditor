@@ -1,3 +1,28 @@
+New: region file world top view plotter.
+Put world in /saves/tovoxels (or region files in /saves/tovoxels/region)
+from the pacman_cuberite open dos box with qsetpath_seh_64_v7 - kopie.bat (sets a path to pacman_cuberite/bin)
+from the pacman_cuberite dir type:
+
+pacman.exe region2voxel
+
+canvas will be in ../levels/<X>x<Y>/<level>
+region tiles will be in ../cut
+
+Some blocks do not have the right color indexed (yet) and will be red. Chunks that are empty will be white.
+Soon: convert region to voxels (done 90%), convert voxels to wavefront 3d .obj/.mtl (done 90%), convert wavefront 3d to video's and (orthographic projection) 3d view posters (super large) (done 90%)
+
+Uses blockstates dir, models/block (textures) and models/blocks directory from %appdata%/.minecraft/version/1.12.2 directory to create average color of blocks.
+Soon in wavefront 3d .obj/.mtl/.textures format with original (or resource texture pack) textures for posters import/export video's/recording etc. and stuff.
+
+For blockstates also see https://github.com/HakkaTjakka/blockstates
+or this repo:
+https://github.com/HakkaTjakka/MinecraftWorldEditor/blob/master/PACMAN_CUBERITE/src/BLOCKSTATES.CPP
+https://github.com/HakkaTjakka/MinecraftWorldEditor/blob/master/PACMAN_CUBERITE/src/VOXEL_TO_REGION.CPP 
+
+https://www.youtube.com/watch?v=KxsNOwbERC8
+
+***
+
 from pacman_cuberite dir (also check pacman.ini):
 
 pacman.exe object <filename>
