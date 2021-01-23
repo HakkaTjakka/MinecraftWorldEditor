@@ -353,7 +353,6 @@ extern void make_test_schematic();
                                                 depth_shader.setUniform("background_texture",   *backgroundTexture[win_num]);
                                                 depth_shader.setUniform("use_background",   plot_background);
                                                 depth_shader.setUniform("background",       sf::Glsl::Vec4((float)color_behind.r/256.0,(float)color_behind.g/256.0,(float)color_behind.b/256.0,(float)color_behind.a/256.0));
-
                                                 depth_shader.setUniform("the_texture", sf::Shader::CurrentTexture);
                                                 depth_shader.setUniform("wave_amplitude", sf::Vector2f(5.0, 5.0));
                                                 depth_shader.setUniform("WIRE_FRAME", WIRE_FRAME);

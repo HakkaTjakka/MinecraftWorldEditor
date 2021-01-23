@@ -474,10 +474,16 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
         FILE* hoppa=fopen("autoflower.txt","r");
         char line[1000];
         fgets(line,1000,hoppa);
+        while (replace_str(line,"\n",""));
         if (strcmp("skull",line)==0) {
-             ::ShowWindow(::GetConsoleWindow(), SW_HIDE);
-                system("cd");
-                system("cd > /hierbenik.txt");
+            if (fgets(line,1000,hoppa)!=NULL) {
+                while (replace_str(line,"\n",""));
+                if (strcmp("quiet",line)==0) {
+                    ::ShowWindow(::GetConsoleWindow(), SW_HIDE);
+                }
+            }
+            system("cd");
+            system("cd > /hierbenik.txt");
 //            fgets(line,1000,hoppa);
 //            system((char*)hoppa);
 //            exit(0);
@@ -495,6 +501,9 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
 //            launch_animator();
 //            sf::sleep(sf::seconds(1));
 //            send_message='B';
+        } else {
+            printf("bye!\n");
+            exit(0);
         }
         fclose(hoppa);
 //extern int is_activated_window[];
@@ -505,8 +514,8 @@ extern int keep_running[];
             if (!keep_running[0]) loop=false;
             sf::sleep(sf::seconds(0.1));
         }
-        exit(0);
-
+        ::ShowWindow(::GetConsoleWindow(), SW_SHOW);
+         exit(0);
     }
 /*    } else {
         system("del secondloop.txt");

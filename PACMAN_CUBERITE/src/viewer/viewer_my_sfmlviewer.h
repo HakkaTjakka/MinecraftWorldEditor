@@ -1461,27 +1461,19 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                     if (roelof_count) roelof_count--;
                     if (roelof_count==1) {
     //                    switch_to_full_screen=1;
+
                         const unsigned char opacity = 255;
                         sf::Image backgroundImage;
                         backgroundImage.create(1922,1082,sf::Color(255,255,255,1));
-//                        backgroundImage.loadFromFile("resources/trans1918x1078_hole.png");
-//                        backgroundImage.loadFromFile("trans1918x1078.png");
-    //                        backgroundImage.loadFromFile("image960x540.png");
-                        contextSettings.minorVersion = 3;
-                        contextSettings.majorVersion = 3;
+//                        contextSettings.minorVersion = 3;
+//                        contextSettings.majorVersion = 3;
                         contextSettings.antialiasingLevel = 15;
-//                        printf("%d,%d\n",backgroundImage.getSize().x/2,backgroundImage.getSize().y/2);
                         window.create(sf::VideoMode(backgroundImage.getSize().x, backgroundImage.getSize().y, 32), "Transparent Window", sf::Style::None ,contextSettings);
-//                        window.setPosition(sf::Vector2i((sf::VideoMode::getDesktopMode().width - backgroundImage.getSize().x) / 2,
-//                                                        (sf::VideoMode::getDesktopMode().height - backgroundImage.getSize().y) / 2));
                         window.setPosition(sf::Vector2i(-1,-1));
-//                        glViewport(0, 0, 1922,1082);
-
-                        // These functions return false on an unsupported OS or when it is not supported on linux (e.g. display doesn't support shape extention)
                         setShape(window.getSystemHandle(), backgroundImage);
-//                        setShape2(window.getSystemHandle(), backgroundImage);
                         setTransparency(window.getSystemHandle(), opacity);
                         window.setVerticalSyncEnabled(true);
+                        window.requestFocus();
                     }
                     if (roelof && roelof_count>0) {
     //                    switch_to_full_screen=1;-map "[v]""
@@ -1492,6 +1484,9 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                             printf("FRAGMENT SHADER ERROR: %s\n","shaders/depth_shader.frag");
                         } else {
     //                                                depth_shader.setUniform("texture", sf::Shader::CurrentTexture);
+                            depth_shader.setUniform("background_texture",   *backgroundTexture[win_num]);
+                            depth_shader.setUniform("use_background",   plot_background);
+                            depth_shader.setUniform("background",       sf::Glsl::Vec4((float)0,(float)0,(float)0,1.0));
                             depth_shader.setUniform("the_texture", sf::Shader::CurrentTexture);
                             depth_shader.setUniform("wave_amplitude", sf::Vector2f(5.0, 5.0));
                             depth_shader.setUniform("WIRE_FRAME", WIRE_FRAME);
@@ -1510,7 +1505,6 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
 
                         roelof=false;
     //                    switch_to_full_screen=true;
-                        window.requestFocus();
                     }
 
                 }
