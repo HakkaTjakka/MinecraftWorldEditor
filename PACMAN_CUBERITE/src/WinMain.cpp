@@ -1,3 +1,4 @@
+#include <conio.h>
 #define PI 3.141592653589793
 #define SFML_STATIC
 #undef UNICODE
@@ -6,7 +7,6 @@
 #include "WinMain.h"
 #include <psapi.h>
 #include <stdio.h>
-#include <conio.h>
 #include <dos.h>
 #include <stdlib.h>
 #include <math.h>
@@ -60,7 +60,12 @@
 #include <glm/glm.hpp>
 #include <glm/common.hpp>
 #include <../VOXEL.HPP>
+bool dont_slow_down=false;
 
+extern bool roelof;
+extern bool screensaver;
+extern void merge_back_to_front();
+bool got_next=false;
 extern bool voxel_to_file;
 extern bool plot_only;
 extern bool flushing;
@@ -1699,8 +1704,9 @@ extern int trace_line4(std::string in);
             cleanupbitmaps_mazes();
             ReadBitmaps2();
         }
-        SFMLView1.requestFocus();
+        if (!screensaver) SFMLView1.requestFocus();
 //        playsound=playsound|256;
+        got_next=true;
     }
 
 
@@ -1735,7 +1741,7 @@ extern int trace_line4(std::string in);
         sprite_from_internet.setScale(1.0,1.0);
         sprite_from_movie.setScale(1.0,1.0);
         sprite_from_movie2.setScale(1.0,1.0);
-        sprite_from_canvas.setScale(0.1,0.1);
+        sprite_from_canvas.setScale(0.02,0.02);
         sprite_from_ffmpeg.setTexture(texture_from_ffmpeg,false);
         sprite_from_internet.setTexture(texture_from_internet,false);
         sprite_from_movie.setTexture(texture_from_movie_new,false);
@@ -1964,17 +1970,43 @@ extern int record_window;
     if (do_pong) {
         static int waiter=0;
         if (waiter==1) {
-
+            static char pname[1000];
+            static bool first=true;
             insert_key('P');
+            if (first) {
+                strcpy(pname,picture_name);
+                first=false;
+                printf("Picture: %s\n",picture_name);
+/*
+                if (file_exists("pong.txt")) {
+                    FILE* pbs=fopen("pong.txt","r");
+                    char line[100];
+                    fgets(line,100,pbs);
+                    fclose(pbs);
+                    while (replace_str(line,",","."));
+                    sscanf(line,"%f",&playbackspeed);
+                    printf("playbackspeed set to %f\n",playbackspeed);
+                }
+*/
+
+            } else {
+                if (strcmp(pname,picture_name)==0) {
+                    waiter=-1;
+                    do_pong=false;
+                } else {
+                    printf("Picture: %s\n",picture_name);
+                }
+            }
+
 
         } else if (waiter==2) {
 
-            replace_string(picture_name,".png",".jpg");
-            replace_string(picture_name,".bmp",".jpg");
-            texture_from_ffmpeg.copyToImage().saveToFile(picture_name);
-            sprite_from_ffmpeg.setScale(2.0,2.0);
-            convert_to_scale(&texture_from_ffmpeg, &sprite_from_ffmpeg);
-            sprite_from_ffmpeg.setScale(0.5,0.5);
+//            replace_string(picture_name,".png",".jpg");
+//            replace_string(picture_name,".bmp",".jpg");
+//            texture_from_ffmpeg.copyToImage().saveToFile(picture_name);
+//            sprite_from_ffmpeg.setScale(5.0,5.0);
+//            convert_to_scale(&texture_from_ffmpeg, &sprite_from_ffmpeg);
+//            sprite_from_ffmpeg.setScale(0.2,0.2);
 
         } else if (waiter==3) {
 
@@ -1982,36 +2014,43 @@ extern int record_window;
             fragment_shader=1;
             update_shader();
 
-        } else if (waiter>=4 && waiter<=4+5) {
+        } else if (waiter>=4 && waiter<=4+8) {
 
             plot_shader=1;
             plot_ffmpegfile=1; plotplot();
 
-        } else if (waiter==4+6) {
+        } else if (waiter==4+9) {
 
             sprintf(frag_name,"%s/fragment/picture_shader 02.frag",SHADERDIR);
             update_shader();
 
-        } else if (waiter==4+7) {
-
+        } else if (waiter==4+10) {
+//            plot_ffmpegfile=1; plotplot();
+//            plot_ffmpegfile=0;
+            sprite_from_ffmpeg.setScale(10.0,10.0);
+            plot_shader=0;
+//            setffmpegfile();
             plot_ffmpegfile=1; plotplot();
+//            insert_event(sf::Keyboard::Key::F8, 0);
+            convert_to_scale(&texture_from_ffmpeg, &sprite_from_ffmpeg);
+            insert_event(sf::Keyboard::Key::F8, EVENT_SHIFT);
 
-        } else if (waiter==4+8) {
+        } else if (waiter==4+11) {
 
             plot_shader=0;
             fragment_shader=0;
 
-        } else if (waiter==4+9) {
+        } else if (waiter==4+12) {
 
             replace_string(picture_name,".jpg",".pong.jpg");
             texture_from_ffmpeg.copyToImage().saveToFile(picture_name);
 
-        } else if (waiter==4+10) {
+        } else if (waiter==4+13) {
 
             insert_key('P');
 //            do_pong=false;
 
-        } else if (waiter==4+11) {
+        } else if (waiter==4+14) {
             waiter=-1;
         }
         waiter++;
@@ -2155,7 +2194,18 @@ extern int record_window;
         eatmode=0;
     }
     static int check_once=2;
-    if (check_once==2 && the_time>1.0) {
+
+    if (screensaver && check_once) {
+        if (check_once==1) {
+            insert_key('P');
+//            insert_event(sf::Keyboard::P,EVENT_SHIFT);
+            F1=0;
+            playsound=playsound|7;
+            check_once=0;
+        } else {
+            check_once=1;
+        }
+    } else if (check_once==2 && the_time>1.0) {
         if (!SFMLView1.hasFocus()) {
             SetFocus(SFMLView1.getSystemHandle());
             if (!SFMLView1.hasFocus()) {
@@ -2168,7 +2218,7 @@ extern int record_window;
         if (!SFMLView1.hasFocus()) {
             SetFocus(SFMLView1.getSystemHandle());
             if (!SFMLView1.hasFocus()) {
-                playsound=playsound|4;
+                playsound=playsound|1;
             }
         }
     }
@@ -10287,6 +10337,7 @@ extern sf::Text mytext2;
             text.setCharacterSize(24);
         }
 
+
         if (F2==1)
         {
             if (movieextern==0 && recording_type==1)
@@ -10373,8 +10424,18 @@ extern sf::Text mytext2;
             something_to_do=0;
         }
 extern bool hold_voxels;
+extern int scan_max_x;
+extern int scan_min_x;
+extern int scan_max_z;
+extern int scan_min_z;
+
 //        MUTEX_MCEDITOR.lock();
-        if (update_request==2) {
+
+        if (update_request==4) {
+            update_request=4;
+
+        }
+        if (update_request==2 || update_request==3) {
             float fspeedx_old=fspeedx;
             float fspeedy_old=fspeedy;
             int speedx_old=speedx;
@@ -10383,19 +10444,43 @@ extern bool hold_voxels;
             int old_positionx=(picturex*1920-posx);
             int old_positiony=(picturey*1080-posy);
 
-            update_MC(scan_image,scan_x,scan_z);
-            update_request=0;
-//hehehe
-            int x=(int)( ( (LONG64)(scan_x)*512 + (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
-            int y=(int)( ( (LONG64)(scan_z)*512 + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
-//todo              int x=(int)( ( (LONG64)(scan_x+6)*512 + (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
-//                  int y=(int)( ( (LONG64)(scan_z+6)*512 + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
-//            int x=(int)( ( (LONG64)scan_x*512 + (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
-            //int y=(int)( ( (LONG64)scan_z*512 + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
+            static int not_next=1;
+            if (not_next) {
+                update_MC(scan_image,scan_x,scan_z);
+            } else if (update_request==3) not_next=0; else not_next=1;
 
             if (!hold_voxels) {
-                position1x=(x+256+maxpixelsx)%+maxpixelsx;
-                position1y=(y+256+maxpixelsy)%+maxpixelsy;
+/*
+                static float n_x=scan_x;
+                static float n_z=scan_z;
+                static int level_hold=level;
+extern std::string region_filename;
+                if (update_request==3) {
+                    n_x=scan_x;
+                    n_z=scan_z;
+                }
+                n_x=(scan_max_x+scan_min_x)/2.0;
+                n_x= ( (float)scan_x+(float)n_x*3.0 )/4.0;
+                n_z= ( (float)scan_z+(float)n_z*3.0 )/4.0;
+                scan_x=n_x;
+                scan_z=n_z;
+
+//                int xc=sprite_from_canvas.getScale().x;
+                float zc=sprite_from_canvas.getScale().x;
+
+                if (abs(n_x - scan_x) > 3) n_x=scan_x;
+                if (abs(n_z - scan_z) > 3) n_z=scan_z;
+
+                int x=(int)( ( (LONG64)(n_x)*512  +256  + (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
+                int y=(int)( ( (LONG64)(n_z)*512  +256-offset_y  + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
+*/
+                float zc=sprite_from_canvas.getScale().x;
+                int offset_y=(zc/0.02)*512.0;
+                int x=(int)( ( (LONG64)(scan_x)*512  +256+ (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
+                int y=(int)( ( (LONG64)(scan_z)*512  +256 - offset_y + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
+
+                position1x=(x+maxpixelsx*2)%+maxpixelsx;
+                position1y=(y+maxpixelsy*2)%+maxpixelsy;
                 get_position3();
             } else {
                 position1x=old_positionx;
@@ -10406,8 +10491,14 @@ extern bool hold_voxels;
                 speedy=speedy_old;
                 get_position3();
             }
+            if (update_request==2) update_request=0;
         }
 //        MUTEX_MCEDITOR.unlock();
+        if (update_request==3) {
+            cleanupbitmaps_mazes();
+            ReadBitmaps4();
+            update_request=2;
+        }
         if (read_request==1) {
             read_one_plot(read_x,read_y,read_image);
             position1x=read_x-1920/2+256+5;
@@ -10462,11 +10553,15 @@ extern sf::Mutex window_recording;
 extern sf::Mutex wierdo_mutex;
 extern sf::Clock kp;
         static int anti_slow=300;
-        for (int i=0; i<10; i++) {
-            if (running_3d[i]) {
-                slow_down=true;
-                break;
+        if (!dont_slow_down) {
+            for (int i=0; i<10; i++) {
+                if (running_3d[i]) {
+                    slow_down=true;
+                    break;
+                }
             }
+        } else {
+            slow_down=false;
         }
         if (kp.getElapsedTime().asSeconds() > 5.0) {
 
@@ -10513,7 +10608,6 @@ extern sf::Clock kp;
                     {
                         DONTSAVEFILES=0;
                         SAVEALLBITMAPS();
-extern void merge_back_to_front();
 
 //                        merge_back_to_front();
                         happening_counter=0;

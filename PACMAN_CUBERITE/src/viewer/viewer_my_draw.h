@@ -181,6 +181,21 @@ static void Draw(const std::vector<DrawObject>& drawObjects,
         glEnableClientState(GL_VERTEX_ARRAY);
         glEnableClientState(GL_NORMAL_ARRAY);
 
+
+
+//        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+//        glBlendFunc(GL_SRC_ALPHA, GL_DST_ALPHA);
+//glBlendFuncSeparate(GL_ONE,     GL_ONE_MINUS_SRC_ALPHA,   GL_ONE_MINUS_DST_ALPHA,   GL_ONE);
+//glBlendFuncSeparate(GL_ONE,     GL_ZERO,   GL_SRC_ALPHA,   GL_ZERO);
+
+//glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ZERO, GL_ONE);
+
+
+
+
+
+
 //color out
 //        if (textures.size()==0)
 //            glEnableClientState(GL_COLOR_ARRAY);
@@ -191,6 +206,10 @@ static void Draw(const std::vector<DrawObject>& drawObjects,
                 glEnable(GL_TEXTURE_2D);
                 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
                 glBindTexture(GL_TEXTURE_2D, 0);
+//                glShadeModel(	GL_SMOOTH);
+//                glEnable(GL_MULTISAMPLE);
+                glEnable(GL_BLEND);
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
                 if ((o.material_id < materials.size()))
                 {
@@ -259,7 +278,7 @@ extern bool depth_shader_on;
 
 //        glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glBlendFunc(GL_DST_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         glColor3f(0.0f, .0f, 0.0f);
         for (size_t i = 0; i < drawObjects.size(); i++)

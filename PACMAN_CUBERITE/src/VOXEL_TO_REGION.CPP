@@ -1,4 +1,7 @@
+
+#include <stdio.h> //first for fast console output.
 //#include "VIEWER/viewer_my_inits.h"
+//#include "WinMain.h"
 #include <../MCA-NBT-EDIT.HPP>
 #include <../VOXEL.HPP>
 #include <map>
@@ -11,6 +14,13 @@
 #include "MCEditor/MCACoder.h"
 #include <SFML/System.hpp>
 
+#include <Windows.h>
+extern std::string region_filename;
+
+int scan_max_x=0;
+int scan_min_x=0;
+int scan_max_z=0;
+int scan_min_z=0;
 extern int region_floor;
 extern hit_one_region* findRegion(int x, int z);
 extern std::vector<hit_one_region> vector_hit_regions;
@@ -223,9 +233,9 @@ void voxels_to_object(char* picture_file_in) {
     bdif_y=bmax_y-bmin_y+1;
     bdif_z=bmax_z-bmin_z+1;
 
-    if (!in_background) printf("x: min=%8d  max=%8d  width=%4d\n",bmin_x,bmax_x,bdif_x);
-    if (!in_background) printf("y: min=%8d  max=%8d  width=%4d\n",bmin_y,bmax_y,bdif_y);
-    if (!in_background) printf("z: min=%8d  max=%8d  width=%4d\n",bmin_z,bmax_z,bdif_z);
+    if (!in_background) printf("x: min=%8d  max=%8d  heigth=%4d\n",bmin_x,bmax_x,bdif_x);
+    if (!in_background) printf("y: min=%8d  max=%8d  width= %4d\n",bmin_y,bmax_y,bdif_y);
+    if (!in_background) printf("z: min=%8d  max=%8d  depth= %4d\n",bmin_z,bmax_z,bdif_z);
 
     int offset_x,offset_z,offset_y=0;
 
@@ -524,8 +534,18 @@ void voxels_to_object(char* picture_file_in) {
     t_tot=0;
 
     char filename[2000];
-    mkdir("../objects");
-    sprintf(filename,"%s/%s.obj","../objects",picture_file);
+
+    while (replace_str(picture_file,".vox",""));
+
+    if (region_filename!="") {
+        sprintf(filename,"%s/objects",region_filename.c_str());
+        mkdir(filename);
+
+        sprintf(filename,"%s/%s/%s.obj",region_filename.c_str(),"objects",picture_file);
+    } else {
+        mkdir("../objects");
+        sprintf(filename,"%s/%s.obj","../objects",picture_file);
+    }
     FILE* out;
     if ( (out=fopen(filename,"w"))==NULL) {
         printf("Cannot open %s for writing.\n",filename);
@@ -533,13 +553,19 @@ void voxels_to_object(char* picture_file_in) {
     }
     char line[2000];
     for (int n=0; n<16; n++) {
-        sprintf(line,"if not exist ..\\objects\\concrete_%02d.png copy resources\\concrete_%02d.png ..\\objects\\concrete_%02d.png",n,n,n);
+        sprintf(line,"if not exist %s/objects/concrete_%02d.png copy resources/concrete_%02d.png %s/objects/concrete_%02d.png",
+                region_filename.c_str(),n,n,region_filename.c_str(),n);
+//        sprintf(line,"if not exist ..\\objects\\concrete_%02d.png copy resources\\concrete_%02d.png ..\\objects\\concrete_%02d.png",n,n,n);
+        while (replace_str(line,"/","\\"));
         system(line);
     }
 
 //    system("if not exist ..\\objects\\concrete.png copy resources\\concrete_64x64.png ..\\objects\\concrete.png");
 
-    system("if not exist ..\\objects\\concrete.mtl copy resources\\concrete.mtl ..\\objects");
+    sprintf(line, "if not exist %s/objects/concrete.mtl copy resources/concrete.mtl %s/objects",region_filename.c_str(),region_filename.c_str());
+    while (replace_str(line,"/","\\"));
+    system(line);
+//    system("if not exist ..\\objects\\concrete.mtl copy resources\\concrete.mtl ..\\objects");
 
     sprintf(line, "mtllib concrete.mtl\n"); fprintf(out,line); // if (!in_background) printf(line);
 
@@ -1049,13 +1075,71 @@ std::map<int, struct IdDataColor_list>::iterator it_IdDataColor_map;
 
 extern void make_colors_from_blocks();
 
+
+
+extern void do_nextlevel();
+void regions_to_voxelfiles2();
+
+extern void SAVEALLBITMAPS();
+extern void CLEANBITMAPS();
+extern int level;
+extern int next;
+#include "keylist.hpp"
+extern void insert_key(WPARAM key);
+//#include "everything.hpp"
+
+extern bool got_next;
+
+void multiple_regions_to_voxelfiles(std::string root) {
+    if (root=="") root="/saves";
+    DIR* dr_ROOT = opendir(root.c_str());
+    struct dirent *de_ROOT;
+    while ((de_ROOT = readdir(dr_ROOT)) != NULL) {
+        char dir[1024];
+        sprintf(dir,"%s/",de_ROOT->d_name);
+        char dir2[1024];
+        sprintf(dir2,"%s/%s/region",root.c_str(),de_ROOT->d_name);
+        if (file_exists(dir2)) {
+            printf("Region dir: %s\n",dir2);
+            region_filename=dir2;
+            regions_to_voxelfiles2();
+//            call_next=true;
+//extern sf::RenderWindow SFMLView1;
+//            SFMLView1.setActive(false);
+//            got_next=true;
+            sf::sleep(sf::seconds(1.0));
+            update_request=3;
+//            got_next=false;
+            while (update_request) {
+                sf::sleep(sf::seconds(0.05));
+            }
+//            update_request=0;
+//            got_next=false;
+            sf::sleep(sf::seconds(1.0));
+//            next=1;
+        }
+    }
+}
+
+
 void regions_to_voxelfiles() {
+    if (region_filename!="") multiple_regions_to_voxelfiles(region_filename);
+    else {
+        region_filename="/saves/tovoxels/region";
+        regions_to_voxelfiles2();
+    }
+}
+
+
+void regions_to_voxelfiles2() {
     std::map<int, int> IdData_not_found_map;
     std::map<int, int> IdData_not_found_map2;
     std::map<int, int>::iterator it_IdData_not_found_map;
+    vector_hit_regions.clear();
 
     char voxel_file[1024];
-    mkdir("../voxels");
+    sprintf(voxel_file,"%s/voxels",region_filename.c_str());
+    mkdir(voxel_file);
     cubic=false;
     int num_regions=0;
     std::map<long long int, cubic_region> cubic_regions_mapped;
@@ -1065,7 +1149,12 @@ void regions_to_voxelfiles() {
     cubic_region one_cubic_region;
     printf("\n");
 
-    DIR* dr_ROOT = opendir("/saves/tovoxels/region");
+//    DIR* dr_ROOT = opendir("/saves/scan");
+//    struct dirent *de_ROOT;
+//    while ((de_ROOT = readdir(dr_ROOT)) != NULL) {
+//    }
+
+    DIR* dr_ROOT = opendir(region_filename.c_str());
     struct dirent *de_ROOT;
     while ((de_ROOT = readdir(dr_ROOT)) != NULL) {
 //        printf("DIR: /saves/tovoxels/region/%s\n",de_ROOT->d_name);
@@ -1075,8 +1164,8 @@ void regions_to_voxelfiles() {
         if ((strstr(de_ROOT->d_name, "done")) != NULL) {
             sscanf(de_ROOT->d_name,"done%d",&region_floor);
             char floor_dir[2000];
-            sprintf(floor_dir,"/saves/tovoxels/region/%s",de_ROOT->d_name);
-            printf("DIR: /saves/tovoxels/region/%s\n",de_ROOT->d_name);
+            sprintf(floor_dir,"%s/%s",region_filename.c_str(),de_ROOT->d_name);
+            printf("DIR: %s/%s\n",region_filename.c_str(),de_ROOT->d_name);
 
             DIR* dr = opendir(floor_dir);
             struct dirent *de;
@@ -1097,14 +1186,15 @@ void regions_to_voxelfiles() {
                 }
             }
             closedir(dr);
+        printf("\n");
         }
 //        printf("\n\n");
     }
     closedir(dr_ROOT);
 
     char region_dir[2000];
-    sprintf(region_dir,"/saves/tovoxels/region");
-    printf("DIR: /saves/tovoxels/region\n");
+    sprintf(region_dir,"%s",region_filename.c_str());
+    printf("DIR: %s\n",region_filename.c_str());
 
     DIR* dr2 = opendir(region_dir);
     struct dirent *de2;
@@ -1150,30 +1240,47 @@ void regions_to_voxelfiles() {
         int prev_x=-99999999;
         int prev_z=-99999999;
         it = cubic_regions_mapped.begin();
+//        if (it != cubic_regions_mapped.end()) {
 
-        bool does_exist;
+//        }
+
+        bool does_exist=false;
         voxels.clear();
+        scan_max_x=0;
+        scan_min_x=0;
+        scan_max_z=0;
+        scan_min_z=0;
+        int max_x;        int min_x;        int max_z;
+        int min_z;        int max_y;        int min_y;
         while(it != cubic_regions_mapped.end()) {
             int x=it->second.x;
             int z=it->second.z;
             region_floor=it->second.region_floor;
 
-            if (x<min_x_region) min_x_region=x;
-            if (x>max_x_region) max_x_region=x;
-            if (region_floor>max_y_region) max_y_region=region_floor;
-            if (region_floor<min_y_region) min_y_region=region_floor;
-            if (z>max_z_region) max_z_region=z;
-            if (z<min_z_region) min_z_region=z;
+            if (x<min_x_region) { min_x_region=x; scan_min_x=x; }
+            if (x>max_x_region) { max_x_region=x; scan_max_x=x; }
+            if (region_floor<min_y_region)  min_y_region=region_floor;
+            if (region_floor>max_y_region)  max_y_region=region_floor;
+            if (z<min_z_region) { min_z_region=z; scan_min_z=z; }
+            if (z>max_z_region) { max_z_region=z; scan_max_z=z; }
 
             if (x==prev_x && z==prev_z) {
 //                printf(",");
             }
             printf("\nRegion(%d,%d) ",x,z);
+            sprintf(voxel_file,"%s/voxels/r.%d.%d.vox",region_filename.c_str(),x,z);
             if (x!=prev_x || z!=prev_z) {
+                max_x=-std::numeric_limits<int>::max();
+                min_x=std::numeric_limits<int>::max();
+
+                max_z=-std::numeric_limits<int>::max();
+                min_z=std::numeric_limits<int>::max();
+
+                max_y=-std::numeric_limits<int>::max();
+                min_y=std::numeric_limits<int>::max();
                 if (prev_x!=-99999999) {
 //                                printf("\n");
                 }
-                sprintf(voxel_file,"../voxels/r.%d.%d.vox",x,z);
                 does_exist=false;
 //                does_exist=file_exists(voxel_file);
 //                if (does_exist) printf("Voxelfile exists: %s, skipping\n",voxel_file);
@@ -1182,8 +1289,8 @@ void regions_to_voxelfiles() {
                 hit_one_region* hit_one=findRegion(x,z);
                 if (hit_one==NULL) {
                     if (file_exists(voxel_file)) {
-                        printf("Warning: First region floor file from ../tovoxels/region/done%d or ../tovoxels/region (floor 0) but voxelfile exists: %s\n",it->second.region_floor,voxel_file);
-                        printf("Warning: Appending voxels to %s\n",voxel_file);
+                        printf("WARNING!!!: First region floor file from ../tovoxels/region/done%d or ../tovoxels/region (floor 0) but voxelfile exists: %s\n",it->second.region_floor,voxel_file);
+                        printf("WARNING!!!: Appending voxels to %s\n",voxel_file);
                     } else {
                         printf("Ok. Creating new file. Writing to %s\n",voxel_file);
                     }
@@ -1200,17 +1307,10 @@ void regions_to_voxelfiles() {
                 }
                 hit_one->index11=1;
                 hit_one->index12=1;
+            } else {
+                printf("Appending voxels to %s\n",voxel_file);
             }
 //                        if (!flushing && (mirror==3 || does_exist==false) ) {
-
-            int max_x=-std::numeric_limits<int>::max();
-            int min_x=std::numeric_limits<int>::max();
-
-            int max_z=-std::numeric_limits<int>::max();
-            int min_z=std::numeric_limits<int>::max();
-
-            int max_y=-std::numeric_limits<int>::max();
-            int min_y=std::numeric_limits<int>::max();
 
             if (does_exist==false ) {
                 printf("floor (%d) ",region_floor);
@@ -1225,15 +1325,18 @@ void regions_to_voxelfiles() {
 //                main_mceditor6_fixed(x, z, region_block);
 
                 char tmp[1024];
-                sprintf(tmp, "/Saves/tovoxels/region/done%d/r.%d.%d.mca", region_floor, x, z);
+                sprintf(tmp, "%s/done%d/r.%d.%d.mca", region_filename.c_str(),region_floor, x, z);
                 if ( !file_exists(tmp) ) {
-                    sprintf(tmp, "/Saves/tovoxels/region/r.%d.%d.mca", x, z);
-                }
-                if (!file_exists(tmp)) {
-                    printf("Can not find file %s\n",tmp);
-                    continue;
+                    sprintf(tmp, "%s/r.%d.%d.mca", region_filename.c_str(), x, z);
+                    if (!file_exists(tmp)) {
+                        printf("Can not find file %s\n",tmp);
+                        it++;
+                        continue;
+                    } else {
+                        printf("To object %s ",tmp);
+                    }
                 } else {
-//                    printf("Loading %s",tmp);
+                    printf("To object %s ",tmp);
                 }
 
                 reset_block();
@@ -1254,15 +1357,63 @@ void regions_to_voxelfiles() {
                 int region_x=x,region_z=z;
                 int num_blocks=0;
 
-//                BlockInfo bi;
+                if (0) {
+                    for (int x = 0; x < 512; x++) {
+                        BlockInfo** AZ=AX[x];
+                        for (int z = 0; z < 512; z++) {
+                            toggle2();
+                            BlockInfo* AY=AZ[z];
+                            int max_y=-1;
+                            int min_y=-1;
+                            for (int y = 0; y < 256; y++) {
+                                BlockInfo bi=editor.mca_coder.getBlock(x,z,y);
+                                if (bi.id!=0) {
+                                    if (min_y==-1 && bi.id==251) min_y=y;
+                                    AY[y]=BlockInfo(bi.id,bi.add,bi.data,bi.block_light,bi.sky_light);
+                                    max_y=y;
+                                } else {
+                                    AY[y]=BlockInfo();
+                                }
+                            }
+                            if (max_y!=-1) {
+                                int r_m,g_m,b_m;
+                                ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
+                                scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                            } else {
+                                scan_image.setPixel(x,z,sf::Color(0,0,0,0));
+                            }
+                        }
+                    }
+                    scan_x=region_x;
+                    scan_z=region_z;
+                    sprintf(mc_text1,"R.%d.%d.MCA",region_x,region_z);
+                    update_request=2;
+                    while (update_request) {
+                        sf::sleep(sf::seconds(0.005));
+                    }
+                } else {
+/*
 
-                editor.mca_coder.getBlock_FAST(region);
+                    for (int x = 0; x < 512; x++) {
+                        BlockInfo** AZ=AX[x];
+                        for (int z = 0; z < 512; z++) {
+                            BlockInfo* AY=AZ[z];
+                            for (int y = 0; y < 256; y++) {
+                                AY[y]=BlockInfo();
+                            }
+                        }
+                    }
+*/
+
+                    editor.mca_coder.getBlock_FAST(region);
+                }
 
                 printf(" Ready. Plotting texture's colors.");
 //lookup color
                 static bool first=true;
                 if (first) {
                     first=false;
+                    printf("\n");
                     make_colors_from_blocks();
                 }
 
@@ -1301,17 +1452,39 @@ void regions_to_voxelfiles() {
                                         g_m=it_IdDataColor_map->second.g;
                                         b_m=it_IdDataColor_map->second.b;
                                         scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                                    } else if (max_y>1) {
+                                        id=AY[max_y-1].id*16;
+                                        data=AY[max_y-1].data;
+                                        int lookup=id*16 + data;
+                                        it_IdDataColor_map = IdDataColor_map.find(lookup);
+                                        if (it_IdDataColor_map != IdDataColor_map.end()) {
+                                            r_m=it_IdDataColor_map->second.r;
+                                            g_m=it_IdDataColor_map->second.g;
+                                            b_m=it_IdDataColor_map->second.b;
+                                            scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                                        } else {
+                                            lookup=id;
+                                            it_IdDataColor_map = IdDataColor_map.find(lookup);
+                                            if (it_IdDataColor_map != IdDataColor_map.end()) {
+                                                r_m=it_IdDataColor_map->second.r;
+                                                g_m=it_IdDataColor_map->second.g;
+                                                b_m=it_IdDataColor_map->second.b;
+                                                scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                                            } else {
+                                                scan_image.setPixel(x,z,sf::Color(255,0,0,255));
+                                            }
+            //                                ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
+                                        }
                                     } else {
                                         scan_image.setPixel(x,z,sf::Color(255,0,0,255));
                                     }
     //                                ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
                                 }
                             } else {
-                                scan_image.setPixel(x,z,sf::Color(255,255,255,255));
+                                scan_image.setPixel(x,z,sf::Color(0,0,0,0));
                             }
                         }
                     }
-
 
                     scan_x=region_x;
                     scan_z=region_z;
@@ -1322,9 +1495,9 @@ void regions_to_voxelfiles() {
                     }
                 }
 
-                printf(" Converting.");
 
                 if (1) {
+                    printf(" Converting.");
                     for (int x = 0; x < 512; x++) {
                         BlockInfo** AZ=AX[x];
                         toggle2();
@@ -1370,10 +1543,6 @@ void regions_to_voxelfiles() {
                                             g_m=0;
                                             b_m=0;
                                         }
-
-//                                        r_m=255;
-//                                        g_m=0;
-//                                        b_m=0;
                                     }
 
                                     A->id=251;
@@ -1386,7 +1555,7 @@ void regions_to_voxelfiles() {
                                 ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
                                 scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
                             } else {
-                                scan_image.setPixel(x,z,sf::Color(255,255,255,255));
+                                scan_image.setPixel(x,z,sf::Color(0,0,0,0));
                             }
                         }
                     }
@@ -1397,26 +1566,26 @@ void regions_to_voxelfiles() {
                     while (update_request) {
                         sf::sleep(sf::seconds(0.005));
                     }
-                }
 
-                if (IdData_not_found_map.size()!=0) {
-                    printf("id+data -> No color for:\n");
-                    for (it_IdData_not_found_map = IdData_not_found_map.begin(); it_IdData_not_found_map != IdData_not_found_map.end(); it_IdData_not_found_map++) {
-                        int id=it_IdData_not_found_map->first >> 4;
-                        int data=it_IdData_not_found_map->first & 15;
-                        printf("ID=%3d DATA=%2d COUNT=%d\n",id,data,it_IdData_not_found_map->second);
+                    if (IdData_not_found_map.size()!=0) {
+                        printf("id+data -> No color for:\n");
+                        for (it_IdData_not_found_map = IdData_not_found_map.begin(); it_IdData_not_found_map != IdData_not_found_map.end(); it_IdData_not_found_map++) {
+                            int id=it_IdData_not_found_map->first >> 4;
+                            int data=it_IdData_not_found_map->first & 15;
+                            printf("ID=%3d DATA=%2d COUNT=%d\n",id,data,it_IdData_not_found_map->second);
+                        }
+                        IdData_not_found_map.clear();
                     }
-                    IdData_not_found_map.clear();
-                }
 
-                if (IdData_not_found_map2.size()!=0) {
-                    printf("id+0 -> No color for:\n");
-                    for (it_IdData_not_found_map = IdData_not_found_map2.begin(); it_IdData_not_found_map != IdData_not_found_map2.end(); it_IdData_not_found_map++) {
-                        int id=it_IdData_not_found_map->first >> 4;
-                        int data=it_IdData_not_found_map->first & 15;
-                        printf("ID=%3d DATA=%2d COUNT=%d\n",id,data,it_IdData_not_found_map->second);
+                    if (IdData_not_found_map2.size()!=0) {
+                        printf("id+0 -> No color for:\n");
+                        for (it_IdData_not_found_map = IdData_not_found_map2.begin(); it_IdData_not_found_map != IdData_not_found_map2.end(); it_IdData_not_found_map++) {
+                            int id=it_IdData_not_found_map->first >> 4;
+                            int data=it_IdData_not_found_map->first & 15;
+                            printf("ID=%3d DATA=%2d COUNT=%d\n",id,data,it_IdData_not_found_map->second);
+                        }
+                        IdData_not_found_map2.clear();
                     }
-                    IdData_not_found_map2.clear();
                 }
 
                 char done_dir[200];
@@ -1437,17 +1606,22 @@ void regions_to_voxelfiles() {
                 }
 
 
-                if (0) {
+                if (1) {
                     printf(" Clearing.\n",tmp);
                     editor.mca_coder.clearModification();
                 } else {
-                    sprintf(tmp, "/Saves/test/region/modified/done%d/r.%d.%d.mca", region_floor, region_x, region_z);
-                    sprintf(done_dir,"/Saves/test/region/modified/done%d",region_floor);
-                    mkdir("/Saves");
-                    mkdir("/Saves/test");
-                    mkdir("/Saves/test/region");
-                    mkdir("/Saves/test/region/modified");
+                    sprintf(tmp, "%s/modified/done%d/r.%d.%d.mca",region_filename.c_str(), region_floor, region_x, region_z);
+
+                    sprintf(done_dir,"/Saves/test/region/modified",region_floor);
                     mkdir(done_dir);
+                    sprintf(done_dir,"/Saves/test/region/modified/done%d",region_floor);
+                    mkdir(done_dir);
+//                    mkdir("/Saves");
+//                    mkdir("/Saves/test");
+//                    mkdir("/Saves/test/region");
+//                    mkdir("/Saves/test/region/modified");
+//                    mkdir(done_dir);
+
                     file_name_MCA = tmp;
                     printf("Saving modified region back to: %s\n",tmp);
                     first_MCEDIT=0; region_x_old=0; region_z_old=0;
@@ -1456,9 +1630,10 @@ void regions_to_voxelfiles() {
 
                 int n=0;
 
-                if (0) {
-                    printf(" Ok. Testing hidden. ");
-                    scan_image.create(512,512);
+//leuk
+
+                if (1) {
+                    scan_image.create(512,512,sf::Color(255,0,255,0));
 
                     int blocks_shown=0;
                     for (int x = 0; x < 512; x++) {
@@ -1521,7 +1696,33 @@ void regions_to_voxelfiles() {
                         sf::sleep(sf::seconds(0.005));
                     }
 
+
+
                     printf("\n%d blocks added to voxels\n",blocks_shown);
+
+                }
+
+                std::map<long long int, cubic_region>::iterator it2;
+
+                it2=it;
+                it2++;
+                bool next_stage=false;
+                if (it2 != cubic_regions_mapped.end()) {
+                    if (x!=it2->second.x || z!=it2->second.z) next_stage=true;
+                } else {
+                    next_stage=true;
+                }
+
+
+                if (1 && next_stage) {
+                    max_x=-std::numeric_limits<int>::max();
+                    min_x=std::numeric_limits<int>::max();
+
+                    max_z=-std::numeric_limits<int>::max();
+                    min_z=std::numeric_limits<int>::max();
+
+                    max_y=-std::numeric_limits<int>::max();
+                    min_y=std::numeric_limits<int>::max();
 
                     printf(" Ready. Converting to voxels .obj\n");
 
@@ -1598,36 +1799,42 @@ void regions_to_voxelfiles() {
                         } else {
                             printf("Error writing to %s\n",fname);
                         }
-                        if (1) {
-                            while (!voxels_total.size()==0) {
-                                printf("Waiting for voxels total to be cleared by thread...\n");
-                                sf::sleep(sf::seconds(5));
-                            }
-                            printf("Voxels total empty...filling (next).\n");
+
+                    }
+
+                    if (1) {
+                        while (!voxels_total.size()==0) {
+                            printf("Waiting for voxels total to be cleared by thread...\n");
+                            sf::sleep(sf::seconds(5));
+                        }
+                        printf("Voxels total empty...filling (next).\n");
 //                            voxels_total.clear();
-                            for ( auto u : voxels ) {
-                                voxels_total.push_back(u);
-                            }
-                            sprintf(voxel_file,"r.%d.%d.vox",x,z);
-                            printf(" Starting background thread with %s\n", voxel_file);
-                            in_background=false;
+                        for ( auto u : voxels ) {
+                            voxels_total.push_back(u);
+                        }
+                        sprintf(voxel_file,"r.%d.%d.vox",x,z);
+                        printf(" Starting background thread with %s\n", voxel_file);
+                        in_background=false;
+                        voxels.clear();
 
-                            voxels_to_object(voxel_file);
+                        voxels_to_object(voxel_file);
 
-                            //voxels_to_object_new_thread(voxel_file);
+                        //voxels_to_object_new_thread(voxel_file);
 //                            while (running_in_background>0) {
 //                                printf("Caller Waiting...\n");
 //                                sf::sleep(sf::seconds(10));
 //                            }
-                            printf(" Background thread ready, continuing\n");
-                        }
-                        voxels.clear();
+                        printf(" Background thread ready, continuing\n");
                     }
+//                } else {
+//                    it++;
                 }
                 MCEDITOR_running=0;
             }
+//leuk
             prev_x=x;
             prev_z=z;
+            voxels.clear();
             it++;
         }
         printf("\n");

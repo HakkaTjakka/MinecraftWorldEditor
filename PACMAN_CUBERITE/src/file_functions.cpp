@@ -1,5 +1,6 @@
 #define SFML_STATIC
 #undef UNICODE
+#include <conio.h>
 #include <wchar.h>
 #include <winsock2.h>
 #include <io.h>

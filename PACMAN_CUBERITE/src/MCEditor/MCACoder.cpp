@@ -1,14 +1,11 @@
+#include "MCACoder.h"
+//#include "MCEditor.h"
 #include <cstring>
 #include <cstdlib>
 #include <queue>
 #include <algorithm>
 #include "globals.h"
-#include "MCACoder.h"
-#include "MCEditor.h"
-
-
 using namespace std;
-extern MCEditor editor;
 
 string file_name_MCA;
 int region_x_old=0,region_z_old=0;
@@ -99,11 +96,9 @@ void MCACoder::setPOSITIONS() {
     }
 }
 
-
 void MCACoder::setBlock(const Pos &position, const BlockInfo &info)
 {
 
-//    ui** AZ_blocks=editor.blocks[1];
     //fprintf(stderr, "Setting (%d, %d, %d).\n", x, y, z);
     int x = position.x, z = position.z, y = position.y;
 
@@ -129,8 +124,7 @@ void MCACoder::setBlock(const Pos &position, const BlockInfo &info)
     int idx = (chunk_x & 31) + 32 * (chunk_z & 31);
     node *chunk_root = Chunk[idx];
 
-//    if (!chunk_root) { fprintf(stderr, "1) Chunk that contains (%d, %d, %d) not initialized\n", x, y, z); return; }
-    if (!chunk_root) { return; }
+    if (!chunk_root) { fprintf(stderr, "1) Chunk that contains (%d, %d, %d) not initialized\n", x, y, z); return; }
 
     modification_saved = false;
 
@@ -158,7 +152,6 @@ void MCACoder::setBlock(const Pos &position, const BlockInfo &info)
             T = sectionNodeWithY(sec_root, sec_no);
     }
 
-    if (!T && info.id==0) return;
     if (!T) { T = newSectionNodeWithY(sec_no); sec_root->addChild(T); }
         /*fprintf(stderr, "Section at Y = %d not initialized.\n", sec_no); return;*/
 
@@ -273,96 +266,8 @@ void reset_block() {
     getblock_old_sec_root=0;
 }
 
-
-
-//BlockInfo MCACoder::getBlock_FAST2(int x, int z, int y) {
-//}
-//using namespace MCEditor;
-//#include "mcedi"
-
-void MCACoder::getBlock_FAST(const MCRegion &region) {
-
-//    ui** AZ_skylight=skylight[3];
-
-    int n=0;
-    BlockInfo*** AX=region.A;
-    int num_blocks=0;
-    for (int x_outer = 0; x_outer < 512 ; x_outer+=16) {
-        int chunk_x = x_outer >> 4;
-        int region_x = chunk_x >> 5;
-        for (int z_outer = 0; z_outer < 512 ; z_outer+=16) {
-            int chunk_z = z_outer >> 4;
-            int region_z = chunk_z >> 5;
-            int idx = (chunk_x & 31) + 32 * (chunk_z & 31);
-            node *chunk_root = Chunk[idx];
-            if (!chunk_root) { continue; }
-            node *level_root = chunk_root->childWithName("Level");
-            node *sec_root = level_root->childWithName("Sections");
-            for (int y_outer = 0; y_outer < 256; y_outer+=16) {
-                int sec_no = y_outer >> 4;
-                node *T = sectionNodeWithY(sec_root, sec_no);
-                if (!T) { continue; }
-                node *u;
-
-                node *old_u_blocks = T->childWithName("Blocks");
-                node *old_u_add = T->childWithName("Add");
-                node *old_u_data = T->childWithName("Data");
-                node *old_u_blocklight=T->childWithName("BlockLight");
-                node *old_u_skylight = T->childWithName("SkyLight");
-
-                for (int x_inner = 0; x_inner < 16 ; x_inner++) {
-                    int x=x_outer + x_inner;
-                    BlockInfo** AZ=AX[x];
-                    for (int z_inner = 0; z_inner < 16 ; z_inner++) {
-                        int z=z_outer + z_inner;
-                        BlockInfo* AY=AZ[z];
-                        if (!(n++&31)) toggle2();
-
-
-                        for (int y_inner = 0; y_inner < 16 ; y_inner++) {
-                            int y=y_outer + y_inner;
-                            int block_pos = y_inner * 256 + z_inner * 16 + x_inner;
-
-
-                            int id= old_u_blocks->tag.va[block_pos];
-
-                            uc res;
-                            int add;
-                            if (old_u_add) {
-                                res = old_u_add->tag.va[block_pos >> 1];
-                                add = (block_pos & 1) ? ((res >> 4) & 0xF): (res & 0xF);
-                            } else add=0;
-
-                            int data;
-                            if (old_u_data) {
-                                res = old_u_data->tag.va[block_pos >> 1];
-                                data = (block_pos & 1) ? ((res >> 4) & 0xF): (res & 0xF);
-                            } else data=0;
-
-                            res = old_u_blocklight->tag.va[block_pos >> 1];
-                            int block_light = (block_pos & 1) ? ((res >> 4) & 0xF): (res & 0xF);
-
-                            res = old_u_skylight->tag.va[block_pos >> 1];
-                            int sky_light = (block_pos & 1) ? ((res >> 4) & 0xF): (res & 0xF);
-
-                            if (id!=0) {
-                                num_blocks++;
-                                AY[y]=BlockInfo(id,add,data,block_light,sky_light);
-                            } else {
-                                AY[y]=BlockInfo();
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-
 BlockInfo MCACoder::getBlock(int x, int z, int y)
 {
-
     int chunk_x = x >> 4, chunk_z = z >> 4;
     int region_x = chunk_x >> 5, region_z = chunk_z >> 5;
 
@@ -418,15 +323,8 @@ BlockInfo MCACoder::getBlock(int x, int z, int y)
 
 
     node *u;
-//    int block_x = (x & 15);
-//    int block_z = (z & 15);
-//    int block_y = (y & 15);
-//    int block_pos = block_y * 256 + block_z * 16 + block_x;
-    static int block_pos;
-
-    if (getblock_old_T!=T) {
-        block_pos = (x & 15)<<8 + (z & 15)<<4 + y;
-    }
+    int block_x = (x & 15), block_z = (z & 15), block_y = (y & 15);
+    int block_pos = block_y * 16 * 16 + block_z * 16 + block_x;
 
     static node *old_u_blocks=0;
 
@@ -438,9 +336,7 @@ BlockInfo MCACoder::getBlock(int x, int z, int y)
         old_u_blocks=u;
     }
 //    u = T->childWithName("Blocks");
-//uc NBTCoder::getByteInArrayContent(node* T, int idx)
-    int id= u->tag.va[block_pos];
-//    int id = nbt_coder.getByteInArrayContent(u, block_pos);
+    int id = nbt_coder.getByteInArrayContent(u, block_pos);
 
     static node *old_u_add=0;
 
@@ -454,6 +350,7 @@ BlockInfo MCACoder::getBlock(int x, int z, int y)
 //    u = T->childWithName("Add");
     int add = u ? nbt_coder.getHalfByteInArrayContent(u, block_pos) : 0;
 
+
     static node *old_u_data=0;
 
     if (getblock_old_T==T) {
@@ -465,6 +362,7 @@ BlockInfo MCACoder::getBlock(int x, int z, int y)
     }
 //    u = T->childWithName("Data");
     int data = u ? nbt_coder.getHalfByteInArrayContent(u, block_pos) : 0;
+
 
     static node *old_u_blocklight=0;
 
@@ -612,8 +510,7 @@ void MCACoder::insertBlockEntity(const Pos &position, BlockEntity *entity)
 void MCACoder::setHeightMap(int x, int z, int y)
 {
     node *chunk_root = chunkWithXZ(x, z);
-    if (!chunk_root) {
-        //fprintf(stderr,"4) Chunk that contains (%d, ?, %d) is unintialized", x, z);
+    if (!chunk_root) { fprintf(stderr,"4) Chunk that contains (%d, ?, %d) is unintialized", x, z);
         return;
     }
 
@@ -1105,3 +1002,116 @@ The most significant byte has a value from 0–14, representing the color of the
 
     return T;
 }
+
+
+/*
+void MCACoder::getBlock_FAST(const MCRegion &region) {
+
+//    ui** AZ_skylight=skylight[3];
+
+    int n=0;
+    BlockInfo*** AX=region.A;
+    int num_blocks=0;
+    for (int x_outer = 0; x_outer < 512 ; x_outer+=16) {
+        int chunk_x = x_outer >> 4;
+        int region_x = chunk_x >> 5;
+        for (int z_outer = 0; z_outer < 512 ; z_outer+=16) {
+            int chunk_z = z_outer >> 4;
+            int region_z = chunk_z >> 5;
+            int idx = (chunk_x & 31) + 32 * (chunk_z & 31);
+            node *chunk_root = Chunk[idx];
+            if (!chunk_root) {
+                for (int y_outer = 0; y_outer < 256; y_outer+=16) {
+                    for (int x_inner = 0; x_inner < 16 ; x_inner++) {
+                        int x=x_outer + x_inner;
+                        BlockInfo** AZ=AX[x];
+                        for (int z_inner = 0; z_inner < 16 ; z_inner++) {
+                            int z=z_outer + z_inner;
+                            BlockInfo* AY=AZ[z];
+                            if (!(n++&31)) toggle2();
+                            for (int y_inner = 0; y_inner < 16 ; y_inner++) {
+                                int y=y_outer + y_inner;
+                                AY[y]=BlockInfo();
+                            }
+                        }
+                    }
+                }
+                continue;
+            }
+            node *level_root = chunk_root->childWithName("Level");
+            node *sec_root = level_root->childWithName("Sections");
+            for (int y_outer = 0; y_outer < 256; y_outer+=16) {
+                int sec_no = y_outer >> 4;
+                node *T = sectionNodeWithY(sec_root, sec_no);
+                if (!T) {
+                    for (int x_inner = 0; x_inner < 16 ; x_inner++) {
+                        int x=x_outer + x_inner;
+                        BlockInfo** AZ=AX[x];
+                        for (int z_inner = 0; z_inner < 16 ; z_inner++) {
+                            int z=z_outer + z_inner;
+                            BlockInfo* AY=AZ[z];
+                            if (!(n++&31)) toggle2();
+                            for (int y_inner = 0; y_inner < 16 ; y_inner++) {
+                                int y=y_outer + y_inner;
+                                AY[y]=BlockInfo();
+                            }
+                        }
+                    }
+                    continue;
+                }
+                node *u;
+
+                node *old_u_blocks = T->childWithName("Blocks");
+                node *old_u_add = T->childWithName("Add");
+                node *old_u_data = T->childWithName("Data");
+                node *old_u_blocklight=T->childWithName("BlockLight");
+                node *old_u_skylight = T->childWithName("SkyLight");
+
+                for (int x_inner = 0; x_inner < 16 ; x_inner++) {
+                    int x=x_outer + x_inner;
+                    BlockInfo** AZ=AX[x];
+                    for (int z_inner = 0; z_inner < 16 ; z_inner++) {
+                        int z=z_outer + z_inner;
+                        BlockInfo* AY=AZ[z];
+                        if (!(n++&31)) toggle2();
+
+                        for (int y_inner = 0; y_inner < 16 ; y_inner++) {
+                            int y=y_outer + y_inner;
+                            int block_pos = y_inner * 256 + z_inner * 16 + x_inner;
+
+
+                            int id= old_u_blocks->tag.va[block_pos];
+
+                            uc res;
+                            int add;
+                            if (old_u_add) {
+                                res = old_u_add->tag.va[block_pos >> 1];
+                                add = (block_pos & 1) ? ((res >> 4) & 0xF): (res & 0xF);
+                            } else add=0;
+
+                            int data;
+                            if (old_u_data) {
+                                res = old_u_data->tag.va[block_pos >> 1];
+                                data = (block_pos & 1) ? ((res >> 4) & 0xF): (res & 0xF);
+                            } else data=0;
+
+                            res = old_u_blocklight->tag.va[block_pos >> 1];
+                            int block_light = (block_pos & 1) ? ((res >> 4) & 0xF): (res & 0xF);
+
+                            res = old_u_skylight->tag.va[block_pos >> 1];
+                            int sky_light = (block_pos & 1) ? ((res >> 4) & 0xF): (res & 0xF);
+
+                            if (id!=0) {
+                                num_blocks++;
+                                AY[y]=BlockInfo(id,add,data,block_light,sky_light);
+                            } else {
+                                AY[y]=BlockInfo();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+*/

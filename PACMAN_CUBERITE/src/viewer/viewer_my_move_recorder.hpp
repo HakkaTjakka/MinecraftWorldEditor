@@ -1,4 +1,5 @@
-float playbackspeed=0.002;
+
+float playbackspeed=0.015;
 
 FILE* movement_file=NULL;
 extern int extra_octants;
@@ -7,6 +8,16 @@ extern int GET_LAT_LON_FROM_FILE_LIST(char *naam);
 
 void start_view(FILE* file, char* filename) {
 //    fclose(file);
+    if (file_exists("playbackspeed.txt")) {
+        FILE* pbs=fopen("playbackspeed.txt","r");
+        char line[100];
+        fgets(line,100,pbs);
+        fclose(pbs);
+        while (replace_str(line,",","."));
+        sscanf(line,"%f",&playbackspeed);
+        printf("playbackspeed set to %f\n",playbackspeed);
+    }
+
     splines_loaded=false;
     char command[2000];
     sprintf(command,"del %s","markers_copy.txt");
@@ -51,9 +62,9 @@ void get_view(float &rotate_object_x, float &rotate_object_y, float &rotate_obje
         bmax[0]=int_bmax[0]; bmax[1]=int_bmax[1]; bmax[2]=int_bmax[2];
     }
     frustum_toggle=int_frustum_toggle;
-//    rotate_object_x=int_arr[16];
-//    rotate_object_y=int_arr[17];
-//    rotate_object_z=int_arr[18];
+    rotate_object_x=int_arr[16];
+    rotate_object_y=int_arr[17];
+    rotate_object_z=int_arr[18];
 //    if (set_end_of_movement) {
 //        interpolate_on=false;
 //        movement_file=NULL;
@@ -221,14 +232,15 @@ double splinterpEval( std::vector<cv::Vec4d> spline, double t ) {
 
 
 void interpolate_spline(int what) {
+    static bool loop_end=false;
     static int cnt;
     static double starting=0.0;
     static char line[4096];
     static int c=0;
     static char calc[4096];
     static char store[4096];
-    static char fline[4096];
-    static char fline2[4096];
+//    static char fline[4096];
+//    static char fline2[4096];
 
     //static keep data for ...
     static std::vector<double> s_q0; static std::vector<double> s_e0; static std::vector<double> s_l0; static std::vector<double> s_t0; static std::vector<double> s_p0;
@@ -260,6 +272,7 @@ void interpolate_spline(int what) {
 
 
     if (what==0) {
+        loop_end=false;
         s_q0.clear(); s_e0.clear(); s_l0.clear(); s_t0.clear(); s_p0.clear();
         s_q1.clear(); s_e1.clear(); s_l1.clear(); s_t1.clear();
         s_q2.clear(); s_e2.clear(); s_l2.clear(); s_t2.clear();
@@ -319,9 +332,19 @@ void interpolate_spline(int what) {
                     (float)int_arr[8],(float)int_arr[9],(float)int_arr[10],(float)int_arr[11],
                     (float)int_arr[12],(float)int_arr[13],(float)int_arr[14],(float)int_arr[15],
                     (float)int_arr[16],(float)int_arr[17],(float)int_arr[18]);
+
+/*
+            if (second) {
+                strcpy(fline2,line);
+                second=false;
+            }
             if (first) {
                 strcpy(fline,line);
+                first=false;
+                second=true;
             }
+*/
+
 /*
             fgets (line,2000, movement_file);
             while (replace_str(line,",","."));
@@ -506,10 +529,6 @@ void interpolate_spline(int what) {
         return;
     }
     if (what==1 || what==3) {
-        if (record_window && starting>0.0) {
-            record_pause=0;
-            show_text=false;
-        }
 
         if (!splines_loaded) {
             printf("No movement data in movement file. Press m to create markers, shift-P to load them.\n");
@@ -563,17 +582,24 @@ void interpolate_spline(int what) {
             printf("\rtime=%7.2f %5.2f%%",starting,100.0*perc);
         }
 
+
+        if (record_window && starting>0.0 && !loop_end) {
+            record_pause=0;
+            show_text=false;
+        }
+
         starting=starting+playbackspeed;
-        if ((int)starting>c-1) {
+        if ((int)starting>c-2) {
             printf("\n");
-            tt=1;
+            tt=0;
             starting=0.0;
             if (record_window) {
+                loop_end=true;
                 printf("Recording paused. Press shift-R to continue recording, r to stop\n");
                 record_pause=1;
             }
             printf("Setting start to 0.0\n");
-            stop_view();
+//            stop_view();
         }
 
 /*        if (tt>c-1) {
@@ -1994,7 +2020,7 @@ bool get_one_3d_init(int cur_x, std::string& my_area, int win_num, bool pac_obj2
         printf("get_one_3d_init(): Can not open file: %s\n",marker_filename.c_str());
         return false;
     }
-    char fline[2000]="";
+//    char fline[2000]="";
     if (fgets (line,2000, in)!=NULL ) {
         sscanf(line,"QUATS=%e %e %e %e EYE=%e %e %e LOOKAT=%e %e %e TRANSLATION=%e %e %e PERSPECTIVE=%e %e %e %e BMIN=%e %e %e BMAX=%e %e %e FRUSTUM=%d\n",
             &int_q[0], &int_q[1], &int_q[2], &int_q[3],
@@ -2136,7 +2162,7 @@ bool set_view_3d(int cur_x, std::string& my_area, int win_num, bool pac_obj2_arr
         printf("set_view_3d(): Can not open file: %s\n",marker_filename.c_str());
         return false;
     }
-    char fline[2000]="";
+//    char fline[2000]="";
     if (fgets (line,2000, in)!=NULL ) {
         sscanf(line,"QUATS=%e %e %e %e EYE=%e %e %e LOOKAT=%e %e %e TRANSLATION=%e %e %e PERSPECTIVE=%e %e %e %e BMIN=%e %e %e BMAX=%e %e %e FRUSTUM=%d\n",
             &int_q[0], &int_q[1], &int_q[2], &int_q[3],
@@ -2561,7 +2587,7 @@ bool reanalyse_3d(int cur_x, std::string& my_area, int win_num, bool pac_obj2_ar
         printf("get_one_3d_init(): Can not open file: %s\n",marker_filename.c_str());
         return false;
     }
-    char fline[2000]="";
+//    char fline[2000]="";
     if (fgets (line,2000, in)!=NULL ) {
         sscanf(line,"QUATS=%e %e %e %e EYE=%e %e %e LOOKAT=%e %e %e TRANSLATION=%e %e %e PERSPECTIVE=%e %e %e %e BMIN=%e %e %e BMAX=%e %e %e FRUSTUM=%d\n",
             &int_q[0], &int_q[1], &int_q[2], &int_q[3],

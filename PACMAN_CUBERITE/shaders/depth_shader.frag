@@ -3,14 +3,30 @@
 uniform int whattodo;
 uniform float wave_phase;
 uniform sampler2D the_texture;
+uniform sampler2D background_texture;
 uniform bool WIRE_FRAME;
 uniform bool TEXTURE_ARRAY;
 uniform bool COLOR_ARRAY;
+uniform vec4 background;
+uniform bool use_background;
+uniform vec2 mouse;
+uniform vec2 resolution;
+uniform float ratio;
+
 //uniform sampler2D texture;
+
+vec2 background_texture_size = textureSize(background_texture,0);
+const vec2 scale_background = vec2(1.0,-1.0)*resolution;
 
 //in vec3 my_normal;
 in vec3 kS_x_spec_;
 in float diff_;
+in vec3 ro;
+in vec3 n;
+in vec3 lp1;
+in vec3 lp2;
+in vec3 lp3;
+in vec3 lp4;
 
 //in mat4 my_modelviewmatrix;
 in vec4 out_color;
@@ -21,9 +37,6 @@ in float z_;
 //varying float hit_mouse;
 //varying float hit_center_rot;
 //varying float hit_center;
-uniform vec2 mouse;
-uniform vec2 resolution;
-uniform float ratio;
 
 //vec4 kS = vec4(0.0, 0.0, 0.0, 1.0);
 //vec4 kS = vec4(.2, .2, .2, 1.0);
@@ -69,19 +82,135 @@ void main() {
             }
             break;
         }
-        case 1 :
-        case 2 :
-        case 3 : {
+        case 3 :
             if (TEXTURE_ARRAY) {
+
                 vec4 kD;
-//                kD =  texture2D(the_texture,  gl_TexCoord[0].xy);
-                kD =  texture2D(the_texture,  vec2(gl_TexCoord[0].s,gl_TexCoord[0].t))*z_;
-//                kD =  texture2D(the_texture,  vec2(gl_MultiTexCoord0.s,gl_MultiTexCoord0.t));
+                vec4 kB;
+                kD =  texture2D(the_texture,  vec2(gl_TexCoord[0].s,gl_TexCoord[0].t));
 
-//              fragcolor = clamp(   vec4(kA.xyz + kD.xyz * (diff_ ) + kS_x_spec_, kD.a) , 0.0 , 1.0);
-              fragcolor = clamp(   vec4( kD.xyz * (diff_ ) + kS_x_spec_, kD.a) , 0.0 , 1.0);
+                float spec1 = (2.0) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.0,1.0);
+                float spec2 = (2.0) * clamp(pow(max( dot(reflect(lp2, n), ro), 0.), 120.),0.0,1.0);
 
-//              fragcolor = clamp(   vec4(kA.xyz + kD.xyz * (diff ) + kS.xyz * ( spec ), kD.a) , 0.0 , 1.0);
+                float diff1 = 1.5 * clamp(dot( n,lp1), 0.1, 1.);
+                float diff2 = 1.5 * clamp(dot( n,lp2), 0.2, 1.);
+
+//                diff = (diff1+diff2)/2.0;
+
+                float diff=diff1;
+                if (diff2>diff) diff=diff2;
+
+//                vec3 kS_x_spec;
+//                if (spec1>spec2) kS_x_spec =  spec1*vec3(1.0, 1.0, 1.0) + vec3(0.10, 0.10, 0.10);
+//                else             kS_x_spec =  spec2*vec3(1.0, 1.0, 1.0) + vec3(0.10, 0.10, 0.10);
+
+            vec3 kS_x_spec_1 =  spec1*vec3(0.5, .5, .5) + vec3(0.10, 0.10, 0.10);
+            vec3 kS_x_spec_2 =  spec2*vec3(.5, .5, .5) + vec3(0.10, 0.10, 0.10);
+            vec3 kS_x_spec = (kS_x_spec_1+kS_x_spec_2)/2.0;
+
+
+  //              if (whattodo==3)
+//                    fragcolor = kD;
+//                else
+//                    fragcolor = clamp(   vec4( kD.xyz * (diff_ ) + kS_x_spec_, kD.a) , 0.0 , 1.0);
+
+                    fragcolor = clamp(   vec4( kD.xyz * (diff ) + kS_x_spec, kD.a) , 0.0 , 1.0);
+
+
+//                vec2 p = vec2(1.0,1.0)*(vec2(gl_FragCoord.x,gl_FragCoord.y)) / resolution.xy;
+//                vec2 uv = (gl_FragCoord.xy) / resolution.xy;
+//                uv=vec2(uv.x,1.0-uv.y);
+//                vec2 uv = -p*vec2(resolution.x/resolution.y,1.0);
+//                kB=texture(background_texture,uv);
+
+//                kB =  texture2D(background_texture, ( vec2(gl_FragCoord.x,gl_FragCoord.y) / resolution ));
+
+////                fragcolor=(kD+kB)/2.0;
+//                if (kB.x<0.2 && +kB.y<0.2 && kB.z<0.2)
+//                    fragcolor=kB;
+//                else
+//                    fragcolor.xyz=clamp(fragcolor.xyz*clamp(z_,0.0,1.0) + kB.xyz*clamp(1.0-z_,0.0,1.0),0.0,1.0);
+//                fragcolor.xyz=clamp(fragcolor.xyz*clamp(z_,0.0,1.0) + background.xyz*clamp(1.0-z_,0.0,1.0),0.0,1.0);
+            }
+            else if (WIRE_FRAME) {
+                fragcolor=out_color;
+//                if (gl_FrontFacing)  fragcolor=vec4(0.0,0.0,1.0,0.5);
+//                else  fragcolor=vec4(1.0,0.0,0.0,1.0);
+//                fragcolor=vec4(gl_SamplePosition.x,0.0,gl_SamplePosition.y,1.0);
+//                fragcolor=vec4(gl_PointCoord.x,0.0,gl_PointCoord.y,1.0);
+//                if ( (gl_SampleID%4)==1 ) fragcolor=vec4(0.0,0.0,1.0,1.0);
+//                else if ( (gl_SampleID%4)==0 ) fragcolor=vec4(1.0,1.0,0.0,1.0);
+//                else if ( (gl_SampleID%4)==3 ) fragcolor=vec4(0.0,1.0,0.0,1.0);
+//                else if ( (gl_SampleID%4)==2 ) fragcolor=vec4(1.0,0.0,0.0,1.0);
+//                else if ( (gl_PrimitiveID%16)==5) fragcolor=vec4(0.0,0.0,1.0,1.0);
+//                else if ( (gl_PrimitiveID%16)==7) fragcolor=vec4(0.0,0.0,1.0,1.0);
+//                else if ( (gl_PrimitiveID%16)==9) fragcolor=vec4(0.0,0.0,1.0,1.0);
+//                else if ( (gl_PrimitiveID%16)==11) fragcolor=vec4(0.0,0.0,1.0,1.0);
+//                else if ( (gl_PrimitiveID%16)==13) fragcolor=vec4(0.0,0.0,1.0,1.0);
+//                else if ( (gl_PrimitiveID%16)==15) fragcolor=vec4(0.0,0.0,1.0,1.0);
+//                else if ( (gl_PrimitiveID%12)==0) fragcolor=vec4(0.0,0.0,1.0,1.0);
+//                else fragcolor=vec4(1.0,0.0,0.0,0.0);
+                break;
+            }
+            if (COLOR_ARRAY) {
+                fragcolor=out_color;
+            }
+            break;
+
+
+
+        case 1 :
+        case 2 : {
+            if (TEXTURE_ARRAY) {
+
+                vec4 kD;
+                vec4 kB;
+                kD =  texture2D(the_texture,  vec2(gl_TexCoord[0].s,gl_TexCoord[0].t));
+
+                float spec1 = (1.8) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.0,1.0);
+                float spec2 = (1.8) * clamp(pow(max( dot(reflect(lp2, n), ro), 0.), 120.),0.0,1.0);
+                float spec3 = (1.8) * clamp(pow(max( dot(reflect(lp3, n), ro), 0.), 120.),0.0,1.0);
+                float spec4 = (1.8) * clamp(pow(max( dot(reflect(lp4, n), ro), 0.), 120.),0.0,1.0);
+
+                float diff1 = 1.5 * clamp(dot( n,lp1), 0.1, 1.);
+                float diff2 = 1.5 * clamp(dot( n,lp2), 0.2, 1.);
+                float diff3 = 1.5 * clamp(dot( n,lp3), 0.05,1.);
+                float diff4 = 1.5 * clamp(dot( n,lp4), 0.0, 1.);
+
+    //            diff_ = (diff1+diff2)/2.0;
+    //            diff_ = diff1;
+    //            diff_ = diff2;
+                float diff=diff1;
+                if (diff2>diff) diff=diff2;
+                if (diff3>diff) diff=diff3;
+                if (diff4>diff) diff=diff4;
+
+                vec3 kS_x_spec;
+                if (spec1>spec2) kS_x_spec =  spec1*vec3(1.0, 1.0, 1.0) + vec3(0.10, 0.10, 0.10);
+                else             kS_x_spec =  spec2*vec3(1.0, 1.0, 1.0) + vec3(0.10, 0.10, 0.10);
+
+  //              if (whattodo==3)
+//                    fragcolor = kD;
+//                else
+//                    fragcolor = clamp(   vec4( kD.xyz * (diff_ ) + kS_x_spec_, kD.a) , 0.0 , 1.0);
+
+                    fragcolor = clamp(   vec4( kD.xyz * (diff ) + kS_x_spec, kD.a) , 0.0 , 1.0);
+
+
+                vec2 p = vec2(1.0,1.0)*(vec2(gl_FragCoord.x,gl_FragCoord.y)) / resolution.xy;
+                vec2 uv = (gl_FragCoord.xy) / resolution.xy;
+                uv=vec2(uv.x,1.0-uv.y);
+//                vec2 uv = -p*vec2(resolution.x/resolution.y,1.0);
+//                kB=texture(background_texture,uv);
+
+//                kB =  texture2D(background_texture, ( vec2(gl_FragCoord.x,gl_FragCoord.y) / resolution ));
+
+////                fragcolor=(kD+kB)/2.0;
+//                if (kB.x<0.2 && +kB.y<0.2 && kB.z<0.2)
+//                    fragcolor=kB;
+//                else
+//                    fragcolor.xyz=clamp(fragcolor.xyz*clamp(z_,0.0,1.0) + kB.xyz*clamp(1.0-z_,0.0,1.0),0.0,1.0);
+//                fragcolor.xyz=clamp(fragcolor.xyz*clamp(z_,0.0,1.0) + background.xyz*clamp(1.0-z_,0.0,1.0),0.0,1.0);
             }
             else if (WIRE_FRAME) {
                 fragcolor=out_color;

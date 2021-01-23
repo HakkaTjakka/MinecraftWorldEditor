@@ -1318,6 +1318,7 @@ extern double pixels_per_block_glob_rev;
 
 //                    if (cube_x>=0 && cube_x<256) {
                         one=Voxel(cube_x,cube_y,cube_z,pixel.r,pixel.g,pixel.b,1,1);
+//                        printf("X=%3d Y=%3d Z=%3d\n",cube_x,cube_y,cube_z);
     //                    one=Voxel((int)v_x,(int)v_y,(int)v_z,pixel.r,pixel.g,pixel.b,1,0);
                         mini_voxel.push_back(one);
                         check_tot_hits++;

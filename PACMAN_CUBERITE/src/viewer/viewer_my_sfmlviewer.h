@@ -1,8 +1,161 @@
+extern sf::Texture texture_from_ffmpeg;
+extern int ffmpegfile;
+
 extern bool make_regions;
 extern bool flushing_mode;
 void one_region_voxel_files_to_region_files(bool display_only, char* voxel_filename);
 
+#include <SFML/Graphics.hpp>
+#include <Windows.h>
+
+#include <Dwmapi.h>
+
+#pragma comment (lib, "Dwmapi.lib")
+extern bool dont_slow_down;
+
 extern char voxel_filename[];
+extern bool screensaver;
+
+DWMAPI DwmEnableBlurBehindWindow(
+  HWND                 hWnd,
+  const DWM_BLURBEHIND *pBlurBehind
+);
+
+HRESULT EnableBlurBehind(HWND hwnd)
+{
+   HRESULT hr = S_OK;
+
+   // Create and populate the Blur Behind structure
+   DWM_BLURBEHIND bb = {0};
+
+   // Enable Blur Behind and apply to the entire client area
+   bb.dwFlags = DWM_BB_ENABLE;
+   bb.fEnable = true;
+   bb.hRgnBlur = NULL;
+
+   // Apply Blur Behind
+   hr = DwmEnableBlurBehindWindow(hwnd, &bb);
+   if (SUCCEEDED(hr))
+   {
+      // ...
+   }
+   return hr;
+}
+
+
+bool setShape2(HWND hWnd, const sf::Image& image)
+{
+
+    // Create a DC for our bitmap
+    EnableBlurBehind(hWnd);
+    HDC hdcWnd = GetDC(hWnd);
+
+    HDC hdc = CreateCompatibleDC(hdcWnd);
+
+    // The window has to be layered if you want transparency
+    SetWindowLong(hWnd, GWL_EXSTYLE, GetWindowLong(hWnd, GWL_EXSTYLE) | WS_EX_LAYERED);
+
+    // Create our DIB section and select the bitmap into the DC
+
+    void* pvBits;
+    BITMAPINFO bmi;
+    ZeroMemory(&bmi, sizeof(BITMAPINFO));
+    bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+    bmi.bmiHeader.biWidth = image.getSize().x;
+    bmi.bmiHeader.biHeight = image.getSize().y;
+    bmi.bmiHeader.biPlanes = 1;
+    bmi.bmiHeader.biBitCount = 32;         // four 8-bit components
+    bmi.bmiHeader.biCompression = BI_RGB;
+    bmi.bmiHeader.biSizeImage = image.getSize().x * image.getSize().y * 4;
+
+    HBITMAP hbitmap = CreateDIBSection(hdc, &bmi, DIB_RGB_COLORS, &pvBits, NULL, 0x0);
+
+    SelectObject(hdc, hbitmap);
+
+    // Copy the pixels from the image to the bitmap (but pre-multiply the alpha value)
+    const sf::Uint8* pixelData = image.getPixelsPtr();
+    const int x_s=image.getSize().x;
+    const int y_s=image.getSize().y;
+
+    int t=0;
+
+    int a= y_s*x_s - x_s;
+    for (unsigned int y = 0; y < y_s; ++y)
+    {
+        for (unsigned int x = 0; x < x_s; ++x)
+        {
+            float fAlphaFactor = (float)pixelData[t + 3] / (float)0xff;
+
+            ((UINT32 *)pvBits)[x - y*x_s + a]
+                = (pixelData[t + 3] << 24) |                        //0xaa000000
+                 ((UCHAR)(pixelData[t] * fAlphaFactor) << 16) |     //0x00rr0000
+                 ((UCHAR)(pixelData[t + 1] * fAlphaFactor) << 8) |  //0x0000gg00
+                 ((UCHAR)(pixelData[t + 2]   * fAlphaFactor));      //0x000000bb
+            t+=4;
+        }
+    }
+
+    // Put the image on the screen
+    POINT ptSrc = {0, 0};
+    SIZE sizeWnd = {(long)image.getSize().x, (long)image.getSize().y};
+    BLENDFUNCTION bf;
+    bf.BlendOp = AC_SRC_OVER;
+    bf.BlendFlags = 0;
+    bf.AlphaFormat = AC_SRC_ALPHA;
+    bf.SourceConstantAlpha = 128;
+    UpdateLayeredWindow(hWnd, NULL, NULL, &sizeWnd, hdc, &ptSrc, 0, &bf, ULW_ALPHA);
+
+
+    // Cleanup
+    DeleteObject(hbitmap);
+    DeleteDC(hdc);
+    DeleteDC(hdcWnd);
+
+}
+
+
+bool setShape(HWND hWnd, const sf::Image& image)
+{
+    const sf::Uint8* pixelData = image.getPixelsPtr();
+    HRGN hRegion = CreateRectRgn(0, 0, image.getSize().x, image.getSize().y);
+
+    // Determine the visible region
+    for (unsigned int y = 0; y < image.getSize().y; y++)
+    {
+        for (unsigned int x = 0; x < image.getSize().x; x++)
+        {
+
+            if (pixelData[y * image.getSize().x * 4 + x * 4 + 3] == 0)
+            {
+                HRGN hRegionDest = CreateRectRgn(0, 0, 1, 1);
+                HRGN hRegionPixel = CreateRectRgn(x, y, x+1, y+1);
+                CombineRgn(hRegionDest, hRegion, hRegionPixel, RGN_XOR);
+                DeleteObject(hRegion);
+                DeleteObject(hRegionPixel);
+                hRegion = hRegionDest;
+            }
+        }
+    }
+
+    SetWindowRgn(hWnd, hRegion, true);
+    DeleteObject(hRegion);
+    return true;
+}
+
+bool setTransparency(HWND hWnd, unsigned char alpha)
+{
+    SetWindowLong(hWnd, GWL_EXSTYLE, GetWindowLong(hWnd, GWL_EXSTYLE) | WS_EX_LAYERED);
+
+//    SetLayeredWindowAttributes(hWnd, 0, alpha, LWA_ALPHA);
+//    SetLayeredWindowAttributes(hWnd, RGB(200,100,50), alpha, LWA_ALPHA);
+    SetLayeredWindowAttributes(hWnd, 0, alpha, LWA_COLORKEY);
+//    SetLayeredWindowAttributes(hWnd, RGB(200,100,50), alpha, LWA_COLORKEY);
+
+    return true;
+
+}
+
+
 
 void GLAPIENTRY MessageCallback( GLenum source,
                  GLenum type,
@@ -35,6 +188,8 @@ void SFMLGL2_THREAD()
 //hoppa
 //    SFMLView1.resetGLStates();
 }
+extern char send_message;
+extern bool roelof;
 
 void SFMLGL2_b_THREAD()
 {
@@ -144,6 +299,8 @@ void launch_SFMLGL2_b()
     SFMLGL2_b_running=1;
     if (init_window_ok[1]==false) reset_text(1);
     init_window_ok[1]=true;
+//    if (roelof) videomode[1]==0;
+
     SFMLGL2_b.launch();
 }
 
@@ -275,7 +432,13 @@ int do_SFMLGL2(int what)
                 first=1;
             }
             if (area!="Models" && area!="Canvas") lat_lon=get_lat_lon(area);
-            else { lat_lon.x=999; lat_lon.y=999; }
+            else {
+//                if (area=="Models") {
+//                    max_x=-1;max_y=-1;
+//                    str=get_area_data(area,max_x,max_y);
+//                }
+                lat_lon.x=999; lat_lon.y=999;
+            }
 //            else { lat_lon.x=0; lat_lon.y=0; }
 
             if (first==1 || lat_lon.x!=999) {
@@ -480,8 +643,17 @@ bool rot_plot=false;
 
 bool depth_shader_on=false;
 
+sf::Color color_behind;
 int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, int yo_combine)
 {
+    sf::RenderTexture between_texture;
+    sf::Sprite between_sprite;
+//    between_texture.create(1920,1080,true);
+//    between_sprite.setTexture(between_texture.getTexture(),true);
+//     sf::Texture::bind(&between_texture.getTexture());
+
+    bool plot_background=false;
+    bool by_texture=false;
     rot_plot=false;
     bool do_model=false;
     if (!depth_shader.loadFromFile("shaders/depth_shader.vert","shaders/depth_shader.frag"))
@@ -578,6 +750,15 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
     speed_base=0.0;
     smooth_x_old=0.0;
     smooth_y_old=0.0;
+    bool transparant=false;
+
+//    sf::Texture backgroundTexture;
+//    sf::Sprite backgroundSprite;
+//    backgroundTexture.loadFromFile("resources/background.png");
+//    backgroundSprite.setTexture(backgroundTexture,true);
+
+    sf::View viewer;
+    sf::IntRect rect;
     while (keep_running[win_num]) {
         exit_code=0;
         exit_thread=0;
@@ -613,6 +794,7 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
 
         static sf::Vector2u old_size[10];
         static sf::Vector2i old_pos[10];
+//extern int screensaver;
         if (first_hoppa==1) {
             first_hoppa=0;
             for (int i=0; i<10; i++) {
@@ -620,8 +802,14 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                     old_size[i] = ( sf::Vector2u(1920,1080) );
                     old_pos[i]  = ( sf::Vector2i(0,0) );
                 } else {
-                    old_size[i] = ( sf::Vector2u(1920/2.0,1080/2.0) );
-                    old_pos[i]  = ( sf::Vector2i(1920/2.0-1920/4.0,1080/2.0-1080/4.0) );
+                    if (screensaver) {
+                        old_size[i] = ( sf::Vector2u(1922,1082) );
+//                        old_size[i] = ( sf::Vector2u(1918,1078) );
+                        old_pos[i]  = ( sf::Vector2i(0,0) );
+                    } else {
+                        old_size[i] = ( sf::Vector2u(1920/2.0,1080/2.0) );
+                        old_pos[i]  = ( sf::Vector2i(1920/2.0-1920/4.0,1080/2.0-1080/4.0) );
+                    }
                 }
             }
         }
@@ -708,7 +896,21 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
 //            }
 
 
-            window.setActive(true);
+/*
+            glGenTextures(1, &between_texture);
+            glBindTexture(GL_TEXTURE_2D, between_texture);
+    //        gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA, between_texture.getWidth(), between_texture.getHeight(), GL_RGBA, GL_UNSIGNED_BYTE, image.getPixelsPtr());
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+*/
+
+            if (by_texture) {
+                between_texture.setView(between_texture.getDefaultView());
+                glViewport(0,0,1920,1080);
+                sf::Texture::bind(&between_texture.getTexture(),sf::Texture::CoordinateType::Pixels);
+                between_texture.setActive(true);
+            }
+            else window.setActive(true);
 
 
 //            main_fly_de_poppa(1,window,0.0);
@@ -839,7 +1041,8 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                 return 0;
             }
 
-            window.setActive(true);
+            if (by_texture) between_texture.setActive(true);
+            else window.setActive(true);
 //hopla
 //            if (false == launch_OBJLOADER(pac_obj.bmin, pac_obj.bmax, pac_obj.gDrawObjects, pac_obj.materials, pac_obj.textures, filename, win_num))
 
@@ -989,7 +1192,8 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
 //            main_fly2(window,event,event_system,width2,height2, 0);
 
             if (loaded==1) printf("f");
-            window.setActive(false);
+            if (by_texture) between_texture.setActive(false);
+            else window.setActive(false);
 
             sf::Clock clock;
             bool mipmapEnabled = true;
@@ -1012,8 +1216,75 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
 
             if (area=="Models") do_model=true;
             else do_model=false;
+            bool oldfocus=true;
             while (window.isOpen() && exit_thread==0)
             {
+                static int teller=0;
+                teller++;
+                if (teller>120) {
+                    teller=0;
+                    if (!window.hasFocus() && oldfocus==true) oldfocus=false;
+                    if (window.hasFocus() && oldfocus==false) {
+                        oldfocus=true;
+                        reset_text(win_num);
+                        printf("RESET\n");
+
+/*
+                        sf::Vector2u old_size=window.getSize();
+                        sf::Vector2i old_pos=window.getPosition();
+
+                        window.close();
+                        if (videomode[win_num]==0) {
+                            if (transparant) {
+                                const unsigned char opacity = 255;
+                                sf::Image backgroundImage;
+                                backgroundImage.create(1922,1082,sf::Color(255,255,255,1));
+                                window.create(sf::VideoMode(backgroundImage.getSize().x, backgroundImage.getSize().y, 32), "Transparent Window", sf::Style::None ,contextSettings);
+//                                        window.setPosition(-1,-1);
+
+                                setShape(window.getSystemHandle(), backgroundImage);
+                                setTransparency(window.getSystemHandle(), opacity);
+                                window.setVerticalSyncEnabled(true);
+//                                        glViewport(0, 0, 1922,1082);
+                            } else {
+                                window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Fullscreen, contextSettings);
+//                                        glViewport(0, 0, 1920,1080);
+                            }
+                        }
+                        else {
+                            if (transparant) {
+                                const unsigned char opacity = 255;
+                                sf::Image backgroundImage;
+                                backgroundImage.create(1922,1082,sf::Color(255,255,255,1));
+                                window.create(sf::VideoMode(backgroundImage.getSize().x, backgroundImage.getSize().y, 32), "Transparent Window", sf::Style::None ,contextSettings);
+                                setShape(window.getSystemHandle(), backgroundImage);
+                                setTransparency(window.getSystemHandle(), opacity);
+                                window.setVerticalSyncEnabled(true);
+//                                        glViewport(0, 0, 1922,1082);
+
+                            } else {
+                                window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close , contextSettings);
+//                                        glViewport(0, 0, 1920,1080);
+                            }
+                        }
+                        window.setSize(old_size);
+                        window.setPosition(old_pos);
+                        window.setActive(true);
+                        glViewport(0, 0, window.getSize().x, window.getSize().y);
+                        window.setActive(false);
+*/
+                    }
+/*
+                    viewer=window.getView();
+                    rect = window.getViewport(viewer);
+                    sf::FloatRect viewrect=viewer.getViewport();
+                    printf("viewer  =%f %f %f %f\n",viewrect.left, viewrect.top, viewrect.width, viewrect.height);
+                    printf("viewport=%d %d %d %d\n",rect.left, rect.top, rect.width, rect.height);
+                    teller=0;
+                    window.setView(window.getDefaultView());
+*/
+                }
+
                 static bool pull_off=false;
                 static bool pull_off2=false;
                 static bool flick=false;
@@ -1075,7 +1346,7 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                 static bool event_happened;
                 event_happened=false;
 
-                static bool plot_func;
+                static bool plot_func=false;
 //fixed3
 //                plot_func=false;
 
@@ -1181,7 +1452,69 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                     make_regions=true;
                     crossing=0; mirror=0;
                 }
-extern char send_message;
+                if (screensaver) {
+
+                }
+                if (screensaver) {
+
+                    static int roelof_count=5;
+                    if (roelof_count) roelof_count--;
+                    if (roelof_count==1) {
+    //                    switch_to_full_screen=1;
+                        const unsigned char opacity = 255;
+                        sf::Image backgroundImage;
+                        backgroundImage.create(1922,1082,sf::Color(255,255,255,1));
+//                        backgroundImage.loadFromFile("resources/trans1918x1078_hole.png");
+//                        backgroundImage.loadFromFile("trans1918x1078.png");
+    //                        backgroundImage.loadFromFile("image960x540.png");
+                        contextSettings.minorVersion = 3;
+                        contextSettings.majorVersion = 3;
+                        contextSettings.antialiasingLevel = 15;
+//                        printf("%d,%d\n",backgroundImage.getSize().x/2,backgroundImage.getSize().y/2);
+                        window.create(sf::VideoMode(backgroundImage.getSize().x, backgroundImage.getSize().y, 32), "Transparent Window", sf::Style::None ,contextSettings);
+//                        window.setPosition(sf::Vector2i((sf::VideoMode::getDesktopMode().width - backgroundImage.getSize().x) / 2,
+//                                                        (sf::VideoMode::getDesktopMode().height - backgroundImage.getSize().y) / 2));
+                        window.setPosition(sf::Vector2i(-1,-1));
+//                        glViewport(0, 0, 1922,1082);
+
+                        // These functions return false on an unsupported OS or when it is not supported on linux (e.g. display doesn't support shape extention)
+                        setShape(window.getSystemHandle(), backgroundImage);
+//                        setShape2(window.getSystemHandle(), backgroundImage);
+                        setTransparency(window.getSystemHandle(), opacity);
+                        window.setVerticalSyncEnabled(true);
+                    }
+                    if (roelof && roelof_count>0) {
+    //                    switch_to_full_screen=1;-map "[v]""
+                        ShowCursor(false);
+
+                        if (!depth_shader.loadFromFile("shaders/depth_shader.vert","shaders/depth_shader.frag"))
+                        {
+                            printf("FRAGMENT SHADER ERROR: %s\n","shaders/depth_shader.frag");
+                        } else {
+    //                                                depth_shader.setUniform("texture", sf::Shader::CurrentTexture);
+                            depth_shader.setUniform("the_texture", sf::Shader::CurrentTexture);
+                            depth_shader.setUniform("wave_amplitude", sf::Vector2f(5.0, 5.0));
+                            depth_shader.setUniform("WIRE_FRAME", WIRE_FRAME);
+                            depth_shader.setUniform("TEXTURE_ARRAY", TEXTURE_ARRAY);
+                            depth_shader.setUniform("COLOR_ARRAY", COLOR_ARRAY);
+                            printf("FRAGMENT SHADER LOADED: %s\n","shaders/depth_shader.frag");
+                        }
+                        show_text=false;
+                        whattodo=2;
+                        sf::Shader::bind(&depth_shader);
+                        depth_shader_on=true;
+
+                        interpolate_on=true;
+                        splines_loaded=false;
+                        start_view(marker_file,marker_filename);
+
+                        roelof=false;
+    //                    switch_to_full_screen=true;
+                        window.requestFocus();
+                    }
+
+                }
+
                 if (make_regions) {
 //tuuttuut2
 //                    flushing_mode=true;
@@ -1240,8 +1573,13 @@ extern char send_message;
                 if (plot_quick) {
                     plot_quick_func(lat,lon,area,win_num,window,eye2,perspective,frustum_toggle,maxExtent,lookat2,up2,
                     move_object_x,move_object_y,move_object_z,translation,curr_quat2, bmin, bmax);
-                    window.setActive(false);
-                    window.display();
+                    if (by_texture) {
+                        between_texture.setActive(false);
+                        between_texture.display();
+                    } else {
+                        window.setActive(false);
+                        window.display();
+                    }
                     continue;
                 }
                 if (plot_func) {
@@ -1252,8 +1590,14 @@ extern char send_message;
 
                     #include "viewer_my_text.h"
 
-                    window.setActive(false);
-                    window.display();
+                    if (by_texture) {
+                        between_texture.setActive(false);
+                        between_texture.display();
+                    } else {
+                        window.setActive(false);
+                        window.display();
+                    }
+//                    sf::sleep(sf::milliseconds(5));
                     continue;
                 }
 
@@ -1277,6 +1621,7 @@ extern char send_message;
                 if (burn) running_3d[win_num]=true;
 
                 if (switch_to_full_screen && videomode[win_num]==1) {
+                    window.setActive(false);
                     switch_to_full_screen=false;
                     if (videomode[win_num]==1) {
                         videomode[win_num]=0;
@@ -1285,12 +1630,6 @@ extern char send_message;
                     } else {
                         videomode[win_num]=1;
                     }
-                    window.clear(sf::Color(255,0,0,255));
-                    window.display();
-                    window.clear(sf::Color(255,255,255,255));
-                    window.display();
-                    window.clear(sf::Color(0,0,255,255));
-                    window.display();
                     window.clear(sf::Color(255,255,0,255));
                     window.display();
                     contextSettings.minorVersion = 3;
@@ -1302,7 +1641,7 @@ extern char send_message;
                     else {
                         window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close , contextSettings);
                     }
-                    window.setFramerateLimit(60);
+//                    window.setFramerateLimit(60);
 //                    window.setVerticalSyncEnabled(true);
                     hglrc[win_num] = wglGetCurrentContext();
                     hwnd[win_num] = window.getSystemHandle();
@@ -1312,9 +1651,7 @@ extern char send_message;
                     window.setPosition(old_pos[win_num]);
                     width2 = old_size[win_num].x;
                     height2 = old_size[win_num].y;
-//                    window.clear(sf::Color(50,20,30,128));
-//kloten
-                    window.clear(sf::Color(0,0,0,0));
+                    window.clear(sf::Color(50,20,30,128));
                     window.display();
 
                     auto win = window.getSystemHandle();
@@ -1322,7 +1659,11 @@ extern char send_message;
                     auto ex_style = GetWindowLong(win, GWL_EXSTYLE);
 
 //                    window.setVerticalSyncEnabled(true);
-                    window.setActive(true);
+                    if (by_texture) {
+                        between_texture.setActive(true);
+                    } else {
+                        window.setActive(true);
+                    }
 
                     if (depth_shader_on) {
                         sf::Shader::bind(&depth_shader);
@@ -1333,7 +1674,7 @@ extern char send_message;
                     else perspective[1]=1920.0/1080.0;
                     for (int n=0; n<10; n++) {
                         window.pollEvent(event);
-                        sf::sleep(sf::microseconds(10));
+                        sf::sleep(sf::microseconds(1));
                     }
                 } else {
                     switch_to_full_screen=false;
@@ -1463,7 +1804,12 @@ extern char send_message;
                             frustum_count_y=local_request_3d_y;
                             remember_911_2=true;
                             if (burn) {
-                                window.setActive(true);
+                                if (by_texture) {
+                                    between_texture.setActive(true);
+                                } else {
+                                    window.setActive(true);
+                                }
+
                                 running_3d[win_num]=true;
 
                                 if (mirror!=0 && !(load_3d_objects(frustum_count_x,frustum_count_y, my_area,  pac_obj2_arr_used,pac_obj2_arr, win_num, window))) {
@@ -1476,12 +1822,22 @@ extern char send_message;
                                 printf("Model/area: %s %s ",area.c_str(),my_area.c_str());
                                 plot_it( lat,lon,area,win_num,window,eye2,perspective,frustum_toggle,maxExtent,lookat2,up2,
                                 move_object_x,move_object_y,move_object_z,translation,curr_quat2, bmin, bmax);
-                                window.draw(sprite_shit);
-                                window.display();
+                                if (by_texture) {
+                                    between_texture.draw(sprite_shit);
+                                    between_texture.display();
+                                } else {
+                                    window.draw(sprite_shit);
+                                    window.display();
+                                }
                                 plot_it( lat,lon,area,win_num,window,eye2,perspective,frustum_toggle,maxExtent,lookat2,up2,
                                 move_object_x,move_object_y,move_object_z,translation,curr_quat2, bmin, bmax);
-                                window.draw(sprite_shit);
-                                window.display();
+                                if (by_texture) {
+                                    between_texture.draw(sprite_shit);
+                                    between_texture.display();
+                                } else {
+                                    window.draw(sprite_shit);
+                                    window.display();
+                                }
 
                                 texture1_local.update(window);
 
@@ -1543,17 +1899,35 @@ extern char send_message;
                                     }
                                     plot_it( lat,lon,area,win_num,window,eye2,perspective,frustum_toggle,maxExtent,lookat2,up2,
                                     move_object_x,move_object_y,move_object_z,translation,curr_quat2, bmin, bmax);
-                                    window.draw(sprite_shit);
-                                    if (frustum_count_x==frustum_size_x-1 && frustum_count_y==frustum_size_y-1) {
-                                        window.pushGLStates();
-                                        text_mutex.lock();
-                                        text_text->setPosition( 266,(float)(1080-30));
-                                        window.draw(*text_text);
-                                        text_mutex.unlock();
-                                        window.popGLStates();
+                                    if (by_texture) {
+                                        between_texture.draw(sprite_shit);
+                                    } else {
+                                        window.draw(sprite_shit);
                                     }
-                                    window.display();
-                                    texture1_local.update(window);
+                                    if (frustum_count_x==frustum_size_x-1 && frustum_count_y==frustum_size_y-1) {
+                                        if (by_texture) {
+                                            between_texture.pushGLStates();
+                                            text_mutex.lock();
+                                            text_text->setPosition( 266,(float)(1080-30));
+                                            between_texture.draw(*text_text);
+                                            text_mutex.unlock();
+                                            between_texture.popGLStates();
+                                        } else {
+                                            window.pushGLStates();
+                                            text_mutex.lock();
+                                            text_text->setPosition( 266,(float)(1080-30));
+                                            window.draw(*text_text);
+                                            text_mutex.unlock();
+                                            window.popGLStates();
+                                        }
+                                    }
+                                    if (by_texture) {
+                                        between_texture.display();
+                                        texture1_local.update(between_texture.getTexture());
+                                    } else {
+                                        window.display();
+                                        texture1_local.update(window);
+                                    }
                                     sprintf(naam,"%s/out/picture.%06d.%06d.png",MODELS,(b_o_y),(b_o_x));
                                     texture1_local.copyToImage().saveToFile(naam);
                                     printf("Saved %s\n",naam);
@@ -1600,7 +1974,18 @@ extern char send_message;
                 }
                 if (burn) remember_911_2=true;
 
-                window.setActive(true);
+//                window.clear(sf::Color::Transparent);
+//                        window.setActive(false);
+//                        sf::sleep(sf::milliseconds(1));
+//                        window.display();
+//                        window.setActive(true);
+
+                if (by_texture) {
+                    between_texture.setActive(true);
+                } else {
+                    window.setActive(true);
+                }
+
                 if (loaded==1) printf("i");
 
 //                float fun_r=0.5+sin(run_time/(14.0+sin(run_time/30.123)*6))/2;
@@ -1608,12 +1993,19 @@ extern char send_message;
 //                float fun_b=0.5+sin(run_time/(18.343+sin(run_time/43.3243)*8))/2;
 
 //kloten
-                glClearColor(0.0,0.0,0.0,0);
+
+//                glClearColor(1.0,0.7,1.0,0.2);
 //                glClearColor(fun_r,fun_g,fun_b,1.0f);
+                glClearColor(0.0,0.0,0.0,0);
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                 glEnable(GL_DEPTH_TEST);
                 glDepthMask(GL_TRUE);   //added
                 glClearDepth(1.f);      //added
+
+//                glEnable(GL_BLEND);
+//                glBlendFunc(GL_DST_ALPHA, GL_ONE_MINUS_DST_ALPHA);
+//        glEnable(GL_BLEND);
+//        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
                 if (loaded==1) printf("k");
 
@@ -1622,6 +2014,27 @@ extern char send_message;
                 glLoadIdentity();
 
                 if (loaded==1) printf("3-");
+
+                if (plot_background) {
+                    if (by_texture) {
+                        glViewport(0, 0, window.getSize().x, window.getSize().y);
+                        between_texture.pushGLStates();
+                        between_texture.setActive(false);
+                        backgroundSprite[win_num]->setPosition(0,0);
+                        between_texture.draw(*backgroundSprite[win_num]);
+                        between_texture.setActive(true);
+                        between_texture.popGLStates();
+                        glViewport(0, 0, 1920.0,1080.0);
+                    } else {
+                        window.pushGLStates();
+                        glViewport(0, 0, window.getSize().x, window.getSize().y);
+                        window.setActive(false);
+                        backgroundSprite[win_num]->setPosition(0,0);
+                        window.draw(*backgroundSprite[win_num]);
+                        window.setActive(true);
+                        window.popGLStates();
+                    }
+                }
 
 /*
                 window.setActive(false);
@@ -1664,7 +2077,7 @@ extern double schematic_size;
                 eye22=eye2[2];
                 if (rot_on) {
                     if (mirror==1) rotate_object_y+=0.1;
-                    else if (mirror==2) rotate_object_z+=0.1;
+                    else if (mirror==2 || screensaver) rotate_object_z+=0.1;
                     else if (mirror==3) rotate_object_x+=0.1;
 /*
                     angles_to_quat(curr_quat2, prev_quat2, rotate_object_x, rotate_object_y, rotate_object_z);
@@ -1803,8 +2216,6 @@ extern double schematic_size;
                 }
                 old_time=run_time1;
 
-
-
                 glMatrixMode(GL_PROJECTION);
                 glLoadIdentity();
                 make_lookat(perspective, frustum_toggle, eye2, lookat2, up2, move_object, window.getSize(), rot_on, maxExtent);
@@ -1814,7 +2225,12 @@ extern double schematic_size;
 
                 rotate_around_point(move_object, add_xyz, area, lat, lon, rot_on, interpolate_on, rot_mat, test, curr_quat2, maxExtent, bmin, bmax);
 
-                glScalef(1.0f / maxExtent, 1.0f / maxExtent, 1.0f / maxExtent);
+                if (by_texture) {
+                    glScalef(1.0f / maxExtent, 1.0f / maxExtent, 1.0f / maxExtent);
+
+                } else {
+                    glScalef(1.0f / maxExtent, 1.0f / maxExtent, 1.0f / maxExtent);
+                }
 
                 if ( !(interpolate_on  || burn) ) {
                     translation[0]=-0.5 * (bmax[0] + bmin[0])+add_xyz.x;
@@ -1867,6 +2283,7 @@ extern double schematic_size;
                 diff_draw.unlock();
 //                if (loaded==1) printf("6-");
                 if (loaded==1) printf("p3");
+
                 if (Pacman_Objects[win_num].size()>0) {
                     if (d_d) {
                         sf::Shader::bind(NULL);
@@ -1890,6 +2307,10 @@ extern double schematic_size;
                                     fpstime=fpstime_factor*clock_shader.getElapsedTime().asSeconds();
                                 }
     //                            depth_shader.setUniform("texture", sf::Shader::CurrentTexture);
+
+                                depth_shader.setUniform("background_texture",   *backgroundTexture[win_num]);
+                                depth_shader.setUniform("use_background",   plot_background);
+                                depth_shader.setUniform("background",       sf::Glsl::Vec4((float)color_behind.r/256.0,(float)color_behind.g/256.0,(float)color_behind.b/256.0,(float)color_behind.a/256.0));
                                 depth_shader.setUniform("whattodo",         whattodo);
                                 depth_shader.setUniform("wave_phase",       fpstime);
                                 depth_shader.setUniform("mouse",            mf);
@@ -1905,59 +2326,13 @@ extern double schematic_size;
                             }
                         }
                         else sf::Shader::bind(NULL);
+//                        window.setActive(false);
+//                        sf::sleep(sf::milliseconds(1));
+//                        window.display();
+//                        window.setActive(true);
+
                         for (auto u : Pacman_Objects[win_num]) {
                             if (u.show==1) Draw(u.gDrawObjects, u.materials, u.textures);
-
-/*
-                            if (local_request_3d_x>=0 && local_request_3d_y>=0 && formula==1 && shade_map==0) {
-                                window.setActive(false);
-//                                render_texture1_local.clear(sf::Color(0,0,0,0));
-//                                render_texture1_local.pushGLStates();
-
-                                window2.setActive(true);
-//                                render_texture1_local.setActive(true);
-//                                sf::Texture::bind(&render_texture1_local.getTexture());
-                                glClearColor(255,0,0,0);
-                                glEnable(GL_DEPTH_TEST);
-                                glDepthMask(GL_TRUE);   //added
-                                glClearDepth(1.f);      //added
-                                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-                                glEnable(GL_TEXTURE_2D);
-                                glMatrixMode(GL_MODELVIEW);
-                                glLoadIdentity();
-
-
-                                glEnable(GL_TEXTURE_2D);
-                                glMatrixMode(GL_PROJECTION);
-                                glLoadIdentity();
-                //                gluPerspective(perspective[0],perspective[1],perspective[2],perspective[3]);
-                                makeFrustum(perspective[0],perspective[1],perspective[2],perspective[3],frustum_toggle, eye2);
-
-                                glMatrixMode(GL_MODELVIEW);
-                                glLoadIdentity();
-
-                                glMultMatrixf((float*)&adapt);
-
-                                glScalef(1.0f / maxExtent, 1.0f / maxExtent, 1.0f / maxExtent);
-
-                                glTranslatef(translation[0] ,translation[1] ,  translation[2]);
-
-
-//                                glEnable(GL_TEXTURE_2D);
-//                                glMatrixMode(GL_MODELVIEW);
-//                                glLoadIdentity();
-
-                                if (u.show==1) Draw(u.gDrawObjects, u.materials, u.textures);
-                                window2.setActive(false);
-//                                render_texture1_local.setActive(false);
-//                                render_texture1_local.popGLStates();
-                                window2.display();
-//                                render_texture1_local.display();
-
-                                window.setActive(true);
-                            }
-*/
                         }
                     }
                 }
@@ -1965,7 +2340,11 @@ extern double schematic_size;
 //                if (local_request_3d_x>=0 && local_request_3d_y>=0)
 //                    render_texture1_local.setActive(false);
 //                else
-                    window.setActive(false);
+                    if (by_texture) {
+                        between_texture.setActive(false);
+                    } else {
+                        window.setActive(false);
+                    }
 
 //                window.setActive(false);
 
@@ -1998,7 +2377,34 @@ extern double schematic_size;
                 }
                 misses_percentage=misses/(hits+misses)*100.0;
                 cpu_usage=(cpu_usage*9.0+(render_current-render_time)/Hz60)/10.0;
-                window.display();
+//jitter?
+//                sf::sleep(sf::seconds(0.001));
+                if (by_texture) {
+
+//                    glViewport(0, 0, window.getSize().x, window.getSize().y);
+                    between_texture.display();
+                    if (ffmpegfile==0) {
+                        if (texture_from_ffmpeg.getSize().x==1920 && texture_from_ffmpeg.getSize().y==1080) {
+                            texture_from_ffmpeg.update(between_texture.getTexture());
+                        }
+                    }
+                    between_texture.pushGLStates();
+
+                    window.setActive(false);
+                    window.pushGLStates();
+
+                    window.draw(between_sprite);
+
+                    window.display();
+                    window.clear(sf::Color(0,0,0,0));
+
+                    window.popGLStates();
+                    between_texture.popGLStates();
+
+                }
+                else
+                    window.display();
+
                 render_time=render_clock.getElapsedTime().asSeconds();
                 render_count++;
                 if (render_count==60) {
@@ -2123,7 +2529,11 @@ extern double schematic_size;
             render_locker.unlock();
 
 //            window.setActive(false);
-            window.setActive(true);
+
+//            if (by_texture)
+//                texture.setActive(true);
+//            else
+                window.setActive(true);
 //            window.pushGLStates();
 
             int num_p=0;
@@ -2134,7 +2544,7 @@ extern double schematic_size;
 //            printf("deleting objects sleeping 2 secs\n");
 //            sf::sleep(sf::seconds(2));
 
-
+//hiero
             for (auto p : Pacman_Objects[win_num]) {
                 {
                     num_p1=0;
@@ -2182,7 +2592,10 @@ extern double schematic_size;
             Pacman_Objects[win_num].clear();
 
 //            window.popGLStates();
-            window.setActive(false);
+            if (by_texture)
+                between_texture.setActive(false);
+            else
+                window.setActive(false);
 //            window.pushGLStates();
 //            window.popGLStates();
 //            window.resetGLStates();

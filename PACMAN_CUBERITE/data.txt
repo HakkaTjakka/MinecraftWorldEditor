@@ -453,3 +453,35 @@
 1 Program busy or hangs... Thread alive at: 06/01/2021 20:57:52
 1 Program busy or hangs... Thread alive at: 06/01/2021 20:58:04
 1 Program busy or hangs... Thread alive at: 09/01/2021 14:34:51
+1 Program busy or hangs... Thread alive at: 21/01/2021 01:14:53
+1 Program busy or hangs... Thread alive at: 21/01/2021 01:20:07
+1 Program busy or hangs... Thread alive at: 21/01/2021 01:20:50
+1 Program busy or hangs... Thread alive at: 21/01/2021 01:21:34
+1 Program busy or hangs... Thread alive at: 21/01/2021 01:22:38
+0 Program busy or hangs... Thread alive at: 21/01/2021 01:23:08
+1 Program busy or hangs... Thread alive at: 21/01/2021 01:23:14
+1 Program busy or hangs... Thread alive at: 21/01/2021 01:24:47
+1 Program busy or hangs... Thread alive at: 21/01/2021 01:41:43
+1 Program busy or hangs... Thread alive at: 21/01/2021 02:09:24
+1 Program busy or hangs... Thread alive at: 21/01/2021 02:29:21
+1 Program busy or hangs... Thread alive at: 21/01/2021 02:53:18
+1 Program busy or hangs... Thread alive at: 21/01/2021 02:57:59
+1 Program busy or hangs... Thread alive at: 21/01/2021 02:58:09
+1 Program busy or hangs... Thread alive at: 21/01/2021 02:58:17
+1 Program busy or hangs... Thread alive at: 21/01/2021 02:58:27
+1 Program busy or hangs... Thread alive at: 21/01/2021 02:58:46
+1 Program busy or hangs... Thread alive at: 21/01/2021 02:58:55
+0 Program busy or hangs... Thread alive at: 21/01/2021 03:14:57
+1 Program busy or hangs... Thread alive at: 21/01/2021 03:16:43
+1 Program busy or hangs... Thread alive at: 21/01/2021 03:18:43
+0 invalid image ffmpeg: D:\PACMAN\pictures\139783908_463046661374660_8770360249143949298_n.jpg
+
+0 Program busy or hangs... Thread alive at: 21/01/2021 03:47:10
+0 invalid image ffmpeg: D:\PACMAN\pictures\139783908_463046661374660_8770360249143949298_n.jpg
+
+1 Program busy or hangs... Thread alive at: 21/01/2021 03:47:15
+0 invalid image ffmpeg: D:\PACMAN\pictures\139783908_463046661374660_8770360249143949298_n.jpg
+
+0 invalid image ffmpeg: D:\PACMAN\pictures\139783908_463046661374660_8770360249143949298_n.jpg
+
+1 Program busy or hangs... Thread alive at: 21/01/2021 03:47:46

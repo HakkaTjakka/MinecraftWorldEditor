@@ -181,7 +181,7 @@ int frustum_count_x=0;
 int frustum_count_y=0;
 bool remember_911=false;
 sf::Texture* backgroundTexture[10]={NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
-sf::Sprite* background[10]={NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
+sf::Sprite* backgroundSprite[10]={NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
 //jojo
 bool sRgb = true;
 sf::Font *font_window=NULL;

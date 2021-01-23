@@ -1,3 +1,4 @@
+#include <conio.h>
 #include <../MCA-NBT-EDIT.HPP>
 #include <winsock2.h>
 #include <../VOXEL.HPP>
@@ -2185,6 +2186,7 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
                     else
 //tuuttuut
                         v[l][0]=(v[l][0]*block_scale-bmin_total[0])+1;
+
                     v[l][1]=(v[l][1]*block_scale-bmin_total[1]);
                     v[l][2]=(bmax_total[2]-v[l][2]*block_scale);
                     hop = glm::dvec4(v[l][0], v[l][1], v[l][2], 1.0f) ;
@@ -2310,20 +2312,21 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
 //        printf("VOXEL SIZE: X=%d, Y=%d, Z=%d\n",u.x,u.y,u.z);
 //    }
 
-    if (wuppie_all || make_schematic) {
+/*
+    if (wuppie_all || make_schematic || do_model) {
         printf("\n");
         printf("x_block_start=%6d   y_block_start=%6d   z_block_start=%6d\n",box_x_block_start,box_y_block_start,box_z_block_start);
         printf("x_block_end  =%6d   y_block_end  =%6d   z_block_end  =%6d\n",box_x_block_end,box_y_block_end,box_z_block_end);
         printf("x_block      =%6d   y_block      =%6d   z_block      =%6d\n",box_x_block_end-box_x_block_start,box_y_block_end-box_y_block_start,box_z_block_end-box_z_block_start);
         printf("\n");
         printf("x_total_start=%6d   y_total_start=%6d   z_total_start=%6d\n",box_x_total_start,box_y_total_start,box_z_total_start);
-        printf("x_total_end=  %6d   y_total_end=  %6d   z_total_end=  %6d\n",box_x_total_end,box_y_total_end,box_z_total_end);
+        printf("x_total_end  =%6d   y_total_end  =%6d   z_total_end  =%6d\n",box_x_total_end,box_y_total_end,box_z_total_end);
         printf("x_total      =%6d   y_total      =%6d   z_total      =%6d\n",box_x_total_end-box_x_total_start,box_y_total_end-box_y_total_start,box_z_total_end-box_z_total_start);
         printf("\n");
         printf("Setting           %6d                     %6d                     %6d\n", box_x, box_y, box_z);
         printf("\n");
     }
-
+*/
     unsigned short **mc_sub;
     LONG64 tot_off=box_x*box_y*box_z*4;
     LONG64 tot_off_x=box_y*box_z*4;
@@ -2461,6 +2464,7 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
                         v[l][0]=(v[l][0]*block_scale-bmin_total[0]);
                     else
                         v[l][0]=(v[l][0]*block_scale-bmin_total[0])+1;
+
                     v[l][1]=(v[l][1]*block_scale-bmin_total[1]);
                     v[l][2]=(bmax_total[2]-v[l][2]*block_scale);
 //                    v[l][0]=(v[l][0]-bmin_total[0])*block_scale;
@@ -2496,9 +2500,9 @@ extern void magic2(double v[3][3], double tc[3][2], sf::Image* image, int buf_co
 //            }
 
         } // faces
-        printf("\rHits: %d  Mat: %3d/%3d (%3d,%3d) ",check_tot_hits,mat_id,materials.size(),w,h);
-        printf("Buffer: %3d/%3d  Faces: %7d\r", buf_count+1, buffers.size(), num_faces);
-//        printf("Total: buffer: %3d/%3d  Faces: %7d  ==>  bmin=%8d %8d %8d  bmax=%8d %8d %8d  diff=%8d %8d %8d \r",
+//        printf("/rHits: %d  Mat: %3d/%3d (%3d,%3d) ",check_tot_hits,mat_id,materials.size(),w,h);
+//        printf("Buffer: %3d/%3d  Faces: %7d\r", buf_count+1, buffers.size(), num_faces);
+//        printf("Total: buffer: %3d/%3d  Faces: %7d  ==>  bmin=%8d %8d %8d  bmax=%8d %8d %8d  diff=%8d %8d %8d \n",
 //            buf_count+1, buffers.size(),num_faces,
 //            (int)bmin_org[0],(int)bmin_org[1],(int)bmin_org[2],(int)bmax_org[0],(int)bmax_org[1],(int)bmax_org[2],
 //            (int)bmax_org[0]-(int)bmin_org[0],(int)bmax_org[1]-(int)bmin_org[1],(int)bmax_org[2]-(int)bmin_org[2]);
@@ -2508,6 +2512,12 @@ extern void magic2(double v[3][3], double tc[3][2], sf::Image* image, int buf_co
     } //buffers
     printf("\rVoxels: %9d  Hits: %8d  ", voxels.size(), check_tot_hits);
     printf("Buffers: %3d  Materials: %3d  Total faces: %8d                   \n",buffers.size(),materials.size(),tot_faces);
+
+//    printf("Total: buffer: %3d/%3d  Faces: %7d  ==>  bmin=%8d %8d %8d  bmax=%8d %8d %8d  diff=%8d %8d %8d \n",
+//        buf_count, buffers.size(),tot_faces,
+//        (int)bmin_org[0],(int)bmin_org[1],(int)bmin_org[2],(int)bmax_org[0],(int)bmax_org[1],(int)bmax_org[2],
+//        (int)bmax_org[0]-(int)bmin_org[0],(int)bmax_org[1]-(int)bmin_org[1],(int)bmax_org[2]-(int)bmin_org[2]);
+
     warning_done_y=false;
     warning_done_z=false;
     warning_done_x=false;
@@ -2956,8 +2966,34 @@ extern float* fspeed_ghosty;
         int mazemovey=0;
         if (rot_on && hold_voxels) {
         }
+//        int debug_min_x;
+//        int debug_max_x;
+//        int debug_min_y;
+//        int debug_max_y;
+//        int debug_min_z;
+//        int debug_max_z;
+
+//        {
+//            debug_min_x=std::numeric_limits<int>::max();
+//            debug_max_x=-std::numeric_limits<int>::max();
+//            debug_min_y=std::numeric_limits<int>::max();
+//            debug_max_y=-std::numeric_limits<int>::max();
+//            debug_min_z=std::numeric_limits<int>::max();
+//            debug_max_z=-std::numeric_limits<int>::max();
+//            for (auto u : voxels) {
+//                debug_min_x=std::min( debug_min_x , u.x);
+//                debug_max_x=std::max( debug_max_x , u.x);
+//                debug_min_y=std::min( debug_min_y , u.y);
+//                debug_max_y=std::max( debug_max_y , u.y);
+//                debug_min_z=std::min( debug_min_z , u.z);
+//                debug_max_z=std::max( debug_max_z , u.z);
+//            }
+//            printf("\nVOXELS:       debug: XX=[%3d-%3d] Y=[%4d-%4d] ZZ=[%3d-%3d]\n",debug_min_y,debug_max_y,debug_min_x,debug_max_x,debug_min_z,debug_max_z);
+//        }
 
         for (size_t count=0; count<voxels.size(); count++ ) {
+
+
             total_hits+=voxels[count].l;
             voxels[count].y+=mazemovex;
             voxels[count].z+=mazemovey;
@@ -2976,7 +3012,8 @@ extern float* fspeed_ghosty;
 //            printf("SORTING VOXELS TO TEMP: ");
             sort(voxels.begin(), voxels.end());
 //            printf("Ok. TOTAL/AVERAGE/COMPRESS: ");
-            Voxel last=voxels[5];
+//leuk            Voxel last=voxels[5];
+            Voxel last=voxels[0];
             Voxel total_pos=Voxel(last.x,last.y,last.z,0,0,0,0,0);
 
             for (size_t n=0; n<voxels.size(); n++) {
@@ -3107,6 +3144,23 @@ extern float* fspeed_ghosty;
         if (pixel_adds>0) printf(" PIXEL ADDS: %d" ,pixel_adds);
         printf ("\n");
 
+//        {
+//            debug_min_x=std::numeric_limits<int>::max();
+//            debug_max_x=-std::numeric_limits<int>::max();
+//            debug_min_y=std::numeric_limits<int>::max();
+//            debug_max_y=-std::numeric_limits<int>::max();
+//            debug_min_z=std::numeric_limits<int>::max();
+//            debug_max_z=-std::numeric_limits<int>::max();
+//            for (auto u : voxels_total) {
+//                debug_min_x=std::min( debug_min_x , u.x);
+//                debug_max_x=std::max( debug_max_x , u.x);
+//                debug_min_y=std::min( debug_min_y , u.y);
+//                debug_max_y=std::max( debug_max_y , u.y);
+//                debug_min_z=std::min( debug_min_z , u.z);
+//                debug_max_z=std::max( debug_max_z , u.z);
+//            }
+//            printf("\nVOXELS_TOTAL: debug: XX=[%3d-%3d] Y=[%4d-%4d] ZZ=[%3d-%3d]\n",debug_min_y,debug_max_y,debug_min_x,debug_max_x,debug_min_z,debug_max_z);
+//        }
 
 /*
         printf("\n");
@@ -3200,7 +3254,19 @@ extern float* fspeed_ghosty;
 //            printf("\n");
 //            printf("region[%3d][%3d] POS[%3d][%3d][%3d] voxels_total[%3d]=Voxel(%6d,%6d,%6d,%4d,%4d,%4d,%4d)\n",
 //                   rx,rz,one.y%512,one.x,one.z%512,n,one.x,one.y,one.z,one.r,one.g,one.b,one.l);
+//            debug_min_x=std::numeric_limits<int>::max();
+//            debug_max_x=-std::numeric_limits<int>::max();
+//            debug_min_y=std::numeric_limits<int>::max();
+//            debug_max_y=-std::numeric_limits<int>::max();
+//            debug_min_z=std::numeric_limits<int>::max();
+//            debug_max_z=-std::numeric_limits<int>::max();
             while (n<voxels_total.size()) {
+//                debug_min_x=std::min( debug_min_x , voxels_total[n].x);
+//                debug_max_x=std::max( debug_max_x , voxels_total[n].x);
+//                debug_min_y=std::min( debug_min_y , voxels_total[n].y);
+//                debug_max_y=std::max( debug_max_y , voxels_total[n].y);
+//                debug_min_z=std::min( debug_min_z , voxels_total[n].z);
+//                debug_max_z=std::max( debug_max_z , voxels_total[n].z);
                 prev=one;
                 rx_prev=rx; rz_prev=rz;
 
@@ -3222,9 +3288,18 @@ extern float* fspeed_ghosty;
                         total_voxels_column++;
                         total_hits_region+=one.l;
                         prev=one;
+//leuk
+                        min_x=std::min(min_x,prev.x);
+                        max_x=std::max(max_x,prev.x);
                         rx_prev=rx; rz_prev=rz;
                         n++;
                         if (n<voxels_total.size()) {
+//                debug_min_x=std::min( debug_min_x , voxels_total[n].x);
+//                debug_max_x=std::max( debug_max_x , voxels_total[n].x);
+//                debug_min_y=std::min( debug_min_y , voxels_total[n].y);
+//                debug_max_y=std::max( debug_max_y , voxels_total[n].y);
+//                debug_min_z=std::min( debug_min_z , voxels_total[n].z);
+//                debug_max_z=std::max( debug_max_z , voxels_total[n].z);
                             one=voxels_total[n];
                             y=one.y; z=one.z;
 //fucked
@@ -3276,10 +3351,10 @@ extern float* fspeed_ghosty;
 
  //                   }
 
-                    prev_xx=prev.y;
                     total_voxels_column=0;
-                    min_x=std::min(min_x,prev.x);
-                    max_x=std::max(max_x,prev.x);
+                    prev_xx=prev.y;
+//                    min_x=std::min(min_x,prev.x);
+//                    max_x=std::max(max_x,prev.x);
                     min_y=std::min( min_y , prev_y_mod );
                     max_y=std::max( max_y , prev_y_mod );
                     min_z=std::min( min_z , prev_z_mod );
@@ -3343,8 +3418,8 @@ extern float* fspeed_ghosty;
                 hit_one->index10=new_hits_region;
 
                 plot_region=false;
-
-                printf("\rREGION [%3d][%3d] ",rx_prev,rz_prev);
+//leuk
+                printf("\rREGION [%3d][%3d]  ",rx_prev,rz_prev);
                 total_columns=0;
                 int total_voxels=0;
                 int tline=0;
@@ -3361,13 +3436,22 @@ extern float* fspeed_ghosty;
                 }
                 if (tline==2048) hit_one->index8=512*512;
 
-                printf("NEW VOXELS=%7d  VOXELS=%9d  ", hit_one->index10, total_voxels);
-                printf("%7d  ", total_voxels_region);
-                printf("HITS=%10d  ", total_hits_region);
+                printf("VOXELS=%9d (%6.2f%%)  ", total_voxels,100.0*(double)total_voxels/(512.0*512.0*256.0));
+
                 printf("XX=[%3d-%3d] Y=[%4d-%4d] ZZ=[%3d-%3d]  ",min_y,max_y,min_x,max_x,min_z,max_z);
+
+                printf("COLUMNS=%6d (%6.2f%%)  ", total_columns,100.0*(double)total_columns/(512.0*512.0) );
+
+                printf("NEW VOXELS=%7d  ", hit_one->index10);
+
+                printf("HITS=%10d ", total_hits_region);
+
                 if (total_voxels_region!=0) printf("HITS/VOXEL=%6.2f  ", (double)total_hits_region/(double)total_voxels_region );
                 else printf("HITS/VOXEL=%6.2f  ",0.0);
-                printf("COLUMNS=%6d (%6.2f%%)\r", total_columns,100.0*(double)total_columns/(512.0*512.0) );
+
+                printf("\n");
+
+//                printf("%7d  ", total_voxels_region);
 
                 total_voxels_all_regions+=total_voxels_region;
 //                total_voxels_region=0;
@@ -3383,6 +3467,8 @@ extern float* fspeed_ghosty;
 
                 voxel_index++;
             }
+
+//            printf("\nVOXELS_TOTAL: debug: XX=[%3d-%3d] Y=[%4d-%4d] ZZ=[%3d-%3d]\n",debug_min_y,debug_max_y,debug_min_x,debug_max_x,debug_min_z,debug_max_z);
 
             printf("\r");
             printf("TOTAL VOXELS:                        %9d  ",total_voxels_all_regions);
@@ -3972,7 +4058,6 @@ void flush_voxels_to_region_voxel_files() {
         std::vector<BufferObject> buffers;
         std::vector<tinyobj::material_t> materials;
         flushing=true;
-        plot_only=true;
         plot_only=true;
         dont_clear=true;
         bool hold_voxels_o=hold_voxels;

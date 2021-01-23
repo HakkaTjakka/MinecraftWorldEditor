@@ -31,49 +31,52 @@ int addnew_counter=0;
 
     /////////////////////////////////Region Member Functions////////////////////////
 
-    MCRegion::MCRegion(int x0, int z0, int y0,
-                       int xl, int zl, int yl)
-    {
-        A  	    =   (BlockInfo***)      calloc(xl ,	        sizeof(BlockInfo**));
-        A[0]    =   (BlockInfo**)	    calloc(xl*zl,	    sizeof(BlockInfo*));
-        for(int i=0; i<xl; i++)
-            A[i] = (*A+zl*i);
+MCRegion::MCRegion(int x0, int z0, int y0,
+                   int xl, int zl, int yl)
+{
+    A  	    =   (BlockInfo***)      calloc(xl ,	        sizeof(BlockInfo**));
+    A[0]    =   (BlockInfo**)	    calloc(xl*zl,	    sizeof(BlockInfo*));
+    for(int i=0; i<xl; i++)
+        A[i] = (*A+zl*i);
 
-        A[0][0] =   (BlockInfo*)        calloc(xl*zl*yl,	sizeof(BlockInfo));
-        for(int i=0; i<xl; i++)
-            for(int j=0; j<zl; j++)
-                A[i][j] = (*A[0]+zl*i*yl+yl*j);
-
-        B  	    =   (BlockEntity****)   calloc(xl ,	        sizeof(BlockEntity***));
-        B[0]    =   (BlockEntity***)	calloc(xl*zl,	    sizeof(BlockEntity**));
-        for(int i=0; i<xl; i++)
-            B[i] = (*B+zl*i);
-
-        B[0][0] =   (BlockEntity**)     calloc(xl*zl*yl,	sizeof(BlockEntity*));
-        memset(B[0][0], 0, xl*yl*zl*sizeof(BlockEntity*));
-        for(int i=0; i<xl; i++) {
-            for(int j=0; j<zl; j++) {
-                B[i][j] = (*B[0]+zl*i*yl+yl*j);
-            }
+    A[0][0] =   (BlockInfo*)        calloc(xl*zl*yl,	sizeof(BlockInfo));
+    for(int i=0; i<xl; i++)
+        for(int j=0; j<zl; j++) {
+            A[i][j] = (*A[0]+zl*i*yl+yl*j);
+            memset(A[i][j], 0, yl * sizeof(BlockInfo));
         }
 
-        x_len = xl, z_len = zl, y_len = yl;
-        x_ori = x0, z_ori = z0, y_ori = y0;
+    B  	    =   (BlockEntity****)   calloc(xl ,	        sizeof(BlockEntity***));
+    B[0]    =   (BlockEntity***)	calloc(xl*zl,	    sizeof(BlockEntity**));
+    for(int i=0; i<xl; i++)
+        B[i] = (*B+zl*i);
+
+    B[0][0] =   (BlockEntity**)     calloc(xl*zl*yl,	sizeof(BlockEntity*));
+    memset(B[0][0], 0, xl*yl*zl*sizeof(BlockEntity*));
+    for(int i=0; i<xl; i++) {
+        for(int j=0; j<zl; j++) {
+            B[i][j] = (*B[0]+zl*i*yl+yl*j);
+            memset(B[i][j], 0, yl * sizeof(BlockEntity*));
+        }
     }
 
-    MCRegion::~MCRegion()
-    {
-        free(A[0][0]);
-        free(A[0]);
-        free(A);
-        for (int i = 0; i < x_len; i++)
-            for (int j = 0; j < z_len; j++)
-                for (int k = 0; k < y_len; k++)
-                    if (B[i][j][k]) delBlockEntity(B[i][j][k]);
-        free(B[0][0]);
-        free(B[0]);
-        free(B);
-    }
+    x_len = xl, z_len = zl, y_len = yl;
+    x_ori = x0, z_ori = z0, y_ori = y0;
+}
+
+MCRegion::~MCRegion()
+{
+    free(A[0][0]);
+    free(A[0]);
+    free(A);
+    for (int i = 0; i < x_len; i++)
+        for (int j = 0; j < z_len; j++)
+            for (int k = 0; k < y_len; k++)
+                if (B[i][j][k]) delBlockEntity(B[i][j][k]);
+    free(B[0][0]);
+    free(B[0]);
+    free(B);
+}
 
 /*
 MCRegion::MCRegion(int x0, int z0, int y0,
@@ -597,6 +600,7 @@ void MCEditor::lightPropagate(ui*** light)
 //    fprintf(stderr, "Finished Propagating Light.\n");
 }
 
+
 void MCACoder::getBlock_FAST(const MCRegion &region) {
 
 //    ui** AZ_skylight=skylight[3];
@@ -612,13 +616,45 @@ void MCACoder::getBlock_FAST(const MCRegion &region) {
             int region_z = chunk_z >> 5;
             int idx = (chunk_x & 31) + 32 * (chunk_z & 31);
             node *chunk_root = Chunk[idx];
-            if (!chunk_root) { continue; }
+            if (!chunk_root) {
+                for (int y_outer = 0; y_outer < 256; y_outer+=16) {
+                    for (int x_inner = 0; x_inner < 16 ; x_inner++) {
+                        int x=x_outer + x_inner;
+                        BlockInfo** AZ=AX[x];
+                        for (int z_inner = 0; z_inner < 16 ; z_inner++) {
+                            int z=z_outer + z_inner;
+                            BlockInfo* AY=AZ[z];
+                            if (!(n++&31)) toggle2();
+                            for (int y_inner = 0; y_inner < 16 ; y_inner++) {
+                                int y=y_outer + y_inner;
+                                AY[y]=BlockInfo();
+                            }
+                        }
+                    }
+                }
+                continue;
+            }
             node *level_root = chunk_root->childWithName("Level");
             node *sec_root = level_root->childWithName("Sections");
             for (int y_outer = 0; y_outer < 256; y_outer+=16) {
                 int sec_no = y_outer >> 4;
                 node *T = sectionNodeWithY(sec_root, sec_no);
-                if (!T) { continue; }
+                if (!T) {
+                    for (int x_inner = 0; x_inner < 16 ; x_inner++) {
+                        int x=x_outer + x_inner;
+                        BlockInfo** AZ=AX[x];
+                        for (int z_inner = 0; z_inner < 16 ; z_inner++) {
+                            int z=z_outer + z_inner;
+                            BlockInfo* AY=AZ[z];
+                            if (!(n++&31)) toggle2();
+                            for (int y_inner = 0; y_inner < 16 ; y_inner++) {
+                                int y=y_outer + y_inner;
+                                AY[y]=BlockInfo();
+                            }
+                        }
+                    }
+                    continue;
+                }
                 node *u;
 
                 node *old_u_blocks = T->childWithName("Blocks");
@@ -635,13 +671,14 @@ void MCACoder::getBlock_FAST(const MCRegion &region) {
                         BlockInfo* AY=AZ[z];
                         if (!(n++&31)) toggle2();
 
-
                         for (int y_inner = 0; y_inner < 16 ; y_inner++) {
                             int y=y_outer + y_inner;
                             int block_pos = y_inner * 256 + z_inner * 16 + x_inner;
 
-
-                            int id= old_u_blocks->tag.va[block_pos];
+                            uc id;
+                            if (old_u_blocks) {
+                                id = (int)old_u_blocks->tag.va[block_pos];
+                            } else id=0;
 
                             uc res;
                             int add;
@@ -675,3 +712,4 @@ void MCACoder::getBlock_FAST(const MCRegion &region) {
         }
     }
 }
+

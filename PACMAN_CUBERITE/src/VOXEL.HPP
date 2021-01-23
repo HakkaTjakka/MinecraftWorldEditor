@@ -71,9 +71,9 @@ struct hit_one_region {
 
     bool operator < (const hit_one_region &B) const
     {
-//        if (z < B.z) return z < B.z;
-//        else return x < B.x;
-        return index8 < B.index8;
+        if (z < B.z) return z < B.z;
+        else return x < B.x;
+//        return index8 < B.index8;
 
     }
 

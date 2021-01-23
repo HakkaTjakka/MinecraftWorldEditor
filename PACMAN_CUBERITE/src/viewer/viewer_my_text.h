@@ -1,9 +1,8 @@
-#define PRINTIT draw2_all(window,(char*)to_print,0,i,sf::Color(0,0,255,255),sf::Color::White,24); i+=26;
-#define PRINTIT_RED draw2_all(window,(char*)to_print,0,i,sf::Color(255,0,0,255),sf::Color::White,24); i+=26;
-#define PRINTIT_BIG draw2_all(window,(char*)to_print,0,i,sf::Color(0,0,255,255),sf::Color::White,38); i+=40;
-#define PRINTIT_RED_BIG draw2_all(window,(char*)to_print,0,i,sf::Color(255,0,0,255),sf::Color::White,38);i+=40;
-
-
+#define PRINTIT  { if (by_texture) { draw2_all_texture(between_texture,(char*)to_print,0,i,sf::Color(0,255,0,255),sf::Color::White,24); i+=26; } else { draw2_all(window,(char*)to_print,0,i,sf::Color(0,0,255,255),sf::Color::White,24); i+=26; } }
+#define PRINTIT_RED { if (by_texture) {draw2_all_texture(between_texture,(char*)to_print,0,i,sf::Color(255,255,0,255),sf::Color::White,24); i+=26; } else  {draw2_all(window,(char*)to_print,0,i,sf::Color(255,0,0,255),sf::Color::White,24); i+=26; } }
+#define PRINTIT_BIG { if (by_texture) {draw2_all_texture(between_texture,(char*)to_print,0,i,sf::Color(0,255,0,255),sf::Color::White,28); i+=30; } else {draw2_all(window,(char*)to_print,0,i,sf::Color(0,0,255,255),sf::Color::White,28); i+=30; } }
+#define PRINTIT_RED_BIG { if (by_texture) {draw2_all_texture(between_texture,(char*)to_print,0,i,sf::Color(255,255,0,255),sf::Color::White,28);i+=30; } else {draw2_all(window,(char*)to_print,0,i,sf::Color(255,0,0,255),sf::Color::White,28);i+=30; } }
+void draw2_all_texture(sf::RenderTexture& window,char *towrite, int xpos, int ypos, sf::Color inner, sf::Color outer, int text_size);
 
                     static float enschede_x=3875099.0;
                     static float enschede_y=468154.0;
@@ -12,7 +11,10 @@
                     char to_print[1000];
                     if (!remember_911) {
                         if (show_text || frustum) {
-                            window.pushGLStates();
+                            if (by_texture)
+                                between_texture.pushGLStates();
+                            else
+                                window.pushGLStates();
                             int i=0;
                             float playbackspeed=0.005;
 
@@ -34,7 +36,10 @@
                                                               p_o.x+(float)x*p_s.x+1,
                                                               p_o.y+(float)y*p_s.y+1
                                                               );
-                                        window.draw(rectangle);
+                                        if (by_texture)
+                                            between_texture.draw(rectangle);
+                                        else
+                                            window.draw(rectangle);
                                     }
                                 }
                                 int y=frustum_count_y;
@@ -48,7 +53,10 @@
                                                           p_o.x+(float)x*p_s.x+1,
                                                           p_o.y+(float)y*p_s.y+1
                                                           );
-                                    window.draw(rectangle);
+                                    if (by_texture)
+                                        between_texture.draw(rectangle);
+                                    else
+                                        window.draw(rectangle);
                                 }
 
                                 rectangle.setPosition(p_o);
@@ -76,7 +84,7 @@
                                 }
 
                                 if (do_model) {
-                                    sprintf(to_print,"SECONDS:   %.2f   FPS: %.2f   CPU: %3.2f%%   MISSES: %d",render_time,render_fps, cpu_usage*100.0, misses);          PRINTIT
+                                    sprintf(to_print,"SECONDS:   %.2f   FPS: %.2f   CPU: %3.2f%%   MISSES: %d ANTIALIAS: %d",render_time,render_fps, cpu_usage*100.0, misses, contextSettings.antialiasingLevel);          PRINTIT
                                     sprintf(to_print,"ANGELS:    % 10.6f % 10.6f % 10.6f",rotate_object_x,rotate_object_y,rotate_object_z);                    PRINTIT_BIG
                                     glm::quat myquaternion = glm::quat(glm::vec3( (rotate_object_x)*M_PI/180.0, rotate_object_y*M_PI/180.0, (rotate_object_z+0.0)*M_PI/180.0 ));
                                     myquaternion[0]=-myquaternion[0]; myquaternion[1]=-myquaternion[1];
@@ -97,6 +105,7 @@
                                     i+=20;
                                     sprintf(to_print,"Max schematic size: %10d",(int)schematic_size);           PRINTIT_BIG
                                     i+=20;
+                                    sprintf(to_print,"PERSPECTIVE RATIO: % 10.6f",perspective[1]);                    PRINTIT
                                     sprintf(to_print,"REGIONS:   F1 voxelize, CTRL-F1 finish them all to region files");           PRINTIT
                                     sprintf(to_print,"SCHEMATIC: SHIFT-F1 Create schematic from object (destroys F1 made...)");           PRINTIT
                                     sprintf(to_print,"      CTRL+SHIFT-F1 Create schematic from object plot with F1");           PRINTIT
@@ -134,7 +143,8 @@
                                         sprintf(to_print,"WUPPIE READY!");                    PRINTIT_RED_BIG
                                     }
                                     if (interpolate_on) { sprintf(to_print,"PLAYBACKSPEED: % 10.3f frames/marker",1.0/playbackspeed);                    PRINTIT }
-                                    sprintf(to_print,"SECONDS: %.2f   FPS: %.2f   CPU: %3.2f%%   MISSES: %d",render_time,render_fps, cpu_usage*100.0, misses);                    PRINTIT
+                                    sprintf(to_print,"SECONDS: %.2f   FPS: %.2f   CPU: %3.2f%%   MISSES: %d ANTIALIAS: %d",render_time,render_fps, cpu_usage*100.0, misses, contextSettings.antialiasingLevel);          PRINTIT
+
                                     if (!show_text_short) {
                                         sprintf(to_print,"CURENT:  X=%d  Y=%d",cur_x,cur_y);                    PRINTIT
                                         sprintf(to_print,"EYE:     % 10.3f % 10.3f % 10.3f",eye2[0],eye2[1],eye2[2]);                    PRINTIT
@@ -210,15 +220,28 @@
                             }
 
 
-                            window.popGLStates();
+                            if (by_texture)
+                                between_texture.popGLStates();
+                            else
+                                window.popGLStates();
                         } else {
                             if (frustum==false || (frustum==true && frustum_count_x==frustum_size_x-1 && frustum_count_y==frustum_size_y-1)) {
-                                window.pushGLStates();
+                                if (by_texture)
+                                    between_texture.pushGLStates();
+                                else
+                                    window.pushGLStates();
+
                                 text_mutex.lock();
-                                text_text->setPosition( 266,(float)(1080-30));
-                                window.draw(*text_text);
+//                                text_text->setPosition( 266,(float)(1080-30));
+                                text_text->setPosition( 1650,(float)(1080-30));
+                                if (by_texture) {
+                                    between_texture.draw(*text_text);
+                                    between_texture.popGLStates();
+                                } else {
+                                    window.draw(*text_text);
+                                    window.popGLStates();
+                                }
                                 text_mutex.unlock();
-                                window.popGLStates();
                             }
     //                        sprintf(to_print,"PACMAN GRAPHICS(c)");             draw2_all(window,(char*)to_print,1920-16*16,1080-40,sf::Color(50,50,255,64),sf::Color::White);
                         }

@@ -1,4 +1,4 @@
-
+extern sf::Color color_behind;
 
 void reset_text(int win_num) {
     text_mutex.lock();
@@ -15,21 +15,38 @@ void reset_text(int win_num) {
 
         if (!backgroundTexture[win_num]==NULL) delete backgroundTexture[win_num];
         backgroundTexture[win_num] = new sf::Texture();
-        if (!backgroundTexture[win_num]->loadFromFile("resources/space.jpg"))   return;
-        backgroundTexture[win_num]->setSrgb(sRgb);
-        backgroundTexture[win_num]->setSmooth(smooth==1);
 
-        if (background[win_num]==NULL) delete background[win_num];
-        background[win_num] = new sf::Sprite();
-        background[win_num]->setTexture(*backgroundTexture[win_num],true);
-        background[win_num]->setOrigin(backgroundTexture[win_num]->getSize().x/2,backgroundTexture[win_num]->getSize().y/2);
-        background[win_num]->setPosition(1920.0/2.0,1080.0/2.0);
+//        sf::Image sub;
+//        sub.loadFromFile("resources/background.png");
+//        sf::Image sub2;
+//        sub2.create(1922,1082,sf::Color(0,0,0,0));
+//        sub2.copy(sub,1,1);
+//        backgroundTexture[win_num]->loadFromImage(sub2);
+        sf::Image sub;
+        if (!sub.loadFromFile("resources/background.png")) {
+            printf("error loading resources/background.png\n");
+            return;
+        }
+        color_behind=sub.getPixel(0,0);
+        printf("COLOR=(%d,%d,%d,%d)\n",color_behind.r,color_behind.g,color_behind.b,color_behind.a);
+        backgroundTexture[win_num]->loadFromImage(sub);
+//        if (!backgroundTexture[win_num]->loadFromFile("resources/background.png"))   return;
+
+        backgroundTexture[win_num]->setSrgb(sRgb);
+        backgroundTexture[win_num]->setSmooth(false);
+
+        if (backgroundSprite[win_num]==NULL) delete backgroundSprite[win_num];
+        backgroundSprite[win_num] = new sf::Sprite();
+        backgroundSprite[win_num]->setTexture(*backgroundTexture[win_num],true);
+//        backgroundSprite[win_num]->setOrigin(backgroundTexture[win_num]->getSize().x/2,backgroundTexture[win_num]->getSize().y/2);
+//        backgroundSprite[win_num]->setPosition(1920.0/2.0,1080.0/2.0);
 
 
         if (font_text!=NULL) delete font_text;
         font_text = new sf::Font();
         font_text->loadFromFile("resources/Sansation_Regular.ttf");
-        sprintf(hoppa,"Pacman Graphics(c) / Stichting Surplus - Lasondersingel 133 - 7514 BP Enschede - Tel: +31(0)53-2068200 - info@st-surplus.nl");
+//        sprintf(hoppa,"Pacman Graphics(c) / Stichting Surplus - Lasondersingel 133 - 7514 BP Enschede - Tel: +31(0)53-2068200 - info@st-surplus.nl");
+        sprintf(hoppa,"Pacman Graphics(c)");
 
 
         if (text_text!=NULL) delete text_text;
@@ -60,7 +77,7 @@ void reset_text(int win_num) {
         mipmapInstructions->setFillColor(sf::Color(255, 255, 255, 170));
         mipmapInstructions->setOutlineColor(sf::Color(0, 0, 0, 255));
 
-        text_text->setPosition(1920-200, 1080-50);
+        text_text->setPosition(1920-1700, 1080-50);
         sRgbInstructions->setPosition(0.f, 700.f);
         mipmapInstructions->setPosition(0.f, 750.f);
 
@@ -68,6 +85,19 @@ void reset_text(int win_num) {
 }
 
 void draw2_all(sf::RenderWindow& window,char *towrite, int xpos, int ypos, sf::Color inner, sf::Color outer, int text_size)
+{
+    text_mutex.lock();
+    text_window->setString(towrite);
+    text_window->setOutlineColor(outer);
+    text_window->setOutlineThickness(1.0);
+    text_window->setFillColor(inner);
+    text_window->setPosition(xpos,ypos);
+    text_window->setCharacterSize(text_size);
+    window.draw(*text_window);
+    text_mutex.unlock();
+}
+
+void draw2_all_texture(sf::RenderTexture& window,char *towrite, int xpos, int ypos, sf::Color inner, sf::Color outer, int text_size)
 {
     text_mutex.lock();
     text_window->setString(towrite);

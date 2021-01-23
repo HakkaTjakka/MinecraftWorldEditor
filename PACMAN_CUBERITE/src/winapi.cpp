@@ -46,6 +46,9 @@
 #define EVENT_SYSTEM 8
 extern bool cubic;
 extern void launch_REGION_TO_VOXEL();
+bool roelof=false;
+void multiple_regions_to_voxelfiles(std::string);
+bool screensaver=false;
 
 extern bool do_pong=false;
 extern bool and_now_i_am_here;
@@ -463,7 +466,61 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
 
 //    int ret=WinMain2();
 //    printf("WinMain2() returned. WINAPI=%d\n",ret);
-    launch_animator();
+
+//    if (!file_exists("secondloop.txt")) {
+    if (file_exists("autoflower.txt")) {
+//        system("echo hoi > secondloop.txt");
+//        sf::sleep(sf::seconds(2));
+        FILE* hoppa=fopen("autoflower.txt","r");
+        char line[1000];
+        fgets(line,1000,hoppa);
+        if (strcmp("skull",line)==0) {
+             ::ShowWindow(::GetConsoleWindow(), SW_HIDE);
+                system("cd");
+                system("cd > /hierbenik.txt");
+//            fgets(line,1000,hoppa);
+//            system((char*)hoppa);
+//            exit(0);
+
+//            chdir("d:/pacman/pacman_cuberite");
+            screensaver=true;
+            roelof=true;
+
+
+            combine=1;
+            area="Models";
+            roelof=true;
+            launch_SFMLGL2();
+
+//            launch_animator();
+//            sf::sleep(sf::seconds(1));
+//            send_message='B';
+        }
+        fclose(hoppa);
+//extern int is_activated_window[];
+extern int keep_running[];
+        bool loop=true;
+        sf::sleep(sf::seconds(1.0));
+        while (loop) {
+            if (!keep_running[0]) loop=false;
+            sf::sleep(sf::seconds(0.1));
+        }
+        exit(0);
+
+    }
+/*    } else {
+        system("del secondloop.txt");
+        chdir("d:/pacman/pacman_cuberite");
+        screensaver=true;
+        roelof=true;
+        launch_animator();
+        sf::sleep(sf::seconds(1));
+        send_message='B';
+    }
+*/
+
+    if (!roelof) launch_animator(); /* here  */
+
     while (winmain_running==1) {
         if (monitor==0 && exiting==0 && winmain_running==0) launch_monimem();
         sf::sleep(sf::milliseconds(100));
@@ -562,11 +619,25 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
                 make_regions=true;
             }
             else if (c==(char)'A') {
-                launch_REGION_TO_VOXEL();
+                if (region_filename!="")
+                    launch_REGION_TO_VOXEL();
+//                    multiple_regions_to_voxelfiles(region_filename);
+                else
+                    launch_REGION_TO_VOXEL();
             }
             else if (c==(char)'q') {
                 combine=1;
                 area="Models";
+                launch_SFMLGL2_b();
+                while (!i_am_here) {
+                    sf::sleep(sf::seconds(0.1));
+                }
+//                make_schematic=true;
+            }
+            else if (c==(char)'B') {
+                combine=1;
+                area="Models";
+                roelof=true;
                 launch_SFMLGL2_b();
                 while (!i_am_here) {
                     sf::sleep(sf::seconds(0.1));
@@ -591,7 +662,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
                 cubic=true;
                 area="DenHaag";
                 and_now_i_am_here=true;
-                launch_SFMLGL2_b();
+                launch_SFMLGL2();
 //                while (!and_now_i_am_here) {
                 while (!i_am_here) {
                     sf::sleep(sf::seconds(0.1));
@@ -659,6 +730,8 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
 //	return WINAPI_RETURN;
 //	exit(WINAPI_RETURN);
 }
+extern void make_colors_from_blocks();
+extern void multiple_regions_to_voxelfiles(char* root);
 
 int WINAPI WinMain2()
 {
@@ -689,8 +762,8 @@ int WINAPI WinMain2()
 
 //define language decimal point / comma .... shit!
     std::lconv* lc;
-    setlocale(LC_ALL, "");
-    setlocale(LC_NUMERIC, "C");
+//    setlocale(LC_ALL, "");
+//    setlocale(LC_NUMERIC, "C");
 //    setlocale(LC_NUMERIC, "en_US");
 //    setlocale(LC_NUMERIC, "");
 
@@ -855,7 +928,6 @@ printf("hoppa");
         }
         else if (   strcmp(argv[1],"minecraft"    )==0) {
 
-extern void make_colors_from_blocks();
 
             if (argc>2) {
                 if (   strcmp(argv[2],"block"    )==0) {
@@ -884,7 +956,7 @@ extern void make_colors_from_blocks();
         else if (   strcmp(argv[1],"region2voxel"    )==0) {
             if (argc>2) {
                 region_filename=argv[2];
-                printf("One .mca file: %s\n",region_filename);
+                printf("All /saves dirs %s\n",region_filename);
             } else {
                 region_filename=std::string()+"";
             }
@@ -1542,7 +1614,7 @@ extern bool file_exists(const char * filename);
 
 //window
     ShowWindow(hWndMain, SW_HIDE);
-    SFMLView1.requestFocus();
+    if (!screensaver) SFMLView1.requestFocus();
     SFMLView1.setActive(true);
 
     font.loadFromFile("resources/ariblk.ttf");

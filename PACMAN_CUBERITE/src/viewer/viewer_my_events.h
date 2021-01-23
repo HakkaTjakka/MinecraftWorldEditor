@@ -156,6 +156,12 @@ extern void make_test_schematic();
                             if (event.type == sf::Event::KeyPressed) {
                                 switch(event.key.code)
                                 {
+                                    case sf::Keyboard::I:
+                                        plot_background=!plot_background;
+                                        backgroundTexture[win_num]->setSmooth(false);
+                                        printf("window(%d,%d)\n",window.getSize().x,window.getSize().y);
+                                        printf("background(%d,%d)\n",backgroundTexture[win_num]->getSize().x,backgroundTexture[win_num]->getSize().y);
+                                        break;
                                     case sf::Keyboard::A:
                                         if (event.key.control) {
                                             plot_func=!plot_func;
@@ -344,6 +350,10 @@ extern void make_test_schematic();
                                                 printf("FRAGMENT SHADER ERROR: %s\n","shaders/depth_shader.frag");
                                             } else {
 //                                                depth_shader.setUniform("texture", sf::Shader::CurrentTexture);
+                                                depth_shader.setUniform("background_texture",   *backgroundTexture[win_num]);
+                                                depth_shader.setUniform("use_background",   plot_background);
+                                                depth_shader.setUniform("background",       sf::Glsl::Vec4((float)color_behind.r/256.0,(float)color_behind.g/256.0,(float)color_behind.b/256.0,(float)color_behind.a/256.0));
+
                                                 depth_shader.setUniform("the_texture", sf::Shader::CurrentTexture);
                                                 depth_shader.setUniform("wave_amplitude", sf::Vector2f(5.0, 5.0));
                                                 depth_shader.setUniform("WIRE_FRAME", WIRE_FRAME);
@@ -494,9 +504,11 @@ extern void make_test_schematic();
                                                 hglrc[win_num] = wglGetCurrentContext();
                                                 hwnd[win_num] = window.getSystemHandle();
                                                 hdc[win_num] = GetDC(hwnd[win_num]) ;
-
-//                                                window.setSize(old_size[win_num]);
-//                                                window.setPosition(old_pos[win_num]);
+                                                if (!screensaver) {
+//oh no
+//                                                    window.setSize(old_size[win_num]);
+//                                                    window.setPosition(old_pos[win_num]);
+                                                }
                                                 width2 = 1920.0;
                                                 height2 = 1080.0;
 
@@ -937,39 +949,18 @@ extern void make_test_schematic();
                                             window.setVerticalSyncEnabled(false);
                                             break;
                                         }
-                                        if (event.key.control) {
-                                            if (contextSettings.antialiasingLevel>0)  {
-                                                contextSettings.antialiasingLevel--;
-//                                                window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Fullscreen, contextSettings);
-                                                if (videomode[win_num]==0) {
-                                                    window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Fullscreen, contextSettings);
+                                        if (event.key.control || event.key.alt) {
+                                            if (event.key.control) {
+                                                if (contextSettings.antialiasingLevel>0)  {
+                                                    contextSettings.antialiasingLevel--;
                                                 }
-                                                else {
-                                                    window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close , contextSettings);
-                                                }
-                                                window.setSize(old_size[win_num]);
-                                                window.setPosition(old_pos[win_num]);
-                                                window.setVerticalSyncEnabled(true);
+                                            } else if (event.key.alt) {
+                                                contextSettings.antialiasingLevel++;
                                             }
                                             break;
                                         }
-                                        if (event.key.alt) {
-                                            contextSettings.antialiasingLevel++;
-                                            if (videomode[win_num]==0) {
-                                                window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Fullscreen, contextSettings);
-                                            }
-                                            else {
-                                                window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close , contextSettings);
-                                            }
-                                            window.setSize(old_size[win_num]);
-                                            window.setPosition(old_pos[win_num]);
-                                            window.setVerticalSyncEnabled(true);
-                                            break;
-                                        }
-
-
-                                        handle_key_window(event, win_num, window);
                                         if (event.key.control) start_view(marker_file,marker_filename);
+                                        handle_key_window(event, win_num, window);
                                         break;
                                     case sf::Keyboard::F4:
                                         printf("I am here ");
@@ -1104,6 +1095,8 @@ extern void make_test_schematic();
                                             if (plot_only) {
                                                 voxels.clear();
                                                 voxels_total.clear();
+                                            } else {
+                                                voxels.clear();
                                             }
                                             mazemovex_voxel=0;
                                             mazemovey_voxel=0;
@@ -1328,7 +1321,7 @@ extern void make_test_schematic();
 //                                            printf("Selector X=%d,Y=%d\n",selector_pos.x,selector_pos.y);
                                             break;
                                         }
-                                        if (event.key.shift) { trans*=5.0; rot*=5.0; }
+                                        if (event.key.shift) { trans*=5.0; rot*=5.0; break; }
                                         if (event.key.alt && event.key.control) { exit_code=-10;  exit_thread = true;  break; }
                                         if (event.key.alt) {
                                             rotate_object_y=rotate_object_y-1.0*rot;
@@ -1375,7 +1368,7 @@ extern void make_test_schematic();
                                             }
                                             break;
                                         }
-                                        if (event.key.shift) { trans*=5.0; rot*=5.0; }
+                                        if (event.key.shift) { trans*=5.0; rot*=5.0; break; }
                                         if (event.key.alt && event.key.control) { exit_code=-11;  exit_thread = true;  break; }
                                         if (event.key.alt) {
                                             rotate_object_y=rotate_object_y+1.0*rot;
@@ -1398,6 +1391,25 @@ extern void make_test_schematic();
                                             move_object_y=move_object_y+1.0*trans*sin(rotate_object_z*M_PI/180.0);
                                         } else {
                                             move_object_x=move_object_x-5.0*trans;
+                                        }
+                                        break;
+                                    case sf::Keyboard::U:
+                                        by_texture=!by_texture;
+                                        if (by_texture) {
+                                            dont_slow_down=true;
+                                            glViewport(0, 0, 1920.0,1080.0);
+
+//                                            perspective[1]=1.0;
+//                                            between_texture.setActive(false);
+//                                            window.setActive(false);
+//                                            between_texture.setView(between_texture.getDefaultView());
+//                                            sf::Texture::bind(&between_texture.getTexture(),sf::Texture::CoordinateType::Pixels);
+                                        } else {
+                                            dont_slow_down=false;
+                                            glViewport(0, 0, window.getSize().x, window.getSize().y);
+
+//                                            if (window.getSize().y>0) perspective[1]=(float)window.getSize().x / (float)window.getSize().y;
+//                                            else perspective[1]=1920.0/1080.0;
                                         }
                                         break;
                                     case sf::Keyboard::Up:
@@ -1490,9 +1502,11 @@ extern void make_test_schematic();
                                             move_object_y=move_object_y+5.0*trans;
                                         }
                                         break;
+                                    case sf::Keyboard::Equal:
                                     case sf::Keyboard::Add:
                                         voxel_bottom=voxel_bottom+1.0;
                                         break;
+                                    case sf::Keyboard::Hyphen:
                                     case sf::Keyboard::Subtract:
                                         voxel_bottom=voxel_bottom-1.0;
                                         if (voxel_bottom<0.0) voxel_bottom=0.0;
@@ -1782,15 +1796,31 @@ extern void make_test_schematic();
                                 exit_thread=false;
                                 exit_code=0;
                             } else if ((event.key.code == sf::Keyboard::Escape)) {
+extern bool screensaver;
+                                if (screensaver) {
+                                    exit_code=-1;
+                                    exit_thread = true;
+                                    keep_running[win_num]=0;
+                                    break;
+                                }
                                 exit_code=0;
                                 exit_thread = true;
                             } else if ((event.key.code == sf::Keyboard::F11)) {
-//                                static sf::Vector2u old_size2=sf::Vector2u(1920/2,1080/2);
-//                                static sf::Vector2i old_pos2=sf::Vector2i(1920/4,1080/4);
+                                ShowCursor(true);
+                                if (event.key.control) {
+                                    transparant=!transparant;
+                                    break;
+                                }
+
                                 if (videomode[win_num]==1) {
                                     videomode[win_num]=0;
-                                    old_size[win_num]=sf::Vector2u(1920,1080);
-                                    old_pos[win_num]=sf::Vector2i(0,0);
+                                    if (transparant) {
+                                        old_size[win_num]=sf::Vector2u(1922,1082);
+                                        old_pos[win_num]=sf::Vector2i(0,0);
+                                    }  else {
+                                        old_size[win_num]=sf::Vector2u(1920,1080);
+                                        old_pos[win_num]=sf::Vector2i(0,0);
+                                    }
                                     old_size2=window.getSize();
                                     old_pos2=window.getPosition();
                                 } else {
@@ -1808,17 +1838,43 @@ extern void make_test_schematic();
                                 window.display();
                                 contextSettings.minorVersion = 3;
                                 contextSettings.majorVersion = 3;
+
+                                window.close();
                                 if (videomode[win_num]==0) {
-                                    window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Fullscreen, contextSettings);
+                                    if (transparant) {
+                                        const unsigned char opacity = 255;
+                                        sf::Image backgroundImage;
+                                        backgroundImage.create(1922,1082,sf::Color(255,255,255,1));
+                                        window.create(sf::VideoMode(backgroundImage.getSize().x, backgroundImage.getSize().y, 32), "Transparent Window", sf::Style::None ,contextSettings);
+//                                        window.setPosition(-1,-1);
+
+                                        setShape(window.getSystemHandle(), backgroundImage);
+                                        setTransparency(window.getSystemHandle(), opacity);
+                                        window.setVerticalSyncEnabled(true);
+//                                        glViewport(0, 0, 1922,1082);
+                                    } else {
+                                        window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Fullscreen, contextSettings);
+//                                        glViewport(0, 0, 1920,1080);
+                                    }
+                                    between_texture.create(1920,1080,contextSettings);
                                 }
                                 else {
-                                    window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close , contextSettings);
-                                }
-                                window.setVerticalSyncEnabled(true);
+                                    if (transparant) {
+                                        const unsigned char opacity = 255;
+                                        sf::Image backgroundImage;
+                                        backgroundImage.create(1922,1082,sf::Color(255,255,255,1));
+                                        window.create(sf::VideoMode(backgroundImage.getSize().x, backgroundImage.getSize().y, 32), "Transparent Window", sf::Style::None ,contextSettings);
+                                        setShape(window.getSystemHandle(), backgroundImage);
+                                        setTransparency(window.getSystemHandle(), opacity);
+                                        window.setVerticalSyncEnabled(true);
+//                                        glViewport(0, 0, 1922,1082);
 
-                                hglrc[win_num] = wglGetCurrentContext();
-                                hwnd[win_num] = window.getSystemHandle();
-                                hdc[win_num] = GetDC(hwnd[win_num]) ;
+                                    } else {
+                                        window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close , contextSettings);
+//                                        glViewport(0, 0, 1920,1080);
+                                    }
+                                    between_texture.create(1920,1080,contextSettings);
+                                }
 
                                 window.setSize(old_size[win_num]);
                                 window.setPosition(old_pos[win_num]);
@@ -1827,15 +1883,16 @@ extern void make_test_schematic();
                                 window.clear(sf::Color(50,20,30,128));
                                 window.display();
 
-                                auto win = window.getSystemHandle();
-                                auto style = GetWindowLong(win, GWL_STYLE);
-                                auto ex_style = GetWindowLong(win, GWL_EXSTYLE);
-
                                 window.setVerticalSyncEnabled(true);
+                                sync_window[win_num]=1;
                                 window.setActive(true);
 
-                                if (window.getSize().y>0) perspective[1]=(float)window.getSize().x / (float)window.getSize().y;
-                                else perspective[1]=1920.0/1080.0;
+                                if (by_texture) {
+                                    perspective[1]=1920.0/1080.0;
+                                } else {
+                                    if (window.getSize().y>0) perspective[1]=(float)window.getSize().x / (float)window.getSize().y;
+                                    else perspective[1]=1920.0/1080.0;
+                                }
                             } else if ((event.key.code == sf::Keyboard::Enter)) {
                                 if (mipmapEnabled) {
 //                                    if (!texture.loadFromFile("resources/texture.jpg")) {
@@ -1871,37 +1928,34 @@ extern void make_test_schematic();
                                 window.setPosition(old_pos[win_num]);
                             }
 
-                            window.setActive(true);
-                            glViewport(0, 0, event.size.width, event.size.height);
+                            if (by_texture) {
+                                window.setActive(true);
+                                if (transparant)
+                                    glViewport(0, 0, 1920.0,1080.0);
+                                else
+                                    glViewport(0, 0, 1920.0,1080.0);
 
-//                            glMatrixMode(GL_PROJECTION);
-//                            glLoadIdentity();
-//                            gluOrtho2D(-window.getSize().x/2, window.getSize().x/2, -window.getSize().y/2, window.getSize().y/2);
-//hoppa
-//                            gluPerspective(45.0, (float)event.size.width / (float)event.size.height, 0.01f, 100.0f);
+                                perspective[1]=(float)window.getSize().x / (float)window.getSize().y;
 
-//                            perspective[0]=45.0;
-                            perspective[1]=(float)window.getSize().x / (float)window.getSize().y;
-//                            perspective[2]=0.01;
-//                            perspective[3]=100.0f;
+                                window.setActive(false);
 
-//                            gluPerspective(45.0, (float)event.size.width / (float)event.size.height, 0.01f, 100.0f);
-//                            gluPerspective(perspective[0],perspective[1],perspective[2],perspective[3]);
-//                            glMatrixMode(GL_MODELVIEW);
-//                            glLoadIdentity();
+                                width2 = event.size.width;
+                                height2 =event.size.height;
 
-                            window.setActive(false);
+                            } else {
+                                window.setActive(true);
+                                if (transparant)
+                                    glViewport(0, 0, event.size.width, event.size.height);
+                                else
+                                    glViewport(0, 0, event.size.width, event.size.height);
 
-                            width2 = event.size.width;
-                            height2 =event.size.height;
-    //                        ding_texture[win_num].create(window.getSize().x,window.getSize().y);
-    //                        ding_sprite[win_num].setTexture(ding_texture[win_num],true);
+                                perspective[1]=(float)window.getSize().x / (float)window.getSize().y;
 
-    //                        ding_texture_render[win_num].create(window.getSize().x,window.getSize().y,true);
-    //                        ding_sprite_render[win_num].setTexture(ding_texture_render[win_num].getTexture(),true);
-        //                    background.setPosition(width2/2,height2/2.0);
-//                            if (window.getSize().y>0) perspective[1]=(float)window.getSize().x / (float)window.getSize().y;
-//                            else perspective[1]=old_size[win_num].x/old_size[win_num].y; //???
+                                window.setActive(false);
+
+                                width2 = event.size.width;
+                                height2 =event.size.height;
+                            }
                         }
                     }
                     no_more=10;

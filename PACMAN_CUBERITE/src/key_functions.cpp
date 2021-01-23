@@ -1,3 +1,4 @@
+#include <conio.h>
 #define PI 3.141592653589793
 #define SFML_STATIC
 #undef UNICODE
@@ -16,6 +17,7 @@
 #ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
 #define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
 #endif
+//#include <conio.h>
 #include <Windows.h>
 #include <TlHelp32.h>
 #include <tchar.h>
@@ -852,12 +854,14 @@ int paper_format() {
     error_flag2=1;
 }
 
+extern bool got_next;
 void do_nextlevel()
 {
     char naam[400];
     if (goexit==1)
     {
         goexit=0;
+        got_next=true;
         return;
     }
     if (levelnotsaved==1)
@@ -865,6 +869,7 @@ void do_nextlevel()
         strcpy(error_msg,"LEVEL NOT SAVED!!! PRESS AGAIN TO LOAD NEXT");
         error_flag=1;
         levelnotsaved=0;
+        got_next=true;
         return;
     }
     if (DONTSAVEFILES==0)
@@ -924,6 +929,7 @@ void do_nextlevel()
         }
     }
     next=1;
+    got_next=true;
 }
 
 sf::Clock kp;
@@ -2346,6 +2352,7 @@ VOID HANDLECHAR(WPARAM wparam)
                         cleanupbitmaps();
                         cleanupbitmaps_mazes();
                         strcpy(error_msg2,"LEVEL CLEARED, NEW POSITION");
+                        error_flag2=1;
                         error_flag2=1;
                         strcpy(error_msg3,"LEVEL CLEARED, NEW POSITION");
                         error_flag3=1;
@@ -7830,7 +7837,7 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
         else if (event.key.shift==1)
         {
             if (selector==CANVAS_SELECT)
-                sprite_from_canvas.setScale(1.0,1.0);
+                sprite_from_canvas.setScale(0.02,0.02);
             if (selector==FFMPEG_SELECT)
                 sprite_from_ffmpeg.setScale(1.0,1.0);
             if (selector==INTERNET_SELECT)

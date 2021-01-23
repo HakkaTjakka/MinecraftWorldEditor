@@ -119,6 +119,7 @@ void set_blending()
         MyBlendMode[MyBlendMode_num].colorSrcFactor    = MyFactor[MyBlend_colorSrcFactor_num];
         MyBlendMode[MyBlendMode_num].colorDstFactor    = MyFactor[MyBlend_colorDstFactor_num];
         MyBlendMode[MyBlendMode_num].colorEquation     = MyEquation[MyBlend_colorEquation_num];
+
         MyBlendMode[MyBlendMode_num].alphaSrcFactor    = MyFactor[MyBlend_alphaSrcFactor_num];
         MyBlendMode[MyBlendMode_num].alphaDstFactor    = MyFactor[MyBlend_alphaDstFactor_num];
         MyBlendMode[MyBlendMode_num].alphaEquation     = MyEquation[MyBlend_alphaEquation_num];

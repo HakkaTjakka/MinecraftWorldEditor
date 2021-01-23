@@ -1,3 +1,4 @@
+#include <conio.h>
 #ifndef MCA_NBT_EDIT_HPP
 #define MCA_NBT_EDIT_HPP
 

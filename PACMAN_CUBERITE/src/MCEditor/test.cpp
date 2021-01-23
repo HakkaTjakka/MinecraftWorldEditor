@@ -6639,6 +6639,12 @@ extern std::string area;
         }
 */
         printf("  %d Blocks.  Adding: ",num_blocks);
+    } else {
+        for (int x = 0; x < 512; x++) {
+            for (int z = 0; z < 512; z++) {
+                floor_y[x][z]=0;
+            }
+        }
     }
 
     if (hit_one!=NULL) hit_one->index12++;
