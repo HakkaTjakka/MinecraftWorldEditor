@@ -1150,7 +1150,7 @@ void make_colors_from_blocks()
     }
     fprintf(blockstates,"\n");
 
-    printf("MODEL VARIANTS:\n");
+    fprintf(blockstates,"MODEL VARIANTS:\n");
     for (it = model_variants_map.begin(); it != model_variants_map.end(); it++)
     {
         fprintf(blockstates,"'%s' (%d)\n",it->first.c_str(),it->second);
@@ -1169,7 +1169,7 @@ void make_colors_from_blocks()
 
     sf::Image construct;
 
-    printf("Building map for all block textures max 64x64\n");
+    if (!shut_up) printf("Building map for all block textures max 64x64\n");
 
     int grid[64][64];
     for (int y=0; y<64; y++)
@@ -1335,7 +1335,6 @@ extern setTransparency(HWND hWnd, unsigned char alpha);
 
 
 
-    bool out=false;
     float tt;
     backgroundSprite.setOrigin(512,512);
     backgroundTexture.display();
@@ -1344,6 +1343,8 @@ extern setTransparency(HWND hWnd, unsigned char alpha);
 
     window.setVerticalSyncEnabled(true);
 
+    bool out=false;
+    int tm=0;
     while (window.pollEvent(event) || !out) {
 //        window.clear(sf::Color(128+sin(tt*1.3)*127,128+sin(tt*1.6)*127,128+sin(tt*1.5)*127,0));
         window.clear(sf::Color::Transparent);
@@ -1352,7 +1353,8 @@ extern setTransparency(HWND hWnd, unsigned char alpha);
         window.draw(backgroundSprite);
         window.display();
         tt+=0.05;
-        if (event.type == sf::Event::KeyPressed) {
+        tm++;
+        if (event.type == sf::Event::KeyPressed || tm>300) {
             out=true;
         }
     }

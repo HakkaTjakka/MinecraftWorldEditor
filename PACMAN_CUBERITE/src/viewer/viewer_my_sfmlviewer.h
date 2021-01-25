@@ -643,6 +643,7 @@ bool rot_plot=false;
 
 bool depth_shader_on=false;
 
+bool lighten=false;
 sf::Color color_behind;
 int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, int yo_combine)
 {

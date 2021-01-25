@@ -104,33 +104,23 @@ void main() {
 //                if (spec1>spec2) kS_x_spec =  spec1*vec3(1.0, 1.0, 1.0) + vec3(0.10, 0.10, 0.10);
 //                else             kS_x_spec =  spec2*vec3(1.0, 1.0, 1.0) + vec3(0.10, 0.10, 0.10);
 
-            vec3 kS_x_spec_1 =  spec1*vec3(0.5, .5, .5) + vec3(0.10, 0.10, 0.10);
-            vec3 kS_x_spec_2 =  spec2*vec3(.5, .5, .5) + vec3(0.10, 0.10, 0.10);
-            vec3 kS_x_spec = (kS_x_spec_1+kS_x_spec_2)/2.0;
-
-
-  //              if (whattodo==3)
-//                    fragcolor = kD;
-//                else
-//                    fragcolor = clamp(   vec4( kD.xyz * (diff_ ) + kS_x_spec_, kD.a) , 0.0 , 1.0);
+                vec3 kS_x_spec_1 =  spec1*vec3(0.5, .5, .5) + vec3(0.10, 0.10, 0.10);
+                vec3 kS_x_spec_2 =  spec2*vec3(.5, .5, .5) + vec3(0.10, 0.10, 0.10);
+                vec3 kS_x_spec = (kS_x_spec_1+kS_x_spec_2)/2.0;
 
                     fragcolor = clamp(   vec4( kD.xyz * (diff ) + kS_x_spec, kD.a) , 0.0 , 1.0);
 
 
-//                vec2 p = vec2(1.0,1.0)*(vec2(gl_FragCoord.x,gl_FragCoord.y)) / resolution.xy;
-//                vec2 uv = (gl_FragCoord.xy) / resolution.xy;
-//                uv=vec2(uv.x,1.0-uv.y);
-//                vec2 uv = -p*vec2(resolution.x/resolution.y,1.0);
-//                kB=texture(background_texture,uv);
+                vec2 p = vec2(1.0,1.0)*(vec2(gl_FragCoord.x,gl_FragCoord.y)) / resolution.xy;
+                vec2 uv = (gl_FragCoord.xy) / resolution.xy;
+                uv=vec2(uv.x,1.0-uv.y);
 
-//                kB =  texture2D(background_texture, ( vec2(gl_FragCoord.x,gl_FragCoord.y) / resolution ));
+                kB=texture(background_texture,uv);
 
-////                fragcolor=(kD+kB)/2.0;
-//                if (kB.x<0.2 && +kB.y<0.2 && kB.z<0.2)
-//                    fragcolor=kB;
-//                else
-//                    fragcolor.xyz=clamp(fragcolor.xyz*clamp(z_,0.0,1.0) + kB.xyz*clamp(1.0-z_,0.0,1.0),0.0,1.0);
-//                fragcolor.xyz=clamp(fragcolor.xyz*clamp(z_,0.0,1.0) + background.xyz*clamp(1.0-z_,0.0,1.0),0.0,1.0);
+                float a = clamp( 1.0-1.0*(abs(kB.x-background.x) + abs(kB.y-background.y) + abs(kB.z-background.z)),0.0,1.0);
+                float zz_=z_*a;
+                fragcolor.xyz=clamp(fragcolor.xyz*clamp(zz_,0.0,1.0) + kB.xyz*clamp(1.0-zz_,0.0,1.0),0.0,1.0);
+
             }
             else if (WIRE_FRAME) {
                 fragcolor=out_color;
@@ -200,16 +190,21 @@ void main() {
                 vec2 p = vec2(1.0,1.0)*(vec2(gl_FragCoord.x,gl_FragCoord.y)) / resolution.xy;
                 vec2 uv = (gl_FragCoord.xy) / resolution.xy;
                 uv=vec2(uv.x,1.0-uv.y);
+
 //                vec2 uv = -p*vec2(resolution.x/resolution.y,1.0);
-//                kB=texture(background_texture,uv);
+                kB=texture(background_texture,uv);
 
 //                kB =  texture2D(background_texture, ( vec2(gl_FragCoord.x,gl_FragCoord.y) / resolution ));
 
 ////                fragcolor=(kD+kB)/2.0;
-//                if (kB.x<0.2 && +kB.y<0.2 && kB.z<0.2)
+//                if (kB.x>0.8 && +kB.y>0.8 && kB.z>0.8)
+                float a = clamp( 2.0-4.5*(abs(kB.x-background.x) + abs(kB.y-background.y) + abs(kB.z-background.z)),0.0,1.0);
+                float zz_=z_*a;
+//                if ( abs(kB.x-background.x) + abs(kB.y-background.y) + abs(kB.z-background.z) )
 //                    fragcolor=kB;
 //                else
 //                    fragcolor.xyz=clamp(fragcolor.xyz*clamp(z_,0.0,1.0) + kB.xyz*clamp(1.0-z_,0.0,1.0),0.0,1.0);
+                    fragcolor.xyza=clamp(fragcolor.xyza*clamp(zz_,0.0,1.0) + kB.xyza*clamp(1.0-zz_,0.0,1.0),0.0,1.0);
 //                fragcolor.xyz=clamp(fragcolor.xyz*clamp(z_,0.0,1.0) + background.xyz*clamp(1.0-z_,0.0,1.0),0.0,1.0);
             }
             else if (WIRE_FRAME) {

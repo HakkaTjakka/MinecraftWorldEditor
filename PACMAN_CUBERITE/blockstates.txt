@@ -11487,6 +11487,7 @@ ITEM TEXTURES:
 "items/wood_sword.png" (1)
 "items/wooden_armorstand.png" (1)
 
+MODEL VARIANTS:
 'age=0' (3)
 'age=0,facing=east' (1)
 'age=0,facing=north' (1)

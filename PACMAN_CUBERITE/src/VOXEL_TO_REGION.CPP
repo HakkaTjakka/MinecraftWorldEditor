@@ -1252,6 +1252,7 @@ void regions_to_voxelfiles2() {
         scan_min_z=0;
         int max_x;        int min_x;        int max_z;
         int min_z;        int max_y;        int min_y;
+        bool quiet=true;
         while(it != cubic_regions_mapped.end()) {
             int x=it->second.x;
             int z=it->second.z;
@@ -1289,26 +1290,26 @@ void regions_to_voxelfiles2() {
                 hit_one_region* hit_one=findRegion(x,z);
                 if (hit_one==NULL) {
                     if (file_exists(voxel_file)) {
-                        printf("WARNING!!!: First region floor file from ../tovoxels/region/done%d or ../tovoxels/region (floor 0) but voxelfile exists: %s\n",it->second.region_floor,voxel_file);
-                        printf("WARNING!!!: Appending voxels to %s\n",voxel_file);
+                        if (!quiet) printf("WARNING!!!: First region floor file from ../tovoxels/region/done%d or ../tovoxels/region (floor 0) but voxelfile exists: %s\n",it->second.region_floor,voxel_file);
+                        if (!quiet) printf("WARNING!!!: Appending voxels to %s\n",voxel_file);
                     } else {
-                        printf("Ok. Creating new file. Writing to %s\n",voxel_file);
+                        if (!quiet) printf("Ok. Creating new file. Writing to %s\n",voxel_file);
                     }
                     vector_hit_regions.push_back(hit_one_region(x,z));
                     hit_one=&vector_hit_regions[vector_hit_regions.size()-1];
                 } else {
                     if (file_exists(voxel_file)) {
-                        printf("Ok/(Warning when not cubic). NOT first region floor file from ../tovoxels/region/done%d or ../tovoxels/region (floor 0) Voxelfile exists: %s\n",it->second.region_floor,voxel_file);
-                        printf("Appending voxels to %s\n",voxel_file);
+                        if (!quiet) printf("Ok/(Warning when not cubic). NOT first region floor file from ../tovoxels/region/done%d or ../tovoxels/region (floor 0) Voxelfile exists: %s\n",it->second.region_floor,voxel_file);
+                        if (!quiet) printf("Appending voxels to %s\n",voxel_file);
                     } else {
-                        printf("Warning/ERROR?: NOT first region floor file from ../tovoxels/region/done%d or ../tovoxels/region (floor 0) BUT NO VOXELFILE EXISTS. (MOVED/DELETED?): %s\n",it->second.region_floor,voxel_file);
-                        printf("Warning/ERROR?: New file BUT NOT FIRST REGION FILES (DOUBLE/CUBIC). Writing to %s\n",voxel_file);
+                        if (!quiet) printf("Warning/ERROR?: NOT first region floor file from ../tovoxels/region/done%d or ../tovoxels/region (floor 0) BUT NO VOXELFILE EXISTS. (MOVED/DELETED?): %s\n",it->second.region_floor,voxel_file);
+                        if (!quiet) printf("Warning/ERROR?: New file BUT NOT FIRST REGION FILES (DOUBLE/CUBIC). Writing to %s\n",voxel_file);
                     }
                 }
                 hit_one->index11=1;
                 hit_one->index12=1;
             } else {
-                printf("Appending voxels to %s\n",voxel_file);
+                if (!quiet) printf("Appending voxels to %s\n",voxel_file);
             }
 //                        if (!flushing && (mirror==3 || does_exist==false) ) {
 
@@ -1495,8 +1496,7 @@ void regions_to_voxelfiles2() {
                     }
                 }
 
-
-                if (1) {
+                if (0) {
                     printf(" Converting.");
                     for (int x = 0; x < 512; x++) {
                         BlockInfo** AZ=AX[x];
@@ -1611,11 +1611,15 @@ void regions_to_voxelfiles2() {
                     editor.mca_coder.clearModification();
                 } else {
                     sprintf(tmp, "%s/modified/done%d/r.%d.%d.mca",region_filename.c_str(), region_floor, region_x, region_z);
+                    sprintf(done_dir,"%s/modified",region_filename.c_str());
+                    mkdir(done_dir);
+                    sprintf(done_dir,"%s/modified/done%d",region_filename.c_str(),region_floor);
+                    mkdir(done_dir);
 
-                    sprintf(done_dir,"/Saves/test/region/modified",region_floor);
-                    mkdir(done_dir);
-                    sprintf(done_dir,"/Saves/test/region/modified/done%d",region_floor);
-                    mkdir(done_dir);
+//                    sprintf(done_dir,"/Saves/test/region/modified",region_floor);
+//                    mkdir(done_dir);
+//                    sprintf(done_dir,"/Saves/test/region/modified/done%d",region_floor);
+//                    mkdir(done_dir);
 //                    mkdir("/Saves");
 //                    mkdir("/Saves/test");
 //                    mkdir("/Saves/test/region");
@@ -1623,7 +1627,8 @@ void regions_to_voxelfiles2() {
 //                    mkdir(done_dir);
 
                     file_name_MCA = tmp;
-                    printf("Saving modified region back to: %s\n",tmp);
+                    editor.mca_coder.current_filename_mca = tmp;
+                    printf("\nSaving modified region back to: %s\n",tmp);
                     first_MCEDIT=0; region_x_old=0; region_z_old=0;
                     editor.setRegion(region);
                 }

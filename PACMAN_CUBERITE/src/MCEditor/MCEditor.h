@@ -59,6 +59,7 @@ public:
     void lightPropagate(ui*** light);
 
     void updateMCA();
+    void updateMCA_FAST(const MCRegion &A);
 
     private:
 };

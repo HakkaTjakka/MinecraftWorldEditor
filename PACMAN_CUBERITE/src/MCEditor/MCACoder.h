@@ -42,10 +42,12 @@ public:
     void clearModification();
 
     void setBlock(const Pos &position, const BlockInfo &info);
+    void setBlock_old(const Pos &position, const BlockInfo &info);
 
     BlockInfo getBlock(int x, int z, int y);
 
     void getBlock_FAST(const MCRegion &region);
+    void setBlock_FAST(const MCRegion &region);
 
     void removeBlockEntity(const Pos &position);
 

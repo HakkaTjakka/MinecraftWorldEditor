@@ -239,7 +239,6 @@
 		<Unit filename="GetFileFromInternet.cpp" />
 		<Unit filename="MCA-NBT-EDIT.CPP" />
 		<Unit filename="MCA-NBT-EDIT.HPP" />
-		<Unit filename="MCEditor/BlockEntity.cpp" />
 		<Unit filename="MCEditor/BlockEntity.h" />
 		<Unit filename="MCEditor/MCACoder.cpp" />
 		<Unit filename="MCEditor/MCACoder.h" />

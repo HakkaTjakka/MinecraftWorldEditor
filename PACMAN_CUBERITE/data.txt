@@ -485,3 +485,4 @@
 0 invalid image ffmpeg: D:\PACMAN\pictures\139783908_463046661374660_8770360249143949298_n.jpg
 
 1 Program busy or hangs... Thread alive at: 21/01/2021 03:47:46
+1 Program busy or hangs... Thread alive at: 25/01/2021 18:55:05

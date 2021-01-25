@@ -23,8 +23,8 @@ uniform vec3 move;
 uniform vec4 add_xyz;
 uniform vec3 translation;
 
-//float time_phase=wave_phase/10.0;
-float time_phase=wave_phase;
+float time_phase=wave_phase/5.0;
+//float time_phase=wave_phase;
 //out vec3 my_normal;
 
 out vec3 kS_x_spec_;
@@ -228,7 +228,7 @@ void main()
 //            z_=1.3-gl_Position.z/3.5;
 //            z_=2.0-gl_Position.z/6.0;
 //            z_=1.0-gl_Position.z/6.0;
-            z_=1.0-gl_Position.z/6.0;
+            z_=1.3-gl_Position.z/6.0;
 //            z_=1.0;
             break;
         }
@@ -300,7 +300,7 @@ void main()
 //            kS_x_spec_ = spec2 + vec3(0.10, 0.10, 0.10);
 */
 //            z_=2.0-gl_Position.z/2.5;
-            z_=1.0-gl_Position.z/6.0;
+            z_=1.3-gl_Position.z/6.0;
 //            z_=1.0;
             break;
         }

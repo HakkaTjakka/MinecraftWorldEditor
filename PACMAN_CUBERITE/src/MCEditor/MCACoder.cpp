@@ -124,7 +124,7 @@ void MCACoder::setBlock(const Pos &position, const BlockInfo &info)
     int idx = (chunk_x & 31) + 32 * (chunk_z & 31);
     node *chunk_root = Chunk[idx];
 
-    if (!chunk_root) { fprintf(stderr, "1) Chunk that contains (%d, %d, %d) not initialized\n", x, y, z); return; }
+    if (!chunk_root) { /* fprintf(stderr, "1) Chunk that contains (%d, %d, %d) not initialized\n", x, y, z);*/ return; }
 
     modification_saved = false;
 
@@ -476,11 +476,11 @@ void MCACoder::insertEntity(const Pos &position, MobEntity *entity)
     int x = position.x, z = position.z, y = position.y;
 
     node *chunk_root = chunkWithXZ(x, z);
-    if (!chunk_root) { fprintf(stderr,"3) Chunk that contains (%d, ?, %d) is not initialized\n",x, z); return;  }
+    if (!chunk_root) {  fprintf(stderr,"3) Chunk that contains (%d, ?, %d) is not initialized\n",x, z); return;  }
 
     node *level_root = chunk_root->childWithName("Level");
     node *T = level_root->childWithName("Entities");
-    if (!T) { fprintf(stderr,"TileEntities does not exits (%d, %d, %d)\n", x, y, z); return; }
+    if (!T) { /* fprintf(stderr,"TileEntities does not exits (%d, %d, %d)\n", x, y, z);*/ return; }
 
     T->tag.ch_type = TAG_COMPOUND;
     T->addChild(newEntityNode(entity));
@@ -496,11 +496,11 @@ void MCACoder::insertBlockEntity(const Pos &position, BlockEntity *entity)
     int x = position.x, z = position.z, y = position.y;
 
     node *chunk_root = chunkWithXZ(x, z);
-    if (!chunk_root) { fprintf(stderr,"3) Chunk that contains (%d, ?, %d) is not initialized\n",x, z); return;  }
+    if (!chunk_root) {  fprintf(stderr,"3) Chunk that contains (%d, ?, %d) is not initialized\n",x, z); return;  }
 
     node *level_root = chunk_root->childWithName("Level");
     node *T = level_root->childWithName("TileEntities");
-    if (!T) { fprintf(stderr,"TileEntities does not exits (%d, %d, %d)\n", x, y, z); return; }
+    if (!T) { /* fprintf(stderr,"TileEntities does not exits (%d, %d, %d)\n", x, y, z);*/ return; }
 
     T->tag.ch_type = TAG_COMPOUND;
     T->addChild(newBlockEntityNode(entity));
@@ -510,7 +510,7 @@ void MCACoder::insertBlockEntity(const Pos &position, BlockEntity *entity)
 void MCACoder::setHeightMap(int x, int z, int y)
 {
     node *chunk_root = chunkWithXZ(x, z);
-    if (!chunk_root) { fprintf(stderr,"4) Chunk that contains (%d, ?, %d) is unintialized", x, z);
+    if (!chunk_root) { /*  fprintf(stderr,"4) Chunk that contains (%d, ?, %d) is unintialized", x, z); */
         return;
     }
 

@@ -3567,6 +3567,7 @@ extern float* fspeed_ghosty;
                             if (already_loaded) printf("ALREADY LOADED ");
                             else {
                                 if (make_region_from_voxel(x,z)) {
+                                    if (!cubic) sort(voxels_total.begin(), voxels_total.end());
                                     printf(" AND LOADED!");
                                 } else {
                                     printf(" NO VOXELFILE.");
@@ -3577,6 +3578,8 @@ extern float* fspeed_ghosty;
                                 sort(voxels_total.begin(), voxels_total.end());
                                 sort_cubic=false;
                                 printf(" SORTED CUBIC!!!");
+                            } else {
+//                                sort(voxels_total.begin(), voxels_total.end());
                             }
 
 /*
@@ -3611,6 +3614,7 @@ extern float* fspeed_ghosty;
                         else {
                             if (make_region_from_voxel(x,z)) {
                                 printf(" AND LOADED!");
+                                if (!cubic) sort(voxels_total.begin(), voxels_total.end());
                             } else {
                                 printf(" NO VOXELFILE.");
                             }
@@ -3620,6 +3624,8 @@ extern float* fspeed_ghosty;
                             sort(voxels_total.begin(), voxels_total.end());
                             sort_cubic=false;
                             printf(" SORTED CUBIC!!!");
+                        } else {
+//                            sort(voxels_total.begin(), voxels_total.end());
                         }
 
                     }
@@ -3823,6 +3829,7 @@ extern int floor_y[512][512];
                                     } else {
 
 //fucked
+                                        region_floor=0;
 //                                            prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
 //                                            if (u.y<0) prev_y_mod--;
                                         if (u.y>=0) prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
@@ -3836,6 +3843,7 @@ extern int floor_y[512][512];
 
                                         if (0) {
 //                                        if (u.x>=0 && u.x<230 && u.l>0) {
+
                                             size_t off_x=(u.x+256*prev_y_mod+prev_z_mod*512*256)*4;
                                             region_block[off_x]=u.r/u.l;
                                             region_block[off_x+1]=u.g/u.l;
@@ -3856,6 +3864,12 @@ extern int floor_y[512][512];
                                                 float togo=u.x-230.0;
                                                 float new_real_y=230.0+togo/(1.0+(togo/20.0)); if (new_real_y>=256.0) new_real_y=255.0;
                                                 size_t off_x=((int)new_real_y+256*prev_y_mod+prev_z_mod*512*256)*4;
+                                                region_block[off_x]=u.r/u.l;
+                                                region_block[off_x+1]=u.g/u.l;
+                                                region_block[off_x+2]=u.b/u.l;
+                                                region_block[off_x+3]=u.l;
+                                            } else {
+                                                size_t off_x=(u.x+256*prev_y_mod+prev_z_mod*512*256)*4;
                                                 region_block[off_x]=u.r/u.l;
                                                 region_block[off_x+1]=u.g/u.l;
                                                 region_block[off_x+2]=u.b/u.l;

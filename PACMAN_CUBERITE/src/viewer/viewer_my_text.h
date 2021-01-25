@@ -138,6 +138,9 @@ void draw2_all_texture(sf::RenderTexture& window,char *towrite, int xpos, int yp
                                     if (rot_plot) { sprintf(to_print,"Plotting on  Voxel_bottom=%6.3f%%  Max size: %3d (Rot: %3d)",voxel_bottom*100, (int)schematic_size,(flipflop>0)*180);           PRINTIT_RED_BIG }
                                     if (cubic) { sprintf(to_print,"CUBIC (SHIFT+c) = ON (don't trim, make floors)");           PRINTIT_BIG }
                                     else { sprintf(to_print,"CUBIC (SHIFT+c) = OFF (trim y<0 & y>255");           PRINTIT_BIG }
+                                    if (lighten) { sprintf(to_print,"lighten (CONTOL+c) = ON (lighten blocks)");           PRINTIT_BIG }
+                                    else { sprintf(to_print,"lighten (CONTOL+c) = OFF (lighten blocks");           PRINTIT_BIG }
+
                                 } else {
                                     if (do_wuppie) {
                                         sprintf(to_print,"WUPPIE READY!");                    PRINTIT_RED_BIG

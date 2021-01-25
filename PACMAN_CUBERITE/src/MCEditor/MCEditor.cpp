@@ -13,6 +13,7 @@ extern int old_idx;
 extern int old_sec_no;
 extern node *old_T;
 extern node *old_sec_root;
+extern int remove_block_entities;
 
 extern int first;
 extern int toggle4();
@@ -264,85 +265,13 @@ void MCEditor::initBlocks(const MCRegion &R)
             ui* AY_blocks=AZ_blocks[j];
             for (int k = 0; k < y_len; k++) {
                 BlockInfo bi = AY[k];
-//                ui *bd = &(AY_blockdata[k]);
                 ui id = bi.id | (bi.add << 8);
-//                ui id = R.A[i][j][k].id | (R.A[i][j][k].add << 8);
                 AY_blocks[k] = id;
-//                blocks[i][j][k] = id;
-//                blockdata[i][j][k] = bi.data;
-//                *bd = bi.data;
                 AY_blockdata[k] = bi.data;
-//                blockdata[i][j][k] = R.A[i][j][k].data;
             }
         }
     }
-//    printf("1");
-//hoppa
-//    printf("initBlocks(1)\n");
     int x0 = x_ori , x1 = x_ori + x_len , z0 = z_ori , z1 = z_ori + z_len ,  y0 = 0, y1 = 256;
-
-/*
-    vector<Pos> V;
-    for (int x = 0; x < x_len ; x+=16) {
-        for (int z = 0; z < z_len ; z+=16) {
-            for (int y = 0; y < 256; y+=16) {
-                for (int x_inner = 0; x_inner < 16 ; x_inner++) {
-                    toggle2();
-                    for (int z_inner = 0; z_inner < 16 ; z_inner++) {
-                        for (int y_inner = 0; y_inner < 16 ; y_inner++) {
-                            if (in_region(x+x_inner, z+z_inner, y+y_inner,   x_ori, z_ori, y_ori,   x_ori + x_len, z_ori + z_len, y_ori + y_len)) {
-                                continue;
-                            }
-                            //leave edited blocks unchanged;
-                            printf("1");
-
-                            V.push_back(Pos(x+x_inner, z+z_inner, y+y_inner));
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-
-//    printf("initBlocks(2)\n");
-//    sort(V.begin(), V.end());
-
-    addnew_counter=0;
-    lookup_counter1=0;
-    lookup_counter2=0;
-    lookup_counter3=0;
-    lookup_counter4=0;
-    lookup_counter5=0;
-    lookup_counter6=0;
-
-    for (Pos u : V) {
-        printf("2");
-        int i = u.x - x0, j = u.z - z0, k = u.y - y0;
-        toggle3();
-        BlockInfo res = mca_coder.getBlock(u.x, u.z, u.y);
-        blocks[i][j][k] = res.id + (res.add << 8);
-        blockdata[i][j][k] = res.data;
-        blocklight[i][j][k] = res.block_light;
-        skylight[i][j][k] = res.sky_light;
-//        toggle3();
-    }
-
-*/
-
-
-//    printf("2");
-//    printf("\n");
-/*
-    printf("Number of lookups: lookup1=%d\n",lookup_counter1);
-    printf("Number of lookups: lookup2=%d\n",lookup_counter2);
-    printf("Number of lookups: lookup3=%d\n",lookup_counter3);
-    printf("Number of lookups: lookup4=%d\n",lookup_counter4);
-    printf("Number of lookups: lookup5=%d\n",lookup_counter5);
-    printf("Number of lookups: lookup6=%d\n",lookup_counter6);
-    printf("Number of addnews: addnews=%d\n",addnew_counter);
-    printf("\ninitBlocks(5)\n");
-*/
 }
 
             //hoppa
@@ -388,14 +317,12 @@ void MCEditor::computeBlockLight(const MCRegion &R)
 
 void MCEditor::computeSkyLight()
 {
-//    fprintf(stderr, "Computing Sky Light...\n");
     for (int x = 00; x < x_len + 00; x++) {
         ui** AZ_skylight=skylight[x];
         toggle2();
         for (int z = 00; z < z_len + 00; z++) {
             ui* AY_skylight=AZ_skylight[z];
             memset(AZ_skylight[z], 0, 256 * sizeof(ui));
-//            for (int y = 0; y < 256; y++) skylight[x][z][y] = 0;
         }
     }
 
@@ -408,7 +335,6 @@ void MCEditor::computeSkyLight()
             ui* AY_blocks=AZ_blocks[z];
             for (int y = 255; y >= 0; y--) {
                 if (get_opacity(AY_blocks[y]) <= 1) AY_skylight[y] = 15;
-//                if (get_opacity(blocks[x][z][y]) <= 1) skylight[x][z][y] = 15;
                 else break;
             }
         }
@@ -416,6 +342,141 @@ void MCEditor::computeSkyLight()
 
     lightPropagate(skylight);
 }
+
+void MCEditor::updateMCA_FAST(const MCRegion &R)
+{
+    //remove block entities in the editing region;
+    printf("- Packing: ");
+    vector<Pos> VP;
+    for (int x = 0; x < x_len; x++) {
+        toggle2();
+        for (int z = 0; z < z_len; z++) {
+            for (int y = 0; y < y_len; y++) {
+                VP.push_back(Pos(x + x_ori, z + z_ori, y + y_ori));
+            }
+        }
+    }
+    printf("-");
+    if (remove_block_entities)
+        for (auto position : VP) {  toggle3();   mca_coder.removeBlockEntity(position);  }
+    printf("-");
+
+    //update blocks
+    vector<Block> VB;
+
+    int x0 = x_ori , z0 = z_ori ;
+
+    BlockInfo*** AX=R.A;
+
+    for (int x = 0; x < x_len ; x+=16) {
+        for (int z = 0; z < z_len ; z+=16) {
+            toggle2();
+            for (int y = 0; y < 256; y+=16) {
+                for (int x_inner = 0; x_inner < 16 ; x_inner++) {
+                    BlockInfo** AZ=AX[x+x_inner];
+
+                    ui** AZ_skylight=skylight[x+x_inner];
+                    ui** AZ_blocks=blocks[x+x_inner];
+                    ui** AZ_blocklight=blocklight[x+x_inner];
+                    ui** AZ_blockdata=blockdata[x+x_inner];
+
+                    for (int z_inner = 0; z_inner < 16 ; z_inner++) {
+                        BlockInfo* AY=AZ[z+z_inner];
+
+                        ui* AY_skylight=AZ_skylight[z+z_inner];
+                        ui* AY_blocks=AZ_blocks[z+z_inner];
+                        ui* AY_blocklight=AZ_blocklight[z+z_inner];
+                        ui* AY_blockdata=AZ_blockdata[z+z_inner];
+
+                        for (int y_inner = 0; y_inner < 16 ; y_inner++) {
+                            Pos position = Pos(x + x0 + x_inner, z + z0 + z_inner, y + y_inner);
+                            int y_tot=y+y_inner;
+
+                            ui id = AY_blocks[y_tot] & (ui)0xFF;
+//                            ui id = blocks[x+x_inner][z+z_inner][y+y_inner] & (ui)0xFF;
+                            ui add = (AY_blocks[y_tot] >> 8) & 0xF;
+//                            ui add = (blocks[x+x_inner][z+z_inner][y+y_inner] >> 8) & 0xF;
+//                            if (add>0 || (z==0 && y==1 && x<4))
+//                                printf("hier 2: add=%u  x=%d, z=%d, y=%d\n",add,x+x_inner,z+z_inner,y+y_inner);
+                            ui data = AY_blockdata[y_tot];
+//                            ui data = blockdata[x+x_inner][z+z_inner][y+y_inner];
+                            BlockInfo info = BlockInfo(id, add, data, AY_blocklight[y_tot], AY_skylight[y_tot]);
+
+                            AY[y_tot] = info;
+
+//                            BlockInfo info = BlockInfo(id, add, data, blocklight[x+x_inner][z+z_inner][y+y_inner], skylight[x+x_inner][z+z_inner][y+y_inner]);
+                            VB.push_back(Block(position, info));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    printf("-");
+
+
+    for (Block u : VB) {  mca_coder.setBlock(u.position, u.info);/*  toggle3();*/  }
+//    printf("4");
+    printf("-");
+
+    old_idx=0;
+    old_sec_no=0;
+    old_T=0;
+    old_sec_root=0;
+//    printf("\n");
+/*
+    printf("Number of lookups: lookup1=%d\n",lookup_counter1);
+    printf("Number of lookups: lookup2=%d\n",lookup_counter2);
+    printf("Number of lookups: lookup3=%d\n",lookup_counter3);
+    printf("Number of lookups: lookup4=%d\n",lookup_counter4);
+    printf("Number of lookups: lookup5=%d\n",lookup_counter5);
+    printf("Number of lookups: lookup6=%d\n",lookup_counter6);
+    printf("Number of addnews: addnews=%d\n",addnew_counter);
+*/
+    //update HeightMap
+//hoppa
+//    printf("\nsetHeightMap: ");
+    for (int x = 00; x < x_len + 00; x++) {
+        ui** AZ_skylight=skylight[x];
+        for (int z = 00; z < z_len + 00; z++) {
+            ui* AY_skylight=AZ_skylight[z];
+            toggle2();
+//tuuttuut
+            for (int y = 0; y < 256; y++) { if (AY_skylight[y] == 15) { mca_coder.setHeightMap(x + x_ori, z + z_ori, y);  break; } }
+//            for (int y = 0; y < 255; y++) { if (skylight[x][z][y] == 15) { mca_coder.setHeightMap(x + x_ori, z + z_ori, y);  break; } }
+        }
+    }
+//    printf("5");
+    printf("-");
+
+    //insert associated block entities
+//    printf("Make pair: ");
+    vector<pair<Pos, BlockEntity*> > VE;
+    for (int x = 0; x < x_len; x++) {
+        BlockEntity*** AZ_block_entities=block_entities[x];
+        for (int z = 0; z < z_len; z++) {
+            BlockEntity** AY_block_entities=AZ_block_entities[z];
+            toggle2();
+            for (int y = 0; y < y_len; y++) { VE.push_back(make_pair(Pos(x + x_ori, z + z_ori, y + y_ori), AY_block_entities[y])); }
+//            for (int y = 0; y < y_len; y++) { VE.push_back(make_pair(Pos(x + x_ori, z + z_ori, y + y_ori), block_entities[x][z][y])); }
+        }
+    }
+//    printf("6");
+//    sort(VE.begin(), VE.end());
+    printf("-");
+
+//    printf("insertBlockEntity()\n");
+//    printf("Insert: ");
+    for (auto u : VE) { mca_coder.insertBlockEntity(u.first, u.second);  toggle3(); }
+
+    //make sure that all modifications are saved
+//    printf("\n");
+    printf("Save modification: ");
+    mca_coder.saveModification();
+    printf(" Saved.");
+}
+
 
 void MCEditor::updateMCA()
 {
@@ -639,6 +700,7 @@ void MCACoder::getBlock_FAST(const MCRegion &region) {
             for (int y_outer = 0; y_outer < 256; y_outer+=16) {
                 int sec_no = y_outer >> 4;
                 node *T = sectionNodeWithY(sec_root, sec_no);
+
                 if (!T) {
                     for (int x_inner = 0; x_inner < 16 ; x_inner++) {
                         int x=x_outer + x_inner;
@@ -655,7 +717,7 @@ void MCACoder::getBlock_FAST(const MCRegion &region) {
                     }
                     continue;
                 }
-                node *u;
+//                node *u;
 
                 node *old_u_blocks = T->childWithName("Blocks");
                 node *old_u_add = T->childWithName("Add");
@@ -713,3 +775,282 @@ void MCACoder::getBlock_FAST(const MCRegion &region) {
     }
 }
 
+void MCACoder::setBlock_FAST(const MCRegion &region) {
+
+//    ui** AZ_skylight=skylight[3];
+
+    int n=0;
+    BlockInfo*** AX=region.A;
+    int num_blocks=0;
+    for (int x_outer = 0; x_outer < 512 ; x_outer+=16) {
+        int chunk_x = x_outer >> 4;
+        int region_x = chunk_x >> 5;
+        for (int z_outer = 0; z_outer < 512 ; z_outer+=16) {
+            int chunk_z = z_outer >> 4;
+            int region_z = chunk_z >> 5;
+            int idx = (chunk_x & 31) + 32 * (chunk_z & 31);
+            node *chunk_root = Chunk[idx];
+
+            if (!chunk_root) {
+                fprintf(stderr, "1) Chunk %d,%d not initialized\n", chunk_x, chunk_z);
+/*
+                for (int y_outer = 0; y_outer < 256; y_outer+=16) {
+                    for (int x_inner = 0; x_inner < 16 ; x_inner++) {
+                        int x=x_outer + x_inner;
+                        BlockInfo** AZ=AX[x];
+                        for (int z_inner = 0; z_inner < 16 ; z_inner++) {
+                            int z=z_outer + z_inner;
+                            BlockInfo* AY=AZ[z];
+                            if (!(n++&31)) toggle2();
+                            for (int y_inner = 0; y_inner < 16 ; y_inner++) {
+                                int y=y_outer + y_inner;
+                                AY[y]=BlockInfo();
+                            }
+                        }
+                    }
+                }
+*/
+                //nbt_coder.Clear(Chunk[i]);
+                continue;
+//                return;
+            }
+
+            node *level_root = chunk_root->childWithName("Level");
+            node *sec_root = level_root->childWithName("Sections");
+            bool content_chunk=false;
+            for (int y_outer = 0; y_outer < 256; y_outer+=16) {
+                int sec_no = y_outer >> 4;
+
+                node *T = sectionNodeWithY(sec_root, sec_no);
+
+                if (!T) {
+                    bool content=false;
+                    for (int x_inner = 0; x_inner < 16 ; x_inner++) {
+                        int x=x_outer + x_inner;
+                        BlockInfo** AZ=AX[x];
+                        for (int z_inner = 0; z_inner < 16 ; z_inner++) {
+                            int z=z_outer + z_inner;
+                            BlockInfo* AY=AZ[z];
+                            if (!(n++&31)) toggle2();
+                            for (int y_inner = 0; y_inner < 16 ; y_inner++) {
+                                int y=y_outer + y_inner;
+                                if (AY[y].id!=0) {
+                                    content=true;
+                                    break;
+                                }
+                            }
+                            if (content) break;
+                        }
+                        if (content) break;
+                    }
+                    if (!content) continue;
+
+                    T = newSectionNodeWithY(sec_no);
+                    sec_root->addChild(T);
+                }
+
+                node *old_u_blocks = T->childWithName("Blocks");
+                node *old_u_add = T->childWithName("Add");
+                node *old_u_data = T->childWithName("Data");
+                node *old_u_blocklight=T->childWithName("BlockLight");
+                node *old_u_skylight = T->childWithName("SkyLight");
+
+                bool content_section=false;
+                for (int x_inner = 0; x_inner < 16 ; x_inner++) {
+                    int x=x_outer + x_inner;
+                    BlockInfo** AZ=AX[x];
+                    for (int z_inner = 0; z_inner < 16 ; z_inner++) {
+                        int z=z_outer + z_inner;
+                        BlockInfo* AY=AZ[z];
+                        if (!(n++&31)) toggle2();
+
+                        BlockInfo* info;
+
+                        for (int y_inner = 0; y_inner < 16 ; y_inner++) {
+                            int y=y_outer + y_inner;
+                            int block_pos = y_inner * 256 + z_inner * 16 + x_inner;
+
+                            info=&AY[y];
+                            if (info->id!=0) content_section=true;
+
+                            if (old_u_blocks) {
+                                nbt_coder.setByteInArrayContent(old_u_blocks, block_pos, (uc)info->id);
+                            }
+
+                            if (old_u_add || info->add)
+                            {
+                                if (!old_u_add)
+                                {
+                                    old_u_add = new node(TAG_BYTE_ARRAY, "Add");
+                                    old_u_add->tag.va.resize(K2);
+                                    T->addChild(old_u_add);
+                                }
+                                nbt_coder.setHalfByteInArrayContent(old_u_add, block_pos, info->add);
+                            }
+
+                            if (old_u_data) {
+                                nbt_coder.setHalfByteInArrayContent(old_u_data, block_pos, info->data);
+                            };
+
+                            nbt_coder.setHalfByteInArrayContent(old_u_blocklight, block_pos, info->block_light);
+                            nbt_coder.setHalfByteInArrayContent(old_u_skylight, block_pos, info->sky_light);
+                        }
+                    }
+                }
+                if (!content_section) {
+                    nbt_coder.Clear(T);
+                }
+            }
+        }
+    }
+}
+
+
+
+void MCACoder::setBlock_old(const Pos &position, const BlockInfo &info)
+//void setBlock_old(const Pos &position, const BlockInfo &info)
+{
+
+    //fprintf(stderr, "Setting (%d, %d, %d).\n", x, y, z);
+    int x = position.x, z = position.z, y = position.y;
+
+    int chunk_x = x >> 4, chunk_z = z >> 4;
+    int region_x = chunk_x >> 5, region_z = chunk_z >> 5;
+
+//    static string file_name_MCA;
+//    static int region_x_old=0,region_z_old=0;
+//    static int first_MCEDIT=1;
+
+    int idx = (chunk_x & 31) + 32 * (chunk_z & 31);
+    node *chunk_root = Chunk[idx];
+
+    if (!chunk_root) { fprintf(stderr, "1) Chunk that contains (%d, %d, %d) not initialized\n", x, y, z); return; }
+
+    modification_saved = false;
+
+    int sec_no = y >> 4;
+
+    node *level_root;
+    node *sec_root;
+    node *T;
+
+    if (old_idx==idx && old_sec_no==sec_no && !old_T==0 && !old_sec_root==0) {
+        sec_root=old_sec_root;
+        T=old_T;
+    } else {
+        if (!(old_sec_root==0) && idx==old_idx) {
+            sec_root=old_sec_root;
+        } else {
+            level_root = chunk_root->childWithName("Level");
+            sec_root = level_root->childWithName("Sections");
+            lookup_counter1++;
+//            printf("region_x=%2d  region_z=%2d  idx=%4d  chunk_x=%2d  chunk_z=%2d  sec_no=%2d  x=%4d  z=%4d  y=%2d\n", region_x, region_z, idx, chunk_x, chunk_z, sec_no, x, z, y);
+        }
+        if (old_idx==idx && old_sec_root==sec_root && sec_no==old_sec_no && (!(old_T==0)))
+            T = old_T;
+        else
+            T = sectionNodeWithY(sec_root, sec_no);
+    }
+
+    if (!T) { T = newSectionNodeWithY(sec_no); sec_root->addChild(T); }
+
+        /*fprintf(stderr, "Section at Y = %d not initialized.\n", sec_no); return;*/
+
+    node *u;
+    int block_x = (x & 15), block_z = (z & 15), block_y = (y & 15);
+    int block_pos = block_y * 16 * 16 + block_z * 16 + block_x;
+
+    static node *old_u_blocks=0;
+
+    if (old_T==T && !(old_u_blocks==0)) {
+        u=old_u_blocks;
+    } else {
+        u = T->childWithName("Blocks");
+        lookup_counter2++;
+        old_u_blocks=u;
+    }
+    //set Blocks
+    nbt_coder.setByteInArrayContent(u, block_pos, (uc)info.id);
+
+    static node *old_u_add=0;
+
+    if (!(old_T==T)) {
+        lookup_counter3++;
+        u = T->childWithName("Add");
+        old_u_add=u;
+//        if (u) printf("Found Add tag!: %p  info.add=%d   x=%d, z=%d, y=%d \n",u,info.add, x,z,y);
+//        else printf("old_T!=T: Add tag not found: %p  info.add=%d   x=%d, z=%d, y=%d \n",u,info.add, x,z,y);
+//        else printf("Add tag not found: %p  info.add=%d   x=%d, z=%d, y=%d \n",u,info.add, x,z,y);
+//        printf("region_x=%2d  region_z=%2d  idx=%4d  chunk_x=%2d  chunk_z=%2d  sec_no=%2d  x=%4d  z=%4d  y=%2d  u=%d\n", region_x, region_z, idx, chunk_x, chunk_z, sec_no, x, z, y, u);
+    } else {
+        u=old_u_add;
+    }
+
+//    if (old_T==T && !(old_u_add==0)) {
+//        u=old_u_add;
+//    } else {
+//        lookup_counter3++;
+//        u = T->childWithName("Add");
+//        old_u_add=u;
+//    }
+
+    //set Add
+//    if (info.add>0) printf("Hier 4: info.add=%d   x=%d, z=%d, y=%d \n",info.add, x,z,y);
+//    else printf("info.add==0\n");
+    if (u || info.add)
+    {
+        if (!u)
+        {
+//            printf("Adding new Add tag\n",u,info.add);
+//            printf("u || info.add -> u=%p info.add=%d   x=%d, z=%d, y=%d \n",u,info.add, x,z,y);
+            addnew_counter++;
+            u = new node(TAG_BYTE_ARRAY, "Add");
+            u->tag.va.resize(K2);
+            T->addChild(u);
+            old_u_add=u;
+        }
+        nbt_coder.setHalfByteInArrayContent(u, block_pos, info.add);
+    }
+//    toggle3();
+
+    static node *old_u_data=0;
+
+    if (old_T==T && !(old_u_data==0)) {
+        u=old_u_data;
+    } else {
+        lookup_counter4++;
+        u = T->childWithName("Data");
+        old_u_data=u;
+    }
+    //set BlockData
+    nbt_coder.setHalfByteInArrayContent(u, block_pos, info.data);
+
+    static node *old_u_blocklight=0;
+
+    if (old_T==T && !(old_u_blocklight==0)) {
+        u=old_u_blocklight;
+    } else {
+        lookup_counter5++;
+        u = T->childWithName("BlockLight");
+        old_u_blocklight=u;
+    }
+    //set BlockLight
+    nbt_coder.setHalfByteInArrayContent(u, block_pos, info.block_light);
+
+    static node *old_u_skylight=0;
+
+    if (old_T==T && !(old_u_skylight==0)) {
+        u=old_u_skylight;
+    } else {
+        lookup_counter6++;
+        u = T->childWithName("SkyLight");
+        old_u_skylight=u;
+    }
+    //set SkyLight
+    nbt_coder.setHalfByteInArrayContent(u, block_pos, info.sky_light);
+
+    old_idx=idx;
+    old_sec_no=sec_no;
+    old_T=T;
+    old_sec_root=sec_root;
+}

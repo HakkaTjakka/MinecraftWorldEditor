@@ -10475,7 +10475,7 @@ extern std::string region_filename;
                 int y=(int)( ( (LONG64)(n_z)*512  +256-offset_y  + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
 */
                 float zc=sprite_from_canvas.getScale().x;
-                int offset_y=(zc/0.02)*512.0;
+                int offset_y=(zc/0.02)*512.0 - 512;
                 int x=(int)( ( (LONG64)(scan_x)*512  +256+ (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
                 int y=(int)( ( (LONG64)(scan_z)*512  +256 - offset_y + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
 

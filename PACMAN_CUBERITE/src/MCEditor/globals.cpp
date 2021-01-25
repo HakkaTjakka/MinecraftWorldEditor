@@ -179,6 +179,7 @@ int get_opacity(ui id)
 }
 
 //get the block light of block id
+//pipo
 int get_block_light(ui id)
 {
     if (id>255) return 14;
@@ -188,7 +189,7 @@ int get_block_light(ui id)
             if ( ! (rand()%3) ) return 15;
             else return 0;
         }
-        case 76: return 6;
+        case 76: return 15;
         case 89: return 14;
         default: return 0;
     }

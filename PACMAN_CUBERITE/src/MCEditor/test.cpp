@@ -59,6 +59,9 @@ bool maze_on=true;
 bool lights_on=true;
 bool ground_on=true;
 bool stone_on=true;
+bool bedrock_on=true;
+bool bedrock_floor_on=true;
+bool white_on=true;
 bool fix_on=false;
 extern int replace_string(char *str, char *orig, char *rep);
 extern void ret_color_rev(int idx, int&r,int&g,int&b );
@@ -6038,7 +6041,7 @@ int main_mceditor6_fixed(int region_x, int region_z, unsigned char* mc) {
     bool starting=true;
     hit_one_region* hit_one=findRegion(region_x, region_z);
 //printf("hier 2\n");
-    int rand_color=rand()%15;
+    int rand_color=rand()%16;
 //        printf("here 2\n");
 
     int box_x=256;
@@ -6163,8 +6166,8 @@ extern std::string area;
         editor.mca_coder.setPOSITIONS();
         first_MCEDIT=0;
         region_x_old=0,region_z_old=0;
-        printf("- Creating region r.%d.%d.mca: ",region_x,region_z);
 
+        printf("- Creating region r.%d.%d.mca: ",region_x,region_z);
 //        reset_block();
     }
 
@@ -6195,7 +6198,10 @@ extern std::string area;
     if (skippy2>0) printf("\n");
     skippy=0;
     skippy2=0;
-    scan_image.create(512,512);
+//    scan_image.create(512,512);
+
+    scan_image.create(512,512,sf::Color(0,0,0,0));
+
     int real_max_x=-std::numeric_limits<int>::max();
     int real_min_x=std::numeric_limits<int>::max();
 
@@ -6209,14 +6215,14 @@ extern std::string area;
     if (!load_leeg) {
         printf("Ok. Testing: ");
 
-        scan_image.create(512,512,sf::Color(0,0,0,0));
+//        scan_image.create(512,512,sf::Color(0,0,0,0));
         static int prev_region_x=-99999999;
         static int prev_region_z=-99999999;
         static bool first=true;
 
         for (int z=0; z<512; z++) {
             for (int x=0; x<512; x++) {
-                mask[x][z]=999999;
+                mask[x][z]=-999999;
             }
         }
 
@@ -6286,365 +6292,36 @@ extern std::string area;
         }
         if (plotting && !get_block) {
             scan_image.create(512,512,sf::Color(0,0,0,0));
-            if (fix_on) {
-                sf::Image mask_image;
-                char mask_file[1000];
-                sprintf(mask_file,"../cut/r.%d.%d.png",region_x,region_z);
-                if (file_exists(mask_file)) {
-                    mask_image.loadFromFile(mask_file);
-                } else {
-                    mask_image.create(512,512,sf::Color(0,0,0,255));
-                }
-                char mask[512][512];
-                for (int z=0; z<512; z++) {
-                    for (int x=0; x<512; x++) {
-                        if (mask_image.getPixel(x,z).a>0) {
-                            mask[x][z]=1;
-                        }
-                        else mask[x][z]=0;
-                    }
-                }
-//hohoho
-                printf("FIXING\n");
-                bool cured=false;
-                int added=0;
-                int loop=0;
-                while (!cured) {
-                    cured=true;
-                    loop++;
-                    int added_loop=0;
-                    int added_prev=0;
-                    int count=0;
-                    for (int x = 0; x < xl; x++) {
-                        BlockInfo** AZ=AX[x];
-                        for (int z = 0; z < zl; z++) {
-                            BlockInfo* AY=AZ[z];
-                            int added_y=0;
-                            int max_y=-1;
-                            if (floor_y[x][z]!=-1) {
-//                                int y_end=floor_y[x][z];
-                                int y_end=255;
-                                for (int y = 0; y <= y_end; y++) {
-                                    if (AY[y].id==0) {
-                                        int id=0;
-                                        int id0,id1,id2,id3,id4,id5;
-
-                                        if (x>0) {
-                                            id=AX[x-1][z][y].id;
-                                            id2=id;
-                                            if (id==251) continue;
-                                        }
-                                        if (x<511) {
-                                            id=AX[x+1][z][y].id;
-                                            id3=id;
-                                            if (id==251) continue;
-                                        }
-                                        if (z>0) {
-                                            id=AX[x][z-1][y].id;
-                                            id4=id;
-                                            if (id==251) continue;
-                                        }
-                                        if (z<511) {
-                                            id=AX[x][z+1][y].id;
-                                            id5=id;
-                                            if (id==251) continue;
-                                        }
-
-                                        int num=0;
-                                        if (x>0) {
-                                            id=AX[x-1][z][y].id;
-                                            if ((id==1 || id==2 || id==3 || id==14 || id==89) ) {
-                                                int a=0;
-                                                bool end_loop=false;
-                                                do {
-                                                    id=0;
-                                                    a++;
-                                                    if (x+a<512) {
-                                                        id=AX[x+a][z][y].id;
-                                                        if (id!=0) end_loop=true;
-                                                    }
-                                                    else end_loop=true;
-                                                } while (!end_loop);
-                                                if ( (x+a<512 && floor_y[x+a][z]!=-1 && (id==1 || id==2 || id==3 || id==14 || id==89))
-                                                    || (x+a==512 && floor_y[511][z]==-1)) {
-                                                    a--;
-                                                    while (a>0) {
-                                                        if (mask[x+a][z]) {
-                                                            AX[x+a][z][y] = BlockInfo(1, 0, 0, 0 );
-                                                            floor_y[x+a][z]=y;
-                                                            cured=false; added++; added_loop++; added_y++;
-                                                            if (y>floor_y[x+a][z]) scan_image.setPixel(x+a,z,sf::Color(255,255,0,255));
-                                                            else {
-                                                                sf::Color col=top_view.getPixel(x+a,z);
-                                                                scan_image.setPixel(x+a,z,sf::Color((255+col.r)/2,(255+col.g)/2,col.b/2,255));
-                                                            }
-                                                        }
-
-                                                        a--;
-                                                    }
-                                                    num=1;
-                                                }
-                                            }
-                                        }
-                                        if (x<511) {
-                                            id=AX[x+1][z][y].id;
-                                            if ((id==1 || id==2 || id==3 || id==14 || id==89) ) {
-                                                int a=0;
-                                                bool end_loop=false;
-                                                do {
-                                                    id=0;
-                                                    a--;
-                                                    if (x+a>=0) {
-                                                        id=AX[x+a][z][y].id;
-                                                        if (id!=0) end_loop=true;
-                                                    }
-                                                    else end_loop=true;
-                                                } while (!end_loop);
-                                                if ( (x+a>=0 && floor_y[x+a][z]!=-1 && (id==1 || id==2 || id==3 || id==14 || id==89))
-                                                    || (x+a<0 && floor_y[0][z]==-1)) {
-                                                    a++;
-                                                    while (a<0) {
-                                                        if (mask[x+a][z]) {
-                                                            AX[x+a][z][y] = BlockInfo(1, 0, 0, 0 );
-                                                            floor_y[x+a][z]=y;
-
-                                                            cured=false; added++; added_loop++; added_y++;
-                                                            if (y>floor_y[x+a][z]) scan_image.setPixel(x+a,z,sf::Color(255,255,0,255));
-                                                            else {
-                                                                sf::Color col=top_view.getPixel(x+a,z);
-                                                                scan_image.setPixel(x+a,z,sf::Color((255+col.r)/2,(255+col.g)/2,col.b/2,255));
-                                                            }
-                                                        }
-                                                        a++;
-                                                    }
-                                                    num=1;
-                                                }
-                                            }
-                                        }
-
-                                        if (z>0) {
-                                            id=AX[x][z-1][y].id;
-                                            if ((id==1 || id==2 || id==3 || id==14 || id==89) ) {
-                                                int a=0;
-                                                bool end_loop=false;
-                                                do {
-                                                    id=0;
-                                                    a++;
-                                                    if (z+a<512) {
-                                                        id=AX[x][z+a][y].id;
-                                                        if (id!=0) end_loop=true;
-                                                    }
-                                                    else end_loop=true;
-                                                } while (!end_loop);
-                                                if ( (z+a<512 && floor_y[x][z+a]!=-1 && (id==1 || id==2 || id==3 || id==14 || id==89))
-                                                    || (z+a==512 && floor_y[x][511]==-1)) {
-                                                    a--;
-                                                    while (a>0) {
-                                                        if (mask[x][z+a]) {
-                                                            AX[x][z+a][y] = BlockInfo(1, 0, 0, 0 );
-
-                                                            floor_y[x][z+a]=y;
-                                                            cured=false; added++; added_loop++; added_y++;
-                                                            if (y>floor_y[x][z+a]) scan_image.setPixel(x,z+a,sf::Color(255,255,0,255));
-                                                            else {
-                                                                sf::Color col=top_view.getPixel(x,z+a);
-                                                                scan_image.setPixel(x,z+a,sf::Color((255+col.r)/2,(255+col.g)/2,col.b/2,255));
-                                                            }
-                                                        }
-
-                                                        a--;
-                                                    }
-                                                    num=1;
-                                                }
-                                            }
-                                        }
-                                        if (z<511) {
-                                            id=AX[x][z+1][y].id;
-                                            if ((id==1 || id==2 || id==3 || id==14 || id==89) ) {
-                                                int a=0;
-                                                bool end_loop=false;
-                                                do {
-                                                    id=0;
-                                                    a--;
-                                                    if (z+a>=0) {
-                                                        id=AX[x][z+a][y].id;
-                                                        if (id!=0) end_loop=true;
-                                                    }
-                                                    else end_loop=true;
-                                                } while (!end_loop);
-                                                if ( (z+a>=0 && floor_y[x][z+a]!=-1 && (id==1 || id==2 || id==3 || id==14 || id==89))
-                                                    || (z+a<0 && floor_y[x][0]==-1)) {
-                                                    a++;
-                                                    while (a<0) {
-                                                        if (mask[x][z+a]) {
-                                                            AX[x][z+a][y] = BlockInfo(1, 0, 0, 0 );
-                                                            floor_y[x][z+a]=y;
-
-                                                            cured=false; added++; added_loop++; added_y++;
-                                                            if (y>floor_y[x][z+a]) scan_image.setPixel(x,z+a,sf::Color(255,255,0,255));
-                                                            else {
-                                                                sf::Color col=top_view.getPixel(x,z+a);
-                                                                scan_image.setPixel(x,z+a,sf::Color((255+col.r)/2,(255+col.g)/2,col.b/2,255));
-                                                            }
-                                                        }
-
-                                                        a++;
-                                                    }
-                                                    num=1;
-                                                }
-                                            }
-                                        }
-
-                                        if (num>0) {
-                                            if (AY[y].id==0) {
-                                                AX[x][z][y] = BlockInfo(3, 0, 0, 0 );
-                                                cured=false; added++; added_loop++; added_y++;
-                                            }
-                                            sf::Color mix;
-                                            if (num==1) mix=sf::Color(255,255,0,255);
-                                            else if (num==2) mix=sf::Color(0,255,255,255);
-                                            else mix=sf::Color(255,0,255,255);
-                                            if (y>floor_y[x][z]) scan_image.setPixel(x,z,mix);
-                                            else {
-                                                sf::Color col=top_view.getPixel(x,z);
-                                                scan_image.setPixel(x,z,sf::Color((mix.r+col.r)/2,(mix.g+col.g)/2,(mix.b+col.b)/2,255));
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            count++;
-                            if (added_loop!=added_prev && count>100) {
-                                printf("\r(%3d,%3d)Added=%8d",x,z,added_loop);
-                                added_prev=added_loop;
-                                count=0;
-                            }
-                        }
-                    }
-
-                    printf("\r(%3d,%3d)Added=%8d  Loop=%d  Total=%d/%8d\n",512,512,added_loop,loop,added,512*512*256);
-                    if (added_loop) {
-                        update_request=2;
-                        while (update_request) {
-                            sf::sleep(sf::seconds(0.005));
-                        }
-                    }
-                }
-
-                update_request=2;
-                while (update_request) {
-                    sf::sleep(sf::seconds(0.005));
-                }
-
-//                printf("\n");
-
-//                HIER
-                mkdir("/Saves");
-                mkdir("/Saves/fixed");
-                mkdir("/Saves/fixed/region");
-                char done_dir[200];
-                sprintf(done_dir,"/Saves/fixed/region/%s",DONE);
-                mkdir(done_dir);
-                if (added) {
-                    update_request=2;
-                    while (update_request) {
-                        sf::sleep(sf::seconds(0.005));
-                    }
-                    printf("CHANGED -> SAVING\n");
-                    first_MCEDIT=0;
-                    region_x_old=0;
-                    region_z_old=0;
-
-                    sprintf(tmp, "/Saves/fixed/region/%s/r.%d.%d.mca", DONE, region_x, region_z);
-                    if (file_exists(tmp)) {
-                        char cmd[200];
-                        sprintf(cmd,"del %s",tmp);
-                        while (replace_string(cmd,"/","\\"));
-                        system(cmd);
-                    }
-                    file_name_MCA = tmp;
-
-                    editor.setRegion(region);
-
-                    sprintf(mc_text2,"SAVED");
-                    playsound=playsound|4;
-
-                    printf("Region FIXED, returning\n");
-                    sf::sleep(sf::seconds(0.1));
-                } else {
-                    printf("NOT CHANGED -> COPYING FROM SOURCE\n");
-                    sprintf(tmp, "/Saves/test/region/%s/r.%d.%d.mca", DONE, region_x, region_z);
-                    if (file_exists(tmp)) {
-                        char cmd[1000];
-                        sprintf(cmd,"copy %s /Saves/fixed/region/%s",tmp,DONE);
-                        while (replace_string(cmd,"/","\\"));
-                        system(cmd);
-                    }
-                }
-            }
-            editor.mca_coder.clearModification();
-            return 0;
         }
         if ((make_regions || flushing_mode) && !add_to_region2) {
             printf("file %s exists, skipping...\n",fname.c_str());
             return 0;
         }
 
-/*
-        if (get_block) {
-            int blocks_shown=0;
-            for (int x = 0; x < 512; x++) {
-                xx=x+chunk_offsetx*16;
-                BlockInfo** AZ=AX[x];
-                for (int z = 0; z < 512; z++) {
-                    zz=z+chunk_offsetz*16;
-                    BlockInfo* AY=AZ[z];
-                    toggle2();
-                    for (int y = 0; y < 256; y++) {
-                        if (AY[y].id!=0) {
-                            if (y>0 && y<255 && x>0 && x<511 & z>1 && z<511) {
-                                if (  (    //                                (AX[x-1][z-1][y-1].id!=0) &&    //                                (AX[x+0][z-1][y-1].id!=0) &&    //                                (AX[x+1][z-1][y-1].id!=0) &&    //                                (AX[x-1][z+0][y-1].id!=0) &&
-                                    (AX[x+0][z+0][y-1].id!=0) &&    //                                (AX[x+1][z+0][y-1].id!=0) &&    //                                (AX[x-1][z+1][y-1].id!=0) &&    //                                (AX[x+0][z+1][y-1].id!=0) &&    //                                (AX[x+1][z+1][y-1].id!=0) &&    //                                (AX[x-1][z-1][y+0].id!=0) &&
-                                    (AX[x+0][z-1][y+0].id!=0) &&    //                                (AX[x+1][z-1][y+0].id!=0) &&
-                                    (AX[x-1][z+0][y+0].id!=0) &&    //                                (AX[x+0][z+0][y+0].id!=0) &&
-                                    (AX[x+1][z+0][y+0].id!=0) &&    //                                (AX[x-1][z+1][y+0].id!=0) &&
-                                    (AX[x+0][z+1][y+0].id!=0) &&    //                                (AX[x+1][z+1][y+0].id!=0) &&    //                                (AX[x-1][z-1][y+1].id!=0) &&    //                                (AX[x+0][z-1][y+1].id!=0) &&    //                                (AX[x+1][z-1][y+1].id!=0) &&    //                                (AX[x-1][z+0][y+1].id!=0) &&
-                                    (AX[x+0][z+0][y+1].id!=0)    //                                (AX[x+1][z+0][y+1].id!=0) &&    //                                (AX[x-1][z+1][y+1].id!=0) &&    //                                (AX[x+0][z+1][y+1].id!=0) &&    //                                (AX[x+1][z+1][y+1].id!=0)
-                                 ) ) {
-                                     continue;
-                                 }
-                            }
-                            int r,g,b;
-                            ret_color_rev(AX[x][z][y].data,r,g,b);
-                            int xxx=xx;
-                            int zzz=zz;
-                            int yyy=y+region_floor*256;
-//                            if (xxx<0) xxx++;
-//                            if (yyy<0) yyy--;
-//                            if (zzz<0) zzz++;
-                            Voxel one=Voxel(yyy,xxx,zzz,r,g,b,1,(unsigned char)0); // new
-
-                            voxels.push_back(one);
-
-                            blocks_shown++;
-                        }
-                    }
-                }
-            }
-            printf("\n%d blocks added to voxels\n",blocks_shown);
-
-            return 0;
-
-        }
-*/
         printf("  %d Blocks.  Adding: ",num_blocks);
     } else {
-        for (int x = 0; x < 512; x++) {
-            for (int z = 0; z < 512; z++) {
-                floor_y[x][z]=0;
+        for (int x = 0; x < xl; x++) {
+            BlockInfo** AZ=AX[x];
+            for (int z = 0; z < zl; z++) {
+                BlockInfo* AY=AZ[z];
+                for (int y = 0; y < 256; y++) {
+                    AY[y]=BlockInfo();
+                }
             }
         }
+
+//pipo
+//        for (int z=0; z<512; z++) {
+//            for (int x=0; x<512; x++) {
+//                mask[x][z]=-999999;
+//            }
+//        }
+//        for (int x = 0; x < 512; x++) {
+//            for (int z = 0; z < 512; z++) {
+//                floor_y[x][z]=-999999;
+//            }
+//        }
+
     }
 
     if (hit_one!=NULL) hit_one->index12++;
@@ -6675,6 +6352,27 @@ extern std::string area;
         fff=0;
         printf(" Stone=on");
     } else stone_on=false;
+
+    if (file_exists("bedrock.on")) {
+        bedrock_on=true;
+        if (fff==1) printf("\n");
+        fff=0;
+        printf(" Bedrock=on");
+    } else bedrock_on=false;
+
+    if (file_exists("bedrock_floor.on")) {
+        bedrock_floor_on=true;
+        if (fff==1) printf("\n");
+        fff=0;
+        printf(" Bedrock floor=on");
+    } else bedrock_floor_on=false;
+
+    if (file_exists("white.on")) {
+        white_on=true;
+        if (fff==1) printf("\n");
+        fff=0;
+        printf(" White=on");
+    } else white_on=false;
 
     if (file_exists("ground.on")) {
         ground_on=true;
@@ -6779,6 +6477,17 @@ extern std::string area;
 
     if (fff==0) printf("\n");
 
+    int num_blocks_total=0;
+    int tears=0;
+    int water=0;
+
+    int room_lights=0;
+    int filled=0;
+    num_blocks_total=0;
+    int room_x=12;
+    int room_y=5;
+    int room_z=12;
+extern bool lighten;
     if (1) {
         printf(" City:\b\b\b\b\b\b");
         for (int x = 0; x < xl; x++) {
@@ -6805,16 +6514,20 @@ extern std::string area;
 //                                if (o_id!=0) {
 //                                    AY[y]=BlockInfo();
 //                                }
-                    if (!cubic) {
+//pipo
+                    if (!cubic && !bedrock_floor_on) {
                         if (y==height_add) {
                             if (!(rand()%200)) {
                                 AY[y] = BlockInfo(89, 0, 0, 0 );
                             } else {
                                 if ((xx+zz)%2)
-                                    AY[y] = BlockInfo(251, 0, ret_color((128+region_z*25)%256,(128+region_x*37)%256,0),0 );
+                                    AY[y] = BlockInfo(251, 0, ret_color( (128+(region_z+5)*25)%256, (128+(region_x+2)*37)%256, (128+(region_x+9)*11+(region_z+3)*31)%256),0 );
                                 else
                                     AY[y] = BlockInfo(251, 0, rand_color,0 );
                             }
+                            if (min_y==-1) min_y=y;
+                            max_y=y;
+
                         }
                     }
 
@@ -6838,14 +6551,56 @@ extern std::string area;
 
                         int c=ret_color(r2,g2,b2);
 //                        AY[y] = BlockInfo(1, 0, 0,0 );
-                        AY[y] = BlockInfo(251, 0, c,0 );
+
+                        if (blue_to_water_on && y<253) {
+                            if (c==water_blue && AY[y+1].id==0 && AY[y+2].id==0) {
+                                setExtra2(x,z,y+2,"water",SomeStuff);
+//                                AY[y+1]=BlockInfo(9,0,8,0);
+                                tears++;
+                            }
+                        }
+                        if (grass_on) {
+                            if (y<253) if (AY[y+1].id==0 && AY[y+2].id==0) {
+                                AY[y+1]=BlockInfo(2,0,0,0);
+                                mc[off+3+4]=1;
+                                num_blocks_added++;
+                                if (!(rand()%5000)) AY[y+2]=BlockInfo(40,0,0,0);
+                                else if (!(rand()%5000)) AY[y+2]=BlockInfo(39,0,0,0);
+                                mc[off+3+2*4]=1;
+
+//                                else if (!(rand()%3000)) {
+//                                    setExtra2(x,z,y+2,"minecraft:water",SomeStuff);
+//                                    water++;
+//                                }
+
+                            }
+                        }
+
+                        if (stone_on) {
+                            AY[y]=BlockInfo(1,0,0,0); //
+                        } else if (glass_on) {
+                            if (AY[y].data==0) AY[y]=BlockInfo(20,0,0,0);
+                            else AY[y]=BlockInfo(95,0,AY[y].data,0);
+                        } else if (white_on) {
+                            AY[y]=BlockInfo(251,0,13,0); // make white concrete (0)
+                        } else if (bedrock_on) {
+                            AY[y]=BlockInfo(7,0,0,0); // make bedrock
+                        } else {
+                            AY[y] = BlockInfo(251, 0, c,0 );
+                        }
+
                         if (massiv_on) {
+                            size_t off;
                             for (int xxx=-4; xxx<5; xxx++) {
                                 for (int zzz=-4; zzz<5; zzz++) {
                                     for (int yyy=-4; yyy<5; yyy++) {
                                         if (!(xxx==0 && yyy==0 && zzz==0)) {
                                             if (in_region(x+xxx, z+zzz, y+yyy, 0, 0, 0, xl , zl , yl)) {
                                                 AX[x+xxx][z+zzz][y+yyy]=BlockInfo(251, 0, c, 0);
+                                                off=((y+yyy-height_add)+256*(x+xxx)+(z+zzz)*512*256)*4;
+                                                mc[off+3]=1;
+                                                if (min_y==-1) min_y=y+yyy;
+                                                if (y+yyy > max_y) max_y=y+yyy;
                                             }
                                         }
                                     }
@@ -6866,7 +6621,7 @@ extern std::string area;
                     else if (o_id!=0 && AY[y].id==0) num_blocks_deleted++;
                     else if (AY[y].id!=0 && o_id==AY[y].id) num_blocks_same++;
                 }
-                if (min_y<mask[x][z]) mask[x][z]=min_y;
+                if (min_y<mask[x][z] || mask[x][z]==-999999) mask[x][z]=min_y;
 //                if ((AY[0].id==0 && AY[1].id==0)) {
 //                    AY[0] = BlockInfo(8, 0, 0, 0 );
 //                    if (max_y<0) max_y=0;
@@ -6925,7 +6680,7 @@ extern std::string area;
                 for (int z = 0; z < zl; z++) {
                     BlockInfo* AY=AZ[z];
                     zz=z+chunk_offsetz*16;
-                    if (floor_y[x][z]!=999999) {
+                    if (floor_y[x][z]!=-999999) {
                         for (int y = 0; y < 256; y++) {
                             if (AY[y].id==0) {
                                 int h=y+region_floor*256;
@@ -6960,18 +6715,8 @@ extern std::string area;
 
         vector<pair<Pos, string> > SomeStuff;
 
-        int num_blocks_total=0;
-        int tears=0;
-        int water=0;
-
-        int room_lights=0;
-        int filled=0;
-        num_blocks_total=0;
-        int room_x=12;
-        int room_y=5;
-        int room_z=12;
-
-        if (rooms_on || boom_on || caves_on || tunnels_on) {
+//pipo
+        if (lighten || rooms_on || boom_on || caves_on || tunnels_on) {
             editor.x_len = region.x_len, editor.z_len = region.z_len, editor.y_len = region.y_len;
             editor.x_ori = region.x_ori, editor.z_ori = region.z_ori, editor.y_ori = region.y_ori;
             editor.block_entities = region.B;
@@ -6984,581 +6729,645 @@ extern std::string area;
 
             int changed=1;
             bool f=true;
-            while (changed) {
-                changed=0;
-                for (int x = 0; x < 512; x++) {
-                    BlockInfo** AZ=AX[x]; ui** LZ=skylight[x];
-                    for (int z = 0; z < 512; z++) {
-                        BlockInfo* AY=AZ[z]; ui* LY=LZ[z];
-                        if (mask[x][z]!=999999) {
+
+            if (lighten) {
+                while (changed) {
+                    changed=0;
+
+                    for (int x = 0; x < 512; x++) {
+                        BlockInfo** AZ=AX[x]; ui** LZ=skylight[x];
+                        for (int z = 0; z < 512; z++) {
+                            BlockInfo* AY=AZ[z]; ui* LY=LZ[z];
                             for (int y = 0; y < 256; y++) {
                                 BlockInfo A=AY[y]; ui* L=&LY[y];
-                                if (A.id==0) {
-                                    int LIGHT;
-                                    if (*L!=15) {
-                                        int changed2=0;
-                                        if (x>0)   { if (AX[x-1][z][y].id==0) { if ((LIGHT=skylight[x-1][z][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x-1][z][y]=BlockInfo(50,0,0,0);} } }
-                                        if (x<511) { if (AX[x+1][z][y].id==0) { if ((LIGHT=skylight[x+1][z][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x+1][z][y]=BlockInfo(50,0,0,0);} } }
-                                        if (z>0)   { if (AX[x][z-1][y].id==0) { if ((LIGHT=skylight[x][z-1][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z-1][y]=BlockInfo(50,0,0,0);} } }
-                                        if (z<511) { if (AX[x][z+1][y].id==0) { if ((LIGHT=skylight[x][z+1][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z+1][y]=BlockInfo(50,0,0,0);} } }
-                                        if (y>0)   { if (AX[x][z][y-1].id==0) { if ((LIGHT=skylight[x][z][y-1])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z][y-1]=BlockInfo(50,0,0,0);} } }
-                                        if (y<255) { if (AX[x][z][y+1].id==0) { if ((LIGHT=skylight[x][z][y+1])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z][y+1]=BlockInfo(50,0,0,0);} } }
-                                        if (changed2) AY[y]=BlockInfo(50,0,0,0);
-//                                        if (changed2) AY[y]=BlockInfo(76,0,0,0);
-                                    }
-                                }
-                                if (region_floor==0) {
-                                    if (y==floor_y[x][z]) {
-                                        if (A.id==251) {
-                                            int r=3;
-                                            if (y+r<256 & y+r>=0)
-                                            if (AX[x][z][y+r].id==0)
-                                                AX[x][z][y+r]=BlockInfo(76,0,0,0);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                if (f) printf("\n");
-                printf("\rSkylight upgraded %d    ",changed);
-                changed=0;
-            }
-
-/*
-            int changed=1;
-            bool f=true;
-            while (changed) {
-                changed=0;
-                for (int x = 0; x < 512; x++) {
-                    BlockInfo** AZ=AX[x]; ui** LZ=skylight[x];
-                    for (int z = 0; z < 512; z++) {
-                        BlockInfo* AY=AZ[z]; ui* LY=LZ[z];
-                        if (mask[x][z]!=999999) {
-                            for (int y = 0; y < 256; y++) {
-                                BlockInfo A=AY[y]; ui* L=&LY[y];
-                                if (A.id==0) {
-                                    int LIGHT;
-                                    if (*L!=15) {
-
-                                        if (x>0)   { if (AX[x-1][z][y].id==0) { if ((LIGHT=skylight[x-1][z][y])>*L) { *L=LIGHT; changed++; } } }
-                                        if (x<511) { if (AX[x+1][z][y].id==0) { if ((LIGHT=skylight[x+1][z][y])>*L) { *L=LIGHT; changed++; } } }
-                                        if (z>0)   { if (AX[x][z-1][y].id==0) { if ((LIGHT=skylight[x][z-1][y])>*L) { *L=LIGHT; changed++; } } }
-                                        if (z<511) { if (AX[x][z+1][y].id==0) { if ((LIGHT=skylight[x][z+1][y])>*L) { *L=LIGHT; changed++; } } }
-                                        if (y>0)   { if (AX[x][z][y-1].id==0) { if ((LIGHT=skylight[x][z][y-1])>*L) { *L=LIGHT; changed++; } } }
-                                        if (y<255) { if (AX[x][z][y+1].id==0) { if ((LIGHT=skylight[x][z][y+1])>*L) { *L=LIGHT; changed++; } } }
-
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                if (f) printf("\n");
-                printf("\rSkylight upgraded %d    ",changed);
-            }
-*/
-            if (cubic && region_floor==0 && !ground_on) {
-                for (int x = 0; x < xl; x++) {
-                    BlockInfo** AZ=AX[x];
-                    xx=x+chunk_offsetx*16;
-                    for (int z = 0; z < zl; z++) {
-                        BlockInfo* AY=AZ[z];
-                        zz=z+chunk_offsetz*16;
-                        for (int y = 0; y < 256; y++) {
-                            if (skylight[x][z][y]==0) {
-                                if (y<=floor_y[x][z]) {
-                                    if (AY[y].id==0) {
-                                        if (!(rand()%(2+((y-height_add)*(y-height_add))/5)))
-                                            AY[y]=BlockInfo(89,0,0,0);
-                                        else if (!(rand()%(50+((y-height_add)*(y-height_add))/25)))
-                                            AY[y]=BlockInfo(14,0,0,0);
-                                        else
-                                        {
-                                            if (y<=floor_y[x][z]-15+rand()%4) {
-                                                AY[y]=BlockInfo(1,0,0,0);
-                                            }
-                                            else {
-                                                if (!(rand()%5000)) AY[y]=BlockInfo(2,0,0,0);
-                                                else AY[y]=BlockInfo(3,0,0,0);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (boom_on)
-            for (int x = 0; x < xl; x++) {
-                BlockInfo** AZ=AX[x];
-                xx=x+chunk_offsetx*16;
-                for (int z = 0; z < zl; z++) {
-                    zz=z+chunk_offsetz*16;
-                    BlockInfo* AY=AZ[z];
-                    AY[0] = BlockInfo(7, 0, 0 );
-                    for (int y = height_add; y < 256; y++) {
-                        if (y+height_add<1) continue;
-                        if (AY[y].id!=0 && AY[y].id!=8 && AY[y].id!=46 && y>floor_y[x][z]) {
-                            num_blocks_total++;
-                            float f_xx=xx+SEED;
-                            float f_y=y+SEED;
-                            float f_zz=zz+SEED;
-                            int rr=int(2.0+2.0*sin((f_xx-f_zz+f_y)/118.77) + 8.0*(1.0+sin((f_xx+f_zz+f_y)/106.0))/2.0);
-                            int b1=int( ( sin( float(f_xx)/179.83 + 0.35*sin( float(f_y)/115.83 ) ) + sin( float(f_y)/175.83 )  +  float(f_zz+ 0.27*sin( float(f_xx)/139.83 ) )/269.51 + 2.0)*300.0 + 500.0 )%300;
-                            int b2=int( ( sin( float(f_xx+ 0.2*sin( float(f_zz)/245.83 ) )/199.83 ) + sin( float(f_y)/155.83 )  +  float(f_zz)/139.51 + 2.0  + 0.31*sin( float(f_y)/215.83 ))*300.0 + 500.0 )%300;
-                            int b3=int( ( sin( float(f_xx+ 0.13*sin( float(f_zz)/345.83 ) )/119.83 ) + sin( float(f_y)/165.83 ) +  float(f_zz)/179.51 + 2.0  + 0.15*sin( float(f_y)/345.83 ))*300.0 + 700.0 )%350;
-                            if (
-                                    b3==75 || b1==140 || b2==135 ||
-                                    b3==76 || b1==141 || b2==136 ||
-                                    (b1+b2+b3)%300==75 || abs(b1+b2*2-b3+200)%300==220 ||
-                                    (b1+b2+b3)%300==76 || abs(b1+b2*2-b3+200)%300==221
-//                                    b3==75 || b3==211 || b1==140 || b1==190 || b2==135 || b2==288 ||
-//                                    b3==76 || b3==212 || b1==141 || b1==191 || b2==136 || b2==289 ||
-//                                    (b1+b2+b3)%300==75 || abs(b1+b2*2-b3+200)%300==220 ||
-//                                    (b1+b2+b3)%300==76 || abs(b1+b2*2-b3+200)%300==221
-
-                                ) {
-                                BlockInfo hop=AY[y];
-                                if (!(rand()%25 && y<255)) {
-                                    if (AY[y+1].id==0 && skylight[x][z][y+1]>=8) AY[y+1]=BlockInfo(46,0,0,0);
-                                    num_blocks_total++;
-                                }
-                                if (y-1>=0  && AX[x][z][y-1].id==0 && skylight[x][z][y-1]==0) { num_blocks_total++;AX[x][z][y-1]=BlockInfo(46,0,0,0); if (AX[x][z][y-1-1].id==0) AX[x][z][y-1-1]=BlockInfo(hop.id,0,hop.data,0);}
-                                if ((rand()%13)<=rr) if (x-1>=0  && AX[x-1][z][y].id==0 && skylight[x-1][z][y]==0) { num_blocks_total++;AX[x-1][z][y]=BlockInfo(46,0,0,0); if (AX[x-1][z][y-1].id==0) AX[x-1][z][y-1]=BlockInfo(hop.id,0,hop.data,0);}
-                                if ((rand()%13)<=rr) if (x+1<512 && AX[x+1][z][y].id==0 && skylight[x+1][z][y]==0) { num_blocks_total++;AX[x+1][z][y]=BlockInfo(46,0,0,0); if (AX[x+1][z][y-1].id==0) AX[x+1][z][y-1]=BlockInfo(hop.id,0,hop.data,0);}
-                                if ((rand()%13)<=rr) if (z-1>=0  && AX[x][z-1][y].id==0 && skylight[x][z-1][y]==0) { num_blocks_total++;AX[x][z-1][y]=BlockInfo(46,0,0,0); if (AX[x][z-1][y-1].id==0) AX[x][z-1][y-1]=BlockInfo(hop.id,0,hop.data,0);}
-                                if ((rand()%13)<=rr) if (z+1<512 && AX[x][z+1][y].id==0 && skylight[x][z+1][y]==0) { num_blocks_total++;AX[x][z+1][y]=BlockInfo(46,0,0,0); if (AX[x][z+1][y-1].id==0) AX[x][z+1][y-1]=BlockInfo(hop.id,0,hop.data,0);}
-                                if (y+1<256 && AX[x][z][y+1].id==0 && skylight[x][z][y+1]==0) { num_blocks_total++;AX[x][z][y+1]=BlockInfo(46,0,0,0); if (AX[x][z][y+1-1].id==0) AX[x][z][y+1-1]=BlockInfo(hop.id,0,hop.data,0);}
-                            }
-                        }
-                    }
-                }
-            }
-            printf("\ncounted=%d",num_blocks_total);
-
-
-            if (rooms_on)
-            for (int x = 0; x < xl; x++) {
-                BlockInfo** AZ=AX[x];
-                xx=x+chunk_offsetx*16;
-                for (int z = 0; z < zl; z++) {
-                    BlockInfo* AY=AZ[z];
-                    zz=z+chunk_offsetz*16;
-                    for (int y = height_add; y < 256; y++) {
-                        int yyy=region_floor*256+y;
-
-//                        if (y<=mask[x][z] && yyy>=floor_y[x][y]-1) {
-                        if (y<mask[x][z] && mask[x][z]!=999999 && yyy<floor_y[x][y]+2 && AY[y].id==0) AY[y]=BlockInfo(3,0,0,0);
-/*
-                        if (mask[x][z]!=999999 && y<=mask[x][z] && yyy<floor_y[x][y]) {
-                            if (y<255 && AX[x][z][y+1].id==0) {
-                                if (y<254 && AX[x][z][y+2].id!=0) {
-//                                    AX[x][z][y+1]=BlockInfo(AX[x][z][y+2].id,0,AX[x][z][y+2].data,0);
-                                    AX[x][z][y+1]=BlockInfo(3,0,0,0);
-                                }
-                                if (AX[x][z][y+1].id!=0) {
-//                                    AX[x][z][y]=BlockInfo(AX[x][z][y+1].id,0,AX[x][z][y+1].data,0);
-                                    AX[x][z][y]=BlockInfo(3,0,0,0);
-                                }
-                            }
-                        }
-*/
-                        if (skylight[x][z][y]==0) {
-                            if (yyy>=floor_y[x][z] &&
-                                ( ( (abs(xx)%room_x)==int(room_x/2) || (abs(xx)%room_x)==int(room_x/2)+1 ) && ( (abs(zz)%room_z)==int(room_z/2) || (abs(zz)%room_z)==int(room_z/2)+1 )  && (abs(yyy-floor_y[x][z])%room_y)==0 ) // ||
-//                                ( (abs(xx)%room_x)==0             && (abs(zz)%room_z)==int(room_z/2)  && ((yyy-floor_y[x][z])%room_y)==int(room_y/2) ) ||
-//                                ( (abs(xx)%room_x)==int(room_x/2) && (abs(zz)%room_z)==0              && ((yyy-floor_y[x][z])%room_y)==int(room_y/2) )
-                                ) {
-                                if (skylight[x][z][y+1]==0) {
-                                    if (x>0 && x<511 && z>0 && z<511) {
-                                        if (skylight[x-1][z][y]==0 && skylight[x+1][z][y]==0 && skylight[x][z-1][y]==0 && skylight[x][z+1][y]==0) {
-                                            room_lights++;
-                                            AY[y]=BlockInfo(89,0,0,0);
-                                            continue;
-                                        }
-                                    }
-                                }
-                            }
-//                            if (((zz%10==0 && (xx%8==4||xx%8==3)) || (xx%8==0 && (zz%10==5||zz%10==4))) && (y%8==1 || y%8==2)) {
-//willem
-                            int hop=int(int(abs(zz)/room_z)*29.3+int(abs(xx)/room_x)*81.7+int(abs((yyy-floor_y[x][z])/room_y))*72.9)%20;
-                            if ( hop>7 &&   yyy>=floor_y[x][z] &&
-                                    (
-                                        ((abs(zz)%room_z)==0 && ((abs(xx)%room_x)==int(room_x/2) ||(abs(xx)%room_x)==int(room_x/2)+1 ) ) ||
-                                        ((abs(xx)%room_x)==0 && ((abs(zz)%room_z)==int(room_z/2) ||(abs(zz)%room_z)==int(room_z/2)+1 ) )
-                                     ) && (
-                                        (abs(yyy-floor_y[x][z]))%room_y==1 ||
-                                        (abs(yyy-floor_y[x][z]))%room_y==2 ||
-                                        (abs(yyy-floor_y[x][z]))%room_y==3
-                                    )
-                                ) {
-                                continue;
-                            } else {
-/*
-                                if (y<=floor_y[x][z] && y<253) {
-                                    if (AY[y].id==0) {
-                                        if (!(rand()%(2+((y-height_add)*(y-height_add))/5)))
-                                            AY[y]=BlockInfo(89,0,0,0);
-//WILLEM
-                                        else if (!(rand()%(50+((y-height_add)*(y-height_add))/25)))
-                                            AY[y]=BlockInfo(14,0,0,0);
-                                        else
-                                        {
-                                            if (y<=floor_y[x][z]-15+rand()%4) {
-//hopla de popla
-//                                                AY[y]=BlockInfo();
-                                                AY[y]=BlockInfo(1,0,0,0);
-                                            }
-                                            else {
-                                                if (!(rand()%5000)) AY[y]=BlockInfo(2,0,0,0);
-                                                else AY[y]=BlockInfo(3,0,0,0);
-                                            }
-                                        }
-                                    }
-                                    continue;
-                                }
-*/
-                            }
-                            static int ran[1000];
-                            static bool first=true;
-                            if (first) {
-                                for (int n=0; n<1000; n++) ran[n]=rand()%16;
-                                first=false;
-                            }
-
-                            if (AY[y].id==0 && ( (abs(zz)%room_z)==0 || (abs(xx)%room_x)==0 || (abs(yyy-floor_y[x][z]))%room_y==0) && yyy>=floor_y[x][z]) {
-
-                                int hop=int(abs(yyy-int(floor_y[x][z]))/room_y)+int(abs(zz)/room_z)+int(abs(xx)/room_x);
-
-                                if ( !(int(float(hop*yyy)*7.423+101*(sin(float(yyy)*11.77)+1.0)+ran[(hop+yyy*5+int(33.31*(sin(float(yyy+int(abs(zz)/(room_z*2))+int(abs(xx)/(room_x*2)))/1.77)+1.0)))%1000])%2) && (zz%room_z)!=0 && (xx%room_x)!=0) {
-                                    int c_r=ran[int(yyy*39.434+3.3214*float(hop))%1000];
-                                    int c_r2;
-                                    if ( !(int(yyy*39.434+4.7143*float(hop))%2) ) c_r2=ran[int(float(yyy*yyy)*7.334+2.4234*float(hop))%1000];
-                                    else c_r2=c_r;
-                                    if (abs(xx+zz)%2)
-                                        AY[y]=BlockInfo(251,0,c_r,0);
-                                    else
-                                        AY[y]=BlockInfo(251,0,c_r2,0);
-                                    num_blocks_total++;
-                                    filled++;
-                                } else {
-//                                        AY[y]=BlockInfo(5,0,0,0);
-                                    if ( (abs(zz)%room_z)==0 ) {
-                                        if ( int(int(abs(zz)/room_z)*22.3+int(abs(xx)/room_x)*31.7+int(abs((yyy-floor_y[x][z])/room_y))*12.9)%20 > 7 ) {
-                                            AY[y]=BlockInfo(251,0,0,0);
-                                            num_blocks_total++;
-                                            filled++;
-                                        }
-                                    } else if ( (abs(xx)%room_x)==0 ) {
-                                        if ( int(int(abs(zz)/room_z)*32.3+int(abs(xx)/room_x)*21.7+int(abs((yyy-floor_y[x][z])/room_y))*17.9)%20 > 7 ) {
-                                            AY[y]=BlockInfo(251,0,0,0);
-                                            num_blocks_total++;
-                                            filled++;
-                                        }
-                                    }
-                                    if ( (abs(yyy-floor_y[x][z])%room_y)==0 ) {
-                                            AY[y]=BlockInfo(251,0,0,0);
-                                            num_blocks_total++;
-                                            filled++;
-                                    }
-                                }
-
-                                if (abs(yyy-floor_y[x][z])%room_y==0 && !(abs(xx)%room_x==0 || abs(zz)%room_z==0) && y<254) {
-                                    if (AY[y+1].id==0 && !(rand()%1000)) {
-                                        AY[y+1]=BlockInfo(255,0,0,0);
-
-                                        if (AY[y+2].id==0 && !(rand()%2)) {
-                                            AY[y+2]=BlockInfo(255,0,0,0);
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            if (AY[y].id!=0) num_blocks_total++;
-                        }
-                    }
-                }
-            }
-            int counter1=0;
-//            int counter2=0;
-
-/*
-            static int r1_prev=-999;
-            static int r2_prev=-999;
-            static int r3_prev=-999;
-            static int r1_prev_x=-999;
-            static int r2_prev_x=-999;
-            static int r3_prev_x=-999;
-            static int r1_prev_z=-999;
-            static int r2_prev_z=-999;
-            static int r3_prev_z=-999;
-            static int x_prev=-999;
-            static int y_prev=-999;
-            static int z_prev=-999;
-
-            static int starting_x=true;
-            static int starting_z=true;
-*/
-
-            if (caves_on)
-            for (int x = 0; x < xl; x++) {
-                BlockInfo** AZ=AX[x];
-                xx=x+chunk_offsetx*16;
-                for (int z = 0; z < zl; z++) {
-                    zz=z+chunk_offsetz*16;
-                    BlockInfo* AY=AZ[z];
-                    AY[0] = BlockInfo(7, 0, 0 );
-                    for (int y = height_add; y < 256; y++) {
-                        if (y+height_add<1) continue;
-
-                        if (AY[y].id!=0 && AY[y].id!=1 && AY[y].id!=8 && AY[y].id!=255 && (AY[y].id!=46 || !(rand()%2)) ) {
-//                        if (AY[y].id!=0 && AY[y].id!=8 && AY[y].id!=999 && AY[y].id!=46 ) {
-                            num_blocks_total++;
-                            float s1=211.0+211.0*sin(2.0*M_PI*float(xx)/312.0);
-                            float s2=211.0+211.0*cos(2.0*M_PI*float(zz)/312.0);
-                            float s3=75.0+60.0*cos(2.0*M_PI*float(y)/120.0);
-                            float f_xx=y/3+sin((float)zz/344.54)*512.0+sin((float)xx/284.0)*512.0;
-                            float f_y =zz/5+sin((float)xx/324.65)*312.0+sin((float)y/364.0)*256.0;
-                            float f_zz=xx/6+sin((float)zz/234.44)*512.0+sin((float)y/214.66)*512.0;
-                            float rr=2.0+4.0*(1.0+sin((f_xx*2.0-f_zz+f_y)/358.77))/2.0 + 12.0*(1.0+sin((f_xx+f_zz*2.0-f_y)/314.0))/2.0;
-                            float rr2=30.0*(1.0+sin((f_xx*-f_zz+f_y)/258.77))/2.0 + 60.0*(1.0+sin((f_xx+f_zz+f_y*2)/(410.0-rr*3)))/2.0;
-                            float rr3=30.0*(1.0+sin((f_xx-f_zz-f_y*2)/458.77))/2.0 + 60.0*(1.0+sin((f_xx+f_zz+f_y-rr2)/442.0))/2.0;
-                            int b1=int( ( sin( float(f_xx)/(399.83-rr2)                 + 0.12*sin( float(f_y+f_xx)/(475.83-rr2) ) )                + sin( float(f_y+f_xx)/(239.83+rr2) )               +  float(f_xx/30.0+f_y/10+ 5.17*sin( float(f_zz+f_y/2)/299.83 ) )/(319.51-rr3)                              + 2.0)*300.0 + 500.0 )%350;
-                            int b2=int( ( sin( float(f_zz)/(339.83-rr3)                 + 0.11*sin( float(f_y+f_zz)/(415.83+rr2) ) )                + sin( float(f_y+f_zz)/(466.83+rr3) )               +  float(f_zz/5.0+f_xx/2.0+ 6.18*sin( float(f_xx-f_y/2)/339.83 ) )/(377.51+rr3)                               + 2.0)*300.0 + 500.0 )%350;
-                            int b3=int( ( sin( float(f_xx)/(469.83-rr2/2.0+rr3/2.0)     + 0.14*sin( float(f_zz+f_y)/(355.83-rr3) ) )                + sin( float(f_zz-f_y)/(426.83+rr3/2.0+rr2/1.5) )   +  float(f_zz/5.0+ 5.16*sin( float(f_xx-f_zz)/489.83 ) )/(347.51-rr2)                                 + 2.0)*300.0 + 500.0 )%350;
-                            int b4=int( ( sin( float(f_zz)/(369.83+rr2*5.0+rr3*7.0)     + 0.28*sin( float(f_xx-f_y)/(455.83+rr3*3.0-rr2*2.0) ) )    + sin( float(f_xx+f_y)/(226.83+rr3/2.0+rr2/1.5) )   +  float(f_y/15-f_zz/15 + 4.13*sin( float(f_xx-f_y*2.0)/(359.83+rr2*2.0+rr3*3.0) ) )/(347.51-rr2)   + 2.0)*300.0 + 700.0 )%300;
-                            if (
-                                 ( (b1==100 || b1==101) && ( b2== 90 || b3== 90 || b2== 91 || b3== 91) )  ||
-                                 ( (b1==100 || b1==101) && ( b3== 75 || b2== 75 || b3== 76 || b2== 76) )  ||
-                                 ( (b2==100 || b2==101) && ( b3==140 || b1==140 || b3==141 || b1==141) )  ||
-                                 ( (b2==100 || b2==101) && ( b1==180 || b3== 80 || b1==181 || b3== 81) )  ||
-                                 ( (b3==100 || b3==101) && ( b1== 140 || b1== 141)  )  ||
-                                 ( (b3==100 || b3==101) && ( b2== 90  || b2== 91 )  )  ||
-//                                 ( b3%140<3 && ( b2== 80 || b2== 81 || b4== 8 8 || b4== 89      ))  ||
-//                                 ( b1%111<3 && ( b3==100 || b3==101  /*|| b2== 75 || b2== 76 */ )) ||
-//                                 ( b4%150<3 && ( b2== 77 || b2== 78                 )) ||
-                                 ( abs(y-(int)s3)<3 && abs(x-(int)s1)<3 && abs(z-(int)s2)<3   )
-//                                 ( b4%256<3 && ( b1+b2 == 200 || b1+b2== 201        ))
-
-//                            if (  (b1==25 || b1==26 || b1==27 || b1==75 || b1==76 || b1==77) && (b2==100 || b2==101 || b2==103 || b2==25 || b2==26 || b2==27 )
-                                ) {
-//                                if ((b1%25)==0 && (b2%25)==0) rr=rr2;
-//                                else if ((b2%25)==0 && (b3%25)==0) rr=rr3;
-                                BlockInfo hop=AY[y];
-//                                if (!(rand()%25 && y<255)) {
-//                                    if (AY[y+1].id==0 && skylight[x][z][y+1]>=8) AY[y+1]=BlockInfo(46,0,0,0);
-//                                    num_blocks_total++;
+//                                size_t off=((y-height_add)+256*x+z*512*256)*4;
+//                                if (off>=max_off || off<0) {
+//                                    printf("Error offset %d>=%d\n",off,max_off);
+//                                    continue;
 //                                }
-//willem
-                                if (y>floor_y[x][z]) {
-                                    if (AX[x][z][y-1].id==0                                      && AX[x][z][y-1].id!=255 && skylight[x][z][y-1]==0) { num_blocks_total++;AX[x][z][y-1]=BlockInfo(46,0,0,0); if (AX[x][z][y-1-1].id==0) AX[x][z][y-1-1]=BlockInfo(hop.id,0,hop.data,0);}
-                                    if ((rand()%20)<=(int)rr) if (x-1>=0  && AX[x-1][z][y].id==0 && AX[x-1][z][y].id!=255 && skylight[x-1][z][y]==0) { num_blocks_total++;AX[x-1][z][y]=BlockInfo(46,0,0,0); if (AX[x-1][z][y-1].id==0) AX[x-1][z][y-1]=BlockInfo(hop.id,0,hop.data,0);}
-                                    if ((rand()%20)<=(int)rr) if (x+1<512 && AX[x+1][z][y].id==0 && AX[x+1][z][y].id!=255 && skylight[x+1][z][y]==0) { num_blocks_total++;AX[x+1][z][y]=BlockInfo(46,0,0,0); if (AX[x+1][z][y-1].id==0) AX[x+1][z][y-1]=BlockInfo(hop.id,0,hop.data,0);}
-                                    if ((rand()%20)<=(int)rr) if (z-1>=0  && AX[x][z-1][y].id==0 && AX[x][z-1][y].id!=255 && skylight[x][z-1][y]==0) { num_blocks_total++;AX[x][z-1][y]=BlockInfo(46,0,0,0); if (AX[x][z-1][y-1].id==0) AX[x][z-1][y-1]=BlockInfo(hop.id,0,hop.data,0);}
-                                    if ((rand()%20)<=(int)rr) if (z+1<512 && AX[x][z+1][y].id==0 && AX[x][z+1][y].id!=255 && skylight[x][z+1][y]==0) { num_blocks_total++;AX[x][z+1][y]=BlockInfo(46,0,0,0); if (AX[x][z+1][y-1].id==0) AX[x][z+1][y-1]=BlockInfo(hop.id,0,hop.data,0);}
-                                    if ((rand()%20)<=(int)rr) if (y+1<256 && AX[x][z][y+1].id==0 && AX[x][z][y+1].id!=255 && skylight[x][z][y+1]==0) { num_blocks_total++;AX[x][z][y+1]=BlockInfo(46,0,0,0); if (AX[x][z][y+1-1].id==0) AX[x][z][y+1-1]=BlockInfo(hop.id,0,hop.data,0);}
-//                                } else if (y<floor_y[x][z]-1 - (!caves_on)*25 && y>1) {
-                                }
-                                else if (caves_on && y<floor_y[x][z]-1 && y>1) {
-                                    rr=rr+(200-y)/20.0;
-                                    num_blocks_total++; AX[x][z][y]=BlockInfo(46,0,0,0);
-                                    if ((rand()%25)<=(int)rr) if (x-1>=0  && AX[x-1][z][y].id!=255 && skylight[x-1][z][y]==0) { num_blocks_total++;AX[x-1][z][y]=BlockInfo(46,0,0,0); if (AX[x-1][z][y-1].id==0) AX[x-1][z][y-1]=BlockInfo(hop.id,0,hop.data,0);}
-                                    if ((rand()%25)<=(int)rr) if (x+1<512 && AX[x+1][z][y].id!=255 && skylight[x+1][z][y]==0) { num_blocks_total++;AX[x+1][z][y]=BlockInfo(46,0,0,0); if (AX[x+1][z][y-1].id==0) AX[x+1][z][y-1]=BlockInfo(hop.id,0,hop.data,0);}
-                                    if ((rand()%25)<=(int)rr) if (z-1>=0  && AX[x][z-1][y].id!=255 && skylight[x][z-1][y]==0) { num_blocks_total++;AX[x][z-1][y]=BlockInfo(46,0,0,0); if (AX[x][z-1][y-1].id==0) AX[x][z-1][y-1]=BlockInfo(hop.id,0,hop.data,0);}
-                                    if ((rand()%25)<=(int)rr) if (z+1<512 && AX[x][z+1][y].id!=255 && skylight[x][z+1][y]==0) { num_blocks_total++;AX[x][z+1][y]=BlockInfo(46,0,0,0); if (AX[x][z+1][y-1].id==0) AX[x][z+1][y-1]=BlockInfo(hop.id,0,hop.data,0);}
-                                    if ((rand()%25)<=(int)rr) if (y-1>=1  && AX[x][z][y-1].id!=255 && skylight[x][z][y-1]==0) { num_blocks_total++;AX[x][z][y-1]=BlockInfo(46,0,0,0); if (AX[x][z][y-1-1].id==0) AX[x][z][y-1-1]=BlockInfo(hop.id,0,hop.data,0);}
-                                    if ((rand()%25)<=(int)rr) if (y+1<256 && AX[x][z][y+1].id!=255 && skylight[x][z][y+1]==0) { num_blocks_total++;AX[x][z][y+1]=BlockInfo(46,0,0,0); if (AX[x][z][y+1-1].id==0) AX[x][z][y+1-1]=BlockInfo(hop.id,0,hop.data,0);}
+                                if (A.id==0) {
+//                                if (A.id==0 || A.id==76) {
+                                    int LIGHT;
+//                                    if (*L!=15) {
+                                        bool edge=false;
+                                        if (x>0)                  { if (mc[ (((y  )-height_add)+256*(x-1)+(z  )*512*256)*4+3] > 0 ) edge=true;  }
+                                        if (edge==false && x<511) { if (mc[ (((y  )-height_add)+256*(x+1)+(z  )*512*256)*4+3] > 0 ) edge=true;  }
+                                        if (edge==false && z>0)   { if (mc[ (((y  )-height_add)+256*(x  )+(z-1)*512*256)*4+3] > 0 ) edge=true;  }
+                                        if (edge==false && z<511) { if (mc[ (((y  )-height_add)+256*(x  )+(z+1)*512*256)*4+3] > 0 ) edge=true;  }
+                                        if (edge==false && y>0)   { if (mc[ (((y-1)-height_add)+256*(x  )+(z  )*512*256)*4+3] > 0 ) edge=true;  }
+                                        if (edge==false && y<255) { if (mc[ (((y+1)-height_add)+256*(x  )+(z  )*512*256)*4+3] > 0 ) edge=true;  }
+                                        if (edge) {
+                                            AY[y]=BlockInfo(76,0,0,0);
+                                            changed++;
+
+/*
+                                            int changed2=1;
+                                            while (changed2!=0) {
+                                                changed2=0;
+                                                if (x>0)   { if (AX[x-1][z][y].id==0 || AX[x-1][z][y].id==76) { if ((LIGHT=skylight[x-1][z][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x-1][z][y]=BlockInfo(76,0,0,0);} } }
+                                                if (x<511) { if (AX[x+1][z][y].id==0 || AX[x+1][z][y].id==76) { if ((LIGHT=skylight[x+1][z][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x+1][z][y]=BlockInfo(76,0,0,0);} } }
+                                                if (z>0)   { if (AX[x][z-1][y].id==0 || AX[x][z-1][y].id==76) { if ((LIGHT=skylight[x][z-1][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z-1][y]=BlockInfo(76,0,0,0);} } }
+                                                if (z<511) { if (AX[x][z+1][y].id==0 || AX[x][z+1][y].id==76) { if ((LIGHT=skylight[x][z+1][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z+1][y]=BlockInfo(76,0,0,0);} } }
+                                                if (y>0)   { if (AX[x][z][y-1].id==0 || AX[x][z][y-1].id==76) { if ((LIGHT=skylight[x][z][y-1])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z][y-1]=BlockInfo(76,0,0,0);} } }
+                                                if (y<255) { if (AX[x][z][y+1].id==0 || AX[x][z][y+1].id==76) { if ((LIGHT=skylight[x][z][y+1])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z][y+1]=BlockInfo(76,0,0,0);} } }
+//                                                if (changed2) AY[y]=BlockInfo(76,0,0,0);
+                                            }
+*/
+
+                                        }
+//                                    }
                                 }
                             }
                         }
                     }
                 }
+                if (f)  { printf("\n"); f=false; }
+                printf("\rNew blocks light upgraded %d/%d      ",changed);
+                changed=0;
             }
 
-            if (tunnels_on) {
-                printf("tunnels:\n");
-                static bool first=true;
-                static float d[35][35][35];
-                if (first) {
-                    first=false;
-                    for (int xxx=-17; xxx<18; xxx++) {
-                        for (int zzz=-17; zzz<18; zzz++) {
-                            for (int yyy=-17; yyy<18; yyy++) {
-                                d[xxx+17][zzz+17][yyy+17]=sqrt(float(xxx*xxx)+float(yyy*yyy)+float(zzz*zzz));
+            if ((rooms_on || boom_on || caves_on || tunnels_on)) {
+
+                changed=1;
+                f=true;
+                while (changed) {
+                    changed=0;
+                    for (int x = 0; x < 512; x++) {
+                        BlockInfo** AZ=AX[x]; ui** LZ=skylight[x];
+                        for (int z = 0; z < 512; z++) {
+                            BlockInfo* AY=AZ[z]; ui* LY=LZ[z];
+                            if (mask[x][z]!=-999999) {
+                                for (int y = 0; y < 256; y++) {
+                                    BlockInfo A=AY[y]; ui* L=&LY[y];
+
+                                    if (A.id==0) {
+                                        int LIGHT;
+                                        if (*L!=15) {
+                                            int changed2=0;
+                                            if (x>0)   { if (AX[x-1][z][y].id==0) { if ((LIGHT=skylight[x-1][z][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x-1][z][y]=BlockInfo(50,0,0,0);} } }
+                                            if (x<511) { if (AX[x+1][z][y].id==0) { if ((LIGHT=skylight[x+1][z][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x+1][z][y]=BlockInfo(50,0,0,0);} } }
+                                            if (z>0)   { if (AX[x][z-1][y].id==0) { if ((LIGHT=skylight[x][z-1][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z-1][y]=BlockInfo(50,0,0,0);} } }
+                                            if (z<511) { if (AX[x][z+1][y].id==0) { if ((LIGHT=skylight[x][z+1][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z+1][y]=BlockInfo(50,0,0,0);} } }
+                                            if (y>0)   { if (AX[x][z][y-1].id==0) { if ((LIGHT=skylight[x][z][y-1])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z][y-1]=BlockInfo(50,0,0,0);} } }
+                                            if (y<255) { if (AX[x][z][y+1].id==0) { if ((LIGHT=skylight[x][z][y+1])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z][y+1]=BlockInfo(50,0,0,0);} } }
+                                            if (changed2) AY[y]=BlockInfo(50,0,0,0);
+    //                                        if (changed2) AY[y]=BlockInfo(76,0,0,0);
+                                        }
+                                    }
+                                    if (region_floor==0) {
+                                        if (y==floor_y[x][z]) {
+                                            if (A.id==251) {
+                                                int r=3;
+                                                if (y+r<256 & y+r>=0)
+                                                if (AX[x][z][y+r].id==0)
+                                                    AX[x][z][y+r]=BlockInfo(76,0,0,0);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (f)  { printf("\n"); f=false; }
+                    printf("\rSkylight upgraded %d    ",changed);
+                    changed=0;
+    //                changed=0;
+                }
+
+    /*
+                int changed=1;
+                bool f=true;
+                while (changed) {
+                    changed=0;
+                    for (int x = 0; x < 512; x++) {
+                        BlockInfo** AZ=AX[x]; ui** LZ=skylight[x];
+                        for (int z = 0; z < 512; z++) {
+                            BlockInfo* AY=AZ[z]; ui* LY=LZ[z];
+                            if (mask[x][z]!=-999999) {
+                                for (int y = 0; y < 256; y++) {
+                                    BlockInfo A=AY[y]; ui* L=&LY[y];
+                                    if (A.id==0) {
+                                        int LIGHT;
+                                        if (*L!=15) {
+
+                                            if (x>0)   { if (AX[x-1][z][y].id==0) { if ((LIGHT=skylight[x-1][z][y])>*L) { *L=LIGHT; changed++; } } }
+                                            if (x<511) { if (AX[x+1][z][y].id==0) { if ((LIGHT=skylight[x+1][z][y])>*L) { *L=LIGHT; changed++; } } }
+                                            if (z>0)   { if (AX[x][z-1][y].id==0) { if ((LIGHT=skylight[x][z-1][y])>*L) { *L=LIGHT; changed++; } } }
+                                            if (z<511) { if (AX[x][z+1][y].id==0) { if ((LIGHT=skylight[x][z+1][y])>*L) { *L=LIGHT; changed++; } } }
+                                            if (y>0)   { if (AX[x][z][y-1].id==0) { if ((LIGHT=skylight[x][z][y-1])>*L) { *L=LIGHT; changed++; } } }
+                                            if (y<255) { if (AX[x][z][y+1].id==0) { if ((LIGHT=skylight[x][z][y+1])>*L) { *L=LIGHT; changed++; } } }
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (f) printf("\n");
+                    printf("\rSkylight upgraded %d    ",changed);
+                }
+    */
+                if (cubic && region_floor==0 && !ground_on) {
+                    for (int x = 0; x < xl; x++) {
+                        BlockInfo** AZ=AX[x];
+                        xx=x+chunk_offsetx*16;
+                        for (int z = 0; z < zl; z++) {
+                            BlockInfo* AY=AZ[z];
+                            zz=z+chunk_offsetz*16;
+                            for (int y = 0; y < 256; y++) {
+                                if (skylight[x][z][y]==0) {
+                                    if (y<=floor_y[x][z]) {
+                                        if (AY[y].id==0) {
+                                            if (!(rand()%(2+((y-height_add)*(y-height_add))/5)))
+                                                AY[y]=BlockInfo(89,0,0,0);
+                                            else if (!(rand()%(50+((y-height_add)*(y-height_add))/25)))
+                                                AY[y]=BlockInfo(14,0,0,0);
+                                            else
+                                            {
+                                                if (y<=floor_y[x][z]-15+rand()%4) {
+                                                    AY[y]=BlockInfo(1,0,0,0);
+                                                }
+                                                else {
+                                                    if (!(rand()%5000)) AY[y]=BlockInfo(2,0,0,0);
+                                                    else AY[y]=BlockInfo(3,0,0,0);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 }
+
+                if (boom_on)
                 for (int x = 0; x < xl; x++) {
                     BlockInfo** AZ=AX[x];
                     xx=x+chunk_offsetx*16;
                     for (int z = 0; z < zl; z++) {
                         zz=z+chunk_offsetz*16;
                         BlockInfo* AY=AZ[z];
+                        AY[0] = BlockInfo(7, 0, 0 );
                         for (int y = height_add; y < 256; y++) {
                             if (y+height_add<1) continue;
-                            if (AY[y].id==0) continue;
+                            if (AY[y].id!=0 && AY[y].id!=8 && AY[y].id!=46 && y>floor_y[x][z]) {
+                                num_blocks_total++;
+                                float f_xx=xx+SEED;
+                                float f_y=y+SEED;
+                                float f_zz=zz+SEED;
+                                int rr=int(2.0+2.0*sin((f_xx-f_zz+f_y)/118.77) + 8.0*(1.0+sin((f_xx+f_zz+f_y)/106.0))/2.0);
+                                int b1=int( ( sin( float(f_xx)/179.83 + 0.35*sin( float(f_y)/115.83 ) ) + sin( float(f_y)/175.83 )  +  float(f_zz+ 0.27*sin( float(f_xx)/139.83 ) )/269.51 + 2.0)*300.0 + 500.0 )%300;
+                                int b2=int( ( sin( float(f_xx+ 0.2*sin( float(f_zz)/245.83 ) )/199.83 ) + sin( float(f_y)/155.83 )  +  float(f_zz)/139.51 + 2.0  + 0.31*sin( float(f_y)/215.83 ))*300.0 + 500.0 )%300;
+                                int b3=int( ( sin( float(f_xx+ 0.13*sin( float(f_zz)/345.83 ) )/119.83 ) + sin( float(f_y)/165.83 ) +  float(f_zz)/179.51 + 2.0  + 0.15*sin( float(f_y)/345.83 ))*300.0 + 700.0 )%350;
+                                if (
+                                        b3==75 || b1==140 || b2==135 ||
+                                        b3==76 || b1==141 || b2==136 ||
+                                        (b1+b2+b3)%300==75 || abs(b1+b2*2-b3+200)%300==220 ||
+                                        (b1+b2+b3)%300==76 || abs(b1+b2*2-b3+200)%300==221
+    //                                    b3==75 || b3==211 || b1==140 || b1==190 || b2==135 || b2==288 ||
+    //                                    b3==76 || b3==212 || b1==141 || b1==191 || b2==136 || b2==289 ||
+    //                                    (b1+b2+b3)%300==75 || abs(b1+b2*2-b3+200)%300==220 ||
+    //                                    (b1+b2+b3)%300==76 || abs(b1+b2*2-b3+200)%300==221
 
-                            if (AY[y].id!=254) {
-
-                                float f_x_0=376.0*sin(float(xx + zz/2+ y   +200)/142.79);
-                                float f_y_0=200.0*sin(float(y  +xx+zz)/130.54);
-                                float f_z_0=336.0*sin(float(zz + y   +xx/2)/165.59);
-
-                                float f_x_x=376.0*sin(float(xx+1 +zz/2 + y +200  )/142.79);
-                                float f_y_x=200.0*sin(float(y  +xx+1+zz)/130.54);
-                                float f_z_x=336.0*sin(float(zz + y   +(xx+1)/2)  /165.59);
-
-                                float f_x_y=376.0*sin(float(xx + zz/2 + y+1  +200 )/142.79);
-                                float f_y_y=200.0*sin(float(y+1  +xx+zz)/130.54);
-                                float f_z_y=336.0*sin(float(zz + y+1   +xx/2)/165.59);
-
-                                float f_x_z=376.0*sin(float(xx + (zz+1)/2 + y  +200 )  /142.79);
-                                float f_y_z=200.0*sin(float(y  +xx+zz+1)/130.54);
-                                float f_z_z=336.0*sin(float(zz+1 + y   +xx/2)/165.59);
-
-                                float var1_0=(1.0+0.25*sin(float( xx+y+zz)/94.53 ));
-                                float var2_0=(1.0+0.25*sin(float( xx+y-zz)/115.32));
-                                float var3_0=(1.0+0.25*sin(float(-xx-y+zz)/83.21 ));
-
-                                float var1_x=(1.0+0.25*sin(float( (xx+1)+y+zz)/94.53 ));
-                                float var2_x=(1.0+0.25*sin(float( xx+1+y-zz)  /115.32));
-                                float var3_x=(1.0+0.25*sin(float(-xx-1-y+zz)  /83.21 ));
-
-                                float var1_y=(1.0+0.25*sin(float( xx+y+1+zz)/94.53 ));
-                                float var2_y=(1.0+0.25*sin(float( xx+y+1-zz)/115.32));
-                                float var3_y=(1.0+0.25*sin(float(-xx-y-1+zz)/83.21 ));
-
-                                float var1_z=(1.0+0.25*sin(float( xx+y+zz+1)  /94.53 ));
-                                float var2_z=(1.0+0.25*sin(float( xx+y-zz-1)  /115.32));
-                                float var3_z=(1.0+0.25*sin(float(-xx-y+(zz+1))/83.21 ));
-
-                                int r1,r2,r3;
-                                int r1_x; int r2_x; int r3_x;
-                                int r1_y; int r2_y; int r3_y;
-                                int r1_z; int r2_z; int r3_z;
-
-                                int r1_b,r2_b,r3_b;
-                                int r1_x_b; int r2_x_b; int r3_x_b;
-                                int r1_y_b; int r2_y_b; int r3_y_b;
-                                int r1_z_b; int r2_z_b; int r3_z_b;
-
-                                float f_x,f_y,f_z;
-                                float var1,var2,var3;
-                                for (int n=0; n<4; n++) {
-                                    if      (n==0)  { f_x=f_x_x; f_y=f_y_x; f_x=f_z_x; var1=var1_x; var2=var2_x; var3=var3_x;}
-                                    else if (n==1)  { f_x=f_x_y; f_y=f_y_y; f_x=f_z_y; var1=var1_y; var2=var2_y; var3=var3_y;}
-                                    else if (n==2)  { f_x=f_x_z; f_y=f_y_z; f_x=f_z_z; var1=var1_z; var2=var2_z; var3=var3_z;}
-                                    else            { f_x=f_x_0; f_y=f_y_0; f_x=f_z_0; var1=var1_0; var2=var2_0; var3=var3_0;}
-
-                                    r3= int(30.0 + 29.0*sin( (
-                                             0.8*( var1*f_z/1.44  + var2*f_x/2.36 )           /  (93.3 * (1.0+var1*0.4*sin((var3*f_x/1.3 + f_y/2.4 + f_z    ) / 77.0)))   +
-                                             var2*0.7*( var2*f_z/1.14  + var3*f_x/1.17 )           /  (89.4 * (1.0+var2*0.4*sin((f_x/1.7 + f_y     - var1*f_z    ) / 90.0)))   +
-                                             var3*3.10*sin( (var3*f_z/1.36 + f_x/1.55 )   /  (112.6 * (1.0+0.4*sin((var2*f_x     + f_y     + f_z/2.1) / 51.0)))   ) +
-                                             var1*4.15*sin( (f_z/1.67 + var3*f_x/1.64 )   /  (52.4 * (1.0+0.4*sin((f_x     - var1*f_y/2.7 + f_z/1.2) / 87.0)))   )
-                                        )*0.8 ) );
-
-
-                                    r1= int( 200.0*sin( (
-                                               0.7*( var2*f_x/2.23  +  f_z/2.3 )                       /   (97.3 * (1.0+var2*0.4*sin((-var3*f_x/1.2 + f_y     + f_z/1.5) / 133.0)))   +
-                                               var2*0.6*( var3*f_x/1.44  +  f_z/1.5 )                            /   (113.3 * (1.0+var3*0.4*sin((-f_x-      var2*f_y/1.6 + f_z/1.3) / 124.0)))   +
-                                               var3*1.8*sin( (var3*f_x/1.53 + f_z/1.1 )                /   (86.0 * (1.0+0.4*sin(( f_x + f_y     - var1*f_z/2.1    ) / 83.0)))   ) +
-                                               var1*2.15*sin( (f_x/1.33 + var2*f_z/1.4 )                /   (98.0 * (1.0+0.4*sin(( f_x/1.8 - var3*f_y     + f_z/1.4) / 87.0)))   )
-                                        )*0.60  ) );
-
-
-                                    r2= int( 200.0*sin( (
-                                           0.7*( var3*f_z/2.02   +  f_x/2.30 )              / (126.3*(1.0+var3*0.3*sin(( f_x/1.2 + f_y/2.2 + var2*f_z      )  /117.0)))    +
-                                           var3*0.6*( f_z/1.12   +  var1*f_x/1.22 )                  / (118.3*(1.0+var1*0.4*sin((-var3*f_x/1.3 - f_y     + f_z/1.7  )  /125.0)))    +
-                                           var2*1.8*sin( (var2*f_z/1.0 + f_x/1.5 )          / (99.0*(1.0+0.4*sin(( f_x/1.32 - f_y     + var3*f_z      )  /85.0)))    ) +
-                                           var1*2.15*sin( (f_z/1.5 + var3*f_x/1.7 )          / (83.0*(1.0+0.4*sin(( var1*f_x/1.5 + f_y/2.1 - f_z      )  /83.0)))    )
-                                        )*0.60 ) );
-
-                                    r3_b= int(30.0 + 29.0*sin( (
-                                             0.8*( var1*f_x/1.44  + var2*f_z/2.36 )           /  (93.3 * (1.0+var1*0.4*sin((var3*f_z/1.3 + f_y/2.4 + f_x    ) / 77.0)))   +
-                                             var2*0.7*( var2*f_x/1.14  + var3*f_z/1.17 )           /  (89.4 * (1.0+var2*0.4*sin((f_z/1.7 + f_y     - var1*f_x    ) / 90.0)))   +
-                                             var3*3.10*sin( (var3*f_x/1.36 + f_z/1.55 )   /  (112.6 * (1.0+0.4*sin((var2*f_z     + f_y     + f_x/2.1) / 51.0)))   ) +
-                                             var1*4.15*sin( (f_x/1.67 + var3*f_z/1.64 )   /  (52.4 * (1.0+0.4*sin((f_z     - var1*f_y/2.7 + f_x/1.2) / 87.0)))   )
-                                        )*0.8 ) );
-
-
-                                    r1_b= int( 200.0*sin( (
-                                               0.7*( var2*f_z/2.23  +  f_x/2.3 )                       /   (97.3 * (1.0+var2*0.4*sin((-var3*f_z/1.2 + f_y     + f_x/1.5) / 133.0)))   +
-                                               var2*0.6*( var3*f_z/1.44  +  f_x/1.5 )                            /   (113.3 * (1.0+var3*0.4*sin((-f_z-      var2*f_y/1.6 + f_x/1.3) / 124.0)))   +
-                                               var3*1.8*sin( (var3*f_z/1.53 + f_x/1.1 )                /   (86.0 * (1.0+0.4*sin(( f_z + f_y     - var1*f_x/2.1    ) / 83.0)))   ) +
-                                               var1*2.15*sin( (f_z/1.33 + var2*f_x/1.4 )                /   (98.0 * (1.0+0.4*sin(( f_z/1.8 - var3*f_y     + f_x/1.4) / 87.0)))   )
-                                        )*0.60  ) );
-
-                                    r2_b= int( 200.0*sin( (
-                                           0.7*( var3*f_x/2.02   +  f_z/2.30 )              / (126.3*(1.0+var3*0.3*sin(( f_z/1.2 + f_y/2.2 + var2*f_x      )  /117.0)))    +
-                                           var3*0.6*( f_x/1.12   +  var1*f_z/1.22 )                  / (118.3*(1.0+var1*0.4*sin((-var3*f_z/1.3 - f_y     + f_x/1.7  )  /125.0)))    +
-                                           var2*1.8*sin( (var2*f_x/1.0 + f_z/1.5 )          / (99.0*(1.0+0.4*sin(( f_z/1.32 - f_y     + var3*f_x      )  /85.0)))    ) +
-                                           var1*2.15*sin( (f_x/1.5 + var3*f_z/1.7 )          / (83.0*(1.0+0.4*sin(( var1*f_z/1.5 + f_y/2.1 - f_x      )  /83.0)))    )
-                                        )*0.60 ) );
-
-                                    if (n==0)       {r3_x=r3+height_add+1;      r1_x=r1+255; r2_x=r2+255;   r3_x_b=r3_b+height_add+1;      r1_x_b=r1_b+255; r2_x_b=r2_b+255;  }
-                                    else if (n==1)  {r3_y=r3+height_add+1;      r1_y=r1+255; r2_y=r2+255;   r3_y_b=r3_b+height_add+1;      r1_y_b=r1_b+255; r2_y_b=r2_b+255;  }
-                                    else if (n==2)  {r3_z=r3+height_add+1;      r1_z=r1+255; r2_z=r2+255;   r3_z_b=r3_b+height_add+1;      r1_z_b=r1_b+255; r2_z_b=r2_b+255;  }
-                                    else            {r3=  r3+height_add+1;      r1=r1+255;   r2=r2+255;     r3_b=  r3_b+height_add+1;      r1_b=r1_b+255;   r2_b=r2_b+255;    }
-
+                                    ) {
+                                    BlockInfo hop=AY[y];
+                                    if (!(rand()%25 && y<255)) {
+                                        if (AY[y+1].id==0 && skylight[x][z][y+1]>=8) AY[y+1]=BlockInfo(46,0,0,0);
+                                        num_blocks_total++;
+                                    }
+                                    if (y-1>=0  && AX[x][z][y-1].id==0 && skylight[x][z][y-1]==0) { num_blocks_total++;AX[x][z][y-1]=BlockInfo(46,0,0,0); if (AX[x][z][y-1-1].id==0) AX[x][z][y-1-1]=BlockInfo(hop.id,0,hop.data,0);}
+                                    if ((rand()%13)<=rr) if (x-1>=0  && AX[x-1][z][y].id==0 && skylight[x-1][z][y]==0) { num_blocks_total++;AX[x-1][z][y]=BlockInfo(46,0,0,0); if (AX[x-1][z][y-1].id==0) AX[x-1][z][y-1]=BlockInfo(hop.id,0,hop.data,0);}
+                                    if ((rand()%13)<=rr) if (x+1<512 && AX[x+1][z][y].id==0 && skylight[x+1][z][y]==0) { num_blocks_total++;AX[x+1][z][y]=BlockInfo(46,0,0,0); if (AX[x+1][z][y-1].id==0) AX[x+1][z][y-1]=BlockInfo(hop.id,0,hop.data,0);}
+                                    if ((rand()%13)<=rr) if (z-1>=0  && AX[x][z-1][y].id==0 && skylight[x][z-1][y]==0) { num_blocks_total++;AX[x][z-1][y]=BlockInfo(46,0,0,0); if (AX[x][z-1][y-1].id==0) AX[x][z-1][y-1]=BlockInfo(hop.id,0,hop.data,0);}
+                                    if ((rand()%13)<=rr) if (z+1<512 && AX[x][z+1][y].id==0 && skylight[x][z+1][y]==0) { num_blocks_total++;AX[x][z+1][y]=BlockInfo(46,0,0,0); if (AX[x][z+1][y-1].id==0) AX[x][z+1][y-1]=BlockInfo(hop.id,0,hop.data,0);}
+                                    if (y+1<256 && AX[x][z][y+1].id==0 && skylight[x][z][y+1]==0) { num_blocks_total++;AX[x][z][y+1]=BlockInfo(46,0,0,0); if (AX[x][z][y+1-1].id==0) AX[x][z][y+1-1]=BlockInfo(hop.id,0,hop.data,0);}
                                 }
-                                int c1=0;
-                                bool hit=false;
+                            }
+                        }
+                    }
+                }
+                printf("\ncounted=%d",num_blocks_total);
 
-                                if ( !((r3>y && r3_x>y && r3_y>y && r3_z>y) || (r3<y && r3_x<y && r3_y<y && r3_z<y)) ) {
-                                    if (
-                                            ((r1>x && r1_x>x && r1_y>x && r1_z>x) || (r1<x && r1_x<x && r1_y<x && r1_z<x))
-                                         &&
-                                            ((r2>z && r2_x>z && r2_y>z && r2_z>z) || (r2<z && r2_x<z && r2_y<z && r2_z<z))
-                                        ) {
-                                        hit=false;
-                                    } else hit=true;
+
+                if (rooms_on)
+                for (int x = 0; x < xl; x++) {
+                    BlockInfo** AZ=AX[x];
+                    xx=x+chunk_offsetx*16;
+                    for (int z = 0; z < zl; z++) {
+                        BlockInfo* AY=AZ[z];
+                        zz=z+chunk_offsetz*16;
+                        for (int y = height_add; y < 256; y++) {
+                            int yyy=region_floor*256+y;
+
+    //                        if (y<=mask[x][z] && yyy>=floor_y[x][y]-1) {
+                            if (y<mask[x][z] && mask[x][z]!=-999999 && yyy<floor_y[x][y]+2 && AY[y].id==0) AY[y]=BlockInfo(3,0,0,0);
+    /*
+                            if (mask[x][z]!=999999 && y<=mask[x][z] && yyy<floor_y[x][y]) {
+                                if (y<255 && AX[x][z][y+1].id==0) {
+                                    if (y<254 && AX[x][z][y+2].id!=0) {
+    //                                    AX[x][z][y+1]=BlockInfo(AX[x][z][y+2].id,0,AX[x][z][y+2].data,0);
+                                        AX[x][z][y+1]=BlockInfo(3,0,0,0);
+                                    }
+                                    if (AX[x][z][y+1].id!=0) {
+    //                                    AX[x][z][y]=BlockInfo(AX[x][z][y+1].id,0,AX[x][z][y+1].data,0);
+                                        AX[x][z][y]=BlockInfo(3,0,0,0);
+                                    }
                                 }
-                                if (!hit) {
-                                    if ( !((r3_b>y && r3_x_b>y && r3_y_b>y && r3_z_b>y) || (r3_b<y && r3_x_b<y && r3_y_b<y && r3_z_b<y)) ) {
+                            }
+    */
+                            if (skylight[x][z][y]==0) {
+                                if (yyy>=floor_y[x][z] &&
+                                    ( ( (abs(xx)%room_x)==int(room_x/2) || (abs(xx)%room_x)==int(room_x/2)+1 ) && ( (abs(zz)%room_z)==int(room_z/2) || (abs(zz)%room_z)==int(room_z/2)+1 )  && (abs(yyy-floor_y[x][z])%room_y)==0 ) // ||
+    //                                ( (abs(xx)%room_x)==0             && (abs(zz)%room_z)==int(room_z/2)  && ((yyy-floor_y[x][z])%room_y)==int(room_y/2) ) ||
+    //                                ( (abs(xx)%room_x)==int(room_x/2) && (abs(zz)%room_z)==0              && ((yyy-floor_y[x][z])%room_y)==int(room_y/2) )
+                                    ) {
+                                    if (skylight[x][z][y+1]==0) {
+                                        if (x>0 && x<511 && z>0 && z<511) {
+                                            if (skylight[x-1][z][y]==0 && skylight[x+1][z][y]==0 && skylight[x][z-1][y]==0 && skylight[x][z+1][y]==0) {
+                                                room_lights++;
+                                                AY[y]=BlockInfo(89,0,0,0);
+                                                continue;
+                                            }
+                                        }
+                                    }
+                                }
+    //                            if (((zz%10==0 && (xx%8==4||xx%8==3)) || (xx%8==0 && (zz%10==5||zz%10==4))) && (y%8==1 || y%8==2)) {
+    //willem
+                                int hop=int(int(abs(zz)/room_z)*29.3+int(abs(xx)/room_x)*81.7+int(abs((yyy-floor_y[x][z])/room_y))*72.9)%20;
+                                if ( hop>7 &&   yyy>=floor_y[x][z] &&
+                                        (
+                                            ((abs(zz)%room_z)==0 && ((abs(xx)%room_x)==int(room_x/2) ||(abs(xx)%room_x)==int(room_x/2)+1 ) ) ||
+                                            ((abs(xx)%room_x)==0 && ((abs(zz)%room_z)==int(room_z/2) ||(abs(zz)%room_z)==int(room_z/2)+1 ) )
+                                         ) && (
+                                            (abs(yyy-floor_y[x][z]))%room_y==1 ||
+                                            (abs(yyy-floor_y[x][z]))%room_y==2 ||
+                                            (abs(yyy-floor_y[x][z]))%room_y==3
+                                        )
+                                    ) {
+                                    continue;
+                                } else {
+    /*
+                                    if (y<=floor_y[x][z] && y<253) {
+                                        if (AY[y].id==0) {
+                                            if (!(rand()%(2+((y-height_add)*(y-height_add))/5)))
+                                                AY[y]=BlockInfo(89,0,0,0);
+    //WILLEM
+                                            else if (!(rand()%(50+((y-height_add)*(y-height_add))/25)))
+                                                AY[y]=BlockInfo(14,0,0,0);
+                                            else
+                                            {
+                                                if (y<=floor_y[x][z]-15+rand()%4) {
+    //hopla de popla
+    //                                                AY[y]=BlockInfo();
+                                                    AY[y]=BlockInfo(1,0,0,0);
+                                                }
+                                                else {
+                                                    if (!(rand()%5000)) AY[y]=BlockInfo(2,0,0,0);
+                                                    else AY[y]=BlockInfo(3,0,0,0);
+                                                }
+                                            }
+                                        }
+                                        continue;
+                                    }
+    */
+                                }
+                                static int ran[1000];
+                                static bool first=true;
+                                if (first) {
+                                    for (int n=0; n<1000; n++) ran[n]=rand()%16;
+                                    first=false;
+                                }
+
+                                if (AY[y].id==0 && ( (abs(zz)%room_z)==0 || (abs(xx)%room_x)==0 || (abs(yyy-floor_y[x][z]))%room_y==0) && yyy>=floor_y[x][z]) {
+
+                                    int hop=int(abs(yyy-int(floor_y[x][z]))/room_y)+int(abs(zz)/room_z)+int(abs(xx)/room_x);
+
+                                    if ( !(int(float(hop*yyy)*7.423+101*(sin(float(yyy)*11.77)+1.0)+ran[(hop+yyy*5+int(33.31*(sin(float(yyy+int(abs(zz)/(room_z*2))+int(abs(xx)/(room_x*2)))/1.77)+1.0)))%1000])%2) && (zz%room_z)!=0 && (xx%room_x)!=0) {
+                                        int c_r=ran[int(yyy*39.434+3.3214*float(hop))%1000];
+                                        int c_r2;
+                                        if ( !(int(yyy*39.434+4.7143*float(hop))%2) ) c_r2=ran[int(float(yyy*yyy)*7.334+2.4234*float(hop))%1000];
+                                        else c_r2=c_r;
+                                        if (abs(xx+zz)%2)
+                                            AY[y]=BlockInfo(251,0,c_r,0);
+                                        else
+                                            AY[y]=BlockInfo(251,0,c_r2,0);
+                                        num_blocks_total++;
+                                        filled++;
+                                    } else {
+    //                                        AY[y]=BlockInfo(5,0,0,0);
+                                        if ( (abs(zz)%room_z)==0 ) {
+                                            if ( int(int(abs(zz)/room_z)*22.3+int(abs(xx)/room_x)*31.7+int(abs((yyy-floor_y[x][z])/room_y))*12.9)%20 > 7 ) {
+                                                AY[y]=BlockInfo(251,0,0,0);
+                                                num_blocks_total++;
+                                                filled++;
+                                            }
+                                        } else if ( (abs(xx)%room_x)==0 ) {
+                                            if ( int(int(abs(zz)/room_z)*32.3+int(abs(xx)/room_x)*21.7+int(abs((yyy-floor_y[x][z])/room_y))*17.9)%20 > 7 ) {
+                                                AY[y]=BlockInfo(251,0,0,0);
+                                                num_blocks_total++;
+                                                filled++;
+                                            }
+                                        }
+                                        if ( (abs(yyy-floor_y[x][z])%room_y)==0 ) {
+                                                AY[y]=BlockInfo(251,0,0,0);
+                                                num_blocks_total++;
+                                                filled++;
+                                        }
+                                    }
+
+                                    if (abs(yyy-floor_y[x][z])%room_y==0 && !(abs(xx)%room_x==0 || abs(zz)%room_z==0) && y<254) {
+                                        if (AY[y+1].id==0 && !(rand()%1000)) {
+                                            AY[y+1]=BlockInfo(255,0,0,0);
+
+                                            if (AY[y+2].id==0 && !(rand()%2)) {
+                                                AY[y+2]=BlockInfo(255,0,0,0);
+                                            }
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (AY[y].id!=0) num_blocks_total++;
+                            }
+                        }
+                    }
+                }
+                int counter1=0;
+    //            int counter2=0;
+
+    /*
+                static int r1_prev=-999;
+                static int r2_prev=-999;
+                static int r3_prev=-999;
+                static int r1_prev_x=-999;
+                static int r2_prev_x=-999;
+                static int r3_prev_x=-999;
+                static int r1_prev_z=-999;
+                static int r2_prev_z=-999;
+                static int r3_prev_z=-999;
+                static int x_prev=-999;
+                static int y_prev=-999;
+                static int z_prev=-999;
+
+                static int starting_x=true;
+                static int starting_z=true;
+    */
+
+                if (caves_on)
+                for (int x = 0; x < xl; x++) {
+                    BlockInfo** AZ=AX[x];
+                    xx=x+chunk_offsetx*16;
+                    for (int z = 0; z < zl; z++) {
+                        zz=z+chunk_offsetz*16;
+                        BlockInfo* AY=AZ[z];
+                        AY[0] = BlockInfo(7, 0, 0 );
+                        for (int y = height_add; y < 256; y++) {
+                            if (y+height_add<1) continue;
+
+                            if (AY[y].id!=0 && AY[y].id!=1 && AY[y].id!=8 && AY[y].id!=255 && (AY[y].id!=46 || !(rand()%2)) ) {
+    //                        if (AY[y].id!=0 && AY[y].id!=8 && AY[y].id!=999 && AY[y].id!=46 ) {
+                                num_blocks_total++;
+                                float s1=211.0+211.0*sin(2.0*M_PI*float(xx)/312.0);
+                                float s2=211.0+211.0*cos(2.0*M_PI*float(zz)/312.0);
+                                float s3=75.0+60.0*cos(2.0*M_PI*float(y)/120.0);
+                                float f_xx=y/3+sin((float)zz/344.54)*512.0+sin((float)xx/284.0)*512.0;
+                                float f_y =zz/5+sin((float)xx/324.65)*312.0+sin((float)y/364.0)*256.0;
+                                float f_zz=xx/6+sin((float)zz/234.44)*512.0+sin((float)y/214.66)*512.0;
+                                float rr=2.0+4.0*(1.0+sin((f_xx*2.0-f_zz+f_y)/358.77))/2.0 + 12.0*(1.0+sin((f_xx+f_zz*2.0-f_y)/314.0))/2.0;
+                                float rr2=30.0*(1.0+sin((f_xx*-f_zz+f_y)/258.77))/2.0 + 60.0*(1.0+sin((f_xx+f_zz+f_y*2)/(410.0-rr*3)))/2.0;
+                                float rr3=30.0*(1.0+sin((f_xx-f_zz-f_y*2)/458.77))/2.0 + 60.0*(1.0+sin((f_xx+f_zz+f_y-rr2)/442.0))/2.0;
+                                int b1=int( ( sin( float(f_xx)/(399.83-rr2)                 + 0.12*sin( float(f_y+f_xx)/(475.83-rr2) ) )                + sin( float(f_y+f_xx)/(239.83+rr2) )               +  float(f_xx/30.0+f_y/10+ 5.17*sin( float(f_zz+f_y/2)/299.83 ) )/(319.51-rr3)                              + 2.0)*300.0 + 500.0 )%350;
+                                int b2=int( ( sin( float(f_zz)/(339.83-rr3)                 + 0.11*sin( float(f_y+f_zz)/(415.83+rr2) ) )                + sin( float(f_y+f_zz)/(466.83+rr3) )               +  float(f_zz/5.0+f_xx/2.0+ 6.18*sin( float(f_xx-f_y/2)/339.83 ) )/(377.51+rr3)                               + 2.0)*300.0 + 500.0 )%350;
+                                int b3=int( ( sin( float(f_xx)/(469.83-rr2/2.0+rr3/2.0)     + 0.14*sin( float(f_zz+f_y)/(355.83-rr3) ) )                + sin( float(f_zz-f_y)/(426.83+rr3/2.0+rr2/1.5) )   +  float(f_zz/5.0+ 5.16*sin( float(f_xx-f_zz)/489.83 ) )/(347.51-rr2)                                 + 2.0)*300.0 + 500.0 )%350;
+                                int b4=int( ( sin( float(f_zz)/(369.83+rr2*5.0+rr3*7.0)     + 0.28*sin( float(f_xx-f_y)/(455.83+rr3*3.0-rr2*2.0) ) )    + sin( float(f_xx+f_y)/(226.83+rr3/2.0+rr2/1.5) )   +  float(f_y/15-f_zz/15 + 4.13*sin( float(f_xx-f_y*2.0)/(359.83+rr2*2.0+rr3*3.0) ) )/(347.51-rr2)   + 2.0)*300.0 + 700.0 )%300;
+                                if (
+                                     ( (b1==100 || b1==101) && ( b2== 90 || b3== 90 || b2== 91 || b3== 91) )  ||
+                                     ( (b1==100 || b1==101) && ( b3== 75 || b2== 75 || b3== 76 || b2== 76) )  ||
+                                     ( (b2==100 || b2==101) && ( b3==140 || b1==140 || b3==141 || b1==141) )  ||
+                                     ( (b2==100 || b2==101) && ( b1==180 || b3== 80 || b1==181 || b3== 81) )  ||
+                                     ( (b3==100 || b3==101) && ( b1== 140 || b1== 141)  )  ||
+                                     ( (b3==100 || b3==101) && ( b2== 90  || b2== 91 )  )  ||
+    //                                 ( b3%140<3 && ( b2== 80 || b2== 81 || b4== 8 8 || b4== 89      ))  ||
+    //                                 ( b1%111<3 && ( b3==100 || b3==101  /*|| b2== 75 || b2== 76 */ )) ||
+    //                                 ( b4%150<3 && ( b2== 77 || b2== 78                 )) ||
+                                     ( abs(y-(int)s3)<3 && abs(x-(int)s1)<3 && abs(z-(int)s2)<3   )
+    //                                 ( b4%256<3 && ( b1+b2 == 200 || b1+b2== 201        ))
+
+    //                            if (  (b1==25 || b1==26 || b1==27 || b1==75 || b1==76 || b1==77) && (b2==100 || b2==101 || b2==103 || b2==25 || b2==26 || b2==27 )
+                                    ) {
+    //                                if ((b1%25)==0 && (b2%25)==0) rr=rr2;
+    //                                else if ((b2%25)==0 && (b3%25)==0) rr=rr3;
+                                    BlockInfo hop=AY[y];
+    //                                if (!(rand()%25 && y<255)) {
+    //                                    if (AY[y+1].id==0 && skylight[x][z][y+1]>=8) AY[y+1]=BlockInfo(46,0,0,0);
+    //                                    num_blocks_total++;
+    //                                }
+    //willem
+                                    if (y>floor_y[x][z]) {
+                                        if (AX[x][z][y-1].id==0                                      && AX[x][z][y-1].id!=255 && skylight[x][z][y-1]==0) { num_blocks_total++;AX[x][z][y-1]=BlockInfo(46,0,0,0); if (AX[x][z][y-1-1].id==0) AX[x][z][y-1-1]=BlockInfo(hop.id,0,hop.data,0);}
+                                        if ((rand()%20)<=(int)rr) if (x-1>=0  && AX[x-1][z][y].id==0 && AX[x-1][z][y].id!=255 && skylight[x-1][z][y]==0) { num_blocks_total++;AX[x-1][z][y]=BlockInfo(46,0,0,0); if (AX[x-1][z][y-1].id==0) AX[x-1][z][y-1]=BlockInfo(hop.id,0,hop.data,0);}
+                                        if ((rand()%20)<=(int)rr) if (x+1<512 && AX[x+1][z][y].id==0 && AX[x+1][z][y].id!=255 && skylight[x+1][z][y]==0) { num_blocks_total++;AX[x+1][z][y]=BlockInfo(46,0,0,0); if (AX[x+1][z][y-1].id==0) AX[x+1][z][y-1]=BlockInfo(hop.id,0,hop.data,0);}
+                                        if ((rand()%20)<=(int)rr) if (z-1>=0  && AX[x][z-1][y].id==0 && AX[x][z-1][y].id!=255 && skylight[x][z-1][y]==0) { num_blocks_total++;AX[x][z-1][y]=BlockInfo(46,0,0,0); if (AX[x][z-1][y-1].id==0) AX[x][z-1][y-1]=BlockInfo(hop.id,0,hop.data,0);}
+                                        if ((rand()%20)<=(int)rr) if (z+1<512 && AX[x][z+1][y].id==0 && AX[x][z+1][y].id!=255 && skylight[x][z+1][y]==0) { num_blocks_total++;AX[x][z+1][y]=BlockInfo(46,0,0,0); if (AX[x][z+1][y-1].id==0) AX[x][z+1][y-1]=BlockInfo(hop.id,0,hop.data,0);}
+                                        if ((rand()%20)<=(int)rr) if (y+1<256 && AX[x][z][y+1].id==0 && AX[x][z][y+1].id!=255 && skylight[x][z][y+1]==0) { num_blocks_total++;AX[x][z][y+1]=BlockInfo(46,0,0,0); if (AX[x][z][y+1-1].id==0) AX[x][z][y+1-1]=BlockInfo(hop.id,0,hop.data,0);}
+    //                                } else if (y<floor_y[x][z]-1 - (!caves_on)*25 && y>1) {
+                                    }
+                                    else if (caves_on && y<floor_y[x][z]-1 && y>1) {
+                                        rr=rr+(200-y)/20.0;
+                                        num_blocks_total++; AX[x][z][y]=BlockInfo(46,0,0,0);
+                                        if ((rand()%25)<=(int)rr) if (x-1>=0  && AX[x-1][z][y].id!=255 && skylight[x-1][z][y]==0) { num_blocks_total++;AX[x-1][z][y]=BlockInfo(46,0,0,0); if (AX[x-1][z][y-1].id==0) AX[x-1][z][y-1]=BlockInfo(hop.id,0,hop.data,0);}
+                                        if ((rand()%25)<=(int)rr) if (x+1<512 && AX[x+1][z][y].id!=255 && skylight[x+1][z][y]==0) { num_blocks_total++;AX[x+1][z][y]=BlockInfo(46,0,0,0); if (AX[x+1][z][y-1].id==0) AX[x+1][z][y-1]=BlockInfo(hop.id,0,hop.data,0);}
+                                        if ((rand()%25)<=(int)rr) if (z-1>=0  && AX[x][z-1][y].id!=255 && skylight[x][z-1][y]==0) { num_blocks_total++;AX[x][z-1][y]=BlockInfo(46,0,0,0); if (AX[x][z-1][y-1].id==0) AX[x][z-1][y-1]=BlockInfo(hop.id,0,hop.data,0);}
+                                        if ((rand()%25)<=(int)rr) if (z+1<512 && AX[x][z+1][y].id!=255 && skylight[x][z+1][y]==0) { num_blocks_total++;AX[x][z+1][y]=BlockInfo(46,0,0,0); if (AX[x][z+1][y-1].id==0) AX[x][z+1][y-1]=BlockInfo(hop.id,0,hop.data,0);}
+                                        if ((rand()%25)<=(int)rr) if (y-1>=1  && AX[x][z][y-1].id!=255 && skylight[x][z][y-1]==0) { num_blocks_total++;AX[x][z][y-1]=BlockInfo(46,0,0,0); if (AX[x][z][y-1-1].id==0) AX[x][z][y-1-1]=BlockInfo(hop.id,0,hop.data,0);}
+                                        if ((rand()%25)<=(int)rr) if (y+1<256 && AX[x][z][y+1].id!=255 && skylight[x][z][y+1]==0) { num_blocks_total++;AX[x][z][y+1]=BlockInfo(46,0,0,0); if (AX[x][z][y+1-1].id==0) AX[x][z][y+1-1]=BlockInfo(hop.id,0,hop.data,0);}
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (tunnels_on) {
+                    printf("tunnels:\n");
+                    static bool first=true;
+                    static float d[35][35][35];
+                    if (first) {
+                        first=false;
+                        for (int xxx=-17; xxx<18; xxx++) {
+                            for (int zzz=-17; zzz<18; zzz++) {
+                                for (int yyy=-17; yyy<18; yyy++) {
+                                    d[xxx+17][zzz+17][yyy+17]=sqrt(float(xxx*xxx)+float(yyy*yyy)+float(zzz*zzz));
+                                }
+                            }
+                        }
+                    }
+                    for (int x = 0; x < xl; x++) {
+                        BlockInfo** AZ=AX[x];
+                        xx=x+chunk_offsetx*16;
+                        for (int z = 0; z < zl; z++) {
+                            zz=z+chunk_offsetz*16;
+                            BlockInfo* AY=AZ[z];
+                            for (int y = height_add; y < 256; y++) {
+                                if (y+height_add<1) continue;
+                                if (AY[y].id==0) continue;
+
+                                if (AY[y].id!=254) {
+
+                                    float f_x_0=376.0*sin(float(xx + zz/2+ y   +200)/142.79);
+                                    float f_y_0=200.0*sin(float(y  +xx+zz)/130.54);
+                                    float f_z_0=336.0*sin(float(zz + y   +xx/2)/165.59);
+
+                                    float f_x_x=376.0*sin(float(xx+1 +zz/2 + y +200  )/142.79);
+                                    float f_y_x=200.0*sin(float(y  +xx+1+zz)/130.54);
+                                    float f_z_x=336.0*sin(float(zz + y   +(xx+1)/2)  /165.59);
+
+                                    float f_x_y=376.0*sin(float(xx + zz/2 + y+1  +200 )/142.79);
+                                    float f_y_y=200.0*sin(float(y+1  +xx+zz)/130.54);
+                                    float f_z_y=336.0*sin(float(zz + y+1   +xx/2)/165.59);
+
+                                    float f_x_z=376.0*sin(float(xx + (zz+1)/2 + y  +200 )  /142.79);
+                                    float f_y_z=200.0*sin(float(y  +xx+zz+1)/130.54);
+                                    float f_z_z=336.0*sin(float(zz+1 + y   +xx/2)/165.59);
+
+                                    float var1_0=(1.0+0.25*sin(float( xx+y+zz)/94.53 ));
+                                    float var2_0=(1.0+0.25*sin(float( xx+y-zz)/115.32));
+                                    float var3_0=(1.0+0.25*sin(float(-xx-y+zz)/83.21 ));
+
+                                    float var1_x=(1.0+0.25*sin(float( (xx+1)+y+zz)/94.53 ));
+                                    float var2_x=(1.0+0.25*sin(float( xx+1+y-zz)  /115.32));
+                                    float var3_x=(1.0+0.25*sin(float(-xx-1-y+zz)  /83.21 ));
+
+                                    float var1_y=(1.0+0.25*sin(float( xx+y+1+zz)/94.53 ));
+                                    float var2_y=(1.0+0.25*sin(float( xx+y+1-zz)/115.32));
+                                    float var3_y=(1.0+0.25*sin(float(-xx-y-1+zz)/83.21 ));
+
+                                    float var1_z=(1.0+0.25*sin(float( xx+y+zz+1)  /94.53 ));
+                                    float var2_z=(1.0+0.25*sin(float( xx+y-zz-1)  /115.32));
+                                    float var3_z=(1.0+0.25*sin(float(-xx-y+(zz+1))/83.21 ));
+
+                                    int r1,r2,r3;
+                                    int r1_x; int r2_x; int r3_x;
+                                    int r1_y; int r2_y; int r3_y;
+                                    int r1_z; int r2_z; int r3_z;
+
+                                    int r1_b,r2_b,r3_b;
+                                    int r1_x_b; int r2_x_b; int r3_x_b;
+                                    int r1_y_b; int r2_y_b; int r3_y_b;
+                                    int r1_z_b; int r2_z_b; int r3_z_b;
+
+                                    float f_x,f_y,f_z;
+                                    float var1,var2,var3;
+                                    for (int n=0; n<4; n++) {
+                                        if      (n==0)  { f_x=f_x_x; f_y=f_y_x; f_x=f_z_x; var1=var1_x; var2=var2_x; var3=var3_x;}
+                                        else if (n==1)  { f_x=f_x_y; f_y=f_y_y; f_x=f_z_y; var1=var1_y; var2=var2_y; var3=var3_y;}
+                                        else if (n==2)  { f_x=f_x_z; f_y=f_y_z; f_x=f_z_z; var1=var1_z; var2=var2_z; var3=var3_z;}
+                                        else            { f_x=f_x_0; f_y=f_y_0; f_x=f_z_0; var1=var1_0; var2=var2_0; var3=var3_0;}
+
+                                        r3= int(30.0 + 29.0*sin( (
+                                                 0.8*( var1*f_z/1.44  + var2*f_x/2.36 )           /  (93.3 * (1.0+var1*0.4*sin((var3*f_x/1.3 + f_y/2.4 + f_z    ) / 77.0)))   +
+                                                 var2*0.7*( var2*f_z/1.14  + var3*f_x/1.17 )           /  (89.4 * (1.0+var2*0.4*sin((f_x/1.7 + f_y     - var1*f_z    ) / 90.0)))   +
+                                                 var3*3.10*sin( (var3*f_z/1.36 + f_x/1.55 )   /  (112.6 * (1.0+0.4*sin((var2*f_x     + f_y     + f_z/2.1) / 51.0)))   ) +
+                                                 var1*4.15*sin( (f_z/1.67 + var3*f_x/1.64 )   /  (52.4 * (1.0+0.4*sin((f_x     - var1*f_y/2.7 + f_z/1.2) / 87.0)))   )
+                                            )*0.8 ) );
+
+
+                                        r1= int( 200.0*sin( (
+                                                   0.7*( var2*f_x/2.23  +  f_z/2.3 )                       /   (97.3 * (1.0+var2*0.4*sin((-var3*f_x/1.2 + f_y     + f_z/1.5) / 133.0)))   +
+                                                   var2*0.6*( var3*f_x/1.44  +  f_z/1.5 )                            /   (113.3 * (1.0+var3*0.4*sin((-f_x-      var2*f_y/1.6 + f_z/1.3) / 124.0)))   +
+                                                   var3*1.8*sin( (var3*f_x/1.53 + f_z/1.1 )                /   (86.0 * (1.0+0.4*sin(( f_x + f_y     - var1*f_z/2.1    ) / 83.0)))   ) +
+                                                   var1*2.15*sin( (f_x/1.33 + var2*f_z/1.4 )                /   (98.0 * (1.0+0.4*sin(( f_x/1.8 - var3*f_y     + f_z/1.4) / 87.0)))   )
+                                            )*0.60  ) );
+
+
+                                        r2= int( 200.0*sin( (
+                                               0.7*( var3*f_z/2.02   +  f_x/2.30 )              / (126.3*(1.0+var3*0.3*sin(( f_x/1.2 + f_y/2.2 + var2*f_z      )  /117.0)))    +
+                                               var3*0.6*( f_z/1.12   +  var1*f_x/1.22 )                  / (118.3*(1.0+var1*0.4*sin((-var3*f_x/1.3 - f_y     + f_z/1.7  )  /125.0)))    +
+                                               var2*1.8*sin( (var2*f_z/1.0 + f_x/1.5 )          / (99.0*(1.0+0.4*sin(( f_x/1.32 - f_y     + var3*f_z      )  /85.0)))    ) +
+                                               var1*2.15*sin( (f_z/1.5 + var3*f_x/1.7 )          / (83.0*(1.0+0.4*sin(( var1*f_x/1.5 + f_y/2.1 - f_z      )  /83.0)))    )
+                                            )*0.60 ) );
+
+                                        r3_b= int(30.0 + 29.0*sin( (
+                                                 0.8*( var1*f_x/1.44  + var2*f_z/2.36 )           /  (93.3 * (1.0+var1*0.4*sin((var3*f_z/1.3 + f_y/2.4 + f_x    ) / 77.0)))   +
+                                                 var2*0.7*( var2*f_x/1.14  + var3*f_z/1.17 )           /  (89.4 * (1.0+var2*0.4*sin((f_z/1.7 + f_y     - var1*f_x    ) / 90.0)))   +
+                                                 var3*3.10*sin( (var3*f_x/1.36 + f_z/1.55 )   /  (112.6 * (1.0+0.4*sin((var2*f_z     + f_y     + f_x/2.1) / 51.0)))   ) +
+                                                 var1*4.15*sin( (f_x/1.67 + var3*f_z/1.64 )   /  (52.4 * (1.0+0.4*sin((f_z     - var1*f_y/2.7 + f_x/1.2) / 87.0)))   )
+                                            )*0.8 ) );
+
+
+                                        r1_b= int( 200.0*sin( (
+                                                   0.7*( var2*f_z/2.23  +  f_x/2.3 )                       /   (97.3 * (1.0+var2*0.4*sin((-var3*f_z/1.2 + f_y     + f_x/1.5) / 133.0)))   +
+                                                   var2*0.6*( var3*f_z/1.44  +  f_x/1.5 )                            /   (113.3 * (1.0+var3*0.4*sin((-f_z-      var2*f_y/1.6 + f_x/1.3) / 124.0)))   +
+                                                   var3*1.8*sin( (var3*f_z/1.53 + f_x/1.1 )                /   (86.0 * (1.0+0.4*sin(( f_z + f_y     - var1*f_x/2.1    ) / 83.0)))   ) +
+                                                   var1*2.15*sin( (f_z/1.33 + var2*f_x/1.4 )                /   (98.0 * (1.0+0.4*sin(( f_z/1.8 - var3*f_y     + f_x/1.4) / 87.0)))   )
+                                            )*0.60  ) );
+
+                                        r2_b= int( 200.0*sin( (
+                                               0.7*( var3*f_x/2.02   +  f_z/2.30 )              / (126.3*(1.0+var3*0.3*sin(( f_z/1.2 + f_y/2.2 + var2*f_x      )  /117.0)))    +
+                                               var3*0.6*( f_x/1.12   +  var1*f_z/1.22 )                  / (118.3*(1.0+var1*0.4*sin((-var3*f_z/1.3 - f_y     + f_x/1.7  )  /125.0)))    +
+                                               var2*1.8*sin( (var2*f_x/1.0 + f_z/1.5 )          / (99.0*(1.0+0.4*sin(( f_z/1.32 - f_y     + var3*f_x      )  /85.0)))    ) +
+                                               var1*2.15*sin( (f_x/1.5 + var3*f_z/1.7 )          / (83.0*(1.0+0.4*sin(( var1*f_z/1.5 + f_y/2.1 - f_x      )  /83.0)))    )
+                                            )*0.60 ) );
+
+                                        if (n==0)       {r3_x=r3+height_add+1;      r1_x=r1+255; r2_x=r2+255;   r3_x_b=r3_b+height_add+1;      r1_x_b=r1_b+255; r2_x_b=r2_b+255;  }
+                                        else if (n==1)  {r3_y=r3+height_add+1;      r1_y=r1+255; r2_y=r2+255;   r3_y_b=r3_b+height_add+1;      r1_y_b=r1_b+255; r2_y_b=r2_b+255;  }
+                                        else if (n==2)  {r3_z=r3+height_add+1;      r1_z=r1+255; r2_z=r2+255;   r3_z_b=r3_b+height_add+1;      r1_z_b=r1_b+255; r2_z_b=r2_b+255;  }
+                                        else            {r3=  r3+height_add+1;      r1=r1+255;   r2=r2+255;     r3_b=  r3_b+height_add+1;      r1_b=r1_b+255;   r2_b=r2_b+255;    }
+
+                                    }
+                                    int c1=0;
+                                    bool hit=false;
+
+                                    if ( !((r3>y && r3_x>y && r3_y>y && r3_z>y) || (r3<y && r3_x<y && r3_y<y && r3_z<y)) ) {
                                         if (
-                                                ((r1_b>x && r1_x_b>x && r1_y_b>x && r1_z_b>x) || (r1_b<x && r1_x_b<x && r1_y_b<x && r1_z_b<x))
+                                                ((r1>x && r1_x>x && r1_y>x && r1_z>x) || (r1<x && r1_x<x && r1_y<x && r1_z<x))
                                              &&
-                                                ((r2_b>z && r2_x_b>z && r2_y_b>z && r2_z_b>z) || (r2_b<z && r2_x_b<z && r2_y_b<z && r2_z_b<z))
+                                                ((r2>z && r2_x>z && r2_y>z && r2_z>z) || (r2<z && r2_x<z && r2_y<z && r2_z<z))
                                             ) {
                                             hit=false;
                                         } else hit=true;
                                     }
-                                }
-                                if (hit) {
-                                    printf("\rx=%3d,z=%3d,y=%3d => %d\r",x,z,y,counter1);
-                                    counter1++;
-                                    AY[y]=BlockInfo(254,0,0,0);
+                                    if (!hit) {
+                                        if ( !((r3_b>y && r3_x_b>y && r3_y_b>y && r3_z_b>y) || (r3_b<y && r3_x_b<y && r3_y_b<y && r3_z_b<y)) ) {
+                                            if (
+                                                    ((r1_b>x && r1_x_b>x && r1_y_b>x && r1_z_b>x) || (r1_b<x && r1_x_b<x && r1_y_b<x && r1_z_b<x))
+                                                 &&
+                                                    ((r2_b>z && r2_x_b>z && r2_y_b>z && r2_z_b>z) || (r2_b<z && r2_x_b<z && r2_y_b<z && r2_z_b<z))
+                                                ) {
+                                                hit=false;
+                                            } else hit=true;
+                                        }
+                                    }
+                                    if (hit) {
+                                        printf("\rx=%3d,z=%3d,y=%3d => %d\r",x,z,y,counter1);
+                                        counter1++;
+                                        AY[y]=BlockInfo(254,0,0,0);
 
-                                    for (int xxx=-17; xxx<18; xxx++) {
-                                        for (int zzz=-17; zzz<18; zzz++) {
-                                            for (int yyy=-17; yyy<18; yyy++) {
-                                                if (xxx+x>=0 && xxx+x<512 && yyy+y>=0 && yyy+y<256 && zzz+z>=0 && zzz+z<512) {
-                                                    BlockInfo* hoppa=&AX[x+xxx][z+zzz][y+yyy];
-                                                    if (hoppa->id!=254) {
-                                                        float dd=d[xxx+17][zzz+17][yyy+17];
-                                                        float dd2=10000.0;
-                                                        if (yyy+17-3 > 0) dd2=d[xxx+17][zzz+17][yyy+17-3];
-                                                        if ( dd2<=1.0) {
-    //                                                    if ( dd<2.1 ) {
-    //                                                    if ( (xxx==0 && zzz==0 && abs(yyy)==2) || (xxx==0 && abs(zzz)==2 && yyy==0) || (abs(xxx)==2 && zzz==0 && yyy==0) || ( abs(xxx)+abs(yyy)+abs(zzz) <= 1  ) ) {
-                                                            *hoppa=BlockInfo(46,0,0,0);
-                                                        } else if (!(hoppa->id==46)) {
-                                                            if (dd2<3.5) {
-                                                                if (!(rand()%2000)) *hoppa=BlockInfo(89, 0, 0, 0);
-                                                                *hoppa=BlockInfo(5, 0, 0, 0);
-                                                            } else if ((!(hoppa->id==5)) && (!(hoppa->id==8))) {
-                                                                if (dd<19.0 || dd2<19 ) {
-                                                                    int c=((int(abs(xxx+xx)+abs(yyy+y)+abs(zzz+zz))+rand()%20)/int(65.0+6.0*var1+5.0*var2+5.0*var3)+2500)%16;
+                                        for (int xxx=-17; xxx<18; xxx++) {
+                                            for (int zzz=-17; zzz<18; zzz++) {
+                                                for (int yyy=-17; yyy<18; yyy++) {
+                                                    if (xxx+x>=0 && xxx+x<512 && yyy+y>=0 && yyy+y<256 && zzz+z>=0 && zzz+z<512) {
+                                                        BlockInfo* hoppa=&AX[x+xxx][z+zzz][y+yyy];
+                                                        if (hoppa->id!=254) {
+                                                            float dd=d[xxx+17][zzz+17][yyy+17];
+                                                            float dd2=10000.0;
+                                                            if (yyy+17-3 > 0) dd2=d[xxx+17][zzz+17][yyy+17-3];
+                                                            if ( dd2<=1.0) {
+        //                                                    if ( dd<2.1 ) {
+        //                                                    if ( (xxx==0 && zzz==0 && abs(yyy)==2) || (xxx==0 && abs(zzz)==2 && yyy==0) || (abs(xxx)==2 && zzz==0 && yyy==0) || ( abs(xxx)+abs(yyy)+abs(zzz) <= 1  ) ) {
+                                                                *hoppa=BlockInfo(46,0,0,0);
+                                                            } else if (!(hoppa->id==46)) {
+                                                                if (dd2<3.5) {
                                                                     if (!(rand()%2000)) *hoppa=BlockInfo(89, 0, 0, 0);
-                                                                    else *hoppa=BlockInfo(95,0,c,0);
-                                                                } else if (!(hoppa->id==95)) {
-                                                                    if (dd<22.0 || dd2<22.0) {
-                                                                        if (rand()%20000 < int(  300.0+300.0*sin( (f_x+f_y+f_z)/100.0 ) ) ) *hoppa=BlockInfo(89,0,0,0);
+                                                                    *hoppa=BlockInfo(5, 0, 0, 0);
+                                                                } else if ((!(hoppa->id==5)) && (!(hoppa->id==8))) {
+                                                                    if (dd<19.0 || dd2<19 ) {
+                                                                        int c=((int(abs(xxx+xx)+abs(yyy+y)+abs(zzz+zz))+rand()%20)/int(65.0+6.0*var1+5.0*var2+5.0*var3)+2500)%16;
+                                                                        if (!(rand()%2000)) *hoppa=BlockInfo(89, 0, 0, 0);
+                                                                        else *hoppa=BlockInfo(95,0,c,0);
+                                                                    } else if (!(hoppa->id==95)) {
+                                                                        if (dd<22.0 || dd2<22.0) {
+                                                                            if (rand()%20000 < int(  300.0+300.0*sin( (f_x+f_y+f_z)/100.0 ) ) ) *hoppa=BlockInfo(89,0,0,0);
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -7567,20 +7376,19 @@ extern std::string area;
                                                 }
                                             }
                                         }
+                                        if ((!(rand()%500)) && AY[y].id==95) AY[y]=BlockInfo(89,0,0,0);
                                     }
-                                    if ((!(rand()%500)) && AY[y].id==95) AY[y]=BlockInfo(89,0,0,0);
                                 }
                             }
                         }
                     }
                 }
+
+                printf("\nroomlights=%d",room_lights);
+
+                printf(" real=%d filled=%d",num_blocks_total,filled);
+                num_blocks_total=0;
             }
-
-
-            printf("\nroomlights=%d",room_lights);
-
-            printf(" real=%d filled=%d",num_blocks_total,filled);
-            num_blocks_total=0;
 
             editor.clearArrays(editor.x_len + 00, editor.z_len + 00, 256);
         }
@@ -7676,12 +7484,14 @@ extern std::string area;
             for (int z = 0; z < zl; z++) {
                 zz=z+chunk_offsetz*16;
                 BlockInfo* AY=AZ[z];
-                if (!cubic) AY[0] = BlockInfo(7, 0, 0 );
+                if (!cubic && bedrock_floor_on) AY[0] = BlockInfo(7, 0, 0 );
 
                 for (int y = height_add; y < 256; y++) {
 
                     if (AY[y].id!=0) {
                         num_blocks_total++;
+
+/*
                         if (blue_to_water_on && y<253) {
                             if (AY[y].id==251 && AY[y].data==water_blue && AY[y+1].id==0 && AY[y+2].id==0) {
                                 setExtra2(x,z,y+2,"water",SomeStuff);
@@ -7706,13 +7516,18 @@ extern std::string area;
                         }
                         if (stone_on) {
 //                            if (AY[y].id==251) AY[y]=BlockInfo(4,0,0,0);
-                            if (AY[y].id==251) AY[y]=BlockInfo(251,0,0,0); // make white concrete (0)
+                            if (AY[y].id==251) AY[y]=BlockInfo(1,0,0,0); //
                         } else if (glass_on) {
                             if (AY[y].id==251) {
                                 if (AY[y].data==0) AY[y]=BlockInfo(20,0,0,0);
                                 else AY[y]=BlockInfo(95,0,AY[y].data,0);
                             }
+                        } else if (white_on) {
+                            if (AY[y].id==251) AY[y]=BlockInfo(251,0,13,0); // make white concrete (0)
+                        } else if (bedrock_on) {
+                            if (AY[y].id==251) AY[y]=BlockInfo(7,0,0,0); // make bedrock
                         }
+*/
                         if (!(rand()%2500)) {
                             if (AY[y].id==8) {
                                 int c=rand()%16;
@@ -8285,8 +8100,13 @@ extern std::string area;
     scan_z=region_z;
     sprintf(mc_text1,"R.%d.%d.MCA %d",region_x,region_z,region_floor);
 
-//    if (!no_plotting) {
-
+/*
+    update_request=2;
+    while (update_request) {
+        sf::sleep(sf::seconds(0.005));
+    }
+    sf::sleep(sf::seconds(5));
+*/
     num_blocks=0;
     scan_image.create(512,512,sf::Color(0,0,0,0));
     for (int x = 0; x < xl; x++) {
@@ -8297,26 +8117,25 @@ extern std::string area;
             int max_y=-1;
             for (int y = 0; y < 256; y++) {
                 BlockInfo bi=AY[y];
-                if ((bi.id==251 && cubic) || (bi.id!=0 && !cubic)) {
-//                if (bi.id!=0) {
+//pipo
+//                if ((bi.id==251 && cubic) || (bi.id!=0 && !cubic)) {
+                if (!(bi.id==0)) {
                     num_blocks++;
-                    if (mcglobal==6) {
-                        if (mcglobal3>0 && y<=mcglobal3) {
-                            max_y=y;
-                        }
-                    } else if (mcglobal==7) {
-                        if (mcglobal3>0 && y==mcglobal3) {
-                            max_y=y;
-                        }
-                    } else {
-                        max_y=y;
-                    }
+                    max_y=y;
                 }
                 if (y<real_min_y) real_min_y=y;
             }
             if (max_y!=-1) {
                 int r_m,g_m,b_m;
                 ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
+//                if (max_y==0) {
+//                    if (AY[max_y].id==251)
+//                        scan_image.setPixel(x,z,sf::Color(255,0,0,255));
+//                    else
+//                        scan_image.setPixel(x,z,sf::Color(0,0,255,255));
+//                }
+//                else
+
                 scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
 
                 if (max_y>real_max_y) real_max_y=max_y;
@@ -10258,7 +10077,7 @@ void fix(MCRegion &region, int region_x, int region_z) {
 
     for (int z=0; z<512; z++) {
         for (int x=0; x<512; x++) {
-            if (floor_y[x][z]!=999999) {
+            if (floor_y[x][z]!=-999999) {
                 mask[x][z]=1;
             }
             else mask[x][z]=0;
@@ -10279,7 +10098,7 @@ void fix(MCRegion &region, int region_x, int region_z) {
             for (int z = 0; z < zl; z++) {
                 BlockInfo* AY=AZ[z];
                 int added_y=0;
-                if (floor_y[x][z]!=999999) {
+                if (floor_y[x][z]!=-999999) {
                     for (int y = 0; y < 256; y++) {
                         if (AY[y].id==0) {
                             int id=0;
@@ -10324,10 +10143,10 @@ void fix(MCRegion &region, int region_x, int region_z) {
                                         }
                                         else end_loop=true;
                                     } while (!end_loop);
-//                                    if ( (x+a<512 && floor_y[x+a][z]!=999999 && (id==1 || id==2 || id==3 || id==14 || id==89))
+//                                    if ( (x+a<512 && floor_y[x+a][z]!=-999999 && (id==1 || id==2 || id==3 || id==14 || id==89))
 //                                        || (x+a==512 && floor_y[511][z]==999999)) {
-                                    if ( (x+a<512 && floor_y[x+a][z]!=999999 && (id==1 || id==2 || id==3 || id==14 || id==89))
-                                        || (x+a==512 && floor_y[511][z]==999999)) {
+                                    if ( (x+a<512 && floor_y[x+a][z]!=-999999 && (id==1 || id==2 || id==3 || id==14 || id==89))
+                                        || (x+a==512 && floor_y[511][z]==-999999)) {
                                         a--;
                                         while (a>0) {
                                             if (mask[x+a][z]) {
@@ -10362,8 +10181,8 @@ void fix(MCRegion &region, int region_x, int region_z) {
                                         }
                                         else end_loop=true;
                                     } while (!end_loop);
-                                    if ( (x+a>=0 && floor_y[x+a][z]!=999999 && (id==1 || id==2 || id==3 || id==14 || id==89))
-                                        || (x+a<0 && floor_y[0][z]==999999)) {
+                                    if ( (x+a>=0 && floor_y[x+a][z]!=-999999 && (id==1 || id==2 || id==3 || id==14 || id==89))
+                                        || (x+a<0 && floor_y[0][z]==-999999)) {
                                         a++;
                                         while (a<0) {
                                             if (mask[x+a][z]) {
@@ -10398,8 +10217,8 @@ void fix(MCRegion &region, int region_x, int region_z) {
                                         }
                                         else end_loop=true;
                                     } while (!end_loop);
-                                    if ( (z+a<512 && floor_y[x][z+a]!=999999 && (id==1 || id==2 || id==3 || id==14 || id==89))
-                                        || (z+a==512 && floor_y[x][511]==999999)) {
+                                    if ( (z+a<512 && floor_y[x][z+a]!=-999999 && (id==1 || id==2 || id==3 || id==14 || id==89))
+                                        || (z+a==512 && floor_y[x][511]==-999999)) {
                                         a--;
                                         while (a>0) {
                                             if (mask[x][z+a]) {
@@ -10434,8 +10253,8 @@ void fix(MCRegion &region, int region_x, int region_z) {
                                         }
                                         else end_loop=true;
                                     } while (!end_loop);
-                                    if ( (z+a>=0 && floor_y[x][z+a]!=999999 && (id==1 || id==2 || id==3 || id==14 || id==89))
-                                        || (z+a<0 && floor_y[x][0]==999999)) {
+                                    if ( (z+a>=0 && floor_y[x][z+a]!=-999999 && (id==1 || id==2 || id==3 || id==14 || id==89))
+                                        || (z+a<0 && floor_y[x][0]==-999999)) {
                                         a++;
                                         while (a<0) {
                                             if (mask[x][z+a]) {

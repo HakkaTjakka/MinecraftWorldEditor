@@ -1165,6 +1165,9 @@ extern void make_test_schematic();
                                         if (event.key.shift) {
                                             cubic=!cubic;
                                             break;
+                                        } else if (event.key.control) {
+                                            lighten=!lighten;
+                                            break;
                                         } else {
                                             COLOR_ARRAY=!COLOR_ARRAY;
                                             depth_shader.setUniform("COLOR_ARRAY", COLOR_ARRAY);

@@ -53697,3 +53697,951 @@ Entering loop first time
 Next
 Clean up / testing files
 Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Exiting program, cleaning up
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Exiting program, cleaning up
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Exiting program, cleaning up
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Exiting program, cleaning up
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Exiting program, cleaning up
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Exiting program, cleaning up
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Exiting program, cleaning up
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Exiting program, cleaning up
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Exiting program, cleaning up
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Exiting program, cleaning up
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Saving all bitmaps
+Exiting program, cleaning up
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Allocating memory
+Allocating memory done succesfully
+Initialising sounds
+Creating windows screen and SFML screen
+Loading shader(s)
+Starting loop
+Entering loop first time
+Next
+Clean up / testing files
+Saving all bitmaps
