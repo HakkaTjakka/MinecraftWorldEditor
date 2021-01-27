@@ -209,7 +209,7 @@ void MCEditor::setRegion(const MCRegion &R)
     computeBlockLight(R);
 //    printf("3");
 
-    printf(" computeSkyLight\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+    printf(" computeSkyLight   \b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
     computeSkyLight();
 
 //    printf(" ");
@@ -226,7 +226,12 @@ void MCEditor::setRegion(const MCRegion &R)
 */
 
     printf(" updateMCA\b\b\b\b\b\b\b\b\b\b");
-    updateMCA();
+
+    mca_coder.modification_saved = false;
+
+    updateMCA_FAST(R);
+
+//    updateMCA();
 
 //    printf("clearArrays()\n");
     clearArrays(x_len + 00, z_len + 00, 256);
@@ -258,16 +263,19 @@ void MCEditor::initBlocks(const MCRegion &R)
         BlockInfo** AZ=AX[i];
         ui** AZ_blockdata=blockdata[i];
         ui** AZ_blocks=blocks[i];
+        ui** AZ_blocklight=blocklight[i];
         for (int j = 0; j < z_len; j++) {
             toggle2();
             BlockInfo* AY=AZ[j];
             ui* AY_blockdata=AZ_blockdata[j];
             ui* AY_blocks=AZ_blocks[j];
+            ui* AY_blocklight=AZ_blocklight[j];
             for (int k = 0; k < y_len; k++) {
                 BlockInfo bi = AY[k];
                 ui id = bi.id | (bi.add << 8);
                 AY_blocks[k] = id;
                 AY_blockdata[k] = bi.data;
+                AY_blocklight[k] = bi.block_light;
             }
         }
     }
@@ -292,27 +300,32 @@ void MCEditor::computeBlockLight(const MCRegion &R)
                 } else
                     blocklight[x][z][y]=0;
 */
-                AY_blocklight[y] = get_block_light(AY_blocks[y]);
+//                if (AY_blocklight[y]==(ui)0)
+                    ui bl = get_block_light(AY_blocks[y]);
+                    if (bl > AY_blocklight[y]) AY_blocklight[y]=bl;
 //                blocklight[x][z][y] = get_block_light(blocks[x][z][y]);
             }
         }
     }
     lightPropagate(blocklight);
+/*
     for (int x = 0; x < x_len; x++) {
         ui** AZ_blocks=blocks[x];
         toggle2();
         for (int z = 0; z < z_len; z++) {
             ui* AY_blocks=AZ_blocks[z];
             for (int y = 0; y < 256; y++) {
-                if (AY_blocks[y]==50 || AY_blocks[y]==76) {
-                    AY_blocks[y]=0;
-                }
+//lightlight
+//                if (AY_blocks[y]==50 || AY_blocks[y]==76) {
+//                    AY_blocks[y]=0;
+//                }
 //                if (blocks[x][z][y]==50) {
 //                    blocks[x][z][y]=0;
 //                }
             }
         }
     }
+*/
 }
 
 void MCEditor::computeSkyLight()
@@ -347,22 +360,6 @@ void MCEditor::updateMCA_FAST(const MCRegion &R)
 {
     //remove block entities in the editing region;
     printf("- Packing: ");
-    vector<Pos> VP;
-    for (int x = 0; x < x_len; x++) {
-        toggle2();
-        for (int z = 0; z < z_len; z++) {
-            for (int y = 0; y < y_len; y++) {
-                VP.push_back(Pos(x + x_ori, z + z_ori, y + y_ori));
-            }
-        }
-    }
-    printf("-");
-    if (remove_block_entities)
-        for (auto position : VP) {  toggle3();   mca_coder.removeBlockEntity(position);  }
-    printf("-");
-
-    //update blocks
-    vector<Block> VB;
 
     int x0 = x_ori , z0 = z_ori ;
 
@@ -389,23 +386,14 @@ void MCEditor::updateMCA_FAST(const MCRegion &R)
                         ui* AY_blockdata=AZ_blockdata[z+z_inner];
 
                         for (int y_inner = 0; y_inner < 16 ; y_inner++) {
-                            Pos position = Pos(x + x0 + x_inner, z + z0 + z_inner, y + y_inner);
                             int y_tot=y+y_inner;
 
                             ui id = AY_blocks[y_tot] & (ui)0xFF;
-//                            ui id = blocks[x+x_inner][z+z_inner][y+y_inner] & (ui)0xFF;
-                            ui add = (AY_blocks[y_tot] >> 8) & 0xF;
-//                            ui add = (blocks[x+x_inner][z+z_inner][y+y_inner] >> 8) & 0xF;
-//                            if (add>0 || (z==0 && y==1 && x<4))
-//                                printf("hier 2: add=%u  x=%d, z=%d, y=%d\n",add,x+x_inner,z+z_inner,y+y_inner);
-                            ui data = AY_blockdata[y_tot];
-//                            ui data = blockdata[x+x_inner][z+z_inner][y+y_inner];
-                            BlockInfo info = BlockInfo(id, add, data, AY_blocklight[y_tot], AY_skylight[y_tot]);
-
-                            AY[y_tot] = info;
-
-//                            BlockInfo info = BlockInfo(id, add, data, blocklight[x+x_inner][z+z_inner][y+y_inner], skylight[x+x_inner][z+z_inner][y+y_inner]);
-                            VB.push_back(Block(position, info));
+//                            if (id!=(ui)0) {
+                                ui add = (AY_blocks[y_tot] >> 8) & 0xF;
+                                ui data = AY_blockdata[y_tot];
+                                AY[y_tot] = BlockInfo(id, add, data, AY_blocklight[y_tot], AY_skylight[y_tot]);
+//                            }
                         }
                     }
                 }
@@ -413,65 +401,27 @@ void MCEditor::updateMCA_FAST(const MCRegion &R)
         }
     }
 
-    printf("-");
+    printf("1");
 
+    mca_coder.setBlock_FAST(R);
 
-    for (Block u : VB) {  mca_coder.setBlock(u.position, u.info);/*  toggle3();*/  }
-//    printf("4");
-    printf("-");
+    printf("2");
 
-    old_idx=0;
-    old_sec_no=0;
-    old_T=0;
-    old_sec_root=0;
-//    printf("\n");
-/*
-    printf("Number of lookups: lookup1=%d\n",lookup_counter1);
-    printf("Number of lookups: lookup2=%d\n",lookup_counter2);
-    printf("Number of lookups: lookup3=%d\n",lookup_counter3);
-    printf("Number of lookups: lookup4=%d\n",lookup_counter4);
-    printf("Number of lookups: lookup5=%d\n",lookup_counter5);
-    printf("Number of lookups: lookup6=%d\n",lookup_counter6);
-    printf("Number of addnews: addnews=%d\n",addnew_counter);
-*/
-    //update HeightMap
-//hoppa
-//    printf("\nsetHeightMap: ");
     for (int x = 00; x < x_len + 00; x++) {
         ui** AZ_skylight=skylight[x];
         for (int z = 00; z < z_len + 00; z++) {
             ui* AY_skylight=AZ_skylight[z];
             toggle2();
-//tuuttuut
-            for (int y = 0; y < 256; y++) { if (AY_skylight[y] == 15) { mca_coder.setHeightMap(x + x_ori, z + z_ori, y);  break; } }
-//            for (int y = 0; y < 255; y++) { if (skylight[x][z][y] == 15) { mca_coder.setHeightMap(x + x_ori, z + z_ori, y);  break; } }
+            for (int y = 0; y < 256; y++) {
+                if (AY_skylight[y] == 15) {
+                    mca_coder.setHeightMap(x + x_ori, z + z_ori, y);  break;
+                }
+            }
         }
     }
-//    printf("5");
-    printf("-");
 
-    //insert associated block entities
-//    printf("Make pair: ");
-    vector<pair<Pos, BlockEntity*> > VE;
-    for (int x = 0; x < x_len; x++) {
-        BlockEntity*** AZ_block_entities=block_entities[x];
-        for (int z = 0; z < z_len; z++) {
-            BlockEntity** AY_block_entities=AZ_block_entities[z];
-            toggle2();
-            for (int y = 0; y < y_len; y++) { VE.push_back(make_pair(Pos(x + x_ori, z + z_ori, y + y_ori), AY_block_entities[y])); }
-//            for (int y = 0; y < y_len; y++) { VE.push_back(make_pair(Pos(x + x_ori, z + z_ori, y + y_ori), block_entities[x][z][y])); }
-        }
-    }
-//    printf("6");
-//    sort(VE.begin(), VE.end());
-    printf("-");
+    printf("3");
 
-//    printf("insertBlockEntity()\n");
-//    printf("Insert: ");
-    for (auto u : VE) { mca_coder.insertBlockEntity(u.first, u.second);  toggle3(); }
-
-    //make sure that all modifications are saved
-//    printf("\n");
     printf("Save modification: ");
     mca_coder.saveModification();
     printf(" Saved.");
@@ -632,8 +582,10 @@ void MCEditor::lightPropagate(ui*** light)
 
     for (int x = 0; x < x_len; x++) {
         ui** AZ_light=light[x];
+//        ui** AZ_blocks=blocks[x];
         for (int z = 0; z < z_len; z++) {
             ui* AY_light=AZ_light[z];
+//            ui* AY_blocks=AZ_blocks[z];
             toggle2();
             for (int y = 255; y >= 0; y--) {
                 if (AY_light[y]) {
@@ -644,7 +596,9 @@ void MCEditor::lightPropagate(ui*** light)
                         Q.pop();
                         for (int d = 0; d < 6; d++) {
                             int vx = u.x + DX[d],   vz = u.z + DZ[d],     vy = u.y + DY[d];
-                            if (!in_region(vx, vz, vy, 0, 0, 0, x_len , z_len , 256))  continue;
+                            if (vx<0 || vx>=x_len || vz<0 || vz>=z_len || vy<0 || vy>=256) continue;
+//                            if (!in_region(vx, vz, vy, 0, 0, 0, x_len , z_len , 256))  continue;
+
                             int dec = get_opacity(blocks[vx][vz][vy]);
                             int vlight = (int)light[u.x][u.z][u.y] - dec;
                             if (vlight <= 0) continue;
@@ -758,6 +712,10 @@ void MCACoder::getBlock_FAST(const MCRegion &region) {
                             res = old_u_blocklight->tag.va[block_pos >> 1];
                             int block_light = (block_pos & 1) ? ((res >> 4) & 0xF): (res & 0xF);
 
+//uc NBTCoder::getHalfByteInArrayContent(node* T, int idx)
+//    uc res = T->tag.va[idx >> 1];
+//    return (idx & 1)? ((res >> 4) & 0xF): (res & 0xF);
+
                             res = old_u_skylight->tag.va[block_pos >> 1];
                             int sky_light = (block_pos & 1) ? ((res >> 4) & 0xF): (res & 0xF);
 
@@ -775,11 +733,17 @@ void MCACoder::getBlock_FAST(const MCRegion &region) {
     }
 }
 
+extern int region_xxx,region_zzz;
+
 void MCACoder::setBlock_FAST(const MCRegion &region) {
 
 //    ui** AZ_skylight=skylight[3];
 
+    int totx=region_xxx*512;
+    int totz=region_zzz*512;
+
     int n=0;
+    BlockEntity**** BX=region.B;
     BlockInfo*** AX=region.A;
     int num_blocks=0;
     for (int x_outer = 0; x_outer < 512 ; x_outer+=16) {
@@ -792,7 +756,7 @@ void MCACoder::setBlock_FAST(const MCRegion &region) {
             node *chunk_root = Chunk[idx];
 
             if (!chunk_root) {
-                fprintf(stderr, "1) Chunk %d,%d not initialized\n", chunk_x, chunk_z);
+//                fprintf(stderr, "1) Chunk %d,%d not initialized\n", chunk_x, chunk_z);
 /*
                 for (int y_outer = 0; y_outer < 256; y_outer+=16) {
                     for (int x_inner = 0; x_inner < 16 ; x_inner++) {
@@ -817,6 +781,27 @@ void MCACoder::setBlock_FAST(const MCRegion &region) {
 
             node *level_root = chunk_root->childWithName("Level");
             node *sec_root = level_root->childWithName("Sections");
+
+            node *tile_root  = level_root->childWithName("TileEntities");
+            if (!tile_root) {  fprintf(stderr,"TileEntities does not exits chunk (%d, %d)\n", chunk_x, chunk_z); }
+            else {
+                if (remove_block_entities) {
+                    for (auto it = tile_root->ch.begin(); it != tile_root->ch.end(); it++)
+                    {
+                        node *u = *it;
+
+//                        if (u->ch.empty()) continue;
+
+                        nbt_coder.Clear(u);
+//                        delete u;
+//                        it = tile_root->ch.erase(it);
+//                        break;
+                    }
+//                    nbt_coder.Clear(u);
+                    tile_root->ch.clear();
+                }
+            }
+
             bool content_chunk=false;
             for (int y_outer = 0; y_outer < 256; y_outer+=16) {
                 int sec_no = y_outer >> 4;
@@ -859,18 +844,29 @@ void MCACoder::setBlock_FAST(const MCRegion &region) {
                 for (int x_inner = 0; x_inner < 16 ; x_inner++) {
                     int x=x_outer + x_inner;
                     BlockInfo** AZ=AX[x];
+                    BlockEntity*** BZ=BX[x];
+
                     for (int z_inner = 0; z_inner < 16 ; z_inner++) {
                         int z=z_outer + z_inner;
                         BlockInfo* AY=AZ[z];
+                        BlockEntity** BY=BZ[z];
                         if (!(n++&31)) toggle2();
 
                         BlockInfo* info;
+                        BlockEntity* entity;
 
                         for (int y_inner = 0; y_inner < 16 ; y_inner++) {
                             int y=y_outer + y_inner;
                             int block_pos = y_inner * 256 + z_inner * 16 + x_inner;
 
                             info=&AY[y];
+                            entity=BY[y];
+
+                            if (entity) {
+                                tile_root->tag.ch_type = TAG_COMPOUND;
+                                tile_root->addChild(newBlockEntityNode(entity));
+                            }
+
                             if (info->id!=0) content_section=true;
 
                             if (old_u_blocks) {
@@ -897,9 +893,9 @@ void MCACoder::setBlock_FAST(const MCRegion &region) {
                         }
                     }
                 }
-                if (!content_section) {
-                    nbt_coder.Clear(T);
-                }
+//                if (!content_section) {
+//                    nbt_coder.Clear(T);
+//                }
             }
         }
     }

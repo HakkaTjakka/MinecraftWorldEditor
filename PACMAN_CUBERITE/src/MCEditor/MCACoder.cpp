@@ -403,26 +403,6 @@ void MCACoder::removeBlockEntity(const Pos &position)
     int chunk_x = x >> 4, chunk_z = z >> 4;
     int region_x = chunk_x >> 5, region_z = chunk_z >> 5;
 
-
-//    static string file_name_MCA;
-//    static int region_x_old=0,region_z_old=0;
-//    static int first_MCEDIT=1;
-    if (first_MCEDIT==1 || region_x_old!=region_x || region_z_old!=region_z) {
-//        printf("setblock: region_x=%d region_z=%d region_x_old=%d region_z_old=%d\n",region_x,region_z,region_x_old,region_z_old);
-        region_x_old=region_x;
-        region_z_old=region_z;
-        first_MCEDIT=0;
-        file_name_MCA = MCAFileNameXZ(region_x, region_z);
-        if (loadMCA(file_name_MCA) == -1)
-            return;
-    }
-
-/*
-    string file_name_MCA = MCAFileNameXZ(region_x, region_z);
-
-    if (loadMCA(file_name_MCA) == -1)
-        return;
-*/
     int idx = (chunk_x & 31) + 32 * (chunk_z & 31);
     node *chunk_root = Chunk[idx];
     if (!chunk_root) return;
@@ -543,7 +523,9 @@ int MCACoder::loadMCA(const string &file_name_MCA)
 
     fread(buffer, 1, K4, handle);
 
-    for (int i = 0; i < K4; i += 4) timestamp[i >> 2] = K4 * byteToInt(buffer, i, 4);
+//timetime
+    for (int i = 0; i < K4; i += 4) timestamp[i >> 2] = byteToInt(buffer, i, 4);
+//    for (int i = 0; i < K4; i += 4) timestamp[i >> 2] = K4 * byteToInt(buffer, i, 4);
 
     for (int i = 0; i < K1; i++) {
         if (location[i]) {

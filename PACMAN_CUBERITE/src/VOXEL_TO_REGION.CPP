@@ -16,6 +16,7 @@
 
 #include <Windows.h>
 extern std::string region_filename;
+extern int region_xxx,region_zzz;
 
 int scan_max_x=0;
 int scan_min_x=0;
@@ -1630,6 +1631,8 @@ void regions_to_voxelfiles2() {
                     editor.mca_coder.current_filename_mca = tmp;
                     printf("\nSaving modified region back to: %s\n",tmp);
                     first_MCEDIT=0; region_x_old=0; region_z_old=0;
+                    region_xxx=region_x;
+                    region_zzz=region_z;
                     editor.setRegion(region);
                 }
 
@@ -1637,7 +1640,7 @@ void regions_to_voxelfiles2() {
 
 //leuk
 
-                if (1) {
+                if (0) {
                     scan_image.create(512,512,sf::Color(255,0,255,0));
 
                     int blocks_shown=0;
@@ -1719,7 +1722,7 @@ void regions_to_voxelfiles2() {
                 }
 
 
-                if (1 && next_stage) {
+                if (0 && next_stage) {
                     max_x=-std::numeric_limits<int>::max();
                     min_x=std::numeric_limits<int>::max();
 

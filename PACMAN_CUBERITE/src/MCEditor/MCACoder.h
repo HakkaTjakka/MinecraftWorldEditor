@@ -47,6 +47,7 @@ public:
     BlockInfo getBlock(int x, int z, int y);
 
     void getBlock_FAST(const MCRegion &region);
+
     void setBlock_FAST(const MCRegion &region);
 
     void removeBlockEntity(const Pos &position);
@@ -63,10 +64,11 @@ public:
 
     std::string current_filename_mca;
 
+    bool modification_saved;
+
 private:
     NBTCoder nbt_coder;
 
-    bool modification_saved;
 
     node* Chunk[K1];
 

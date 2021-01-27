@@ -6214,91 +6214,156 @@ extern std::string area;
 
     if (!load_leeg) {
         printf("Ok. Testing: ");
+        if (1) {
+            static bool first=true;
 
-//        scan_image.create(512,512,sf::Color(0,0,0,0));
-        static int prev_region_x=-99999999;
-        static int prev_region_z=-99999999;
-        static bool first=true;
-
-        for (int z=0; z<512; z++) {
-            for (int x=0; x<512; x++) {
-                mask[x][z]=-999999;
+            for (int z=0; z<512; z++) {
+                for (int x=0; x<512; x++) {
+                    mask[x][z]=-999999;
+                }
             }
-        }
 
-        int num_pixels=0;
-//printf("here 1\n");
-        for (int x = 0; x < xl; x++) {
-            BlockInfo** AZ=AX[x];
-//printf("here 2\n");
-            for (int z = 0; z < zl; z++) {
-                toggle2();
-                BlockInfo* AY=AZ[z];
-                int max_y=-1;
-                int min_y=-1;
-//printf("here 3\n");
-                for (int y = 0; y < 256; y++) {
-//printf("here 4\n");
-                    BlockInfo bi=editor.mca_coder.getBlock(x,z,y);
-//printf("here 5\n");
-//                    if ((fix_on && bi.id!=0) || (bi.id==251 && cubic) || (bi.id!=0 && !cubic)) {
-                    if (bi.id!=0) {
-                        if (min_y==-1 && bi.id==251) min_y=y;
-                        num_blocks++;
-                        AY[y]=BlockInfo(bi.id,bi.add,bi.data,bi.block_light,bi.sky_light);
-                        if (mcglobal==6) {
-                            if (mcglobal3>0 && y<=mcglobal3) {
-                                max_y=y;
-                            }
-                        } else if (mcglobal==7) {
-                            if (mcglobal3>0 && y==mcglobal3) {
+            editor.mca_coder.getBlock_FAST(region);
+
+            int num_pixels=0;
+            for (int x = 0; x < xl; x++) {
+                BlockInfo** AZ=AX[x];
+                for (int z = 0; z < zl; z++) {
+                    toggle2();
+                    BlockInfo* AY=AZ[z];
+                    int max_y=-1;
+                    int min_y=-1;
+                    for (int y = 0; y < 256; y++) {
+                        BlockInfo bi=AY[y];
+                        if (bi.id!=0) {
+                            if (min_y==-1 && bi.id==251) min_y=y;
+                            num_blocks++;
+                            max_y=y;
+                        }
+                        if (y<real_min_y) real_min_y=y;
+                    }
+                    floor_y[x][z]=max_y;
+                    mask[x][z]=min_y;
+                    if (max_y!=-1) {
+                        int r_m,g_m,b_m;
+                        ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
+                        scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                        if (fix_on) top_view.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+
+                        if (max_y>real_max_y) real_max_y=max_y;
+                        if (x>real_max_x) real_max_x=x;
+                        if (x<real_min_x) real_min_x=x;
+                        if (z>real_max_z) real_max_z=z;
+                        if (z<real_min_z) real_min_z=z;
+                        num_pixels++;
+                    } else {
+                        scan_image.setPixel(x,z,sf::Color(0,0,0,0));
+                    }
+                }
+            }
+            printf(" Ok.\n");
+            scan_x=region_x;
+            scan_z=region_z;
+            sprintf(mc_text1,"R.%d.%d.MCA",region_x,region_z);
+            update_request=2;
+            while (update_request) {
+                sf::sleep(sf::seconds(0.005));
+            }
+            if (plotting && !get_block) {
+                scan_image.create(512,512,sf::Color(0,0,0,0));
+            }
+            if ((make_regions || flushing_mode) && !add_to_region2) {
+                printf("file %s exists, skipping...\n",fname.c_str());
+                return 0;
+            }
+
+            printf("  %d Blocks.  Adding: ",num_blocks);
+
+        } else {
+            static int prev_region_x=-99999999;
+            static int prev_region_z=-99999999;
+            static bool first=true;
+
+            for (int z=0; z<512; z++) {
+                for (int x=0; x<512; x++) {
+                    mask[x][z]=-999999;
+                }
+            }
+
+            int num_pixels=0;
+    //printf("here 1\n");
+            for (int x = 0; x < xl; x++) {
+                BlockInfo** AZ=AX[x];
+    //printf("here 2\n");
+                for (int z = 0; z < zl; z++) {
+                    toggle2();
+                    BlockInfo* AY=AZ[z];
+                    int max_y=-1;
+                    int min_y=-1;
+    //printf("here 3\n");
+                    for (int y = 0; y < 256; y++) {
+    //printf("here 4\n");
+                        BlockInfo bi=editor.mca_coder.getBlock(x,z,y);
+    //printf("here 5\n");
+    //                    if ((fix_on && bi.id!=0) || (bi.id==251 && cubic) || (bi.id!=0 && !cubic)) {
+                        if (bi.id!=0) {
+                            if (min_y==-1 && bi.id==251) min_y=y;
+                            num_blocks++;
+                            AY[y]=BlockInfo(bi.id,bi.add,bi.data,bi.block_light,bi.sky_light);
+                            if (mcglobal==6) {
+                                if (mcglobal3>0 && y<=mcglobal3) {
+                                    max_y=y;
+                                }
+                            } else if (mcglobal==7) {
+                                if (mcglobal3>0 && y==mcglobal3) {
+                                    max_y=y;
+                                }
+                            } else {
                                 max_y=y;
                             }
                         } else {
-                            max_y=y;
+                            AY[y]=BlockInfo();
                         }
-                    } else {
-                        AY[y]=BlockInfo();
+                        if (y<real_min_y) real_min_y=y;
                     }
-                    if (y<real_min_y) real_min_y=y;
-                }
-                floor_y[x][z]=max_y;
-                mask[x][z]=min_y;
-                if (max_y!=-1) {
+                    floor_y[x][z]=max_y;
+                    mask[x][z]=min_y;
+                    if (max_y!=-1) {
 
-                    int r_m,g_m,b_m;
-                    ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
-                    scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
-                    if (fix_on) top_view.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                        int r_m,g_m,b_m;
+                        ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
+                        scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                        if (fix_on) top_view.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
 
-                    if (max_y>real_max_y) real_max_y=max_y;
-                    if (x>real_max_x) real_max_x=x;
-                    if (x<real_min_x) real_min_x=x;
-                    if (z>real_max_z) real_max_z=z;
-                    if (z<real_min_z) real_min_z=z;
-                    num_pixels++;
-                } else {
-                    scan_image.setPixel(x,z,sf::Color(0,0,0,0));
+                        if (max_y>real_max_y) real_max_y=max_y;
+                        if (x>real_max_x) real_max_x=x;
+                        if (x<real_min_x) real_min_x=x;
+                        if (z>real_max_z) real_max_z=z;
+                        if (z<real_min_z) real_min_z=z;
+                        num_pixels++;
+                    } else {
+                        scan_image.setPixel(x,z,sf::Color(0,0,0,0));
+                    }
                 }
             }
-        }
-        printf(" Ok.\n");
-        scan_x=region_x;
-        scan_z=region_z;
-        sprintf(mc_text1,"R.%d.%d.MCA",region_x,region_z);
-        update_request=2;
-        while (update_request) {
-            sf::sleep(sf::seconds(0.005));
-        }
-        if (plotting && !get_block) {
-            scan_image.create(512,512,sf::Color(0,0,0,0));
-        }
-        if ((make_regions || flushing_mode) && !add_to_region2) {
-            printf("file %s exists, skipping...\n",fname.c_str());
-            return 0;
-        }
+            printf(" Ok.\n");
+            scan_x=region_x;
+            scan_z=region_z;
+            sprintf(mc_text1,"R.%d.%d.MCA",region_x,region_z);
+            update_request=2;
+            while (update_request) {
+                sf::sleep(sf::seconds(0.005));
+            }
+            if (plotting && !get_block) {
+                scan_image.create(512,512,sf::Color(0,0,0,0));
+            }
+            if ((make_regions || flushing_mode) && !add_to_region2) {
+                printf("file %s exists, skipping...\n",fname.c_str());
+                return 0;
+            }
 
-        printf("  %d Blocks.  Adding: ",num_blocks);
+            printf("  %d Blocks.  Adding: ",num_blocks);
+        }
     } else {
         for (int x = 0; x < xl; x++) {
             BlockInfo** AZ=AX[x];
@@ -6309,19 +6374,6 @@ extern std::string area;
                 }
             }
         }
-
-//pipo
-//        for (int z=0; z<512; z++) {
-//            for (int x=0; x<512; x++) {
-//                mask[x][z]=-999999;
-//            }
-//        }
-//        for (int x = 0; x < 512; x++) {
-//            for (int z = 0; z < 512; z++) {
-//                floor_y[x][z]=-999999;
-//            }
-//        }
-
     }
 
     if (hit_one!=NULL) hit_one->index12++;
@@ -6550,6 +6602,10 @@ extern bool lighten;
                         int r2=r,g2=g,b2=b;
 
                         int c=ret_color(r2,g2,b2);
+                        ret_color_rev( c, r_m, g_m, b_m );
+                        int lx=5;
+//                        int lx=5+(int)((float)((r2-r_m)+(g2-g_m)+(b2-b_m))/15.0);
+//                        if (lx<0) lx=0; else if (lx>15) lx=15;
 //                        AY[y] = BlockInfo(1, 0, 0,0 );
 
                         if (blue_to_water_on && y<253) {
@@ -6596,7 +6652,7 @@ extern bool lighten;
                                     for (int yyy=-4; yyy<5; yyy++) {
                                         if (!(xxx==0 && yyy==0 && zzz==0)) {
                                             if (in_region(x+xxx, z+zzz, y+yyy, 0, 0, 0, xl , zl , yl)) {
-                                                AX[x+xxx][z+zzz][y+yyy]=BlockInfo(251, 0, c, 0);
+                                                AX[x+xxx][z+zzz][y+yyy]=BlockInfo(251, 0, c, (lighten==true)*lx);
                                                 off=((y+yyy-height_add)+256*(x+xxx)+(z+zzz)*512*256)*4;
                                                 mc[off+3]=1;
                                                 if (min_y==-1) min_y=y+yyy;
@@ -6614,7 +6670,7 @@ extern bool lighten;
                         if (y<real_min_y) real_min_y=y;
                         if (z>real_max_z) real_max_z=z;
                         if (z<real_min_z) real_min_z=z;
-
+                        if (lighten) AY[y].block_light=lx;
                     }
                     if (o_id==0 && AY[y].id!=0) num_blocks_added++;
                     else if (o_id!=0 && AY[y].id!=o_id) num_blocks_replaced++;
@@ -6716,7 +6772,7 @@ extern bool lighten;
         vector<pair<Pos, string> > SomeStuff;
 
 //pipo
-        if (lighten || rooms_on || boom_on || caves_on || tunnels_on) {
+        if (rooms_on || boom_on || caves_on || tunnels_on) {
             editor.x_len = region.x_len, editor.z_len = region.z_len, editor.y_len = region.y_len;
             editor.x_ori = region.x_ori, editor.z_ori = region.z_ori, editor.y_ori = region.y_ori;
             editor.block_entities = region.B;
@@ -6729,62 +6785,6 @@ extern bool lighten;
 
             int changed=1;
             bool f=true;
-
-            if (lighten) {
-                while (changed) {
-                    changed=0;
-
-                    for (int x = 0; x < 512; x++) {
-                        BlockInfo** AZ=AX[x]; ui** LZ=skylight[x];
-                        for (int z = 0; z < 512; z++) {
-                            BlockInfo* AY=AZ[z]; ui* LY=LZ[z];
-                            for (int y = 0; y < 256; y++) {
-                                BlockInfo A=AY[y]; ui* L=&LY[y];
-//                                size_t off=((y-height_add)+256*x+z*512*256)*4;
-//                                if (off>=max_off || off<0) {
-//                                    printf("Error offset %d>=%d\n",off,max_off);
-//                                    continue;
-//                                }
-                                if (A.id==0) {
-//                                if (A.id==0 || A.id==76) {
-                                    int LIGHT;
-//                                    if (*L!=15) {
-                                        bool edge=false;
-                                        if (x>0)                  { if (mc[ (((y  )-height_add)+256*(x-1)+(z  )*512*256)*4+3] > 0 ) edge=true;  }
-                                        if (edge==false && x<511) { if (mc[ (((y  )-height_add)+256*(x+1)+(z  )*512*256)*4+3] > 0 ) edge=true;  }
-                                        if (edge==false && z>0)   { if (mc[ (((y  )-height_add)+256*(x  )+(z-1)*512*256)*4+3] > 0 ) edge=true;  }
-                                        if (edge==false && z<511) { if (mc[ (((y  )-height_add)+256*(x  )+(z+1)*512*256)*4+3] > 0 ) edge=true;  }
-                                        if (edge==false && y>0)   { if (mc[ (((y-1)-height_add)+256*(x  )+(z  )*512*256)*4+3] > 0 ) edge=true;  }
-                                        if (edge==false && y<255) { if (mc[ (((y+1)-height_add)+256*(x  )+(z  )*512*256)*4+3] > 0 ) edge=true;  }
-                                        if (edge) {
-                                            AY[y]=BlockInfo(76,0,0,0);
-                                            changed++;
-
-/*
-                                            int changed2=1;
-                                            while (changed2!=0) {
-                                                changed2=0;
-                                                if (x>0)   { if (AX[x-1][z][y].id==0 || AX[x-1][z][y].id==76) { if ((LIGHT=skylight[x-1][z][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x-1][z][y]=BlockInfo(76,0,0,0);} } }
-                                                if (x<511) { if (AX[x+1][z][y].id==0 || AX[x+1][z][y].id==76) { if ((LIGHT=skylight[x+1][z][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x+1][z][y]=BlockInfo(76,0,0,0);} } }
-                                                if (z>0)   { if (AX[x][z-1][y].id==0 || AX[x][z-1][y].id==76) { if ((LIGHT=skylight[x][z-1][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z-1][y]=BlockInfo(76,0,0,0);} } }
-                                                if (z<511) { if (AX[x][z+1][y].id==0 || AX[x][z+1][y].id==76) { if ((LIGHT=skylight[x][z+1][y])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z+1][y]=BlockInfo(76,0,0,0);} } }
-                                                if (y>0)   { if (AX[x][z][y-1].id==0 || AX[x][z][y-1].id==76) { if ((LIGHT=skylight[x][z][y-1])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z][y-1]=BlockInfo(76,0,0,0);} } }
-                                                if (y<255) { if (AX[x][z][y+1].id==0 || AX[x][z][y+1].id==76) { if ((LIGHT=skylight[x][z][y+1])>*L) { *L=LIGHT; changed++;  changed2++; AX[x][z][y+1]=BlockInfo(76,0,0,0);} } }
-//                                                if (changed2) AY[y]=BlockInfo(76,0,0,0);
-                                            }
-*/
-
-                                        }
-//                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                if (f)  { printf("\n"); f=false; }
-                printf("\rNew blocks light upgraded %d/%d      ",changed);
-                changed=0;
-            }
 
             if ((rooms_on || boom_on || caves_on || tunnels_on)) {
 
