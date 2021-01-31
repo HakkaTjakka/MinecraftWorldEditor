@@ -10,11 +10,12 @@ struct Voxel {
     int x,y,z;
     unsigned int r,g,b,l;
     unsigned char status;
+    signed char face;
 
-    Voxel(): x(0), y(0), z(0), r(0), g(0), b(0), l(0), status(0) {};
+    Voxel(): x(0), y(0), z(0), r(0), g(0), b(0), l(0), status(0), face(0) {};
 
-    Voxel(int x_, int y_, int z_, unsigned int r_ = 0 , unsigned int g_ = 0 , unsigned int b_ = 0 , unsigned int l_ = 0 , unsigned char status_ = 0 )
-            : x(x_), y(y_), z(z_), r(r_), g(g_), b(b_), l(l_), status(status_)  {};
+    Voxel(int x_, int y_, int z_, unsigned int r_ = 0 , unsigned int g_ = 0 , unsigned int b_ = 0 , unsigned int l_ = 0 , unsigned char status_ = 0, signed char face_ = 0 )
+            : x(x_), y(y_), z(z_), r(r_), g(g_), b(b_), l(l_), status(status_), face(face_)  {};
 
     bool operator < (const Voxel &B) const
     {
@@ -22,11 +23,21 @@ struct Voxel {
         if (sort_voxels_on_l) return l < B.l;
 
         int ay = y , by = B.y;
-        if ((int)(ay / 512) != (int)(by / 512)) {
+
+        int ay_d=ay/512; if (ay<0) ay_d--;
+        int by_d=by/512; if (by<0) by_d--;
+
+        if (ay_d != by_d) {
+//        if ((int)(ay / 512) != (int)(by / 512)) {
             return ay < by;
         } else {
             int az = z, bz = B.z;
-            if ((int)(az / 512) != (int)(bz / 512)) {
+
+            int az_d=az/512; if (az<0) az_d--;
+            int bz_d=bz/512; if (bz<0) bz_d--;
+
+            if (az_d != bz_d) {
+//            if ((int)(az / 512) != (int)(bz / 512)) {
                 return az < bz;
             } else {
                 int ax = x, bx = B.x;
@@ -71,7 +82,7 @@ struct hit_one_region {
 
     bool operator < (const hit_one_region &B) const
     {
-        if (z < B.z) return z < B.z;
+        if (z != B.z) return z < B.z;
         else return x < B.x;
 //        return index8 < B.index8;
 

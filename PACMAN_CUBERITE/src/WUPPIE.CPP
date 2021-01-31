@@ -91,42 +91,9 @@ bool interpolate_point(const Vec3 &a, const Vec3 &b, const Vec3 &c, const Vec3 &
 //	var uv: Vector2 = uv1 * a1 + uv2 * a2 + uv3 * a3;
 }
 
-float determinant(const Vec3 &a, const Vec3 &b, const Vec3 &c) {
-    return a[0]*b[1]*c[2] - a[0]*b[2]*c[1] - a[1]*b[0]*c[2] + a[1]*b[2]*c[0] + a[2]*b[0]*c[1]-a[2]*b[1]*c[0];
-}
-
-float which_side(const Vec3 &a, const Vec3 &b, const Vec3 &c, const Vec3 &p) {
-	Vec3 f1={ a[0]-p[0], a[1]-p[1], a[2]-p[2]};
-
-	Vec3 a_min_b={ a[0]-b[0], a[1]-b[1], a[2]-b[2]};
-	Vec3 a_min_c={ a[0]-c[0], a[1]-c[1], a[2]-c[2]};
-
-	return determinant(a_min_b,a_min_c,f1);
-}
-
-void get_plane(const Vec3 &a, const Vec3 &b, const Vec3 &c, Vec4 &plane) {
-    Vec3 ba={b[0]-a[0],b[1]-a[1],b[2]-a[2]};
-    Vec3 ca={c[0]-a[0],c[1]-a[1],c[2]-a[2]};
-
-    plane[0]=(ba[1])*(ca[2])-(ca[1])*(ba[2]);
-    plane[1]=(ba[2])*(ca[0])-(ca[2])*(ba[0]);
-    plane[2]=(ba[0])*(ca[1])-(ca[0])*(ba[1]);
-    plane[3]=-(plane[0]*a[0]+plane[1]*a[1]+plane[2]*a[2]);
-}
 
 
-bool distance_to_plane_sub(const Vec4 &plane, const Vec3 &p, double& d) {
-    double root=sqrt(plane[0]*plane[0]+plane[1]*plane[1]+plane[2]*plane[2]);
-    if (root==0.0) return false;
-    d=fabs(plane[0]*p[0]+plane[1]*p[1]+plane[2]*p[2]+plane[3]);
-    return true;
-}
 
-bool distance_to_plane(const Vec3 &a, const Vec3 &b, const Vec3 &c, const Vec3 &p, double &d) {
-    Vec4 plane;
-    get_plane(a, b, c, plane);
-    return distance_to_plane_sub(plane, p, d);
-}
 
 double edgeFunction2(const Vec2 &a, const Vec2 &b, const Vec2 &c) {
 	Vec2 a_min_b={ a[0]-b[0], a[1]-b[1]};
@@ -160,6 +127,7 @@ double edgeFunction(const Vec2 &a, const Vec2 &b, const Vec2 &c) {
 //    }
 //    return (  (c[0]-a[0]) * (b[1]-a[1]) - (b[0]-a[0]) * (c[1]-a[1])  );
 }
+
 
 /*
 void projec_point_to_plane_sub(const Vec4 &plane, const Vec3 &p, Vec3& pp, const Vec3& orig)  {
@@ -1177,218 +1145,227 @@ void magic(double v[3][3], double tc[3][2], struct image_loader* image_buffer, i
 }
 
 */
+
+/*
+
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x-1.0),(float)(cube_y),(float)(cube_z)})) if (distance_to_plane(v[0], v[1], v[2], {(float)(v_x-1),(float)(v_y),(float)(v_z)}, distance)) if (distance>0) face = face | 1;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x+1.0),(float)(cube_y),(float)(cube_z)})) if (distance_to_plane(v[0], v[1], v[2], {(float)(v_x+1),(float)(v_y),(float)(v_z)}, distance)) if (distance>0) face = face | 2;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y-1.0),(float)(cube_z)})) if (distance_to_plane(v[0], v[1], v[2], {(float)(v_x),(float)(v_y-1),(float)(v_z)}, distance)) if (distance>0) face = face | 4;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y+1.0),(float)(cube_z)})) if (distance_to_plane(v[0], v[1], v[2], {(float)(v_x),(float)(v_y+1),(float)(v_z)}, distance)) if (distance>0) face = face | 8;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z-1.0)})) if (distance_to_plane(v[0], v[1], v[2], {(float)(v_x),(float)(v_y),(float)(v_z-1)}, distance)) if (distance>0) face = face | 16;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z+1.0)})) if (distance_to_plane(v[0], v[1], v[2], {(float)(v_x),(float)(v_y),(float)(v_z+1)}, distance)) if (distance>0) face = face | 32;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z)    })) if (distance_to_plane(v[0], v[1], v[2], {(float)(v_x),(float)(v_y),(float)(v_z)  }, distance)) if (distance>0) face = face | 64;
+                    face = face | 128;
+
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(v_x-1.0),(float)(v_y),(float)(v_z)})) if (distance_to_plane(v[0], v[1], v[2], {(float)(cube_x-1),(float)(cube_y),(float)(cube_z)}, distance)) if (distance>0) face = face | 1;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(v_x+1.0),(float)(v_y),(float)(v_z)})) if (distance_to_plane(v[0], v[1], v[2], {(float)(cube_x+1),(float)(cube_y),(float)(cube_z)}, distance)) if (distance>0) face = face | 2;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(v_x),(float)(v_y-1.0),(float)(v_z)})) if (distance_to_plane(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y-1),(float)(cube_z)}, distance)) if (distance>0) face = face | 4;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(v_x),(float)(v_y+1.0),(float)(v_z)})) if (distance_to_plane(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y+1),(float)(cube_z)}, distance)) if (distance>0) face = face | 8;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(v_x),(float)(v_y),(float)(v_z-1.0)})) if (distance_to_plane(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z-1)}, distance)) if (distance>0) face = face | 16;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(v_x),(float)(v_y),(float)(v_z+1.0)})) if (distance_to_plane(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z+1)}, distance)) if (distance>0) face = face | 32;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(v_x),(float)(v_y),(float)(v_z)    })) if (distance_to_plane(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z)  }, distance)) if (distance>0) face = face | 64;
+                    face = face | 128;
+*/
+
+/*
+                    Vec3 pp;
+
+                    projec_point_to_plane(v[0], v[1], v[2], {(float)(cube_x-1.0),(float)(cube_y),(float)(cube_z)}, pp); if (insideTriangle_3d(v[0], v[1], v[2], pp)) face = face | ( which_side(v[0], v[1], v[2], {(float)(cube_x-1.0),(float)(cube_y),(float)(cube_z)}) < 0 );
+                    projec_point_to_plane(v[0], v[1], v[2], {(float)(cube_x+1.0),(float)(cube_y),(float)(cube_z)}, pp); if (insideTriangle_3d(v[0], v[1], v[2], pp)) face = face | ( which_side(v[0], v[1], v[2], {(float)(cube_x+1.0),(float)(cube_y),(float)(cube_z)}) < 0 ) << 1;
+                    projec_point_to_plane(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y-1.0),(float)(cube_z)}, pp); if (insideTriangle_3d(v[0], v[1], v[2], pp)) face = face | ( which_side(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y-1.0),(float)(cube_z)}) < 0 ) << 2;
+                    projec_point_to_plane(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y+1.0),(float)(cube_z)}, pp); if (insideTriangle_3d(v[0], v[1], v[2], pp)) face = face | ( which_side(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y+1.0),(float)(cube_z)}) < 0 ) << 3;
+                    projec_point_to_plane(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z-1.0)}, pp); if (insideTriangle_3d(v[0], v[1], v[2], pp)) face = face | ( which_side(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z-1.0)}) < 0 ) << 4;
+                    projec_point_to_plane(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z+1.0)}, pp); if (insideTriangle_3d(v[0], v[1], v[2], pp)) face = face | ( which_side(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z+1.0)}) < 0 ) << 5;
+                    projec_point_to_plane(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z)    }, pp); if (insideTriangle_3d(v[0], v[1], v[2], pp)) face = face | ( which_side(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z)    }) < 0 ) << 6;
+                    face = face | 128;
+*/
+
+/*
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x-1.0),(float)(cube_y),(float)(cube_z)})) face = face | ( which_side(v[0], v[1], v[2], {(float)(cube_x-1.0),(float)(cube_y),(float)(cube_z)}) < 0 );
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x+1.0),(float)(cube_y),(float)(cube_z)})) face = face | ( which_side(v[0], v[1], v[2], {(float)(cube_x+1.0),(float)(cube_y),(float)(cube_z)}) < 0 ) << 1;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y-1.0),(float)(cube_z)})) face = face | ( which_side(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y-1.0),(float)(cube_z)}) < 0 ) << 2;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y+1.0),(float)(cube_z)})) face = face | ( which_side(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y+1.0),(float)(cube_z)}) < 0 ) << 3;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z-1.0)})) face = face | ( which_side(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z-1.0)}) < 0 ) << 4;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z+1.0)})) face = face | ( which_side(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z+1.0)}) < 0 ) << 5;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z)    })) face = face | ( which_side(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z)    }) < 0 ) << 6;
+                    face = face | 128;
+*/
+
+/*
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x-1.0),(float)(cube_y),(float)(cube_z)})) if (distance_to_plane(v[0], v[1], v[2], {(float)(cube_x-1),(float)(cube_y),(float)(cube_z)}, distance)) if (distance>0) face = face | 1;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x+1.0),(float)(cube_y),(float)(cube_z)})) if (distance_to_plane(v[0], v[1], v[2], {(float)(cube_x+1),(float)(cube_y),(float)(cube_z)}, distance)) if (distance>0) face = face | 2;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y-1.0),(float)(cube_z)})) if (distance_to_plane(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y-1),(float)(cube_z)}, distance)) if (distance>0) face = face | 4;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y+1.0),(float)(cube_z)})) if (distance_to_plane(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y+1),(float)(cube_z)}, distance)) if (distance>0) face = face | 8;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z-1.0)})) if (distance_to_plane(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z-1)}, distance)) if (distance>0) face = face | 16;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z+1.0)})) if (distance_to_plane(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z+1)}, distance)) if (distance>0) face = face | 32;
+                    if (insideTriangle_3d(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z)    })) if (distance_to_plane(v[0], v[1], v[2], {(float)(cube_x),(float)(cube_y),(float)(cube_z)  }, distance)) if (distance>0) face = face | 64;
+                    face = face | 128;
+*/
+
 extern std::vector<Voxel> voxels;
 extern int check_tot_hits;
 extern int check_tot_blocks;
 extern toggle2();
+extern double pixels_per_block_glob;
+extern double pixels_per_block_glob_rev;
+
+float determinant(const Vec3 &a, const Vec3 &b, const Vec3 &c) {
+    return a[0]*b[1]*c[2] - a[0]*b[2]*c[1] - a[1]*b[0]*c[2] + a[1]*b[2]*c[0] + a[2]*b[0]*c[1]-a[2]*b[1]*c[0];
+}
+
+float which_side(const Vec3 &a, const Vec3 &b, const Vec3 &c, const Vec3 &p) {
+	Vec3 f1={ a[0]-p[0], a[1]-p[1], a[2]-p[2]};
+
+	Vec3 a_min_b={ a[0]-b[0], a[1]-b[1], a[2]-b[2]};
+	Vec3 a_min_c={ a[0]-c[0], a[1]-c[1], a[2]-c[2]};
+
+	return determinant(a_min_b,a_min_c,f1);
+}
+
+void get_plane(const Vec3 &a, const Vec3 &b, const Vec3 &c, Vec4 &plane) {
+    Vec3 ba={b[0]-a[0],b[1]-a[1],b[2]-a[2]};
+    Vec3 ca={c[0]-a[0],c[1]-a[1],c[2]-a[2]};
+
+    plane[0]=(ba[1])*(ca[2])-(ca[1])*(ba[2]);
+    plane[1]=(ba[2])*(ca[0])-(ca[2])*(ba[0]);
+    plane[2]=(ba[0])*(ca[1])-(ca[0])*(ba[1]);
+    plane[3]=-(plane[0]*a[0]+plane[1]*a[1]+plane[2]*a[2]);
+}
+
+
+float dot3d(const Vec3 &a, const Vec3 &b) {
+	return a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+}
+
+bool insideTriangle_3d(const Vec3 &a, const Vec3 &b, const Vec3 &c, const Vec3 &p)  {
+    bool inside = true;
+
+	Vec3 a_min_b={ a[0]-b[0], a[1]-b[1], a[2]-b[2]};
+	Vec3 a_min_c={ a[0]-c[0], a[1]-c[1], a[2]-c[2]};
+
+	Vec3 ap={ a[0]-p[0], a[1]-p[1], a[2]-p[2]};
+	Vec3 bp={ b[0]-p[0], b[1]-p[1], b[2]-p[2]};
+	Vec3 cp={ c[0]-p[0], c[1]-p[1], c[2]-p[2]};
+
+	double area = fabs(dot3d(a_min_b,a_min_c))/2.0;
+	if (area==0.0) return false;
+	double w0=fabs(dot3d(bp,cp))/area;
+	double w1=fabs(dot3d(cp,ap))/area;
+	double w2=fabs(dot3d(ap,bp))/area;
+
+//	if (w0>=0 && w0<=1 && w1>=0 && w1<=1 && w2>=0 && w2<=1 && ((w0+w1+w2)>0.99 || (w0+w1+w2)<1.01) ) return true;
+	if (w0>=0 && w0<=1 && w1>=0 && w1<=1 && w2>=0 && w2<=1) return true;
+//	if (w0>0 && w0<1 && w1>0 && w1<1 && w2>0 && w2<1) return true;
+//	if (w0>=0 && w0<=1 && w1>=0 && w1<=1 && w2>=0 && w2<=1 && w0+w1+w2==1.0 ) return true;
+	return false;
+}
+
+bool distance_to_plane_sub(const Vec4 &plane, const Vec3 &p, double& d) {
+    double root=sqrt(plane[0]*plane[0]+plane[1]*plane[1]+plane[2]*plane[2]);
+    if (root==0.0) return false;
+    d=plane[0]*p[0]+plane[1]*p[1]+plane[2]*p[2]+plane[3];
+//    d=fabs(plane[0]*p[0]+plane[1]*p[1]+plane[2]*p[2]+plane[3]);
+    return true;
+}
+
+bool distance_to_plane(const Vec3 &a, const Vec3 &b, const Vec3 &c, const Vec3 &p, double &d) {
+    Vec4 plane;
+    get_plane(a, b, c, plane);
+    return distance_to_plane_sub(plane, p, d);
+}
+
+void projec_point_to_plane_sub(const Vec4 &plane, const Vec3 &p, Vec3& pp, const Vec3& orig)  {
+    Vec3 v={p[0]-orig[0], p[1]-orig[1], p[2]-orig[2]};
+    double dist = v[0]*plane[0] + v[1]*plane[1] + v[2]*plane[2];
+    pp[0] = p[0] - dist*plane[0];
+    pp[1] = p[1] - dist*plane[1];
+    pp[2] = p[2] - dist*plane[2];
+}
+
+void projec_point_to_plane(const Vec3 &a, const Vec3 &b, const Vec3 &c, const Vec3 &p, Vec3& pp) {
+    Vec4 plane;
+    get_plane(a, b, c, plane);
+    projec_point_to_plane_sub(plane, p, pp, a);
+}
+
+bool face_it_sub(const double v[3][3], const Vec3 &p , double& distance) {
+    if (insideTriangle_3d(v[0], v[1], v[2], p)) {
+        return distance_to_plane(v[0], v[1], v[2], p, distance);
+    }
+    distance=0.0;
+    return false;
+}
+
+void face_it(const double v[3][3], const Vec3 &p, sf::Color& pixel, std::vector<Voxel>& mini_voxel) {
+    double distance;
+    for (int z=-1; z<=1; z++) {
+        for (int y=-1; y<=1; y++) {
+            for (int x=-1; x<=1; x++) {
+                if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
+                if ( face_it_sub(v, { (float)((int)p[0]+x) , (float)((int)p[1]+y) , (float)((int)p[2]+z) } , distance) ) {
+                    int d=0;
+                    if (distance<0) d=-1; else if (distance>0) d=1;
+                    if (d!=0) mini_voxel.push_back(Voxel((int)p[0]+x,(int)p[1]+y,(int)p[2]+z,pixel.r,pixel.g,pixel.b,1,1,(signed char)d));
+                }
+            }
+        }
+    }
+}
 
 int rasterize(double v[3][3], double tc_org[3][2], int w_a, int h_a, int buf_count, int faces, sf::Image* image, double factor_a, sf::Image& image_copy,
                int offset_x, int offset_y, int offset_z, int box_x, int box_y, int box_z, unsigned short** mc_sub, double block_scale) {
-    int bmin_vertex[3];
-    int bmax_vertex[3];
-    int size_vertex[3];
-
     double tc[3][2];
+
+    double bmin_pixel_o[2]; bmin_pixel_o[0] = bmin_pixel_o[1] = std::numeric_limits<double>::max();
+    double bmax_pixel_o[2]; bmax_pixel_o[0] = bmax_pixel_o[1] = -std::numeric_limits<double>::max();
+
     for (int n=0; n<3; n++) {
-        tc[n][0]=tc_org[n][0]*(double)w_a;
-        tc[n][1]=tc_org[n][1]*(double)h_a;
-        bmin_vertex[n] = std::numeric_limits<double>::max();
-        bmax_vertex[n] = -std::numeric_limits<double>::max();
-    }
-
-    sf::Color random_color=sf::Color(rand()%256,rand()%256,rand()%256,255);
-    double bmin_pixel_o[2];
-    double bmax_pixel_o[2];
-
-    bmin_pixel_o[0] = bmin_pixel_o[1] = std::numeric_limits<double>::max();
-    bmax_pixel_o[0] = bmax_pixel_o[1] = -std::numeric_limits<double>::max();
-
-    for (int l=0; l<3; l++) {
-        bmin_pixel_o[0]=std::min(     tc[l][0], bmin_pixel_o[0]);   bmax_pixel_o[0]=std::max(  tc[l][0], bmax_pixel_o[0]);
-        bmin_pixel_o[1]=std::min(     tc[l][1], bmin_pixel_o[1]);   bmax_pixel_o[1]=std::max(  tc[l][1], bmax_pixel_o[1]);
-
-        for (int n=0; n<3; n++) {
-            bmin_vertex[l]=std::min(  (int)v[n][l], bmin_vertex[l]);
-            bmax_vertex[l]=std::max(  (int)v[n][l], bmax_vertex[l]);
-        }
-        size_vertex[l]=bmax_vertex[l]-bmin_vertex[l]+1;
+        tc[n][0]=tc_org[n][0]*(double)w_a; bmin_pixel_o[0]=std::min(     tc[n][0], bmin_pixel_o[0]);   bmax_pixel_o[0]=std::max(  tc[n][0], bmax_pixel_o[0]);
+        tc[n][1]=tc_org[n][1]*(double)h_a; bmin_pixel_o[1]=std::min(     tc[n][1], bmin_pixel_o[1]);   bmax_pixel_o[1]=std::max(  tc[n][1], bmax_pixel_o[1]);
     }
 
     Voxel one;
     std::vector<Voxel> mini_voxel;
+    double area = edgeFunction(tc[2], tc[1], tc[0]);
 
-    char filename[2000];
-    bool saved=false;
-
-    static int num=0;
-
-    double area;
-    showit=false;
-
-    bool skip_min_x=false;
-    bool skip_max_x=false;
-    bool skip_min_y=false;
-    bool skip_max_y=false;
-
-    area = edgeFunction(tc[2], tc[1], tc[0]);
-
-//    double filler=pixels_per_block/block_scale;
-extern double pixels_per_block_glob;
-extern double pixels_per_block_glob_rev;
-//    double filler=1.0/(pixels_per_block_glob/block_scale);
-//    double filler=0.25*pixels_per_block_glob;
-//    if (filler>0.5) filler=0.5;
-
-//    double filler=1.0/(pixels_per_block_glob);
-//    if (scale)
-//    double filler=2.8/block_scale;
-//    double filler=3.0/block_scale;
-//    if (filler>1.0) filler=1.0;
-//    double filler=2.0/block_scale;
-//    double filler=0.10*(block_scale/pixels_per_block_glob);
     double filler;
     filler=pixels_per_block_glob/4.0;
     if (area!=0) {
         for (double plot_y = bmin_pixel_o[1]-1; plot_y <= bmax_pixel_o[1]+1; plot_y+=filler) {
+//        for (double plot_y = bmin_pixel_o[1]; plot_y <= bmax_pixel_o[1]; plot_y+=filler) {
             toggle2();
             for (double plot_x = bmin_pixel_o[0]-1; plot_x <= bmax_pixel_o[0]+1; plot_x+=filler) {
+//            for (double plot_x = bmin_pixel_o[0]; plot_x <= bmax_pixel_o[0]; plot_x+=filler) {
                 if ((int)plot_x<0 || (int)plot_x>=w_a || (int)plot_y<0 || (int)plot_y>=h_a) continue;
 
                 Vec2 p = {(double)plot_x, (double)plot_y};
-//                Vec2 p = {(double)plot_x+0.5, (double)plot_y+0.5};
-//                Vec2 p = {(double)plot_x+0.5*3.0/block_scale, (double)plot_y+0.5*3.0/block_scale};
-//                Vec2 p = {plot_x+0.5, plot_y+0.5};
                 double w1 = edgeFunction(tc[0], tc[2], p);
                 double w2 = edgeFunction(tc[1], tc[0], p);
                 double w0 = edgeFunction(tc[2], tc[1], p);
 
                 if ((w0 >= 0.0 && w1 >= 0.0 && w2 >= 0.0) || (w0 <= 0.0 && w1 <= 0.0 && w2 <= 0.0)) {
-                    double v_x;
-                    double v_y;
-                    double v_z;
-                    w0 /= area;
-                    w1 /= area;
-                    w2 /= area;
+//                if ((w0 > 0.0 && w1 > 0.0 && w2 > 0.0) || (w0 < 0.0 && w1 < 0.0 && w2 < 0.0)) {
+                    w0 /= area; w1 /= area; w2 /= area;
+                    double v_x = (w0 * (double)v[0][0]) + (w1 * (double)v[1][0]) + (w2 * (double)v[2][0]);
+                    double v_y = (w0 * (double)v[0][1]) + (w1 * (double)v[1][1]) + (w2 * (double)v[2][1]);
+                    double v_z = (w0 * (double)v[0][2]) + (w1 * (double)v[1][2]) + (w2 * (double)v[2][2]);
 
+                    Vec3 cube={v_x+0.5,v_y+0.5,v_z+0.5};
 
-                    v_x = (w0 * (double)v[0][0]) + (w1 * (double)v[1][0]) + (w2 * (double)v[2][0]);
-                    v_y = (w0 * (double)v[0][1]) + (w1 * (double)v[1][1]) + (w2 * (double)v[2][1]);
-                    v_z = (w0 * (double)v[0][2]) + (w1 * (double)v[1][2]) + (w2 * (double)v[2][2]);
-
-                    int cube_x=v_x;
-                    int cube_y=v_y;
-                    int cube_z=v_z;
-//                    int cube_x=(w0 * (double)v[0][0]) + (w1 * (double)v[1][0]) + (w2 * (double)v[2][0]);
-//                    int cube_y=(w0 * (double)v[0][1]) + (w1 * (double)v[1][1]) + (w2 * (double)v[2][1]);
-//                    int cube_z=(w0 * (double)v[0][2]) + (w1 * (double)v[1][2]) + (w2 * (double)v[2][2]);
-
-/*
-                    int real_y=cube_x+offset_real_y;
-                    if (real_y>230) {
-                        if (!warning_done_topping) {
-                            printf("\nWarning: Topping: cube_x=%d  box_x=%d  real_y=%d  offset_x=%d  offset_real_y=%d (This message is only displayed once...)\n",
-                                   cube_x, box_x, real_y,offset_x, offset_real_y);
-
-                        }
-
-                        float togo=real_y-230;
-                        float new_real_y=230+togo/(1.0+(togo/35.0));
-                        cube_x=new_real_y-offset_real_y;
-                        if (!warning_done_topping) {
-                            real_y=cube_x+offset_real_y;
-                            printf("New_cube_x=%d new_real_y=%d\n", cube_x, real_y);
-                            warning_done_topping=true;
-                        }
-                    } else if (real_y<10) {
-                        if (!warning_done_topping) {
-                            printf("\nWarning: Topping: cube_x=%d  box_x=%d  real_y=%d  offset_x=%d  offset_real_y=%d (This message is only displayed once...)\n", cube_x, box_x, real_y,offset_x, offset_real_y);
-                        }
-
-                        float togo=10-real_y;
-                        float new_real_y=10-togo/(1.0+(togo/17.0));
-                        cube_x=new_real_y-offset_real_y;
-                        if (!warning_done_topping) {
-                            real_y=cube_x+offset_real_y;
-                            printf("New_cube_x=%d new_real_y=%d\n", cube_x, real_y);
-                            warning_done_topping=true;
-                        }
-                    }
-*/
+//                    int cube_x=v_x+0.5;
+//                    int cube_y=v_y+0.5;
+//                    int cube_z=v_z+0.5;
                     sf::Color pixel=image->getPixel((int)plot_x,(int)plot_y);
 
-//                    if (cube_x>=0 && cube_x<256) {
-                        one=Voxel(cube_x,cube_y,cube_z,pixel.r,pixel.g,pixel.b,1,1);
-//                        printf("X=%3d Y=%3d Z=%3d\n",cube_x,cube_y,cube_z);
-    //                    one=Voxel((int)v_x,(int)v_y,(int)v_z,pixel.r,pixel.g,pixel.b,1,0);
-                        mini_voxel.push_back(one);
-                        check_tot_hits++;
+                    face_it(v, cube, pixel, mini_voxel);
+//                    one=Voxel(cube[0],cube[1],cube[2],pixel.r,pixel.g,pixel.b,1,1,0);
+//                    one=Voxel(cube_x,cube_y,cube_z,pixel.r,pixel.g,pixel.b,1,1,face);
+//                    mini_voxel.push_back(one);
+                    mini_voxel.push_back(Voxel((int)cube[0],(int)cube[1],(int)cube[2],pixel.r,pixel.g,pixel.b,1,1,0));
+                    check_tot_hits++;
 
-//                    }
-
-/*
-                    if (cube_y==0) hit_cube_y_start=true;
-                    if (cube_y==box_y-1) hit_cube_y_end=true;
-                    if (cube_z==0) hit_cube_z_start=true;
-                    if (cube_z==box_z-1) hit_cube_z_end=true;
-*/
-
-/*
-
-                    if (cube_x==-1) cube_x=0; else if (cube_x==box_x) cube_x--;
-                    if (cube_y==-1) cube_y=0; else if (cube_y==box_y) cube_y--;
-                    if (cube_z==-1) cube_z=0; else if (cube_z==box_z) cube_z--;
-                    if (cube_x>=box_x) {
-                        if (!warning_done_x) {
-                            printf("\nWarning: cube_x=%d  box_x=%d (This message is only displayed once...)\n", cube_x, box_x);
-                            warning_done_x=true;
-                        }
-                    }
-                    else if (cube_y>=box_y) {
-                        if (!warning_done_y) {
-                            printf("\nWarning: cube_y=%d  box_y=%d (This message is only displayed once...)\n", cube_y, box_y);
-                            warning_done_y=true;
-                        }
-                    }
-                    else if (cube_z>=box_z) {
-                        if (!warning_done_z) {
-                            printf("\nWarning: cube_z=%d  box_z=%d (This message is only displayed once...)\n", cube_z, box_z);
-                            warning_done_z=true;
-                        }
-                    } else if (cube_x<0) {
-                        if (!warning_done_x_min) {
-                            printf("\nWarning: cube_x=%d  box_x=%d (This message is only displayed once...)\n", cube_x, box_x);
-                            warning_done_x_min=true;
-                        }
-                    }
-                    else if (cube_y<0) {
-                        if (!warning_done_y_min) {
-                            printf("\nWarning: cube_y=%d  box_y=%d (This message is only displayed once...)\n", cube_y, box_y);
-                            warning_done_y_min=true;
-                        }
-                    }
-                    else if (cube_z<0) {
-                        if (!warning_done_z_min) {
-                            printf("\nWarning: cube_z=%d  box_z=%d (This message is only displayed once...)\n", cube_z, box_z);
-                            warning_done_z_min=true;
-                        }
-                    }
-                    else {
-                        one=Voxel((int)cube_x,(int)cube_y,(int)cube_z,pixel.r,pixel.g,pixel.b,1);
-//                        one=Voxel((int)v_x,(int)v_y,(int)v_z,pixel.r,pixel.g,pixel.b,1);
-                        mini_voxel.push_back(one);
-                        check_tot_hits++;
-                        size_t tot_off_x=(cube_y+cube_z*box_y)*4;
-                        unsigned short * cube_x_p=mc_sub[cube_x];
-                        int curr=cube_x_p[tot_off_x+3];
-                        if (curr==0) check_tot_blocks++;
-
-                        cube_x_p[tot_off_x]     +=(unsigned short) pixel.r;
-                        cube_x_p[tot_off_x+1]   +=(unsigned short) pixel.g;
-                        cube_x_p[tot_off_x+2]   +=(unsigned short) pixel.b;
-                        cube_x_p[tot_off_x+3]++;
-                    }
-*/
-
+//                    printf("X=%3d Y=%3d Z=%3d\n",cube_x,cube_y,cube_z);
+//                    one=Voxel((int)v_x,(int)v_y,(int)v_z,pixel.r,pixel.g,pixel.b,1,0);
                 }
             }
         }
@@ -1396,45 +1373,50 @@ extern double pixels_per_block_glob_rev;
 
 
     if (mini_voxel.size()>0) {
-
-//        std::vector<Voxel> mini_voxel_new;
-        Voxel adder=Voxel();
-//        int count=0;
-/*
-        printf("\n");
-        for (auto u : mini_voxel) {
-            printf("org: mini_voxel[%3d]=Voxel(%6d,%6d,%6d,%4d,%4d,%4d,%4d)\n",count++,u.x,u.y,u.z,u.r,u.g,u.b,u.l);
-            adder.x+=u.x;
-            adder.y+=u.y;
-            adder.z+=u.z;
-            adder.r+=u.r;
-            adder.g+=u.g;
-            adder.b+=u.b;
-            adder.l+=u.l;
-        }
-        printf("-----------------------------------------------------------------\n");
-        printf("tot: mini_voxel[%3d]=                     Voxel(%4d,%4d,%4d,%4d)\n",count,adder.r,adder.g,adder.b,adder.l);
-*/
         sort(mini_voxel.begin(), mini_voxel.end());
 /*
         count=0;
         printf("\n");
         for (auto u : mini_voxel) {
-            printf("srt: mini_voxel[%3d]=Voxel(%6d,%6d,%6d,%4d,%4d,%4d,%4d)\n",count++,u.x,u.y,u.z,u.r,u.g,u.b,u.l);
+            printf("srt: mini_voxel[%3d]=Voxel(%6d,%6d,%6d,%4d,%4d,%4d,%4d,%3d)\n",count++,u.x,u.y,u.z,u.r,u.g,u.b,u.l,u.face);
         }
 */
         size_t total_hits=0;
         size_t total_voxels=0;
 
         Voxel last=mini_voxel[0];
-        Voxel total_pos=Voxel(last.x,last.y,last.z);
-        for (size_t n=0; n<mini_voxel.size(); n++) {
-            if (last.x==mini_voxel[n].x && last.y==mini_voxel[n].y && last.z==mini_voxel[n].z) {
-                total_pos.r+=mini_voxel[n].r;
-                total_pos.g+=mini_voxel[n].g;
-                total_pos.b+=mini_voxel[n].b;
-                total_pos.l+=mini_voxel[n].l;
-                if (n==mini_voxel.size()-1) {
+        Voxel total_pos=Voxel(last.x,last.y,last.z,0,0,0,0,last.status,0);
+
+//        Voxel total_pos=Voxel(last.x,last.y,last.z);
+
+        bool hit=(last.face==0);
+
+        size_t vend=mini_voxel.size()-1;
+        for (size_t n=0; n<=vend; n++) {
+
+            Voxel now=mini_voxel[n];
+
+            if (last.x==now.x && last.y==now.y && last.z==now.z) {
+                if (!hit && now.face==0) {
+                    hit=true;
+                    total_pos.r=0;
+                    total_pos.g=0;
+                    total_pos.b=0;
+                    total_pos.l=0;
+                    total_pos.face=0;
+                }
+                if ( hit + (now.face!=0) == 1 ) {
+                    total_pos.r+=now.r;
+                    total_pos.g+=now.g;
+                    total_pos.b+=now.b;
+                    total_pos.l+=now.l;
+                    if (!hit) total_pos.face+=now.face;
+                }
+
+//                if (!hit && total_pos.face==0) continue;
+
+//                if (n==mini_voxel.size()-1) {
+                if (n==vend && (hit || total_pos.face!=0) ) {
                     total_hits+=total_pos.l;
                     total_voxels+=1;
                     total_pos.x+=voxel_bottom;
@@ -1447,20 +1429,25 @@ extern double pixels_per_block_glob_rev;
             } else {
                 total_hits+=total_pos.l;
                 total_voxels+=1;
-                    total_pos.x+=voxel_bottom;
+                total_pos.x+=voxel_bottom;
                 total_pos.y+=mazemovex_voxel;
                 total_pos.z+=mazemovey_voxel;
+//                total_pos.face=now.face;
 
                 voxels.push_back(total_pos);
                 if (plot_cubes) to_plot_cubes(total_pos);
-                last=mini_voxel[n];
+                last=now;
                 total_pos=last;
-                if (n==mini_voxel.size()-1) {
+                hit=(last.face==0);
+
+                if (n==vend) {
                     total_hits+=total_pos.l;
                     total_voxels+=1;
                     total_pos.x+=voxel_bottom;
                     total_pos.y+=mazemovex_voxel;
                     total_pos.z+=mazemovey_voxel;
+//                    total_pos.face=now.face;
+
                     voxels.push_back(total_pos);
                     if (plot_cubes) to_plot_cubes(total_pos);
                 }
@@ -1531,9 +1518,10 @@ bool load_voxels() {
             Voxel one;
             int xxx,yyy,zzz;
             int r,g,b,l;
-            char x_str[20];
-            char y_str[20];
-            char z_str[20];
+//            char x_str[20];
+//            char y_str[20];
+//            char z_str[20];
+            int face=0;
 
             while (fgets (fline,200, voxel_file_pointer)!=NULL ) {
                 check_tot_lines++;
@@ -1552,13 +1540,13 @@ bool load_voxels() {
 //                    zzz=atoi(z_str);
 //                if (sscanf(fline,"%d,%d,%d,%u,%u,%u,%u",&yyy,&xxx,&zzz,&r,&g,&b,&l)==7) {
 //                if (sscanf(fline,"%d,%d,%d,%u,%u,%u,%u",&yyy,&xxx,&zzz,&r,&g,&b,&l)==7) {
-                if (sscanf(fline,"(%d,%d,%d),(%d,%d,%d),(%d)",&yyy,&xxx,&zzz,&r,&g,&b,&l)==7) {
+                if (sscanf(fline,"(%d,%d,%d),(%d,%d,%d),(%d),(%d)",&yyy,&xxx,&zzz,&r,&g,&b,&l,&face)==8) {
                     check_tot_voxels++;
 //                    printf("x,y,z=%ld,%ld,%ld\n",x,y,z);
-                    if (!(check_tot_lines%100000)) printf("%dK %dK (%6d,%4d,%6d),(%3d,%3d,%3d),(%3d)        \r",
-                                                    check_tot_lines/1000, check_tot_voxels/1000, yyy, xxx, zzz, r, g, b, l);
+                    if (!(check_tot_lines%100000)) printf("%dK %dK (%6d,%4d,%6d),(%3d,%3d,%3d),(%3d),(%3d)        \r",
+                                                    check_tot_lines/1000, check_tot_voxels/1000, yyy, xxx, zzz, r, g, b, l, face);
 //                    one=Voxel(xxx,yyy,zzz,r,g,b,1,(unsigned char)1); // hold
-                    one=Voxel(xxx,yyy,zzz,r,g,b,1,(unsigned char)0); // new
+                    one=Voxel(xxx,yyy,zzz,r,g,b,1,(unsigned char)0, (unsigned char) face); // new
 
 //                    fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d)\n",
 //                            u.y, u.x, u.z,  u.r/u.l,u.g/u.l, u.b/u.l,  u.l );
@@ -1619,18 +1607,19 @@ bool make_region_from_voxel(int x, int z) {
             Voxel one;
             int xxx,yyy,zzz;
             int r,g,b,l;
-            char x_str[20];
-            char y_str[20];
-            char z_str[20];
+            int face;
+//            char x_str[20];
+//            char y_str[20];
+//            char z_str[20];
 
             while (fgets (fline,200, voxel_file_pointer)!=NULL ) {
                 check_tot_lines++;
                 int num;
-                if (sscanf(fline,"(%d,%d,%d),(%d,%d,%d),(%d)",&yyy,&xxx,&zzz,&r,&g,&b,&l)==7) {
+                if (sscanf(fline,"(%d,%d,%d),(%d,%d,%d),(%d),(%d)",&yyy,&xxx,&zzz,&r,&g,&b,&l,&face)==8) {
                     check_tot_voxels++;
-                    if (!(check_tot_lines%100000)) printf("%dK %dK (%6d,%4d,%6d),(%3d,%3d,%3d),(%3d)        \r",
-                                                    check_tot_lines/1000, check_tot_voxels/1000, yyy, xxx, zzz, r, g, b, l);
-                    one=Voxel(xxx,yyy,zzz,r,g,b,1,(unsigned char)0); // new
+                    if (!(check_tot_lines%100000)) printf("%dK %dK (%6d,%4d,%6d),(%3d,%3d,%3d),(%3d),(%3d)        \r",
+                                                    check_tot_lines/1000, check_tot_voxels/1000, yyy, xxx, zzz, r, g, b, l, face);
+                    one=Voxel(xxx,yyy,zzz,r,g,b,1,(unsigned char)0,(unsigned char) face ); // new
                     voxels_temp.push_back(one);
                 }
                 else {
@@ -1657,7 +1646,7 @@ bool make_region_from_voxel(int x, int z) {
         sort(voxels_temp.begin(), voxels_temp.end());
 //            printf("Ok. TOTAL/AVERAGE/COMPRESS: ");
         Voxel last=voxels_temp[0];
-        Voxel total_pos=Voxel(last.x,last.y,last.z,0,0,0,0,last.status);
+        Voxel total_pos=Voxel(last.x,last.y,last.z,0,0,0,0,last.status,last.face);
         for (size_t n=0; n<voxels_temp.size(); n++) {
             if (last.x==voxels_temp[n].x && last.y==voxels_temp[n].y && last.z==voxels_temp[n].z) {
                 total_pos.r+=voxels_temp[n].r;

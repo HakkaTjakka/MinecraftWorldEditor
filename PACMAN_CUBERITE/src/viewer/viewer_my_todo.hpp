@@ -13,8 +13,18 @@ void reset_text(int win_num) {
         text_window->setFillColor(sf::Color::White);
 
 
-        if (!backgroundTexture[win_num]==NULL) delete backgroundTexture[win_num];
-        backgroundTexture[win_num] = new sf::Texture();
+//        if (!backgroundTexture[win_num]==NULL) delete backgroundTexture[win_num];
+        if (backgroundTexture[win_num]==NULL) {
+            backgroundTexture[win_num] = new sf::Texture();
+            sf::Image sub;
+            if (!sub.loadFromFile("resources/background.png")) {
+                printf("error loading resources/background.png\n");
+                return;
+            }
+            color_behind=sub.getPixel(0,0);
+            printf("COLOR=(%d,%d,%d,%d)\n",color_behind.r,color_behind.g,color_behind.b,color_behind.a);
+            backgroundTexture[win_num]->loadFromImage(sub);
+        }
 
 //        sf::Image sub;
 //        sub.loadFromFile("resources/background.png");
@@ -22,15 +32,7 @@ void reset_text(int win_num) {
 //        sub2.create(1922,1082,sf::Color(0,0,0,0));
 //        sub2.copy(sub,1,1);
 //        backgroundTexture[win_num]->loadFromImage(sub2);
-        sf::Image sub;
-        if (!sub.loadFromFile("resources/background.png")) {
-            printf("error loading resources/background.png\n");
-            return;
-        }
-        color_behind=sub.getPixel(0,0);
-        printf("COLOR=(%d,%d,%d,%d)\n",color_behind.r,color_behind.g,color_behind.b,color_behind.a);
-        backgroundTexture[win_num]->loadFromImage(sub);
-//        if (!backgroundTexture[win_num]->loadFromFile("resources/background.png"))   return;
+
 
         backgroundTexture[win_num]->setSrgb(sRgb);
         backgroundTexture[win_num]->setSmooth(false);
@@ -38,6 +40,8 @@ void reset_text(int win_num) {
         if (backgroundSprite[win_num]==NULL) delete backgroundSprite[win_num];
         backgroundSprite[win_num] = new sf::Sprite();
         backgroundSprite[win_num]->setTexture(*backgroundTexture[win_num],true);
+        backgroundSprite[win_num]->setPosition(0,0);
+
 //        backgroundSprite[win_num]->setOrigin(backgroundTexture[win_num]->getSize().x/2,backgroundTexture[win_num]->getSize().y/2);
 //        backgroundSprite[win_num]->setPosition(1920.0/2.0,1080.0/2.0);
 

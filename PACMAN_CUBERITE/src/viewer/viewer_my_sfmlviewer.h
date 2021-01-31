@@ -1,5 +1,6 @@
 extern sf::Texture texture_from_ffmpeg;
 extern int ffmpegfile;
+extern bool get_screenshot(sf::Texture* m_texture);
 
 extern bool make_regions;
 extern bool flushing_mode;
@@ -16,11 +17,12 @@ extern bool dont_slow_down;
 extern char voxel_filename[];
 extern bool screensaver;
 
-DWMAPI DwmEnableBlurBehindWindow(
-  HWND                 hWnd,
-  const DWM_BLURBEHIND *pBlurBehind
-);
+//DWMAPI DwmEnableBlurBehindWindow(
+//  HWND                 hWnd,
+//  const DWM_BLURBEHIND *pBlurBehind
+//);
 
+/*
 HRESULT EnableBlurBehind(HWND hwnd)
 {
    HRESULT hr = S_OK;
@@ -41,8 +43,9 @@ HRESULT EnableBlurBehind(HWND hwnd)
    }
    return hr;
 }
+*/
 
-
+/*
 bool setShape2(HWND hWnd, const sf::Image& image)
 {
 
@@ -112,7 +115,7 @@ bool setShape2(HWND hWnd, const sf::Image& image)
     DeleteDC(hdcWnd);
 
 }
-
+*/
 
 bool setShape(HWND hWnd, const sf::Image& image)
 {
@@ -643,6 +646,8 @@ bool rot_plot=false;
 
 bool depth_shader_on=false;
 
+bool pb=false;
+
 bool lighten=false;
 sf::Color color_behind;
 int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, int yo_combine)
@@ -753,6 +758,9 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
     smooth_y_old=0.0;
     bool transparant=false;
 
+    if (roelof) transparant=true;
+
+
 //    sf::Texture backgroundTexture;
 //    sf::Sprite backgroundSprite;
 //    backgroundTexture.loadFromFile("resources/background.png");
@@ -800,12 +808,16 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
             first_hoppa=0;
             for (int i=0; i<10; i++) {
                 if (videomode[i]==0) {
-                    old_size[i] = ( sf::Vector2u(1920,1080) );
-                    old_pos[i]  = ( sf::Vector2i(0,0) );
-                } else {
-                    if (screensaver) {
+                    if (screensaver || transparant) {
                         old_size[i] = ( sf::Vector2u(1922,1082) );
-//                        old_size[i] = ( sf::Vector2u(1918,1078) );
+                        old_pos[i]  = ( sf::Vector2i(0,0) );
+                    } else {
+                        old_size[i] = ( sf::Vector2u(1920,1080) );
+                        old_pos[i]  = ( sf::Vector2i(0,0) );
+                    }
+                } else {
+                    if (screensaver || transparant) {
+                        old_size[i] = ( sf::Vector2u(1922,1082) );
                         old_pos[i]  = ( sf::Vector2i(0,0) );
                     } else {
                         old_size[i] = ( sf::Vector2u(1920/2.0,1080/2.0) );
@@ -1458,11 +1470,21 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                 }
                 if (screensaver) {
 
-                    static int roelof_count=5;
+                    static int roelof_count=300;
                     if (roelof_count) roelof_count--;
                     if (roelof_count==1) {
+//                        printf("1");
+//                        reset_text(win_num);
+
+//                        get_screenshot(backgroundTexture[win_num]);
+//                        printf("2");
+                        if (pb) plot_background=true;
+                    }
+                    if (roelof_count==298) {
     //                    switch_to_full_screen=1;
 
+
+/*
                         const unsigned char opacity = 255;
                         sf::Image backgroundImage;
                         backgroundImage.create(1922,1082,sf::Color(255,255,255,1));
@@ -1470,11 +1492,13 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
 //                        contextSettings.majorVersion = 3;
                         contextSettings.antialiasingLevel = 15;
                         window.create(sf::VideoMode(backgroundImage.getSize().x, backgroundImage.getSize().y, 32), "Transparent Window", sf::Style::None ,contextSettings);
-                        window.setPosition(sf::Vector2i(-1,-1));
+                        window.setPosition(sf::Vector2i(0,0));
                         setShape(window.getSystemHandle(), backgroundImage);
                         setTransparency(window.getSystemHandle(), opacity);
                         window.setVerticalSyncEnabled(true);
+*/
                         window.requestFocus();
+
                     }
                     if (roelof && roelof_count>0) {
     //                    switch_to_full_screen=1;-map "[v]""
@@ -2015,7 +2039,10 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                         glViewport(0, 0, window.getSize().x, window.getSize().y);
                         between_texture.pushGLStates();
                         between_texture.setActive(false);
-                        backgroundSprite[win_num]->setPosition(0,0);
+//                        if (transparant)
+//                            backgroundSprite[win_num]->setPosition(1,1);
+//                        else
+//                            backgroundSprite[win_num]->setPosition(0,0);
                         between_texture.draw(*backgroundSprite[win_num]);
                         between_texture.setActive(true);
                         between_texture.popGLStates();
@@ -2024,7 +2051,10 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                         window.pushGLStates();
                         glViewport(0, 0, window.getSize().x, window.getSize().y);
                         window.setActive(false);
-                        backgroundSprite[win_num]->setPosition(0,0);
+//                        if (transparant)
+//                            backgroundSprite[win_num]->setPosition(1,1);
+//                        else
+//                            backgroundSprite[win_num]->setPosition(0,0);
                         window.draw(*backgroundSprite[win_num]);
                         window.setActive(true);
                         window.popGLStates();
@@ -2086,6 +2116,7 @@ extern double schematic_size;
 */
                 }
 
+//testing
                 if (0 && (rot_on || rot_plot) && !interpolate_on) {
                     int flits=true;
 

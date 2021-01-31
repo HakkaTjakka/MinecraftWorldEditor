@@ -167,13 +167,15 @@ extern char FFMPEGCOMMAND_M_ORIG[];
 extern char FFMPEGCOMMAND_M_ORIG_AUDIO[];
 extern char FFMPEGCOMMAND_CROP[];
 extern char FFMPEGCOMMAND_CROP_RGBA[];
+extern char FFMPEGCOMMAND_SCREENSHOT[];
 
 char command_line[2000];
 
 extern sf::Texture texture_from_movie_new;
 extern sf::Texture texture_from_movie2_new;
 
-unsigned char frame[1920*1080*4*4*4]; //??? *4 for 4k
+unsigned char frame[1920*1080*4*4]; //??? *4 for 4k
+//unsigned char frame[1920*1080*4*4*4]; //??? *4 for 4k
 //unsigned char frame[1920*1080*3];
 unsigned char frame_in[1920*1080*4*4]; //?????????????? ;/
 
@@ -196,6 +198,37 @@ extern char record_outputfile_nq[];
 void recording_m_orig();
 
 char playing_filename[1000];
+
+bool get_screenshot(sf::Texture* m_texture) {
+    char command_line[2000];
+    unsigned char* frame_in = (unsigned char*) calloc(1920*1080*4,1);
+//    unsigned char frame_in[1920*1080*4];
+
+printf("3");
+
+    if (strlen(FFMPEGCOMMAND_SCREENSHOT)>0)
+        sprintf(command_line,"%s",FFMPEGCOMMAND_SCREENSHOT);
+    else
+        sprintf(command_line,"%s","ffmpeg -rtbufsize 1024M -thread_queue_size 1024 -f gdigrab -i desktop -vframes 1 -q:v 2 -f image2pipe -vcodec rawvideo -pix_fmt rgba -");
+printf("4");
+    printf("COMMAND: %s\n",FFMPEGCOMMAND_SCREENSHOT);
+    FILE *pipein;
+    pipein = popen(command_line, "rb");
+    if (pipein==NULL) {
+        printf("\nFailed to open pipe\n");
+        return false;
+    }
+    int num_bytes=fread(frame_in, 1, 1920*1080*4, pipein);
+    pclose(pipein);
+
+    m_texture->create(1920,1080);
+    m_texture->setSrgb(false);
+    m_texture->setSmooth(false);
+
+    m_texture->update((sf::Uint8*)frame_in);
+    m_texture->copyToImage().saveToFile("screenshot.png");
+    return true;
+}
 
 int playing_start(char * filename)
 {

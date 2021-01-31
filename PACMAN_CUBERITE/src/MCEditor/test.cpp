@@ -57,6 +57,7 @@ bool rooms_on=true;
 bool coral_on=true;
 bool maze_on=true;
 bool lights_on=true;
+bool lighten_on=true;
 bool ground_on=true;
 bool stone_on=true;
 bool bedrock_on=true;
@@ -6037,6 +6038,7 @@ MCRegion* region_pointer;
 
 int main_mceditor6_fixed(int region_x, int region_z, unsigned char* mc) {
 //printf("hier 6\n");
+    vector<pair<Pos, string> > SomeStuff;
     fast_sin_init();
     bool starting=true;
     hit_one_region* hit_one=findRegion(region_x, region_z);
@@ -6454,6 +6456,7 @@ extern std::string area;
         fff=0;
         printf(" Blue to water=on(color=%d)",water_blue);
         real_min_y=0;
+        height_add=7;
     } else blue_to_water_on=false;
 
     if (file_exists("boom.on")) {
@@ -6513,6 +6516,13 @@ extern std::string area;
         printf(" Lights=on");
     } else lights_on=false;
 
+    if (file_exists("lighten.on")) {
+        lighten_on=true;
+        if (fff==1) printf("\n");
+        fff=0;
+        printf(" lighten=on");
+    } else lighten_on=false;
+
     if (file_exists("massiv.on")) {
         massiv_on=true;
         if (fff==1) printf("\n");
@@ -6540,6 +6550,37 @@ extern std::string area;
     int room_y=5;
     int room_z=12;
 extern bool lighten;
+    /*
+                                else {
+                                    float f1=(sin(float(y+rand()%14)/15+float(xx+rand()%14)/35+float(zz+rand()%15)/99)+1.1);
+                                    float f2=(cos(float(y+rand()%14)/55+float(xx+rand()%14)/15+float(zz+rand()%15)/24)+1.1);
+                                    float f3=(sin(float(y+rand()%14)/64+float(xx+rand()%14)/44+float(zz+rand()%15)/19)+1.1);
+                                    float r1000x=(sin(float(xx)/345+float(zz)/399)+1.0)*100.0;
+                                    float r1000z=(cos(float(xx)/285+float(zz)/432)+1.0)*100.0;
+                                    float r1=( -0.143 * sin(f1+1.65 * (float((xx)+r1000x)/155.0 + 1.73))                     - 0.180 * sin(2.96 * (float((zz)+r1000z)/44.0+4.98))                    - 0.012 * sin(7.23 * (float((xx)+r1000x)/55.0+3.37)) + 0.088 * sin(8.07 * (float((zz)+r1000z)/39.0+4.63)) );
+                                    float r2=( -0.141 * sin(1.75 * (float((zz)+r1000z)/123.0 + 1.63))                     - 0.160 * sin(3.96 * (float((xx)+r1000x)/48.0+5.38))                    - 0.018 * sin(6.23 * (float((zz)+r1000z)/85.0+2.17)) + 0.078 * sin(8.07 * (float((xx)+r1000x)/59.0+3.63)) );
+                                    float r3=( -0.123 * sin(f2+1.35 * (float((zz)+r1000z+float(xx)+r1000x)/98.0 + 1.53))    - 0.180 * sin(2.46 * (float((xx)+r1000x)/25.0+4.28))                    - 0.017 * sin(5.23 * (float((zz)+r1000z)/65.0+3.17)) + 0.098 * sin(7.07 * (float((xx)+r1000x)/29.0+5.63)) );
+                                    float r4=( -0.153 * sin(1.64 * (float((xx)+r1000x)/78.0 + 1.83))                     - 0.190 * sin(2.76 * (float((zz)+r1000z-float(xx)+r1000x)/28.0+4.58))   - 0.016 * sin(4.23 * (float((xx)+r1000x)/75.0+3.47)) + 0.088 * sin(6.07 * (float((zz)+r1000z)/39.0+4.13)) );
+
+                                    int t=int(f1+f2+f3+r1*5+r2*5+r3*5+r4*5+1000)%7;
+                                    if (t==1) AY[y]=BlockInfo(4,0,0,0);
+                                    else if (t==2) AY[y]=BlockInfo(2,0,0,0);
+                                    else AY[y]=BlockInfo(1,0,t,0);
+
+                                    f1=(sin(float(y+rand()%14)/27+float(xx+rand()%14)/25+float(zz+rand()%15)/49)+1.1);
+                                    f2=(cos(float(y+rand()%14)/65+float(xx+rand()%14)/25+float(zz+rand()%15)/74)+1.1);
+                                    f3=(sin(float(y+rand()%14)/74+float(xx+rand()%14)/64+float(zz+rand()%15)/39)+1.1);
+                                    r1000x=(sin(float(xx)/445+float(zz)/199)+1.0)*100.0;
+                                    r1000z=(cos(float(xx)/385+float(zz)/232)+1.0)*100.0;
+                                    r1=( -0.143 * sin(f3+1.65 * (float((xx)+r1000x)/155.0 + 1.73))                     - 0.180 * sin(2.96 * (float((zz)+r1000z)/44.0+4.98))                    - 0.012 * sin(7.23 * (float((xx)+r1000x)/55.0+3.37)) + 0.088 * sin(8.07 * (float((zz)+r1000z)/39.0+4.63)) );
+                                    r2=( -0.141 * sin(f1+1.75 * (float((zz)+r1000z)/123.0 + 1.63))                     - 0.160 * sin(3.96 * (float((xx)+r1000x)/48.0+5.38))                    - 0.018 * sin(6.23 * (float((zz)+r1000z)/85.0+2.17)) + 0.078 * sin(8.07 * (float((xx)+r1000x)/59.0+3.63)) );
+                                    r3=( -0.123 * sin(1.35 * (float((zz)+r1000z+float(xx)+r1000x)/98.0 + 1.53))    - 0.180 * sin(2.46 * (float((xx)+r1000x)/25.0+4.28))                    - 0.017 * sin(5.23 * (float((zz)+r1000z)/65.0+3.17)) + 0.098 * sin(7.07 * (float((xx)+r1000x)/29.0+5.63)) );
+                                    r4=( -0.153 * sin(1.64 * (float((xx)+r1000x)/78.0 + 1.83))                     - 0.190 * sin(2.76 * (float((zz)+r1000z-float(xx)+r1000x)/28.0+4.58))   - 0.016 * sin(4.23 * (float((xx)+r1000x)/75.0+3.47)) + 0.088 * sin(6.07 * (float((zz)+r1000z)/39.0+4.13)) );
+                                    lx=int(7+7*sin(f1+f2+f3+r1*5+r2*5+r3*5+r4*5));
+
+                                }
+    */
+
     if (1) {
         printf(" City:\b\b\b\b\b\b");
         for (int x = 0; x < xl; x++) {
@@ -6585,11 +6626,21 @@ extern bool lighten;
 
                     int cube_x=y ;
                     size_t off=((y-height_add)+256*x+z*512*256)*4;
+//face
+                    size_t off_x_minus_one=off-256*4;
+                    size_t off_x_plus_one=off+256*4;
+                    size_t off_z_minus_one=off-512*256*4;
+                    size_t off_z_plus_one=off+512*256*4;
+                    size_t off_y_minus_one=off-1*4;
+                    size_t off_y_plus_one=off+1*4;
+
                     if (off>=max_off || off<0) {
                         printf("Error offset %d>=%d\n",off,max_off);
                         continue;
                     }
-                    if (mc[off+3]>0) {
+                    int face;
+//                    if (mc[off+3]>0) {
+                    if ((face=(int)mc[off+3])>0) {
                         if (min_y==-1) min_y=y;
                         max_y=y;
                         int r, g, b;
@@ -6602,61 +6653,115 @@ extern bool lighten;
                         int r2=r,g2=g,b2=b;
 
                         int c=ret_color(r2,g2,b2);
-                        ret_color_rev( c, r_m, g_m, b_m );
+//                        ret_color_rev( c, r_m, g_m, b_m );
                         int lx=5;
 //                        int lx=5+(int)((float)((r2-r_m)+(g2-g_m)+(b2-b_m))/15.0);
 //                        if (lx<0) lx=0; else if (lx>15) lx=15;
 //                        AY[y] = BlockInfo(1, 0, 0,0 );
 
-                        if (blue_to_water_on && y<253) {
-                            if (c==water_blue && AY[y+1].id==0 && AY[y+2].id==0) {
-                                setExtra2(x,z,y+2,"water",SomeStuff);
-//                                AY[y+1]=BlockInfo(9,0,8,0);
-                                tears++;
+                        if (face!=128) {
+                            face=face-128;
+                            if (face<0) AY[y]=BlockInfo(57,0,0,0);
+                            else AY[y]=BlockInfo(89,0,0,0);
+/*
+                            if (x>0) {
+                                if (mc[off_x_minus_one+3]==0) {
+                                    if (face&4) AX[x-1][z][y]=BlockInfo(89,0,0,0);
+    //                                else AX[x-1][z][y]=BlockInfo(57,0,0,0);
+                                }
                             }
-                        }
-                        if (grass_on) {
-                            if (y<253) if (AY[y+1].id==0 && AY[y+2].id==0) {
-                                AY[y+1]=BlockInfo(2,0,0,0);
-                                mc[off+3+4]=1;
-                                num_blocks_added++;
-                                if (!(rand()%5000)) AY[y+2]=BlockInfo(40,0,0,0);
-                                else if (!(rand()%5000)) AY[y+2]=BlockInfo(39,0,0,0);
-                                mc[off+3+2*4]=1;
-
-//                                else if (!(rand()%3000)) {
-//                                    setExtra2(x,z,y+2,"minecraft:water",SomeStuff);
-//                                    water++;
-//                                }
-
+                            if (x<511) {
+                                if (mc[off_x_plus_one+3]==0) {
+                                    if (face&8) AX[x+1][z][y]=BlockInfo(89,0,0,0);
+    //                                else AX[x+1][z][y]=BlockInfo(57,0,0,0);
+                                }
                             }
+                            if (z>0) {
+                                if (mc[off_z_minus_one+3]==0) {
+                                    if (face&16) AX[x][z-1][y]=BlockInfo(89,0,0,0);
+    //                                else AX[x][z-1][y]=BlockInfo(57,0,0,0);
+                                }
+                            }
+                            if (z<511) {
+                                if (mc[off_z_plus_one+3]==0) {
+                                    if (face&32) AX[x][z+1][y]=BlockInfo(89,0,0,0);
+    //                                else AX[x][z+1][y]=BlockInfo(57,0,0,0);
+                                }
+                            }
+                            if (y>0) {
+                                if (mc[off_y_minus_one+3]==0) {
+                                    if (face&1) AX[x][z][y-1]=BlockInfo(89,0,0,0);
+    //                                else AX[x][z][y-1]=BlockInfo(57,0,0,0);
+                                }
+                            }
+                            if (y<255) {
+                                if (mc[off_y_plus_one+3]==0) {
+                                    if (face&2) AX[x][z][y+1]=BlockInfo(89,0,0,0);
+    //                                else AX[x][z][y+1]=BlockInfo(57,0,0,0);
+                                }
+                            }
+*/
                         }
+                        if (AY[y].id != 89 && AY[y].id != 57) {
+                            if (blue_to_water_on && y<253) {
+                                if (c==water_blue && AY[y+1].id==0 && AY[y+2].id==0) {
+                                    setExtra2(x,z,y+2,"water",SomeStuff);
+    //                                AY[y+1]=BlockInfo(9,0,8,0);
+                                    tears++;
+                                }
+                            }
+                            if (grass_on) {
+                                if (y<253) if (AY[y+1].id==0 && AY[y+2].id==0) {
+                                    AY[y+1]=BlockInfo(2,0,0,0);
+                                    mc[off+3+4]=1;
+                                    num_blocks_added++;
+                                    if (!(rand()%5000)) AY[y+2]=BlockInfo(40,0,0,0);
+                                    else if (!(rand()%5000)) AY[y+2]=BlockInfo(39,0,0,0);
+                                    mc[off+3+2*4]=1;
 
-                        if (stone_on) {
-                            AY[y]=BlockInfo(1,0,0,0); //
-                        } else if (glass_on) {
-                            if (AY[y].data==0) AY[y]=BlockInfo(20,0,0,0);
-                            else AY[y]=BlockInfo(95,0,AY[y].data,0);
-                        } else if (white_on) {
-                            AY[y]=BlockInfo(251,0,13,0); // make white concrete (0)
-                        } else if (bedrock_on) {
-                            AY[y]=BlockInfo(7,0,0,0); // make bedrock
-                        } else {
-                            AY[y] = BlockInfo(251, 0, c,0 );
-                        }
+    //                                else if (!(rand()%3000)) {
+    //                                    setExtra2(x,z,y+2,"minecraft:water",SomeStuff);
+    //                                    water++;
+    //                                }
 
-                        if (massiv_on) {
-                            size_t off;
-                            for (int xxx=-4; xxx<5; xxx++) {
-                                for (int zzz=-4; zzz<5; zzz++) {
-                                    for (int yyy=-4; yyy<5; yyy++) {
-                                        if (!(xxx==0 && yyy==0 && zzz==0)) {
-                                            if (in_region(x+xxx, z+zzz, y+yyy, 0, 0, 0, xl , zl , yl)) {
-                                                AX[x+xxx][z+zzz][y+yyy]=BlockInfo(251, 0, c, (lighten==true)*lx);
-                                                off=((y+yyy-height_add)+256*(x+xxx)+(z+zzz)*512*256)*4;
-                                                mc[off+3]=1;
-                                                if (min_y==-1) min_y=y+yyy;
-                                                if (y+yyy > max_y) max_y=y+yyy;
+                                }
+                            }
+
+                            if (c==water_blue && blue_to_water_on && y<253 && !(rand()%11)) {
+                                AY[y]=BlockInfo(89, 0, 0, 0 );
+                            } else if (stone_on) {
+                                AY[y]=BlockInfo(1,0,0,0);
+                                if (water_on && y==28+height_add) {
+                                    AY[y]=BlockInfo(89,0,0,0);
+                                    if (z>0) AX[x][z-1][y+1]=BlockInfo(1,0,0,0);
+                                    if (z<511) AX[x][z+1][y+1]=BlockInfo(1,0,0,0);
+                                    if (x>0) AX[x-1][z][y+1]=BlockInfo(1,0,0,0);
+                                    if (x<511) AX[x+1][z][y+1]=BlockInfo(1,0,0,0);
+                                }
+                            } else if (glass_on) {
+                                if (AY[y].data==0) AY[y]=BlockInfo(20,0,0,0);
+                                else AY[y]=BlockInfo(95,0,AY[y].data,0);
+                            } else if (white_on) {
+                                AY[y]=BlockInfo(251,0,0,0); // make white concrete (0)
+                            } else if (bedrock_on) {
+                                AY[y]=BlockInfo(7,0,0,0); // make bedrock
+                            } else {
+                                AY[y] = BlockInfo(251, 0, c,0 );
+                            }
+
+                            if (massiv_on) {
+                                size_t off;
+                                for (int xxx=-4; xxx<5; xxx++) {
+                                    for (int zzz=-4; zzz<5; zzz++) {
+                                        for (int yyy=-4; yyy<5; yyy++) {
+                                            if (!(xxx==0 && yyy==0 && zzz==0)) {
+                                                if (in_region(x+xxx, z+zzz, y+yyy, 0, 0, 0, xl , zl , yl)) {
+                                                    AX[x+xxx][z+zzz][y+yyy]=BlockInfo(251, 0, c, (lighten==true || lighten_on==true)*lx);
+                                                    off=((y+yyy-height_add)+256*(x+xxx)+(z+zzz)*512*256)*4;
+                                                    mc[off+3]=1;
+                                                    if (min_y==-1) min_y=y+yyy;
+                                                    if (y+yyy > max_y) max_y=y+yyy;
+                                                }
                                             }
                                         }
                                     }
@@ -6670,7 +6775,7 @@ extern bool lighten;
                         if (y<real_min_y) real_min_y=y;
                         if (z>real_max_z) real_max_z=z;
                         if (z<real_min_z) real_min_z=z;
-                        if (lighten) AY[y].block_light=lx;
+                        if (lighten || lighten_on) AY[y].block_light=lx;
                     }
                     if (o_id==0 && AY[y].id!=0) num_blocks_added++;
                     else if (o_id!=0 && AY[y].id!=o_id) num_blocks_replaced++;
@@ -6695,12 +6800,19 @@ extern bool lighten;
                     }
                     else scan_image.setPixel(x,z,sf::Color(0,0,0,0));
                 }
-                if (lights_on && min_y>height_add && min_y>0) {
-                    if (!do_model) {
+                if (!do_model) {
+                    if (lights_on && min_y>height_add && min_y>0) {
                         if (!(rand()%75)) {
                             if (AY[min_y-1].id==0) num_blocks_added++;
                             else num_blocks_replaced++;
                             AY[min_y-1] = BlockInfo(89, 0, 0, 0 );
+                        }
+                    }
+                    if (min_y>height_add && min_y>0) {
+                        if (!(rand()%175)) {
+                            if (AY[min_y].id==0) num_blocks_added++;
+                            else num_blocks_replaced++;
+                            AY[min_y] = BlockInfo(89, 0, 0, 0 );
                         }
                     }
                 }
@@ -6769,7 +6881,6 @@ extern bool lighten;
             fix(region, region_x, region_z);
         }
 
-        vector<pair<Pos, string> > SomeStuff;
 
 //pipo
         if (rooms_on || boom_on || caves_on || tunnels_on) {
@@ -7418,29 +7529,29 @@ extern bool lighten;
 //                   float r4 = -0.153 * sin(1.64 * (ran7*float(xx)/24.0 + 1.83)) - 0.194 * sin(2.76 * (ran7*float(zz-xx)/58.0+4.58)) - 0.016 * sin(4.23 * (float(xx)/25.0+3.17)) + 0.088 * sin(6.07 * (float(zz)/39.0+4.63));
 
                    float r1000x=(sin(float(xx)/345+float(zz)/399)+1.0)*100.0;
-                   float r1000z=(cos(float(xx)/345+float(zz)/399)+1.0)*100.0;
+                   float r1000z=(cos(float(xx)/285+float(zz)/432)+1.0)*100.0;
 
                    float f1=1.0+(sin(float(xx)/245+float(zz)/399)+1.0)/15.0;
                    float f2=1.0+(cos(float(xx)/315+float(zz)/344)+1.0)/15.0;
                    float f3=1.0+(sin(float(xx)/444+float(zz)/659)+1.0)/15.0;
                    float f4=1.0+(cos(float(xx)/645+float(zz)/499)+1.0)/15.0;
 
-                   float f5=1.0+(sin(float(xx)/345+float(zz)/499)+1.0)/15.0;
-                   float f6=1.0+(cos(float(xx)/515+float(zz)/344)+1.0)/15.0;
+                   float f5=1.0+(sin(float(xx)/445+float(zz)/479)+1.0)/15.0;
+                   float f6=1.0+(cos(float(xx)/515+float(zz)/384)+1.0)/15.0;
                    float f7=1.0+(sin(float(xx)/564+float(zz)/559)+1.0)/15.0;
                    float f8=1.0+(cos(float(xx)/275+float(zz)/899)+1.0)/15.0;
 
-                   float r1=( -0.143 * sin(1.65 * (float((xx)+r1000x)/150.0 + 1.73))                     - 0.180 * sin(2.96 * (float((zz)+r1000z)/44.0+4.98))                    - 0.012 * sin(7.23 * (float((xx)+r1000x)/55.0+3.17)) + 0.088 * sin(8.07 * (float((zz)+r1000z)/39.0+4.63)) );
+                   float r1=( -0.143 * sin(1.65 * (float((xx)+r1000x)/155.0 + 1.73))                     - 0.180 * sin(2.96 * (float((zz)+r1000z)/44.0+4.98))                    - 0.012 * sin(7.23 * (float((xx)+r1000x)/55.0+3.37)) + 0.088 * sin(8.07 * (float((zz)+r1000z)/39.0+4.63)) );
                    float r2=( -0.141 * sin(1.75 * (float((zz)+r1000z)/123.0 + 1.63))                     - 0.160 * sin(3.96 * (float((xx)+r1000x)/48.0+5.38))                    - 0.018 * sin(6.23 * (float((zz)+r1000z)/85.0+2.17)) + 0.078 * sin(8.07 * (float((xx)+r1000x)/59.0+3.63)) );
-                   float r3=( -0.123 * sin(1.55 * (float((zz)+r1000z+float(xx)+r1000x)/98.0 + 1.53))    - 0.180 * sin(2.46 * (float((xx)+r1000x)/25.0+4.28))                    - 0.017 * sin(5.23 * (float((zz)+r1000z)/65.0+3.17)) + 0.098 * sin(7.07 * (float((xx)+r1000x)/29.0+5.63)) );
-                   float r4=( -0.153 * sin(1.64 * (float((xx)+r1000x)/78.0 + 1.83))                     - 0.190 * sin(2.76 * (float((zz)+r1000z-float(xx)+r1000x)/28.0+4.58))   - 0.016 * sin(4.23 * (float((xx)+r1000x)/75.0+3.17)) + 0.088 * sin(6.07 * (float((zz)+r1000z)/39.0+4.63)) );
+                   float r3=( -0.123 * sin(1.35 * (float((zz)+r1000z+float(xx)+r1000x)/98.0 + 1.53))    - 0.180 * sin(2.46 * (float((xx)+r1000x)/25.0+4.28))                    - 0.017 * sin(5.23 * (float((zz)+r1000z)/65.0+3.17)) + 0.098 * sin(7.07 * (float((xx)+r1000x)/29.0+5.63)) );
+                   float r4=( -0.153 * sin(1.64 * (float((xx)+r1000x)/78.0 + 1.83))                     - 0.190 * sin(2.76 * (float((zz)+r1000z-float(xx)+r1000x)/28.0+4.58))   - 0.016 * sin(4.23 * (float((xx)+r1000x)/75.0+3.47)) + 0.088 * sin(6.07 * (float((zz)+r1000z)/39.0+4.13)) );
 
                    r1+=f1*0.3*( -0.143 * sin(f5*1.65 * (float(xx)/50.0 + 1.73)) - f2*f3*0.183 * sin(2.96 * (float(zz)/44.0+f7*f3*4.98)) - 0.012 * sin(7.23 * (float(xx)/55.0+3.17)) + 0.088 * sin(f7*8.07 * (float(zz)/39.0+4.63)));
                    r2+=f2*0.3*( -0.141 * sin(f6*1.75 * (float(zz)/44.0 + 1.63)) - f3*f4*0.160 * sin(3.96 * (float(xx)/48.0+f5*f2*5.38)) - 0.018 * sin(6.23 * (float(zz)/45.0+2.17)) + 0.078 * sin(f8*8.67 * (float(xx)/59.0+3.63)));
-                   r3+=f3*0.3*( -0.123 * sin(f7*1.55 * (float(zz)/20.0 + 1.53)) - f4*f1*0.180 * sin(2.46 * (float(xx)/25.0+f8*f4*4.28)) - 0.017 * sin(5.23 * (float(zz)/35.0+3.17)) + 0.098 * sin(f5*7.37 * (float(xx)/29.0+5.63)));
-                   r4+=f4*0.3*( -0.153 * sin(f8*1.64 * (float(xx)/24.0 + 1.83)) - f1*f2*0.192 * sin(2.76 * (float(zz)/28.0+f6*f1*4.58)) - 0.016 * sin(4.23 * (float(xx)/25.0+3.17)) + 0.088 * sin(f6*6.07 * (float(zz)/39.0+4.63)));
+                   r3+=f3*0.3*( -0.123 * sin(f7*1.55 * (float(zz)/30.0 + 1.53)) - f4*f1*0.180 * sin(2.46 * (float(xx)/25.0+f8*f4*4.28)) - 0.017 * sin(5.23 * (float(zz)/35.0+3.17)) + 0.098 * sin(f5*7.37 * (float(xx)/29.0+5.63)));
+                   r4+=f4*0.3*( -0.153 * sin(f8*1.60 * (float(xx)/24.0 + 1.83)) - f1*f2*0.192 * sin(2.76 * (float(zz)/28.0+f6*f1*4.58)) - 0.016 * sin(4.23 * (float(xx)/25.0+3.17)) + 0.083 * sin(f6*6.07 * (float(zz)/47.0+4.53)));
 
-                    float r7 = ((r1 + r2 + r3 + r4)+0.55)*40.0;
+                    float r7 = ((r1 + r2 + r3 + r4)+0.55)*50.0;
 //                    float r1 = -0.143 * ran1 * sin(1.65 * (ran7*float(xx)/50.0 + 1.73*ran2)) -  ran9 * 0.180 * sin(2.96 * ran2 * (float(zz)/44.0+4.98)) - 0.012 * sin(7.23 * (float(xx)/55.0+3.17)) + 0.088 * sin(8.07 * (float(zz)/39.0+4.63));
 //                    float r2 = -0.141 * ran2 * sin(1.75 * (ran8*float(zz)/44.0 + 1.63*ran3)) - ran10 * 0.160 * sin(3.96 * ran6 * (float(xx)/48.0+5.38)) - 0.018 * sin(6.23 * (float(zz)/45.0+2.17)) + 0.078 * sin(8.07 * (float(xx)/59.0+3.63));
 //                    float r3 = -0.123 * ran3 * sin(1.55 * (ran5*float(zz+xx)/20.0 + 1.53*ran4)) - 0.180 * sin(2.46 * ran9 * (float(xx)/25.0+4.28)) - 0.017 * sin(5.23 * (float(zz*ran3*ran5)/35.0+3.17)) + 0.098 * sin(7.07 * ran7 * (float(xx)/29.0+5.63));
@@ -7448,13 +7559,25 @@ extern bool lighten;
 
 //                    float r7 = ((r1 + r2 + r3 + r4)+0.2)*60.0;
 
-                    for (int y = height_add; y < 256; y++) {
+                    for (int y = height_add+1; y < 256; y++) {
                         if (AY[y].id==0) {
                             if (y-height_add == r7 && y>=30+height_add) {
                                 AY[y]=BlockInfo(2,0,0,0);
                             } else  if (y-height_add < r7) {
-                                if (!(rand()%100) && AY[y].id!=8) AY[y]=BlockInfo(89,0,0,0);
-                                else AY[y]=BlockInfo(7,0,0,0);
+                                if (!(rand()%200) && AY[y].id!=8 && y-height_add < 30) AY[y]=BlockInfo(89,0,0,0);
+                                else {
+                                    if (y-height_add >= 1+r7-1-(r1*5+r3*15)/7 && y>=30+height_add) AY[y]=BlockInfo(2,0,0,0);
+                                    else {
+                                        float f1=1.0+(sin(r2*5 + r4*5 + float(xx+rand()%15)/155+float(zz+rand()%5)/149+float(y+rand()%15)/149)+1.0);
+                                        float f2=1.0+(cos(r1*2 + r2*3 + float(xx+rand()%15)/171+float(zz+rand()%15)/174+float(y+rand()%10)/174)+1.0);
+                                        float f3=1.0+(sin(r1*6 + r4*2 + float(xx+rand()%15)/184+float(zz+rand()%5)/159+float(y+rand()%15)/159)+1.0);
+                                        float f4=1.0+(cos(r3*8 + r4*6 + float(xx+rand()%15)/195+float(zz+rand()%15)/199+float(y+rand()%15)/199)+1.0);
+                                        int tp=int(f1+f2+f3+f4)%7;
+
+                                        AY[y]=BlockInfo(1,0,tp,0);
+                                    }
+
+                                }
                             } else {
                                 if (y<30+height_add) {
 /*
@@ -7484,51 +7607,17 @@ extern bool lighten;
             for (int z = 0; z < zl; z++) {
                 zz=z+chunk_offsetz*16;
                 BlockInfo* AY=AZ[z];
-                if (!cubic && bedrock_floor_on) AY[0] = BlockInfo(7, 0, 0 );
+                if (!cubic && bedrock_floor_on) {
+                    AY[height_add] = BlockInfo(7, 0, 0 );
+                    if (height_add!=0) AY[0] = BlockInfo(7, 0, 0 );
+                }
 
                 for (int y = height_add; y < 256; y++) {
 
                     if (AY[y].id!=0) {
                         num_blocks_total++;
 
-/*
-                        if (blue_to_water_on && y<253) {
-                            if (AY[y].id==251 && AY[y].data==water_blue && AY[y+1].id==0 && AY[y+2].id==0) {
-                                setExtra2(x,z,y+2,"water",SomeStuff);
-//                                AY[y+1]=BlockInfo(9,0,8,0);
-                                tears++;
-                            }
-                        }
-                        if (grass_on) {
-                            if (y<253) if (AY[y].id==251 && AY[y+1].id==0 && AY[y+2].id==0) {
-                                AY[y+1]=BlockInfo(2,0,0,0);
-                                num_blocks_added++;
-                                num_blocks_added++;
-                                if (!(rand()%5000)) AY[y+2]=BlockInfo(40,0,0,0);
-                                else if (!(rand()%5000)) AY[y+2]=BlockInfo(39,0,0,0);
-//                                else if (!(rand()%3000)) {
-//                                    setExtra2(x,z,y+2,"minecraft:water",SomeStuff);
-//                                    water++;
-//                                }
-
-                                else num_blocks_added--;
-                            }
-                        }
-                        if (stone_on) {
-//                            if (AY[y].id==251) AY[y]=BlockInfo(4,0,0,0);
-                            if (AY[y].id==251) AY[y]=BlockInfo(1,0,0,0); //
-                        } else if (glass_on) {
-                            if (AY[y].id==251) {
-                                if (AY[y].data==0) AY[y]=BlockInfo(20,0,0,0);
-                                else AY[y]=BlockInfo(95,0,AY[y].data,0);
-                            }
-                        } else if (white_on) {
-                            if (AY[y].id==251) AY[y]=BlockInfo(251,0,13,0); // make white concrete (0)
-                        } else if (bedrock_on) {
-                            if (AY[y].id==251) AY[y]=BlockInfo(7,0,0,0); // make bedrock
-                        }
-*/
-                        if (!(rand()%2500)) {
+                        if (!(rand()%2500) && y-height_add<28) {
                             if (AY[y].id==8) {
                                 int c=rand()%16;
                                 AY[y]=BlockInfo(89, 0, 0, 0);

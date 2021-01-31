@@ -2558,12 +2558,13 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
     wuppie_all=false;
     FILE* voxel_file_pointer=NULL;
     bool plot_only_on=false;
+    std::memset(region_block, 0x0, 512*256*512*4);
     if (!plot_only) {
 
 //        printf("CREATING ARRAY 512*256*512*4 = %d BYTES:",512*256*512*4);
 //        region_block = (unsigned char*) malloc(512*256*512*4);
 //        printf("CLEARING REGION BLOCK: ");
-        std::memset(region_block, 0x0, 512*256*512*4);
+//        std::memset(region_block, 0x0, 512*256*512*4);
 //        printf(" OK\n");
     } else {
         plot_only_on=true;
@@ -2587,7 +2588,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
         if (!rot_on && !make_schematic && !plot_only_on && (mirror==3 || mirror==4)) {
 
 
-            char picture_file[200];
+            char picture_file[400];
             if (cubic || 1) {
                 region_center_x=0;
                 region_center_z=0;
@@ -2860,15 +2861,15 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
     }
 
     FILE* dummy;
-    char new_file_raw[100];
-    char new_file_dat[100];
+    char new_file_raw[500];
+    char new_file_dat[500];
 
 //    BufferObject one_buffer;
     size_t count=0;
 
     if (!dont_clear) voxels.clear();
-    char new_name[200];
-    char new_name2[200];
+    char new_name[500];
+    char new_name2[500];
 
     sprintf(new_name,"../cut/%s.info",fn.c_str());
     sprintf(new_name2,"../cut/done/%s.info",fn.c_str());
@@ -2992,8 +2993,6 @@ extern float* fspeed_ghosty;
 //        }
 
         for (size_t count=0; count<voxels.size(); count++ ) {
-
-
             total_hits+=voxels[count].l;
             voxels[count].y+=mazemovex;
             voxels[count].z+=mazemovey;
@@ -3014,15 +3013,40 @@ extern float* fspeed_ghosty;
 //            printf("Ok. TOTAL/AVERAGE/COMPRESS: ");
 //leuk            Voxel last=voxels[5];
             Voxel last=voxels[0];
-            Voxel total_pos=Voxel(last.x,last.y,last.z,0,0,0,0,0);
+            Voxel total_pos=Voxel(last.x,last.y,last.z,0,0,0,0,0,0);
 
-            for (size_t n=0; n<voxels.size(); n++) {
-                if (last.x==voxels[n].x && last.y==voxels[n].y && last.z==voxels[n].z) {
+            bool hit=(last.face==0);
+
+            size_t vend=voxels.size()-1;
+
+            for (size_t n=0; n<=vend; n++) {
+                Voxel now=voxels[n];
+                if (last.x==now.x && last.y==now.y && last.z==now.z) {
+                    if (!hit && now.face==0) {
+                        hit=true;
+                        total_pos.r=0;
+                        total_pos.g=0;
+                        total_pos.b=0;
+                        total_pos.l=0;
+                        total_pos.face=0;
+                    }
+                    if ( hit + (now.face!=0) == 1 ) {
+                        total_pos.r+=now.r;
+                        total_pos.g+=now.g;
+                        total_pos.b+=now.b;
+                        total_pos.l+=now.l;
+                        if (!hit) total_pos.face+=now.face;
+                    }
+
+/*
                     total_pos.r+=voxels[n].r;
                     total_pos.g+=voxels[n].g;
                     total_pos.b+=voxels[n].b;
                     total_pos.l+=voxels[n].l;
-                    if (n==voxels.size()-1) {
+                    total_pos.face+=voxels[n].face;
+*/
+
+                    if (n==vend && (hit || total_pos.face!=0)) {
                         total_pos.status=0; //new
                         voxels_temp.push_back(total_pos);
                     }
@@ -3031,7 +3055,8 @@ extern float* fspeed_ghosty;
                     voxels_temp.push_back(total_pos);
                     last=voxels[n];
                     total_pos=last;
-                    if (n==voxels.size()-1) {
+                    hit=(last.face==0);
+                    if (n==vend) {
                         total_pos.status=0; //new
                         voxels_temp.push_back(total_pos);
                     }
@@ -3046,15 +3071,14 @@ extern float* fspeed_ghosty;
                 printf("Outputing voxels to %s\n",fname);
                 for (auto u : voxels_temp) {
                     if (u.l>0) {
-                        fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d)\n",
-                                u.y, u.x, u.z,  u.r/u.l,u.g/u.l, u.b/u.l,  u.l );
+                        fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d),(%d)\n",
+                                u.y, u.x, u.z,  u.r/u.l,u.g/u.l, u.b/u.l,  u.l, u.face );
                     }
                 }
                 fclose(voxel_file_pointer);
             } else {
                 printf("Error writing to %s\n",fname);
             }
-
 
             printf("Writing voxels to %s.schematic: ",fn.c_str());
             make_schematic_nbt(fn, voxels_temp, 0,voxels_temp.size());
@@ -3087,10 +3111,13 @@ extern float* fspeed_ghosty;
 //        printf("ADDING TOTAL! VOXELS TO TEMP! VOXELS:  ");
         Voxel one;
         for (auto u : voxels_total) {
-            one=u;
-            voxels_temp.push_back(one);
+//            one=u;
+//            voxels_temp.push_back(one);
+            voxels_temp.push_back(u);
         }
 //        printf("CLEARING TOTAL: ");
+
+
         voxels_total.clear();
 //        printf("OK.\n");
 
@@ -3109,23 +3136,47 @@ extern float* fspeed_ghosty;
             sort(voxels_temp.begin(), voxels_temp.end());
 //            printf("Ok. TOTAL/AVERAGE/COMPRESS: ");
             Voxel last=voxels_temp[0];
-            Voxel total_pos=Voxel(last.x,last.y,last.z,0,0,0,0,last.status);
-            for (size_t n=0; n<voxels_temp.size(); n++) {
-                if (last.x==voxels_temp[n].x && last.y==voxels_temp[n].y && last.z==voxels_temp[n].z) {
-                    total_pos.r+=voxels_temp[n].r;
-                    total_pos.g+=voxels_temp[n].g;
-                    total_pos.b+=voxels_temp[n].b;
-                    total_pos.l+=voxels_temp[n].l;
-                    if (voxels_temp[n].status != total_pos.status==0) pixel_adds++;
-                    if (voxels_temp[n].status==0) total_pos.status=0;
-                    if (n==voxels_temp.size()-1) {
+            Voxel total_pos=Voxel(last.x,last.y,last.z,0,0,0,0,last.status,0);
+
+            bool hit=(last.face==0);
+
+            size_t vend=voxels_temp.size()-1;
+            for (size_t n=0; n<=vend; n++) {
+                Voxel now=voxels_temp[n];
+                if (last.x==now.x && last.y==now.y && last.z==now.z) {
+                    if (!hit && now.face==0) {
+                        hit=true;
+                        total_pos.r=0;
+                        total_pos.g=0;
+                        total_pos.b=0;
+                        total_pos.l=0;
+                        total_pos.face=0;
+                    }
+                    if ( hit + (now.face!=0) == 1 ) {
+                        total_pos.r+=now.r;
+                        total_pos.g+=now.g;
+                        total_pos.b+=now.b;
+                        total_pos.l+=now.l;
+                        if (!hit) total_pos.face+=now.face;
+                    }
+
+//                    total_pos.r+=now.r;
+//                    total_pos.g+=now.g;
+//                    total_pos.b+=now.b;
+//                    total_pos.l+=now.l;
+//                    total_pos.face+=now.face;
+
+                    if (now.status != total_pos.status==0) pixel_adds++;
+                    if (now.status==0) total_pos.status=0;
+                    if (n==vend && (hit || total_pos.face!=0)) {
                         voxels_total.push_back(total_pos);
                     }
                 } else {
                     voxels_total.push_back(total_pos);
-                    last=voxels_temp[n];
+                    last=now;
                     total_pos=last;
-                    if (n==voxels_temp.size()-1) {
+                    hit=(last.face==0);
+                    if (n==vend) {
                         voxels_total.push_back(total_pos);
                     }
                 }
@@ -3178,7 +3229,7 @@ extern float* fspeed_ghosty;
 */
 
 //        printf("SCANNING REGIONS:\n");
-        for (int n=0; n < vector_hit_regions.size(); n++) {
+        for (size_t n=0; n < vector_hit_regions.size(); n++) {
             vector_hit_regions[n].index6=0;
             vector_hit_regions[n].index7=0;
             vector_hit_regions[n].index8=0;
@@ -3244,7 +3295,6 @@ extern float* fspeed_ghosty;
 
             size_t total_voxels_column=0;
             size_t num_voxels=voxels_total.size();
-            size_t voxel_index=0;
 //            size_t total_voxels_region=0;
             size_t total_hits_region=0;
             size_t total_voxels_all_regions=0;
@@ -3270,12 +3320,12 @@ extern float* fspeed_ghosty;
                 prev=one;
                 rx_prev=rx; rz_prev=rz;
 
-                int prev_xx=-1;
+//                int prev_xx=-1;
                 scan_image.create(512,512,sf::Color(0,0,0,0));
                 bool xz00=false,xz01=false,xz10=false,xz11=false;
                 size_t new_hits_region=0;
                 size_t total_voxels_region=0;
-                int total_columns=0;
+                size_t total_columns=0;
 //                total_voxels_region=0;
                 while (rx==rx_prev && rz==rz_prev && n<voxels_total.size()) {
                     prev=one;
@@ -3320,6 +3370,7 @@ extern float* fspeed_ghosty;
 
 //fucked
                     int prev_y_mod;
+//hakkatjakka
 //                    prev_y_mod=(int)(((LONG64)prev.y+100000*512)%512);
                     if (prev.y>=0) prev_y_mod=(int)(((LONG64)prev.y+100000*512)%512);
                     else prev_y_mod=(int)(((LONG64)prev.y-1+100000*512)%512);
@@ -3352,7 +3403,7 @@ extern float* fspeed_ghosty;
  //                   }
 
                     total_voxels_column=0;
-                    prev_xx=prev.y;
+//                    prev_xx=prev.y;
 //                    min_x=std::min(min_x,prev.x);
 //                    max_x=std::max(max_x,prev.x);
                     min_y=std::min( min_y , prev_y_mod );
@@ -3421,7 +3472,7 @@ extern float* fspeed_ghosty;
 //leuk
                 printf("\rREGION [%3d][%3d]  ",rx_prev,rz_prev);
                 total_columns=0;
-                int total_voxels=0;
+                size_t total_voxels=0;
                 int tline=0;
                 for (int zz=0; zz<512; zz++) {
                     for (int xx=0; xx<512; xx++) {
@@ -3449,7 +3500,7 @@ extern float* fspeed_ghosty;
                 if (total_voxels_region!=0) printf("HITS/VOXEL=%6.2f  ", (double)total_hits_region/(double)total_voxels_region );
                 else printf("HITS/VOXEL=%6.2f  ",0.0);
 
-                printf("\n");
+//                printf("\n");
 
 //                printf("%7d  ", total_voxels_region);
 
@@ -3465,7 +3516,6 @@ extern float* fspeed_ghosty;
                 max_z=-std::numeric_limits<int>::max();
 //                printf("\n");
 
-                voxel_index++;
             }
 
 //            printf("\nVOXELS_TOTAL: debug: XX=[%3d-%3d] Y=[%4d-%4d] ZZ=[%3d-%3d]\n",debug_min_y,debug_max_y,debug_min_x,debug_max_x,debug_min_z,debug_max_z);
@@ -3483,7 +3533,7 @@ extern float* fspeed_ghosty;
             int total_columns_all_regions=0;
             printf("TESTING HIT REGIONS:\n");
             int NUMBER_OF_REGIONS=0;
-            for (int n=0; n < vector_hit_regions.size(); n++) {
+            for (size_t n=0; n < vector_hit_regions.size(); n++) {
                 hit_one_region* hit_one=&vector_hit_regions[n];
                 int x=hit_one->x;
                 int z=hit_one->z;
@@ -3524,7 +3574,7 @@ extern float* fspeed_ghosty;
             printf("NEW NUMBER OF TOTAL VOXELS:          %9d  ",voxels_total.size());
             total_hits=0;
             int total_new=0;
-            for (int n=0; n<voxels_total.size(); n++) {
+            for (size_t n=0; n<voxels_total.size(); n++) {
                 if (voxels_total[n].status==0) {
                     voxels_total[n].status=1;
                     total_new++;
@@ -3538,6 +3588,8 @@ extern float* fspeed_ghosty;
         printf("%3d buffers. Ready.\n",buffers.size());
     }
 
+//manman
+    if (!plot_only_on && rot_plot) return;
 //change
     if (voxels_total.size()>20000000 && !rot_plot) { flushing_mode=true; make_regions=true; }
     if (!hold_voxels || (flushing_mode)) {
@@ -3548,7 +3600,7 @@ extern float* fspeed_ghosty;
             int NUMBER_OF_REGIONS=0;
 
             sort(vector_hit_regions.begin(), vector_hit_regions.end()); // sort on number of columns (int)(512.0*512.0*0.9995) (flushing to voxel files first).
-            for (int n=0; n < vector_hit_regions.size(); n++) {         // fok! exept not flushing region voxel files... hmmm
+            for (size_t n=0; n < vector_hit_regions.size(); n++) {         // fok! exept not flushing region voxel files... hmmm
 
                 hit_one_region* hit_one=&vector_hit_regions[n];
 
@@ -3557,8 +3609,8 @@ extern float* fspeed_ghosty;
 
                 bool got_one=false;
                 if (flushing_mode) {
-                    int n;
-                    for (n=0; n<ready_regions.size(); n++) {
+//                    int n;
+                    for (size_t n=0; n<ready_regions.size(); n++) {
 //                        printf("SCANNING READY REGIONs: [%d][%d]",ready_regions[n].x,ready_regions[n].z);
                         if (ready_regions[n].x==x && ready_regions[n].z==z) {
                             printf(" HIT FOUND! ");
@@ -3636,12 +3688,18 @@ extern float* fspeed_ghosty;
                     if ((flushing_mode) || hit_one->index8 > (int)(512.0*512.0*0.9990) || flushing ) {
 //                    if ((voxels_total.size()>25000000) || hit_one->index8 > (int)(512.0*512.0*0.9995) || flushing ) {
 
-                        if (flushing_mode && !got_one)
+                        if (flushing_mode && !got_one && !flushing)
                             printf("FLUSHING MODE:  [%3d][%3d]  ",x,z);
-                        else if (hit_one->index11)
+                        else if (hit_one->index11 && !flushing)
                             printf("UPDATING REGION [%3d][%3d]  ",x,z);
-                        else
-                            printf("CREATING REGION [%3d][%3d]  ",x,z);
+                        else {
+                            if (flushing)
+                                printf("FLUSHING REGION [%3d][%3d]  ",x,z);
+                            else
+                                printf("CREATING REGION [%3d][%3d]  ",x,z);
+
+                        }
+
                         if (hit_one->index8==512*512) printf(" COLUMNS=100%% ");
                         if (hit_one->index9) printf(" 4 CORNERS ");
                         printf("\n");
@@ -3650,7 +3708,7 @@ extern float* fspeed_ghosty;
                         size_t voxels=0;
                         size_t count=0;
                         size_t columns=0;
-                        size_t prev_x=-99999999,prev_z=-99999999;
+                        int prev_x=-99999999,prev_z=-99999999;
                         size_t TOP_MIN=0;
                         size_t TOP_MAX=230;
                         size_t TOPPED_MIN=0;
@@ -3673,26 +3731,16 @@ extern int floor_y[512][512];
                         for (auto u : voxels_total) {
                             int a_y;
                             int a_z;
-//fucked
-//                            if (u.y>=0) a_y=u.y/512;
-//                            else  a_y=(u.y-511)/512;
-//                            if (u.z>=0) a_z=u.z/512;
-//                            else  a_z=(u.z-511)/512;
                             a_y=u.y/512;
                             a_z=u.z/512;
                             if (u.y<0) a_y--;
                             if (u.z<0) a_z--;
-
-
                             if ( (a_y)==x && (a_z)==z ) {
                                 int y_mod;
-//fucked
-//                                y_mod=(int)(((LONG64)u.y+100000*512)%512);
                                 if (u.y>=0) y_mod=(int)(((LONG64)u.y+100000*512)%512);
                                 else y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
 
                                 int z_mod;
-//                                z_mod=(int)(((LONG64)u.z+100000*512)%512);
                                 if (u.z>=0) z_mod=(int)(((LONG64)u.z+100000*512)%512);
                                 else z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
 
@@ -3702,34 +3750,18 @@ extern int floor_y[512][512];
                         char fname[200];
                         char fname2[200];
                         for (auto u : voxels_total) {
-
                             int a_y;
                             int a_z;
-
-//fucked
-//                            if (u.y>=0) a_y=u.y/512;
-//                            else  a_y=(u.y-511)/512;
-//                            if (u.z>=0) a_z=u.z/512;
-//                            else  a_z=(u.z-511)/512;
                             a_y=u.y/512;
                             a_z=u.z/512;
                             if (u.y<0) a_y--;
                             if (u.z<0) a_z--;
 
                             if ( (a_y)==x && (a_z)==z ) {
-
-//                            if ( (int)(u.y/512)==x && (int)(u.z/512)==z ) {
-
                                 if (prev_x!=u.y || prev_z!=u.z) columns++;
-//tuuttuut
-//                                prev_x=u.y; prev_z=u.z;
-
                                 if (first==-1) {
                                     first=count;
 
-//fucked
-//                                    if (u.x>=0) floor=u.x/256;
-//                                    else floor=(u.x-255)/256;
                                     floor=(int)((u.x)/256);
                                     if (u.x<0) floor--;
 
@@ -3737,9 +3769,7 @@ extern int floor_y[512][512];
                                     region_floor=floor;
                                     prev_x=u.y; prev_z=u.z;
                                 }
-//fucked
                                 if ( (u.x>=0 && (int)(u.x/256)!=floor) || (u.x<0 && (int)(u.x/256)-1 != floor) ) {
-//                                if ( (u.x>=0 && (int)(u.x/256)!=floor) || (u.x<0 && (int)((u.x-255)/256) != floor) ) {
                                     NEXT_FLOOR=true;
                                     num_floors++;
                                 }
@@ -3749,7 +3779,8 @@ extern int floor_y[512][512];
                                 if (!(voxels%4096)) printf("count=%d  first=%d  voxels=%d  hits=%d  columns=%d (%6.2f%%)\r",
                                                           count, first, voxels, hits, columns, 100.0*(double)columns/(512.0*512.0));
 //change
-                                if ((!plot_only_on && !flushing_mode) || got_one) {
+//hakkatjakka
+                                if (!rot_plot && ((!plot_only_on && !flushing_mode) || got_one)) {
 //                                if (!plot_only_on) {
 
                                     int prev_y_mod;
@@ -3806,14 +3837,13 @@ extern int floor_y[512][512];
                                             region_floor=floor;
                                             NEXT_FLOOR=false;
                                         }
+//hakkatjakka;
 //fucked
 //                                        prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
-//                                            if (u.y<0) prev_y_mod--;
                                         if (u.y>=0) prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
                                         else prev_y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
 
 //                                        prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
-//                                            if (u.z<0) prev_z_mod--;
                                         if (u.z>=0) prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
                                         else prev_z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
 
@@ -3822,22 +3852,21 @@ extern int floor_y[512][512];
                                             region_block[off_x]=u.r/u.l;
                                             region_block[off_x+1]=u.g/u.l;
                                             region_block[off_x+2]=u.b/u.l;
-                                            region_block[off_x+3]=u.l;
+//                                            region_block[off_x+3]=u.l;
+                                            region_block[off_x+3]= 128 + (unsigned int) u.face;
                                         } else {
                                             printf("ERROR: u.l=0\n");
                                         }
                                     } else {
 
 //fucked
+//hakkatjakka
                                         region_floor=0;
-//                                            prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
-//                                            if (u.y<0) prev_y_mod--;
+//                                        prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
                                         if (u.y>=0) prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
                                         else prev_y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
 
-//                                       prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
-//                                            if (u.z<0) prev_z_mod--;
-
+//                                        prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
                                         if (u.z>=0) prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
                                         else prev_z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
 
@@ -3848,8 +3877,11 @@ extern int floor_y[512][512];
                                             region_block[off_x]=u.r/u.l;
                                             region_block[off_x+1]=u.g/u.l;
                                             region_block[off_x+2]=u.b/u.l;
-                                            region_block[off_x+3]=u.l;
+                                            region_block[off_x+3]= 128 + (unsigned int) u.face;
+//                                            region_block[off_x+3]=u.l;
                                         } else if (u.l>0) {
+//koekkoek
+//                                            u.x=u.x-15;
                                             if (u.x<1) {
                                                 if (u.x<TOP_MIN) TOP_MIN=u.x;
                                                 TOPPED_MIN++;
@@ -3857,23 +3889,26 @@ extern int floor_y[512][512];
                                                 region_block[off_x]=u.r/u.l;
                                                 region_block[off_x+1]=u.g/u.l;
                                                 region_block[off_x+2]=u.b/u.l;
-                                                region_block[off_x+3]=u.l;
-                                            } else if (u.x>=230) {
+                                                region_block[off_x+3]= 128 + (unsigned int) u.face;
+//                                                region_block[off_x+3]=u.l;
+                                            } else if (u.x>=250) {
                                                 if (u.x>TOP_MAX) TOP_MAX=u.x;
                                                 TOPPED_MAX++;
-                                                float togo=u.x-230.0;
-                                                float new_real_y=230.0+togo/(1.0+(togo/20.0)); if (new_real_y>=256.0) new_real_y=255.0;
+                                                float togo=u.x-250.0;
+                                                float new_real_y=250.0+togo/(1.0+(togo/20.0)); if (new_real_y>=256.0) new_real_y=255.0;
                                                 size_t off_x=((int)new_real_y+256*prev_y_mod+prev_z_mod*512*256)*4;
                                                 region_block[off_x]=u.r/u.l;
                                                 region_block[off_x+1]=u.g/u.l;
                                                 region_block[off_x+2]=u.b/u.l;
-                                                region_block[off_x+3]=u.l;
+                                                region_block[off_x+3]= 128 + (unsigned int) u.face;
+//                                                region_block[off_x+3]=u.l;
                                             } else {
                                                 size_t off_x=(u.x+256*prev_y_mod+prev_z_mod*512*256)*4;
                                                 region_block[off_x]=u.r/u.l;
                                                 region_block[off_x+1]=u.g/u.l;
                                                 region_block[off_x+2]=u.b/u.l;
-                                                region_block[off_x+3]=u.l;
+                                                region_block[off_x+3]= 128 + (unsigned int) u.face;
+//                                                region_block[off_x+3]=u.l;
                                             }
                                         } else {
                                             printf("ERROR: u.l=0\n");
@@ -3900,7 +3935,8 @@ extern int floor_y[512][512];
                             hit_one->index12=0;
 //change
 //                            char fname[200];
-                            if ((!plot_only_on && !flushing_mode) || got_one) {
+//hakkatjakka
+                            if (!rot_plot && ((!plot_only_on && !flushing_mode) || got_one)) {
 //                            if (!plot_only_on) {
                                 MCEDITOR_running=1;
 
@@ -3947,11 +3983,11 @@ extern int floor_y[512][512];
                                 if (voxel_file_pointer==NULL) printf("Error opening file %s for writing\n",fname);
                                 else {
                                     printf("Outputing voxels to %s ",fname);
-                                    for (int n=first; n<first+voxels; n++) {
+                                    for (size_t n=first; n<first+voxels; n++) {
                                         Voxel u=voxels_total[n];
                                         if (u.l>0) {
-                                            fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d)\n",
-                                                    u.y, u.x, u.z,  u.r/u.l,u.g/u.l, u.b/u.l,  u.l );
+                                            fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d),(%d)\n",
+                                                    u.y, u.x, u.z,  u.r/u.l,u.g/u.l, u.b/u.l,  u.l, u.face );
                                         }
                                         if (!(n%10)) toggle2();
                                     }
@@ -4002,7 +4038,7 @@ extern int floor_y[512][512];
                             printf("Deleting from array: ");
                             printf("Ok.  Erasing region from total voxels:\n");
                             printf("Size voxels_total:     %10d\n",voxels_total.size());
-    //                        for(int n=first; n<first+voxels; n++) {
+    //                        for(size_t n=first; n<first+voxels; n++) {
     //                            if (voxels_total[n].y>region_offset_x) region_offset_x=voxels_total[n].y;
     //                        }
                             voxels_total.erase(voxels_total.begin()+first,voxels_total.begin()+first+voxels);
@@ -4024,8 +4060,8 @@ extern int floor_y[512][512];
                 printf("Outputing voxels to %s\n",fname);
                 for (auto u : voxels_total) {
                     if (u.l>0 && voxel_to_file) {
-                        fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d)\n",
-                                u.y, u.x, u.z,  u.r/u.l,u.g/u.l, u.b/u.l,  u.l );
+                        fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d),(%d)\n",
+                                u.y, u.x, u.z,  u.r/u.l,u.g/u.l, u.b/u.l,  u.l, u.face );
                     }
                 }
                 if (voxel_file_pointer!=NULL) { fclose(voxel_file_pointer);  voxel_file_pointer=NULL; }
@@ -4182,7 +4218,7 @@ void make_schematic_nbt(std::string fn, std::vector<Voxel>& voxels,size_t first,
     int max_z=-std::numeric_limits<int>::max();
     double color_i_min=255;
     double color_i_max=0;
-    for (int n=first; n<first+num_voxels; n++) {
+    for (size_t n=first; n<first+num_voxels; n++) {
         Voxel* u=&voxels[n];
         if (u->l > 0) {
             min_x=std::min( min_x , u->x);
@@ -4250,7 +4286,7 @@ void make_schematic_nbt(std::string fn, std::vector<Voxel>& voxels,size_t first,
     printf("Creating: ");
 
 
-    for (int n=first; n<first+num_voxels; n++) {
+    for (size_t n=first; n<first+num_voxels; n++) {
         Voxel* u=&voxels[n];
         if (u->l > 0) {
             unsigned char color=ret_color(u->r/u->l, u->g/u->l, u->b/u->l);

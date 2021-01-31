@@ -44,6 +44,9 @@
 #define EVENT_SHIFT 2
 #define EVENT_CONTROL 4
 #define EVENT_SYSTEM 8
+extern sf::Texture* backgroundTexture[];
+extern bool get_screenshot(sf::Texture* m_texture);
+
 extern bool cubic;
 extern void launch_REGION_TO_VOXEL();
 bool roelof=false;
@@ -455,10 +458,12 @@ int main(int argc, char ** argv) {
 
 
 extern int do3dview();
+extern bool pb;
 
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow) {
 //    do3dview();
 //int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow) {
+
     hInstance_pass=hInstance;
     hPrevInstance_pass=hPrevInstance;
     lpCmdLine_pass=lpCmdLine;
@@ -476,26 +481,34 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
         fgets(line,1000,hoppa);
         while (replace_str(line,"\n",""));
         if (strcmp("skull",line)==0) {
-            if (fgets(line,1000,hoppa)!=NULL) {
+            while (fgets(line,1000,hoppa)!=NULL) {
                 while (replace_str(line,"\n",""));
                 if (strcmp("quiet",line)==0) {
                     ::ShowWindow(::GetConsoleWindow(), SW_HIDE);
+                } if (strcmp("plotbackground",line)==0) {
+                    pb=true;
                 }
             }
             system("cd");
             system("cd > /hierbenik.txt");
+
+            backgroundTexture[0] = new sf::Texture();
+            backgroundTexture[0]->setSrgb(false);
+            backgroundTexture[0]->setSmooth(false);
+            get_screenshot(backgroundTexture[0]);
+
 //            fgets(line,1000,hoppa);
 //            system((char*)hoppa);
 //            exit(0);
 
 //            chdir("d:/pacman/pacman_cuberite");
             screensaver=true;
-            roelof=true;
-
-
             combine=1;
             area="Models";
             roelof=true;
+//            backgroundTexture[0] = new sf::Texture();
+//            get_screenshot(backgroundTexture[0]);
+
             launch_SFMLGL2();
 
 //            launch_animator();

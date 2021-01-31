@@ -158,6 +158,12 @@ extern void make_test_schematic();
                                 {
                                     case sf::Keyboard::I:
                                         plot_background=!plot_background;
+                                        if (plot_background) {
+                                            window.clear(sf::Color::Transparent);
+                                            window.display();
+                                            get_screenshot(backgroundTexture[win_num]);
+                                        }
+
                                         backgroundTexture[win_num]->setSmooth(false);
                                         printf("window(%d,%d)\n",window.getSize().x,window.getSize().y);
                                         printf("background(%d,%d)\n",backgroundTexture[win_num]->getSize().x,backgroundTexture[win_num]->getSize().y);
@@ -1026,8 +1032,8 @@ extern void make_test_schematic();
                                             strcpy(mc_text2,"");
                                             hold_voxels=true;
                                             scan_image.create(512,512,sf::Color(0,0,0,0));
-                                            for (int z=10; z>=0; z--) {
-                                                for (int x=10; x>=0; x--) {
+                                            for (int z=20; z>=0; z--) {
+                                                for (int x=20; x>=0; x--) {
                                                     scan_x=x;
                                                     scan_z=z;
                                                     sprintf(mc_text1,"R.%d.%d.MCA",x,z);

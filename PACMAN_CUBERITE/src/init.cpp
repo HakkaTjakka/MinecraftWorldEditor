@@ -58,6 +58,7 @@ extern char BLENDINGPICTUREDIR[];
 extern char FFMPEGCOMMAND[];
 extern int RGBA;
 extern char FFMPEGCOMMAND_RGBA[];
+extern char FFMPEGCOMMAND_SCREENSHOT[];
 extern char FFMPEGCOMMANDIN[];
 extern char FFMPEGCOMMANDIN_SUBS[];
 extern char FFMPEGCOMMAND_CROP[];
@@ -295,6 +296,7 @@ int reload_init() {
 				else if (strcmp(var,"FFMPEG_RGBA")==0)                  numread=sscanf(line2,"FFMPEG_RGBA=\"%4999[^\"]\"",       FFMPEGCOMMAND_RGBA);
 				else if (strcmp(var,"FFMPEG_CROP")==0)                  numread=sscanf(line2,"FFMPEG_CROP=\"%4999[^\"]\"",       FFMPEGCOMMAND_CROP);
 				else if (strcmp(var,"FFMPEG_CROP_RGBA")==0)             numread=sscanf(line2,"FFMPEG_CROP_RGBA=\"%4999[^\"]\"",  FFMPEGCOMMAND_CROP_RGBA);
+				else if (strcmp(var,"FFMPEG_SCREENSHOT")==0)            numread=sscanf(line2,"FFMPEG_SCREENSHOT=\"%4999[^\"]\"", FFMPEGCOMMAND_SCREENSHOT);
 				else if (strcmp(var,"FFMPEG_IN")==0)                    numread=sscanf(line2,"FFMPEG_IN=\"%4999[^\"]\"",         FFMPEGCOMMANDIN);
 				else if (strcmp(var,"FFMPEG_IN_SUBS")==0)               numread=sscanf(line2,"FFMPEG_IN_SUBS=\"%4999[^\"]\"",    FFMPEGCOMMANDIN_SUBS);
 				else if (strcmp(var,"FFMPEG_BURN_SUBS")==0)             numread=sscanf(line2,"FFMPEG_BURN_SUBS=\"%4999[^\"]\"",  FFMPEGCOMMAND_BURN_SUBS);

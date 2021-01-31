@@ -325,10 +325,12 @@ extern int plot_all_factor;
 //                printf("DONTSAVEFILES=%d drawmazes=%d saving file: %s\n",DONTSAVEFILES,drawmazes,naam);
                 texturemaxinmempoint[used2[long_x][long_y]]->display();
                 texturemaxinmempoint[used2[long_x][long_y]]->getTexture().copyToImage().saveToFile(naam);
-                if (files[long_x][long_y])
-                    texturemaxinmempoint[used2[long_x][long_y]]->clear(sf::Color(0,255,0,255));
-                else
-                    texturemaxinmempoint[used2[long_x][long_y]]->clear(sf::Color(0,255,255,255));
+//                if (files[long_x][long_y])
+//                    texturemaxinmempoint[used2[long_x][long_y]]->clear(sf::Color(0,255,0,255));
+//                else
+//                    texturemaxinmempoint[used2[long_x][long_y]]->clear(sf::Color(0,255,255,255));
+                texturemaxinmempoint[used2[long_x][long_y]]->clear(background_color[drawmazes]);
+
                 texturemaxinmempoint[used2[long_x][long_y]]->display();
                 if (strlen(error_msg3)>100) strcpy(error_msg3,"SAVED: ");
                 strcat(error_msg3,naam);
@@ -345,10 +347,12 @@ extern int plot_all_factor;
                 {
                     sprintf(naam,"%s/%dx%d/%03d/picture.%06d.%06d.png",LEVELDIR,BITMAPSX,BITMAPSY,level,long_y,long_x);
                 }
-                if (file_exists(naam))
-                    texturemaxinmempoint[used2[long_x][long_y]]->clear(sf::Color(255,255,0,255));
-                else
-                    texturemaxinmempoint[used2[long_x][long_y]]->clear(sf::Color(255,255,255,255));
+//                if (file_exists(naam))
+//                    texturemaxinmempoint[used2[long_x][long_y]]->clear(sf::Color(255,255,0,255));
+//                else
+//                    texturemaxinmempoint[used2[long_x][long_y]]->clear(sf::Color(255,255,255,255));
+                texturemaxinmempoint[used2[long_x][long_y]]->clear(background_color[drawmazes]);
+
                 texturemaxinmempoint[used2[long_x][long_y]]->display();
                 strcpy(error_msg3,"NOT SAVED: ");
                 strcat(error_msg3,naam);

@@ -59,13 +59,13 @@
 					<Add option="-static-libgcc" />
 					<Add option="-static" />
 					<Add option="-m64" />
+					<Add option="-Wl,-u,vfscanf -lscanf_flt -lm" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-O3" />
 			<Add option="-w" />
-			<Add option="-Wextra" />
 			<Add option="-std=c++14" />
 			<Add option="-m64" />
 			<Add option="-U__STRICT_ANSI__" />
@@ -151,7 +151,6 @@
 			<Add library="lib/cuberite/liblua51.dll.a" />
 			<Add library="lib/cuberite/lua/CMakeFiles/lua.dir/objects.a" />
 			<Add library="lib/libws2_32.a" />
-			<Add library="lib/dwmapi.lib" />
 			<Add directory="lib" />
 			<Add directory="C:/mingw-w64/x86_64-7.3.0-release-posix-seh-rt_v5-rev0/mingw64/lib" />
 			<Add directory="C:/mingw-w64/x86_64-7.3.0-release-posix-seh-rt_v5-rev0/mingw64/x86_64-w64-mingw32/lib" />

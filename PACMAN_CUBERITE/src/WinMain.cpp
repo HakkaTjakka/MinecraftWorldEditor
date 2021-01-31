@@ -528,6 +528,7 @@ char URLDIR[2000];
 char FONTDIR[2000];
 char FFMPEGCOMMAND_CROP[5000]="";
 char FFMPEGCOMMAND_CROP_RGBA[5000]="";
+char FFMPEGCOMMAND_SCREENSHOT[5000]="";
 char FFMPEGCOMMAND[5000]="";
 int RGBA=0;
 char FFMPEGCOMMAND_RGBA[5000]="";
@@ -10604,14 +10605,14 @@ extern sf::Clock kp;
                 shut_up=1;
                 if (!movie==0 && !movie2==0 && jump_ready==1 && read_request==0 && update_request==0 && happening_counter>1000) {
                     MUTEX_MCEDITOR.unlock();
-                    if (totalchanged>0 && !(read_request || update_request))
-                    {
-                        DONTSAVEFILES=0;
-                        SAVEALLBITMAPS();
+//                    if (totalchanged>0 && !(read_request || update_request))
+//                    {
+//                        DONTSAVEFILES=0;
+//                        SAVEALLBITMAPS();
 
 //                        merge_back_to_front();
-                        happening_counter=0;
-                    }
+//                        happening_counter=0;
+//                    }
                     for (int t=0; t<20; t++) {
                         sf::sleep(sf::milliseconds(50));
                         MUTEX_MCEDITOR.lock();
@@ -13892,6 +13893,9 @@ extern bool flushing_mode;
 extern bool make_region_from_voxel(int x, int z);
 std::vector<hit_one_region> ready_regions;
 extern bool no_plotting;
+extern bool hold_voxels;
+extern bool flushing_mode;
+extern bool rot_plot;
 
 void update_MC(sf::Image& image_local2, int xx, int yy) {
     texture_from_ffmpeg.create(512,512);
@@ -13911,7 +13915,6 @@ void update_MC(sf::Image& image_local2, int xx, int yy) {
     int smooth_old=smooth;
 
 
-extern bool hold_voxels;
     bool complete=false;
 
     int pixel_count=0;
@@ -13921,11 +13924,10 @@ extern bool hold_voxels;
             sf::Color pixel = image_local.getPixel(x,y);
             if (pixel.a!=0) pixel_count++;
         }
-extern bool flushing_mode;
     if (!hold_voxels) {
         sf::Image back;
         char fname[200];
-        if (plot_only && !flushing_mode) {
+        if ((plot_only && !flushing_mode) || rot_plot) {
             mkdir("../cut/png");
             sprintf(fname,"../cut/png/r.%d.%d.png",xx,yy);
 //            texture_from_ffmpeg.copyToImage().saveToFile(fname);
@@ -14019,8 +14021,15 @@ extern bool flushing_mode;
 //        }
     }
 
-    x=(int)( ( (LONG64)x + (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
-    y=(int)( ( (LONG64)y + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
+    if (xx>=0)
+        x=(int)( ( (LONG64)x + (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
+    else
+        x=(int)( ( (LONG64)x +1 + (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
+
+    if (yy>=0)
+        y=(int)( ( (LONG64)y + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
+    else
+        y=(int)( ( (LONG64)y +1 + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
 
 //    printf("\nprint x,y = %d,%d\n",x,y);
     texture_from_ffmpeg.setSmooth(FALSE);

@@ -1,8 +1,48 @@
             if (no_new_window==false) {
 //                contextSettings.minorVersion = 3;
 //                contextSettings.majorVersion = 3;
-                window.setVerticalSyncEnabled(true);
-                if (videomode[win_num]==0) {
+
+                                window.close();
+                                if (videomode[win_num]==0) {
+                                    if (transparant) {
+                                        const unsigned char opacity = 255;
+                                        sf::Image backgroundImage;
+                                        if (screensaver) contextSettings.antialiasingLevel = 15;
+
+                                        backgroundImage.create(1922,1082,sf::Color(255,255,255,1));
+                                        window.create(sf::VideoMode(backgroundImage.getSize().x, backgroundImage.getSize().y, 32), "Transparent Window", sf::Style::None ,contextSettings);
+//                                        window.setPosition(-1,-1);
+
+                                        setShape(window.getSystemHandle(), backgroundImage);
+                                        setTransparency(window.getSystemHandle(), opacity);
+                                        window.setVerticalSyncEnabled(true);
+//                                        glViewport(0, 0, 1922,1082);
+                                    } else {
+                                        window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Fullscreen, contextSettings);
+//                                        glViewport(0, 0, 1920,1080);
+                                    }
+                                    between_texture.create(1920,1080,contextSettings);
+                                }
+                                else {
+                                    if (transparant) {
+                                        const unsigned char opacity = 255;
+                                        sf::Image backgroundImage;
+                                        backgroundImage.create(1922,1082,sf::Color(255,255,255,1));
+                                        window.create(sf::VideoMode(backgroundImage.getSize().x, backgroundImage.getSize().y, 32), "Transparent Window", sf::Style::None ,contextSettings);
+                                        setShape(window.getSystemHandle(), backgroundImage);
+                                        setTransparency(window.getSystemHandle(), opacity);
+                                        window.setVerticalSyncEnabled(true);
+//                                        glViewport(0, 0, 1922,1082);
+
+                                    } else {
+                                        window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close , contextSettings);
+//                                        glViewport(0, 0, 1920,1080);
+                                    }
+                                    between_texture.create(1920,1080,contextSettings);
+                                }
+
+
+/*                if (videomode[win_num]==0) {
 //                    window2.create(sf::VideoMode(1920,1080), window_title, sf::Style::Fullscreen, contextSettings);
                     window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Fullscreen, contextSettings);
                 }
@@ -10,8 +50,11 @@
 //                    window2.create(sf::VideoMode(1920,1080), window_title, sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close , contextSettings);
                     window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close , contextSettings);
                 }
+*/
+
 //                window.setActive(false);
 //                window.setFramerateLimit(60);
+                window.setVerticalSyncEnabled(true);
                 window.setVisible(true);
 
                 window.setSize(old_size[win_num]);
@@ -82,7 +125,7 @@
 //                WorkArea.right=1920;
 //                WorkArea.top=0;
 //                WorkArea.bottom=1080;
-                window.clear(sf::Color(50,20,30,128));
+                window.clear(sf::Color(sf::Color::Transparent));
                 window.display();
 
 //                auto win = window.getSystemHandle();
