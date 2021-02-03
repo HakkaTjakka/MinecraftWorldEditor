@@ -52,7 +52,7 @@
                 }
 */
 
-//                window.setActive(false);
+                window.setActive(false);
 //                window.setFramerateLimit(60);
                 window.setVerticalSyncEnabled(true);
                 window.setVisible(true);

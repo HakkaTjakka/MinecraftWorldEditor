@@ -6661,8 +6661,9 @@ extern bool lighten;
 
                         if (face!=128) {
                             face=face-128;
-                            if (face<0) AY[y]=BlockInfo(57,0,0,0);
-                            else AY[y]=BlockInfo(89,0,0,0);
+                            if (face<0) AY[y]=BlockInfo(95,0,6,0);
+                            else if (face>4) AY[y]=BlockInfo(91,0,2,0);
+                            else continue;
 /*
                             if (x>0) {
                                 if (mc[off_x_minus_one+3]==0) {
@@ -6702,7 +6703,7 @@ extern bool lighten;
                             }
 */
                         }
-                        if (AY[y].id != 89 && AY[y].id != 57) {
+                        if (AY[y].id != 95 && AY[y].id != 91) {
                             if (blue_to_water_on && y<253) {
                                 if (c==water_blue && AY[y+1].id==0 && AY[y+2].id==0) {
                                     setExtra2(x,z,y+2,"water",SomeStuff);

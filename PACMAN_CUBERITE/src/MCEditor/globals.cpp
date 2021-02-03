@@ -192,6 +192,8 @@ int get_block_light(ui id)
 //        }
         case 76: return 15;
         case 89: return 14;
+        case 91: return 15;
+        case 124: return 15;
         default: return 0;
     }
 }

@@ -2403,6 +2403,7 @@ extern double schematic_size;
                 }
                 misses_percentage=misses/(hits+misses)*100.0;
                 cpu_usage=(cpu_usage*9.0+(render_current-render_time)/Hz60)/10.0;
+
 //jitter?
 //                sf::sleep(sf::seconds(0.001));
                 if (by_texture) {
@@ -2433,7 +2434,7 @@ extern double schematic_size;
 
                 render_time=render_clock.getElapsedTime().asSeconds();
                 render_count++;
-                if (render_count==60) {
+                if (render_count>=60) {
                     render_count_time=render_time-render_count_time;
                     if (render_count_time!=0) render_fps=60.0/render_count_time;
                     render_count_time=render_time;

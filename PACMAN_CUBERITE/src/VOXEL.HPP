@@ -10,11 +10,11 @@ struct Voxel {
     int x,y,z;
     unsigned int r,g,b,l;
     unsigned char status;
-    signed char face;
+    int face;
 
     Voxel(): x(0), y(0), z(0), r(0), g(0), b(0), l(0), status(0), face(0) {};
 
-    Voxel(int x_, int y_, int z_, unsigned int r_ = 0 , unsigned int g_ = 0 , unsigned int b_ = 0 , unsigned int l_ = 0 , unsigned char status_ = 0, signed char face_ = 0 )
+    Voxel(int x_, int y_, int z_, unsigned int r_ = 0 , unsigned int g_ = 0 , unsigned int b_ = 0 , unsigned int l_ = 0 , unsigned char status_ = 0, int face_ = 0 )
             : x(x_), y(y_), z(z_), r(r_), g(g_), b(b_), l(l_), status(status_), face(face_)  {};
 
     bool operator < (const Voxel &B) const

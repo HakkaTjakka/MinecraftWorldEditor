@@ -53,15 +53,6 @@ typedef int iVec3[3];
 typedef unsigned char Rgb[3];
 
 /*
-void cross3d(const Vec3 &a, const Vec3 &b, Vec3 &result) {
-	result[0]=a[1]*b[2] - a[2]*b[1];
-	result[1]=a[0]*b[0] - a[0]*b[2];
-	result[2]=a[0]*b[1] - a[1]*b[0];
-}
-
-float dot3d(const Vec3 &a, const Vec3 &b) {
-	return a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
-}
 
 bool interpolate_point(const Vec3 &a, const Vec3 &b, const Vec3 &c, const Vec3 &p, Vec4 &i) {
 	Vec3 ap={ a[0]-p[0], a[1]-p[1], a[2]-p[2]};
@@ -1209,11 +1200,11 @@ extern toggle2();
 extern double pixels_per_block_glob;
 extern double pixels_per_block_glob_rev;
 
-float determinant(const Vec3 &a, const Vec3 &b, const Vec3 &c) {
+double determinant(const Vec3 &a, const Vec3 &b, const Vec3 &c) {
     return a[0]*b[1]*c[2] - a[0]*b[2]*c[1] - a[1]*b[0]*c[2] + a[1]*b[2]*c[0] + a[2]*b[0]*c[1]-a[2]*b[1]*c[0];
 }
 
-float which_side(const Vec3 &a, const Vec3 &b, const Vec3 &c, const Vec3 &p) {
+double which_side(const Vec3 &a, const Vec3 &b, const Vec3 &c, const Vec3 &p) {
 	Vec3 f1={ a[0]-p[0], a[1]-p[1], a[2]-p[2]};
 
 	Vec3 a_min_b={ a[0]-b[0], a[1]-b[1], a[2]-b[2]};
@@ -1233,8 +1224,14 @@ void get_plane(const Vec3 &a, const Vec3 &b, const Vec3 &c, Vec4 &plane) {
 }
 
 
-float dot3d(const Vec3 &a, const Vec3 &b) {
+double dot3d(const Vec3 &a, const Vec3 &b) {
 	return a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+}
+
+void cross3d(const Vec3 &a, const Vec3 &b, Vec3 &result) {
+	result[0]=a[1]*b[2] - a[2]*b[1];
+	result[1]=a[0]*b[0] - a[0]*b[2];
+	result[2]=a[0]*b[1] - a[1]*b[0];
 }
 
 bool insideTriangle_3d(const Vec3 &a, const Vec3 &b, const Vec3 &c, const Vec3 &p)  {
@@ -1260,9 +1257,35 @@ bool insideTriangle_3d(const Vec3 &a, const Vec3 &b, const Vec3 &c, const Vec3 &
 	return false;
 }
 
+
+bool Barycentric(const Vec3& p, const Vec3& a, const Vec3& b, const Vec3& c)
+{
+
+	Vec3 b_min_a={ b[0]-a[0], b[1]-a[1], b[2]-a[2]};
+	Vec3 c_min_a={ c[0]-a[0], c[1]-a[1], c[2]-a[2]};
+	Vec3 p_min_a={ p[0]-a[0], p[1]-a[1], p[2]-a[2]};
+
+    double d00 = dot3d(b_min_a, b_min_a);
+    double d01 = dot3d(b_min_a, c_min_a);
+    double d11 = dot3d(c_min_a, c_min_a);
+    double d20 = dot3d(p_min_a, b_min_a);
+    double d21 = dot3d(p_min_a, c_min_a);
+
+    double denom = d00 * d11 - d01 * d01;
+    if (denom==0) return false;
+
+    double v = (d11 * d20 - d01 * d21) / denom;
+    double w = (d00 * d21 - d01 * d20) / denom;
+    double u = 1.0f - v - w;
+
+    return ((0 <= v) && (v <= 1) &&
+            (0 <= w)  && (w  <= 1) &&
+            (0 <= u) && (u <= 1));
+}
+
 bool distance_to_plane_sub(const Vec4 &plane, const Vec3 &p, double& d) {
     double root=sqrt(plane[0]*plane[0]+plane[1]*plane[1]+plane[2]*plane[2]);
-    if (root==0.0) return false;
+    if (root==0.0) { d=0.0; return false; }
     d=plane[0]*p[0]+plane[1]*p[1]+plane[2]*p[2]+plane[3];
 //    d=fabs(plane[0]*p[0]+plane[1]*p[1]+plane[2]*p[2]+plane[3]);
     return true;
@@ -1274,7 +1297,7 @@ bool distance_to_plane(const Vec3 &a, const Vec3 &b, const Vec3 &c, const Vec3 &
     return distance_to_plane_sub(plane, p, d);
 }
 
-void projec_point_to_plane_sub(const Vec4 &plane, const Vec3 &p, Vec3& pp, const Vec3& orig)  {
+void project_point_to_plane_sub(const Vec4 &plane, const Vec3 &p, Vec3& pp, const Vec3& orig)  {
     Vec3 v={p[0]-orig[0], p[1]-orig[1], p[2]-orig[2]};
     double dist = v[0]*plane[0] + v[1]*plane[1] + v[2]*plane[2];
     pp[0] = p[0] - dist*plane[0];
@@ -1282,34 +1305,121 @@ void projec_point_to_plane_sub(const Vec4 &plane, const Vec3 &p, Vec3& pp, const
     pp[2] = p[2] - dist*plane[2];
 }
 
-void projec_point_to_plane(const Vec3 &a, const Vec3 &b, const Vec3 &c, const Vec3 &p, Vec3& pp) {
+void project_point_to_plane(const Vec3 &a, const Vec3 &b, const Vec3 &c, const Vec3 &p, Vec3& pp) {
     Vec4 plane;
     get_plane(a, b, c, plane);
-    projec_point_to_plane_sub(plane, p, pp, a);
+    project_point_to_plane_sub(plane, p, pp, a);
 }
 
 bool face_it_sub(const double v[3][3], const Vec3 &p , double& distance) {
-    if (insideTriangle_3d(v[0], v[1], v[2], p)) {
+//    Vec3 pp;
+//    project_point_to_plane(v[0], v[1], v[2], p, pp);
+
+//bool pointInTriangle(const Vec3& query_point, const Vec3& triangle_vertex_0, const Vec3& triangle_vertex_1, const Vec3& triangle_vertex_2);
+
+    if (Barycentric(p, v[0], v[1], v[2])) {
+//    if (insideTriangle_3d(v[0], v[1], v[2], p)) {
         return distance_to_plane(v[0], v[1], v[2], p, distance);
+    } else {
+        distance_to_plane(v[0], v[1], v[2], p, distance);
     }
-    distance=0.0;
     return false;
 }
 
 void face_it(const double v[3][3], const Vec3 &p, sf::Color& pixel, std::vector<Voxel>& mini_voxel) {
     double distance;
+
     for (int z=-1; z<=1; z++) {
         for (int y=-1; y<=1; y++) {
+//            if ( abs(y) + abs(z) == 2 ) continue;
             for (int x=-1; x<=1; x++) {
-                if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
-                if ( face_it_sub(v, { (float)((int)p[0]+x) , (float)((int)p[1]+y) , (float)((int)p[2]+z) } , distance) ) {
-                    int d=0;
-                    if (distance<0) d=-1; else if (distance>0) d=1;
-                    if (d!=0) mini_voxel.push_back(Voxel((int)p[0]+x,(int)p[1]+y,(int)p[2]+z,pixel.r,pixel.g,pixel.b,1,1,(signed char)d));
+//                if ( abs(x) + abs(y) + abs(z) == 0 ) continue;
+//                if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
+//                if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
+                bool ret= face_it_sub(v, { (int)p[0]+x , (int)p[1]+y , (int)p[2]+z } , distance);
+                if ( ret ) {
+                    if (distance>0) {
+                        if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
+                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,1));
+                    } else if (distance<0) {
+                        if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
+//                        if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
+                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,-1));
+                    }
+                } else {
+                    if (distance<0) {
+                        if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
+//                        if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
+                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,-1));
+                    }
                 }
             }
         }
     }
+
+/*
+    for (int z=-1; z<=1; z++) {
+        for (int y=-1; y<=1; y++) {
+//            if ( abs(y) + abs(z) == 2 ) continue;
+            for (int x=-1; x<=1; x++) {
+//                if ( abs(x) + abs(y) + abs(z) == 0 ) continue;
+                if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
+//                if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
+                if ( face_it_sub(v, { (int)p[0]+x , (int)p[1]+y , (int)p[2]+z } , distance) ) {
+                    if (distance>0) {
+                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,1));
+                    } else if (distance<0) {
+                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,-1));
+                    }
+                }
+            }
+        }
+    }
+*/
+
+/*
+    for (int z=-1; z<=1; z++) {
+        for (int y=-1; y<=1; y++) {
+//            if ( abs(y) + abs(z) == 2 ) continue;
+            for (int x=-1; x<=1; x++) {
+                if ( abs(x) + abs(y) + abs(z) == 0 ) continue;
+//                if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
+//                if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
+                bool ret=face_it_sub(v, { (int)p[0]+x , (int)p[1]+y , (int)p[2]+z } , distance);
+                if ( ret && distance>0 ) {
+                    if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
+                    mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,1));
+                } else  if (distance<0) {
+                    if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
+                    mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,-1));
+                }
+            }
+        }
+    }
+
+
+    for (int z=-2; z<=2; z++) {
+        for (int y=-2; y<=2; y++) {
+//            if ( abs(y) + abs(z) == 2 ) continue;
+            for (int x=-2; x<=2; x++) {
+                int ret=face_it_sub(v, { (int)p[0]+x , (int)p[1]+y , (int)p[2]+z } , distance);
+                if (ret) {
+//                    if ( abs(x) + abs(y) + abs(z) == 0 ) continue;
+//                    if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
+                    if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
+                    if (distance>0) {
+                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,1));
+                    }
+                } else {
+                    if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
+                    if (distance<0) {
+                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,-1));
+                    }
+                }
+            }
+        }
+    }
+*/
 }
 
 int rasterize(double v[3][3], double tc_org[3][2], int w_a, int h_a, int buf_count, int faces, sf::Image* image, double factor_a, sf::Image& image_copy,
@@ -1344,7 +1454,6 @@ int rasterize(double v[3][3], double tc_org[3][2], int w_a, int h_a, int buf_cou
                 double w0 = edgeFunction(tc[2], tc[1], p);
 
                 if ((w0 >= 0.0 && w1 >= 0.0 && w2 >= 0.0) || (w0 <= 0.0 && w1 <= 0.0 && w2 <= 0.0)) {
-//                if ((w0 > 0.0 && w1 > 0.0 && w2 > 0.0) || (w0 < 0.0 && w1 < 0.0 && w2 < 0.0)) {
                     w0 /= area; w1 /= area; w2 /= area;
                     double v_x = (w0 * (double)v[0][0]) + (w1 * (double)v[1][0]) + (w2 * (double)v[2][0]);
                     double v_y = (w0 * (double)v[0][1]) + (w1 * (double)v[1][1]) + (w2 * (double)v[2][1]);
@@ -1352,16 +1461,12 @@ int rasterize(double v[3][3], double tc_org[3][2], int w_a, int h_a, int buf_cou
 
                     Vec3 cube={v_x+0.5,v_y+0.5,v_z+0.5};
 
-//                    int cube_x=v_x+0.5;
-//                    int cube_y=v_y+0.5;
-//                    int cube_z=v_z+0.5;
                     sf::Color pixel=image->getPixel((int)plot_x,(int)plot_y);
 
                     face_it(v, cube, pixel, mini_voxel);
-//                    one=Voxel(cube[0],cube[1],cube[2],pixel.r,pixel.g,pixel.b,1,1,0);
-//                    one=Voxel(cube_x,cube_y,cube_z,pixel.r,pixel.g,pixel.b,1,1,face);
-//                    mini_voxel.push_back(one);
+
                     mini_voxel.push_back(Voxel((int)cube[0],(int)cube[1],(int)cube[2],pixel.r,pixel.g,pixel.b,1,1,0));
+
                     check_tot_hits++;
 
 //                    printf("X=%3d Y=%3d Z=%3d\n",cube_x,cube_y,cube_z);
@@ -1387,15 +1492,14 @@ int rasterize(double v[3][3], double tc_org[3][2], int w_a, int h_a, int buf_cou
         Voxel last=mini_voxel[0];
         Voxel total_pos=Voxel(last.x,last.y,last.z,0,0,0,0,last.status,0);
 
-//        Voxel total_pos=Voxel(last.x,last.y,last.z);
 
         bool hit=(last.face==0);
+        bool silence=false;
 
         size_t vend=mini_voxel.size()-1;
         for (size_t n=0; n<=vend; n++) {
 
             Voxel now=mini_voxel[n];
-
             if (last.x==now.x && last.y==now.y && last.z==now.z) {
                 if (!hit && now.face==0) {
                     hit=true;
@@ -1405,18 +1509,33 @@ int rasterize(double v[3][3], double tc_org[3][2], int w_a, int h_a, int buf_cou
                     total_pos.l=0;
                     total_pos.face=0;
                 }
-                if ( hit + (now.face!=0) == 1 ) {
+                if (now.face==0 || !hit) {
                     total_pos.r+=now.r;
                     total_pos.g+=now.g;
                     total_pos.b+=now.b;
                     total_pos.l+=now.l;
-                    if (!hit) total_pos.face+=now.face;
                 }
+//                if (!hit) {
+//                    total_pos.face+=now.face;
+//                }
+                if (!hit) {
+                    if (total_pos.face>0 && now.face<0) {
+                        total_pos.r=now.r;
+                        total_pos.g=now.g;
+                        total_pos.b=now.b;
+                        total_pos.l=now.l;
+                        total_pos.face=now.face;
+                    } else if ( (total_pos.face>=0 && now.face>0) || (total_pos.face<=0 && now.face<0) ) {
+                        total_pos.face+=now.face;
+                    }
+                }
+
+
 
 //                if (!hit && total_pos.face==0) continue;
 
 //                if (n==mini_voxel.size()-1) {
-                if (n==vend && (hit || total_pos.face!=0) ) {
+                if (n==vend) {
                     total_hits+=total_pos.l;
                     total_voxels+=1;
                     total_pos.x+=voxel_bottom;
@@ -1439,6 +1558,8 @@ int rasterize(double v[3][3], double tc_org[3][2], int w_a, int h_a, int buf_cou
                 last=now;
                 total_pos=last;
                 hit=(last.face==0);
+//              hit=false;
+                silence=false;
 
                 if (n==vend) {
                     total_hits+=total_pos.l;
@@ -1546,7 +1667,7 @@ bool load_voxels() {
                     if (!(check_tot_lines%100000)) printf("%dK %dK (%6d,%4d,%6d),(%3d,%3d,%3d),(%3d),(%3d)        \r",
                                                     check_tot_lines/1000, check_tot_voxels/1000, yyy, xxx, zzz, r, g, b, l, face);
 //                    one=Voxel(xxx,yyy,zzz,r,g,b,1,(unsigned char)1); // hold
-                    one=Voxel(xxx,yyy,zzz,r,g,b,1,(unsigned char)0, (unsigned char) face); // new
+                    one=Voxel(xxx,yyy,zzz,r,g,b,1,(unsigned char)0, face); // new
 
 //                    fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d)\n",
 //                            u.y, u.x, u.z,  u.r/u.l,u.g/u.l, u.b/u.l,  u.l );

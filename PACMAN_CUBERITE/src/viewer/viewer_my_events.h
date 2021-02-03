@@ -1085,15 +1085,15 @@ extern void make_test_schematic();
                                             burn=true;
 
                                             if (follow_ghost) {
-                                                mazemovex_voxel=(-pos_ghostx[follow_ghost_num]+1920+maxpixelsx)%maxpixelsx;
-                                                mazemovey_voxel=(-pos_ghosty[follow_ghost_num]+1080+maxpixelsy)%maxpixelsy;
+                                                mazemovex_voxel=(int)(-pos_ghostx[follow_ghost_num]+1920+maxpixelsx*1.5)%maxpixelsx-maxpixelsx/2;
+                                                mazemovey_voxel=(int)(-pos_ghosty[follow_ghost_num]+1080+maxpixelsy*1.5)%maxpixelsy-maxpixelsy/2;
 //                                                mazemovex_voxel=(-pos_ghostx[follow_ghost_num]+1920+maxpixelsx)%maxpixelsx;
 //                                                mazemovey_voxel=(-pos_ghosty[follow_ghost_num]+1080+maxpixelsy)%maxpixelsy;
                                             } else {
 //                                                mazemovex_voxel=smooth_x;
 //                                                mazemovey_voxel=smooth_y;
-                                                mazemovex_voxel=smooth_x;
-                                                mazemovey_voxel=smooth_y;
+                                                mazemovex_voxel=(int)(smooth_x+maxpixelsx*1.5)%maxpixelsx-maxpixelsx/2;
+                                                mazemovey_voxel=(int)(smooth_y+maxpixelsy*1.5)%maxpixelsy-maxpixelsy/2;
                                             }
 
                                             voxelize(Pacman_Objects[win_num]);
