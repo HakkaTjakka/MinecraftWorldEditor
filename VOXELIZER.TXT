@@ -1,0 +1,78 @@
+Info on how to use the voxelizer (from memory, i check it later).
+First try to install the program. See manual.txt and/or handleiding.txt (Dutch)
+Edit the pacman.ini file for right paths. Make shure the pacman_cuberite/bin directory is in the path environment variable and/or start dos command where it sets these.
+Same goes when using ffmpeg.exe, a path to ffmpeg/bin is required.
+Try to install Codeblocks IDE. Install the seh mingw compiler. Try to open the pacman_cuberite/src/PACMAN_CUBERITE.cbp with codeblocks.
+Check the toolchain (compiler options) for the right paths to the seh mingw compiler.
+Try to compile the bastard. If this works you are (very) lucky. If not, msg me we fix that.
+It uses lots of includes/libs and they are all in de dirs. The PACMAN_CUBERITE.cbp should give the right (relative) paths to all and lib order. Without it it will not work.
+
+If you start the program it will try to create some dirs. START THE PROGRAM FROM PACMAN_CUBERITE DIRECTORY, EVERYTHING IS RELATIVE FROM THERE FOR THE BIN/PACMAN.EXE
+If it wont start or complains check the PACMAN.INI file. For me the system is on D:/PACMAN/..... 
+For the voxeliizer it uses ../objects and/or ../models, its in the pacman.ini file. This is the place where to put the Wavefront .obj/.mtl/textures, in seperate dirs.
+Then run the makelist.bat file, it will create a list.txt file with the paths to all found .obj files (and/or also .nbt files = compressed wavefront file for gpu loading fast)
+
+When that worked, and you can start up the program, by calling a .bat file, or pacman.exe from the pacman_cuberite dir located in the bin dir (...)
+You should get the canvas screen. Its a double buffered screen, one for fixed background, en one for editing on it, we not use this now.
+
+You now should be able to push CTRL-6 (window) and/or '6' (full screen), and the program should load one Wavefront .obj/.mtl file from the list from ../objects.
+When succes it als will convert it into an .nbt file for fast loading of 3d gpu data. The next time you load it it will be very fast (used for bulk)
+Whey your lucky (again) the 3d object should popup, in window (ctrl-6) or fullscreen (6). You can switch between the window / fullscreen with:
+-F11
+When pressing ctrl-F11 before that, the window/fullscreen will be TRANSPARANT. Pressing ctrl-F11 again and F11 to switch window/full changes is back with a black background.
+With the mouse you should have a trackball movement system. Try all buttons. There are lots of keys to move rotate etc. With CTRL/SHIFT/ALT/SYSTEM combo's.
+You can activate a vertex-/fragment shader (for lightning etc.) with 'd'. Tab key cycles trough 4 modes. 'w' wireframe on/of. 't' textures on/of. 'c' colors on/of. This all from the 3d screen.
+Pressing 
+-ALT-F1 in the 3d window will plot some 20 x 20 region file numbers on the other screen, the canvas.
+-HOME key and/or ALT-HOME moves you to center coords (0,0). The screen is a pacman screen, going out left you get in right, and vise versa. So in fact its endless.
+Somewere there should be some readme and/or .txt files with all kinds of key combo's you can use with the screen.
+Like ctrl-y gives you 8x8 hd screens, that can rotate, scale etc. Find out yourself. Somehow.
+
+In the 3d screen you can press + or -, to get a base height for the voxels. Like 0 is on bedrock floor. Use mouse to scale/rotate the object as you like. You are looking NORTH.
+-F5 put text on 3d window on/off
+-F6,F7,F8 reset position scale rotation
+Now if you move around the canvas screen (cursor keys, TAB for drawing mode) it is where the voxels (blocks) will be placed inside the region area. The pacman top/left is the top/left of the voxels.
+Some quick keys: 3 times DEL deletes the maze (...) 3 times ALT-DEL clears the selected (foreground/background) screen. 'd' switch between background/foreground.
+CTRL-F5 copy forground over background (saved). ALT-'s' smooth on/off (to check real pixels). CTRL-'y' larger screen (8x8). ALT-up/down select canvas/picture/internet url. ALT-left/right select option on that. CTRL-space change option.
+etc. etc. Check some .txt files on keys and or check the key_functions.cpp or viewer_events.h (are somewhere...) for keys. (reverse engineer = same as coding but then upside down)
+
+Now place the pacman on the canvas. With the TAB key, ctrl-F1, SHIFT-cursors etc. you should be able to put it on the pixel. If mode (bottom screen info) is move left/right is 64 pixels, up/down 72 or so.
+That is because one hd (1920/1080) screen is divide up by 30 times 15 blocks for pacman gaming... There is a maze generator inside 'm'.
+
+When you did not get nuts by this all (i understand completely) try:
+
+F1
+
+Then the magic should happen. Make your object size (with the +/- offset from the 3d screen) under 256 (better 250/240).
+The object is voxelize with scale/rotation. You should see in the 3d window you have voxels (in a c++ vector list).
+
+With CTRL+SYSTEM+ALT and left/right you can select another/next 3d object. CTRL+ALT left/right, ADDS the next 3d object from the list.txe made with makelist.bat in the ../object dir
+You can move the 3d object by will with the mouse, move on the canvas screen (window/fullscreen = CTRL+ALT+ENTER) to place it, and press F1 again.
+
+Now this. The resulting .vox files show up in ../cut
+When used they move to ../cut/done
+The region files will show up in /saves/test/region, in separate dirs like done-1, done0, done1 (if using cubic)
+When in /saves/test/region/done0 is a .mca file, it will be loaded, then the voxel data is used to insert blocks etc., then its saved again.
+If there is no corresponding .mca file in the /saves/test/region/done0, IT USES A SINGLE PLAIN .MCA FILE FROM: /SAVES/LEEG/REGION/R.0.0.MCA
+Then the voxeldata will be added to this empty region file.
+
+So, when done placing voxels with F1, 
+
+PRESS CTRL-F1
+
+When dirs are set up prop. It will convert the voxels into region files in /saves/test/region/done0, and the voxels files in ../cut
+
+To convert one single ../cut/r.x.z.vox file into a region file, use
+pacman.exe regions r.x.z.vox <cubic> (or full path to the .vox file). Then, it will load /saves/test/region/done0/r.x.z.mca if its there (otherwise from /saves/leeg/region/r.0.0.mca), add's the voxels, and saves it back to /saves/test/region/done0
+To convert all .vox files: pacman.exe regions <cubic>>
+
+When placing your .mca files into /saves/tovoxels/region and/or /saves/tovoxels/region/done# for cubic, you can use:
+pacman.exe region2voxel, then it should plot all the region files, and (check change the code VOXEL_TO_REGION.CPP) convert all region files to wavefront 3d.
+In the /saves/tovoxels/region dir a dir voxels should appear with the voxel data from the region file (only color data for now in it). 
+And a objects dir with the corresponding Wavefront 3d data. (This you can put in ../objects etc. see above, and load them in the 3d window later, for animations recording viewing etc.)
+
+So if you get this all working your a genius, a c/c++ programmer/coder, and/or very lucky.
+If not, contact me, i'm all yours....
+
+To be continued. Hope this helps some people.....
+Laterz.
