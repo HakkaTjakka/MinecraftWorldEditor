@@ -70,6 +70,8 @@ When placing your .mca files into /saves/tovoxels/region and/or /saves/tovoxels/
 pacman.exe region2voxel, then it should plot all the region files, and (check change the code VOXEL_TO_REGION.CPP) convert all region files to wavefront 3d.
 In the /saves/tovoxels/region dir a dir voxels should appear with the voxel data from the region file (only color data for now in it). 
 And a objects dir with the corresponding Wavefront 3d data. (This you can put in ../objects etc. see above, and load them in the 3d window later, for animations recording viewing etc.)
+with pacman.exe object <.vox filename/path> you can convert one ../cut/*.vox file into .obj file in ../objects, and/or all ../*.vox files.
+Note: its all under construction. If not: become a programmer.
 
 So if you get this all working your a genius, a c/c++ programmer/coder, and/or very lucky.
 If not, contact me, i'm all yours....
