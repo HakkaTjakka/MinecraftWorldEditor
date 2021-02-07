@@ -173,6 +173,7 @@ int get_opacity(ui id)
         case 50: return 1;
         case 95: return 1;
         case 171: return 1;
+        case 2003: return 1;
 //        default: return 15;
         default: return 15;
     }

@@ -6371,3 +6371,28 @@
 1 Program busy or hangs... Thread alive at: 28/01/2021 00:42:48
 1 Program busy or hangs... Thread alive at: 29/01/2021 02:41:03
 1 Program busy or hangs... Thread alive at: 29/01/2021 02:52:08
+1 Program busy or hangs... Thread alive at: 03/02/2021 11:10:08
+0 Program busy or hangs... Thread alive at: 03/02/2021 11:10:25
+1 Program busy or hangs... Thread alive at: 03/02/2021 11:10:30
+0 Program busy or hangs... Thread alive at: 04/02/2021 01:23:41
+1 Program busy or hangs... Thread alive at: 04/02/2021 01:23:46
+1 Program busy or hangs... Thread alive at: 04/02/2021 01:26:34
+1 Program busy or hangs... Thread alive at: 04/02/2021 01:26:54
+0 Program busy or hangs... Thread alive at: 04/02/2021 01:27:09
+0 Program busy or hangs... Thread alive at: 04/02/2021 01:27:14
+0 Program busy or hangs... Thread alive at: 04/02/2021 01:27:19
+0 Program busy or hangs... Thread alive at: 04/02/2021 01:27:24
+0 Program busy or hangs... Thread alive at: 04/02/2021 01:27:29
+0 Program busy or hangs... Thread alive at: 04/02/2021 01:27:34
+0 Program busy or hangs... Thread alive at: 04/02/2021 01:27:39
+0 Program busy or hangs... Thread alive at: 04/02/2021 01:27:44
+0 Program busy or hangs... Thread alive at: 04/02/2021 01:27:49
+0 Program busy or hangs... Thread alive at: 04/02/2021 01:27:54
+0 Program busy or hangs... Thread alive at: 04/02/2021 01:27:59
+0 Program busy or hangs... Thread alive at: 04/02/2021 01:28:04
+0 Program busy or hangs... Thread alive at: 04/02/2021 01:28:09
+1 Program busy or hangs... Thread alive at: 04/02/2021 01:28:14
+0 Program busy or hangs... Thread alive at: 06/02/2021 21:12:10
+0 invalid movie2: 
+
+1 Program busy or hangs... Thread alive at: 06/02/2021 21:14:47

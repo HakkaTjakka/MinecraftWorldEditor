@@ -1047,11 +1047,11 @@ void make_colors_from_blocks()
         fprintf(blockstates,"\n");
         if (best_texture!="") {
             if (best_block_or_item==0)
-                fprintf(best_colors,"BLOCK: ID=\"%d\",DataValue=\"%d\",Item=\"%s\",Description=\"%s\",IDName=\"%s\",VARIANT=\"%s\",TYPE=\"%s\",TEXTURE=\"blocks\%s.png\"\n",
+                fprintf(best_colors,"BLOCK: ID=\"%d\",DataValue=\"%d\",Item=\"%s\",Description=\"%s\",IDName=\"%s\",VARIANT=\"%s\",TYPE=\"%s\",TEXTURE=\"blocks\\%s.png\"\n",
                         it_names_list->ID,it_names_list->DataValue,it_names_list->Item.c_str(),it_names_list->Description.c_str(),it_names_list->IDName.c_str(),
                         best_variant.c_str(), best_type.c_str(),best_texture.c_str());
             else
-                fprintf(best_colors,"BLOCK: ID=\"%d\",DataValue=\"%d\",Item=\"%s\",Description=\"%s\",IDName=\"%s\",VARIANT=\"%s\",TYPE=\"%s\",TEXTURE=\"items\%s.png\"\n",
+                fprintf(best_colors,"BLOCK: ID=\"%d\",DataValue=\"%d\",Item=\"%s\",Description=\"%s\",IDName=\"%s\",VARIANT=\"%s\",TYPE=\"%s\",TEXTURE=\"items\\%s.png\"\n",
                         it_names_list->ID,it_names_list->DataValue,it_names_list->Item.c_str(),it_names_list->Description.c_str(),it_names_list->IDName.c_str(),
                         best_variant.c_str(), best_type.c_str(),best_texture.c_str());
         }

@@ -711,7 +711,7 @@
 	"StreamSelector.hpp"
 	"MediaInfo.hpp"
 
-1611578856 source:d:\pacman\pacman_cuberite\src\blockstates.cpp
+1612569767 source:d:\pacman\pacman_cuberite\src\blockstates.cpp
 	<stdio.h>
 	<conio.h>
 	<windows.h>
@@ -1186,7 +1186,7 @@
 
 1582634718 d:\pacman\pacman_cuberite\src\cuberite\src\resources\resource_cuberite.h
 
-1582634722 source:d:\pacman\pacman_cuberite\src\exit_program.cpp
+1612522890 source:d:\pacman\pacman_cuberite\src\exit_program.cpp
 	<winsock2.h>
 	<io.h>
 	"WinMain.h"
@@ -2730,7 +2730,7 @@
 
 1582634640 source:d:\pacman\pacman_cuberite\src\mceditor\blockentity.cpp
 
-1612227298 source:d:\pacman\pacman_cuberite\src\mceditor\globals.cpp
+1612527161 source:d:\pacman\pacman_cuberite\src\mceditor\globals.cpp
 	"globals.h"
 	"zlib.h"
 
@@ -2766,7 +2766,7 @@
 	<string>
 	"globals.h"
 
-1611707771 source:d:\pacman\pacman_cuberite\src\mceditor\mceditor.cpp
+1612450929 source:d:\pacman\pacman_cuberite\src\mceditor\mceditor.cpp
 	"MCEditor.h"
 	<vector>
 	<algorithm>
@@ -2791,7 +2791,8 @@
 	"globals.h"
 	"MCEditor.h"
 
-1612232458 source:d:\pacman\pacman_cuberite\src\mceditor\test.cpp
+1612574304 source:d:\pacman\pacman_cuberite\src\mceditor\test.cpp
+	<conio.h>
 	<windows.h>
 	<cstdio>
 	"globals.h"
@@ -2806,6 +2807,7 @@
 	<math.h>
 	<dirent.h>
 	<iostream>
+	<map>
 	<glm/glm.hpp>
 	<../VOXEL.HPP>
 	<SFML/Graphics.hpp>
@@ -3801,7 +3803,7 @@
 	<fstream>
 	<math.h>
 
-1609452320 source:d:\pacman\pacman_cuberite\src\play.cpp
+1612492987 source:d:\pacman\pacman_cuberite\src\play.cpp
 	<winsock2.h>
 	<io.h>
 	"WinMain.h"
@@ -3824,6 +3826,7 @@
 	<dirent.h>
 	<locale.h>
 	<unistd.h>
+	<SFML/System.hpp>
 
 1609001887 source:d:\pacman\pacman_cuberite\src\plotting.cpp
 	<winsock2.h>
@@ -4403,7 +4406,7 @@
 
 1611116281 d:\pacman\pacman_cuberite\src\viewer\viewer_my_draw.h
 
-1612237134 d:\pacman\pacman_cuberite\src\viewer\viewer_my_loadobj.h
+1612620165 d:\pacman\pacman_cuberite\src\viewer\viewer_my_loadobj.h
 	<conio.h>
 	<../MCA-NBT-EDIT.HPP>
 	<winsock2.h>
@@ -4500,7 +4503,7 @@
 	<glm/glm.hpp>
 	<glm/common.hpp>
 
-1611882268 source:d:\pacman\pacman_cuberite\src\winapi.cpp
+1612522890 source:d:\pacman\pacman_cuberite\src\winapi.cpp
 	<winsock2.h>
 	<io.h>
 	<stdio.h>
@@ -4538,7 +4541,7 @@
 	<iostream>
 	<glm/glm.hpp>
 
-1611998947 source:d:\pacman\pacman_cuberite\src\winmain.cpp
+1612522890 source:d:\pacman\pacman_cuberite\src\winmain.cpp
 	<conio.h>
 	<winsock2.h>
 	<io.h>
@@ -4585,7 +4588,7 @@
 	<../VOXEL.HPP>
 	<../VOXEL.HPP>
 
-1612237134 source:d:\pacman\pacman_cuberite\src\wuppie.cpp
+1612490180 source:d:\pacman\pacman_cuberite\src\wuppie.cpp
 	<SFML/Graphics.hpp>
 	<SFML/Graphics/Rect.hpp>
 	<glm/glm.hpp>

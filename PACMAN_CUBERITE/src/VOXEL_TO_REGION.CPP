@@ -544,6 +544,7 @@ void voxels_to_object(char* picture_file_in) {
 
         sprintf(filename,"%s/%s/%s.obj",region_filename.c_str(),"objects",picture_file);
     } else {
+        region_filename="..";
         mkdir("../objects");
         sprintf(filename,"%s/%s.obj","../objects",picture_file);
     }
@@ -1497,7 +1498,7 @@ void regions_to_voxelfiles2() {
                     }
                 }
 
-                if (0) {
+                if (1) {
                     printf(" Converting.");
                     for (int x = 0; x < 512; x++) {
                         BlockInfo** AZ=AX[x];
@@ -1640,7 +1641,7 @@ void regions_to_voxelfiles2() {
 
 //leuk
 
-                if (0) {
+                if (1) {
                     scan_image.create(512,512,sf::Color(255,0,255,0));
 
                     int blocks_shown=0;
@@ -1722,7 +1723,7 @@ void regions_to_voxelfiles2() {
                 }
 
 
-                if (0 && next_stage) {
+                if (1 && next_stage) {
                     max_x=-std::numeric_limits<int>::max();
                     min_x=std::numeric_limits<int>::max();
 

@@ -254,6 +254,8 @@ extern sf::Sprite *sprite_buffer;
     kill_threads();
 //    terminate_animator();
 //    SFMLView1.close();
+    GenerateConsoleCtrlEvent(CTRL_C_EVENT, 0);
+
     frexit(0);
 extern int winmain_running;
     winmain_running=0;

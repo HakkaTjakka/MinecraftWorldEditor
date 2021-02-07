@@ -259,18 +259,18 @@ void MCEditor::initBlocks(const MCRegion &R)
     BlockInfo*** AX=R.A;
 
     printf("Computing: ");
-    for (int i = 0; i < x_len; i++) {
+    for (int i = 0; i < 512; i++) {
         BlockInfo** AZ=AX[i];
         ui** AZ_blockdata=blockdata[i];
         ui** AZ_blocks=blocks[i];
         ui** AZ_blocklight=blocklight[i];
-        for (int j = 0; j < z_len; j++) {
+        for (int j = 0; j < 512; j++) {
             toggle2();
             BlockInfo* AY=AZ[j];
             ui* AY_blockdata=AZ_blockdata[j];
             ui* AY_blocks=AZ_blocks[j];
             ui* AY_blocklight=AZ_blocklight[j];
-            for (int k = 0; k < y_len; k++) {
+            for (int k = 0; k < 256; k++) {
                 BlockInfo bi = AY[k];
                 ui id = bi.id | (bi.add << 8);
                 AY_blocks[k] = id;
@@ -286,11 +286,11 @@ void MCEditor::initBlocks(const MCRegion &R)
 void MCEditor::computeBlockLight(const MCRegion &R)
 {
 //    fprintf(stderr, "Computing Block Light...\n");
-    for (int x = 0; x < x_len;  x++) {
+    for (int x = 0; x < 512;  x++) {
         ui** AZ_blocklight=blocklight[x];
         ui** AZ_blocks=blocks[x];
         toggle2();
-        for (int z = 0; z < z_len; z++) {
+        for (int z = 0; z < 512; z++) {
             ui* AY_blocklight=AZ_blocklight[z];
             ui* AY_blocks=AZ_blocks[z];
             for (int y = 0; y < 256; y++) {
@@ -330,20 +330,20 @@ void MCEditor::computeBlockLight(const MCRegion &R)
 
 void MCEditor::computeSkyLight()
 {
-    for (int x = 00; x < x_len + 00; x++) {
+    for (int x = 0; x < 512; x++) {
         ui** AZ_skylight=skylight[x];
         toggle2();
-        for (int z = 00; z < z_len + 00; z++) {
+        for (int z = 0; z < 512; z++) {
             ui* AY_skylight=AZ_skylight[z];
             memset(AZ_skylight[z], 0, 256 * sizeof(ui));
         }
     }
 
-    for (int x = 00; x < x_len + 00; x++) {
+    for (int x = 0; x < 512; x++) {
         ui** AZ_skylight=skylight[x];
         ui** AZ_blocks=blocks[x];
         toggle2();
-        for (int z = 00; z < z_len + 00; z++) {
+        for (int z = 0; z < 512; z++) {
             ui* AY_skylight=AZ_skylight[z];
             ui* AY_blocks=AZ_blocks[z];
             for (int y = 255; y >= 0; y--) {
@@ -365,8 +365,8 @@ void MCEditor::updateMCA_FAST(const MCRegion &R)
 
     BlockInfo*** AX=R.A;
 
-    for (int x = 0; x < x_len ; x+=16) {
-        for (int z = 0; z < z_len ; z+=16) {
+    for (int x = 0; x < 512 ; x+=16) {
+        for (int z = 0; z < 512 ; z+=16) {
             toggle2();
             for (int y = 0; y < 256; y+=16) {
                 for (int x_inner = 0; x_inner < 16 ; x_inner++) {
@@ -390,9 +390,9 @@ void MCEditor::updateMCA_FAST(const MCRegion &R)
 
                             ui id = AY_blocks[y_tot] & (ui)0xFF;
 //                            if (id!=(ui)0) {
-                                ui add = (AY_blocks[y_tot] >> 8) & 0xF;
-                                ui data = AY_blockdata[y_tot];
-                                AY[y_tot] = BlockInfo(id, add, data, AY_blocklight[y_tot], AY_skylight[y_tot]);
+                            ui add = (AY_blocks[y_tot] >> 8) & 0xF;
+                            ui data = AY_blockdata[y_tot];
+                            AY[y_tot] = BlockInfo(id, add, data, AY_blocklight[y_tot], AY_skylight[y_tot]);
 //                            }
                         }
                     }
@@ -457,8 +457,8 @@ extern int remove_block_entities;
 
     int x0 = x_ori , z0 = z_ori ;
 
-    for (int x = 0; x < x_len ; x+=16) {
-        for (int z = 0; z < z_len ; z+=16) {
+    for (int x = 0; x < 512 ; x+=16) {
+        for (int z = 0; z < 512 ; z+=16) {
             toggle2();
             for (int y = 0; y < 256; y+=16) {
                 for (int x_inner = 0; x_inner < 16 ; x_inner++) {
@@ -474,8 +474,8 @@ extern int remove_block_entities;
                         ui* AY_blockdata=AZ_blockdata[z+z_inner];
 
                         for (int y_inner = 0; y_inner < 16 ; y_inner++) {
-                            Pos position = Pos(x + x0 + x_inner, z + z0 + z_inner, y + y_inner);
                             int y_tot=y+y_inner;
+                            Pos position = Pos(x + x_inner, z + z_inner, y_tot);
 
                             ui id = AY_blocks[y_tot] & (ui)0xFF;
 //                            ui id = blocks[x+x_inner][z+z_inner][y+y_inner] & (ui)0xFF;
@@ -582,10 +582,8 @@ void MCEditor::lightPropagate(ui*** light)
 
     for (int x = 0; x < x_len; x++) {
         ui** AZ_light=light[x];
-//        ui** AZ_blocks=blocks[x];
         for (int z = 0; z < z_len; z++) {
             ui* AY_light=AZ_light[z];
-//            ui* AY_blocks=AZ_blocks[z];
             toggle2();
             for (int y = 255; y >= 0; y--) {
                 if (AY_light[y]) {
@@ -596,14 +594,18 @@ void MCEditor::lightPropagate(ui*** light)
                         Q.pop();
                         for (int d = 0; d < 6; d++) {
                             int vx = u.x + DX[d],   vz = u.z + DZ[d],     vy = u.y + DY[d];
-                            if (vx<0 || vx>=x_len || vz<0 || vz>=z_len || vy<0 || vy>=256) continue;
+                            if (vx<0 || vx>=512 || vz<0 || vz>=512 || vy<0 || vy>=256) continue;
 //                            if (!in_region(vx, vz, vy, 0, 0, 0, x_len , z_len , 256))  continue;
 
                             int dec = get_opacity(blocks[vx][vz][vy]);
                             int vlight = (int)light[u.x][u.z][u.y] - dec;
                             if (vlight <= 0) continue;
-                            if (light[vx][vz][vy] < vlight) {
-                                light[vx][vz][vy] = vlight;
+                            ui* L=&light[vx][vz][vy];
+
+                            if (*L < vlight) {
+                                *L = vlight;
+//                            if (light[vx][vz][vy] < vlight) {
+//                                light[vx][vz][vy] = vlight;
                                 Q.push(Pos(vx, vz, vy));
                             }
                         }

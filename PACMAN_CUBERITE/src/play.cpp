@@ -24,6 +24,7 @@
 #include <dirent.h>
 #include <locale.h>
 #include <unistd.h>
+#include <SFML/System.hpp>
 extern int mazemovex_voxel;
 extern int mazemovey_voxel;
 
@@ -172,7 +173,14 @@ bool play(int& play_num, float bmin[3], float bmax[3]) {
     position1x=smooth_x_start+offset_x;
     position1y=smooth_y_start+offset_y;
 
-    get_position3();
+extern int update_request;
+
+    update_request=4;
+    while (update_request) {
+        sf::sleep(sf::seconds(0.005));
+    }
+    sf::sleep(sf::seconds(0.1));
+//    get_position3();
 
     mazemovex_voxel=smooth_x+mazemovex-(bmax[1]-bmin[1])/2.0;
     mazemovey_voxel=smooth_y+mazemovey-(bmax[2]-bmin[2])/2.0;

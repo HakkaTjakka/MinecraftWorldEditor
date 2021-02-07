@@ -10432,10 +10432,19 @@ extern int scan_min_z;
 
 //        MUTEX_MCEDITOR.lock();
 
-        if (update_request==4) {
-            update_request=4;
-
+        if (update_request==5) {
+            update_request=0;
         }
+        if (update_request==4) {
+            get_position3();
+            jump_ready=1;
+            forced_jump=1;
+            ReadBitmaps2();
+            follow_ghost_pos();
+
+            update_request=5;
+        }
+
         if (update_request==2 || update_request==3) {
             float fspeedx_old=fspeedx;
             float fspeedy_old=fspeedy;
@@ -10446,6 +10455,7 @@ extern int scan_min_z;
             int old_positiony=(picturey*1080-posy);
 
             static int not_next=1;
+            pen_mode==2;
             if (not_next) {
                 update_MC(scan_image,scan_x,scan_z);
             } else if (update_request==3) not_next=0; else not_next=1;
@@ -13924,7 +13934,7 @@ void update_MC(sf::Image& image_local2, int xx, int yy) {
             sf::Color pixel = image_local.getPixel(x,y);
             if (pixel.a!=0) pixel_count++;
         }
-    if (!hold_voxels) {
+    if (!hold_voxels || rot_plot) {
         sf::Image back;
         char fname[200];
         if ((plot_only && !flushing_mode) || rot_plot) {
@@ -14077,6 +14087,8 @@ extern bool rot_plot;
     smooth_y=picturey*1080-posy;
     smooth_x=0;
     smooth_y=0;
+
+    ReadBitmaps2();
 
     texture_from_ffmpeg.setSmooth(FALSE);
     perform_quit=1;

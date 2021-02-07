@@ -33,7 +33,7 @@ extern int block_count;
 extern glm::ivec3* blocks;
 extern bool wuppie_all;
 void to_plot_cubes(Voxel& total_pos);
-
+extern int rot_plot_num;
 
 struct image_loader {
     std::string filename;
@@ -1194,6 +1194,8 @@ void magic(double v[3][3], double tc[3][2], struct image_loader* image_buffer, i
 */
 
 extern std::vector<Voxel> voxels;
+std::vector<Voxel> one_object_voxels;
+
 extern int check_tot_hits;
 extern int check_tot_blocks;
 extern toggle2();
@@ -1326,6 +1328,7 @@ bool face_it_sub(const double v[3][3], const Vec3 &p , double& distance) {
     return false;
 }
 
+/*
 void face_it(const double v[3][3], const Vec3 &p, sf::Color& pixel, std::vector<Voxel>& mini_voxel) {
     double distance;
 
@@ -1336,90 +1339,165 @@ void face_it(const double v[3][3], const Vec3 &p, sf::Color& pixel, std::vector<
 //                if ( abs(x) + abs(y) + abs(z) == 0 ) continue;
 //                if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
 //                if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
+                if ( abs(x) + abs(y) + abs(z) > 1 ) continue;
                 bool ret= face_it_sub(v, { (int)p[0]+x , (int)p[1]+y , (int)p[2]+z } , distance);
                 if ( ret ) {
                     if (distance>0) {
                         if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
-                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,1));
+                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , 0,0,0,0,1,1));
                     } else if (distance<0) {
-                        if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
+                        if ( abs(x) + abs(y) + abs(z) > 1 ) continue;
 //                        if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
-                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,-1));
+                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , 0,0,0,0,1,-1));
+                        mini_voxel.push_back(Voxel((int)p[0]+x-1 , (int)p[1]+y , (int)p[2]+z , 0,0,0,0,1,-1));
+                        mini_voxel.push_back(Voxel((int)p[0]+x+1 , (int)p[1]+y , (int)p[2]+z , 0,0,0,0,1,-1));
+                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y-1 , (int)p[2]+z , 0,0,0,0,1,-1));
+                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y+1 , (int)p[2]+z , 0,0,0,0,1,-1));
+                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z-1 , 0,0,0,0,1,-1));
+                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z+1 , 0,0,0,0,1,-1));
                     }
                 } else {
                     if (distance<0) {
-                        if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
+                        if ( abs(x) + abs(y) + abs(z) > 1 ) continue;
 //                        if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
-                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,-1));
+                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , 0,0,0,0,1,-1));
+                        mini_voxel.push_back(Voxel((int)p[0]+x-1 , (int)p[1]+y , (int)p[2]+z , 0,0,0,0,1,-1));
+                        mini_voxel.push_back(Voxel((int)p[0]+x+1 , (int)p[1]+y , (int)p[2]+z , 0,0,0,0,1,-1));
+                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y-1 , (int)p[2]+z , 0,0,0,0,1,-1));
+                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y+1 , (int)p[2]+z , 0,0,0,0,1,-1));
+                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z-1 , 0,0,0,0,1,-1));
+                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z+1 , 0,0,0,0,1,-1));
                     }
                 }
             }
         }
     }
 
-/*
-    for (int z=-1; z<=1; z++) {
-        for (int y=-1; y<=1; y++) {
-//            if ( abs(y) + abs(z) == 2 ) continue;
-            for (int x=-1; x<=1; x++) {
-//                if ( abs(x) + abs(y) + abs(z) == 0 ) continue;
-                if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
-//                if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
-                if ( face_it_sub(v, { (int)p[0]+x , (int)p[1]+y , (int)p[2]+z } , distance) ) {
-                    if (distance>0) {
-                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,1));
-                    } else if (distance<0) {
-                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,-1));
-                    }
-                }
-            }
-        }
-    }
-*/
-
-/*
-    for (int z=-1; z<=1; z++) {
-        for (int y=-1; y<=1; y++) {
-//            if ( abs(y) + abs(z) == 2 ) continue;
-            for (int x=-1; x<=1; x++) {
-                if ( abs(x) + abs(y) + abs(z) == 0 ) continue;
+//
+//    for (int z=-1; z<=1; z++) {
+//        for (int y=-1; y<=1; y++) {
+////            if ( abs(y) + abs(z) == 2 ) continue;
+//            for (int x=-1; x<=1; x++) {
+////                if ( abs(x) + abs(y) + abs(z) == 0 ) continue;
 //                if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
-//                if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
-                bool ret=face_it_sub(v, { (int)p[0]+x , (int)p[1]+y , (int)p[2]+z } , distance);
-                if ( ret && distance>0 ) {
-                    if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
-                    mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,1));
-                } else  if (distance<0) {
-                    if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
-                    mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,-1));
-                }
-            }
-        }
-    }
+////                if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
+//                if ( face_it_sub(v, { (int)p[0]+x , (int)p[1]+y , (int)p[2]+z } , distance) ) {
+//                    if (distance>0) {
+//                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,1));
+//                    } else if (distance<0) {
+//                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,-1));
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
 
-
-    for (int z=-2; z<=2; z++) {
-        for (int y=-2; y<=2; y++) {
-//            if ( abs(y) + abs(z) == 2 ) continue;
-            for (int x=-2; x<=2; x++) {
-                int ret=face_it_sub(v, { (int)p[0]+x , (int)p[1]+y , (int)p[2]+z } , distance);
-                if (ret) {
-//                    if ( abs(x) + abs(y) + abs(z) == 0 ) continue;
+//
+//    for (int z=-1; z<=1; z++) {
+//        for (int y=-1; y<=1; y++) {
+////            if ( abs(y) + abs(z) == 2 ) continue;
+//            for (int x=-1; x<=1; x++) {
+//                if ( abs(x) + abs(y) + abs(z) == 0 ) continue;
+////                if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
+////                if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
+//                bool ret=face_it_sub(v, { (int)p[0]+x , (int)p[1]+y , (int)p[2]+z } , distance);
+//                if ( ret && distance>0 ) {
+//                    if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
+//                    mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,1));
+//                } else  if (distance<0) {
 //                    if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
-                    if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
-                    if (distance>0) {
-                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,1));
-                    }
-                } else {
-                    if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
-                    if (distance<0) {
-                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,-1));
+//                    mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,-1));
+//                }
+//            }
+//        }
+//    }
+
+
+//    for (int z=-2; z<=2; z++) {
+//        for (int y=-2; y<=2; y++) {
+////            if ( abs(y) + abs(z) == 2 ) continue;
+//            for (int x=-2; x<=2; x++) {
+//                int ret=face_it_sub(v, { (int)p[0]+x , (int)p[1]+y , (int)p[2]+z } , distance);
+//                if (ret) {
+////                    if ( abs(x) + abs(y) + abs(z) == 0 ) continue;
+////                    if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
+//                    if ( abs(x) + abs(y) + abs(z) != 1 ) continue;
+//                    if (distance>0) {
+//                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,1));
+//                    }
+//                } else {
+//                    if ( abs(x) + abs(y) + abs(z) > 2 ) continue;
+//                    if (distance<0) {
+//                        mini_voxel.push_back(Voxel((int)p[0]+x , (int)p[1]+y , (int)p[2]+z , pixel.r,pixel.g,pixel.b,1,1,-1));
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+
+*/
+
+void face_it2(const double v[3][3], const iVec3& p, const int bmin_cube[3], std::vector<Voxel>& mini_voxel, std::map<int_fast64_t, Voxel>& mini_voxel_map, const int& y_times, const int& y_times_z) {
+    double distance;
+    int_fast64_t offset = (p[0]-bmin_cube[0]) + (p[1]-bmin_cube[1])*y_times + (p[2]-bmin_cube[2])*y_times_z;
+    std::map<int_fast64_t, Voxel>::iterator it_mini_voxel_map;
+    if ( mini_voxel_map.find(offset) != mini_voxel_map.end() ) return;
+
+    for (int z=-1; z<=1; z++) {
+
+        for (int y=-1; y<=1; y++) {
+
+            if ( abs(y) + abs(z) > 1 ) continue;
+
+            for (int x=-1; x<=1; x++) {
+
+                if ( abs(x) + abs(y) + abs(z) > 1 ) continue;
+
+                int_fast64_t offset2 = offset + x + y*y_times + z*y_times_z;
+
+                if ( mini_voxel_map.find(offset2) != mini_voxel_map.end() ) continue;
+
+                bool ret= face_it_sub(v, { p[0]+x , p[1]+y , p[2]+z } , distance);
+
+                if ( ret && distance>0) {
+
+                    if ( x==0 && y==0 && z==0 ) continue;
+//                    mini_voxel.push_back(Voxel(p[0]+x , p[1]+y , p[2]+z , 0,0,0,0,1,1));
+                    mini_voxel_map.insert(std::make_pair(offset2,Voxel(p[0]+x , p[1]+y , p[2]+z , 0,0,0,0,1,1+rot_plot_num)));
+
+                } else if (distance<0) {
+
+                    for (int zz=-1; zz<=1; zz++) {
+
+                        for (int yy=-1; yy<=1; yy++) {
+
+                            if ( abs(yy) + abs(zz) > 1 ) continue;
+
+                            for (int xx=-1; xx<=1; xx++) {
+
+                                if ( abs(xx) + abs(yy) + abs(zz) > 1 ) continue;
+                                if ( abs(x+xx) + abs(y+yy) + abs(z+zz) > 1 ) continue;
+
+                                int_fast64_t offset3 = offset2 + xx + yy*y_times + zz*y_times_z;
+
+                                if ( (it_mini_voxel_map=mini_voxel_map.find(offset3)) != mini_voxel_map.end() ) {
+
+                                    it_mini_voxel_map->second.face=-1 -rot_plot_num;
+
+                                } else {
+
+                                    mini_voxel_map.insert(std::make_pair(offset3,Voxel(p[0]+x+xx , p[1]+y+yy , p[2]+z+zz , 0,0,0,0,1,-1-rot_plot_num)));
+
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
     }
-*/
 }
 
 int rasterize(double v[3][3], double tc_org[3][2], int w_a, int h_a, int buf_count, int faces, sf::Image* image, double factor_a, sf::Image& image_copy,
@@ -1434,19 +1512,81 @@ int rasterize(double v[3][3], double tc_org[3][2], int w_a, int h_a, int buf_cou
         tc[n][1]=tc_org[n][1]*(double)h_a; bmin_pixel_o[1]=std::min(     tc[n][1], bmin_pixel_o[1]);   bmax_pixel_o[1]=std::max(  tc[n][1], bmax_pixel_o[1]);
     }
 
-    Voxel one;
-    std::vector<Voxel> mini_voxel;
     double area = edgeFunction(tc[2], tc[1], tc[0]);
 
-    double filler;
-    filler=pixels_per_block_glob/4.0;
     if (area!=0) {
-        for (double plot_y = bmin_pixel_o[1]-1; plot_y <= bmax_pixel_o[1]+1; plot_y+=filler) {
+
+        if (bmin_pixel_o[0]>0) bmin_pixel_o[0]--;
+        if (bmax_pixel_o[0]<w_a-1) bmax_pixel_o[0]++;
+        if (bmin_pixel_o[1]>0) bmin_pixel_o[1]--;
+        if (bmax_pixel_o[1]<h_a-1) bmax_pixel_o[1]++;
+
+        int bmin_cube[3]; bmin_cube[0] = bmin_cube[1] = bmin_cube[2] = std::numeric_limits<int>::max();
+        int bmax_cube[3]; bmax_cube[0] = bmax_cube[1] = bmax_cube[2] = -std::numeric_limits<int>::max();
+        int bsize_cube[3];
+
+        for (int t=0; t<4; t++) {
+            Vec2 p;
+            switch(t){
+                case 0 : {
+                    p[0]=bmin_pixel_o[0];
+                    p[1]=bmin_pixel_o[1];
+                    break;
+                }
+                case 1 : {
+                    p[0]=bmin_pixel_o[0];
+                    p[1]=bmax_pixel_o[1];
+                    break;
+                }
+                case 2 : {
+                    p[0]=bmax_pixel_o[0];
+                    p[1]=bmin_pixel_o[1];
+                    break;
+                }
+                case 3 : {
+                    p[0]=bmax_pixel_o[0];
+                    p[1]=bmax_pixel_o[1];
+                    break;
+                }
+            }
+            double w1 = edgeFunction(tc[0], tc[2], p);
+            double w2 = edgeFunction(tc[1], tc[0], p);
+            double w0 = edgeFunction(tc[2], tc[1], p);
+
+            w0 /= area; w1 /= area; w2 /= area;
+            double v_x = (w0 * (double)v[0][0]) + (w1 * (double)v[1][0]) + (w2 * (double)v[2][0]);
+            double v_y = (w0 * (double)v[0][1]) + (w1 * (double)v[1][1]) + (w2 * (double)v[2][1]);
+            double v_z = (w0 * (double)v[0][2]) + (w1 * (double)v[1][2]) + (w2 * (double)v[2][2]);
+
+            Vec3 cube={v_x+0.5,v_y+0.5,v_z+0.5};
+            for (int n=0; n<3; n++) {
+                bmin_cube[n]=std::min( (int)cube[n], bmin_cube[n]);
+                bmax_cube[n]=std::max( (int)cube[n], bmax_cube[n]);
+            }
+        }
+        for (int n=0; n<3; n++) {
+            bmin_cube[n]-=2;
+            bmax_cube[n]+=2;
+            bsize_cube[n] = bmax_cube[n] - bmin_cube[n]+1;
+        }
+        int y_times_z = bsize_cube[1] * bsize_cube[2];
+        int y_times = bsize_cube[1];
+
+        Voxel one;
+        std::vector<Voxel> mini_voxel;
+        std::map<int_fast64_t, Voxel> mini_voxel_map;
+
+        double filler;
+        filler=pixels_per_block_glob/4.0;
+
+//        for (double plot_y = bmin_pixel_o[1]-1; plot_y <= bmax_pixel_o[1]+1; plot_y+=filler) {
+        for (double plot_y = bmin_pixel_o[1]; plot_y <= bmax_pixel_o[1]; plot_y+=filler) {
 //        for (double plot_y = bmin_pixel_o[1]; plot_y <= bmax_pixel_o[1]; plot_y+=filler) {
             toggle2();
-            for (double plot_x = bmin_pixel_o[0]-1; plot_x <= bmax_pixel_o[0]+1; plot_x+=filler) {
+//            for (double plot_x = bmin_pixel_o[0]-1; plot_x <= bmax_pixel_o[0]+1; plot_x+=filler) {
+            for (double plot_x = bmin_pixel_o[0]; plot_x <= bmax_pixel_o[0]; plot_x+=filler) {
 //            for (double plot_x = bmin_pixel_o[0]; plot_x <= bmax_pixel_o[0]; plot_x+=filler) {
-                if ((int)plot_x<0 || (int)plot_x>=w_a || (int)plot_y<0 || (int)plot_y>=h_a) continue;
+//                if ((int)plot_x<0 || (int)plot_x>=w_a || (int)plot_y<0 || (int)plot_y>=h_a) continue;
 
                 Vec2 p = {(double)plot_x, (double)plot_y};
                 double w1 = edgeFunction(tc[0], tc[2], p);
@@ -1459,13 +1599,14 @@ int rasterize(double v[3][3], double tc_org[3][2], int w_a, int h_a, int buf_cou
                     double v_y = (w0 * (double)v[0][1]) + (w1 * (double)v[1][1]) + (w2 * (double)v[2][1]);
                     double v_z = (w0 * (double)v[0][2]) + (w1 * (double)v[1][2]) + (w2 * (double)v[2][2]);
 
-                    Vec3 cube={v_x+0.5,v_y+0.5,v_z+0.5};
+                    iVec3 cube={(int)(v_x+0.5),(int)(v_y+0.5),(int)(v_z+0.5)};
 
                     sf::Color pixel=image->getPixel((int)plot_x,(int)plot_y);
 
-                    face_it(v, cube, pixel, mini_voxel);
+//                    face_it(v, cube, pixel, mini_voxel);
+                    face_it2(v, cube, bmin_cube, mini_voxel, mini_voxel_map, y_times, y_times_z);
 
-                    mini_voxel.push_back(Voxel((int)cube[0],(int)cube[1],(int)cube[2],pixel.r,pixel.g,pixel.b,1,1,0));
+                    mini_voxel.push_back(Voxel(cube[0],cube[1],cube[2],pixel.r,pixel.g,pixel.b,1,1,0));
 
                     check_tot_hits++;
 
@@ -1474,130 +1615,141 @@ int rasterize(double v[3][3], double tc_org[3][2], int w_a, int h_a, int buf_cou
                 }
             }
         }
-    }
-
-
-    if (mini_voxel.size()>0) {
-        sort(mini_voxel.begin(), mini_voxel.end());
-/*
-        count=0;
-        printf("\n");
-        for (auto u : mini_voxel) {
-            printf("srt: mini_voxel[%3d]=Voxel(%6d,%6d,%6d,%4d,%4d,%4d,%4d,%3d)\n",count++,u.x,u.y,u.z,u.r,u.g,u.b,u.l,u.face);
+        for (auto u : mini_voxel_map) {
+//jojo
+//            if (u.second.face==1) mini_voxel.push_back(u.second);
+            mini_voxel.push_back(u.second);
         }
-*/
-        size_t total_hits=0;
-        size_t total_voxels=0;
 
-        Voxel last=mini_voxel[0];
-        Voxel total_pos=Voxel(last.x,last.y,last.z,0,0,0,0,last.status,0);
+        if (mini_voxel.size()>0) {
+            sort(mini_voxel.begin(), mini_voxel.end());
+    /*
+            count=0;
+            printf("\n");
+            for (auto u : mini_voxel) {
+                printf("srt: mini_voxel[%3d]=Voxel(%6d,%6d,%6d,%4d,%4d,%4d,%4d,%3d)\n",count++,u.x,u.y,u.z,u.r,u.g,u.b,u.l,u.face);
+            }
+    */
+            size_t total_hits=0;
+            size_t total_voxels=0;
 
+            Voxel last=mini_voxel[0];
+            Voxel total_pos=Voxel(last.x,last.y,last.z,0,0,0,0,last.status,0);
 
-        bool hit=(last.face==0);
-        bool silence=false;
+            bool hit=(last.face==0);
+            bool silence=false;
 
-        size_t vend=mini_voxel.size()-1;
-        for (size_t n=0; n<=vend; n++) {
+            size_t vend=mini_voxel.size()-1;
+            for (size_t n=0; n<=vend; n++) {
 
-            Voxel now=mini_voxel[n];
-            if (last.x==now.x && last.y==now.y && last.z==now.z) {
-                if (!hit && now.face==0) {
-                    hit=true;
-                    total_pos.r=0;
-                    total_pos.g=0;
-                    total_pos.b=0;
-                    total_pos.l=0;
-                    total_pos.face=0;
-                }
-                if (now.face==0 || !hit) {
+                Voxel now=mini_voxel[n];
+                if (last.x==now.x && last.y==now.y && last.z==now.z) {
                     total_pos.r+=now.r;
                     total_pos.g+=now.g;
                     total_pos.b+=now.b;
                     total_pos.l+=now.l;
-                }
-//                if (!hit) {
-//                    total_pos.face+=now.face;
-//                }
-                if (!hit) {
-                    if (total_pos.face>0 && now.face<0) {
-                        total_pos.r=now.r;
-                        total_pos.g=now.g;
-                        total_pos.b=now.b;
-                        total_pos.l=now.l;
-                        total_pos.face=now.face;
-                    } else if ( (total_pos.face>=0 && now.face>0) || (total_pos.face<=0 && now.face<0) ) {
-                        total_pos.face+=now.face;
+                    total_pos.face+=now.face;
+
+                    if (n==vend) {
+                        total_hits+=total_pos.l;
+                        total_voxels++;
+                        total_pos.x+=voxel_bottom;
+                        total_pos.y+=mazemovex_voxel;
+                        total_pos.z+=mazemovey_voxel;
+                        if (total_pos.l!=0) total_pos.face=0;
+//                        voxels.push_back(total_pos);
+                        one_object_voxels.push_back(total_pos);
+                        if (plot_cubes) to_plot_cubes(total_pos);
                     }
-                }
-
-
-
-//                if (!hit && total_pos.face==0) continue;
-
-//                if (n==mini_voxel.size()-1) {
-                if (n==vend) {
+                } else {
                     total_hits+=total_pos.l;
-                    total_voxels+=1;
+                    total_voxels++;
                     total_pos.x+=voxel_bottom;
                     total_pos.y+=mazemovex_voxel;
                     total_pos.z+=mazemovey_voxel;
 
-                    voxels.push_back(total_pos);
+                    if (total_pos.l!=0) total_pos.face=0;
+//                    voxels.push_back(total_pos);
+                    one_object_voxels.push_back(total_pos);
                     if (plot_cubes) to_plot_cubes(total_pos);
-                }
-            } else {
-                total_hits+=total_pos.l;
-                total_voxels+=1;
-                total_pos.x+=voxel_bottom;
-                total_pos.y+=mazemovex_voxel;
-                total_pos.z+=mazemovey_voxel;
-//                total_pos.face=now.face;
+                    last=now;
+                    total_pos=last;
 
-                voxels.push_back(total_pos);
-                if (plot_cubes) to_plot_cubes(total_pos);
-                last=now;
-                total_pos=last;
-                hit=(last.face==0);
-//              hit=false;
-                silence=false;
+                    if (n==vend) {
+                        total_hits+=total_pos.l;
+                        total_voxels++;
+                        total_pos.x+=voxel_bottom;
+                        total_pos.y+=mazemovex_voxel;
+                        total_pos.z+=mazemovey_voxel;
 
-                if (n==vend) {
-                    total_hits+=total_pos.l;
-                    total_voxels+=1;
-                    total_pos.x+=voxel_bottom;
-                    total_pos.y+=mazemovex_voxel;
-                    total_pos.z+=mazemovey_voxel;
-//                    total_pos.face=now.face;
-
-                    voxels.push_back(total_pos);
-                    if (plot_cubes) to_plot_cubes(total_pos);
+                        if (total_pos.l!=0) total_pos.face=0;
+                        one_object_voxels.push_back(total_pos);
+//                        voxels.push_back(total_pos);
+                        if (plot_cubes) to_plot_cubes(total_pos);
+                    }
                 }
             }
         }
-//        if (total_voxels>0) printf("HITS/VOXEL=%f",(double)total_hits/(double)total_voxels);
-
-/*
-        count=0;
-        printf("\n");
-        adder=Voxel();
-        for (auto u : mini_voxel_new) {
-            printf("new: mini_voxel[%3d]=Voxel(%6d,%6d,%6d,%4d,%4d,%4d,%4d)\n",count++,u.x,u.y,u.z,u.r,u.g,u.b,u.l);
-            adder.x+=u.x;
-            adder.y+=u.y;
-            adder.z+=u.z;
-            adder.r+=u.r;
-            adder.g+=u.g;
-            adder.b+=u.b;
-            adder.l+=u.l;
-        }
-        printf("-----------------------------------------------------------------\n");
-        printf("tot: mini_voxel[%3d]=                     Voxel(%4d,%4d,%4d,%4d)\n",count,adder.r,adder.g,adder.b,adder.l);
-        printf("\n");
-*/
     }
     return 0;
 }
 extern int replace_str(char *str, char *orig, char *rep);
+
+void init_collect_object() {
+    one_object_voxels.clear();
+}
+
+void collect_object() {
+    size_t added=0;
+    size_t added_hits=0;
+
+    if (one_object_voxels.size()>0) {
+        sort(one_object_voxels.begin(), one_object_voxels.end());
+        Voxel last=one_object_voxels[0];
+        Voxel total_pos=Voxel(last.x,last.y,last.z,0,0,0,0,0,0);
+
+        size_t vend=one_object_voxels.size()-1;
+        for (size_t n=0; n<=vend; n++) {
+            Voxel now=one_object_voxels[n];
+            if (last.x==now.x && last.y==now.y && last.z==now.z) {
+                total_pos.r+=now.r;
+                total_pos.g+=now.g;
+                total_pos.b+=now.b;
+                total_pos.l+=now.l;
+                if (now.face!=0) {
+                    if (total_pos.face>0 && now.face<0) total_pos.face=now.face;
+                    else if ( (total_pos.face>=0 && now.face>0) || (total_pos.face<=0 && now.face<0)  ){
+                        total_pos.face=now.face;
+                    }
+                }
+
+                if (n==vend) {
+                    total_pos.status=0; //new
+                    if (total_pos.l!=0) total_pos.face=0;
+                    voxels.push_back(total_pos);
+                    added_hits+=total_pos.l;
+                    added++;
+                }
+            } else {
+                total_pos.status=0; //new
+                if (total_pos.l!=0) total_pos.face=0;
+                voxels.push_back(total_pos);
+                added_hits+=total_pos.l;
+                added++;
+                last=now;
+                total_pos=last;
+                if (n==vend) {
+                    total_pos.status=0; //new
+                    if (total_pos.l!=0) total_pos.face=0;
+                    voxels.push_back(total_pos);
+                    added_hits+=total_pos.l;
+                    added++;
+                }
+            }
+        }
+    }
+    printf("\nAdded Voxels:  %9d  Hits: %8d\n", added, added_hits);
+}
 
 void magic(double v[3][3], double tc[3][2], struct image_loader* image_buffer, int buf_count, int faces, sf::Image& image_copy, int offset_x, int offset_y, int offset_z, int box_x, int box_y, int box_z, unsigned short **mc_sub, double block_scale) {
 
@@ -1667,7 +1819,11 @@ bool load_voxels() {
                     if (!(check_tot_lines%100000)) printf("%dK %dK (%6d,%4d,%6d),(%3d,%3d,%3d),(%3d),(%3d)        \r",
                                                     check_tot_lines/1000, check_tot_voxels/1000, yyy, xxx, zzz, r, g, b, l, face);
 //                    one=Voxel(xxx,yyy,zzz,r,g,b,1,(unsigned char)1); // hold
-                    one=Voxel(xxx,yyy,zzz,r,g,b,1,(unsigned char)0, face); // new
+                    if (l!=0)
+                        one=Voxel(xxx,yyy,zzz,r,g,b,1,(unsigned char)0, face); // new
+                    else
+//                        if (face>0)
+                            one=Voxel(xxx,yyy,zzz,r,g,b,0,(unsigned char)0, face); // new
 
 //                    fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d)\n",
 //                            u.y, u.x, u.z,  u.r/u.l,u.g/u.l, u.b/u.l,  u.l );
@@ -1740,7 +1896,12 @@ bool make_region_from_voxel(int x, int z) {
                     check_tot_voxels++;
                     if (!(check_tot_lines%100000)) printf("%dK %dK (%6d,%4d,%6d),(%3d,%3d,%3d),(%3d),(%3d)        \r",
                                                     check_tot_lines/1000, check_tot_voxels/1000, yyy, xxx, zzz, r, g, b, l, face);
-                    one=Voxel(xxx,yyy,zzz,r,g,b,1,(unsigned char)0,(unsigned char) face ); // new
+                    if (l!=0)
+                        one=Voxel(xxx,yyy,zzz,r,g,b,1,(unsigned char)0, face); // new
+                    else
+//                        if (face>0)
+                            one=Voxel(xxx,yyy,zzz,r,g,b,0,(unsigned char)0, face); // new
+
                     voxels_temp.push_back(one);
                 }
                 else {
@@ -1767,19 +1928,26 @@ bool make_region_from_voxel(int x, int z) {
         sort(voxels_temp.begin(), voxels_temp.end());
 //            printf("Ok. TOTAL/AVERAGE/COMPRESS: ");
         Voxel last=voxels_temp[0];
-        Voxel total_pos=Voxel(last.x,last.y,last.z,0,0,0,0,last.status,last.face);
+        Voxel total_pos=Voxel(last.x,last.y,last.z,0,0,0,0,last.status,0);
         for (size_t n=0; n<voxels_temp.size(); n++) {
+            Voxel now=voxels_temp[n];
             if (last.x==voxels_temp[n].x && last.y==voxels_temp[n].y && last.z==voxels_temp[n].z) {
-                total_pos.r+=voxels_temp[n].r;
-                total_pos.g+=voxels_temp[n].g;
-                total_pos.b+=voxels_temp[n].b;
-                total_pos.l+=voxels_temp[n].l;
+                total_pos.r+=now.r;
+                total_pos.g+=now.g;
+                total_pos.b+=now.b;
+                total_pos.l+=now.l;
+                if (now.face!=0) {
+                    if (total_pos.face>0 && now.face<0) total_pos.face=now.face;
+                    else if ( (total_pos.face>=0 && now.face>0) || (total_pos.face<=0 && now.face<0)  ){
+                        total_pos.face+=now.face;
+                    }
+                }
                 if (n==voxels_temp.size()-1) {
                     voxels_total.push_back(total_pos);
                 }
             } else {
                 voxels_total.push_back(total_pos);
-                last=voxels_temp[n];
+                last=now;
                 total_pos=last;
                 if (n==voxels_temp.size()-1) {
                     voxels_total.push_back(total_pos);

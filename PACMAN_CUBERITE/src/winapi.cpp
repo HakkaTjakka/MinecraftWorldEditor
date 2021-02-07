@@ -734,6 +734,7 @@ extern int keep_running[];
             }
         }
     }
+
     go_on=0;
 //    if (server_running) {
 //        printf("Shutting down server\n");
