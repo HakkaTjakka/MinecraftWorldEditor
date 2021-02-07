@@ -1,3 +1,5 @@
+LATEST: Added https://github.com/HakkaTjakka/MinecraftWorldEditor/blob/master/VOXELIZER.TXT for some info on the 3d voxelizer hope it helps
+
 New: region file world top view plotter.
 Put world in /saves/tovoxels (or region files in /saves/tovoxels/region)
 from the pacman_cuberite open dos box with qsetpath_seh_64_v7 - kopie.bat (sets a path to pacman_cuberite/bin)
