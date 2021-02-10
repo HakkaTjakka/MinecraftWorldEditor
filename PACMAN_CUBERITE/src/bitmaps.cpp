@@ -1547,7 +1547,7 @@ void ReadBitmaps2()
 
 void ReadBitmaps4()
 {
-    static char naam[200];
+    static char naam[300];
     static int x,y;
 
     for (x=0; x<=1; x++)

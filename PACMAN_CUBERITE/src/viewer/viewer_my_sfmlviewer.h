@@ -2423,7 +2423,7 @@ extern double schematic_size;
                     window.draw(between_sprite);
 
                     window.display();
-                    window.clear(sf::Color(0,0,0,0));
+//                    window.clear(sf::Color(0,0,0,0));
 
                     window.popGLStates();
                     between_texture.popGLStates();

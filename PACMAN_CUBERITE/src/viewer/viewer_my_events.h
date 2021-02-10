@@ -158,10 +158,22 @@ extern void make_test_schematic();
                                 {
                                     case sf::Keyboard::I:
                                         plot_background=!plot_background;
+
+
                                         if (plot_background) {
+                                            if (!backgroundTexture[win_num]->loadFromFile("resources/background.png")) {
+                                                printf("error loading resources/background.png\n");
+                                            } else {
+                                                if (backgroundSprite[win_num]==NULL) delete backgroundSprite[win_num];
+                                                backgroundSprite[win_num] = new sf::Sprite();
+                                                backgroundSprite[win_num]->setTexture(*backgroundTexture[win_num],true);
+                                                backgroundSprite[win_num]->setPosition(0,0);
+                                                backgroundTexture[win_num]->setSrgb(sRgb);
+                                                backgroundTexture[win_num]->setSmooth(false);
+                                            }
                                             window.clear(sf::Color::Transparent);
                                             window.display();
-                                            get_screenshot(backgroundTexture[win_num]);
+//                                            get_screenshot(backgroundTexture[win_num]);
                                         }
 
                                         backgroundTexture[win_num]->setSmooth(false);

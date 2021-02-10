@@ -158,22 +158,32 @@ void voxels_to_object(char* picture_file_in) {
         sort(voxels_total.begin(), voxels_total.end());
         if (!in_background) printf("ready.\n");
         Voxel last=voxels_total[0];
-        Voxel total_pos=Voxel(last.x,last.y,last.z,0,0,0,0,0);
+        Voxel total_pos=Voxel(last.x,last.y,last.z,0,0,0,0,0,0);
         size_t n;
-        for (n=0; n<voxels_total.size(); n++) {
+        size_t tot=voxels_total.size()-1;
+        for (n=0; n<=tot; n++) {
+            Voxel one=voxels_total[n];
+            if (one.x>bmax_x) bmax_x=one.x;
+            if (one.x<bmin_x) bmin_x=one.x;
+            if (one.y>bmax_y) bmax_y=one.y;
+            if (one.y<bmin_y) bmin_y=one.y;
+            if (one.z>bmax_z) bmax_z=one.z;
+            if (one.z<bmin_z) bmin_z=one.z;
+
             if (!(n%1000)) {
-                float perc=100.0*(float)n/(float)voxels.size();
+                float perc=100.0*(float)n/(float)(tot+1);
                 if (!in_background) {
                     printf("\r%5.3f%% ",perc);
                     quick_toggle();
                 }
             }
-            if (last.x==voxels_total[n].x && last.y==voxels_total[n].y && last.z==voxels_total[n].z) {
-                total_pos.r+=voxels_total[n].r*voxels_total[n].l;
-                total_pos.g+=voxels_total[n].g*voxels_total[n].l;
-                total_pos.b+=voxels_total[n].b*voxels_total[n].l;
-                total_pos.l+=voxels_total[n].l;
-                if (n==voxels_total.size()-1) {
+            if (last.x==one.x && last.y==one.y && last.z==one.z) {
+                total_pos.r+=one.r*one.l;
+                total_pos.g+=one.g*one.l;
+                total_pos.b+=one.b*one.l;
+                total_pos.l+=one.l;
+                total_pos.face+=one.face;
+                if (n==tot) {
                     total_pos.status=0; //new
                     if (total_pos.l>1) {
                         total_pos.r/=total_pos.l;
@@ -196,9 +206,9 @@ void voxels_to_object(char* picture_file_in) {
 //kloten
                 total_pos.l=ret_color(total_pos.r,total_pos.g,total_pos.b);
                 voxels.push_back(total_pos);
-                last=voxels_total[n];
+                last=one;
                 total_pos=last;
-                if (n==voxels_total.size()-1) {
+                if (n==tot) {
                     total_pos.status=0; //new
                     if (total_pos.l>1) {
                         total_pos.r/=total_pos.l;
@@ -212,7 +222,7 @@ void voxels_to_object(char* picture_file_in) {
                 }
             }
         }
-        float perc=100.0*(float)n/(float)voxels.size();
+        float perc=100.0*(float)n/(float)(tot+1);
         if (!in_background) printf("\r%5.3f%% ",perc);
     }
     voxels_total.clear(); // is msg when in background to fill voxels_total again....
@@ -220,6 +230,7 @@ void voxels_to_object(char* picture_file_in) {
 
 //    sort(voxels.begin(), voxels.end());
 
+/*
     for (auto u : voxels) {
         one=u;
         if (u.x>bmax_x) bmax_x=u.x;
@@ -229,6 +240,7 @@ void voxels_to_object(char* picture_file_in) {
         if (u.z>bmax_z) bmax_z=u.z;
         if (u.z<bmin_z) bmin_z=u.z;
     }
+*/
     int bdif_x,bdif_y,bdif_z;
     bdif_x=bmax_x-bmin_x+1;
     bdif_y=bmax_y-bmin_y+1;
@@ -248,10 +260,16 @@ void voxels_to_object(char* picture_file_in) {
 //        offset_x=offset_x*512;
 //        offset_z=offset_z*512;
     } else {
-        offset_x=bmin_x;
-        offset_y=bmin_y;
+        offset_x=bmin_y;
+        offset_y=bmin_x;
         offset_z=bmin_z;
     }
+    bmin_x-=2;
+    bmin_y-=2;
+    bmin_z-=2;
+    bdif_x+=4;
+    bdif_y+=4;
+    bdif_z+=4;
     if (file_exists("../cut/offsets.txt")) {
         FILE* HOP;
         char line[200];
@@ -270,9 +288,9 @@ void voxels_to_object(char* picture_file_in) {
     }
 
 
-    bdif_x=bdif_x+1; // extra for +/- 1
-    bdif_y=bdif_y+1;
-    bdif_z=bdif_z+1;
+//    bdif_x=bdif_x+1; // extra for +/- 1
+//    bdif_y=bdif_y+1;
+//    bdif_z=bdif_z+1;
 
     int x_z=bdif_x*bdif_z;
 
@@ -286,8 +304,8 @@ void voxels_to_object(char* picture_file_in) {
     std::map<unsigned long long int, int>::iterator it;
     int index_second=0;
     for (auto u : voxels) {
-        one=u;
-        unsigned long long int index_first=(one.x-bmin_x) + (one.z-bmin_z)*bdif_x + (one.y-bmin_y)*x_z;
+//        one=u;
+        unsigned long long int index_first=(u.x-bmin_x) + (u.z-bmin_z)*bdif_x + (u.y-bmin_y)*x_z;
         voxels_indexed.insert(std::make_pair(index_first,index_second));
         if (!(index_second%1000)) {
             float perc=100.0*(float)index_second/(float)voxels.size();
@@ -311,6 +329,7 @@ void voxels_to_object(char* picture_file_in) {
         one=voxels[u.second];
         unsigned long long int index_first=(one.x-bmin_x) + (one.z-bmin_z)*bdif_x + (one.y-bmin_y)*x_z;
         if (index_first!=u.first) if (!in_background) printf("\nERROR: ");
+//        if (index_second!=u.second) if (!in_background) printf("\nERROR: ");
 //        if (index_second!=u.second || index_first!=u.first) if (!in_background) printf("\nERROR: ");
 //        if (!in_background) printf("indexed[%3d]=%3llu -> ", index_second, u.first);
 //        if (!in_background) printf("voxels[%3d]=%3llu -> (%d,%d,%d),(%d,%d,%d),(%d)        \n",
@@ -322,8 +341,8 @@ void voxels_to_object(char* picture_file_in) {
     index_second=0;
     if (!in_background) printf("Finding (common/shared/reduced) vertices/cube corners:\n");
 
-    std::map<unsigned long long int, glm::ivec2> voxels_corners;
-    std::map<unsigned long long int, glm::ivec2>::iterator it_corners;
+    std::map<unsigned long long int, glm::ivec3> voxels_corners;
+    std::map<unsigned long long int, glm::ivec3>::iterator it_corners;
 //    std::map<unsigned long long int, int> voxels_corners;
 //    std::map<unsigned long long int, int>::iterator it_corners;
     int t_x=0,t_y=0,t_z=0;
@@ -334,114 +353,116 @@ void voxels_to_object(char* picture_file_in) {
     for (int n=0; n<27; n++) z0[n]=0;
     int i=1;
     for (auto u : voxels) {
-        one=u;
-        int one_x=(one.x-bmin_x);
-        int one_y=(one.y-bmin_y);
-        int one_z=(one.z-bmin_z);
+//        one=u;
+        if (u.face) continue;
+        int one_x=(u.x-bmin_x);
+        int one_y=(u.y-bmin_y);
+        int one_z=(u.z-bmin_z);
         unsigned long long int index_first=(one_x) + (one_z)*bdif_x + (one_y)*x_z;
         it = voxels_indexed.find(index_first);
         if ( it == voxels_indexed.end() ) {
             if (!in_background) printf("Error\n");
-            if (!in_background) printf("voxels[%6d]=%15llu -> (%d,%d,%d),(%d,%d,%d),(%d)\n",
-                    index_second, index_first, one.y, one.x, one.z, one.r, one.g, one.b, one.l );
+            if (!in_background) printf("voxels[%6d]=%15llu -> (%d,%d,%d),(%d,%d,%d),(%d),(%d)\n",
+                    index_second, index_first, one.y, one.x, one.z, one.r, one.g, one.b, one.l, one.face);
         } else {
             int x=0,y=0,z=0;
             int xy=0,xz=0,yz=0;
             int xyz=0,tot=0;
+            //BELOW - BOTTOM
             if (voxels_indexed.find(index_first-1)!=voxels_indexed.end()) {
                 x++;
             } else {
-                it_corners = voxels_corners.find(index_first);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first);              // X=0 Y=0 Z=0
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
 
-                it_corners = voxels_corners.find(index_first+bdif_x);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+bdif_x,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+bdif_x);       // X=1 Y=0 Z=0
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+bdif_x,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
 
-                it_corners = voxels_corners.find(index_first+bdif_x+x_z);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+bdif_x+x_z,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+bdif_x+x_z);   // X=1 Y=0 Z=1
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+bdif_x+x_z,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
 
-                it_corners = voxels_corners.find(index_first+x_z);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+x_z,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+x_z);          // X=0 Y=0 Z=1
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+x_z,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
             }
-
+            // ABOVE - TOP
             if (voxels_indexed.find(index_first+1)!=voxels_indexed.end()) {
                 x++;
             } else {
-                it_corners = voxels_corners.find(index_first+1);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+1);            // X=0 Y=1 Z=0
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
 
-                it_corners = voxels_corners.find(index_first+1+x_z);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1+x_z,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+1+x_z);        // X=0 Y=1 Z=1
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1+x_z,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
 
-                it_corners = voxels_corners.find(index_first+1+bdif_x+x_z);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1+bdif_x+x_z,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+1+bdif_x+x_z); // X=1 Y=1 Z=1
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1+bdif_x+x_z,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
 
-                it_corners = voxels_corners.find(index_first+1+bdif_x);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1+bdif_x,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+1+bdif_x);     // X=1 Y=1 Z=0
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1+bdif_x,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
             }
-
+            // LEFT
             if (voxels_indexed.find(index_first-bdif_x)!=voxels_indexed.end()) {
                 z++;
             } else {
-                it_corners = voxels_corners.find(index_first);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first);              // X=0 Y=0 Z=0
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
 
-                it_corners = voxels_corners.find(index_first+x_z);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+x_z,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+x_z);          // X=0 Y=0 Z=1
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+x_z,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
 
-                it_corners = voxels_corners.find(index_first+1+x_z);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1+x_z,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+1+x_z);        // X=0 Y=1 Z=1
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1+x_z,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
 
-                it_corners = voxels_corners.find(index_first+1);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+1);            // X=0 Y=1 Z=0
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
             }
-
+            // RIGHT
             if (voxels_indexed.find(index_first+bdif_x)!=voxels_indexed.end()) {
                 z++;
             } else {
-                it_corners = voxels_corners.find(index_first+bdif_x);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+bdif_x,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+bdif_x);       // X=1 Y=0 Z=0
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+bdif_x,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
 
-                it_corners = voxels_corners.find(index_first+1+bdif_x);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1+bdif_x,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+1+bdif_x);     // X=1 Y=1 Z=0
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1+bdif_x,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
 
-                it_corners = voxels_corners.find(index_first+1+bdif_x+x_z);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1+bdif_x+x_z,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+1+bdif_x+x_z); // X=1 Y=1 Z=1
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1+bdif_x+x_z,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
 
-                it_corners = voxels_corners.find(index_first+bdif_x+x_z);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+bdif_x+x_z,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+bdif_x+x_z);   // X=1 Y=0 Z=1
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+bdif_x+x_z,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
             }
-
+            // BACK
             if (voxels_indexed.find(index_first-x_z)!=voxels_indexed.end()) {
                 y++;
             } else {
-                it_corners = voxels_corners.find(index_first);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first);              // X=0 Y=0 Z=0
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
 
-                it_corners = voxels_corners.find(index_first+1);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+1);            // X=0 Y=1 Z=0
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
 
-                it_corners = voxels_corners.find(index_first+1+bdif_x);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1+bdif_x,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+1+bdif_x);     // X=1 Y=1 Z=0
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1+bdif_x,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
 
-                it_corners = voxels_corners.find(index_first+bdif_x);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+bdif_x,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+bdif_x);       // X=1 Y=0 Z=0
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+bdif_x,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
             }
-
+            // FRONT
             if (voxels_indexed.find(index_first+x_z)!=voxels_indexed.end()) {
                 y++;
             } else {
-                it_corners = voxels_corners.find(index_first+x_z);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+x_z,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+x_z);          // X=0 Y=0 Z=1
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+x_z,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
 
-                it_corners = voxels_corners.find(index_first+bdif_x+x_z);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+bdif_x+x_z,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+bdif_x+x_z);   // X=1 Y=0 Z=1
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+bdif_x+x_z,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
 
-                it_corners = voxels_corners.find(index_first+1+bdif_x+x_z);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1+bdif_x+x_z,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+1+bdif_x+x_z); // X=1 Y=1 Z=1
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1+bdif_x+x_z,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
 
-                it_corners = voxels_corners.find(index_first+1+x_z);
-                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1+x_z,glm::ivec2(1,i++))); else it_corners->second.x++;
+                it_corners = voxels_corners.find(index_first+1+x_z);        // X=0 Y=1 Z=1
+                if ( it_corners == voxels_corners.end() ) voxels_corners.insert(std::make_pair(index_first+1+x_z,glm::ivec3(1,i++,index_second))); else it_corners->second.x++;
             }
 
 /*
@@ -584,22 +605,48 @@ void voxels_to_object(char* picture_file_in) {
         for (it_corners = voxels_corners.begin(); it_corners != voxels_corners.end(); it_corners++) {
 //        for (auto u : voxels_corners) {
 //            unsigned long long int index_first=u.first;  // (one.x-bmin_x) + (one.z-bmin_z)*bdif_x + (one.y-bmin_y)*x_z;
+/*
+            one=voxels[it_corners->second.z];
+
+
+            int x=one.x;
+            int y=one.y;
+            int z=one.z;
+*/
 
             unsigned long long int index_first=it_corners->first;  // (one.x-bmin_x) + (one.z-bmin_z)*bdif_x + (one.y-bmin_y)*x_z;
 
-            int y=(int)(index_first/(unsigned long long int)x_z);
-            index_first=index_first-(unsigned long long int)y*(unsigned long long int)x_z;
+//            int y=index_first/x_z;
+//            index_first=index_first-y*x_z;
+//
+//            int z=index_first/bdif_x;
+//            index_first=index_first-z*bdif_x;
+//
+//            int x=(int)index_first;
 
-            int z=(int)(index_first/(unsigned long long int)bdif_x);
-            index_first=index_first-(unsigned long long int)z*(unsigned long long int)bdif_x;
+            int y=index_first/x_z;
+            index_first=index_first-y*x_z;
+
+            int z=index_first/bdif_x;
+            index_first=index_first-z*bdif_x;
 
             int x=(int)index_first;
+
+            unsigned long long int index_check=x + z*bdif_x + y*x_z;
+            if ( index_check != it_corners->first) {
+                printf("ERROR: XYZ(%d,%d,%d)  bmin(%d,%d,%d)  index_first=%llu != %llu\n",x,y,z,bmin_x,bmin_y,bmin_z,index_first,index_check);
+            }
+
+            x=x+bmin_x;
             y=y+bmin_y;
             z=z+bmin_z;
-            x=x+bmin_x;
 
 //            sprintf(line,"v %.1f %.1f %.1f #index=%d\n",(float)y,(float)x,(float)z,u.second.y);
+//            sprintf(line,"v %.1f %.1f %.1f\n",(float)(y-offset_x),(float)(x-offset_y),(float)(z-offset_z));
             sprintf(line,"v %.1f %.1f %.1f\n",(float)(y-offset_x),(float)(x-offset_y),(float)(z-offset_z));
+//            sprintf(line,"v %f %f %f\n",(float)(y-offset_x),(float)(x-offset_y),(float)(z-offset_z));
+//            sprintf(line,"v %f %f %f\n",(float)(y-offset_x),(float)(x-offset_y),(float)(z-offset_z));
+//            sprintf(line,"v %.1f %.1f %.1f\n",(float)(x-offset_y),(float)(y-offset_x),(float)(z-offset_z));
             while (replace_str(line,",","."));    fprintf(out,line);    //1 if (!in_background) printf(line);
 //            zv[u.second.x]++;
             zv[it_corners->second.x]++;
@@ -665,22 +712,23 @@ void voxels_to_object(char* picture_file_in) {
 
     int color_index_previous=-1;
     for (auto u : voxels) {
-        one=u;
-        if (one.l!=color_index_previous) {
-            fprintf(out, "o concrete_%02d\n",one.l);
-            fprintf(out, "usemtl concrete_%02d\n",one.l);
-            color_index_previous=one.l;
+//        one=u;
+        if (u.face) continue;
+        if (u.l!=color_index_previous) {
+            fprintf(out, "o concrete_%02d\n",u.l);
+            fprintf(out, "usemtl concrete_%02d\n",u.l);
+            color_index_previous=u.l;
         }
-        int one_x=(one.x-bmin_x);
-        int one_y=(one.y-bmin_y);
-        int one_z=(one.z-bmin_z);
+        int one_x=(u.x-bmin_x);
+        int one_y=(u.y-bmin_y);
+        int one_z=(u.z-bmin_z);
         unsigned long long int index_first=(one_x) + (one_z)*bdif_x + (one_y)*x_z;
         it = voxels_indexed.find(index_first);
         size_t vertice_index;
         if ( it == voxels_indexed.end() ) {
             if (!in_background) printf("Error\n");
-            if (!in_background) printf("voxels[%6d]=%15llu -> (%d,%d,%d),(%d,%d,%d),(%d)\n",
-                    index_second, index_first, one.y, one.x, one.z, one.r, one.g, one.b, one.l );
+            if (!in_background) printf("voxels[%6d]=%15llu -> (%d,%d,%d),(%d,%d,%d),(%d),(%d)\n",
+                    index_second, index_first, one.y, one.x, one.z, one.r, one.g, one.b, one.l, u.face );
         } else {
 
 //            int color=ret_color(u.r,u.g,u.b);
@@ -689,10 +737,10 @@ void voxels_to_object(char* picture_file_in) {
 
 //            it=voxels_indexed.find(index_first-1); if (it!=voxels_indexed.end()) {
 
-//          BOTTOM
+//          BOTTOM  Y=0
             if (voxels_indexed.find(index_first-1)!=voxels_indexed.end()) {
             } else {
-                it_corners = voxels_corners.find(index_first+x_z);
+                it_corners = voxels_corners.find(index_first+x_z);          // X=0 Y=0 Z=1
                 if ( it_corners == voxels_corners.end() ) { if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -703,7 +751,7 @@ void voxels_to_object(char* picture_file_in) {
                     }
                 }
 
-                it_corners = voxels_corners.find(index_first+bdif_x+x_z);
+                it_corners = voxels_corners.find(index_first+bdif_x+x_z);     // X=1 Y=0 Z=1
                 if ( it_corners == voxels_corners.end() ) { if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -714,7 +762,7 @@ void voxels_to_object(char* picture_file_in) {
                     }
                 }
 
-                it_corners = voxels_corners.find(index_first+bdif_x);
+                it_corners = voxels_corners.find(index_first+bdif_x);       // X=1 Y=0 Z=0
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -725,7 +773,7 @@ void voxels_to_object(char* picture_file_in) {
                     }
                 }
 
-                it_corners = voxels_corners.find(index_first);
+                it_corners = voxels_corners.find(index_first);              // X=0 Y=0 Z=0
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -737,11 +785,11 @@ void voxels_to_object(char* picture_file_in) {
                 }
             }
 
-//          TOP
+//          TOP Y=1
             if (voxels_indexed.find(index_first+1)!=voxels_indexed.end()) {
             } else {
 
-                it_corners = voxels_corners.find(index_first+1+bdif_x);
+                it_corners = voxels_corners.find(index_first+1+bdif_x);     // X=1 Y=1 Z=0
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -752,7 +800,7 @@ void voxels_to_object(char* picture_file_in) {
                     }
                 }
 
-                it_corners = voxels_corners.find(index_first+1+bdif_x+x_z);
+                it_corners = voxels_corners.find(index_first+1+bdif_x+x_z); // X=1 Y=1 Z=1
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -763,7 +811,7 @@ void voxels_to_object(char* picture_file_in) {
                     }
                 }
 
-                it_corners = voxels_corners.find(index_first+1+x_z);
+                it_corners = voxels_corners.find(index_first+1+x_z);        // X=0 Y=1 Z=1
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -774,7 +822,7 @@ void voxels_to_object(char* picture_file_in) {
                     }
                 }
 
-                it_corners = voxels_corners.find(index_first+1);
+                it_corners = voxels_corners.find(index_first+1);            // X=0 Y=1 Z=0
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -786,11 +834,11 @@ void voxels_to_object(char* picture_file_in) {
                 }
             }
 
-            //back
+            //LEFT  X=0
             if (voxels_indexed.find(index_first-bdif_x)!=voxels_indexed.end()) {
             } else {
 
-                it_corners = voxels_corners.find(index_first+1);
+                it_corners = voxels_corners.find(index_first+1);            // X=0 Y=1 Z=0
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -801,7 +849,7 @@ void voxels_to_object(char* picture_file_in) {
                     }
                 }
 
-                it_corners = voxels_corners.find(index_first+1+x_z);
+                it_corners = voxels_corners.find(index_first+1+x_z);        // X=0 Y=1 Z=1
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -812,7 +860,7 @@ void voxels_to_object(char* picture_file_in) {
                     }
                 }
 
-                it_corners = voxels_corners.find(index_first+x_z);
+                it_corners = voxels_corners.find(index_first+x_z);          // X=0 Y=0 Z=1
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -823,7 +871,7 @@ void voxels_to_object(char* picture_file_in) {
                     }
                 }
 
-                it_corners = voxels_corners.find(index_first);
+                it_corners = voxels_corners.find(index_first);              // X=0 Y=0 Z=0
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -835,11 +883,11 @@ void voxels_to_object(char* picture_file_in) {
                 }
             }
 
-//          front
+//          RIGHT   X=1
             if (voxels_indexed.find(index_first+bdif_x)!=voxels_indexed.end()) {
             } else {
 
-                it_corners = voxels_corners.find(index_first+bdif_x+x_z);
+                it_corners = voxels_corners.find(index_first+bdif_x+x_z);   // X=1 Y=0 Z=1
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -850,7 +898,7 @@ void voxels_to_object(char* picture_file_in) {
                     }
                 }
 
-                it_corners = voxels_corners.find(index_first+1+bdif_x+x_z);
+                it_corners = voxels_corners.find(index_first+1+bdif_x+x_z); // X=1 Y=1 Z=1
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -861,7 +909,7 @@ void voxels_to_object(char* picture_file_in) {
                     }
                 }
 
-                it_corners = voxels_corners.find(index_first+1+bdif_x);
+                it_corners = voxels_corners.find(index_first+1+bdif_x);     // X=1 Y=1 Z=0
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -872,7 +920,7 @@ void voxels_to_object(char* picture_file_in) {
                     }
                 }
 
-                it_corners = voxels_corners.find(index_first+bdif_x);
+                it_corners = voxels_corners.find(index_first+bdif_x);       // X=1 Y=0 Z=0
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -884,11 +932,11 @@ void voxels_to_object(char* picture_file_in) {
                 }
             }
 
-//          left?
+//          BACK    Z=0
             if (voxels_indexed.find(index_first-x_z)!=voxels_indexed.end()) {
             } else {
 
-                it_corners = voxels_corners.find(index_first+bdif_x);
+                it_corners = voxels_corners.find(index_first+bdif_x);       // X=1 Y=0 Z=0
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -899,7 +947,7 @@ void voxels_to_object(char* picture_file_in) {
                     }
                 }
 
-                it_corners = voxels_corners.find(index_first+1+bdif_x);
+                it_corners = voxels_corners.find(index_first+1+bdif_x);     // X=1 Y=1 Z=0
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -910,7 +958,7 @@ void voxels_to_object(char* picture_file_in) {
                     }
                 }
 
-                it_corners = voxels_corners.find(index_first+1);
+                it_corners = voxels_corners.find(index_first+1);            // X=0 Y=1 Z=0
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -921,7 +969,7 @@ void voxels_to_object(char* picture_file_in) {
                     }
                 }
 
-                it_corners = voxels_corners.find(index_first);
+                it_corners = voxels_corners.find(index_first);              // X=0 Y=0 Z=0
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -933,11 +981,11 @@ void voxels_to_object(char* picture_file_in) {
                 }
             }
 
-//          right?
+//          FRONT   Z=1
             if (voxels_indexed.find(index_first+x_z)!=voxels_indexed.end()) {
             } else {
 
-                it_corners = voxels_corners.find(index_first+1+x_z);
+                it_corners = voxels_corners.find(index_first+1+x_z);        // X=0 Y=1 Z=1
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -948,7 +996,7 @@ void voxels_to_object(char* picture_file_in) {
                     }
                 }
 
-                it_corners = voxels_corners.find(index_first+1+bdif_x+x_z);
+                it_corners = voxels_corners.find(index_first+1+bdif_x+x_z); // X=1 Y=1 Z=1
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -959,7 +1007,7 @@ void voxels_to_object(char* picture_file_in) {
                     }
                 }
 
-                it_corners = voxels_corners.find(index_first+bdif_x+x_z);
+                it_corners = voxels_corners.find(index_first+bdif_x+x_z);   // X=1 Y=0 Z=1
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -970,7 +1018,7 @@ void voxels_to_object(char* picture_file_in) {
                     }
                 }
 
-                it_corners = voxels_corners.find(index_first+x_z);
+                it_corners = voxels_corners.find(index_first+x_z);          // X=0 Y=0 Z=1
                 if ( it_corners == voxels_corners.end() ) {  if (!in_background) printf("Error 1\n"); }
                 else {
                     vertice_index = it_corners->second.y;
@@ -1609,7 +1657,7 @@ void regions_to_voxelfiles2() {
 
 
                 if (1) {
-                    printf(" Clearing.\n",tmp);
+                    printf(" Clearing mca_coder.\n",tmp);
                     editor.mca_coder.clearModification();
                 } else {
                     sprintf(tmp, "%s/modified/done%d/r.%d.%d.mca",region_filename.c_str(), region_floor, region_x, region_z);
@@ -1669,18 +1717,49 @@ void regions_to_voxelfiles2() {
                                             (AX[x+0][z+1][y+0].id!=0) &&    //                                (AX[x+1][z+1][y+0].id!=0) &&    //                                (AX[x-1][z-1][y+1].id!=0) &&    //                                (AX[x+0][z-1][y+1].id!=0) &&    //                                (AX[x+1][z-1][y+1].id!=0) &&    //                                (AX[x-1][z+0][y+1].id!=0) &&
                                             (AX[x+0][z+0][y+1].id!=0)    //                                (AX[x+1][z+0][y+1].id!=0) &&    //                                (AX[x-1][z+1][y+1].id!=0) &&    //                                (AX[x+0][z+1][y+1].id!=0) &&    //                                (AX[x+1][z+1][y+1].id!=0)
                                          ) ) {
-                                             continue;
+                                            bool edge=false;
+                                            for (int xx=-1; xx<2 && !edge; xx+=2) {
+                                                int x_s=x+xx;
+                                                for (int zz=-1; zz<2 && !edge; zz+=2) {
+                                                    int z_s=z+zz;
+                                                    for (int yy=-1; yy<2 && !edge; yy+=2) {
+                                                        int y_s=y+yy;
+                                                        for (int xxx=-1; xxx<2 && !edge; xxx+=2) {
+                                                            int x_ss=x_s+xxx;
+                                                            if (x_ss>=0 && x_ss<512) {
+                                                                for (int zzz=-1; zzz<2 && !edge; zzz+=2) {
+                                                                    int z_ss=z_s+zzz;
+                                                                    if (z_ss>=0 && z_ss<512) {
+                                                                        for (int yyy=-1; yyy<2 && !edge; yyy+=2) {
+                                                                            int y_ss=y_s+yyy;
+                                                                            if (y_ss>=0 && y_ss<256) {
+                                                                                if (AX[x_ss][z_ss][y_ss].id==0) {
+                                                                                    edge=true;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            if (edge) {
+                                                voxels.push_back(Voxel(y+region_floor*256,xx,zz,0,0,0,1,(unsigned char)0,1));
+                                            }
+                                            continue;
                                          }
                                     }
                                     int r,g,b;
                                     ret_color_rev(AX[x][z][y].data,r,g,b);
-                                    int xxx=xx;
-                                    int zzz=zz;
-                                    int yyy=y+region_floor*256;
+//                                    int xxx=xx;
+//                                    int zzz=zz;
+//                                    int yyy=y+region_floor*256;
 
-                                    Voxel one=Voxel(yyy,xxx,zzz,r,g,b,1,(unsigned char)0); // new
-
-                                    voxels.push_back(one);
+//                                    Voxel one=Voxel(y+region_floor*256,xx,zz,r,g,b,1,(unsigned char)0,0); // new
+//                                    Voxel one=; // new
+                                    voxels.push_back(Voxel(y+region_floor*256,xx,zz,r,g,b,1,(unsigned char)0,0));
 
                                     blocks_shown++;
                                 }
@@ -1742,7 +1821,7 @@ void regions_to_voxelfiles2() {
                             for (auto u : voxels) {
                                 if (u.l>0) {
                                     fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d)\n",
-                                            u.y, u.x, u.z,  u.r/u.l,u.g/u.l, u.b/u.l,  u.l );
+                                            u.y, u.x, u.z,  u.r/u.l,u.g/u.l, u.b/u.l,  u.l , u.face);
                                     if (u.x<min_x) min_x=u.x;
                                     if (u.x>max_x) max_x=u.x;
                                     if (u.y>max_y) max_y=u.y;

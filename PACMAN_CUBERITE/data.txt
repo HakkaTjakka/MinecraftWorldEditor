@@ -6396,3 +6396,16 @@
 0 invalid movie2: 
 
 1 Program busy or hangs... Thread alive at: 06/02/2021 21:14:47
+0 error reading maze file:
+100 line:
+0 ../levels/100x200/002/maze.dat
+0 Program busy or hangs... Thread alive at: 10/02/2021 13:39:57
+0 Program busy or hangs... Thread alive at: 10/02/2021 13:40:02
+0 Program busy or hangs... Thread alive at: 10/02/2021 13:40:07
+0 Program busy or hangs... Thread alive at: 10/02/2021 13:40:12
+0 Program busy or hangs... Thread alive at: 10/02/2021 13:40:17
+0 Program busy or hangs... Thread alive at: 10/02/2021 13:40:22
+0 Program busy or hangs... Thread alive at: 10/02/2021 13:40:27
+0 Program busy or hangs... Thread alive at: 10/02/2021 13:40:32
+0 Program busy or hangs... Thread alive at: 10/02/2021 13:40:37
+0 Program busy or hangs... Thread alive at: 10/02/2021 13:40:42

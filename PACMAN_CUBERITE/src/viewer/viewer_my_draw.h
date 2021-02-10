@@ -280,7 +280,7 @@ extern bool depth_shader_on;
         glEnable(GL_BLEND);
         glBlendFunc(GL_DST_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        glColor3f(0.0f, .0f, 0.0f);
+        glColor3f(1.0f, 1.0f, 0.0f);
         for (size_t i = 0; i < drawObjects.size(); i++)
         {
             DrawObject o = drawObjects[i];

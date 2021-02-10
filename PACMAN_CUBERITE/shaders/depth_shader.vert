@@ -228,7 +228,7 @@ void main()
 //            z_=1.3-gl_Position.z/3.5;
 //            z_=2.0-gl_Position.z/6.0;
 //            z_=1.0-gl_Position.z/6.0;
-            z_=1.3-gl_Position.z/6.0;
+            z_=3.0-gl_Position.z/3.0;
 //            z_=1.0;
             break;
         }
@@ -272,8 +272,8 @@ void main()
 
             vec2 off1=vec2( sin(time_phase/3.0) , cos(time_phase/3.0) )  ;
 
-            lp1=normalize( (  vec4(1.4,   -1.8, -0.7, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
-            lp2=normalize( (  vec4(-1.4,  -1.5, 1.4, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+            lp1=normalize( (  vec4(-1.4,   -1.8, -0.7, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+            lp2=normalize( (  vec4(-1.0,  -1.5, 1.4, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
 
 /*
             float spec1 = (1.0) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.1,1.0);

@@ -463,7 +463,7 @@ extern bool pb;
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow) {
 //    do3dview();
 //int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow) {
-
+    printf("sizeof(float)=%d\n",sizeof(float));
     hInstance_pass=hInstance;
     hPrevInstance_pass=hPrevInstance;
     lpCmdLine_pass=lpCmdLine;
@@ -1027,7 +1027,7 @@ printf("hoppa");
                     send_message='q';
                 } else {
                     printf("Usage: schematic <filename.obj> [auto]\n");
-                    send_message='q';
+//                    send_message='q';
 //                    send_message='x';
                 }
             }

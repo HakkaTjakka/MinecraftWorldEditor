@@ -88,10 +88,10 @@
 			<Add directory="fly/extlibs" />
 		</Compiler>
 		<Linker>
-			<Add option="-s" />
 			<Add option="-m64" />
 			<Add option="-static-libgcc -static-libstdc++" />
 			<Add option="-fstack-protector" />
+			<Add option="-Wl,-u,vfscanf  -lm" />
 			<Add library="lib/libsfml-graphics-s.a" />
 			<Add library="lib/libsfml-window-s.a" />
 			<Add library="lib/libsfml-audio-s.a" />
@@ -281,9 +281,6 @@
 		<Unit filename="colorcodes.hpp" />
 		<Unit filename="commando.cpp" />
 		<Unit filename="convert.cpp" />
-		<Unit filename="cuberite/src/Resources/Cuberite.rc">
-			<Option compilerVar="WINDRES" />
-		</Unit>
 		<Unit filename="debug_memory.hpp" />
 		<Unit filename="everything.hpp" />
 		<Unit filename="exit_program.cpp" />
