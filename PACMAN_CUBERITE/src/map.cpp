@@ -3884,7 +3884,7 @@ void save_maze(int lastmap)
 {
     FILE* file;
     char naam[300];
-    char line[300000];
+//    char line[300000];
     int x,y;
 
     reversed_zetom();
