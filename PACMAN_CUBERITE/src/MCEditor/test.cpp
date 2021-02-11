@@ -974,7 +974,7 @@ int main_mceditor2()
                 x00=0;
                 y00=0;
                 z00=0;
-                yl=255;
+                yl=256;
                 xl=512; zl=512;
 
 
@@ -2536,7 +2536,7 @@ int main_mceditor3()
                 chunk_offsetz=region_z*32;
 
                 x00=0; y00=0; z00=0;
-                yl = 255;
+                yl = 256;
                 xl=512; zl=512;
                 load_leeg=0;
                 if (from_empty==0 && file_exists("from_empty.txt")) {
@@ -2573,10 +2573,10 @@ int main_mceditor3()
                     }
                 }
 
-                read_one_plot_WINMAIN(29995-512-region_x*512-5, 29995-512-region_z*512-5, &image_plot);
-                read_one_plot_WINMAIN(29995-512-region_x*512-5, 29995-512-region_z*512-5, &image_plot3);
-
                 if (mcglobal==1) {
+//                    read_one_plot_WINMAIN(29995-512-region_x*512-5, 29995-512-region_z*512-5, &image_plot);
+                    read_one_plot_WINMAIN(30720-512-region_x*512-5, 30720-512-region_z*512-5, &image_plot);
+                    read_one_plot_WINMAIN(30720-512-region_x*512-5, 30720-512-region_z*512-5, &image_plot3);
                     skipping=1;
                     for (int x = 0; x < 512; x++) {
                         for (int z = 0; z < 512; z++) {
@@ -2596,6 +2596,10 @@ int main_mceditor3()
                         continue;
                     }
                 } else {
+//                    read_one_plot_WINMAIN(30720-512-region_x*512-5, 30720-512-region_z*512-5, &image_plot);
+                    read_one_plot_WINMAIN(region_x*512-5, region_z*512-5, &image_plot);
+                    read_one_plot_WINMAIN(region_x*512-5, region_z*512-5, &image_plot3);
+//                    read_one_plot_WINMAIN(29995-512-region_x*512-5, 29995-512-region_z*512-5, &image_plot);
                     skipping=0;
                 }
 
@@ -2620,9 +2624,21 @@ int main_mceditor3()
                     remove_block_entities=0;
                     printf("File %s exists. ",fname.c_str());
                     first_MCEDIT=1;
+                    reset_block();
+
                     editor.mca_coder.loadMCA(fname.c_str());
+
                     first_MCEDIT=0;
                     region_x_old=0,region_z_old=0;
+
+                    printf(" Loaded. Converting ");
+
+                    editor.mca_coder.getBlock_FAST(region);
+
+                    printf(" Ready ");
+
+
+/*
                     for (int x = 0; x < xl; x++) {
                         BlockInfo** AZ=AX[x];
                         for (int z = 0; z < zl; z++) {
@@ -2637,7 +2653,9 @@ int main_mceditor3()
                             }
                         }
                     }
-                    reset_block();
+*/
+
+//                    reset_block();
                 }
 
 
@@ -2650,8 +2668,12 @@ int main_mceditor3()
 //                printf("Getting data\n");
 //                read_one_plot_WINMAIN(59*512-region_x*512,   59*512-region_z*512 + 30720, &image_plot_extra);
 //                read_one_plot_WINMAIN(30000-512-region_x*512-5, 30000-512-region_z*512-5, &image_plot_org);
-                make_mirror(&image_plot);
-                make_mirror(&image_plot3);
+                if (mcglobal==1) {
+//                    printf(" Mirror block ");
+                    make_mirror(&image_plot);
+                    make_mirror(&image_plot3);
+//                    printf(" Ready ");
+                }
 //                make_mirror(&image_plot_org);
 
                 for (int x = 1; x < 511+10; x++) {
@@ -2664,7 +2686,10 @@ int main_mceditor3()
                         }
                     }
                 }
+                printf(" 1 ");
 
+//                printf("\nimage_plot  x=%d y=%d\n",image_plot.getSize().x,image_plot.getSize().y);
+//                printf("\nimage_plot3 x=%d y=%d\n",image_plot3.getSize().x,image_plot3.getSize().y);
                 for (int x = 0; x < 512+10; x++) {
                     for (int z = 0; z < 512+10; z++) {
                         float pixel;
@@ -2687,6 +2712,7 @@ int main_mceditor3()
                         }
                     }
                 }
+                printf(" 2 ");
 
                 for (int x = 1; x < 511+10; x++) {
                     for (int z = 1; z < 511+10; z++) {

@@ -166,7 +166,7 @@ int handle_init() {
 	check=			(int*)		calloc(MAXGHOSTS,sizeof(int));		if (check==NULL) 			{msgboxID=MessageBox(NULL, "ERROR ALLECATING MEMORY", "ERROR",MB_OK); {cleanupmem();exit(1);} }
 
 
-    line=		(char*)		calloc(1000000,sizeof(char));	if (line==NULL)	            	{msgboxID=MessageBox(NULL, "ERROR ALLECATING MEMORY", "ERROR",MB_OK); {cleanupmem();exit(1);} }
+    line=		(char*)		calloc(100000,sizeof(char));	if (line==NULL)	            	{msgboxID=MessageBox(NULL, "ERROR ALLECATING MEMORY", "ERROR",MB_OK); {cleanupmem();exit(1);} }
 
     int i;
 

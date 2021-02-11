@@ -352,9 +352,11 @@ void voxels_to_object(char* picture_file_in) {
     int z0[27];
     for (int n=0; n<27; n++) z0[n]=0;
     int i=1;
+
     for (auto u : voxels) {
 //        one=u;
         if (u.face) continue;
+
         int one_x=(u.x-bmin_x);
         int one_y=(u.y-bmin_y);
         int one_z=(u.z-bmin_z);
@@ -715,8 +717,8 @@ void voxels_to_object(char* picture_file_in) {
 //        one=u;
         if (u.face) continue;
         if (u.l!=color_index_previous) {
-            fprintf(out, "o concrete_%02d\n",u.l);
             fprintf(out, "usemtl concrete_%02d\n",u.l);
+            fprintf(out, "o concrete_%02d\n",u.l);
             color_index_previous=u.l;
         }
         int one_x=(u.x-bmin_x);

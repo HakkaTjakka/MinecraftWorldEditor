@@ -557,7 +557,7 @@
 		<Unit filename="viewer/rotje.cpp" />
 		<Unit filename="viewer/stb_image.h" />
 		<Unit filename="viewer/stb_image2.h" />
-		<Unit filename="viewer/tiny_obj_loader2.h" />
+		<Unit filename="viewer/tiny_obj_loader.h" />
 		<Unit filename="viewer/trackball.cc" />
 		<Unit filename="viewer/trackball.h" />
 		<Unit filename="viewer/viewer_my.cc" />

@@ -1,2 +1,3 @@
 
-Pacman Graphics(c)
+ Pacman
+Graphics(c)

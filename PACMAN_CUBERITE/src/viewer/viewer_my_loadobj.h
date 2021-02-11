@@ -4,7 +4,7 @@
 #include <../VOXEL.HPP>
 #include <iostream>
 //#include "ieee754_types.hpp"
-extern void toggle2();
+//extern void toggle2();
 
 int region_center_z;
 int region_center_x;
@@ -392,7 +392,21 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
         NBT_LOADED=true;
         printf("(nbt)");
     } else {
-        ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, filename, base_dir.c_str());
+
+
+//bool LoadObj(attrib_t *attrib, std::vector<shape_t> *shapes,
+//             std::vector<material_t> *materials, std::string *warn,
+//             std::string *err, const char *filename,
+//             const char *mtl_basedir = NULL, bool triangulate = true,
+//             bool default_vcols_fallback = true);
+
+        ret = tinyobj::LoadObj( &attrib, &shapes,
+                                &materials, &warn,
+                                &err, filename,
+                                base_dir.c_str(), true,
+                                true );
+
+//        ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, filename, base_dir.c_str());
     }
 
 

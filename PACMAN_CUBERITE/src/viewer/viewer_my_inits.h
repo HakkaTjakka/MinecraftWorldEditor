@@ -74,6 +74,7 @@
 //#include <glm/gtc/type_ptr.hpp>"
 //#include <cmath>
 #include <algorithm>
+extern void toggle2();
 
 
 using namespace fly;
@@ -241,7 +242,7 @@ bool interpolate_on=false;
 #include <GLFW/glfw3.h>
 
 #define TINYOBJLOADER_IMPLEMENTATION
-#include "tiny_obj_loader2.h"
+#include "tiny_obj_loader.h"
 
 #include "trackball.h"
 #include "stb_image2.h"

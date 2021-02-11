@@ -161,7 +161,7 @@ static void Draw(const std::vector<DrawObject>& drawObjects,
 
     glPolygonOffset(1.0, 1.0);
     glEnable(GL_MULTISAMPLE);
-    glEnable(GL_CULL_FACE);
+//    glEnable(GL_CULL_FACE);
     glPolygonMode(GL_FRONT, GL_FILL);
     glPolygonMode(GL_BACK, GL_FILL);
     glEnable(GL_POLYGON_OFFSET_FILL);

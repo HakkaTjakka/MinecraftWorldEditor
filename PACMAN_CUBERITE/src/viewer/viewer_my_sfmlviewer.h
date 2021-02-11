@@ -317,15 +317,15 @@ void terminate_SFMLGL2_b()
 }
 
 
-std::vector<std::string> octants_enschede;
-std::vector<std::string> octants_amsterdam;
+//std::vector<std::string> octants_enschede;
+//std::vector<std::string> octants_amsterdam;
 
 
 extern int combine;
 #include <dirent.h>
 #include <sys/stat.h>
 
-extern void toggle2();
+//extern void toggle2();
 
 bool test_for_pngfiles(string directory) {
     if (strstr(directory.c_str(), "/nbt/") != NULL)
@@ -1114,7 +1114,7 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                 mirror=4;crossing=2;
             }
 
-            printf("pac_obj.gDrawObjects.size()=%d\n",pac_obj.gDrawObjects.size());
+            printf("\npac_obj.gDrawObjects.size()=%d\n",pac_obj.gDrawObjects.size());
             printf("pac_obj.materials.size()=%d\n",pac_obj.materials.size());
             printf("pac_obj.textures.size()=%d\n",pac_obj.textures.size());
 
