@@ -22,7 +22,7 @@
 */
 #include "NBT_DEFS.HPP"
 
-
+extern void toggle2();
 /*
 void free2(void* ptr)
 {
@@ -95,7 +95,9 @@ static double nbt__get_double(nbt__read_stream_t* stream)
 
 static nbt_tag_t* nbt__parse(nbt__read_stream_t* stream, int parse_name, nbt_tag_type_t override_type)
 {
-    toggle();
+    static int tgl=0;
+    if (tgl++>100) { toggle2(); tgl=0; }
+//    toggle();
 
     nbt_tag_t* tag = (nbt_tag_t*)NBT_MALLOC(sizeof(nbt_tag_t));
 #ifdef DEBUG_MEMORY
@@ -325,7 +327,11 @@ printf("10");
 extern int set_quiet;
 nbt_tag_t* nbt_parse(nbt_reader_t reader, int parse_flags)
 {
-    if (!set_quiet) toggle();
+    if (!set_quiet) {
+        static int tgl=0;
+        if (tgl++>100) { toggle2(); tgl=0; }
+//            toggle();
+    }
 //printf("nbt_parse\n");
     int compressed;
     int gzip_format;
@@ -476,7 +482,11 @@ printf("14");
         do
         {
             bytes_read = reader.read(reader.userdata, in_buffer, NBT_BUFFER_SIZE);
-            if (!set_quiet) toggle();
+            if (!set_quiet) {
+                static int tgl=0;
+                if (tgl++>100) { toggle2(); tgl=0; }
+        //            toggle();
+            }
 //fixed
 //            printf("reading bytes_read=%u buffer_size=%u buffer_size_real=%u\n",bytes_read,buffer_size,buffer_size_real);
 #ifdef DEBUG_MEMORY
@@ -594,7 +604,11 @@ void nbt__put_double(nbt__write_stream_t* stream, double value)
 
 void nbt__write_tag(nbt__write_stream_t* stream, nbt_tag_t* tag, int write_name, int write_type)
 {
-    toggle();
+    if (!set_quiet) {
+        static int tgl=0;
+        if (tgl++>100) { toggle2(); tgl=0; }
+//            toggle();
+    }
 
     if (write_type)
     {
@@ -851,7 +865,10 @@ printf("21");
         do
         {
 extern void toggle5();
-            toggle5();
+            static int tgl=0;
+            if (tgl++>100) { toggle2(); tgl=0; }
+    //            toggle();
+//            toggle5();
 
 //            quick_toggle();
             flush = Z_NO_FLUSH;

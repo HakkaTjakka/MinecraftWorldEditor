@@ -204,13 +204,10 @@ bool get_screenshot(sf::Texture* m_texture) {
     unsigned char* frame_in = (unsigned char*) calloc(1920*1080*4,1);
 //    unsigned char frame_in[1920*1080*4];
 
-printf("3");
-
     if (strlen(FFMPEGCOMMAND_SCREENSHOT)>0)
         sprintf(command_line,"%s",FFMPEGCOMMAND_SCREENSHOT);
     else
         sprintf(command_line,"%s","ffmpeg -rtbufsize 1024M -thread_queue_size 1024 -f gdigrab -i desktop -vframes 1 -q:v 2 -f image2pipe -vcodec rawvideo -pix_fmt rgba -");
-printf("4");
     printf("COMMAND: %s\n",FFMPEGCOMMAND_SCREENSHOT);
     FILE *pipein;
     pipein = popen(command_line, "rb");
@@ -317,7 +314,7 @@ int playing_start(char * filename)
                     quote_video,quote_subs);
             print_to_screen_buf(1,playing_info_static,PRINT_FONT_SIZE,COL_BLUE,COL_WHITE,COL_WHITE_T,PRINT_FONT_OUTLINE,TXT_REG);
     }
-
+//?????????
     if (burn_subs) {
         if (strlen(FFMPEGCOMMANDIN_SUBS)>0)
             sprintf(command_line,FFMPEGCOMMANDIN_SUBS,quote_filename,quote_subs_extra);
@@ -577,7 +574,7 @@ void playing()
 */
 
             while (texture_ready!=0 && movieextern==0) {
-                    sf::sleep(sf::microseconds(10));
+                    sf::sleep(sf::microseconds(1));
 //                printf("record: playing: texture_ready: sleep: playing_time=%f playing_screen_num=%d\n",playing_time,playing_screen_num);
             }
         }
@@ -763,8 +760,8 @@ void recording_m_orig()
     rec_clock_frame.restart();
 
     while (record_screen==1) {
-        while (record_pause==1 && record_screen==1) sf::sleep(sf::microseconds(10));
-        while (texture_ready==0 && record_screen==1) sf::sleep(sf::microseconds(10));
+        while (record_pause==1 && record_screen==1) sf::sleep(sf::microseconds(1));
+        while (texture_ready==0 && record_screen==1) sf::sleep(sf::microseconds(1));
         if (record_screen==0) continue;
 
 /*
@@ -787,7 +784,7 @@ void recording_m_orig()
 //        fwrite(frm, 1, height*width*3, pipeout_local);
 
         record_screen_num++;
-        while (texture_ready!=2 && record_screen==1) sf::sleep(sf::microseconds(10));
+        while (texture_ready!=2 && record_screen==1) sf::sleep(sf::microseconds(1));
         texture_ready_lock.lock();
         texture_ready=0;
         texture_ready_lock.unlock();

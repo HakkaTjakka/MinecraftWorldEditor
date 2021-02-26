@@ -227,7 +227,8 @@ void toggle() {
 
 void print_nbt_tree_to_file(nbt_tag_t* tag, int i, FILE * file)
 {
-    toggle();
+    static int tgl=0;
+    if (tgl++>100) { toggle2(); tgl=0; }
 
     static int depth=0;
     static int indent=0;
@@ -789,7 +790,10 @@ static size_t reader_read_from_memory(void* userdata, uint8_t* data, size_t size
     static size_t current_position;
     static int kcount=0;
     rtikker2++;
-    toggle();
+    static int tgl=0;
+    if (tgl++>100) { toggle2(); tgl=0; }
+
+//    toggle();
 /*
     kcount++;
     if (kcount>10000) {
@@ -852,7 +856,10 @@ void write_nbt_file(const char* name, nbt_tag_t* tag, int flags)
 uint8_t* intern[100];    /* indexed, maybe for later use when using threads, like 4 simultanious (or 100) are active.... reader_read also needs this. could be slower thought..but could be passed by the efficiency of running more threads at same time...(like having a 256 core pentium...) */
 
 static size_t writer_write_to_memory(void* userdata, uint8_t* data, size_t size) {
-    toggle();
+    static int tgl=0;
+    if (tgl++>100) { toggle2(); tgl=0; }
+
+//    toggle();
     //printf("Here 1\n");
     tikker2++;
     static size_t total_size[100];

@@ -1,4 +1,3 @@
-
 #include <stdio.h> //first for fast console output.
 //#include "VIEWER/viewer_my_inits.h"
 //#include "WinMain.h"
@@ -138,6 +137,36 @@ void voxels_to_object_new_thread(char* voxel_file) {
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void voxels_to_object(char* picture_file_in) {
     char picture_file[200];
     strcpy(picture_file,picture_file_in); //copy before destroyed
@@ -150,7 +179,22 @@ void voxels_to_object(char* picture_file_in) {
 
     std::vector<Voxel> voxels; //keeping local...
 //    voxels.clear();
+    for (auto u : voxels_total) {
+        Voxel one=u;
+//        one.l=1;
 
+        one.l=ret_color(one.r,one.g,one.b);
+
+        voxels.push_back(one);
+        if (one.x>bmax_x) bmax_x=one.x;
+        if (one.x<bmin_x) bmin_x=one.x;
+        if (one.y>bmax_y) bmax_y=one.y;
+        if (one.y<bmin_y) bmin_y=one.y;
+        if (one.z>bmax_z) bmax_z=one.z;
+        if (one.z<bmin_z) bmin_z=one.z;
+    }
+
+/*
     if (!in_background) printf("Number of voxels=%d -> compressing\n",voxels_total.size());
 
     if (voxels_total.size()>0) {
@@ -225,6 +269,7 @@ void voxels_to_object(char* picture_file_in) {
         float perc=100.0*(float)n/(float)(tot+1);
         if (!in_background) printf("\r%5.3f%% ",perc);
     }
+*/
     voxels_total.clear(); // is msg when in background to fill voxels_total again....
     if (!in_background) printf("Number of voxels=%d (compressed)\n",voxels.size());
 
@@ -605,16 +650,6 @@ void voxels_to_object(char* picture_file_in) {
     if (voxels_corners.size()>0) {
 
         for (it_corners = voxels_corners.begin(); it_corners != voxels_corners.end(); it_corners++) {
-//        for (auto u : voxels_corners) {
-//            unsigned long long int index_first=u.first;  // (one.x-bmin_x) + (one.z-bmin_z)*bdif_x + (one.y-bmin_y)*x_z;
-/*
-            one=voxels[it_corners->second.z];
-
-
-            int x=one.x;
-            int y=one.y;
-            int z=one.z;
-*/
 
             unsigned long long int index_first=it_corners->first;  // (one.x-bmin_x) + (one.z-bmin_z)*bdif_x + (one.y-bmin_y)*x_z;
 
@@ -634,6 +669,11 @@ void voxels_to_object(char* picture_file_in) {
 
             int x=(int)index_first;
 
+            Voxel one=voxels[it_corners->second.z];
+            float r=(float)one.r/254.5; if (r>1.0) r=1.0;
+            float g=(float)one.g/254.5; if (g>1.0) g=1.0;
+            float b=(float)one.b/254.5; if (b>1.0) b=1.0;
+
             unsigned long long int index_check=x + z*bdif_x + y*x_z;
             if ( index_check != it_corners->first) {
                 printf("ERROR: XYZ(%d,%d,%d)  bmin(%d,%d,%d)  index_first=%llu != %llu\n",x,y,z,bmin_x,bmin_y,bmin_z,index_first,index_check);
@@ -643,16 +683,10 @@ void voxels_to_object(char* picture_file_in) {
             y=y+bmin_y;
             z=z+bmin_z;
 
-//            sprintf(line,"v %.1f %.1f %.1f #index=%d\n",(float)y,(float)x,(float)z,u.second.y);
 //            sprintf(line,"v %.1f %.1f %.1f\n",(float)(y-offset_x),(float)(x-offset_y),(float)(z-offset_z));
-            sprintf(line,"v %.1f %.1f %.1f\n",(float)(y-offset_x),(float)(x-offset_y),(float)(z-offset_z));
-//            sprintf(line,"v %f %f %f\n",(float)(y-offset_x),(float)(x-offset_y),(float)(z-offset_z));
-//            sprintf(line,"v %f %f %f\n",(float)(y-offset_x),(float)(x-offset_y),(float)(z-offset_z));
-//            sprintf(line,"v %.1f %.1f %.1f\n",(float)(x-offset_y),(float)(y-offset_x),(float)(z-offset_z));
+            sprintf(line,"v %.1f %.1f %.1f %.3f %.3f %.3f\n",(float)(y-offset_x),(float)(x-offset_y),(float)(z-offset_z),r,g,b);
             while (replace_str(line,",","."));    fprintf(out,line);    //1 if (!in_background) printf(line);
-//            zv[u.second.x]++;
             zv[it_corners->second.x]++;
-//            t_tot+=u.second.x;
             t_tot+=it_corners->second.x;
 
             if (!(index_second%1000)) {
@@ -1548,7 +1582,7 @@ void regions_to_voxelfiles2() {
                     }
                 }
 
-                if (1) {
+                if (0) {
                     printf(" Converting.");
                     for (int x = 0; x < 512; x++) {
                         BlockInfo** AZ=AX[x];
@@ -1705,6 +1739,9 @@ void regions_to_voxelfiles2() {
 
                             int max_y=-1;
                             int min_y=-1;
+                            int r_max;
+                            int g_max;
+                            int b_max;
                             for (int y = 0; y < 256; y++) {
                                 if (!(n++%256)) toggle2();
                                 if (AY[y].id!=0) {
@@ -1753,23 +1790,58 @@ void regions_to_voxelfiles2() {
                                             continue;
                                          }
                                     }
-                                    int r,g,b;
-                                    ret_color_rev(AX[x][z][y].data,r,g,b);
+
+
+                                    BlockInfo* A = &AY[y];
+                                    int r_m,g_m,b_m;
+                                    int texture_index_x=-1;
+                                    int texture_index_y=-1;
+                                    if (A->id!=0) {
+                                        int id=A->id;
+                                        int data=A->data;
+                                        int lookup=id*16 + data;
+                                        it_IdDataColor_map = IdDataColor_map.find(lookup);
+                                        if (it_IdDataColor_map != IdDataColor_map.end()) {
+                                            r_m=it_IdDataColor_map->second.r;
+                                            g_m=it_IdDataColor_map->second.g;
+                                            b_m=it_IdDataColor_map->second.b;
+                                        } else {
+                                            lookup=id*16;
+                                            it_IdDataColor_map = IdDataColor_map.find(lookup);
+                                            if (it_IdDataColor_map != IdDataColor_map.end()) {
+                                                r_m=it_IdDataColor_map->second.r;
+                                                g_m=it_IdDataColor_map->second.g;
+                                                b_m=it_IdDataColor_map->second.b;
+                                            } else {
+                                                r_m=255;
+                                                g_m=0;
+                                                b_m=0;
+                                            }
+                                        }
+                                        r_max=r_m;g_max=g_m;b_max=b_m;
+//                                        scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                                    }
+
+//                                    int r,g,b;
+//                                    ret_color_rev(AX[x][z][y].data,r,g,b);
+
 //                                    int xxx=xx;
 //                                    int zzz=zz;
 //                                    int yyy=y+region_floor*256;
 
 //                                    Voxel one=Voxel(y+region_floor*256,xx,zz,r,g,b,1,(unsigned char)0,0); // new
 //                                    Voxel one=; // new
-                                    voxels.push_back(Voxel(y+region_floor*256,xx,zz,r,g,b,1,(unsigned char)0,0));
+                                    voxels.push_back(Voxel(y+region_floor*256,xx,zz,r_m,g_m,b_m,1,(unsigned char)0,0));
+//                                    voxels.push_back(Voxel(y+region_floor*256,xx,zz,r,g,b,1,(unsigned char)0,0));
 
                                     blocks_shown++;
                                 }
                             }
                             if (max_y!=-1) {
                                 int r_m,g_m,b_m;
-                                ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
-                                scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+//                                ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
+//                                scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                                scan_image.setPixel(x,z,sf::Color(r_max,g_max,b_max,255));
                             } else {
                                 scan_image.setPixel(x,z,sf::Color(0,0,0,0));
                             }
@@ -1822,8 +1894,8 @@ void regions_to_voxelfiles2() {
                         if (voxel_file_pointer!=NULL) {
                             for (auto u : voxels) {
                                 if (u.l>0) {
-                                    fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d)\n",
-                                            u.y, u.x, u.z,  u.r/u.l,u.g/u.l, u.b/u.l,  u.l , u.face);
+                                    fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d),(%d)\n",
+                                            u.y, u.x, u.z,  u.r/u.l, u.g/u.l, u.b/u.l,  u.l , u.face);
                                     if (u.x<min_x) min_x=u.x;
                                     if (u.x>max_x) max_x=u.x;
                                     if (u.y>max_y) max_y=u.y;

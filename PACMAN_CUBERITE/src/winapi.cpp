@@ -46,6 +46,8 @@
 #define EVENT_SYSTEM 8
 extern sf::Texture* backgroundTexture[];
 extern bool get_screenshot(sf::Texture* m_texture);
+extern void one_region_voxel_files_to_region_files(bool display_only, char* voxel_filename);
+extern void region_voxel_files_to_region_files(bool display_only);
 
 extern bool cubic;
 extern void launch_REGION_TO_VOXEL();
@@ -92,6 +94,7 @@ extern void REPACK(char* filename);
 extern int mcglobal;
 extern int mcglobal2;
 extern int mcglobal3;
+extern int mcglobal4;
 extern int shut_up;
 HGLRC    hglrc_sfmlview1;
 HDC      hdc_sfmlview1;
@@ -940,6 +943,25 @@ printf("hoppa");
             }
             send_message='r';
         }
+
+        else if (   strcmp(argv[1],"mo"    )==0) {
+            make_object=true;
+            make_regions=true;
+            if (argc>2) {
+                strcpy(voxel_filename,argv[2]);
+                printf("One .voxel file: %s\n",voxel_filename);
+                one_region_voxel_files_to_region_files(false, voxel_filename);
+            } else {
+                strcpy(voxel_filename,"");
+                region_voxel_files_to_region_files(false);
+            }
+//            make_object=false;
+//            make_regions=false;
+            ShowTaskBar(true);
+            GenerateConsoleCtrlEvent(CTRL_C_EVENT, 0);
+//            send_message='x';
+//            exit(0);
+        }
         else if (   strcmp(argv[1],"object"    )==0) {
             if (argc>2) {
                 strcpy(voxel_filename,argv[2]);
@@ -1038,6 +1060,7 @@ printf("hoppa");
             if (argc>2) { mcglobal=atoi(argv[2]); printf("%d ",mcglobal); }
             if (argc>3) { mcglobal2=atoi(argv[3]); printf("%d ",mcglobal2); }
             if (argc>4) { mcglobal3=atoi(argv[4]); printf("%d ",mcglobal3); }
+            if (argc>5) { mcglobal4=atoi(argv[5]); printf("%d ",mcglobal4); }
             printf("\n");
 //            system("/saves/reset_test.bat");
             launch_MCEDITOR();

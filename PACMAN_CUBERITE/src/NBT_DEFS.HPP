@@ -64,7 +64,7 @@ extern size_t CNT_XFREE;
 //#define NBT_BUFFER_SIZE 1048576
 #endif
 
-#define NBT_COMPRESSION_LEVEL 9
+#define NBT_COMPRESSION_LEVEL 2
 
 
 

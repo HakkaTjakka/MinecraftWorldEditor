@@ -654,13 +654,20 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
 //        char line[100];
 
         if (!NBT_LOADED) {
+//tuuttuut
+//            int n_v=(int)(attrib.vertices.size()) / 3;
+//            for (size_t v = 0; v < n_v; v++) {
+//                attrib.vertices[3 * v + 0]-=14336;
+//                attrib.vertices[3 * v + 1]-=0;
+//                attrib.vertices[3 * v + 2]-=9216;
+//            }
 
             for (size_t s = 0; s < shapes.size(); s++)
             {
     //            printf("\rLoading shape %5d(%d)\r",(int)s,(int)shapes.size());
                 DrawObject o;
 //                std::vector<float> buffer;  // pos(3float), normal(3float), color(3float)
-                std::vector<GLfloat> buffer;  // pos(3float), normal(3float), color(3float)
+                std::vector<float> buffer;  // pos(3float), normal(3float), color(3float)
 
                 // Check for smoothing group and compute smoothing normals
                 std::map<int, vec3> smoothVertexNormals;
@@ -670,6 +677,9 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                 }
                 size_t f=0;
                 size_t shape_size=shapes[s].mesh.indices.size() / 3;
+
+                printf("shapes[%d].mesh.indices.size()=%d\n",s,shapes[s].mesh.indices.size());
+
                 for (f = 0; f < shape_size; f++)
                 {
                     tinyobj::index_t idx0 = shapes[s].mesh.indices[3 * f + 0];
@@ -690,7 +700,7 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                         diffuse[i] = materials[current_material_id].diffuse[i];
                     }
 //                    float tc[3][2];
-                    GLfloat tc[3][2];
+                    float tc[3][2];
                     if (attrib.texcoords.size() > 0)
                     {
                         if ((idx0.texcoord_index < 0) || (idx1.texcoord_index < 0) ||
@@ -723,19 +733,18 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                         tc[0][0] = 0.0f; tc[0][1] = 0.0f; tc[1][0] = 0.0f; tc[1][1] = 0.0f; tc[2][0] = 0.0f; tc[2][1] = 0.0f;
                     }
 
-                    GLfloat v[3][3];
+                    float v[3][3];
+                    float cc[3][3];
                     for (int k = 0; k < 3; k++)
                     {
                         int f0 = idx0.vertex_index;             int f1 = idx1.vertex_index;             int f2 = idx2.vertex_index;
                         assert(f0 >= 0);                        assert(f1 >= 0);                        assert(f2 >= 0);
-                        v[0][k] = attrib.vertices[3 * f0 + k];  v[1][k] = attrib.vertices[3 * f1 + k];  v[2][k] = attrib.vertices[3 * f2 + k];
-
 /*
                         if (k==0) {
                             v[0][0]-=14336;
                             v[1][0]-=14336;
                             v[2][0]-=14336;
-                      } else if (k==1) {
+                        } else if (k==1) {
                             v[0][1]-=0;
                             v[1][1]-=0;
                             v[2][1]-=0;
@@ -747,23 +756,34 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
 //                        X=14336 Y=0 Z=9216
 */
 
+                        v[0][k] = attrib.vertices[3 * f0 + k];
+                        v[1][k] = attrib.vertices[3 * f1 + k];
+                        v[2][k] = attrib.vertices[3 * f2 + k];
+
+                        cc[0][k] = attrib.colors[3 * f0 + k];
+                        cc[1][k] = attrib.colors[3 * f1 + k];
+                        cc[2][k] = attrib.colors[3 * f2 + k];
 
                         bmin[k] = std::min(v[0][k], bmin[k]);   bmin[k] = std::min(v[1][k], bmin[k]);   bmin[k] = std::min(v[2][k], bmin[k]);
                         bmax[k] = std::max(v[0][k], bmax[k]);   bmax[k] = std::max(v[1][k], bmax[k]);   bmax[k] = std::max(v[2][k], bmax[k]);
                     }
 
-//                    sprintf(line,"t %f %f %f - %f %f %f - %f %f %f\n",
-//                        (float)(v[0][0]-14336),(float)(v[0][1]-0),(float)(v[0][2]-9216),
-//                        (float)(v[1][0]-14336),(float)(v[1][1]-0),(float)(v[1][2]-9216),
-//                        (float)(v[2][0]-14336),(float)(v[2][1]-0),(float)(v[2][2]-9216)
-//                    );
+/*
+                    sprintf(line,"t %f %f %f - %f %f %f - %f %f %f\n",
+                        (float)(v[0][0]-14336),(float)(v[0][1]-0),(float)(v[0][2]-9216),
+                        (float)(v[1][0]-14336),(float)(v[1][1]-0),(float)(v[1][2]-9216),
+                        (float)(v[2][0]-14336),(float)(v[2][1]-0),(float)(v[2][2]-9216)
+                    );
+*/
+
 //                    sprintf(line,"t %f %f %f - %f %f %f - %f %f %f\n",
 //                        (float)(v[0][0]),(float)(v[0][1]),(float)(v[0][2]),
 //                        (float)(v[1][0]),(float)(v[1][1]),(float)(v[1][2]),
 //                        (float)(v[2][0]),(float)(v[2][1]),(float)(v[2][2])
 //                    );
 //                    fprintf(KUT,line);
-                    GLfloat n[3][3];
+
+                    float n[3][3];
 //                    float n[3][3];
                     {
                         bool invalid_normal_index = false;
@@ -846,10 +866,12 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                     {
                         buffer.push_back(v[k][0]);  buffer.push_back(v[k][1]);  buffer.push_back(v[k][2]);
                         buffer.push_back(n[k][0]);  buffer.push_back(n[k][1]);  buffer.push_back(n[k][2]);
+                        buffer.push_back(cc[0][0]);  buffer.push_back(cc[0][1]);  buffer.push_back(cc[0][2]);
     //color out
 
                         // Combine normal and diffuse to get color.
 
+/*
 
                         float normal_factor = 0.2;
                         float diffuse_factor = 1 - normal_factor;
@@ -866,7 +888,8 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
 //                            buffer.push_back(c[2] * 0.5 + 0.5);
 //
 //                        } else {
-                            GLfloat c[3] = {n[k][0] * normal_factor + diffuse[0] * diffuse_factor,
+                            c[3] = {n[k][0] * normal_factor + diffuse[0] * diffuse_factor,
+//                            float c[3] = {n[k][0] * normal_factor + diffuse[0] * diffuse_factor,
                                           n[k][1] * normal_factor + diffuse[1] * diffuse_factor,
                                           n[k][2] * normal_factor + diffuse[2] * diffuse_factor
                                          };
@@ -887,7 +910,7 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                             buffer.push_back(c[2] * 0.5 + 0.5);
 //                        }
 
-
+*/
     /*
                         float avg=(n[k][0]+n[k][1]+n[k][2])/3.0;
                         float c2[3] = { avg * normal_factor + diffuse[0] * diffuse_factor,
@@ -939,19 +962,19 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                         glGenBuffers(1, &o.vb_id);
                         glBindBuffer(GL_ARRAY_BUFFER, o.vb_id);
 //                        glBufferData(GL_ARRAY_BUFFER, buffer.size() * sizeof(float),  &buffer.at(0), GL_STATIC_DRAW);
-                        glBufferData(GL_ARRAY_BUFFER, buffer.size() * sizeof(GLfloat),  &buffer.at(0), GL_STATIC_DRAW);
+                        glBufferData(GL_ARRAY_BUFFER, buffer.size() * sizeof(float),  &buffer.at(0), GL_STATIC_DRAW);
                     }
                     o.numTriangles = buffer.size() / (3 + 3 + 3 + 2) / 3;     // 3:vtx, 3:normal, 3:col, 2:texcoord
     //                printf(" shape[%d] # of triangles = %d", static_cast<int>(s), o.numTriangles);
                     drawObjects.push_back(o);
 //                    one_buffer.buffer=(int8_t*)malloc(sizeof(int)+buffer.size()*sizeof(float));
-                    one_buffer.buffer=(int8_t*)malloc(sizeof(int)+buffer.size()*sizeof(GLfloat));
+                    one_buffer.buffer=(int8_t*)malloc(sizeof(int)+buffer.size()*sizeof(float));
                     int mat_id=o.material_id;
                     memcpy(one_buffer.buffer,&mat_id,sizeof(int));
 //                    memcpy(one_buffer.buffer+sizeof(int),&buffer.at(0),buffer.size()*sizeof(float));
-                    memcpy(one_buffer.buffer+sizeof(int),&buffer.at(0),buffer.size()*sizeof(GLfloat));
+                    memcpy(one_buffer.buffer+sizeof(int),&buffer.at(0),buffer.size()*sizeof(float));
 //                    one_buffer.length=sizeof(int)+buffer.size()*sizeof(float);
-                    one_buffer.length=sizeof(int)+buffer.size()*sizeof(GLfloat);
+                    one_buffer.length=sizeof(int)+buffer.size()*sizeof(float);
                     buffers.push_back(one_buffer);
         //            printf("Saved #%d -> %u bytes\n",s,one_buffer.length);
                 }
@@ -1206,6 +1229,7 @@ void OBJECT3D_TO_NBT(std::vector<BufferObject> &buffers, std::vector<tinyobj::ma
         printf("\rSaving to file %s ",nbt_filename.c_str());
     }
     write_nbt_file(nbt_filename.c_str(), tag_object, NBT_WRITE_FLAG_USE_GZIP);
+//    write_nbt_file(nbt_filename.c_str(), tag_object, NBT_WRITE_FLAG_USE_ZLIB);
 
     nbt_free_tag(tag_object);
 }

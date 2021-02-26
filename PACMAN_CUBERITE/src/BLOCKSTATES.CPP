@@ -937,105 +937,6 @@ void make_colors_from_blocks()
                         if (!shut_up) printf(" NOT FOUND!\n");
                         fprintf(blockstates," NOT FOUND!\n");
                     }
-
-
-/*
-
-                    bool no_item_found=false;
-                    it_item_texture_map = item_texture_map.find(it_model_list->first);
-                    if ( it_item_texture_map != item_texture_map.end() )
-                    {
-                        if (!shut_up) printf("\t MODEL=\"../minecraft/item/%s.json\" (%dx)",it_model_list->first.c_str(),it_model_list->second);
-                        fprintf(blockstates,"\t MODEL=\"../minecraft/item/%s.json\" (%dx)",it_model_list->first.c_str(),it_model_list->second);
-
-                        if (!shut_up) printf(" model/item found ");
-                        fprintf(blockstates,"  model/item found ");
-                        it = block_filenames_map.find(it_model_list->first);
-                        if ( it != block_filenames_map.end() ) {
-                            if (!shut_up) printf("(Tot %dx)",it->second);
-                            fprintf(blockstates,"(Tot %dx)",it->second);
-                        }
-                        if (!shut_up) printf(" \n");
-                        fprintf(blockstates," \n");
-
-                        size_t text_len=it_item_texture_map->second.texture_kind.size();
-                        for (size_t n=0; n<text_len; n++)
-                        {
-                            std::string item_filename;
-                            std::string kind;
-                            int block_or_item;
-                            block_or_item=it_item_texture_map->second.block_or_item[n];
-                            kind = it_item_texture_map->second.texture_kind[n];
-                            item_filename = it_item_texture_map->second.texture_block[n];
-
-                            if (kind=="all") type_weight=9;
-                            else if (kind=="top"     && type_weight<8) { type_weight=8; }
-                            else if (kind=="up"      && type_weight<7) { type_weight=7; }
-                            else if (kind=="end"     && type_weight<6) { type_weight=6; }
-                            else if (kind=="overlay" && type_weight<5) { type_weight=5; }
-                            else if (kind=="texture" && type_weight<4) { type_weight=4; }
-                            else if (kind=="cross"   && type_weight<3) { type_weight=3; }
-
-                            int t=strlen(kind.c_str());
-                            if (!shut_up) printf("\t\t (TYPE=\"%s\")",kind.c_str());
-                            fprintf(blockstates,"\t\t (TYPE=\"%s\")",kind.c_str());
-                            if (!shut_up) for (int i=0; i<15-t; i++) putchar(' ');
-                            for (int i=0; i<15-t; i++) fputc(' ',blockstates);
-                            if (block_or_item==0) {
-                                if (!shut_up) printf(" TEXTURE=\"../minecraft/blocks/%s.png\"",item_filename.c_str());
-                                fprintf(blockstates," TEXTURE=\"../minecraft/blocks/%s.png\"",item_filename.c_str());
-                                it_texture_block_map=texture_block_map.find(item_filename);
-                                if ( it_texture_block_map != texture_block_map.end() )
-                                {
-                                    if (!shut_up) printf(" (exists, used %dx)",it_texture_block_map->second);
-                                    fprintf(blockstates," (exists, used %dx)",it_texture_block_map->second);
-                                    if (it_texture_block_map->second > best_tot) {
-                                        item_best_tot=it_texture_block_map->second;
-                                        item_best_variant=variant;
-                                        item_best_type=kind;
-                                        item_best_texture=item_filename;
-                                        item_best_block_or_item=0;
-                                    }
-                                }
-                            } else {
-                                if (!shut_up) printf(" TEXTURE=\"../minecraft/items/%s.png\"",item_filename.c_str());
-                                fprintf(blockstates," TEXTURE=\"../minecraft/items/%s.png\"",item_filename.c_str());
-                                it_texture_item_map=texture_item_map.find(item_filename);
-                                if ( it_texture_item_map != texture_item_map.end() )
-                                {
-                                    if (!shut_up) printf(" (exists, used %dx)",it_texture_item_map->second);
-                                    fprintf(blockstates," (exists, used %dx)",it_texture_item_map->second);
-                                    if (it_texture_item_map->second > best_tot) {
-                                        item_best_tot=it_texture_item_map->second;
-                                        item_best_variant=variant;
-                                        item_best_type=kind;
-                                        item_best_texture=item_filename;
-                                        item_best_block_or_item=1;
-
-                                    }
-                                }
-                            }
-
-//                            if (variant_weight + type_weight > best_tot) {
-//                                best_tot=variant_weight + type_weight;
-//                                best_variant=variant;
-//                                best_type=kind;
-//                                best_texture=block_filename;
-//                            }
-
-                            if (!shut_up) printf("\n");
-                            fprintf(blockstates,"\n");
-                        }
-                    }
-                    else
-                    {
-                        no_item_found=true;
-                        if (!shut_up) printf(" NOT FOUND!\n");
-                        fprintf(blockstates," NOT FOUND!\n");
-                    }
-*/
-
-
                 }
             }
         } else {
@@ -1209,12 +1110,21 @@ extern setTransparency(HWND hWnd, unsigned char alpha);
     if (!shut_up) system("CLS");
     bool first=true;
 
+
+
+/*
+
+
     for (it_texture_block_map = texture_block_map.begin(); it_texture_block_map != texture_block_map.end(); it_texture_block_map++) {
 //        std::string block_filename=it_texture_block_map->first;
         std::string filename="../minecraft/blocks/" + it_texture_block_map->first + ".png";
         bool empty_spot=false;
         if (file_exists(filename.c_str())) {
             if (m_image.loadFromFile(filename.c_str())) {
+
+
+
+
                 int index_x=0;
                 int index_y=0;
                 bool special=false;
@@ -1332,9 +1242,203 @@ extern setTransparency(HWND hWnd, unsigned char alpha);
 //        it_texture_block_map->second=-1;
     }
 
+*/
 
 
 
+    if (!shut_up) printf("Getting average color from textures\n");
+    best_colors=fopen("colors_index.txt","w");
+
+    std::map<int, struct IdDataColor_list>::iterator it_IdDataColor_map;
+    for (it_IdDataColor_map = IdDataColor_map.begin(); it_IdDataColor_map != IdDataColor_map.end(); it_IdDataColor_map++) {
+//        sf::Image m_image;
+        std::string filename="../minecraft/" + it_IdDataColor_map->second.texture_name + ".png";
+
+        double llui_r=0;
+        double llui_g=0;
+        double llui_b=0;
+        double llui_a=0;
+
+        if (file_exists(filename.c_str())) {
+            int id=it_IdDataColor_map->first >> 4;
+            int data=it_IdDataColor_map->first & 15;
+            if (!shut_up) printf("ID=%d DATA=%d LOADING %s",id,data,filename.c_str());
+
+            bool empty_spot=false;
+
+            if (m_image.loadFromFile(filename.c_str())) {
+
+
+
+
+                int index_x=0;
+                int index_y=0;
+                bool special=false;
+                bool water=false;
+                int p_x=m_image.getSize().x;
+                int p_y=m_image.getSize().y;
+                int t_x=p_x/16;
+                int t_y=p_y/16;
+                if (p_x!=t_x*16 || p_y!=t_y*16) {
+                    printf("Unknown texture size: %d x %d Must be dividable by 16 pixels\n", p_x, p_y);
+                }
+
+                if (!shut_up) SetConsoleCursorPosition( hStdOut, homeCoords );
+                if (!shut_up) printf("Loaded %s - placing in texture map pixels=(%2d x %2d) tiles=(%d x %d)               \n",filename.c_str(),p_x,p_y,t_x,t_y);
+                if (t_y>4 || t_x>1) special=true;
+                if (t_y==64) water=true; //preserve first 2 columns for it
+
+                empty_spot=false;
+                while (!empty_spot) {
+                    empty_spot=true;
+                    if (grid[index_x][index_y]==0) {
+                        if (water) {
+                            if (index_x!=0 || index_y!=0) {
+                                printf("Error, tiles for water taken?\n");
+                                empty_spot=false;
+                            } // else found col 0+1 row 0-63 for water tile
+                        } else if (!special && index_x<8) {
+                            empty_spot=false; //reserved for tiles width>1, length>4
+                        } else if (special && (index_x>=8 || index_x<2)) {  //reserved for these (tiles width==1, length<=4)
+                            empty_spot=false;
+                        } else if (!special && index_x>=8) {
+//                            grid[index_x][index_y]=1; // gets filled
+                            break;
+                        } else { //special && index_x<6
+                            if (index_x<2) empty_spot=false;
+                            else if (index_x==7 && t_x==2) empty_spot=false;
+                            else if (t_x==2 && grid[index_x+1][index_y]!=0) empty_spot=false;
+                            if (index_y + t_y > 64) empty_spot=false;
+                            //empty spot! -> end loop
+                        }
+                    } else if (empty_spot) empty_spot=false;
+                    if (empty_spot) break;
+                    index_x++;
+                    if (index_x==64) {
+                        index_x=0;
+                        index_y++;
+                        if (index_y==64) {
+                            empty_spot=false;
+                            break;
+                        }
+                    }
+                }
+                if (empty_spot) {
+                    while (window.pollEvent(event)) {
+                    }
+                    blocktexture.loadFromImage(m_image);
+                    blocksprite.setTexture(blocktexture,true);
+                    blocksprite.setPosition(index_x*16,index_y*16);
+                    window.draw(blocksprite);
+                    backgroundTexture.draw(blocksprite);
+                    window.display();
+
+                    if (first) {
+                        if (!shut_up) printf("col    0000000000111111111122222222223333333333444444444455555555556666\n");
+                        if (!shut_up) printf("       0123456789012345678901234567890123456789012345678901234567890123\n");
+                        first=false;
+                    } else {
+                        if (!shut_up) printf("\n\n");
+                    }
+                    static char c='A';
+                    c++; if (c>'Z') c='A';
+                    for (int y=0; y<64; y++) {
+                        bool end_y=true;
+                        if (y<index_y || y>=index_y+t_y) {
+                            if (!shut_up) printf("\n");
+                            continue;
+                        }
+                        if (!shut_up) printf("row %2d ",y);
+                        for (int x=0; x<64; x++) {
+                            if (x>=index_x+t_x) continue;
+                            if (x>=index_x && x<index_x+t_x && y>=index_y && y<index_y+t_y) { //gets filled, new
+                                if (grid[x][y]!=0) {
+                                    if (!shut_up) printf("E"); // error...
+                                } else {
+                                    if (!shut_up) printf("%c",c);
+                                    grid[x][y]=c;
+                                }
+                                end_y=false;
+                            } else if (grid[x][y]==0) {
+                                if (!shut_up) printf("."); //empty
+                            } else {
+                                if (!shut_up) printf("%c",grid[x][y]); //filled
+                                end_y=false;
+                            }
+                        }
+                        if (!shut_up) printf("\n");
+                        if (end_y) break;
+                    }
+                    if (!shut_up) printf("Empty spot at x=%2d,y=%2d\n",index_x,index_y);
+//                    getch();
+                } else {
+                    printf("Out of texture space? (64x64 tiles x 16x16 pixels / tile = 1024 x 1024 pixels)\n");
+                    break;
+                }
+
+
+
+
+                int x_m=m_image.getSize().x;
+                int y_m=m_image.getSize().y;
+                if (!shut_up) printf(" SIZE(%d x %d)",x_m,y_m);
+                sf::Color m_color;
+                for (int y=0; y<y_m; y++) {
+                    for (int x=0; x<x_m; x++) {
+                        m_color=m_image.getPixel(x,y);
+//                        printf("\npixel color(%d,%d) = (%d,%d,%d,%d)",x,y,m_color.r,m_color.g,m_color.b,m_color.a);
+                        llui_r+=(float)m_color.r*(float)m_color.a;
+                        llui_g+=(float)m_color.g*(float)m_color.a;
+                        llui_b+=(float)m_color.b*(float)m_color.a;
+                        llui_a+=(float)m_color.a;
+                    }
+                }
+                if (llui_a!=0) {
+                    llui_r/=llui_a;
+                    llui_g/=llui_a;
+                    llui_b/=llui_a;
+                    if (llui_r>=256) printf("Err.");
+                    if (llui_g>=256) printf("Err.");
+                    if (llui_b>=256) printf("Err.");
+                }
+
+                it_IdDataColor_map->second.r=(int)llui_r;
+                it_IdDataColor_map->second.g=(int)llui_g;
+                it_IdDataColor_map->second.b=(int)llui_b;
+                if (empty_spot) {
+                    it_IdDataColor_map->second.tc_x=index_x;
+                    it_IdDataColor_map->second.tc_y=index_y;
+                } else {
+                    it_IdDataColor_map->second.tc_x=-1;
+                    it_IdDataColor_map->second.tc_y=-1;
+                }
+            } else {
+                printf("Loading %s failed\n",filename.c_str());
+                it_IdDataColor_map->second.r=(int)255;
+                it_IdDataColor_map->second.g=128;
+                it_IdDataColor_map->second.b=0;
+            }
+
+
+            fprintf(best_colors,"ID=%3d DATA=%2d texture_index(%d,%d) color=rgb(%d,%d,%d) (%s)\n",
+                    id,data,
+                    it_IdDataColor_map->second.tc_x,
+                    it_IdDataColor_map->second.tc_y,
+                    it_IdDataColor_map->second.r,it_IdDataColor_map->second.g,it_IdDataColor_map->second.b,
+                     filename.c_str());
+
+        } else {
+            printf("File %s does not exist\n",filename.c_str());
+        }
+        if (!shut_up) printf(" Average color=rgb(%d,%d,%d)\n",(int)llui_r,(int)llui_g,(int)llui_b);
+        if (( it_texture_block_map=texture_block_map.find(filename)) == texture_block_map.end() ) {
+            if (!shut_up) printf("filling texture coords for %s\n",filename.c_str());
+        } else {
+            if (!shut_up) printf("Error: not found -> filling texture coords for %s\n",filename.c_str());
+
+        }
+    }
+    fclose(best_colors);
     float tt;
     backgroundSprite.setOrigin(512,512);
     backgroundTexture.display();
@@ -1359,69 +1463,9 @@ extern setTransparency(HWND hWnd, unsigned char alpha);
         }
     }
     window.close();
-    if (!shut_up) printf("Getting average color from textures\n");
-    best_colors=fopen("colors_index.txt","w");
 
-    std::map<int, struct IdDataColor_list>::iterator it_IdDataColor_map;
-    for (it_IdDataColor_map = IdDataColor_map.begin(); it_IdDataColor_map != IdDataColor_map.end(); it_IdDataColor_map++) {
-//        sf::Image m_image;
-        std::string filename="../minecraft/" + it_IdDataColor_map->second.texture_name + ".png";
-
-        double llui_r=0;
-        double llui_g=0;
-        double llui_b=0;
-        double llui_a=0;
-
-        if (file_exists(filename.c_str())) {
-            int id=it_IdDataColor_map->first >> 4;
-            int data=it_IdDataColor_map->first & 15;
-            if (!shut_up) printf("ID=%d DATA=%d LOADING %s",id,data,filename.c_str());
-
-            if (m_image.loadFromFile(filename.c_str())) {
-                int x_m=m_image.getSize().x;
-                int y_m=m_image.getSize().y;
-                if (!shut_up) printf(" SIZE(%d x %d)",x_m,y_m);
-                sf::Color m_color;
-                for (int y=0; y<y_m; y++) {
-                    for (int x=0; x<x_m; x++) {
-                        m_color=m_image.getPixel(x,y);
-//                        printf("\npixel color(%d,%d) = (%d,%d,%d,%d)",x,y,m_color.r,m_color.g,m_color.b,m_color.a);
-                        llui_r+=(float)m_color.r*(float)m_color.a;
-                        llui_g+=(float)m_color.g*(float)m_color.a;
-                        llui_b+=(float)m_color.b*(float)m_color.a;
-                        llui_a+=(float)m_color.a;
-                    }
-                }
-                if (llui_a!=0) {
-                    llui_r/=llui_a;
-                    llui_g/=llui_a;
-                    llui_b/=llui_a;
-                    if (llui_r>=256) printf("Err.");
-                    if (llui_g>=256) printf("Err.");
-                    if (llui_b>=256) printf("Err.");
-                }
-
-            } else {
-                printf("Loading %s failed\n",filename.c_str());
-            }
-            it_IdDataColor_map->second.r=(int)llui_r;
-            it_IdDataColor_map->second.g=(int)llui_g;
-            it_IdDataColor_map->second.b=(int)llui_b;
-
-            fprintf(best_colors,"ID=%3d DATA=%2d color=rgb(%d,%d,%d) (%s)\n",id,data,it_IdDataColor_map->second.r,it_IdDataColor_map->second.g,it_IdDataColor_map->second.b, filename.c_str());
-
-        } else {
-            printf("File %s does not exist\n",filename.c_str());
-        }
-        if (!shut_up) printf(" Average color=rgb(%d,%d,%d)\n",(int)llui_r,(int)llui_g,(int)llui_b);
-        if (( it_texture_block_map=texture_block_map.find(filename)) == texture_block_map.end() ) {
-            if (!shut_up) printf("filling texture coords for %s\n",filename.c_str());
-        } else {
-            if (!shut_up) printf("Error: not found -> filling texture coords for %s\n",filename.c_str());
-
-        }
-    }
-    fclose(best_colors);
+//    backgroundTexture.display();
+    backgroundTexture.getTexture().copyToImage().saveToFile("resources/minecraft.png");
 /*
     for (it_IdDataColor_map = IdDataColor_map.begin(); it_IdDataColor_map != IdDataColor_map.end(); it_IdDataColor_map++) {
         int id=it_IdDataColor_map->first >> 4;

@@ -161,7 +161,7 @@ static void Draw(const std::vector<DrawObject>& drawObjects,
 
     glPolygonOffset(1.0, 1.0);
     glEnable(GL_MULTISAMPLE);
-//    glEnable(GL_CULL_FACE);
+    glEnable(GL_CULL_FACE);
     glPolygonMode(GL_FRONT, GL_FILL);
     glPolygonMode(GL_BACK, GL_FILL);
     glEnable(GL_POLYGON_OFFSET_FILL);
@@ -170,16 +170,19 @@ static void Draw(const std::vector<DrawObject>& drawObjects,
 //color out
 //  GLsizei stride = (3 + 3 + 2) * sizeof(float);
     GLsizei stride = (3 + 3 + 3 + 2) * sizeof(float);
-    for (size_t i = 0; i < drawObjects.size(); i++)
-    {
-        DrawObject o = drawObjects[i];
-        if (o.vb_id < 1)
+
+    if ((TEXTURE_ARRAY || COLOR_ARRAY) || (!TEXTURE_ARRAY && !COLOR_ARRAY && !WIRE_FRAME)) {
+        depth_shader.setUniform("WIRE_FRAME", 0);
+        for (size_t i = 0; i < drawObjects.size(); i++)
         {
-            continue;
-        }
-        glBindBuffer(GL_ARRAY_BUFFER, o.vb_id);
-        glEnableClientState(GL_VERTEX_ARRAY);
-        glEnableClientState(GL_NORMAL_ARRAY);
+            DrawObject o = drawObjects[i];
+            if (o.vb_id < 1)
+            {
+                continue;
+            }
+            glBindBuffer(GL_ARRAY_BUFFER, o.vb_id);
+            glEnableClientState(GL_VERTEX_ARRAY);
+            glEnableClientState(GL_NORMAL_ARRAY);
 
 
 
@@ -200,7 +203,7 @@ static void Draw(const std::vector<DrawObject>& drawObjects,
 //        if (textures.size()==0)
 //            glEnableClientState(GL_COLOR_ARRAY);
 
-        if ((TEXTURE_ARRAY || COLOR_ARRAY) || (!TEXTURE_ARRAY && !COLOR_ARRAY && !WIRE_FRAME)) {
+
             if (TEXTURE_ARRAY)
             {
                 glEnable(GL_TEXTURE_2D);
@@ -246,6 +249,7 @@ static void Draw(const std::vector<DrawObject>& drawObjects,
             if (!COLOR_ARRAY)
                 glDisableClientState(GL_COLOR_ARRAY);
 
+
             glVertexPointer(3, GL_FLOAT, stride, (const void*)0);
             glNormalPointer(GL_FLOAT, stride, (const void*)(sizeof(float) * 3));
     //color out
@@ -258,7 +262,9 @@ static void Draw(const std::vector<DrawObject>& drawObjects,
             glDrawArrays(GL_TRIANGLES, 0, 3 * o.numTriangles);
             CheckErrors("drawarrays");
             glBindTexture(GL_TEXTURE_2D, 0);
+
         }
+        depth_shader.setUniform("WIRE_FRAME", WIRE_FRAME);
     }
 extern bool depth_shader_on;
     if (WIRE_FRAME)
@@ -280,7 +286,7 @@ extern bool depth_shader_on;
         glEnable(GL_BLEND);
         glBlendFunc(GL_DST_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        glColor3f(1.0f, 1.0f, 0.0f);
+        glColor3f(0.0f, 1.0f, 1.0f);
         for (size_t i = 0; i < drawObjects.size(); i++)
         {
             DrawObject o = drawObjects[i];

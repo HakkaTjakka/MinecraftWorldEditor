@@ -83,11 +83,14 @@ void main() {
             break;
         }
         case 3 :
-            if (TEXTURE_ARRAY) {
+            if (TEXTURE_ARRAY || COLOR_ARRAY) {
 
                 vec4 kD;
                 vec4 kB;
-                kD =  texture2D(the_texture,  vec2(gl_TexCoord[0].s,gl_TexCoord[0].t));
+                if (TEXTURE_ARRAY)
+                    kD =  texture2D(the_texture,  vec2(gl_TexCoord[0].s,gl_TexCoord[0].t));
+                else
+                    kD =  out_color;
 
                 float spec1 = (2.0) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.0,1.0);
                 float spec2 = (2.0) * clamp(pow(max( dot(reflect(lp2, n), ro), 0.), 120.),0.0,1.0);
@@ -151,11 +154,14 @@ void main() {
 
         case 1 :
         case 2 : {
-            if (TEXTURE_ARRAY) {
+            if (TEXTURE_ARRAY || COLOR_ARRAY) {
 
                 vec4 kD;
                 vec4 kB;
-                kD =  texture2D(the_texture,  vec2(gl_TexCoord[0].s,gl_TexCoord[0].t));
+                if (TEXTURE_ARRAY)
+                    kD =  texture2D(the_texture,  vec2(gl_TexCoord[0].s,gl_TexCoord[0].t));
+                else
+                    kD =  out_color;
 
                 float spec1 = (1.8) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.0,1.0);
                 float spec2 = (1.8) * clamp(pow(max( dot(reflect(lp2, n), ro), 0.), 120.),0.0,1.0);

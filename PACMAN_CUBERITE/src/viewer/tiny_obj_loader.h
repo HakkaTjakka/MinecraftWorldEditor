@@ -1377,6 +1377,7 @@ static bool exportGroupsToShape(shape_t *shape, const PrimGroup &prim_group,
   // polygon
   if (!prim_group.faceGroup.empty()) {
     // Flatten vertices and indices
+    size_t number_of_corners_not_found=0;
     for (size_t i = 0; i < prim_group.faceGroup.size(); i++) {
       const face_t &face = prim_group.faceGroup[i];
 
@@ -1394,7 +1395,11 @@ static bool exportGroupsToShape(shape_t *shape, const PrimGroup &prim_group,
       if (triangulate) {
         // find the two axes to work in
         size_t axes[2] = {1, 2};
-        for (size_t k = 0; k < npolys; ++k) {
+        bool found_corner=false;
+
+        size_t number_of_invalid_triangles=0;
+
+        for (size_t k = 0; k <= npolys; ++k) {
           i0 = face.vertex_indices[(k + 0) % npolys];
           i1 = face.vertex_indices[(k + 1) % npolys];
           i2 = face.vertex_indices[(k + 2) % npolys];
@@ -1406,8 +1411,10 @@ static bool exportGroupsToShape(shape_t *shape, const PrimGroup &prim_group,
               ((3 * vi2 + 2) >= v.size())) {
             // Invalid triangle.
             // FIXME(syoyo): Is it ok to simply skip this invalid triangle?
+            printf("Number of invalid triangles: %d\n",++number_of_invalid_triangles);
             continue;
           }
+
           real_t v0x = v[vi0 * 3 + 0];
           real_t v0y = v[vi0 * 3 + 1];
           real_t v0z = v[vi0 * 3 + 2];
@@ -1417,18 +1424,55 @@ static bool exportGroupsToShape(shape_t *shape, const PrimGroup &prim_group,
           real_t v2x = v[vi2 * 3 + 0];
           real_t v2y = v[vi2 * 3 + 1];
           real_t v2z = v[vi2 * 3 + 2];
+
           real_t e0x = v1x - v0x;
           real_t e0y = v1y - v0y;
           real_t e0z = v1z - v0z;
           real_t e1x = v2x - v1x;
           real_t e1y = v2y - v1y;
           real_t e1z = v2z - v1z;
+
           real_t cx = std::fabs(e0y * e1z - e0z * e1y);
           real_t cy = std::fabs(e0z * e1x - e0x * e1z);
           real_t cz = std::fabs(e0x * e1y - e0y * e1x);
+
+/*
+
+          real_t cx_a = e0y * e1z;
+          real_t cy_a = e0z * e1x;
+          real_t cz_a = e0x * e1y;
+
+          real_t cx_b = e0z * e1y;
+          real_t cy_b = e0x * e1z;
+          real_t cz_b = e0y * e1x;
+
+          real_t cx = std::fabs(cx_a - cx_b);
+          real_t cy = std::fabs(cy_a - cy_b);
+          real_t cz = std::fabs(cz_a - cz_b);
+
+          // // the machine epsilon has to be scaled to the magnitude of the values used
+          // // and multiplied by the desired precision in ULPs (units in the last place)
+          // return std::fabs(x-y) <= std::numeric_limits<T>::epsilon() * std::fabs(x+y) * ulp
+          // // unless the result is subnormal
+          // || std::fabs(x-y) < std::numeric_limits<T>::min();
+
+          const real_t minimum = std::numeric_limits<real_t>::min();
+          int ulp=2;
+*/
           const real_t epsilon = std::numeric_limits<real_t>::epsilon();
+
+  //        if (cx > epsilon)
+
+//          std::fabs(cx_a-cx_b) <= epsilon * std::fabs(cx_a+cx_b) * ulp || std::fabs(cx_a-cx_b) < minimum;
+//          cx > epsilon * std::fabs(cx_a+cx_b) * ulp || cx >= minimum;
+
+//          if (cx > epsilon * std::fabs(cx_a+cx_b) * ulp || cx >= minimum ||
+//              cy > epsilon * std::fabs(cy_a+cy_b) * ulp || cy >= minimum ||
+//              cz > epsilon * std::fabs(cz_a+cz_b) * ulp || cz >= minimum) {
+
           if (cx > epsilon || cy > epsilon || cz > epsilon) {
             // found a corner
+            found_corner=true;
             if (cx > cy && cx > cz) {
             } else {
               axes[0] = 0;
@@ -1437,6 +1481,11 @@ static bool exportGroupsToShape(shape_t *shape, const PrimGroup &prim_group,
             break;
           }
         }
+        if (!found_corner) {
+            printf("Number of corners not found: %d\n",++number_of_corners_not_found);
+        }
+
+        size_t number_of_invalid_idexes=0;
 
         real_t area = 0;
         for (size_t k = 0; k < npolys; ++k) {
@@ -1448,6 +1497,7 @@ static bool exportGroupsToShape(shape_t *shape, const PrimGroup &prim_group,
               ((vi0 * 3 + axes[1]) >= v.size()) ||
               ((vi1 * 3 + axes[0]) >= v.size()) ||
               ((vi1 * 3 + axes[1]) >= v.size())) {
+            printf("Number of invalid indexes: %d\n",++number_of_invalid_idexes);
             // Invalid index.
             continue;
           }
@@ -1504,6 +1554,7 @@ static bool exportGroupsToShape(shape_t *shape, const PrimGroup &prim_group,
           real_t e1x = vx[2] - vx[1];
           real_t e1y = vy[2] - vy[1];
           real_t cross = e0x * e1y - e0y * e1x;
+
           // if an internal angle
           if (cross * area < static_cast<real_t>(0.0)) {
             guess_vert += 1;

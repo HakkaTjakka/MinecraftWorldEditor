@@ -3,7 +3,8 @@ bool glew_initor=false;
 bool glwf_initor=false;
 //#include "stb_image.h"
 //double
-
+//#define STB_IMAGE_STATIC
+//#define _WIN32
 enum
 {
     STBI_default = 0, // only used for req_comp
