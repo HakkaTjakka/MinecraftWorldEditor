@@ -12,6 +12,10 @@ pacman.exe region2voxel
 canvas will be in ../levels/<X>x<Y>/<level>
 region tiles will be in ../cut
 
+Also voxelizer on board: 
+
+https://github.com/tinyobjloader (I had to invent the wheel)
+
 Some blocks do not have the right color indexed (yet) and will be red. Chunks that are empty will be white.
 Soon: convert region to voxels (done 90%), convert voxels to wavefront 3d .obj/.mtl (done 90%), convert wavefront 3d to video's and (orthographic projection) 3d view posters (super large) (done 90%)
 
