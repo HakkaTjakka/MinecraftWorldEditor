@@ -1,0 +1,12 @@
+You went into far more detail than necessary here and that makes it quite hard to follow what it is you are actually asking about.
+
+But as far as I can tell, you want to be able to specify an "offset" when converting from vanilla to cubic chunks format to be able to merge multiple "layers" into one cubic chunks world.
+
+With a bit of manual work, latest version of the converter (may need to be compiled from source) should be able to do that as a 2 step process:
+
+Convert both vanilla worlds to cubic chunks normally
+On the world that needs to be offset 256 blocks up (any multiple of 16 blocks is possible), you need to use the relocating conversion option. In the directory with the converter jar file, create file named relocatingConfig.txt with the following content:
+move all by 0 16 0
+You should be able to also specify the first world (the one that doesn't need offset) as output, and the converter should handle merging the region files.
+
+It's also possible to use the converter from command line now if you want to use it in a script, let me know if you need some documentation on that.

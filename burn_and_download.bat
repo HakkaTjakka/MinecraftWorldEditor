@@ -1,3 +1,3 @@
 SET PATH=%CD%\FFMPEG\BIN;%PATH%
-CD PACMAN_static_ffmpeg_64
+CD PACMAN_cuberite
 PACMAN.EXE burn download
