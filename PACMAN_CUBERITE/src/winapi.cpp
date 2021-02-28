@@ -812,7 +812,7 @@ printf("hoppa");
 */
 //    setlocale(LC_ALL, "en_US.UTF-8");
 //change if dirs can not be created / found
-
+//debug    strcpy(lpCmdLine,"mceditor 9 190 0 4");
     argc = 1;
     arg  = lpCmdLine;
     while (arg[0] != 0)
@@ -930,10 +930,17 @@ printf("hoppa");
                     cubic=true;
                 } else {
                     strcpy(voxel_filename,argv[2]);
-                    printf("One .voxel file: %s\n",voxel_filename);
+                    mcglobal=atoi(argv[2]);
+                    if (mcglobal==0)
+                        printf("One .voxel file: %s\n",voxel_filename);
                     if (argc>3) {
                         if (strcmp(argv[3],"cubic")==0) {
                             cubic=true;
+                        } else {
+                            mcglobal=atoi(argv[3]);
+                        }
+                        if (argc>4) {
+                            mcglobal=atoi(argv[4]);
                         }
                     }
                 }
@@ -941,6 +948,7 @@ printf("hoppa");
             } else {
                 strcpy(voxel_filename,"");
             }
+            if (mcglobal!=0) printf("mcglobal=%d ",mcglobal);
             send_message='r';
         }
 

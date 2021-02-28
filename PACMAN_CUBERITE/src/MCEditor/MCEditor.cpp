@@ -577,7 +577,6 @@ extern int remove_block_entities;
 
 void MCEditor::lightPropagate(ui*** light)
 {
-//    fprintf(stderr, "Propagating Light...\n");
     queue<Pos> Q;
 
     for (int x = 0; x < x_len; x++) {
@@ -587,7 +586,6 @@ void MCEditor::lightPropagate(ui*** light)
             toggle2();
             for (int y = 255; y >= 0; y--) {
                 if (AY_light[y]) {
-//                if (light[x][z][y]) {
                     Q.push(Pos(x, z, y));
                     while (!Q.empty()) {
                         Pos u = Q.front();
@@ -595,7 +593,6 @@ void MCEditor::lightPropagate(ui*** light)
                         for (int d = 0; d < 6; d++) {
                             int vx = u.x + DX[d],   vz = u.z + DZ[d],     vy = u.y + DY[d];
                             if (vx<0 || vx>=512 || vz<0 || vz>=512 || vy<0 || vy>=256) continue;
-//                            if (!in_region(vx, vz, vy, 0, 0, 0, x_len , z_len , 256))  continue;
 
                             int dec = get_opacity(blocks[vx][vz][vy]);
                             int vlight = (int)light[u.x][u.z][u.y] - dec;
@@ -604,8 +601,6 @@ void MCEditor::lightPropagate(ui*** light)
 
                             if (*L < vlight) {
                                 *L = vlight;
-//                            if (light[vx][vz][vy] < vlight) {
-//                                light[vx][vz][vy] = vlight;
                                 Q.push(Pos(vx, vz, vy));
                             }
                         }
@@ -614,7 +609,6 @@ void MCEditor::lightPropagate(ui*** light)
             }
         }
     }
-//    fprintf(stderr, "Finished Propagating Light.\n");
 }
 
 

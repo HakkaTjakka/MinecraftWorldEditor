@@ -36,7 +36,12 @@ extern std::map<int, struct IdDataColor_list> IdDataColor_map;
 extern std::map<int, struct IdDataColor_list>::iterator it_IdDataColor_map;
 
 extern void make_colors_from_blocks();
+void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region, int region_x, int region_z,int skippy, int skippy2,int& num_blocks);
 
+int save_region_to_ffmpeg(MCRegion& region, int region_x, int region_z, std::string fname);
+int load_region_from_ffmpeg(MCRegion& region, int region_x, int region_z, std::string fname);
+void get_surroundings(MCRegion& region_cur, int region_x, int region_z, std::string fname,
+    MCRegion region_surroundings[3][3] );
 //#include <queue>
 //#include <utility>
 //#include <set>
@@ -52,6 +57,8 @@ extern void make_colors_from_blocks();
 //#include <SFML/Network.hpp>
 //#include <SFML/System/Mutex.hpp>
 //#include <SFML/Network/IpAddress.hpp>
+sf::Image outline_image;
+sf::Image outline_images[3][3];
 
 int mask[512][512];
 int bottom[512][512];
@@ -6272,6 +6279,8 @@ MCRegion* region_pointer;
 
 int main_mceditor6_fixed(int region_x, int region_z, unsigned char* mc) {
 //printf("hier 6\n");
+
+
     vector<pair<Pos, string> > SomeStuff;
     fast_sin_init();
     bool starting=true;
@@ -6611,6 +6620,15 @@ extern std::string area;
                 }
             }
         }
+    }
+
+    if (mcglobal==9) {
+        std::string dir;
+        if (fname.find_last_of("/") != std::string::npos) dir=fname.substr(0,fname.find_last_of("/"));
+        else dir=".";
+        char fn[500];
+        sprintf(fn,"%s/r.%d.%d.mp4",dir.c_str(),region_x,region_z);
+        if (!file_exists(fn)) save_region_to_ffmpeg(region,region_x,region_z,fn);
     }
 
     if (hit_one!=NULL) hit_one->index12++;
@@ -9014,7 +9032,6 @@ extern bool lighten;
         sf::sleep(sf::seconds(0.005));
     }
 
-
     if (plot_cubes) {
         int blocks_shown=0;
         MUTEX_MCEDITOR.lock();
@@ -11182,13 +11199,9 @@ void fix(MCRegion &region, int region_x, int region_z) {
     return;
 }
 
-void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region, int region_x, int region_z,int skippy, int skippy2,int& num_blocks);
 
-int save_region_to_ffmpeg(MCRegion& region, int region_x, int region_z, std::string fname);
-int load_region_from_ffmpeg(MCRegion& region, int region_x, int region_z, std::string fname);
-void get_surroundings(MCRegion& region_cur, int region_x, int region_z, std::string fname,
-    MCRegion region_surroundings[3][3] );
-
+bool outline=false;
+int mcglobal_size=0;
 int main_mceditor3_new() {
     int region_x=0;
     int region_z=0;
@@ -11359,72 +11372,85 @@ int main_mceditor3_new() {
 //                        printf("Adding rails: height=%d  shrink=%d  type=%d ",mcglobal2,mcglobal3,mcglobal5);
                         main_mceditor3_new_sub(region_surroundings, region, region_x, region_z,skippy, skippy2, num_blocks);
                     } else if (mcglobal4==4) {
+                        int mcglobal2_mem=mcglobal2;
+
+                        mcglobal2+=15;
 
                         mcglobal5=3;
+                        mcglobal_size=0;
                         main_mceditor3_new_sub(region_surroundings, region, region_x, region_z,skippy, skippy2, num_blocks);
 
-                        mcglobal5=5;
+                        mcglobal5=15;
+                        mcglobal_size=1;
                         main_mceditor3_new_sub(region_surroundings, region, region_x, region_z,skippy, skippy2, num_blocks);
+
+                        mcglobal2+=2;
+
+
+                        outline=true;
+                        mcglobal5=6;
+                        mcglobal_size=0;
+                        main_mceditor3_new_sub(region_surroundings, region, region_x, region_z,skippy, skippy2, num_blocks);
+                        outline=false;
+
+
+                        mcglobal2-=39;
 
                         mcglobal5=6;
-                        main_mceditor3_new_sub(region_surroundings, region, region_x, region_z,skippy, skippy2, num_blocks);
-
-
-
-                        mcglobal2-=33;
-
-                        mcglobal5=6;
+                        mcglobal_size=0;
                         main_mceditor3_new_sub(region_surroundings, region, region_x, region_z,skippy, skippy2, num_blocks);
 
                         mcglobal2-=2;
 
                         mcglobal5=3;
-//                        printf("Adding rails: height=%d  shrink=%d  type=%d ",mcglobal2,mcglobal3,mcglobal5);
+                        mcglobal_size=0;
                         main_mceditor3_new_sub(region_surroundings, region, region_x, region_z,skippy, skippy2, num_blocks);
 
                         mcglobal5=1;
-//                        mcglobal2=mcglobal2+7;
-//                        mcglobal3=mcglobal3+5;
-//                        printf("Adding rails: height=%d  shrink=%d  type=%d ",mcglobal2,mcglobal3,mcglobal5);
+                        mcglobal_size=1;
                         main_mceditor3_new_sub(region_surroundings, region, region_x, region_z,skippy, skippy2, num_blocks);
 
 
-                        mcglobal2-=35;
+                        mcglobal2-=33;
 
                         mcglobal5=6;
+                        mcglobal_size=0;
                         main_mceditor3_new_sub(region_surroundings, region, region_x, region_z,skippy, skippy2, num_blocks);
 
 
-                        mcglobal2-=5;
+                        mcglobal2-=3;
 
                         mcglobal5=3;
-//                        printf("Adding rails: height=%d  shrink=%d  type=%d ",mcglobal2,mcglobal3,mcglobal5);
+                        mcglobal_size=0;
                         main_mceditor3_new_sub(region_surroundings, region, region_x, region_z,skippy, skippy2, num_blocks);
 
                         mcglobal5=4;
-//                        mcglobal2=mcglobal2+7;
-//                        mcglobal3=mcglobal3+5;
-//                        printf("Adding rails: height=%d  shrink=%d  type=%d ",mcglobal2,mcglobal3,mcglobal5);
+                        mcglobal_size=1;
                         main_mceditor3_new_sub(region_surroundings, region, region_x, region_z,skippy, skippy2, num_blocks);
 
-                        mcglobal2-=35;
+                        mcglobal2-=33;
 
+                        outline=true;
                         mcglobal5=6;
+                        mcglobal_size=0;
                         main_mceditor3_new_sub(region_surroundings, region, region_x, region_z,skippy, skippy2, num_blocks);
+                        outline=false;
 
-                        mcglobal2-=5;
+                        mcglobal2-=8;
+
+                        mcglobal5=10;
+                        mcglobal_size=0;
+                        main_mceditor3_new_sub(region_surroundings, region, region_x, region_z,skippy, skippy2, num_blocks);
 
                         mcglobal5=0;
-//                        printf("Adding rails: height=%d  shrink=%d  type=%d ",mcglobal2,mcglobal3,mcglobal5);
+                        mcglobal_size=1;
                         main_mceditor3_new_sub(region_surroundings, region, region_x, region_z,skippy, skippy2, num_blocks);
 
                         mcglobal5=2;
-//                        mcglobal2=mcglobal2+7;
-//                        mcglobal3=mcglobal3+5;
-//                        printf("Adding rails: height=%d  shrink=%d  type=%d ",mcglobal2,mcglobal3,mcglobal5);
+                        mcglobal_size=2;
                         main_mceditor3_new_sub(region_surroundings, region, region_x, region_z,skippy, skippy2, num_blocks);
 
-                        mcglobal2+=115;
+                        mcglobal2=mcglobal2_mem;
 
                     } else {
 //                        printf("Adding rails: height=%d  shrink=%d  type=%d ",mcglobal2,mcglobal3,mcglobal5);
@@ -11443,450 +11469,7 @@ int main_mceditor3_new() {
                         }
                     }
                 }
-//                BlockInfo*** AX=region.A;
 
-
-
-
-                if (mcglobal==2) {
-                    vector<pair<Pos, string> > SomeStuff;
-
-                    printf(" Coral:\b\b\b\b\b\b\b");
-//printf("\n");
-                    for (int x = 1; x < 511; x++) {
-                        xx=x+chunk_offsetx*16;
-                        for (int z = 1; z < 511; z++) {
-                            zz=z+chunk_offsetz*16;
-                            toggle2();
-                            for (int y = 1; y < 248; y++) {
-                                if (AX[x][z][y].id==8) {
-                                    int t=(int)(80.0+40.0*( (float)(rand()%20)/80.0 + sin((xx+sin(zz/15)*5)/(15.0+sin(zz/20.0)*5.0))+sin((zz+sin(xx/15)*5)/(15.0+sin((float)y/22.0)*5.0))+sin(((float)y+sin((zz+xx)/25)*5)/(15.0+sin(xx/23.0)*5.0)) )  );
-                                    if (t<0) t=0;
-                                    int t2=(int)(7.5+1.5*( (float)(rand()%((int)(1+(t)/30)))/80.0 + sin((xx+sin(zz/25)*5)/(15.0+sin(zz/30.0)*5.0))+sin((zz+sin(xx/25)*5)/(15.0+sin((float)y/32.0)*5.0))+sin(((float)y+sin((zz+xx)/45)*5)/(15.0+sin(xx/33.0)*5.0)) )  );
-                                    if ( ((t<(15+t2*4) && (rand()%10)<(t2)) || ( rand()%(1+t )==0 && (rand()%25)<(t2) )) && t>(t2*3+t/20) ) {
-                                        int allwater=1;
-                                        for (int xxx=-1; xxx<2 && (allwater==1); xxx++) {
-                                            for (int zzz=-1; zzz<2 && (allwater==1); zzz++) {
-                                                for (int yyy=-1; yyy<2 && (allwater==1); yyy++) {
-                                                    if (!(xxx==0 && yyy==0 && zzz==0)) {
-//                                                        if (AX[x+xxx][z+zzz][y+yyy].id!=8 && !AX[x+xxx][z+zzz][y+yyy].id==0) allwater=0;
-                                                        if ( AX[x+xxx][z+zzz][y+yyy].id!=8 && AX[x+xxx][z+zzz][y+yyy].id!=1000 && !AX[x+xxx][z+zzz][y+yyy].id==0) allwater=0;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        if (allwater==0) {
-                                            if (!(rand()%30)) {
-                                                setExtra2(x,z,y,"glowstone",SomeStuff);   AX[x][z][y]=BlockInfo(1000,0,0,0);
-//                                                    setExtra(x,z,y,"glowstone");   AX[x][z][y]=BlockInfo(1000,0,0,0);
-                                            } else {
-                                                float some1=(10+3.25*(  (float)(rand()%25)/80.0 + sin((xx+sin(zz/43)*4.3+sin((float)y/73)*2)/(15.0+sin(zz/42.0+(float)y/99)*5.0))+sin((zz+sin((xx+(float)y/3)/43)*4)/(15.0+sin((float)y/42.0+(float)zz/92.0)*5.0))+sin(((float)y+sin((zz+xx)/47)*3)/(15.0+sin(xx/41.0)*450+sin(zz/71.0)*2.1)) ));
-                                                float some2=(10+3.25*(  (float)(rand()%((int)(some1+5)))/80.0 + sin((xx+sin(zz/120)*3.8)/(15.0+sin(zz/112.0)*5.0))+sin((zz+sin(xx/143)*4)/(15.0+sin((float)y/82.0)*5.0))+sin(((float)y+sin((zz+xx)/168)*3)/(15.0+sin(xx/101.0)*5.0)) ));
-                                                int flow;
-                                                flow = (   sin((xx+some2)/(83.23+some1*3) + sin((zz)/73.75)/3 )  +  sin((zz)/(39.75+some2) + sin(((float)y)/34.87)/7.1  )  )*5+10;
-                                                flow+= (sin((xx)/(94.23+some1*2) + sin((zz)/(57.75+flow))/2 )+sin(((float)y)/(26.75+some2/2) + sin((xx+flow/2)/45.87)/5.3 ))*1.25+2.5;
-                                                flow+= (   sin(((float)y+some2)/(62.23+some1*2.1) + sin((zz)/(54.75+flow))/2.9 )  +  sin(((float)y)/(64.75+some1*1.8) + sin((xx+flow/2)/47.87)/6.2  )  )*15+30;
-                                                int t=100+((86-flow)*some1+(flow)*some2)/80;
-
-                                                int what=t%64;
-                                                if (what==0 || what==0+8 || what== 7+8*2 || what==3+8*3 || what==3+8*4 || what==4+8*5 || what==5+8*6 || what==0+8*7) { setExtra2(x,z,y,"tube_coral_block",SomeStuff);   AX[x][z][y]=BlockInfo(1000,0,0,0); }
-                                                if (what==1 || what==1+8 || what== 6+8*2 || what==4+8*3 || what==7+8*4 || what==2+8*5 || what==4+8*6 || what==7+8*7) { setExtra2(x,z,y,"brain_coral_block",SomeStuff);  AX[x][z][y]=BlockInfo(1000,0,0,0); }
-                                                if (what==2 || what==4+8 || what== 1+8*2 || what==2+8*3 || what==2+8*4 || what==6+8*5 || what==6+8*6 || what==2+8*7) { setExtra2(x,z,y,"bubble_coral_block",SomeStuff); AX[x][z][y]=BlockInfo(1000,0,0,0); }
-                                                if (what==3 || what==3+8 || what== 2+8*2 || what==7+8*3 || what==4+8*4 || what==7+8*5 || what==7+8*6 || what==3+8*7) { setExtra2(x,z,y,"fire_coral_block",SomeStuff);   AX[x][z][y]=BlockInfo(1000,0,0,0); }
-                                                if (what==4 || what==7+8 || what== 4+8*2 || what==5+8*3 || what==6+8*4 || what==1+8*5 || what==3+8*6 || what==1+8*7) { setExtra2(x,z,y,"horn_coral_block",SomeStuff);   AX[x][z][y]=BlockInfo(1000,0,0,0); }
-                                                if (what==5 || what==5+8 || what== 5+8*2 || what==1+8*3 || what==5+8*4 || what==0+8*5 || what==2+8*6 || what==4+8*7) { AX[x][z][y]=BlockInfo(8,0,0,0); }
-                                                if (what==6 || what==6+8 || what== 0+8*2 || what==0+8*3 || what==0+8*4 || what==3+8*5 || what==1+8*6 || what==6+8*7) { AX[x][z][y]=BlockInfo(8,0,0,0); }
-                                                if (what==7 || what==2+8 || what== 3+8*2 || what==6+8*3 || what==1+8*4 || what==5+8*5 || what==0+8*6 || what==5+8*7) { AX[x][z][y]=BlockInfo(8,0,0,0); }
-
-/*
-                                                if (what==0) { setExtra(x,z,y,"minecraft:tube_coral_block");   AX[x][z][y]=BlockInfo(1000,0,0,0); }
-                                                if (what==1) { setExtra(x,z,y,"minecraft:brain_coral_block");  AX[x][z][y]=BlockInfo(1000,0,0,0); }
-                                                if (what==2) { setExtra(x,z,y,"minecraft:bubble_coral_block"); AX[x][z][y]=BlockInfo(1000,0,0,0); }
-                                                if (what==3) { setExtra(x,z,y,"minecraft:fire_coral_block");   AX[x][z][y]=BlockInfo(1000,0,0,0); }
-                                                if (what==4) { setExtra(x,z,y,"minecraft:horn_coral_block");   AX[x][z][y]=BlockInfo(1000,0,0,0); }
-*/
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    printf(" Coral:\b\b\b\b\b\b\b");
-//printf("\n");
-                    for (int x = 1; x < 511; x++) {
-                        xx=x+chunk_offsetx*16;
-                        for (int z = 1; z < 511; z++) {
-                            zz=z+chunk_offsetz*16;
-                            toggle2();
-                            for (int y = 1; y < 248; y++) {
-                                if (AX[x][z][y].id==8) {
-                                    int t=(int)(80.0+40.0*( (float)(rand()%20)/80.0 + sin((xx+sin(zz/15)*5)/(15.0+sin(zz/20.0)*5.0))+sin((zz+sin(xx/15)*5)/(15.0+sin((float)y/22.0)*5.0))+sin(((float)y+sin((zz+xx)/25)*5)/(15.0+sin(xx/23.0)*5.0)) )  );
-                                    if (t<0) t=0;
-                                    int t2=(int)(7.5+1.5*( (float)(rand()%((int)(1+(t)/30)))/80.0 + sin((xx+sin(zz/25)*5)/(15.0+sin(zz/30.0)*5.0))+sin((zz+sin(xx/25)*5)/(15.0+sin((float)y/32.0)*5.0))+sin(((float)y+sin((zz+xx)/45)*5)/(15.0+sin(xx/33.0)*5.0)) )  );
-                                    if ( ((t<(25+t2*3) && (rand()%10)<(t2)) || ( rand()%(1+t )==0 && (rand()%20)<(t2) ) ) && t>(-10+t2*3+t/20) ) {
-                                        int allwater=1;
-                                        for (int xxx=-1; xxx<2 && (allwater==1); xxx++) {
-                                            for (int zzz=-1; zzz<2 && (allwater==1); zzz++) {
-                                                for (int yyy=-1; yyy<2 && (allwater==1); yyy++) {
-                                                    if (!(xxx==0 && yyy==0 && zzz==0)) {
-//                                                        if (AX[x+xxx][z+zzz][y+yyy].id!=8 && !AX[x+xxx][z+zzz][y+yyy].id==0) allwater=0;
-                                                        if ( AX[x+xxx][z+zzz][y+yyy].id!=8 && AX[x+xxx][z+zzz][y+yyy].id!=1000 && !AX[x+xxx][z+zzz][y+yyy].id==0) allwater=0;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        if (allwater==0) {
-                                            if (!(rand()%30)) {
-//                                                    setExtra(x,z,y,"glowstone");   AX[x][z][y]=BlockInfo(1000,0,0,0);
-                                                setExtra2(x,z,y,"glowstone",SomeStuff);   AX[x][z][y]=BlockInfo(1000,0,0,0);
-                                            } else {
-                                                float some1=(10+3.25*(  (float)(rand()%25)/80.0 + sin((xx+sin(zz/43)*4.3+sin((float)y/73)*2)/(15.0+sin(zz/42.0+(float)y/99)*5.0))+sin((zz+sin((xx+(float)y/3)/43)*4)/(15.0+sin((float)y/42.0+(float)zz/92.0)*5.0))+sin(((float)y+sin((zz+xx)/47)*3)/(15.0+sin(xx/41.0)*450+sin(zz/71.0)*2.1)) ));
-                                                float some2=(10+3.25*(  (float)(rand()%((int)(some1+5)))/80.0 + sin((xx+sin(zz/120)*3.8)/(15.0+sin(zz/112.0)*5.0))+sin((zz+sin(xx/143)*4)/(15.0+sin((float)y/82.0)*5.0))+sin(((float)y+sin((zz+xx)/168)*3)/(15.0+sin(xx/101.0)*5.0)) ));
-                                                int flow;
-                                                flow = (   sin((xx+some2)/(83.23+some1*3) + sin((zz)/73.75)/3 )  +  sin((zz)/(39.75+some2) + sin(((float)y)/34.87)/7.1  )  )*5+10;
-                                                flow+= (sin((xx)/(94.23+some1*2) + sin((zz)/(57.75+flow))/2 )+sin(((float)y)/(26.75+some2/2) + sin((xx+flow/2)/45.87)/5.3 ))*1.25+2.5;
-                                                flow+= (   sin(((float)y+some2)/(62.23+some1*2.1) + sin((zz)/(54.75+flow))/2.9 )  +  sin(((float)y)/(64.75+some1*1.8) + sin((xx+flow/2)/47.87)/6.2  )  )*15+30;
-                                                int t=100+((86-flow)*some1+(flow)*some2)/80;
-
-//                                                    int t=(int)(10+3.25*(  (float)(rand()%25)/80.0 + sin((xx+sin(zz/43)*4)/(15.0+sin(zz/42.0)*5.0))+sin((zz+sin(xx/43)*4)/(15.0+sin((float)y/42.0)*5.0))+sin(((float)y+sin((zz+xx)/47)*3)/(15.0+sin(xx/41.0)*5.0)) ));
-                                                int what=t%64;
-                                                if (what==0 || what==0+8 || what== 7+8*2 || what==3+8*3 || what==3+8*4 || what==4+8*5 || what==5+8*6 || what==0+8*7){ setExtra2(x,z,y,"tube_coral_block",SomeStuff);   AX[x][z][y]=BlockInfo(1001,0,0,0); }
-                                                if (what==1 || what==1+8 || what== 6+8*2 || what==4+8*3 || what==7+8*4 || what==2+8*5 || what==4+8*6 || what==7+8*7){ setExtra2(x,z,y,"brain_coral_block",SomeStuff);  AX[x][z][y]=BlockInfo(1001,0,0,0); }
-                                                if (what==2 || what==4+8 || what== 1+8*2 || what==2+8*3 || what==2+8*4 || what==6+8*5 || what==6+8*6 || what==2+8*7){ setExtra2(x,z,y,"bubble_coral_block",SomeStuff); AX[x][z][y]=BlockInfo(1001,0,0,0); }
-                                                if (what==3 || what==3+8 || what== 2+8*2 || what==7+8*3 || what==4+8*4 || what==7+8*5 || what==7+8*6 || what==3+8*7){ setExtra2(x,z,y,"fire_coral_block",SomeStuff);   AX[x][z][y]=BlockInfo(1001,0,0,0); }
-                                                if (what==4 || what==7+8 || what== 4+8*2 || what==5+8*3 || what==6+8*4 || what==1+8*5 || what==3+8*6 || what==1+8*7){ setExtra2(x,z,y,"horn_coral_block",SomeStuff);   AX[x][z][y]=BlockInfo(1001,0,0,0); }
-                                                if (what==5 || what==5+8 || what== 5+8*2 || what==1+8*3 || what==5+8*4 || what==0+8*5 || what==2+8*6 || what==4+8*7){ AX[x][z][y]=BlockInfo(8,0,0,0); }
-                                                if (what==6 || what==6+8 || what== 0+8*2 || what==0+8*3 || what==0+8*4 || what==3+8*5 || what==1+8*6 || what==6+8*7){ AX[x][z][y]=BlockInfo(8,0,0,0); }
-                                                if (what==7 || what==2+8 || what== 3+8*2 || what==6+8*3 || what==1+8*4 || what==5+8*5 || what==0+8*6 || what==5+8*7){ AX[x][z][y]=BlockInfo(8,0,0,0); }
-/*
-                                                if (what==0) { setExtra(x,z,y,"minecraft:tube_coral_block");   AX[x][z][y]=BlockInfo(1001,0,0,0); }
-                                                if (what==1) { setExtra(x,z,y,"minecraft:brain_coral_block");  AX[x][z][y]=BlockInfo(1001,0,0,0); }
-                                                if (what==2) { setExtra(x,z,y,"minecraft:bubble_coral_block"); AX[x][z][y]=BlockInfo(1001,0,0,0); }
-                                                if (what==3) { setExtra(x,z,y,"minecraft:fire_coral_block");   AX[x][z][y]=BlockInfo(1001,0,0,0); }
-                                                if (what==4) { setExtra(x,z,y,"minecraft:horn_coral_block");   AX[x][z][y]=BlockInfo(1001,0,0,0); }
-*/
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    printf(" Coral:\b\b\b\b\b\b\b");
-//printf("\n");
-                    for (int x = 1; x < 511; x++) {
-                        xx=x+chunk_offsetx*16;
-                        for (int z = 1; z < 511; z++) {
-                            zz=z+chunk_offsetz*16;
-                            toggle2();
-                            for (int y = 1; y < 248; y++) {
-                                if (AX[x][z][y].id==8) {
-                                    int t=(int)(80.0+40.0*( (float)(rand()%20)/80.0 + sin((xx+sin(zz/15)*5)/(15.0+sin(zz/20.0)*5.0))+sin((zz+sin(xx/15)*5)/(15.0+sin((float)y/22.0)*5.0))+sin(((float)y+sin((zz+xx)/25)*5)/(15.0+sin(xx/23.0)*5.0)) )  );
-                                    if (t<0) t=0;
-                                    int t2=(int)(7.5+1.5*( (float)(rand()%((int)(1+(t)/30)))/80.0 + sin((xx+sin(zz/25)*5)/(15.0+sin(zz/30.0)*5.0))+sin((zz+sin(xx/25)*5)/(15.0+sin((float)y/32.0)*5.0))+sin(((float)y+sin((zz+xx)/45)*5)/(15.0+sin(xx/33.0)*5.0)) )  );
-                                    if (( (t<(40+t2*2) && (rand()%10)<(t2)) || ( rand()%(1+t )==0 && (rand()%15)<(t2) ) ) && t>(-15+t2*3+t/20)) {
-                                        int allwater=1;
-                                        for (int xxx=-1; xxx<2 && (allwater==1); xxx++) {
-                                            for (int zzz=-1; zzz<2 && (allwater==1); zzz++) {
-                                                for (int yyy=-1; yyy<2 && (allwater==1); yyy++) {
-                                                    if (!(xxx==0 && yyy==0 && zzz==0)) {
-//                                                        if (AX[x+xxx][z+zzz][y+yyy].id!=8 && !AX[x+xxx][z+zzz][y+yyy].id==0) allwater=0;
-                                                        if ( AX[x+xxx][z+zzz][y+yyy].id!=8 && AX[x+xxx][z+zzz][y+yyy].id!=1000 && !AX[x+xxx][z+zzz][y+yyy].id==0) allwater=0;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        if (allwater==0) {
-                                            if (!(rand()%30)) {
-                                                setExtra2(x,z,y,"glowstone",SomeStuff);   AX[x][z][y]=BlockInfo(1000,0,0,0);
-//                                                    setExtra(x,z,y,"minecraft:glowstone");   AX[x][z][y]=BlockInfo(1000,0,0,0);
-                                            } else {
-                                                float some1=(10+3.25*(  (float)(rand()%25)/80.0 + sin((xx+sin(zz/43)*4.3+sin((float)y/73)*2)/(15.0+sin(zz/42.0+(float)y/99)*5.0))+sin((zz+sin((xx+(float)y/3)/43)*4)/(15.0+sin((float)y/42.0+(float)zz/92.0)*5.0))+sin(((float)y+sin((zz+xx)/47)*3)/(15.0+sin(xx/41.0)*450+sin(zz/71.0)*2.1)) ));
-                                                float some2=(10+3.25*(  (float)(rand()%((int)(some1+5)))/80.0 + sin((xx+sin(zz/120)*3.8)/(15.0+sin(zz/112.0)*5.0))+sin((zz+sin(xx/143)*4)/(15.0+sin((float)y/82.0)*5.0))+sin(((float)y+sin((zz+xx)/168)*3)/(15.0+sin(xx/101.0)*5.0)) ));
-                                                int flow;
-                                                flow = (   sin((xx+some2)/(83.23+some1*3) + sin((zz)/73.75)/3 )  +  sin((zz)/(39.75+some2) + sin(((float)y)/34.87)/7.1  )  )*5+10;
-                                                flow+= (sin((xx)/(94.23+some1*2) + sin((zz)/(57.75+flow))/2 )+sin(((float)y)/(26.75+some2/2) + sin((xx+flow/2)/45.87)/5.3 ))*1.25+2.5;
-                                                flow+= (   sin(((float)y+some2)/(62.23+some1*2.1) + sin((zz)/(54.75+flow))/2.9 )  +  sin(((float)y)/(64.75+some1*1.8) + sin((xx+flow/2)/47.87)/6.2  )  )*15+30;
-                                                int t=100+((86-flow)*some1+(flow)*some2)/80;
-
-//                                                    int t=(int)(10+3.25*(  (float)(rand()%25)/80.0 + sin((xx+sin(zz/43)*4)/(15.0+sin(zz/42.0)*5.0))+sin((zz+sin(xx/43)*4)/(15.0+sin((float)y/42.0)*5.0))+sin(((float)y+sin((zz+xx)/47)*3)/(15.0+sin(xx/41.0)*5.0)) ));
-                                                int what=t%64;
-                                                if (what==0 || what==0+8 || what== 7+8*2 || what==3+8*3 || what==3+8*4 || what==4+8*5 || what==5+8*6 || what==0+8*7) { setExtra2(x,z,y,"tube_coral_block",SomeStuff);   AX[x][z][y]=BlockInfo(1002,0,0,0); }
-                                                if (what==1 || what==1+8 || what== 6+8*2 || what==4+8*3 || what==7+8*4 || what==2+8*5 || what==4+8*6 || what==7+8*7) { setExtra2(x,z,y,"brain_coral_block",SomeStuff);  AX[x][z][y]=BlockInfo(1002,0,0,0); }
-                                                if (what==2 || what==4+8 || what== 1+8*2 || what==2+8*3 || what==2+8*4 || what==6+8*5 || what==6+8*6 || what==2+8*7) { setExtra2(x,z,y,"bubble_coral_block",SomeStuff); AX[x][z][y]=BlockInfo(1002,0,0,0); }
-                                                if (what==3 || what==3+8 || what== 2+8*2 || what==7+8*3 || what==4+8*4 || what==7+8*5 || what==7+8*6 || what==3+8*7) { setExtra2(x,z,y,"fire_coral_block",SomeStuff);   AX[x][z][y]=BlockInfo(1002,0,0,0); }
-                                                if (what==4 || what==7+8 || what== 4+8*2 || what==5+8*3 || what==6+8*4 || what==1+8*5 || what==3+8*6 || what==1+8*7) { setExtra2(x,z,y,"horn_coral_block",SomeStuff);   AX[x][z][y]=BlockInfo(1002,0,0,0); }
-                                                if (what==5 || what==5+8 || what== 5+8*2 || what==1+8*3 || what==5+8*4 || what==0+8*5 || what==2+8*6 || what==4+8*7) { AX[x][z][y]=BlockInfo(8,0,0,0); }
-                                                if (what==6 || what==6+8 || what== 0+8*2 || what==0+8*3 || what==0+8*4 || what==3+8*5 || what==1+8*6 || what==6+8*7) { AX[x][z][y]=BlockInfo(8,0,0,0); }
-                                                if (what==7 || what==2+8 || what== 3+8*2 || what==6+8*3 || what==1+8*4 || what==5+8*5 || what==0+8*6 || what==5+8*7) { AX[x][z][y]=BlockInfo(8,0,0,0); }
-/*
-                                                if (what==0) { setExtra(x,z,y,"minecraft:tube_coral_block");   AX[x][z][y]=BlockInfo(1002,0,0,0); }
-                                                if (what==1) { setExtra(x,z,y,"minecraft:brain_coral_block");  AX[x][z][y]=BlockInfo(1002,0,0,0); }
-                                                if (what==2) { setExtra(x,z,y,"minecraft:bubble_coral_block"); AX[x][z][y]=BlockInfo(1002,0,0,0); }
-                                                if (what==3) { setExtra(x,z,y,"minecraft:fire_coral_block");   AX[x][z][y]=BlockInfo(1002,0,0,0); }
-                                                if (what==4) { setExtra(x,z,y,"minecraft:horn_coral_block");   AX[x][z][y]=BlockInfo(1002,0,0,0); }
-*/
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    for (int x = 0; x < 512; x++) {
-                        BlockInfo** AZ=AX[x];
-                        for (int z = 0; z < 512; z++) {
-                            BlockInfo* AY=AZ[z];
-                            toggle2();
-                            for (int y = 0; y < yl; y++) {
-                                if (  AY[y].id>=1000 && AY[y].id<=1004) {
-                                    AY[y] = BlockInfo(8,0,0);
-                                }
-                            }
-                        }
-                    }
-
-//printf("\n");
-
-
-
-
-                    printf(" Kelp:\b\b\b\b\b\b");
-                    for (int x = 0; x < 512; x++) {
-                        xx=x+chunk_offsetx*16;
-                        for (int z = 0; z < 512; z++) {
-                            zz=z+chunk_offsetz*16;
-                            toggle2();
-                            for (int y = 1; y < 248; y++) {
-                                if (AX[x][z][y].id==8 && AX[x][z][y-1].id!=8 && AX[x][z][y].id!=1003 && AX[x][z][y-1].id!=1003) {
-                                    int t=(int)(10.0+4.0*( (float)(rand()%20)/80.0 + sin((xx+sin(zz/24)*10)/(16.0+sin(zz/20.0)*5.0))+sin((zz+sin(xx/26)*8)/(16.0+sin((float)y/22.0)*5.0))+sin(((float)y+sin((zz+xx)/44)*8)/(17.0+sin(xx/23.0)*5.0)) )  );
-                                    if (t<0) t=0;
-                                    if (   rand()%(1+t ) == 0 ) {
-                                        char what[100];
-                                        sprintf(what,"kelp[age=%d]",rand()%25);
-                                        setExtra2(x,z,y,what,SomeStuff);
-//                                            setExtra(x,z,y,what);
-                                        AX[x][z][y]=BlockInfo(1003,0,0,0);
-                                    }
-                                }
-                            }
-                        }
-                    }
-//printf("\n");
-                    printf(" Coral:\b\b\b\b\b\b\b");
-                    for (int x = 1; x < 511; x++) {
-                        xx=x+chunk_offsetx*16;
-                        for (int z = 1; z < 511; z++) {
-                            zz=z+chunk_offsetz*16;
-                            toggle2();
-                            for (int y = 1; y < 248; y++) {
-                                if (AX[x][z][y].id==8) {
-                                    int t=(int)(50.0+20.0*( (float)(rand()%20)/80.0 + sin((xx+sin(zz/17)*5)/(15.0+sin(zz/22.0)*5.0))+sin((zz+sin(xx/17)*5)/(15.0+sin((float)y/22.0)*5.0))+sin(((float)y+sin((zz+xx)/28)*5)/(15.0+sin(xx/23.0)*5.0)) )  );
-                                    if (t<0) t=0;
-                                    if ( (t<50 && (rand()%10)<5) || rand()%(1+t ) == 0 ) {
-                                        int wall=0;
-                                        for (int xxx=-1; xxx<2 && (wall==0); xxx++) {
-                                            for (int zzz=-1; zzz<2 && (wall==0); zzz++) {
-                                                if (AX[x+xxx][z+zzz][y].id!=8 && AX[x+xxx][z+zzz][y].id!=1003 && AX[x+xxx][z+zzz][y].id!=1004 && !AX[x+xxx][z+zzz][y].id==0) wall=1;
-                                            }
-                                        }
-                                        if (wall==1 && (rand()%2)==0) {
-                                            int t=(int)(10+3.25*(  (float)(rand()%25)/80.0 + sin((xx+sin(zz/43)*4)/(15.0+sin(zz/42.0)*5.0))+sin((zz+sin(xx/43)*4)/(15.0+sin((float)y/42.0)*5.0))+sin(((float)y+sin((zz+xx)/47)*3)/(15.0+sin(xx/41.0)*5.0)) ));
-                                            int what=t%5;
-                                            if (what==0) { setExtra2(x,z,y,"tube_coral_fan",SomeStuff);  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==1) { setExtra2(x,z,y,"brain_coral_fan",SomeStuff); AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==2) { setExtra2(x,z,y,"bubble_coral_fan",SomeStuff);AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==3) { setExtra2(x,z,y,"fire_coral_fan",SomeStuff);  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==4) { setExtra2(x,z,y,"horn_coral_fan",SomeStuff);  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-/*
-                                            if (what==0) { setExtra(x,z,y,"minecraft:tube_coral_fan");  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==1) { setExtra(x,z,y,"minecraft:brain_coral_fan"); AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==2) { setExtra(x,z,y,"minecraft:bubble_coral_fan");AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==3) { setExtra(x,z,y,"minecraft:fire_coral_fan");  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==4) { setExtra(x,z,y,"minecraft:horn_coral_fan");  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-*/
-                                        } else if (AX[x][z][y-1].id!=8 && AX[x][z][y].id!=1003 && AX[x][z][y].id!=1004 && AX[x][z][y-1].id!=1003 && AX[x][z][y-1].id!=1004 ) {
-                                            int t=(int)(10+3.25*(  (float)(rand()%25)/80.0 + sin((xx+sin(zz/43)*4)/(15.0+sin(zz/42.0)*5.0))+sin((zz+sin(xx/43)*4)/(15.0+sin((float)y/42.0)*5.0))+sin(((float)y+sin((zz+xx)/47)*3)/(15.0+sin(xx/41.0)*5.0)) ));
-                                            int what=t%5;
-                                            if (what==0) { setExtra2(x,z,y,"tube_coral",SomeStuff);  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==1) { setExtra2(x,z,y,"brain_coral",SomeStuff); AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==2) { setExtra2(x,z,y,"bubble_coral",SomeStuff);AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==3) { setExtra2(x,z,y,"fire_coral",SomeStuff);  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==4) { setExtra2(x,z,y,"horn_coral",SomeStuff);  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-/*
-                                            if (what==0) { setExtra(x,z,y,"minecraft:tube_coral");   AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==1) { setExtra(x,z,y,"minecraft:brain_coral");  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==2) { setExtra(x,z,y,"minecraft:bubble_coral"); AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==3) { setExtra(x,z,y,"minecraft:fire_coral");   AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==4) { setExtra(x,z,y,"minecraft:horn_coral");   AX[x][z][y]=BlockInfo(1004,0,0,0); }
-*/
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    printf(" Coral:\b\b\b\b\b\b\b");
-                    for (int x = 1; x < 511; x++) {
-                        xx=x+chunk_offsetx*16;
-                        for (int z = 1; z < 511; z++) {
-                            zz=z+chunk_offsetz*16;
-                            toggle2();
-                            for (int y = 1; y < 248; y++) {
-                                if (AX[x][z][y].id==8) {
-                                    int t=(int)(80.0+40.0*( (float)(rand()%20)/80.0 + sin((xx+sin(zz/15)*5)/(15.0+sin(zz/20.0)*5.0))+sin((zz+sin(xx/15)*5)/(15.0+sin((float)y/22.0)*5.0))+sin(((float)y+sin((zz+xx)/25)*5)/(15.0+sin(xx/23.0)*5.0)) )  );
-                                    if (t<0) t=0;
-                                    int t2=(int)(7.5+1.5*( (float)(rand()%((int)(1+(t)/30)))/80.0 + sin((xx+sin(zz/25)*5)/(15.0+sin(zz/30.0)*5.0))+sin((zz+sin(xx/25)*5)/(15.0+sin((float)y/32.0)*5.0))+sin(((float)y+sin((zz+xx)/45)*5)/(15.0+sin(xx/33.0)*5.0)) )  );
-                                    if ( ((t<(15+t2*4) && (rand()%10)<(t2)) || ( rand()%(1+t )==0 && (rand()%25)<(t2) )) && t>(-15+t2*3+t/20) ) {
-                                        int wall=0;
-                                        for (int xxx=-1; xxx<2 && (wall==0); xxx++) {
-                                            for (int zzz=-1; zzz<2 && (wall==0); zzz++) {
-                                                if (AX[x+xxx][z+zzz][y].id!=8 && AX[x+xxx][z+zzz][y].id!=1003 && AX[x+xxx][z+zzz][y].id!=1004 && !AX[x+xxx][z+zzz][y].id==0) wall=1;
-                                            }
-                                        }
-                                        if (wall==1 && (rand()%2)==0) {
-                                            float some1=(10+3.25*(  (float)(rand()%25)/80.0 + sin((xx+sin(zz/43)*4.3+sin((float)y/73)*2)/(15.0+sin(zz/42.0+(float)y/99)*5.0))+sin((zz+sin((xx+(float)y/3)/43)*4)/(15.0+sin((float)y/42.0+(float)zz/92.0)*5.0))+sin(((float)y+sin((zz+xx)/47)*3)/(15.0+sin(xx/41.0)*450+sin(zz/71.0)*2.1)) ));
-                                            float some2=(10+3.25*(  (float)(rand()%((int)(some1+5)))/80.0 + sin((xx+sin(zz/120)*3.8)/(15.0+sin(zz/112.0)*5.0))+sin((zz+sin(xx/143)*4)/(15.0+sin((float)y/82.0)*5.0))+sin(((float)y+sin((zz+xx)/168)*3)/(15.0+sin(xx/101.0)*5.0)) ));
-                                            int flow;
-                                            flow = (   sin((xx+some2)/(83.23+some1*3) + sin((zz)/73.75)/3 )  +  sin((zz)/(39.75+some2) + sin(((float)y)/34.87)/7.1  )  )*5+10;
-                                            flow+= (sin((xx)/(94.23+some1*2) + sin((zz)/(57.75+flow))/2 )+sin(((float)y)/(26.75+some2/2) + sin((xx+flow/2)/45.87)/5.3 ))*1.25+2.5;
-                                            flow+= (   sin(((float)y+some2)/(62.23+some1*2.1) + sin((zz)/(54.75+flow))/2.9 )  +  sin(((float)y)/(64.75+some1*1.8) + sin((xx+flow/2)/47.87)/6.2  )  )*15+30;
-                                            int t=100+((86-flow)*some1+(flow)*some2)/80;
-                                            int what=t%30;
-                                            what=rand()%64;
-                                            if (what==0 || what==0+8 || what== 7+8*2 || what==3+8*3 || what==3+8*4 || what==4+8*5 || what==5+8*6 || what==0+8*7) { setExtra2(x,z,y,"tube_coral_fan",SomeStuff);  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==1 || what==1+8 || what== 6+8*2 || what==4+8*3 || what==7+8*4 || what==2+8*5 || what==4+8*6 || what==7+8*7) { setExtra2(x,z,y,"brain_coral_fan",SomeStuff); AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==2 || what==4+8 || what== 1+8*2 || what==2+8*3 || what==2+8*4 || what==6+8*5 || what==6+8*6 || what==2+8*7) { setExtra2(x,z,y,"bubble_coral_fan",SomeStuff);AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==3 || what==3+8 || what== 2+8*2 || what==7+8*3 || what==4+8*4 || what==7+8*5 || what==7+8*6 || what==3+8*7) { setExtra2(x,z,y,"fire_coral_fan",SomeStuff);  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==4 || what==7+8 || what== 4+8*2 || what==5+8*3 || what==6+8*4 || what==1+8*5 || what==3+8*6 || what==1+8*7) { setExtra2(x,z,y,"horn_coral_fan",SomeStuff);  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-//                                                if (what==5 || what==5+8 || what== 5+8*2 || what==1+8*3 || what==5+8*4 || what==0+8*5 || what==2+8*6 || what==4+8*7)
-//                                                if (what==6 || what==6+8 || what== 0+8*2 || what==0+8*3 || what==0+8*4 || what==3+8*5 || what==1+8*6 || what==6+8*7)
-//                                                if (what==7 || what==2+8 || what== 3+8*2 || what==6+8*3 || what==1+8*4 || what==5+8*5 || what==0+8*6 || what==5+8*7)
-
-
-/*
-                                            if (what==0) { setExtra(x,z,y,"minecraft:tube_coral_fan");  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==1) { setExtra(x,z,y,"minecraft:brain_coral_fan"); AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==2) { setExtra(x,z,y,"minecraft:bubble_coral_fan");AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==3) { setExtra(x,z,y,"minecraft:fire_coral_fan");  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==4) { setExtra(x,z,y,"minecraft:horn_coral_fan");  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-*/
-                                        } else if (AX[x][z][y-1].id!=8 && AX[x][z][y].id!=1003 && AX[x][z][y].id!=1004 && AX[x][z][y-1].id!=1003 && AX[x][z][y-1].id!=1004 ) {
-                                            float some1=(10+3.25*(  (float)(rand()%25)/80.0 + sin((xx+sin(zz/43)*4.3+sin((float)y/73)*2)/(15.0+sin(zz/42.0+(float)y/99)*5.0))+sin((zz+sin((xx+(float)y/3)/43)*4)/(15.0+sin((float)y/42.0+(float)zz/92.0)*5.0))+sin(((float)y+sin((zz+xx)/47)*3)/(15.0+sin(xx/41.0)*450+sin(zz/71.0)*2.1)) ));
-                                            float some2=(10+3.25*(  (float)(rand()%((int)(some1+5)))/80.0 + sin((xx+sin(zz/120)*3.8)/(15.0+sin(zz/112.0)*5.0))+sin((zz+sin(xx/143)*4)/(15.0+sin((float)y/82.0)*5.0))+sin(((float)y+sin((zz+xx)/168)*3)/(15.0+sin(xx/101.0)*5.0)) ));
-                                            int flow;
-                                            flow = (   sin((xx+some2)/(83.23+some1*3) + sin((zz)/73.75)/3 )  +  sin((zz)/(39.75+some2) + sin(((float)y)/34.87)/7.1  )  )*5+10;
-                                            flow+= (sin((xx)/(94.23+some1*2) + sin((zz)/(57.75+flow))/2 )+sin(((float)y)/(26.75+some2/2) + sin((xx+flow/2)/45.87)/5.3 ))*1.25+2.5;
-                                            flow+= (   sin(((float)y+some2)/(62.23+some1*2.1) + sin((zz)/(54.75+flow))/2.9 )  +  sin(((float)y)/(64.75+some1*1.8) + sin((xx+flow/2)/47.87)/6.2  )  )*15+30;
-                                            int t=100+((86-flow)*some1+(flow)*some2)/80;
-                                            int what=t%30;
-                                            if (what==5 || what==9  || what==15 || what==18 || what==26) what=rand()%30;
-                                            if (what==0 || what==8  || what==16 || what==21 || what==25) { setExtra2(x,z,y,"tube_coral",SomeStuff);  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==1 || what==11 || what==17 || what==22 || what==29) { setExtra2(x,z,y,"brain_coral",SomeStuff); AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==2 || what==10 || what==13 || what==19 || what==28) { setExtra2(x,z,y,"bubble_coral",SomeStuff);AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==3 || what==7  || what==14 || what==23 || what==24) { setExtra2(x,z,y,"fire_coral",SomeStuff);  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==4 || what==6  || what==12 || what==20 || what==27) { setExtra2(x,z,y,"horn_coral",SomeStuff);  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-/*
-                                            if (what==0) { setExtra(x,z,y,"minecraft:tube_coral");   AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==1) { setExtra(x,z,y,"minecraft:brain_coral");  AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==2) { setExtra(x,z,y,"minecraft:bubble_coral"); AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==3) { setExtra(x,z,y,"minecraft:fire_coral");   AX[x][z][y]=BlockInfo(1004,0,0,0); }
-                                            if (what==4) { setExtra(x,z,y,"minecraft:horn_coral");   AX[x][z][y]=BlockInfo(1004,0,0,0); }
-*/
-                                        }
-                                    } else if (t<=(t2*3+t/20) && !(rand()%100)) {
-                                        Pos position(region.x_ori + x+chunk_offsetx*16, region.z_ori + z+chunk_offsetz*16, region.y_ori + y);
-                                        Pos position2(region.x_ori + x, region.z_ori + z, region.y_ori + y);
-                                        MobEntity* mob;
-                                        mob = new MobEntity(position, "minecraft:tropical_fish");
-                                        editor.mca_coder.insertEntity(position2, mob);
-                                        delete mob;
-                                    }
-                                }
-                            }
-                        }
-                    }
-//printf("\n");
-                    printf(" Planter:\b\b\b\b\b\b\b\b\b");
-
-
-                    makeExtra2(region,SomeStuff);
-//                        makeExtra(region);
-//printf("\n");
-
-                    printf(" Fish:\b\b\b\b\b\b");
-//printf("\n");
-
-                    for (int x = 0; x < 512; x++) {
-                        xx=x+chunk_offsetx*16;
-                        BlockInfo** AZ=AX[x];
-                        for (int z = 0; z < 512; z++) {
-                            zz=z+chunk_offsetz*16;
-                            BlockInfo* AY=AZ[z];
-                            toggle2();
-                            for (int y = 0; y < yl; y++) {
-                                if (  AY[y].id==8) {
-                                    if (rand()%10000==0) {
-                                        int fish=rand()%7;
-                                        if (!rand()%4) fish=rand()%4;
-                                        if (!rand()%6) fish=rand()%4;
-                                        Pos position(region.x_ori + x+chunk_offsetx*16, region.z_ori + z+chunk_offsetz*16, region.y_ori + y);
-                                        Pos position2(region.x_ori + x, region.z_ori + z, region.y_ori + y);
-                                        MobEntity* mob;
-                                        if (fish==0) mob = new MobEntity(position, "minecraft:turtle");
-                                        else if (fish==1) mob = new MobEntity(position, "minecraft:tropical_fish");
-                                        else if (fish==2) mob = new MobEntity(position, "minecraft:pufferfish");
-                                        else if (fish==3) mob = new MobEntity(position, "minecraft:dolphin");
-                                        else if (fish==4) mob = new MobEntity(position, "minecraft:squid");
-                                        else if (fish==5) mob = new MobEntity(position, "minecraft:salmon");
-                                        else if (fish==6) mob = new MobEntity(position, "minecraft:cod");
-                                        else if (fish==7) mob = new MobEntity(position, "minecraft:guardian");
-                                        else if (fish==8) mob = new MobEntity(position, "minecraft:elder_guardian");
-                                        editor.mca_coder.insertEntity(position2, mob);
-                                        if (fish==1) {
-                                            for (int t=0; t<(rand()%20); t++) editor.mca_coder.insertEntity(position2, mob);
-                                        }
-                                        delete mob;
-                                    } else if (rand()%15000==0) {
-                                        MobEntity* mob;
-                                        Pos position(region.x_ori + x+chunk_offsetx*16, region.z_ori + z+chunk_offsetz*16, region.y_ori + y);
-                                        Pos position2(region.x_ori + x, region.z_ori + z, region.y_ori + y);
-                                        mob = new MobEntity(position, "minecraft:dolphin");
-                                        editor.mca_coder.insertEntity(position2, mob);
-                                        delete mob;
-                                    } else if (rand()%1500000==0) {
-                                        int fish=rand()%2;
-                                        Pos position(region.x_ori + x+chunk_offsetx*16, region.z_ori + z+chunk_offsetz*16, region.y_ori + y);
-                                        Pos position2(region.x_ori + x, region.z_ori + z, region.y_ori + y);
-                                        MobEntity* mob;
-                                        if (fish==0) mob = new MobEntity(position, "minecraft:guardian");
-                                        else if (fish==1) mob = new MobEntity(position, "minecraft:elder_guardian");
-                                        editor.mca_coder.insertEntity(position2, mob);
-                                        delete mob;
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    for (int x = 0; x < 512; x++) {
-                        BlockInfo** AZ=AX[x];
-                        for (int z = 0; z < 512; z++) {
-                            BlockInfo* AY=AZ[z];
-                            toggle2();
-                            for (int y = 0; y < yl; y++) {
-                                if (  AY[y].id>=1000 && AY[y].id<=1004) {
-                                    AY[y] = BlockInfo(8,0,0);
-                                }
-                            }
-                        }
-                    }
-                }
-
-//                rails_tot_tot+=rails_tot;
                 printf("\rTotal:\n");
                 printf(" %d blocks = %5.2f%, #rails added = %d, #rails total = %d, abs rails = %7.3f kilometers\n",
                     num_blocks,100.0*(float)num_blocks/(1024*1024*64),rails,rails_tot,(float)rails_tot_tot/1000);
@@ -11966,6 +11549,7 @@ void set_it(const int x,const int z,sf::Image& image_plot_b,sf::Image& image_plo
 }
 
 void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region, int region_x, int region_z,int skippy, int skippy2,int& num_blocks) {
+    image_plot2.create(512+10,512+10);
     int local_mcglobal2=mcglobal2;
     int local_mcglobal3=mcglobal3;
     bool action=true;
@@ -11974,10 +11558,13 @@ void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region
     sf::Image image_plot_c;
     image_plot_c.create(512+10,512+10,sf::Color(0,0,0,0));
 
+
     BlockInfo*** AX=region.A;
 //  larger by 1
     local_mcglobal2=local_mcglobal2-105;
     if (local_mcglobal2<-105) printf("Illegal heigth: %d\n",local_mcglobal2);
+
+    printf("Adding rails: height=%d  shrink=%d  type=%d ",mcglobal2,mcglobal3,mcglobal5);
 
     int round_height=0;
 //    int round_height2=0;
@@ -11986,7 +11573,12 @@ void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region
         local_mcglobal3=local_mcglobal3-7;
 
         read_one_plot_WINMAIN(region_x*512-5, region_z*512-5, &image_plot);
-        read_one_plot_WINMAIN(region_x*512-5, region_z*512-5, &image_plot3);
+        round_height=0;
+    } else if (mcglobal5==10) {
+        local_mcglobal2=local_mcglobal2-3;
+        local_mcglobal3=local_mcglobal3-19;
+
+        read_one_plot_WINMAIN(region_x*512-5+1000, region_z*512-5+1000, &image_plot);
         round_height=0;
     } else if (mcglobal5==1) {
         local_mcglobal2=local_mcglobal2+7;
@@ -11994,33 +11586,21 @@ void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region
         round_height=-7;
 
         read_one_plot_WINMAIN(30720-512-(region_x)*512-5, 30720-512-(region_z)*512-5, &image_plot);
-        read_one_plot_WINMAIN(30720-512-(region_x)*512-5, 30720-512-(region_z)*512-5, &image_plot3);
         make_mirror(&image_plot);
-        make_mirror(&image_plot3);
         make_inverse(&image_plot);
-        make_inverse(&image_plot3);
     } else if (mcglobal5==2) {
         local_mcglobal2=local_mcglobal2+7;
         local_mcglobal3=local_mcglobal3+5;
         round_height=-7;
 
         read_one_plot_WINMAIN(30720-512-(region_x)*512-5, 30720-512-(region_z)*512-5, &image_plot);
-        read_one_plot_WINMAIN(30720-512-(region_x)*512-5, 30720-512-(region_z)*512-5, &image_plot3);
         make_mirror(&image_plot);
-        make_mirror(&image_plot3);
-//        read_one_plot_WINMAIN(region_x*512-5, region_z*512-5, &image_plot);
-//        read_one_plot_WINMAIN(region_x*512-5, region_z*512-5, &image_plot3);
-//        make_inverse(&image_plot);
-//        make_inverse(&image_plot3);
-//        round_height=0;
     } else if (mcglobal5==3) {
         local_mcglobal2=local_mcglobal2+2;
         local_mcglobal3=local_mcglobal3-7;
 
         read_one_plot_WINMAIN(region_x*512-5+1000, region_z*512-5+1000, &image_plot);
-        read_one_plot_WINMAIN(region_x*512-5+1000, region_z*512-5+1000, &image_plot3);
         make_inverse(&image_plot);
-        make_inverse(&image_plot3);
         round_height=0;
 //        round_height2=-15;
     } else if (mcglobal5==4) {
@@ -12029,7 +11609,6 @@ void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region
         round_height=-5;
 
         read_one_plot_WINMAIN(region_x*512-5, region_z*512-5, &image_plot);
-        read_one_plot_WINMAIN(region_x*512-5, region_z*512-5, &image_plot3);
 //        round_height=0;
     } else if (mcglobal5==5) {
         local_mcglobal2=local_mcglobal2+7;
@@ -12037,30 +11616,60 @@ void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region
         round_height=-5;
 
         read_one_plot_WINMAIN(30720-512-(region_x)*512-5, 30720-512-(region_z)*512-5, &image_plot);
-        read_one_plot_WINMAIN(30720-512-(region_x)*512-5, 30720-512-(region_z)*512-5, &image_plot3);
         make_mirror(&image_plot);
-        make_mirror(&image_plot3);
+    } else if (mcglobal5==15) {
+        local_mcglobal2=local_mcglobal2-3;
+        local_mcglobal3=local_mcglobal3-5;
+        round_height=0;
+
+        read_one_plot_WINMAIN(region_x*512-5+1000, region_z*512-5+1000, &image_plot);
     } else if (mcglobal5==6) {
         local_mcglobal2=local_mcglobal2+23;
         local_mcglobal3=local_mcglobal3+5;
 
         image_plot.create(512+10,512+10,sf::Color(255,255,255,255));
-        image_plot3.create(512+10,512+10,sf::Color(255,255,255,255));
 //        round_height=-18;
         round_height=0;
         action=false;
     } else {
         read_one_plot_WINMAIN(region_x*512-5, region_z*512-5, &image_plot);
-        read_one_plot_WINMAIN(region_x*512-5, region_z*512-5, &image_plot3);
         round_height=0;
     }
 
-
-    printf("Adding rails: height=%d  shrink=%d  type=%d ",mcglobal2,mcglobal3,mcglobal5);
+    image_plot3.create(512+10,512+10);
+    image_plot3.copy(image_plot,0,0);
 
 //widen
-    if (mcglobal5==0 || mcglobal5==1 || mcglobal5==3 || mcglobal5==5) {
-        image_plot2.create(512+10,512+10);
+
+//moved
+/*
+    if (mcglobal5==0 || mcglobal5==1 || mcglobal5==3 || mcglobal5==5 || mcglobal5==15 || mcglobal5==10) {
+        image_plot2.copy(image_plot,0,0);
+        for (int x = 0; x < 512+10; x++) {
+            for (int z = 0; z < 512+10; z++) {
+                float pixel;
+                float c;
+                sf::Color col;
+                col=image_plot2.getPixel(x,z);
+                c=(col.r+col.b+col.g);
+                pixel = (c/(3));
+                if (col.a==0) pixel=0;
+                if (pixel!=0) {
+                    for (int xxx=-1; xxx<=1; xxx++) {
+                        for (int zzz=-1; zzz<=1; zzz++) {
+                            if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
+                                if (xxx!=0 || zzz!=0) {
+                                    image_plot.setPixel(x+xxx,z+zzz, col);
+                                    image_plot3.setPixel(x+xxx,z+zzz, col);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if (mcglobal5==10) {
         image_plot2.copy(image_plot,0,0);
         for (int x = 0; x < 512+10; x++) {
             for (int z = 0; z < 512+10; z++) {
@@ -12089,7 +11698,6 @@ void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region
 
 //smaller outline
     if (mcglobal5==2 || mcglobal5==4) {
-        image_plot2.create(512+10,512+10);
         image_plot2.copy(image_plot3,0,0);
         for (int x = 0; x < 512+10; x++) {
             for (int z = 0; z < 512+10; z++) {
@@ -12110,10 +11718,40 @@ void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region
             }
         }
     }
+*/
+    if (outline) {
+        for (int x = 0; x < 5; x++) {
+            for (int z = 0; z < 5; z++) {
+                if (outline_images[0][0].getPixel(x+512-5,z+512-5).r!=0)    set_it(x,z,image_plot_b,image_plot_c);
+                if (outline_images[0][2].getPixel(x,z+512-5).r!=0)          set_it(x+512+5,z,image_plot_b,image_plot_c);
+                if (outline_images[2][0].getPixel(x+512-5,z).r!=0)          set_it(x,z+512+5,image_plot_b,image_plot_c);
+                if (outline_images[2][2].getPixel(x,z).r!=0)                set_it(x+512+5,z+512+5,image_plot_b,image_plot_c);
+            }
+        }
+        for (int x = 0; x < 512; x++) {
+            for (int z = 0; z < 5; z++) {
+                if (outline_images[0][1].getPixel(x,z+512-5).r!=0) set_it(x+5,z,image_plot_b,image_plot_c);
+                if (outline_images[2][1].getPixel(x,z).r!=0) set_it(x+5,z+512+5,image_plot_b,image_plot_c);
+            }
+        }
+        for (int x = 0; x < 5; x++) {
+            for (int z = 0; z < 512; z++) {
+                if (outline_images[1][0].getPixel(x+512-5,z).r!=0) set_it(x,z+5,image_plot_b,image_plot_c);
+                if (outline_images[1][2].getPixel(x,z).r!=0) set_it(x+512+5,z+5,image_plot_b,image_plot_c);
+            }
+        }
 
-    if (0 && mcglobal5==6) {
+        for (int x = 0; x < xl; x++) {
+            toggle2();
+            for (int z = 0; z < zl; z++) {
+                if (outline_images[1][1].getPixel(x,z).r!=0) {
+                    set_it(x+5,z+5,image_plot_b,image_plot_c);
+                }
+            }
+        }
+
+    } else {
         int y=(108-2+local_mcglobal2+round_height);
-//        int y1=(108-2+local_mcglobal2);
         for (int x = 0; x < 5; x++) {
             for (int z = 0; z < 5; z++) {
                 if (region_surroundings[0][0].A[x][z][y].id!=0) set_it(x,z,image_plot_b,image_plot_c);
@@ -12137,67 +11775,20 @@ void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region
 
         for (int x = 0; x < xl; x++) {
             BlockInfo** AZ=AX[x];
+            toggle2();
             for (int z = 0; z < zl; z++) {
                 BlockInfo* AY=AZ[z];
-                toggle2();
 
                 if (AY[y].id!=0) {
-    //                            if (AY[y].id!=0) {
-    //                                image_plot.setPixel(x+5,z+5,sf::Color(0,0,0,0));
-    //                                image_plot3.setPixel(x+5,z+5,sf::Color(0,0,0,0));
-
                     set_it(x+5,z+5,image_plot_b,image_plot_c);
+                }
+            }
+        }
+    }
+
 
 /*
-                    image_plot_b.setPixel(x+5,z+5,sf::Color(255,255,255,255));
-                    image_plot_c.setPixel(x+5,z+5,sf::Color(255,255,255,255));
-
-
-                    if (x>0) image_plot_b.setPixel(x+4,z+5,sf::Color(255,255,255,255));
-                    if (z>0) image_plot_b.setPixel(x+5,z+4,sf::Color(255,255,255,255));
-                    if (x<511) image_plot_b.setPixel(x+6,z+5,sf::Color(255,255,255,255));
-                    if (z<511) image_plot_b.setPixel(x+5,z+6,sf::Color(255,255,255,255));
-
-                    if (x>0 && z>0) image_plot_b.setPixel(x+4,z+4,sf::Color(255,255,255,255));
-                    if (x<511 && z>0) image_plot_b.setPixel(x+6,z+4,sf::Color(255,255,255,255));
-                    if (x>0 && z<511) image_plot_b.setPixel(x+4,z+6,sf::Color(255,255,255,255));
-                    if (x<511 && z<511) image_plot_b.setPixel(x+6,z+6,sf::Color(255,255,255,255));
-
-                    if (x>1) image_plot_b.setPixel(x+3,z+5,sf::Color(255,255,255,255));
-                    if (z>1) image_plot_b.setPixel(x+5,z+3,sf::Color(255,255,255,255));
-                    if (x<510) image_plot_b.setPixel(x+7,z+5,sf::Color(255,255,255,255));
-                    if (z<510) image_plot_b.setPixel(x+5,z+7,sf::Color(255,255,255,255));
-*/
-                }
-            }
-        }
-
-
-        image_plot2.create(512+10,512+10);
-        for (int n=0; n<1; n++) {
-            image_plot2.copy(image_plot_c,0,0);
-            for (int x = 0; x < 512+10; x++) {
-                for (int z = 0; z < 512+10; z++) {
-                    sf::Color col;
-                    col=image_plot2.getPixel(x,z);
-                    if (col.r==0) {
-                        for (int xxx=-1; xxx<=1; xxx++) {
-                            for (int zzz=-1; zzz<=1; zzz++) {
-                                if (xxx!=0 || zzz!=0) {
-//                                    if (x+xxx>=3 && x+xxx<512+10-3 && z+zzz>=3 && z+zzz<512+10-3) {
-                                    if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
-                                        image_plot_c.setPixel(x+xxx,z+zzz, col);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-
-
+    for (int n=0; n<1; n++) {
         image_plot2.create(512+10,512+10);
         image_plot2.copy(image_plot_b,0,0);
         for (int x = 0; x < 512+10; x++) {
@@ -12212,8 +11803,10 @@ void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region
                 if (pixel!=0) {
                     for (int xxx=-1; xxx<=1; xxx++) {
                         for (int zzz=-1; zzz<=1; zzz++) {
-                            if (xxx!=0 || zzz!=0) {
-                                if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
+//                                if (x+xxx>=5 && x+xxx<512+10-5 && z+zzz>=5 && z+zzz<512+10-5) {
+                            if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
+//                                if (x+xxx>=3 && x+xxx<512+10-3 && z+zzz>=3 && z+zzz<512+10-3) {
+                                if (xxx!=0 || zzz!=0) {
                                     image_plot_b.setPixel(x+xxx,z+zzz, col);
                                 }
                             }
@@ -12222,56 +11815,164 @@ void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region
                 }
             }
         }
+    }
+*/
 
+    if ( mcglobal5==6) {
+        for (int n=0; n<3; n++) {
+            image_plot2.copy(image_plot_c,0,0);
+            for (int x = 0; x < 512+10; x++) {
+                for (int z = 0; z < 512+10; z++) {
+                    sf::Color col;
+                    col=image_plot2.getPixel(x,z);
+                    if (col.r==0) {
+                        for (int xxx=-1; xxx<=1; xxx++) {
+                            for (int zzz=-1; zzz<=1; zzz++) {
+                                if (xxx!=0 || zzz!=0) {
+                                    if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
+//                                        if (!(image_plot2.getPixel(x+xxx*2,z+zzz*2).r==0)) {
+                                            image_plot_c.setPixel(x+xxx,z+zzz, col);
+//                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+//new2
+        for (int x = 0; x < 512+10; x++) {
+            int xx=x+region_x*512;
+            for (int z = 0; z < 512+10; z++) {
+                int zz=z+region_z*512;
+                if ( ((((int)xx+1)%3)==0 && (((int)zz+1)%3)==0)) {
+                    bool hit=false;
+                    for (int xxx=-1; xxx<=1; xxx++) {
+                        for (int zzz=-1; zzz<=1; zzz++) {
+                            if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
+                                if (image_plot_b.getPixel(x+xxx,z+zzz).r!=0) {
+                                    hit=true;
+                                    break;
+                                }
+                            }
+                            if (hit) break;
+                        }
+                        if (hit) break;
+                    }
+                    if (hit) {
+                        for (int xxx=-1; xxx<=1; xxx++) {
+                            for (int zzz=-1; zzz<=1; zzz++) {
+                                if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
+                                    image_plot_b.setPixel(x+xxx,z+zzz,sf::Color(255,255,255,255));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        for (int x = 0; x < 512+10; x++) {
+            int xx=x+region_x*512;
+            for (int z = 0; z < 512+10; z++) {
+                int zz=z+region_z*512;
+                if ( ((((int)xx+1)%3)==0 && (((int)zz+1)%3)==0)) {
+                    bool hit=false;
+                    for (int xxx=-1; xxx<=1; xxx++) {
+                        for (int zzz=-1; zzz<=1; zzz++) {
+                            if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
+                                if (image_plot_c.getPixel(x+xxx,z+zzz).r==0) {
+                                    hit=true;
+                                    break;
+                                }
+                            }
+                            if (hit) break;
+                        }
+                        if (hit) break;
+                    }
+                    if (hit) {
+                        for (int xxx=-1; xxx<=1; xxx++) {
+                            for (int zzz=-1; zzz<=1; zzz++) {
+                                if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
+                                    image_plot_c.setPixel(x+xxx,z+zzz,sf::Color(0,0,0,0));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         for (int x = 0; x < 512+10; x++) {
             for (int z = 0; z < 512+10; z++) {
-                int b1=image_plot_b.getPixel(x,z).r;
-                int c1=image_plot_c.getPixel(x,z).r;
-                if (b1!=0 && c1==0) {
-                    image_plot.setPixel(x,z,sf::Color(255,255,255,255));
-                    image_plot3.setPixel(x,z,sf::Color(255,255,255,255));
-                }
-            }
-        }
-    } else if (1) {
-        int y=(108-2+local_mcglobal2+round_height);
-        for (int x = 0; x < 5; x++) {
-            for (int z = 0; z < 5; z++) {
-                if (region_surroundings[0][0].A[x][z][y].id!=0) set_it(x,z,image_plot_b,image_plot_c);
-                if (region_surroundings[0][2].A[x][z][y].id!=0) set_it(x+512+5,z,image_plot_b,image_plot_c);
-                if (region_surroundings[2][0].A[x][z][y].id!=0) set_it(x,z+512+5,image_plot_b,image_plot_c);
-                if (region_surroundings[2][2].A[x][z][y].id!=0) set_it(x+512+5,z+512+5,image_plot_b,image_plot_c);
-            }
-        }
-        for (int x = 0; x < 512; x++) {
-            for (int z = 0; z < 5; z++) {
-                if (region_surroundings[0][1].A[x][z][y].id!=0) set_it(x+5,z,image_plot_b,image_plot_c);
-                if (region_surroundings[2][1].A[x][z][y].id!=0) set_it(x+5,z+512+5,image_plot_b,image_plot_c);
-            }
-        }
-        for (int x = 0; x < 5; x++) {
-            for (int z = 0; z < 512; z++) {
-                if (region_surroundings[1][0].A[x][z][y].id!=0) set_it(x,z+5,image_plot_b,image_plot_c);
-                if (region_surroundings[1][2].A[x][z][y].id!=0) set_it(x+512+5,z+5,image_plot_b,image_plot_c);
-            }
-        }
-
-        for (int x = 0; x < xl; x++) {
-            BlockInfo** AZ=AX[x];
-            for (int z = 0; z < zl; z++) {
-                BlockInfo* AY=AZ[z];
-                toggle2();
-
-                if (AY[y].id!=0) {
-                    set_it(x+5,z+5,image_plot_b,image_plot_c);
+                if (image_plot_b.getPixel(x,z).r==0 || image_plot_c.getPixel(x,z).r!=0) {
+                    image_plot.setPixel(x,z,sf::Color(0,0,0,0));
+                    image_plot3.setPixel(x,z,sf::Color(0,0,0,0));
                 }
             }
         }
 
-/*
         for (int n=0; n<1; n++) {
-            image_plot2.create(512+10,512+10);
+            image_plot2.copy(image_plot,0,0);
+            for (int x = 0; x < 512+10; x++) {
+                for (int z = 0; z < 512+10; z++) {
+                    float pixel;
+                    float c;
+                    sf::Color col;
+                    col=image_plot2.getPixel(x,z);
+                    c=(col.r+col.b+col.g);
+                    pixel = (c/(3));
+                    if (col.a==0) pixel=0;
+                    if (pixel!=0) {
+                        for (int xxx=-1; xxx<=1; xxx++) {
+                            for (int zzz=-1; zzz<=1; zzz++) {
+    //                                if (x+xxx>=5 && x+xxx<512+10-5 && z+zzz>=5 && z+zzz<512+10-5) {
+                                if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
+    //                                if (x+xxx>=3 && x+xxx<512+10-3 && z+zzz>=3 && z+zzz<512+10-3) {
+                                    if (xxx!=0 || zzz!=0) {
+                                        image_plot.setPixel(x+xxx,z+zzz, col);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+//moved
+/*
+            image_plot2.copy(image_plot3,0,0);
+            for (int x = 0; x < 512+10; x++) {
+                for (int z = 0; z < 512+10; z++) {
+                    float pixel;
+                    float c;
+                    sf::Color col;
+                    col=image_plot2.getPixel(x,z);
+                    c=(col.r+col.b+col.g);
+                    pixel = (c/(3));
+                    if (col.a==0) pixel=0;
+                    if (pixel!=0) {
+                        for (int xxx=-1; xxx<=1; xxx++) {
+                            for (int zzz=-1; zzz<=1; zzz++) {
+    //                                if (x+xxx>=5 && x+xxx<512+10-5 && z+zzz>=5 && z+zzz<512+10-5) {
+                                if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
+    //                                if (x+xxx>=3 && x+xxx<512+10-3 && z+zzz>=3 && z+zzz<512+10-3) {
+                                    if (xxx!=0 || zzz!=0) {
+                                        image_plot3.setPixel(x+xxx,z+zzz, col);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+*/
+        }
+//        image_plot3.copy(image_plot,0,0);
+    } else {
+//            if (mcglobal5!=4 && mcglobal5!=3)
+
+        for (int n=0; n<2; n++) {
             image_plot2.copy(image_plot_b,0,0);
             for (int x = 0; x < 512+10; x++) {
                 for (int z = 0; z < 512+10; z++) {
@@ -12285,9 +11986,9 @@ void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region
                     if (pixel!=0) {
                         for (int xxx=-1; xxx<=1; xxx++) {
                             for (int zzz=-1; zzz<=1; zzz++) {
-//                                if (x+xxx>=5 && x+xxx<512+10-5 && z+zzz>=5 && z+zzz<512+10-5) {
+    //                                if (x+xxx>=5 && x+xxx<512+10-5 && z+zzz>=5 && z+zzz<512+10-5) {
                                 if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
-//                                if (x+xxx>=3 && x+xxx<512+10-3 && z+zzz>=3 && z+zzz<512+10-3) {
+    //                                if (x+xxx>=3 && x+xxx<512+10-3 && z+zzz>=3 && z+zzz<512+10-3) {
                                     if (xxx!=0 || zzz!=0) {
                                         image_plot_b.setPixel(x+xxx,z+zzz, col);
                                     }
@@ -12298,56 +11999,56 @@ void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region
                 }
             }
         }
-*/
 
-        if ( mcglobal5==6) {
-            image_plot2.create(512+10,512+10);
-            for (int n=0; n<3; n++) {
-                image_plot2.copy(image_plot_c,0,0);
-                for (int x = 0; x < 512+10; x++) {
-                    for (int z = 0; z < 512+10; z++) {
-                        sf::Color col;
-                        col=image_plot2.getPixel(x,z);
-                        if (col.r==0) {
-                            for (int xxx=-1; xxx<=1; xxx++) {
-                                for (int zzz=-1; zzz<=1; zzz++) {
-                                    if (xxx!=0 || zzz!=0) {
-    //                                    if (x+xxx>=3 && x+xxx<512+10-3 && z+zzz>=3 && z+zzz<512+10-3) {
-                                        if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
-                                            image_plot_c.setPixel(x+xxx,z+zzz, col);
-                                        }
-                                    }
+//new
+        for (int x = 0; x < 512+10; x++) {
+            int xx=x+region_x*512;
+            for (int z = 0; z < 512+10; z++) {
+                int zz=z+region_z*512;
+                if ( ((((int)xx+3)%5)==0 && (((int)zz+3)%5)==0)) {
+                    bool hit=false;
+                    for (int xxx=-2; xxx<=2; xxx++) {
+                        for (int zzz=-2; zzz<=2; zzz++) {
+                            if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
+                                if (image_plot_b.getPixel(x+xxx,z+zzz).r!=0) {
+                                    hit=true;
+                                    break;
+                                }
+                            }
+                            if (hit) break;
+                        }
+                        if (hit) break;
+                    }
+                    if (hit) {
+                        for (int xxx=-2; xxx<=2; xxx++) {
+                            for (int zzz=-2; zzz<=2; zzz++) {
+                                if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
+                                    image_plot_b.setPixel(x+xxx,z+zzz,sf::Color(255,255,255,255));
                                 }
                             }
                         }
                     }
                 }
             }
-            for (int x = 0; x < 512+10; x++) {
-                for (int z = 0; z < 512+10; z++) {
-                    if (image_plot_b.getPixel(x,z).r==0 || image_plot_c.getPixel(x,z).r!=0) {
+        }
+
+
+        for (int x = 0; x < 512+10; x++) {
+            for (int z = 0; z < 512+10; z++) {
+                if ( (mcglobal5==0) && (sqrt((256-x)*(256-x)+(256-z)*(256-z))<30) ) {
+                    image_plot.setPixel(x,z,sf::Color(255,255,255,255));
+                    image_plot3.setPixel(x,z,sf::Color(255,255,255,255));
+                } else if ( (mcglobal5!=0 && mcglobal5!=2 && mcglobal5!=10) || ((sqrt((256+5-x)*(256+5-x)+(256+5-z)*(256+5-z))<179) ) ) {
+                    if (image_plot_b.getPixel(x,z).r==0) {
                         image_plot.setPixel(x,z,sf::Color(0,0,0,0));
                         image_plot3.setPixel(x,z,sf::Color(0,0,0,0));
                     }
                 }
             }
-        } else {
-//            if (mcglobal5!=4 && mcglobal5!=3)
-            for (int x = 0; x < 512+10; x++) {
-                for (int z = 0; z < 512+10; z++) {
-                    if ( (mcglobal5==0) && (sqrt((256-x)*(256-x)+(256-z)*(256-z))<30) ) {
-                        image_plot.setPixel(x,z,sf::Color(255,255,255,255));
-                        image_plot3.setPixel(x,z,sf::Color(255,255,255,255));
-                    } else if ( (mcglobal5!=0 && mcglobal5!=2) || ((sqrt((256-x)*(256-x)+(256-z)*(256-z))<210) ) ) {
-                        if (image_plot_b.getPixel(x,z).r==0) {
-                            image_plot.setPixel(x,z,sf::Color(0,0,0,0));
-                            image_plot3.setPixel(x,z,sf::Color(0,0,0,0));
-                        }
-                    }
-                }
-            }
         }
     }
+
+
 
     int skipping=1;
     for (int x = 0; x < 512; x++) {
@@ -12369,16 +12070,235 @@ void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region
         return;
     }
 
-    image_plot2.create(512+10,512+10);
+
+    if (mcglobal5==0 || mcglobal5==1 || mcglobal5==3 || mcglobal5==5 || mcglobal5==15 || mcglobal5==10) {
+        image_plot2.copy(image_plot,0,0);
+        for (int x = 0; x < 512+10; x++) {
+            for (int z = 0; z < 512+10; z++) {
+                float pixel;
+                float c;
+                sf::Color col;
+                col=image_plot2.getPixel(x,z);
+                c=(col.r+col.b+col.g);
+                pixel = (c/(3));
+                if (col.a==0) pixel=0;
+                if (pixel!=0) {
+                    for (int xxx=-1; xxx<=1; xxx++) {
+                        for (int zzz=-1; zzz<=1; zzz++) {
+                            if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
+                                if (xxx!=0 || zzz!=0) {
+                                    image_plot.setPixel(x+xxx,z+zzz, col);
+                                    image_plot3.setPixel(x+xxx,z+zzz, col);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if (mcglobal5==10) {
+        image_plot2.copy(image_plot,0,0);
+        for (int x = 0; x < 512+10; x++) {
+            for (int z = 0; z < 512+10; z++) {
+                float pixel;
+                float c;
+                sf::Color col;
+                col=image_plot2.getPixel(x,z);
+                c=(col.r+col.b+col.g);
+                pixel = (c/(3));
+                if (col.a==0) pixel=0;
+                if (pixel!=0) {
+                    for (int xxx=-1; xxx<=1; xxx++) {
+                        for (int zzz=-1; zzz<=1; zzz++) {
+                            if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
+                                if (xxx!=0 || zzz!=0) {
+                                    image_plot.setPixel(x+xxx,z+zzz, col);
+                                    image_plot3.setPixel(x+xxx,z+zzz, col);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+//smaller outline
+    if (mcglobal5==2 || mcglobal5==4) {
+        image_plot2.copy(image_plot3,0,0);
+        for (int x = 0; x < 512+10; x++) {
+            for (int z = 0; z < 512+10; z++) {
+                sf::Color col;
+                col=image_plot2.getPixel(x,z);
+                if (col.r==0) {
+                    for (int xxx=-1; xxx<=1; xxx++) {
+                        for (int zzz=-1; zzz<=1; zzz++) {
+                            if (xxx!=0 || zzz!=0) {
+                                if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
+//                                    if (!(image_plot2.getPixel(x+2*xxx,z+2*zzz).r)==0) {
+                                        image_plot3.setPixel(x+xxx,z+zzz, col);
+//                                    }
+//                                    image_plot.setPixel(x+xxx,z+zzz, col);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+    if (mcglobal5==6) {
+        image_plot2.copy(image_plot3,0,0);
+        for (int x = 0; x < 512+10; x++) {
+            for (int z = 0; z < 512+10; z++) {
+                float pixel;
+                float c;
+                sf::Color col;
+                col=image_plot2.getPixel(x,z);
+                c=(col.r+col.b+col.g);
+                pixel = (c/(3));
+                if (col.a==0) pixel=0;
+                if (pixel!=0) {
+                    for (int xxx=-1; xxx<=1; xxx++) {
+                        for (int zzz=-1; zzz<=1; zzz++) {
+    //                                if (x+xxx>=5 && x+xxx<512+10-5 && z+zzz>=5 && z+zzz<512+10-5) {
+                            if (x+xxx>=0 && x+xxx<512+10 && z+zzz>=0 && z+zzz<512+10) {
+    //                                if (x+xxx>=3 && x+xxx<512+10-3 && z+zzz>=3 && z+zzz<512+10-3) {
+                                if (xxx!=0 || zzz!=0) {
+                                    image_plot3.setPixel(x+xxx,z+zzz, col);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    image_plot2.copy(image_plot,0,0);
+    for (int x = 1; x < 511+10; x++) {
+        for (int z = 1; z < 511+10; z++) {
+            if (image_plot2.getPixel(x,z).r==0) {
+                if (
+                        (
+                        image_plot2.getPixel(x-1,z+1).r==0 &&
+                        image_plot2.getPixel(x-1,z  ).r==0 &&
+                        image_plot2.getPixel(x-1,z-1).r==0 &&
+                        image_plot2.getPixel(x  ,z-1).r==0 &&
+                        image_plot2.getPixel(x+1,z-1).r==0 &&
+                        image_plot2.getPixel(x+1,z  ).r!=0 &&
+                        image_plot2.getPixel(x+1,z+1).r!=0 &&
+                        image_plot2.getPixel(x  ,z+1).r!=0
+                        ) ||
+                        (
+                        image_plot2.getPixel(x-1,z+1).r!=0 &&
+                        image_plot2.getPixel(x-1,z  ).r!=0 &&
+                        image_plot2.getPixel(x-1,z-1).r==0 &&
+                        image_plot2.getPixel(x  ,z-1).r==0 &&
+                        image_plot2.getPixel(x+1,z-1).r==0 &&
+                        image_plot2.getPixel(x+1,z  ).r==0 &&
+                        image_plot2.getPixel(x+1,z+1).r==0 &&
+                        image_plot2.getPixel(x  ,z+1).r!=0
+                        ) ||
+                        (
+                        image_plot2.getPixel(x-1,z+1).r==0 &&
+                        image_plot2.getPixel(x-1,z  ).r!=0 &&
+                        image_plot2.getPixel(x-1,z-1).r!=0 &&
+                        image_plot2.getPixel(x  ,z-1).r!=0 &&
+                        image_plot2.getPixel(x+1,z-1).r==0 &&
+                        image_plot2.getPixel(x+1,z  ).r==0 &&
+                        image_plot2.getPixel(x+1,z+1).r==0 &&
+                        image_plot2.getPixel(x  ,z+1).r==0
+                        ) ||
+                        (
+                        image_plot2.getPixel(x-1,z+1).r==0 &&
+                        image_plot2.getPixel(x-1,z  ).r==0 &&
+                        image_plot2.getPixel(x-1,z-1).r==0 &&
+                        image_plot2.getPixel(x  ,z-1).r!=0 &&
+                        image_plot2.getPixel(x+1,z-1).r!=0 &&
+                        image_plot2.getPixel(x+1,z  ).r!=0 &&
+                        image_plot2.getPixel(x+1,z+1).r==0 &&
+                        image_plot2.getPixel(x  ,z+1).r==0
+                        )
+                    ) {
+                    image_plot.setPixel(x,z,sf::Color(255,255,255,255));
+                }
+            }
+        }
+    }
+    image_plot2.copy(image_plot3,0,0);
+    for (int x = 1; x < 511+10; x++) {
+        for (int z = 1; z < 511+10; z++) {
+            if (image_plot2.getPixel(x,z).r==0) {
+                if (
+                        (
+                        image_plot2.getPixel(x-1,z+1).r==0 &&
+                        image_plot2.getPixel(x-1,z  ).r==0 &&
+                        image_plot2.getPixel(x-1,z-1).r==0 &&
+                        image_plot2.getPixel(x  ,z-1).r==0 &&
+                        image_plot2.getPixel(x+1,z-1).r==0 &&
+                        image_plot2.getPixel(x+1,z  ).r!=0 &&
+                        image_plot2.getPixel(x+1,z+1).r!=0 &&
+                        image_plot2.getPixel(x  ,z+1).r!=0
+                        ) ||
+                        (
+                        image_plot2.getPixel(x-1,z+1).r!=0 &&
+                        image_plot2.getPixel(x-1,z  ).r!=0 &&
+                        image_plot2.getPixel(x-1,z-1).r==0 &&
+                        image_plot2.getPixel(x  ,z-1).r==0 &&
+                        image_plot2.getPixel(x+1,z-1).r==0 &&
+                        image_plot2.getPixel(x+1,z  ).r==0 &&
+                        image_plot2.getPixel(x+1,z+1).r==0 &&
+                        image_plot2.getPixel(x  ,z+1).r!=0
+                        ) ||
+                        (
+                        image_plot2.getPixel(x-1,z+1).r==0 &&
+                        image_plot2.getPixel(x-1,z  ).r!=0 &&
+                        image_plot2.getPixel(x-1,z-1).r!=0 &&
+                        image_plot2.getPixel(x  ,z-1).r!=0 &&
+                        image_plot2.getPixel(x+1,z-1).r==0 &&
+                        image_plot2.getPixel(x+1,z  ).r==0 &&
+                        image_plot2.getPixel(x+1,z+1).r==0 &&
+                        image_plot2.getPixel(x  ,z+1).r==0
+                        ) ||
+                        (
+                        image_plot2.getPixel(x-1,z+1).r==0 &&
+                        image_plot2.getPixel(x-1,z  ).r==0 &&
+                        image_plot2.getPixel(x-1,z-1).r==0 &&
+                        image_plot2.getPixel(x  ,z-1).r!=0 &&
+                        image_plot2.getPixel(x+1,z-1).r!=0 &&
+                        image_plot2.getPixel(x+1,z  ).r!=0 &&
+                        image_plot2.getPixel(x+1,z+1).r==0 &&
+                        image_plot2.getPixel(x  ,z+1).r==0
+                        )
+                    ) {
+                    image_plot3.setPixel(x,z,sf::Color(255,255,255,255));
+                }
+            }
+        }
+    }
+
     image_plot2.copy(image_plot,0,0);
     for (int x = 1; x < 511+10; x++) {
         for (int z = 1; z < 511+10; z++) {
             if (image_plot2.getPixel(x,z).r!=0) {
                 if ((image_plot2.getPixel(x-1,z).r==0) &&  (image_plot2.getPixel(x+1,z).r==0)  ) {
                         image_plot.setPixel(x,z,sf::Color(0,0,0,0));
+//                        image_plot.setPixel(x-1,z,sf::Color(255,255,255,255));
+//                        image_plot.setPixel(x+1,z,sf::Color(255,255,255,255));
                 }
                 if ((image_plot2.getPixel(x,z-1).r==0 ) && (image_plot2.getPixel(x,z+1).r==0)  ) {
                         image_plot.setPixel(x,z,sf::Color(0,0,0,0));
+//                        image_plot.setPixel(x,z-1,sf::Color(255,255,255,255));
+//                        image_plot.setPixel(x,z+1,sf::Color(255,255,255,255));
                 }
             }
         }
@@ -12389,41 +12309,56 @@ void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region
             if (image_plot2.getPixel(x,z).r!=0) {
                 if ((image_plot2.getPixel(x-1,z).r==0) &&  (image_plot2.getPixel(x+1,z).r==0)  ) {
                         image_plot3.setPixel(x,z,sf::Color(0,0,0,0));
+//                        image_plot3.setPixel(x-1,z,sf::Color(255,255,255,255));
+//                        image_plot3.setPixel(x+1,z,sf::Color(255,255,255,255));
                 }
                 if ((image_plot2.getPixel(x,z-1).r==0 ) && (image_plot2.getPixel(x,z+1).r==0)  ) {
                         image_plot3.setPixel(x,z,sf::Color(0,0,0,0));
+//                        image_plot3.setPixel(x,z-1,sf::Color(255,255,255,255));
+//                        image_plot3.setPixel(x,z+1,sf::Color(255,255,255,255));
                 }
             }
         }
     }
-/*
-    image_plot2.copy(image_plot,0,0);
-    for (int x = 1; x < 511+10; x++) {
-        for (int z = 1; z < 511+10; z++) {
-            if (image_plot2.getPixel(x,z).r==0) {
-                if ((image_plot2.getPixel(x-1,z).r!=0) &&  (image_plot2.getPixel(x+1,z).r!=0)  ) {
-                        image_plot.setPixel(x,z,sf::Color(255,255,255,255));
+
+    if (mcglobal5!=10) {
+        bool fixed=false;
+//        int loop=0;
+//        int y=(108-2+local_mcglobal2+round_height);
+        while (!fixed) {
+//            loop++;
+            fixed=true;
+            image_plot2.copy(image_plot,0,0);
+            for (int x = 1; x < 511+10; x++) {
+                for (int z = 1; z < 511+10; z++) {
+                    if (image_plot2.getPixel(x,z).r==0) {
+                        if ((image_plot2.getPixel(x-1,z).r!=0) &&  (image_plot2.getPixel(x+1,z).r!=0)  ) {
+                                image_plot.setPixel(x,z,sf::Color(255,255,255,255));
+                                fixed=false;
+                        }
+                        if ((image_plot2.getPixel(x,z-1).r!=0 ) && (image_plot2.getPixel(x,z+1).r!=0)  ) {
+                                image_plot.setPixel(x,z,sf::Color(255,255,255,255));
+                                fixed=false;
+                        }
+                    }
                 }
-                if ((image_plot2.getPixel(x,z-1).r!=0 ) && (image_plot2.getPixel(x,z+1).r!=0)  ) {
-                        image_plot.setPixel(x,z,sf::Color(255,255,255,255));
+            }
+            image_plot2.copy(image_plot3,0,0);
+            for (int x = 1; x < 511+10; x++) {
+                for (int z = 1; z < 511+10; z++) {
+                    if (image_plot2.getPixel(x,z).r==0) {
+                        if ((image_plot2.getPixel(x-1,z).r!=0) &&  (image_plot2.getPixel(x+1,z).r!=0)  ) {
+                                image_plot3.setPixel(x,z,sf::Color(255,255,255,255));
+                        }
+                        if ((image_plot2.getPixel(x,z-1).r!=0 ) && (image_plot2.getPixel(x,z+1).r!=0)  ) {
+                                image_plot3.setPixel(x,z,sf::Color(255,255,255,255));
+                        }
+                    }
                 }
             }
         }
     }
-    image_plot2.copy(image_plot3,0,0);
-    for (int x = 1; x < 511+10; x++) {
-        for (int z = 1; z < 511+10; z++) {
-            if (image_plot2.getPixel(x,z).r==0) {
-                if ((image_plot2.getPixel(x-1,z).r!=0) &&  (image_plot2.getPixel(x+1,z).r!=0)  ) {
-                        image_plot3.setPixel(x,z,sf::Color(0,0,0,0));
-                }
-                if ((image_plot2.getPixel(x,z-1).r!=0 ) && (image_plot2.getPixel(x,z+1).r!=0)  ) {
-                        image_plot3.setPixel(x,z,sf::Color(255,255,255,255));
-                }
-            }
-        }
-    }
-*/
+
     skipping=0;
 
 
@@ -12690,7 +12625,8 @@ void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region
                     if (pixel!=0) {
                         if (edge==1) {
                             if (corner2==1) {
-                                AY[y] = BlockInfo(251, 0, red, 0 );
+//                                AY[y] = BlockInfo(251, 0, red, 0 );
+                                AY[y] = BlockInfo(152, 0, 0, 0 );
                                 AY[y+1] = BlockInfo(66,0,curve,0);
                             } else {
 //                                if ( ((((int)xx+3)%15)==0 || (((int)zz+3)%15)==0) || ( col.r==254 && ( ((((int)xx+3)%5)==0 || (((int)zz+3)%5)==0) ) ) ) {
@@ -12901,17 +12837,21 @@ void fill_region( int size_x, int size_z, int size_y, BlockInfo*** what_AX, int 
 }
 
 
-void get_surroundings(MCRegion& region_cur, int region_x, int region_z, std::string fname,
-        MCRegion region_surroundings[3][3] ) {
+void get_surroundings(MCRegion& region_cur, int region_x, int region_z, std::string fname, MCRegion region_surroundings[3][3] ) {
     if (fname.find_last_of(".") != std::string::npos) fname=fname.substr(0,fname.find_last_of("."))+".mp4";
+    outline_images[1][1].create(512,512);
+    MCRegion region(0, 0, 0, 512, 512, 256);
     if (!file_exists(fname.c_str())) {
         save_region_to_ffmpeg(region_cur,region_x,region_z,fname);
+        outline_images[1][1].copy(outline_image,0,0);
+    } else {
+        load_region_from_ffmpeg(region, region_x, region_z, fname);
+        outline_images[1][1].copy(outline_image,0,0);
     }
 
     std::string dir;
     if (fname.find_last_of("/") != std::string::npos) dir=fname.substr(0,fname.find_last_of("/"));
     else dir=".";
-    MCRegion region(0, 0, 0, 512, 512, 256);
     num_positions=0;
     for (int r_x=region_x-1; r_x<=region_x+1; r_x++) {
         for (int r_z=region_z-1; r_z<=region_z+1; r_z++) {
@@ -12952,107 +12892,39 @@ void get_surroundings(MCRegion& region_cur, int region_x, int region_z, std::str
                 }
                 int x_pos=r_x-region_x;
                 int z_pos=r_z-region_z;
+
                 MCRegion* what_region=&region_surroundings[z_pos+1][x_pos+1];
                 BlockInfo*** what_AX=what_region->A;
                 if (ret==0) {
+                    outline_images[z_pos+1][x_pos+1].create(512,512);
+                    outline_images[z_pos+1][x_pos+1].copy(outline_image,0,0);
                     BlockInfo*** AX=region.A;
-//                    BlockInfo* what_A;
-//                    BlockInfo* A;
-//                            A=&AX[x][z][y];
 
-
-/*
-                    MCRegion region_surroundings[3][3]={
-                        {
-                            MCRegion( -5,  -5, 0,   5,   5, 256),
-                            MCRegion(  0,  -5, 0, 512,   5, 256),
-                            MCRegion(512,  -5, 0,   5,   5, 256)
-                        },{
-                            MCRegion( -5,   0, 0,   5, 512, 256),
-                            MCRegion(  0,   0, 0,   0,   0,   0),
-                            MCRegion(512,   0, 0,   5, 512, 256)
-                        },{
-                            MCRegion( -5, 512, 0,   5,   5, 256),
-                            MCRegion(  0, 512, 0, 512,   5, 256),
-                            MCRegion(512, 512, 0,   5,   5, 256)
-                        }
-                    };
-*/
                     if (z_pos==-1) {
-                        if (x_pos==-1) {
-//printf("c: -1,-1\n");
-                            copy_region(AX, 512-5, 512-5, 0,   5,   5, 256, what_AX, 0, 0, 0);
-                        } else if (x_pos==0) {
-//printf("c:  0,-1\n");
-                            copy_region(AX,     0, 512-5, 0, 512,   5, 256, what_AX, 0, 0, 0);
-                        } else {
-//printf("c:  1,-1\n");
-                            copy_region(AX,     0, 512-5, 0,   5,   5, 256, what_AX, 0, 0, 0);
-                        }
+                        if (x_pos==-1)      copy_region(AX, 512-5, 512-5, 0,   5,   5, 256, what_AX, 0, 0, 0);
+                        else if (x_pos==0)  copy_region(AX,     0, 512-5, 0, 512,   5, 256, what_AX, 0, 0, 0);
+                        else                copy_region(AX,     0, 512-5, 0,   5,   5, 256, what_AX, 0, 0, 0);
                     } else if (z_pos==0) {
-                        if (x_pos==-1) {
-//printf("c: -1, 0\n");
-                            copy_region(AX, 512-5,     0, 0,   5, 512, 256, what_AX, 0, 0, 0);
-                        } else if (x_pos==0) {
-//printf("c:  0, 0\n");
-                        } else {
-//printf("c:  1, 0\n");
-                            copy_region(AX,     0,     0, 0,   5, 512, 256, what_AX, 0, 0, 0);
-                        }
+                        if (x_pos==-1)      copy_region(AX, 512-5,     0, 0,   5, 512, 256, what_AX, 0, 0, 0);
+                        else if (x_pos==1)  copy_region(AX,     0,     0, 0,   5, 512, 256, what_AX, 0, 0, 0);
                     } else {
-                        if (x_pos==-1) {
-//printf("c: -1, 1\n");
-                            copy_region(AX, 512-5,     0, 0,   5,   5, 256, what_AX, 0, 0, 0);
-                        } else if (x_pos==0) {
-//printf("c:  0, 1\n");
-                            copy_region(AX,     0,     0, 0, 512,   5, 256, what_AX, 0, 0, 0);
-                        } else {
-//printf("c:  1, 1\n");
-                            copy_region(AX,     0,     0, 0,   5,   5, 256, what_AX, 0, 0, 0);
-                        }
+                        if (x_pos==-1)      copy_region(AX, 512-5,     0, 0,   5,   5, 256, what_AX, 0, 0, 0);
+                        else if (x_pos==0)  copy_region(AX,     0,     0, 0, 512,   5, 256, what_AX, 0, 0, 0);
+                        else                copy_region(AX,     0,     0, 0,   5,   5, 256, what_AX, 0, 0, 0);
                     }
                 } else {
-//                    int x_pos=r_x-region_x;
-//                    int z_pos=r_z-region_z;
-//                    MCRegion* what_region=&region_surroundings[x_pos+1][z_pos+1];
-//                    BlockInfo*** what_AX=what_region->A;
-//                    BlockInfo*** AX=region.A;
-//                    BlockInfo* what_A;
-//                    BlockInfo* A;
-//                            A=&AX[x][z][y];
-
+                    outline_images[z_pos+1][x_pos+1].create(512,512,sf::Color(255,255,255,255));
                     if (z_pos==-1) {
-                        if (x_pos==-1) {
-//printf("f: -1,-1\n");
-                            fill_region(  5,   5, 256, what_AX, 0, 0, 0);
-                        } else if (x_pos==0) {
-//printf("f:  0,-1\n");
-                            fill_region(512,   5, 256, what_AX, 0, 0, 0);
-                        } else {
-//printf("f:  1,-1\n");
-                            fill_region(  5,   5, 256, what_AX, 0, 0, 0);
-                        }
+                        if (x_pos==-1)      fill_region(  5,   5, 256, what_AX, 0, 0, 0);
+                        else if (x_pos==0)  fill_region(512,   5, 256, what_AX, 0, 0, 0);
+                        else                fill_region(  5,   5, 256, what_AX, 0, 0, 0);
                     } else if (z_pos==0) {
-                        if (x_pos==-1) {
-//printf("f: -1, 0\n");
-                            fill_region(  5, 512, 256, what_AX, 0, 0, 0);
-                        } else if (x_pos==0) {
-//printf("f:  0, 0\n");
-                        } else {
-//printf("f:  1, 0\n");
-                            fill_region(  5, 512, 256, what_AX, 0, 0, 0);
-                        }
+                        if (x_pos==-1)      fill_region(  5, 512, 256, what_AX, 0, 0, 0);
+                        else if (x_pos==1)  fill_region(  5, 512, 256, what_AX, 0, 0, 0);
                     } else {
-                        if (x_pos==-1) {
-//printf("f: -1, 1\n");
-                            fill_region(  5,   5, 256, what_AX, 0, 0, 0);
-                        } else if (x_pos==0) {
-//printf("f:  0, 1\n");
-                            fill_region(512,   5, 256, what_AX, 0, 0, 0);
-                        } else {
-//printf("f:  1, 1\n");
-                            fill_region(  5,   5, 256, what_AX, 0, 0, 0);
-                        }
+                        if (x_pos==-1)      fill_region(  5,   5, 256, what_AX, 0, 0, 0);
+                        else if (x_pos==0)  fill_region(512,   5, 256, what_AX, 0, 0, 0);
+                        else                fill_region(  5,   5, 256, what_AX, 0, 0, 0);
                     }
                 }
             }
@@ -13082,7 +12954,9 @@ int save_region_to_ffmpeg(MCRegion& region, int region_x, int region_z, std::str
 
     BlockInfo*** AX=region.A;
     sf::Image one_image; one_image.create(512,512,sf::Color(0,0,0,0));
+    outline_image.create(512,512,sf::Color(0,0,0,0));
     unsigned char* frame_out=(unsigned char*) one_image.getPixelsPtr();
+    unsigned char* frame_outline=(unsigned char*) outline_image.getPixelsPtr();
     sf::Color one_color;
     BlockInfo* A;
     int show=10;
@@ -13099,6 +12973,11 @@ int save_region_to_ffmpeg(MCRegion& region, int region_x, int region_z, std::str
 //                if (show>0) {
 //                    printf("%d) rgb=(%3d,%3d,%3d,%3d) ",show, one_color.r, one_color.g, one_color.b, one_color.a);
 //                }
+                if (y>90) {
+                    if (A->id!=0) {
+                        outline_image.setPixel(x,z,sf::Color(255,255,255,255));
+                    }
+                }
                 one_image.setPixel(x,z,one_color);
 /*
                 if (show-->0) {
@@ -13126,6 +13005,8 @@ int save_region_to_ffmpeg(MCRegion& region, int region_x, int region_z, std::str
         }
         fwrite(frame_out, 1, (512)*(512)*4, pipeout);
     }
+    fwrite(frame_outline, 1, (512)*(512)*4, pipeout);
+
     fclose(pipeout);
     printf(" ready writing\n");
 //    load_region_from_ffmpeg(region,region_x,region_z,fname);
@@ -13153,6 +13034,10 @@ int load_region_from_ffmpeg(MCRegion& region, int region_x, int region_z, std::s
 
     BlockInfo*** AX=region.A;
     sf::Image one_image; one_image.create(512,512,sf::Color(0,0,0,0));
+
+    outline_image.create(512,512,sf::Color(0,0,0,0));
+    unsigned char* frame_outline=(unsigned char*) outline_image.getPixelsPtr();
+
     unsigned char* frame_in=(unsigned char*) one_image.getPixelsPtr();
     sf::Color one_color;
     int num_bytes;
@@ -13229,6 +13114,15 @@ int load_region_from_ffmpeg(MCRegion& region, int region_x, int region_z, std::s
 //        if (qcount_i != 0) printf("different y=%d!!!\n",y);
 
     }
+    num_bytes=fread(frame_outline, 1, (512)*(512)*4, pipein);
+//        one_image.loadFromMemory(frame_in,512*512*4);
+
+    if (num_bytes!=512*512*4) {
+        printf("Error loading %s\n", fname.c_str());
+        fclose(pipein);
+        return -1;
+    }
+
     fclose(pipein);
 //    if (qcount != 0) printf("different!!!\n");
 //    else printf("same!!!\n");

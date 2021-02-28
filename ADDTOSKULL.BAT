@@ -17,6 +17,7 @@ rem PACMAN.EXE mceditor 1 75 6
 rem PACMAN.BAT mceditor 1 37 5
 
 PACMAN.EXE mceditor 9 190 0 4
+rem PACMAN.EXE regions 9
 
 CD ..
 pause
