@@ -534,6 +534,8 @@ int RGBA=0;
 char FFMPEGCOMMAND_RGBA[5000]="";
 char FFMPEGCOMMANDIN[5000]="";
 char FFMPEGCOMMANDIN_SUBS[5000]="";
+char FFMPEGCOMMANDIN_SUBS_RES[5000]="";
+char FFMPEGCOMMANDIN_FILTER_COMPLEX[5000]="";
 char FFMPEGCOMMAND_BURN_SUBS[5000]="";
 char FFMPEGCOMMAND_M_ORIG[5000]="";
 char FFMPEGCOMMAND_M_ORIG_AUDIO[5000]="";
@@ -1992,8 +1994,10 @@ extern int record_window;
 
             } else {
                 if (strcmp(pname,picture_name)==0) {
+                    GenerateConsoleCtrlEvent(CTRL_C_EVENT, 0);
                     waiter=-1;
                     do_pong=false;
+                    send_message='x';
                 } else {
                     printf("Picture: %s\n",picture_name);
                 }
@@ -2028,7 +2032,10 @@ extern int record_window;
         } else if (waiter==4+10) {
 //            plot_ffmpegfile=1; plotplot();
 //            plot_ffmpegfile=0;
-            sprite_from_ffmpeg.setScale(10.0,10.0);
+            int s;
+            if (texture_from_ffmpeg.getSize().x >= texture_from_ffmpeg.getSize().y ) s=9600/texture_from_ffmpeg.getSize().x;
+            else s=9600/texture_from_ffmpeg.getSize().y;
+            sprite_from_ffmpeg.setScale(s,s);
             plot_shader=0;
 //            setffmpegfile();
             plot_ffmpegfile=1; plotplot();

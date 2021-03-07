@@ -3,7 +3,7 @@
 #define PRINT_FONT_SIZE 24
 #define PRINT_FONT_OUTLINE 2
 
-
+char quote_subs_extra2[5000];
 int get_video_thread_running=0;
 int burn_next_sub_thread_running=0;
 sf::Mutex textfiles;
@@ -811,8 +811,13 @@ void burn_next_sub() {
             while (replace_str(converted,"[single_quote]","\\'\\'\\\\'"));
 //            while (replace_str(converted,"[dot_comma]","\\'\\;\\\\'"));
 
+//#FFMPEG_IN_SUBS="ffmpeg.exe -v 0 -hide_banner -i %s -vf subtitles=%s -c:s mov_text -f image2pipe -vcodec rawvideo -pix_fmt rgba -"
 
-            sprintf(quote_subs_extra, "\"f='../convert/files/%s'\"",converted);
+
+            sprintf(quote_subs_extra, "subtitles=f='../convert/files/%s'",converted);
+            sprintf(quote_subs_extra2, "%s",converted);
+//            sprintf(quote_subs_extra, "subtitles=f='../convert/files/%s'",converted);
+//            sprintf(quote_subs_extra, "\"f='../convert/files/%s'\"",converted);
 
             recording_type=1;
 

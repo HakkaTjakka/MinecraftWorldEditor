@@ -11819,7 +11819,7 @@ void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region
 */
 
     if ( mcglobal5==6) {
-        for (int n=0; n<3; n++) {
+        for (int n=0; n<1; n++) {
             image_plot2.copy(image_plot_c,0,0);
             for (int x = 0; x < 512+10; x++) {
                 for (int z = 0; z < 512+10; z++) {
@@ -11908,7 +11908,8 @@ void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region
             for (int z = 0; z < 512+10; z++) {
                 if (image_plot_b.getPixel(x,z).r==0 || image_plot_c.getPixel(x,z).r!=0) {
                     image_plot.setPixel(x,z,sf::Color(0,0,0,0));
-                    image_plot3.setPixel(x,z,sf::Color(0,0,0,0));
+//new2
+//                    image_plot3.setPixel(x,z,sf::Color(0,0,0,0));
                 }
             }
         }
@@ -11969,6 +11970,7 @@ void main_mceditor3_new_sub(MCRegion region_surroundings[3][3], MCRegion& region
 */
         }
 //        image_plot3.copy(image_plot,0,0);
+        image_plot3.copy(image_plot,0,0);
     } else {
 //            if (mcglobal5!=4 && mcglobal5!=3)
 

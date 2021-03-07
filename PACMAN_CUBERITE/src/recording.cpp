@@ -163,6 +163,8 @@ extern char FFMPEGCOMMAND_RGBA[];
 extern int RGBA;
 extern char FFMPEGCOMMANDIN[];
 extern char FFMPEGCOMMANDIN_SUBS[]; //WHEN BURNING SUBS WITH "GET_VIDEOS" & "BURN_SUBS"
+extern char FFMPEGCOMMANDIN_SUBS_RES[]; //WHEN BURNING SUBS WITH "GET_VIDEOS" & "BURN_SUBS"
+extern char FFMPEGCOMMANDIN_FILTER_COMPLEX[];
 extern char FFMPEGCOMMAND_M_ORIG[];
 extern char FFMPEGCOMMAND_M_ORIG_AUDIO[];
 extern char FFMPEGCOMMAND_CROP[];
@@ -209,6 +211,11 @@ bool get_screenshot(sf::Texture* m_texture) {
     else
         sprintf(command_line,"%s","ffmpeg -rtbufsize 1024M -thread_queue_size 1024 -f gdigrab -i desktop -vframes 1 -q:v 2 -f image2pipe -vcodec rawvideo -pix_fmt rgba -");
     printf("COMMAND: %s\n",FFMPEGCOMMAND_SCREENSHOT);
+    FILE* file;
+    if (file=fopen("../convert/files/convert.log","a")) {
+        fprintf(file,"%s\n",command_line);
+        fclose(file);
+    }
     FILE *pipein;
     pipein = popen(command_line, "rb");
     if (pipein==NULL) {
@@ -226,6 +233,7 @@ bool get_screenshot(sf::Texture* m_texture) {
     m_texture->copyToImage().saveToFile("screenshot.png");
     return true;
 }
+extern char quote_subs_extra2[];
 
 int playing_start(char * filename)
 {
@@ -245,6 +253,12 @@ int playing_start(char * filename)
     }
 // ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of default=nw=1 holland_sound.mp4
     sprintf(command_line,"ffprobe.exe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of default=nw=1 %s",quote_filename);
+    FILE* file;
+    if (file=fopen("../convert/files/convert.log","a")) {
+        fprintf(file,"%s\n",command_line);
+        fclose(file);
+    }
+
     pipein = popen(command_line, "rb");
     if (pipein!=NULL) {
         char line1[100];
@@ -254,8 +268,17 @@ int playing_start(char * filename)
         fgets(line2,100,pipein);
         fgets(line3,100,pipein);
         pclose(pipein);
-        sscanf(line1,"width=%d",&movie_width);
-        sscanf(line2,"height=%d",&movie_height);
+
+        if (strcmp(FFMPEGCOMMANDIN_SUBS_RES,"HD")==0) {
+            printf("RECORDING IN HD\n");
+            movie_width=1920;
+            movie_height=1080;
+        } else {
+            printf("FUCK: %s\n",FFMPEGCOMMANDIN_SUBS_RES);
+            sscanf(line1,"width=%d",&movie_width);
+            sscanf(line2,"height=%d",&movie_height);
+        }
+
         sscanf(line3,"r_frame_rate=%d/%d",&movie_r_frame_rate1,&movie_r_frame_rate2);
 //        printf("FFPROBE: width=%d height=%d framerate=%d/%d\n",movie_width,movie_height,movie_r_frame_rate1,movie_r_frame_rate2);
     } else {
@@ -268,6 +291,11 @@ int playing_start(char * filename)
 
     if (!burn_subs) {
         sprintf(command_line,"ffprobe.exe -v error -select_streams a:0 -show_entries stream=sample_rate,channels -of default=nw=1 %s",quote_filename);
+        FILE* file;
+        if (file=fopen("../convert/files/convert.log","a")) {
+            fprintf(file,"%s\n",command_line);
+            fclose(file);
+        }
         pipein = popen(command_line, "rb");
         if (pipein!=NULL) {
             char line1[100];
@@ -316,12 +344,23 @@ int playing_start(char * filename)
     }
 //?????????
     if (burn_subs) {
-        if (strlen(FFMPEGCOMMANDIN_SUBS)>0)
-            sprintf(command_line,FFMPEGCOMMANDIN_SUBS,quote_filename,quote_subs_extra);
-        else
+        if (strlen(FFMPEGCOMMANDIN_SUBS)>0) {
+//            std::string better;
+            char better[5000]="";
+            char better2[5000]="";
+
+            sprintf(better2,FFMPEGCOMMANDIN_FILTER_COMPLEX,quote_subs_extra2);
+            sprintf(better,"\"%s\"",better2);
+
+//            sprintf(command_line,FFMPEGCOMMANDIN_SUBS,quote_filename,quote_subs_extra);
+
+            sprintf(command_line,FFMPEGCOMMANDIN_SUBS,quote_filename,better);
+        }
+        else {
             sprintf(command_line,"ffmpeg.exe -v 0 -hide_banner -i %s -vf subtitles=%s -c:s mov_text -f image2pipe -vcodec rawvideo -pix_fmt rgba -",
                     quote_filename,quote_subs_extra);
-            print_to_screen_buf(1,command_line,PRINT_FONT_SIZE,COL_BLUE,COL_WHITE,COL_WHITE_T,PRINT_FONT_OUTLINE,TXT_REG);
+        }
+        print_to_screen_buf(1,command_line,PRINT_FONT_SIZE,COL_BLUE,COL_WHITE,COL_WHITE_T,PRINT_FONT_OUTLINE,TXT_REG);
     } else {
         char add[20]="";
         char sub[1000]="";
@@ -378,6 +417,11 @@ int playing_start(char * filename)
 
     printf(command_line);
     printf("\n");
+//    FILE* file;
+    if (file=fopen("../convert/files/convert.log","a")) {
+        fprintf(file,"%s\n",command_line);
+        fclose(file);
+    }
     pipein = popen(command_line, "rb");
     if (pipein!=NULL) {
 //        texture_from_ffmpeg.create(movie_width,movie_height);
@@ -690,6 +734,11 @@ int recording_start_m_orig()
                 );
     printf(command_line);
     printf("\n");
+    FILE* file;
+    if (file=fopen("../convert/files/convert.log","a")) {
+        fprintf(file,"%s\n",command_line);
+        fclose(file);
+    }
     pipeout = popen(command_line, "wb");
     if (pipeout!=NULL) {
 //        printf("popen ok!\n");
@@ -880,6 +929,11 @@ int recording_start(int x, int y)
 
     printf(command_line);
     printf("\n");
+    FILE* file;
+    if (file=fopen("../convert/files/convert.log","a")) {
+        fprintf(file,"%s\n",command_line);
+        fclose(file);
+    }
     pipeout = popen(command_line, "wb");
     if (pipeout!=NULL)
         return 0;
@@ -1390,6 +1444,11 @@ char * get_info_video(char * filename) {
     sprintf(quote_filename,"\"%s\"",filename);
 
     sprintf(command_line,"ffprobe.exe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of default=nw=1 %s",quote_filename);
+    FILE* file;
+    if (file=fopen("../convert/files/convert.log","a")) {
+        fprintf(file,"%s\n",command_line);
+        fclose(file);
+    }
     pipein = popen(command_line, "rb");
     if (pipein!=NULL) {
         char line1[100];
@@ -1399,8 +1458,16 @@ char * get_info_video(char * filename) {
         fgets(line2,100,pipein);
         fgets(line3,100,pipein);
         pclose(pipein);
-        sscanf(line1,"width=%d",&movie_width);
-        sscanf(line2,"height=%d",&movie_height);
+        if (strcmp(FFMPEGCOMMANDIN_SUBS_RES,"HD")==0) {
+            printf("RECORDING IN HD\n");
+            movie_width=1920;
+            movie_height=1080;
+        } else {
+            printf("FUCK: %s\n",FFMPEGCOMMANDIN_SUBS_RES);
+            sscanf(line1,"width=%d",&movie_width);
+            sscanf(line2,"height=%d",&movie_height);
+        }
+
         sscanf(line3,"r_frame_rate=%d/%d",&movie_r_frame_rate1,&movie_r_frame_rate2);
 //        printf("width=%d\n",movie_width);
 //        printf("height=%d\n",movie_height);
@@ -1433,6 +1500,11 @@ char * get_info_audio(char * filename) {
     sprintf(quote_filename,"\"%s\"",filename);
 
     sprintf(command_line,"ffprobe.exe -v error -select_streams a:0 -show_entries stream=sample_rate,channels -of default=nw=1 %s",quote_filename);
+    FILE* file;
+    if (file=fopen("../convert/files/convert.log","a")) {
+        fprintf(file,"%s\n",command_line);
+        fclose(file);
+    }
     pipein = popen(command_line, "rb");
     if (pipein!=NULL) {
         char line1[100];
