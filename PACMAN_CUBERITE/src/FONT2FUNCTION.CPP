@@ -11,7 +11,7 @@ void font2function() {
     font2function_sub(0);
     font2function_sub(1);
     font2function_sub(2);
-}
+}   //
 
 void font2function_sub(int chain) {
     sf::Image fontimage;
