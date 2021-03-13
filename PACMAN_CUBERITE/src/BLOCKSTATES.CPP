@@ -22,6 +22,9 @@
 #include <GL/freeglut.h>
 #include <SFML/OpenGL.hpp>
 
+sf::RenderTexture MinecraftTexture;
+sf::Sprite MinecraftSprite;
+
 using namespace std;
 
 extern bool file_exists(const char* filename);
@@ -1095,15 +1098,15 @@ extern setTransparency(HWND hWnd, unsigned char alpha);
     setTransparency(window.getSystemHandle(), 255);
     window.setVerticalSyncEnabled(false);
     window.requestFocus();
-    sf::RenderTexture backgroundTexture;
-    sf::Sprite backgroundSprite;
+//    sf::RenderTexture MinecraftTexture;
+//    sf::Sprite MinecraftSprite;
     sf::Texture blocktexture;
     sf::Sprite blocksprite;
 
-    backgroundTexture.create(1024,1024);
-    backgroundTexture.clear(sf::Color(255,0,0,0));
-    backgroundSprite.setTexture(backgroundTexture.getTexture(),true);
-    backgroundSprite.setPosition(0,0);
+    MinecraftTexture.create(1024,1024);
+    MinecraftTexture.clear(sf::Color(255,0,0,0));
+    MinecraftSprite.setTexture(MinecraftTexture.getTexture(),true);
+    MinecraftSprite.setPosition(0,0);
 
     HANDLE hStdOut = GetStdHandle( STD_OUTPUT_HANDLE );
     COORD homeCoords = { 0, 0 };
@@ -1184,7 +1187,7 @@ extern setTransparency(HWND hWnd, unsigned char alpha);
                     blocksprite.setTexture(blocktexture,true);
                     blocksprite.setPosition(index_x*16,index_y*16);
                     window.draw(blocksprite);
-                    backgroundTexture.draw(blocksprite);
+                    MinecraftTexture.draw(blocksprite);
                     window.display();
 
                     if (first) {
@@ -1330,7 +1333,7 @@ extern setTransparency(HWND hWnd, unsigned char alpha);
                     blocksprite.setTexture(blocktexture,true);
                     blocksprite.setPosition(index_x*16,index_y*16);
                     window.draw(blocksprite);
-                    backgroundTexture.draw(blocksprite);
+                    MinecraftTexture.draw(blocksprite);
                     window.display();
 
                     if (first) {
@@ -1440,10 +1443,10 @@ extern setTransparency(HWND hWnd, unsigned char alpha);
     }
     fclose(best_colors);
     float tt;
-    backgroundSprite.setOrigin(512,512);
-    backgroundTexture.display();
-    backgroundSprite.setPosition(512,512);
-    backgroundTexture.setSmooth(true);
+    MinecraftSprite.setOrigin(512,512);
+    MinecraftTexture.display();
+    MinecraftSprite.setPosition(512,512);
+    MinecraftTexture.setSmooth(true);
 
     window.setVerticalSyncEnabled(true);
 
@@ -1452,9 +1455,9 @@ extern setTransparency(HWND hWnd, unsigned char alpha);
     while (window.pollEvent(event) || !out) {
 //        window.clear(sf::Color(128+sin(tt*1.3)*127,128+sin(tt*1.6)*127,128+sin(tt*1.5)*127,0));
         window.clear(sf::Color::Transparent);
-//        backgroundSprite.setPosition(512+sin(tt)*100,512+cos(tt)*100);
-//        backgroundSprite.setRotation(tt*2);
-        window.draw(backgroundSprite);
+//        MinecraftSprite.setPosition(512+sin(tt)*100,512+cos(tt)*100);
+//        MinecraftSprite.setRotation(tt*2);
+        window.draw(MinecraftSprite);
         window.display();
         tt+=0.05;
         tm++;
@@ -1464,8 +1467,8 @@ extern setTransparency(HWND hWnd, unsigned char alpha);
     }
     window.close();
 
-//    backgroundTexture.display();
-    backgroundTexture.getTexture().copyToImage().saveToFile("resources/minecraft.png");
+//    MinecraftTexture.display();
+    MinecraftTexture.getTexture().copyToImage().saveToFile("resources/minecraft.png");
 /*
     for (it_IdDataColor_map = IdDataColor_map.begin(); it_IdDataColor_map != IdDataColor_map.end(); it_IdDataColor_map++) {
         int id=it_IdDataColor_map->first >> 4;

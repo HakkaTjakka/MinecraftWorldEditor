@@ -44,6 +44,9 @@
 #define EVENT_SHIFT 2
 #define EVENT_CONTROL 4
 #define EVENT_SYSTEM 8
+
+extern void font2function();
+
 extern sf::Texture* backgroundTexture[];
 extern bool get_screenshot(sf::Texture* m_texture);
 extern void one_region_voxel_files_to_region_files(bool display_only, char* voxel_filename);
@@ -462,6 +465,8 @@ int main(int argc, char ** argv) {
 
 extern int do3dview();
 extern bool pb;
+extern std::string ltrim(const std::string& s);
+extern std::string rtrim(const std::string& s);
 
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow) {
 //    do3dview();
@@ -471,6 +476,15 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     hPrevInstance_pass=hPrevInstance;
     lpCmdLine_pass=lpCmdLine;
     nCmdShow_pas=nCmdShow;
+    std::string cmd=rtrim(lpCmdLine);
+    std::transform(cmd.begin(), cmd.end(),cmd.begin(), ::toupper);
+
+    if (cmd=="FONT2FUNCTION") {
+        font2function();
+        ShowTaskBar(true);
+        exit(0);
+    }
+    printf("COMMAND: \"%s\"\n",cmd.c_str());
 
 //    int ret=WinMain2();
 //    printf("WinMain2() returned. WINAPI=%d\n",ret);
@@ -813,6 +827,7 @@ printf("hoppa");
 //    setlocale(LC_ALL, "en_US.UTF-8");
 //change if dirs can not be created / found
 //debug    strcpy(lpCmdLine,"mceditor 9 190 0 4");
+//    strcpy(lpCmdLine,"");
     argc = 1;
     arg  = lpCmdLine;
     while (arg[0] != 0)
@@ -997,6 +1012,10 @@ printf("hoppa");
         else if (   strcmp(argv[1],"rio"    )==0) { send_message='y'; }
         else if (   strcmp(argv[1],"utrecht"    )==0) { send_message='z'; }
         else if (   strcmp(argv[1],"amsterdam"    )==0) { send_message='w'; }
+        else if (   strcmp(argv[1],"font2function"    )==0) {
+            font2function();
+            send_message='x';
+        }
         else if (   strcmp(argv[1],"voxel"    )==0) {
                 for (int n=2; n<argc; n++) {
                     strcpy(argv_main[n-2],argv[n]);

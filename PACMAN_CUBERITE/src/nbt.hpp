@@ -176,12 +176,13 @@ static nbt_tag_t* nbt__parse(nbt__read_stream_t* stream, int parse_name, nbt_tag
     {
         tag->tag_byte_array.size = nbt__get_int32(stream);
         tag->tag_byte_array.value = (int8_t*)NBT_MALLOC(tag->tag_byte_array.size);
+        if (tag->tag_byte_array.value==NULL) printf("Error allocating memory 123\n");
 //jaja
 //        for (size_t i = 0; i < tag->tag_byte_array.size; i++)
 //        {
 //            tag->tag_byte_array.value[i] = nbt__get_byte(stream);
 //        }
-
+//todo runtime error on large size
         NBT_MEMCPY(tag->tag_byte_array.value, stream->buffer+stream->buffer_offset, tag->tag_byte_array.size);
         stream->buffer_offset += tag->tag_byte_array.size;
 

@@ -92,7 +92,7 @@ void main() {
                 else
                     kD =  out_color;
 
-                float spec1 = (2.0) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.0,1.0);
+                float spec1 = (1.5) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.0,1.0);
                 float spec2 = (2.0) * clamp(pow(max( dot(reflect(lp2, n), ro), 0.), 120.),0.0,1.0);
 
                 float diff1 = 1.5 * clamp(dot( n,lp1), 0.1, 1.);
@@ -107,8 +107,8 @@ void main() {
 //                if (spec1>spec2) kS_x_spec =  spec1*vec3(1.0, 1.0, 1.0) + vec3(0.10, 0.10, 0.10);
 //                else             kS_x_spec =  spec2*vec3(1.0, 1.0, 1.0) + vec3(0.10, 0.10, 0.10);
 
-                vec3 kS_x_spec_1 =  spec1*vec3(0.5, .5, .5) + vec3(0.10, 0.10, 0.10);
-                vec3 kS_x_spec_2 =  spec2*vec3(.5, .5, .5) + vec3(0.10, 0.10, 0.10);
+                vec3 kS_x_spec_1 =  spec1*vec3(.7, .7, .7) + vec3(0.20, 0.20, 0.20);
+                vec3 kS_x_spec_2 =  spec2*vec3(.7, .7, .7) + vec3(0.20, 0.20, 0.20);
                 vec3 kS_x_spec = (kS_x_spec_1+kS_x_spec_2)/2.0;
 
                     fragcolor = clamp(   vec4( kD.xyz * (diff ) + kS_x_spec, kD.a) , 0.0 , 1.0);

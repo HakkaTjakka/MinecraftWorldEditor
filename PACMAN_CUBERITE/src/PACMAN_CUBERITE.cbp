@@ -233,6 +233,7 @@
 		<Unit filename="CUBERITE2.BAT" />
 		<Unit filename="DataTypes.h" />
 		<Unit filename="Effect.hpp" />
+		<Unit filename="FONT2FUNCTION.CPP" />
 		<Unit filename="Fault.cpp" />
 		<Unit filename="Fault.h" />
 		<Unit filename="GetFileFromInternet.cpp" />
