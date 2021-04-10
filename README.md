@@ -1,4 +1,8 @@
 CHECK THE ISSUES!!!
+
+Note: This program / repo is constantly under attack (sabotaged) by MS Windows 10 updates. It works fine. One or two months later (after updates) it crashes. This is the way MS 'works'. You don't believe me? Put back a backup and/or reinstall Windows, suddenly it works fine again.... Only the paranoid survide. GitHub wat because of that bought by MS.
+Greetings to Bill Gates. Biggest asshole in the world (for now).
+
 Also: I you need manuals on other stuff, ASK!
 (Super large posters of Google 3d on 300+ dpi)
 (Video's of 3d objects from 3d window, setting markers, interpolation, recording)
