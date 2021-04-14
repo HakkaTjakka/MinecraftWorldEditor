@@ -77,7 +77,12 @@ void main() {
 	}else if(alpha < 0.001){
 		f = alpha;
 	}else{
-		f = flare(angle,alpha,t)*1.3;
+		f = flare(angle,alpha,t)*0.7;
 	}
+
 	gl_FragColor = vec4(vec3(f*(1.0+sin(angle-t*4.)*.3)+f2*f2*f2,f*alpha+f2*f2*2.0,f*alpha*0.5+f2*(1.0+sin(angle+t*4.)*.3)),1.0);
+ 	float trans=max(gl_FragColor.r,gl_FragColor.g);
+  	trans=max(trans,gl_FragColor.b);
+	gl_FragColor = vec4(gl_FragColor.xyz*1.3, trans*trans);
+
 }

@@ -4,6 +4,13 @@ uniform sampler2D texture_source;
 uniform vec2 resolution;
 in vec4 tex_coord;
 
+in vec3 ro;
+in vec3 n;
+in vec3 lp1;
+in vec3 lp2;
+in vec3 lp3;
+in vec3 lp4;
+
 void main()
 {
 //    if (gl_FragCoord.z<0.480)
@@ -26,8 +33,73 @@ void main()
 
 
 //normal
-        gl_FragColor = texture2D(texture_plot,  (tex_coord.xy/resolution) );
 
+
+                vec4 kD;
+                vec4 kB;
+//                kD =  texture2D(the_texture,  vec2(gl_TexCoord[0].s,gl_TexCoord[0].t));
+                kD =  texture2D(texture_plot,  (tex_coord.xy/resolution) );
+//                if (kD.a!=1.0) {
+//                        kD.rgb=(kD.a)*vec3(1.0,1.0,1.0);
+//                    if (kD.a!=1.0) kD.a=0.0;
+//                }
+//                kD.a=kD.a*kD.a*kD.a;
+
+//        gl_FragColor = texture2D(texture_plot,  (tex_coord.xy/resolution) );
+
+
+/*
+                float spec1 = (1.5) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.0,1.0);
+//                float spec2 = (0.5) * clamp(pow(max( dot(reflect(lp2, n), ro), 0.), 120.),0.0,1.0);
+
+                float diff1 = 1.0 * clamp(dot( n,lp1), 0.1, 1.);
+//                float diff2 = 2.5 * clamp(dot( n,lp2), 0.2, 1.);
+
+                float diff=diff1;
+//                if (diff2>diff) diff=diff2;
+
+                vec3 kS_x_spec =  spec1*vec3(.7, .7, .7) + vec3(0.10, 0.10, 0.10);
+//                vec3 kS_x_spec_1 =  spec1*vec3(.7, .7, .7) + vec3(0.10, 0.10, 0.10);
+//                vec3 kS_x_spec_2 =  spec2*vec3(.7, .7, .7) + vec3(0.10, 0.10, 0.10);
+//                vec3 kS_x_spec = (kS_x_spec_1+kS_x_spec_2)/2.0;
+//                vec3 kS_x_spec = (kS_x_spec_1+kS_x_spec_2)/2.0;
+
+*/
+
+
+                float spec1 = (1.5) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.0,1.0);
+                float spec2 = (1.5) * clamp(pow(max( dot(reflect(lp2, n), ro), 0.), 120.),0.0,1.0);
+                float spec3 = (1.5) * clamp(pow(max( dot(reflect(lp3, n), ro), 0.), 120.),0.0,1.0);
+                float spec4 = (1.5) * clamp(pow(max( dot(reflect(lp4, n), ro), 0.), 120.),0.0,1.0);
+
+                float diff1 = 1.0 * clamp(dot( n,lp1), 0.1, 1.);
+                float diff2 = 1.0 * clamp(dot( n,lp2), 0.2, 1.);
+                float diff3 = 1.0 * clamp(dot( n,lp3), 0.05,1.);
+                float diff4 = 1.0 * clamp(dot( n,lp4), 0.0, 1.);
+
+                float diff=diff1;
+                if (diff2>diff) diff=diff2;
+                if (diff3>diff) diff=diff3;
+                if (diff4>diff) diff=diff4;
+
+//                float spec=spec1+spec2+spec3+spec4;
+//                float spec=(spec1+spec2+spec3+spec4)/4.0;
+                float spec=spec1;
+                if (spec2>spec) spec =  spec2;
+                if (spec3>spec) spec =  spec3;
+                if (spec4>spec) spec =  spec4;
+
+
+                vec3 kS_x_spec = spec*vec3(1.0, 1.0, 1.0) + vec3(0.10, 0.10, 0.10);
+
+
+                gl_FragColor = clamp(   vec4( kD.xyz * (diff ) + kS_x_spec, kD.a) , 0.0 , 1.0);
+
+//                vec4 fragcolor = clamp(   vec4( kD.xyz * (diff ) + kS_x_spec, kD.a) , 0.0 , 1.0);
+
+//        gl_FragColor = texture2D(texture_plot,  (tex_coord.xy/resolution) );
+
+//        gl_FragColor.b = 1.0;
 
 //whole 8x8 one texture
 //        vec2 Pixel=gl_Color.rg;

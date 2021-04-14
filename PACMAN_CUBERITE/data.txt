@@ -6688,3 +6688,105 @@
 0 Program busy or hangs... Thread alive at: 08/03/2021 08:06:23
 0 Program busy or hangs... Thread alive at: 08/03/2021 08:06:28
 0 Program busy or hangs... Thread alive at: 08/03/2021 08:13:03
+1 Program busy or hangs... Thread alive at: 07/04/2021 21:21:35
+1 Program busy or hangs... Thread alive at: 09/04/2021 19:53:48
+1 Program busy or hangs... Thread alive at: 09/04/2021 19:56:59
+0 Program busy or hangs... Thread alive at: 10/04/2021 09:46:28
+1 Program busy or hangs... Thread alive at: 10/04/2021 09:46:33
+1 Program busy or hangs... Thread alive at: 10/04/2021 09:46:55
+0 Program busy or hangs... Thread alive at: 10/04/2021 09:47:08
+1 Program busy or hangs... Thread alive at: 10/04/2021 09:47:13
+0 Program busy or hangs... Thread alive at: 10/04/2021 09:48:02
+1 Program busy or hangs... Thread alive at: 10/04/2021 09:48:07
+1 Program busy or hangs... Thread alive at: 10/04/2021 12:00:24
+0 Program busy or hangs... Thread alive at: 10/04/2021 12:13:17
+0 Program busy or hangs... Thread alive at: 10/04/2021 12:13:22
+1 Program busy or hangs... Thread alive at: 10/04/2021 12:13:27
+1 Program busy or hangs... Thread alive at: 10/04/2021 12:13:47
+1 Program busy or hangs... Thread alive at: 10/04/2021 12:14:04
+1 Program busy or hangs... Thread alive at: 10/04/2021 12:14:23
+1 Program busy or hangs... Thread alive at: 10/04/2021 12:17:33
+0 Program busy or hangs... Thread alive at: 10/04/2021 12:17:45
+0 Program busy or hangs... Thread alive at: 10/04/2021 12:17:50
+1 Program busy or hangs... Thread alive at: 10/04/2021 12:17:55
+1 Program busy or hangs... Thread alive at: 10/04/2021 12:18:14
+0 Program busy or hangs... Thread alive at: 10/04/2021 12:18:27
+0 Program busy or hangs... Thread alive at: 10/04/2021 12:18:32
+1 Program busy or hangs... Thread alive at: 10/04/2021 12:18:37
+1 Program busy or hangs... Thread alive at: 10/04/2021 12:18:46
+1 Program busy or hangs... Thread alive at: 10/04/2021 12:40:15
+1 Program busy or hangs... Thread alive at: 10/04/2021 12:40:27
+0 Program busy or hangs... Thread alive at: 10/04/2021 15:12:01
+0 Program busy or hangs... Thread alive at: 10/04/2021 15:27:03
+1 Program busy or hangs... Thread alive at: 10/04/2021 15:27:08
+0 Program busy or hangs... Thread alive at: 10/04/2021 15:27:19
+1 Program busy or hangs... Thread alive at: 10/04/2021 15:27:24
+0 Program busy or hangs... Thread alive at: 10/04/2021 15:30:14
+1 Program busy or hangs... Thread alive at: 10/04/2021 15:30:19
+1 Program busy or hangs... Thread alive at: 10/04/2021 20:28:52
+0 invalid internet: http://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.quest.nl%2Fmaatschappij%2Fgeschiedenis%2Fa25456485%2Fnederlandse-vlag-rood-wit-blauw%2F&psig=AOvVaw1cP9ZL_o3o6dPeQDVfyhFr&ust=1618233524963000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNi0__aj9u8CFQAAAAAdAAAAABAI
+
+0 Program busy or hangs... Thread alive at: 11/04/2021 15:23:04
+0 invalid internet: http://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.quest.nl%2Fmaatschappij%2Fgeschiedenis%2Fa25456485%2Fnederlandse-vlag-rood-wit-blauw%2F&psig=AOvVaw1cP9ZL_o3o6dPeQDVfyhFr&ust=1618233524963000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNi0__aj9u8CFQAAAAAdAAAAABAI
+
+1 Program busy or hangs... Thread alive at: 11/04/2021 15:23:16
+0 invalid internet: http://scontent-ams4-1.xx.fbcdn.net/v/t1.0-9/20882646_1642148285847772_2760742583849874291_n.jpg?_nc_cat=109&_nc_eui2=AeFEVIKfc_iVHRaUuTqSYyQQt8blHL2lX_0YDkUHsz2EntaPKMrJApHLS_CXacOCvbiTOqyy24hF4Oxj8e5lUySRg2-U9k-hAbRI1PnbTS47xA&_nc_oc=AQnSPS3Nhyjqglu8OMLH6V2AlAFkDCnhVnMIIEce-zQ083iDEIA45VnkqWN2FXip7CE&_nc_ht=scontent-ams4-1.xx&oh=d84043b1e350c69789a55bb6ffc64433&oe=5E10ECA9
+
+0 Program busy or hangs... Thread alive at: 11/04/2021 15:24:01
+0 Program busy or hangs... Thread alive at: 11/04/2021 15:24:10
+0 invalid internet: https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/waarom-is-de-nederlandse-vlag-rood-wit-blauw-664-1544453916.jpg?crop=0.995xw:0.816xh;0.00173xw,0.111xh&resize=768:*
+
+1 Program busy or hangs... Thread alive at: 11/04/2021 15:24:15
+0 invalid internet: http://scontent-ams4-1.xx.fbcdn.net/v/t1.0-9/20882646_1642148285847772_2760742583849874291_n.jpg?_nc_cat=109&_nc_eui2=AeFEVIKfc_iVHRaUuTqSYyQQt8blHL2lX_0YDkUHsz2EntaPKMrJApHLS_CXacOCvbiTOqyy24hF4Oxj8e5lUySRg2-U9k-hAbRI1PnbTS47xA&_nc_oc=AQnSPS3Nhyjqglu8OMLH6V2AlAFkDCnhVnMIIEce-zQ083iDEIA45VnkqWN2FXip7CE&_nc_ht=scontent-ams4-1.xx&oh=d84043b1e350c69789a55bb6ffc64433&oe=5E10ECA9
+
+1 Program busy or hangs... Thread alive at: 11/04/2021 15:25:11
+0 invalid internet: ../url/
+
+1 Program busy or hangs... Thread alive at: 11/04/2021 15:25:38
+0 invalid internet: ../url/file:///D:/pacman/pictures/waarom-is-de-nederlandse-vlag-rood-wit-blauw-664-1544453916.jpg
+
+0 Program busy or hangs... Thread alive at: 11/04/2021 15:27:19
+1 Program busy or hangs... Thread alive at: 11/04/2021 15:27:24
+0 invalid internet: http://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.quest.nl%2Fmaatschappij%2Fgeschiedenis%2Fa25456485%2Fnederlandse-vlag-rood-wit-blauw%2F&psig=AOvVaw1cP9ZL_o3o6dPeQDVfyhFr&ust=1618233524963000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNi0__aj9u8CFQAAAAAdAAAAABAI
+
+0 Program busy or hangs... Thread alive at: 11/04/2021 15:27:57
+1 Program busy or hangs... Thread alive at: 11/04/2021 15:28:02
+0 Program busy or hangs... Thread alive at: 11/04/2021 15:28:09
+0 Program busy or hangs... Thread alive at: 11/04/2021 15:28:14
+0 Program busy or hangs... Thread alive at: 11/04/2021 15:28:19
+0 Program busy or hangs... Thread alive at: 11/04/2021 15:28:24
+0 Program busy or hangs... Thread alive at: 11/04/2021 15:28:29
+0 Program busy or hangs... Thread alive at: 11/04/2021 15:28:34
+0 Program busy or hangs... Thread alive at: 11/04/2021 15:28:39
+0 Program busy or hangs... Thread alive at: 11/04/2021 15:28:44
+0 invalid internet: https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/waarom-is-de-nederlandse-vlag-rood-wit-blauw-664-1544453916.jpg?crop=0.995xw:0.816xh;0.00173xw,0.111xh&resize=768:*
+
+1 Program busy or hangs... Thread alive at: 11/04/2021 15:29:17
+0 invalid internet: http://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/waarom-is-de-nederlandse-vlag-rood-wit-blauw-664-1544453916.jpg?crop=0.995xw:0.816xh;0.00173xw,0.111xh&resize=768:*
+
+1 Program busy or hangs... Thread alive at: 11/04/2021 15:29:34
+0 invalid internet: ../url/file:///D:/PACMAN/pictures/waarom-is-de-nederlandse-vlag-rood-wit-blauw-664-1544453916.jpg
+
+0 Program busy or hangs... Thread alive at: 11/04/2021 15:30:12
+1 Program busy or hangs... Thread alive at: 11/04/2021 15:30:17
+0 invalid internet: D:/PACMAN/pictures/waarom-is-de-nederlandse-vlag-rood-wit-blauw-664-1544453916.jpg
+
+1 Program busy or hangs... Thread alive at: 11/04/2021 15:30:29
+0 invalid internet: http://www.kompas.frl/wp-content/uploads/sites/8/2019/03/Nederland-400x270px1.jpg
+
+1 Program busy or hangs... Thread alive at: 11/04/2021 15:31:04
+0 invalid internet: http://scontent-ams4-1.xx.fbcdn.net/v/t1.0-9/20882646_1642148285847772_2760742583849874291_n.jpg?_nc_cat=109&_nc_eui2=AeFEVIKfc_iVHRaUuTqSYyQQt8blHL2lX_0YDkUHsz2EntaPKMrJApHLS_CXacOCvbiTOqyy24hF4Oxj8e5lUySRg2-U9k-hAbRI1PnbTS47xA&_nc_oc=AQnSPS3Nhyjqglu8OMLH6V2AlAFkDCnhVnMIIEce-zQ083iDEIA45VnkqWN2FXip7CE&_nc_ht=scontent-ams4-1.xx&oh=d84043b1e350c69789a55bb6ffc64433&oe=5E10ECA9
+
+1 Program busy or hangs... Thread alive at: 11/04/2021 15:31:17
+0 invalid internet: D:\PACMAN\url\files\vlag.jpg
+
+0 Program busy or hangs... Thread alive at: 11/04/2021 15:33:19
+1 Program busy or hangs... Thread alive at: 11/04/2021 15:33:24
+0 invalid internet: D:\PACMAN\url\files\vlag.jpg
+
+1 Program busy or hangs... Thread alive at: 11/04/2021 15:36:10
+1 Program busy or hangs... Thread alive at: 12/04/2021 12:06:30
+1 Program busy or hangs... Thread alive at: 12/04/2021 14:19:15
+0 Program busy or hangs... Thread alive at: 14/04/2021 12:33:23
+1 Program busy or hangs... Thread alive at: 14/04/2021 12:33:28
+1 Program busy or hangs... Thread alive at: 14/04/2021 12:40:54

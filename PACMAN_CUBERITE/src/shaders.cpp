@@ -91,6 +91,7 @@ int load_fragment_filename(int up_down) {
     }
     sprintf(error_msg2,"FRAGMENT SHADER FOUND: %s",frag_name);
     error_flag2=1;
+    return -1;
 }
 
 int load_vertex_filename() {
@@ -108,6 +109,7 @@ int load_vertex_filename() {
     }
     sprintf(error_msg2,"VERTEX SHADER FOUND: %s",frag_name);
     error_flag2=1;
+    return -1;
 }
 
 int load_buffer_filename() {
@@ -124,6 +126,7 @@ int load_buffer_filename() {
     }
     sprintf(error_msg2,"BUFFER SHADER FOUND: %s",buf_name);
     error_flag2=1;
+    return -1;
 }
 
 

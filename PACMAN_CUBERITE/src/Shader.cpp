@@ -855,7 +855,7 @@ extern void RenderBlit2(float xdest, float ydest, int xsource, int ysource, int 
 
 #include<bits/stdc++.h>
 //using namespace std;
-void plot_it() {
+void plot_it(int plot_front) {
 
 /*
     if (F2==1) {
@@ -869,7 +869,8 @@ void plot_it() {
     }
 */
 
-    std::sort(myInterval,myInterval+plot_all_count,compareInterval);
+    if (plot_front==0)
+        std::sort(myInterval,myInterval+plot_all_count,compareInterval);
 
 /*
     if (F2==1) {
@@ -882,8 +883,17 @@ void plot_it() {
         }
     }
 */
+//    static int cc=60;
+//    if (plot_front==0) cc--;
+//    if (cc==0) {
+//        if (plot_front==0) printf("plot=%d: ",plot_front);
+//        else printf("   plot=%d: ",plot_front);
+//    }
     for (int cnt=0; cnt<plot_all_count; cnt++) {
-        shader_map(myInterval[cnt].plot_all_pos_in.x,myInterval[cnt].plot_all_pos_in.y);
+        if ((plot_front==1 && myInterval[cnt].plot_all_pos_out.z>-1.0) || (plot_front==0 && myInterval[cnt].plot_all_pos_out.z<=-1.0) ) {
+            shader_map(myInterval[cnt].plot_all_pos_in.x,myInterval[cnt].plot_all_pos_in.y);
+//            if (cc==0) printf("(%d=%3.2f)",cnt,myInterval[cnt].plot_all_pos_out.z);
+        }
 
 /*
         extern sf::Sprite spritedot;
@@ -900,7 +910,13 @@ void plot_it() {
         spritedot2.setScale(1.0,1.0);
 */
     }
-    plot_all_count=0;
+    if (plot_front==1) {
+        plot_all_count=0;
+//        if (cc==0) {
+//            cc=60;
+//            printf("\n");
+//        }
+    }
 }
 
 void shader_map_init(int x,int y) {
@@ -1379,6 +1395,19 @@ sf::Vector3f make_vertex(sf::Vector2f pos) {
                            +  cos(  -.29*(myVector.y/2.0+render_pos.y/(540.0*draw_scale.y))*draw_scale.y*PI/.5+iTime*1.022 )   )/draw_scale.x/5.0;
             break;
         }
+        case 4 : {
+            myVector.z = cos(-myVector.y*draw_scale.y*PI/8.0)/draw_scale.x*2.5;
+            myVector.y = sin( myVector.y*draw_scale.y*PI/8.0)/draw_scale.y*2.5;
+            myVector.y = myVector.y-2.0/draw_scale.y*2.5;
+            myVector2  = myVector;
+
+            myVector.x = myVector2.y*sin(myVector2.x*draw_scale.x*PI/8.0)*aspect;
+            myVector.y = myVector2.y*cos(myVector2.x*draw_scale.x*PI/8.0);
+            myVector.z = myVector2.z;
+
+            break;
+        }
+
     }
 
     myVector=rotateXYZ*myVector;

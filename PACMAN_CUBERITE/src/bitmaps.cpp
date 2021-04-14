@@ -1317,7 +1317,7 @@ extern sf::RenderTexture texturemaxinmem[];
     strcat(error_msg2," ");
     error_flag2=1;
 }
-extern void update_plot_all2();
+extern void update_plot_all2(int plot_front);
 
 void blitter(char * line,int mode)
 {
@@ -1335,7 +1335,10 @@ void blitter(char * line,int mode)
 //        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //        SFMLView1.setActive(false);
         blit=100;
-        if (plot_all) update_plot_all2();
+        if (plot_all) {
+            update_plot_all2(0);
+            update_plot_all2(1);
+        }
         else {
             ReadBitmaps4();
             int x,y;

@@ -4953,13 +4953,13 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
         if (event.key.alt)
         {
             if (draw_model==0)
-                draw_model=3;
+                draw_model=4;
             else
                 draw_model--;
         }
         else
         {
-            if (draw_model==3)
+            if (draw_model==4)
                 draw_model=0;
             else
                 draw_model++;

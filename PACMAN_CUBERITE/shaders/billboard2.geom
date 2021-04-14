@@ -1,4 +1,6 @@
-#version 150
+#version 330 compatibility
+#extension GL_EXT_geometry_shader4 : enable
+//#version 150
 uniform float iTime;
 uniform int draw_mode;
 uniform int num_pacman;
@@ -21,10 +23,22 @@ layout (points) in;
 layout (triangle_strip, max_vertices = 4) out;
 out vec4 tex_coord;
 
+out vec3 ro;
+out vec3 n;
+out vec3 lp1;
+out vec3 lp2;
+out vec3 lp3;
+out vec3 lp4;
+
+vec2 draw_scale_new=draw_scale*1.0;
+
 int ok;
-vec2 half_size = 2.0*size/(resolution*draw_scale);
-vec2 draw_scale_adj=draw_scale;
-//vec2 draw_scale_adj=(draw_scale+sin(rotate.x+rotate.y)*draw_scale/2.0)*1.5;
+vec2 half_size = 2.001*size/(resolution*draw_scale_new);
+
+vec2 scale_adjust=draw_scale_new;
+
+//vec2 scale_adjust=(draw_scale_new+sin(rotate.x+rotate.y)*draw_scale_new/2.0)*1.5;
+
 int draw_mode_off=draw_mode;
 float aspect = resolution.x / resolution.y;
 
@@ -56,6 +70,8 @@ mat4 rotateXYZ =
             vec4(0,             0,              1, 0),
             vec4(0,             0,              0, 1)   );
 
+vec4 vertex_non;
+
 vec4 make_vertex(vec2 pos) {
     vec4 vertex_in=vec4(pos.x,pos.y,0.0f,1.f);
     vec4 vertex=vertex_in;
@@ -65,24 +81,33 @@ vec4 make_vertex(vec2 pos) {
             break;
         }
         case 1 : {
-            vertex.z = cos(vertex.x*draw_scale_adj.x*PI/8.0)/draw_scale.x*2.5;
-            vertex.x = sin(vertex.x*draw_scale_adj.x*PI/8.0)/draw_scale.x*2.5;
+            vertex.z = cos(vertex.x*scale_adjust.x*PI/8.0)/draw_scale_new.x*2.5;
+            vertex.x = sin(vertex.x*scale_adjust.x*PI/8.0)/draw_scale_new.x*2.5;
             break;
         }
         case 2 : {
-            vertex_in.z = cos(vertex_in.x*draw_scale_adj.x*PI/8.0)/draw_scale.x*2.5;
-            vertex_in.x = sin(vertex_in.x*draw_scale_adj.x*PI/8.0 )/draw_scale.x*2.5;
-            vertex_in.x=vertex_in.x-2.0/draw_scale_adj.x*2.5;
-            vertex.y = vertex_in.x*sin(vertex_in.y*draw_scale_adj.y*PI/8.0)*aspect;
-            vertex.x = vertex_in.x*cos(vertex_in.y*draw_scale_adj.y*PI/8.0);
+            vertex_in.z = cos(vertex_in.x*scale_adjust.x*PI/8.0)/draw_scale_new.x*2.5;
+            vertex_in.x = sin(vertex_in.x*scale_adjust.x*PI/8.0 )/draw_scale_new.x*2.5;
+            vertex_in.x=vertex_in.x-2.0/scale_adjust.x*2.5;
+            vertex.y = vertex_in.x*sin(vertex_in.y*scale_adjust.y*PI/8.0)*aspect;
+            vertex.x = vertex_in.x*cos(vertex_in.y*scale_adjust.y*PI/8.0);
             vertex.z=vertex_in.z;
             break;
         }
         case 3 : {
-            vertex.z += (   sin(   .5*(vertex.x  +render_pos.x/(960.0*draw_scale.x))*draw_scale.x*PI/.5+iTime*2.0   )
-                         +  cos(  -.5*(vertex.y  +render_pos.y/(540.0*draw_scale.y))*draw_scale.y*PI/.5+iTime*2.4   )   )/draw_scale.x/10.0;
-            vertex.z += (   sin(   .33*(vertex.x/2.0+render_pos.x/(960.0*draw_scale.x))*draw_scale.x*PI/.5+iTime*.97   )
-                         +  cos(  -.29*(vertex.y/2.0+render_pos.y/(540.0*draw_scale.y))*draw_scale.y*PI/.5+iTime*1.022 )   )/draw_scale.x/5.0;
+            vertex.z += (   sin(   .5*(vertex.x  +render_pos.x/(960.0*draw_scale_new.x))*draw_scale_new.x*PI/.5+iTime*2.0   )
+                         +  cos(  -.5*(vertex.y  +render_pos.y/(540.0*draw_scale_new.y))*draw_scale_new.y*PI/.5+iTime*2.4   )   )/draw_scale_new.x/10.0;
+            vertex.z += (   sin(   .33*(vertex.x/2.0+render_pos.x/(960.0*draw_scale_new.x))*draw_scale_new.x*PI/.5+iTime*.97   )
+                         +  cos(  -.29*(vertex.y/2.0+render_pos.y/(540.0*draw_scale_new.y))*draw_scale_new.y*PI/.5+iTime*1.022 )   )/draw_scale_new.x/5.0;
+            break;
+        }
+        case 4 : {
+            vertex_in.z = cos(-vertex_in.y*scale_adjust.y*PI/8.0)/draw_scale_new.x*2.5;
+            vertex_in.y = sin(vertex_in.y*scale_adjust.y*PI/8.0 )/draw_scale_new.y*2.5;
+            vertex_in.y=vertex_in.y-2.0/scale_adjust.y*2.5;
+            vertex.x = vertex_in.y*sin(vertex_in.x*scale_adjust.x*PI/8.0);
+            vertex.y = vertex_in.y*cos(vertex_in.x*scale_adjust.x*PI/8.0)*aspect;
+            vertex.z=vertex_in.z;
             break;
         }
     }
@@ -91,6 +116,9 @@ vec4 make_vertex(vec2 pos) {
     vertex.xyz+=translate/100.0;
     vertex.z+=-1.0;
     vertex.w=1.0;
+
+    vertex_non=vertex;
+
     vertex=vertex*perspective;
 //    vertex.x=vertex.x/(vertex.w);
 //    vertex.y=vertex.y/(vertex.w);
@@ -104,13 +132,80 @@ vec4 make_vertex(vec2 pos) {
     return vertex;
 }
 
-vec2 adapt=vec2(1.0,-1.0) * (1.0+2.0*(draw_translate/resolution)) / draw_scale + vec2(-1.0,1.0);
+vec2 adapt=vec2(1.0,-1.0) * (1.0+2.0*(draw_translate/resolution)) / draw_scale_new + vec2(-1.0,1.0);
+
+
+vec2 normal_size = half_size/4.0;
+
+//void do_pong(vec3 Normal) {
+void do_pong(vec2 Position) {
+
+//            n=calcNormal(Position);
+//            n=calcNormal(Position).xyz;
+
+
+            make_vertex( Position-vec2(normal_size.x/2.0,0.0) );
+            vec4 Position1=vertex_non;
+
+            make_vertex( Position+vec2(normal_size.x/2.0,0.0) );
+            vec4 Position2=vertex_non;
+
+            make_vertex( Position-vec2(0.0,normal_size.y) );
+            vec4 Position3=vertex_non;
+
+
+            vec4 A = Position3 - Position1;
+            vec4 B = Position2 - Position1;
+
+            n = normalize(cross(A.xyz,B.xyz));
+
+
+
+
+//            ro = normalize( (  vec4(0.0, .0, -1.0, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+
+            ro = normalize( (  vec4(0.0, 0.0, 2.0, 1.0) ).xyz) ; // zzzzz 2.0
+
+//            n = normalize(Normal);
+
+/*
+            lp1=normalize( (  vec4(1.0,   -2.0, -4.0, 1.0)).xyz) ; // zzzzz 2.0
+//            lp2=normalize( (  vec4(-3.0,  -2.0, -4.6, 1.0) ).xyz) ; // zzzzz 2.0
+
+//            lp1=normalize( (  vec4(-1.4,   -1.8, -3.9, 1.0)).xyz) ; // zzzzz 2.0
+//            lp2=normalize( (  vec4(1.4,  -1.7, -2.6, 1.0) ).xyz) ; // zzzzz 2.0
+//            lp1=normalize( (  vec4(-1.4,   -1.8, -3.9, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+//            lp2=normalize( (  vec4(1.4,  -1.7, -2.6, 1.0) * gl_ModelViewMatrix).xyz) ; // zzzzz 2.0
+
+*/
+
+            vec2 off1=6.4*vec2( sin(iTime/2.3) ,    cos(iTime/2.3) )  ;
+            vec2 off2=6.4*vec2( sin(iTime/3.6) ,    cos(iTime/3.6) )  ;
+            vec2 off3=6.4*vec2( sin(iTime/4.3) ,    cos(iTime/4.3) )  ;
+            vec2 off4=6.4*vec2( sin(iTime/5.6) ,    cos(iTime/5.6) )  ;
+
+            lp1=normalize( (  vec4( off1.x,  -5.0+off1.y,  -4.0, 1.0)         ).xyz) ; // zzzzz 2.0
+            lp2=normalize( (  vec4( off2.x,  -5.0+off2.y,  -4.0, 1.0)         ).xyz) ; // zzzzz 2.0
+            lp3=normalize( (  vec4( off3.x,  -5.0+off3.y,  -4.0, 1.0)         ).xyz) ; // zzzzz 2.0
+            lp4=normalize( (  vec4( off4.x,  -5.0+off4.y,  -4.0, 1.0)         ).xyz) ; // zzzzz 2.0
+
+//            lp1=normalize( (  vec4( off4.x,   0.0 -(+1.0+off1.y/8.8), off4.y, 1.0) *      gl_ModelViewMatrix  ).xyz) ; // zzzzz 2.0
+//            lp2=normalize( (  vec4( off2.x,   1.0 +1.0+off1.x/8.8, off2.y, 1.0) *         gl_ModelViewMatrix  ).xyz) ; // zzzzz 2.0
+//            lp3=normalize( (  vec4(-off4.x,   1.0 +off2.x/8.8, -off4.y, 1.0) *            gl_ModelViewMatrix  ).xyz) ; // zzzzz 2.0
+//            lp4=normalize( (  vec4(-off2.x,  -1.0 -(1.0+off2.y/8.8), -off2.y, 1.0) *      gl_ModelViewMatrix  ).xyz) ; // zzzzz 2.0
+
+
+
+//            z_=3.0-gl_Position.z/3.0;
+}
+
+
 
 void main()
 {
         vec4 col = gl_in[0].gl_FrontColor;
         gl_FrontColor = col;
-        vec2 pos = gl_in[0].gl_Position.xy / draw_scale + adapt;
+        vec2 pos = gl_in[0].gl_Position.xy / draw_scale_new + adapt;
 
         vec4 coord = vec4(
             (1.0+vec2(1.0,-1.0)*(gl_in[0].gl_Position.xy)) * resolution/2.0,
@@ -125,28 +220,53 @@ void main()
 //       gl_FrontColor.ba=(1.0+vec2(1.0,-1.0)*(gl_in[0].gl_Position.xy)) /2.0;
 
         ok=0;
+
         vec4 Position1 = make_vertex(vec2(pos.x + half_size.x, pos.y));
         vec4 Position2 = make_vertex(pos );
         vec4 Position3 = make_vertex(pos + half_size);
         vec4 Position4 = make_vertex(vec2(pos.x , pos.y + half_size.y));
 
+        vec3 A;
+        vec3 B;
+        vec3 Normal;
 
         if (ok==1) {
+
+//            A = Position3.xyz - Position1.xyz;
+//            B = Position2.xyz - Position1.xyz;
+//            Normal = normalize(cross(A,B));
+//            do_pong(Normal);
+
+do_pong(vec2(pos.x + half_size.x, pos.y));
+
+//            do_pong(Position_non1.xyz);
+
             gl_Position=Position1;
             tex_coord.xy = coord.xy+size;
             tex_coord.zw = gl_FrontColor.ba+size;
-
             EmitVertex();
+
+do_pong(pos );
+
+//            do_pong(Position_non2.xyz);
 
             gl_Position=Position2;
             tex_coord.xy = coord.xy + vec2(0.f, size.y);
             tex_coord.zw = gl_FrontColor.ba+ vec2(0.f, size.y);
             EmitVertex();
 
+do_pong(pos + half_size);
+
+//            do_pong(Position_non3.xyz);
+
             gl_Position=Position3;
             tex_coord.xy = coord.xy+vec2(size.x,0.f);
             tex_coord.zw = gl_FrontColor.ba+vec2(size.x,0.f);
             EmitVertex();
+
+do_pong(vec2(pos.x , pos.y + half_size.y));
+
+//            do_pong(Position_non4.xyz);
 
             gl_Position=Position4;
             tex_coord.xy = coord.xy;
@@ -157,12 +277,16 @@ void main()
         }
 
 //        vec4 col = gl_in[0].gl_FrontColor;
-//        if (abs(pos.y*draw_scale.y)>(7.0)) return;
-//        if (pos.x>8.0/draw_scale.x) pos.x=-BITMAPS.x/draw_scale.x+(pos.x-BITMAPS.x/draw_scale.x);
-//        if (abs(pos.x*draw_scale.x)>(8.0)) return;
-//        if (pos.x>7.0/draw_scale.x) pos.x=-8.0/draw_scale.x+(pos.x-8.0/draw_scale.x);
-//        else if (pos.x<-8.0/draw_scale.x) pos.x=8.0/draw_scale.x-(pos.x-8.0/draw_scale.x);
+//        if (abs(pos.y*draw_scale_new.y)>(7.0)) return;
+//        if (pos.x>8.0/draw_scale_new.x) pos.x=-BITMAPS.x/draw_scale_new.x+(pos.x-BITMAPS.x/draw_scale_new.x);
+//        if (abs(pos.x*draw_scale_new.x)>(8.0)) return;
+//        if (pos.x>7.0/draw_scale_new.x) pos.x=-8.0/draw_scale_new.x+(pos.x-8.0/draw_scale_new.x);
+//        else if (pos.x<-8.0/draw_scale_new.x) pos.x=8.0/draw_scale_new.x-(pos.x-8.0/draw_scale_new.x);
 
 
 }
+
+
+
+
 

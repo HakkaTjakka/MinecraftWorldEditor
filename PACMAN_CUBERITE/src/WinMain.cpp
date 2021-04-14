@@ -114,7 +114,7 @@ float scale_now_adj=1.0;
 float color_to_gradient();
 extern int soft_jump;
 extern void kiki();
-void update_plot_all2();
+void update_plot_all2(int plot_front);
 void update_plot_all();
 extern sf::Clock rec_clock_tot;
 extern sf::Clock rec_clock_frame;
@@ -396,9 +396,9 @@ int plot_shader=0;
 int newmaze=0;
 int difficulty=2;
 float fpstime;
-int fragment_shader;
-int vertex_shader;
-int buffer_shader;
+int fragment_shader=0;
+int vertex_shader=0;
+int buffer_shader=0;
 float run_time;
 
 sf::Shader shader_buffer;
@@ -5559,7 +5559,8 @@ extern sf::Sprite ding_sprite_render[];
     }
     shader_map_angle=rotation_canvas;
     if (plot_all || plot_cubes) setcanvasfile();
-    if (plot_all==1) update_plot_all2();
+//transparant
+    if (plot_all==1) update_plot_all2(0); // back
     if (plot_cubes) plot_cubes_vertex();
 
     if (shade_main)
@@ -6008,6 +6009,8 @@ extern sf::Sprite ding_sprite_render[];
 
 
     }
+//transparant
+    if (plot_all==1) update_plot_all2(1);  //front
 
 extern int rectangle_paper_pos_x;
 extern int rectangle_paper_pos_y;
@@ -13226,9 +13229,11 @@ void update_plot_all()
 }
 extern void shader_map_init(int x,int y);
 
-void update_plot_all2()
+void update_plot_all2(int plot_front)
 {
-    setcanvasfile();
+//    if (plot_front==0) {
+        setcanvasfile();
+//    }
     if (!((blending>=1 && handler[CANVAS_SELECT].blending==0) || handler[CANVAS_SELECT].blending>=1))
     {
 //        if (plot_all && 1) {
@@ -13246,12 +13251,16 @@ void update_plot_all2()
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_DEPTH_CLAMP);
         glEnable(GL_DEPTH_TEST);
+//        glDisable(GL_DEPTH_TEST);
+        glDepthMask(GL_FALSE);
         glDepthMask(GL_TRUE);
         glDepthFunc(GL_LEQUAL);
         glDepthRange(0.0f, 1.0f);
         glClearDepth(0.0f);
         glAlphaFunc(GL_GREATER, 0.0);
         glEnable(GL_ALPHA_TEST);
+//        glDisable(GL_ALPHA_TEST);
+//        glEnable(GL_CLAMP_TO_EDGE);
 
         if (blending>=1 || shade_main!=0 || blendit==1)
         {
@@ -13278,25 +13287,23 @@ void update_plot_all2()
 
 //  fromx=-3; tox=4;
 //  fromy=-6; toy=7;
-    for (x=fromx; x<=tox; x++)
-    {
-        for (y=fromy; y<=toy; y++)
+    if (plot_front==0) {
+        for (x=fromx; x<=tox; x++)
         {
-            int arx=(render_picturex+x+BITMAPSX)%BITMAPSX;
-            int ary=(render_picturey+y+BITMAPSY)%BITMAPSY;
-            if (used[arx][ary]!=0)
-                shader_map_init(x,y);
-            else
+            for (y=fromy; y<=toy; y++)
             {
-                if (totalused>MAXINMEM)
+                int arx=(render_picturex+x+BITMAPSX)%BITMAPSX;
+                int ary=(render_picturey+y+BITMAPSY)%BITMAPSY;
+                if (used[arx][ary]!=0)
+                    shader_map_init(x,y);
+                else
                 {
-                    int oldx=picturex,oldy=picturey;
-                    picturex=render_picturex;
-                    picturey=render_picturey;
-
-                    go_save_some_bitmaps();
                     if (totalused>MAXINMEM)
                     {
+                        int oldx=picturex,oldy=picturey;
+                        picturex=render_picturex;
+                        picturey=render_picturey;
+
                         go_save_some_bitmaps();
                         if (totalused>MAXINMEM)
                         {
@@ -13310,74 +13317,82 @@ void update_plot_all2()
                                     if (totalused>MAXINMEM)
                                     {
                                         go_save_some_bitmaps();
+                                        if (totalused>MAXINMEM)
+                                        {
+                                            go_save_some_bitmaps();
+                                        }
                                     }
                                 }
                             }
                         }
+                        picturex=oldx;
+                        picturey=oldy;
                     }
-                    picturex=oldx;
-                    picturey=oldy;
+                    if (!((blending>=1 && handler[CANVAS_SELECT].blending==0) || handler[CANVAS_SELECT].blending>=1))
+                    {
+                        if (blending>=1 || shade_main!=0 || blendit==1)
+                        {
+                            texture_final.setActive(true);
+                            texture_final.popGLStates();
+                        }
+                        else
+                        {
+                            SFMLView1.setActive(true);
+                            SFMLView1.popGLStates();
+                        }
+                    }
+
+                    ReadOneBitmap(arx,ary);
+
+                    if (!((blending>=1 && handler[CANVAS_SELECT].blending==0) || handler[CANVAS_SELECT].blending>=1))
+                    {
+                        if (blending>=1 || shade_main!=0 || blendit==1)
+                        {
+                            texture_final.setActive(true);
+                            texture_final.pushGLStates();
+                        }
+                        else
+                        {
+                            SFMLView1.setActive(true);
+                            SFMLView1.pushGLStates();
+                        }
+
+        glEnable(GL_TEXTURE_2D);
+        glEnable(GL_DEPTH_CLAMP);
+        glEnable(GL_DEPTH_TEST);
+//        glDisable(GL_DEPTH_TEST);
+        glDepthMask(GL_FALSE);
+        glDepthMask(GL_TRUE);
+        glDepthFunc(GL_LEQUAL);
+        glDepthRange(0.0f, 1.0f);
+        glClearDepth(0.0f);
+//        glAlphaFunc(GL_GREATER, 0.0);
+//        glEnable(GL_ALPHA_TEST);
+        glDisable(GL_ALPHA_TEST);
+//        glEnable(GL_CLAMP_TO_EDGE);
+
+
+                        if (blending>=1 || shade_main!=0 || blendit==1)
+                        {
+                            texture_final.setActive(false);
+                        }
+                        else
+                        {
+                            SFMLView1.setActive(false);
+                        }
+                    }
+                    shader_map_init(x,y);
                 }
-                if (!((blending>=1 && handler[CANVAS_SELECT].blending==0) || handler[CANVAS_SELECT].blending>=1))
-                {
-                    if (blending>=1 || shade_main!=0 || blendit==1)
-                    {
-                        texture_final.setActive(true);
-                        texture_final.popGLStates();
-                    }
-                    else
-                    {
-                        SFMLView1.setActive(true);
-                        SFMLView1.popGLStates();
-                    }
-                }
-
-                ReadOneBitmap(arx,ary);
-
-                if (!((blending>=1 && handler[CANVAS_SELECT].blending==0) || handler[CANVAS_SELECT].blending>=1))
-                {
-                    if (blending>=1 || shade_main!=0 || blendit==1)
-                    {
-                        texture_final.setActive(true);
-                        texture_final.pushGLStates();
-                    }
-                    else
-                    {
-                        SFMLView1.setActive(true);
-                        SFMLView1.pushGLStates();
-                    }
-
-                    glEnable(GL_TEXTURE_2D);
-                    glEnable(GL_DEPTH_CLAMP);
-                    glEnable(GL_DEPTH_TEST);
-                    glDepthMask(GL_TRUE);
-                    glDepthFunc(GL_LEQUAL);
-                    glDepthRange(0.0f, 1.0f);
-                    glClearDepth(0.0f);
-                    glAlphaFunc(GL_GREATER, 0.0);
-                    glEnable(GL_ALPHA_TEST);
-
-                    if (blending>=1 || shade_main!=0 || blendit==1)
-                    {
-                        texture_final.setActive(false);
-                    }
-                    else
-                    {
-                        SFMLView1.setActive(false);
-                    }
-                }
-                shader_map_init(x,y);
             }
         }
     }
-extern void plot_it();
+extern void plot_it(int plot_front);
+extern int kleur_back;
 
-    plot_it();
+    plot_it(plot_front);
 
-    extern int kleur_back;
     if (!((blending>=1 && handler[CANVAS_SELECT].blending==0) || handler[CANVAS_SELECT].blending>=1))
     {
-
         if (blending>=1 || shade_main!=0 || blendit==1)
         {
             texture_final.setActive(true);
@@ -13388,17 +13403,19 @@ extern void plot_it();
             SFMLView1.setActive(true);
             SFMLView1.popGLStates();
         }
-        if (drawmazes==1 && kleur_back==1)
-            glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-        else if (drawmazes==0 && kleur_back==0)
-            glClearColor(0.0f, 0.0f, 0.0f, (float)(set_transparant==0));
-//                glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-        else if (drawmazes==0 && kleur_back==1)
-            glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-        else
-            glClearColor(0.0f, 0.0f, 0.0f, (float)(set_transparant==0));
-//                glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        if (plot_front==1) {
+            if (drawmazes==1 && kleur_back==1)
+                glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+            else if (drawmazes==0 && kleur_back==0)
+                glClearColor(0.0f, 0.0f, 0.0f, (float)(set_transparant==0));
+    //                glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+            else if (drawmazes==0 && kleur_back==1)
+                glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+            else
+                glClearColor(0.0f, 0.0f, 0.0f, (float)(set_transparant==0));
+    //                glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
+        }
     }
 
     texture_final.setActive(false);
