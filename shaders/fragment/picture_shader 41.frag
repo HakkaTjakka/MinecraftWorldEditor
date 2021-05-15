@@ -13,6 +13,7 @@ uniform float iTime;
 precision highp float;
 #endif
 
+float iTime2=iTime/5.0;
 /*
 
 	Dual 3D Truchet Tiles
@@ -454,7 +455,7 @@ float lightBlink(vec3 p, float gID){
     rnd = fract(rnd + gID*43758.54571);
 
     // Blink at random.
-    return smoothstep(0.33, .66, sin(rnd*6.283 + iTime*3.)*.5 + .5);
+    return smoothstep(0.33, .66, sin(rnd*6.283 + iTime2*3.)*.5 + .5);
 
 
 }
@@ -592,7 +593,7 @@ void main() {
 	vec2 uv = ((gl_FragCoord.xy) - iResolution.xy*.5)/iResolution.y;
 
     // Ray origin, or camera - Moving along the Z-axis.
-    vec3 o = vec3(0, 0, iTime);
+    vec3 o = vec3(0, 0, iTime2);
     // Light. Situated near the camera whilst moving along with it.
 	//vec3 lp = vec3(-1, 3, -.25) + o;
     vec3 lp = o + vec3(-1, 3, -1);
@@ -604,8 +605,8 @@ void main() {
     r = normalize(vec3(r.xy, r.z - length(r.xy)*.15));
 
     // Rotating "r" back and forth along various axes for some cheap camera movement.
-    r.xz *= rot2(sin(iTime/2.) * 0.4);
-    r.xy *= rot2(cos(iTime/2.) * 0.2);
+    r.xz *= rot2(sin(iTime2/2.) * 0.4);
+    r.xy *= rot2(cos(iTime2/2.) * 0.2);
 
     // Trace out the scene.
     float t = trace(o, r);
@@ -637,7 +638,7 @@ void main() {
 
         // Producing a gradient color based on position. Made up on the spot.
         vec3 oCol = vec3(1);
-        vec3 bCol = mix(vec3(1, .1, .3).zyx, vec3(1, .5, .1).zyx, dot(sin(sp*8. - cos(sp.yzx*4. + iTime*4.)), vec3(.166)) + .5);
+        vec3 bCol = mix(vec3(1, .1, .3).zyx, vec3(1, .5, .1).zyx, dot(sin(sp*8. - cos(sp.yzx*4. + iTime2*4.)), vec3(.166)) + .5);
         //bCol = bCol.zyx; //bCol.yzx; // Other colors, if you prefer.
 
 
@@ -681,7 +682,7 @@ void main() {
         sc = oCol*(diff + ao*.2) + mix(bCol.zyx, vec3(1, .7, .3), .5)*spec*4.;
 
         // Fake caustic lighting... Very fake. :)
-        sc += .015/max(abs(.05 - map(sp*1.5 + sin(iTime/6.))), .01)*oCol*mix(bCol, vec3(1, .8, .5), .35);
+        sc += .015/max(abs(.05 - map(sp*1.5 + sin(iTime2/6.))), .01)*oCol*mix(bCol, vec3(1, .8, .5), .35);
 
         // Adding a bit of glow. It was tempting to get my money's worth, but I kept it subtle. :)
         if(objID<1.5) sc += bCol*glow*.025;

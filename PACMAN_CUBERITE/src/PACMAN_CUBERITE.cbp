@@ -159,6 +159,7 @@
 		<Unit filename="../../shaders/fragment/picture_shader 01.frag" />
 		<Unit filename="../../shaders/fragment/picture_shader 02.frag" />
 		<Unit filename="../../shaders/fragment/picture_shader 03.frag" />
+		<Unit filename="../../shaders/fragment/picture_shader 41.frag" />
 		<Unit filename="../../shaders/fragment/picture_shader 45.frag" />
 		<Unit filename="../../shaders/fragment/picture_shader 69.frag" />
 		<Unit filename="../../shaders/fragment/picture_shader 73.frag" />

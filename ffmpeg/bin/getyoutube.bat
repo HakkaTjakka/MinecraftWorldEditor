@@ -7,6 +7,12 @@ cd /pacman/convert/files
 
 youtube-dl -k --abort-on-error --no-mtime --sub-lang "en,nl" --write-sub --convert-subs srt --write-auto-sub --download-archive ARCHIVE.TXT --skip-unavailable-fragments --write-thumbnail --write-info-json --geo-bypass "https://www.youtube.com/watch?v=%*" >> logfile.txt
 
+rem youtube-dl --username gerardwensink@gmail.com --password YannickClaire66 -k --abort-on-error --no-mtime --sub-lang "en,nl" --write-sub --convert-subs srt --write-auto-sub --download-archive ARCHIVE.TXT --skip-unavailable-fragments --write-thumbnail --write-info-json --geo-bypass "https://www.youtube.com/watch?v=%*" >> logfile.txt
+
+rem youtube-dl -k --abort-on-error --no-mtime --sub-lang "en" --write-sub --convert-subs srt --write-auto-sub --download-archive ARCHIVE.TXT --skip-unavailable-fragments --write-thumbnail --write-info-json --geo-bypass "https://www.youtube.com/watch?v=%*" >> logfile.txt
+rem youtube-dl --username gerardwensink@gmail.com --password YannickClaire66 -k --abort-on-error --no-mtime --sub-lang "en,nl" --write-sub --convert-subs srt --write-auto-sub --download-archive ARCHIVE.TXT --skip-unavailable-fragments --write-thumbnail --write-info-json --geo-bypass "https://www.youtube.com/watch?v=%*" >> logfile.txt
+
+
 rem youtube-dl -k --abort-on-error --no-mtime --sub-lang "en,nl" --convert-subs srt --write-auto-sub --download-archive ARCHIVE.TXT --skip-unavailable-fragments --write-thumbnail --write-info-json --geo-bypass "%*" >> logfile.txt
 rem youtube-dl -k --abort-on-error --no-mtime --sub-lang "en,nl" --convert-subs srt --write-auto-sub --download-archive ARCHIVE.TXT --skip-unavailable-fragments --write-thumbnail --write-info-json --geo-bypass "https://www.youtube.com/watch?v=%*" >> logfile.txt
 

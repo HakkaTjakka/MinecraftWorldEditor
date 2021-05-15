@@ -263,7 +263,11 @@ void get_videos() {
                                 strcpy(converted,subsname);
                                 while (replace_str(converted,"\'","[single_quote]"));
                                 while (replace_str(converted,"[single_quote]","\\'\\'\\\\'"));
-                                sprintf(q_subs, "\"f='%s'\"",converted);
+
+//burn subs
+//                                sprintf(q_subs, "\"f='%s'\"",converted);
+                                sprintf(q_subs, "%s",converted);
+
 //                                sprintf(q_subs, "\"f='%s'\"",subsname);
                                 char outputfile[1000];
                                 char data[1000]="";
@@ -285,8 +289,13 @@ void get_videos() {
 
                                 sprintf(outputfile,"\"out/%s.%s.mp4\"",data,lang);
                                 if (strlen(FFMPEGCOMMAND_BURN_SUBS)>0) {
-                                    fprintf(file,FFMPEGCOMMAND_BURN_SUBS,
-                                            q_video,q_audio,q_subs,outputfile);
+//burn subs
+//FFMPEG_IN_FILTER_COMPLEX="scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:-1:-1:color=black,subtitles=f='%s':force_style='FontName=Arial,FontSize=24,Shadow=1'"
+
+                                    fprintf(file,FFMPEGCOMMAND_BURN_SUBS, q_video,q_audio,q_subs,outputfile);
+
+                                    printf(FFMPEGCOMMAND_BURN_SUBS, q_video,q_audio,q_subs,outputfile);
+
                                     fprintf(file,"\n");
                                 } else {
                                     fprintf(file,"ffmpeg.exe -hide_banner -i %s -i %s -map 0:v:0 -map 1:a:0 -strict -2 -vf subtitles=%s -c:s mov_text -c:v libx264 -preset veryfast -crf 23 -c:a aac -b:a 96k -pix_fmt yuv420p %s",
@@ -315,7 +324,9 @@ void get_videos() {
                                 strcpy(converted,subsname_en);
                                 while (replace_str(converted,"\'","[single_quote]"));
                                 while (replace_str(converted,"[single_quote]","\\'\\'\\\\'"));
-                                sprintf(q_subs, "\"f='%s'\"",converted);
+//burn subs
+//                                sprintf(q_subs, "\"f='%s'\"",converted);
+                                sprintf(q_subs, "%s",converted);
 //                                sprintf(q_subs, "\"f='%s'\"",subsname);
                                 char outputfile[1000];
                                 char data[1000]="";

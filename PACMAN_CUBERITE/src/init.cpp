@@ -144,7 +144,7 @@ std::streambuf* oldbuf;
 
 int handle_init() {
 	FILE * file;
-	char var[300];
+	char var[1000];
     char line2[2000];
 	int numread=0;
    	int msgboxID;
@@ -249,7 +249,7 @@ int mul=0;
 
 int reload_init() {
 	FILE * file;
-	char var[300];
+	char var[2000];
 	int numread;
    	int msgboxID;
     char line2[2000];
@@ -303,7 +303,15 @@ int reload_init() {
 				else if (strcmp(var,"FFMPEG_IN_SUBS")==0)               numread=sscanf(line2,"FFMPEG_IN_SUBS=\"%4999[^\"]\"",    FFMPEGCOMMANDIN_SUBS);
 				else if (strcmp(var,"FFMPEG_IN_SUBS_RES")==0)           numread=sscanf(line2,"FFMPEG_IN_SUBS_RES=\"%4999[^\"]\"",FFMPEGCOMMANDIN_SUBS_RES);
 				else if (strcmp(var,"FFMPEG_IN_FILTER_COMPLEX")==0)numread=sscanf(line2,"FFMPEG_IN_FILTER_COMPLEX=\"%4999[^\"]\"",FFMPEGCOMMANDIN_FILTER_COMPLEX);
-				else if (strcmp(var,"FFMPEG_BURN_SUBS")==0)             numread=sscanf(line2,"FFMPEG_BURN_SUBS=\"%4999[^\"]\"",  FFMPEGCOMMAND_BURN_SUBS);
+//burn subs
+//				else if (strcmp(var,"FFMPEG_BURN_SUBS")==0)             numread=sscanf(line2,"FFMPEG_BURN_SUBS=\"%4999[^\"]\"",  FFMPEGCOMMAND_BURN_SUBS);
+				else if (strcmp(var,"FFMPEG_BURN_SUBS")==0) {
+                    numread=sscanf(line2,"FFMPEG_BURN_SUBS=(BEGIN)%4999[^(](END)",  FFMPEGCOMMAND_BURN_SUBS);
+//                    numread=sscanf(line2,"FFMPEG_BURN_SUBS=(BEGIN)%4999(END)",  FFMPEGCOMMAND_BURN_SUBS);
+                    printf("\nline2=%s\n",line2);
+                    printf("\nFFMPEGCOMMAND_BURN_SUBS=%s\n",FFMPEGCOMMAND_BURN_SUBS);
+				}
+
 				else if (strcmp(var,"FFMPEG_M_ORIG")==0)                numread=sscanf(line2,"FFMPEG_M_ORIG=\"%4999[^\"]\"",     FFMPEGCOMMAND_M_ORIG);
 				else if (strcmp(var,"FFMPEG_M_ORIG_AUDIO")==0)          numread=sscanf(line2,"FFMPEG_M_ORIG_AUDIO=\"%4999[^\"]\"",FFMPEGCOMMAND_M_ORIG_AUDIO);
 				else if (strcmp(var,"PIXELISBLACKTHRESHOLD")==0)        numread=sscanf(line2,"PIXELISBLACKTHRESHOLD=%d",        &PIXELISBLACKTHRESHOLD);

@@ -67,22 +67,34 @@ void main()
 */
 
 
-                float spec1 = (1.5) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.0,1.0);
-                float spec2 = (1.5) * clamp(pow(max( dot(reflect(lp2, n), ro), 0.), 120.),0.0,1.0);
-                float spec3 = (1.5) * clamp(pow(max( dot(reflect(lp3, n), ro), 0.), 120.),0.0,1.0);
-                float spec4 = (1.5) * clamp(pow(max( dot(reflect(lp4, n), ro), 0.), 120.),0.0,1.0);
-
-                float diff1 = 1.0 * clamp(dot( n,lp1), 0.1, 1.);
-                float diff2 = 1.0 * clamp(dot( n,lp2), 0.2, 1.);
-                float diff3 = 1.0 * clamp(dot( n,lp3), 0.05,1.);
-                float diff4 = 1.0 * clamp(dot( n,lp4), 0.0, 1.);
+                float diff1 = 1.2 * clamp(dot( n,lp1), 0.1, 1.);
+                float diff2 = 1.2 * clamp(dot( n,lp2), 0.1, 1.);
+                float diff3 = 1.2 * clamp(dot( n,lp3), 0.1, 1.);
+                float diff4 = 1.2 * clamp(dot( n,lp4), 0.1, 1.);
 
                 float diff=diff1;
                 if (diff2>diff) diff=diff2;
                 if (diff3>diff) diff=diff3;
                 if (diff4>diff) diff=diff4;
 
+                float spec1 = (diff*1.5) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.0,1.0);
+                float spec2 = (diff*1.5) * clamp(pow(max( dot(reflect(lp2, n), ro), 0.), 120.),0.0,1.0);
+                float spec3 = (diff*1.5) * clamp(pow(max( dot(reflect(lp3, n), ro), 0.), 120.),0.0,1.0);
+                float spec4 = (diff*1.5) * clamp(pow(max( dot(reflect(lp4, n), ro), 0.), 120.),0.0,1.0);
+
+
+
 //                float spec=spec1+spec2+spec3+spec4;
+//                vec3 kS_x_spec1 = spec1*vec3(1.0, 1.0, 1.0);
+//                vec3 kS_x_spec2 = spec2*vec3(1.0, 1.0, 1.0);
+//                vec3 kS_x_spec3 = spec3*vec3(1.0, 1.0, 1.0);
+//                vec3 kS_x_spec4 = spec4*vec3(1.0, 1.0, 1.0);
+
+//                vec3 kS_x_spec=(kS_x_spec1+kS_x_spec2+kS_x_spec3+kS_x_spec4)/4.0;
+
+//                vec3 kS_x_spec = spec*vec3(1.0, 1.0, 1.0) + vec3(0.10, 0.10, 0.10);
+
+
 //                float spec=(spec1+spec2+spec3+spec4)/4.0;
                 float spec=spec1;
                 if (spec2>spec) spec =  spec2;
@@ -90,7 +102,7 @@ void main()
                 if (spec4>spec) spec =  spec4;
 
 
-                vec3 kS_x_spec = spec*vec3(1.0, 1.0, 1.0) + vec3(0.10, 0.10, 0.10);
+                vec3 kS_x_spec = spec*vec3(1.0, 1.0, 1.0) ;
 
 
                 gl_FragColor = clamp(   vec4( kD.xyz * (diff ) + kS_x_spec, kD.a) , 0.0 , 1.0);

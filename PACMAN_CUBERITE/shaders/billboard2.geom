@@ -33,7 +33,7 @@ out vec3 lp4;
 vec2 draw_scale_new=draw_scale*1.0;
 
 int ok;
-vec2 half_size = 2.001*size/(resolution*draw_scale_new);
+vec2 half_size = (2.000+min(draw_model,1)*0.001)*size/(resolution*draw_scale_new);
 
 vec2 scale_adjust=draw_scale_new;
 
@@ -105,9 +105,27 @@ vec4 make_vertex(vec2 pos) {
             vertex_in.z = cos(-vertex_in.y*scale_adjust.y*PI/8.0)/draw_scale_new.x*2.5;
             vertex_in.y = sin(vertex_in.y*scale_adjust.y*PI/8.0 )/draw_scale_new.y*2.5;
             vertex_in.y=vertex_in.y-2.0/scale_adjust.y*2.5;
-            vertex.x = vertex_in.y*sin(vertex_in.x*scale_adjust.x*PI/8.0);
-            vertex.y = vertex_in.y*cos(vertex_in.x*scale_adjust.x*PI/8.0)*aspect;
+            vertex.x = vertex_in.y*sin(vertex_in.x*scale_adjust.x*PI/8.0)/1.4;
+
+            float add=(sin(iTime*4.0 ) + 1.0 )/2.0 ;
+            add=clamp(add,0.95,1.00);
+            add=(smoothstep( 0.0, 1.0, add)-0.95)*4.0;
+
+            float add2=(sin(iTime*4.0-0.5 ) + 1.0 )/2.0 ;
+            add2=clamp(add2,0.85,9.50);
+            add2=(smoothstep( 0.0, 1.0, add2)-0.95)*5.0;
+
+//            vertex.y = vertex_in.y*cos(vertex_in.x*scale_adjust.x*PI/8.0)*(aspect + add2 );
+//            vertex.y = vertex_in.y*cos(vertex_in.x*scale_adjust.x*PI/8.0)*(aspect + (add + add2)/3.0 );
+            vertex.y = vertex_in.y*cos(vertex_in.x*scale_adjust.x*PI/8.0)*(aspect );
             vertex.z=vertex_in.z;
+
+//            vertex_in.z = cos(-vertex_in.y*scale_adjust.y*PI/8.0)/draw_scale_new.x*2.5;
+//            vertex_in.y = sin(vertex_in.y*scale_adjust.y*PI/8.0 )/draw_scale_new.y*2.5;
+//            vertex_in.y=vertex_in.y-2.0/scale_adjust.y*2.5;
+//            vertex.x = vertex_in.y*sin(vertex_in.x*scale_adjust.x*PI/8.0)/1.4;
+//            vertex.y = vertex_in.y*cos(vertex_in.x*scale_adjust.x*PI/8.0)*aspect;
+//            vertex.z=vertex_in.z;
             break;
         }
     }
@@ -135,7 +153,7 @@ vec4 make_vertex(vec2 pos) {
 vec2 adapt=vec2(1.0,-1.0) * (1.0+2.0*(draw_translate/resolution)) / draw_scale_new + vec2(-1.0,1.0);
 
 
-vec2 normal_size = half_size/4.0;
+vec2 normal_size = half_size/2.0;
 
 //void do_pong(vec3 Normal) {
 void do_pong(vec2 Position) {
@@ -150,7 +168,7 @@ void do_pong(vec2 Position) {
             make_vertex( Position+vec2(normal_size.x/2.0,0.0) );
             vec4 Position2=vertex_non;
 
-            make_vertex( Position-vec2(0.0,normal_size.y) );
+            make_vertex( Position-vec2(0.0,normal_size.y/2.0) );
             vec4 Position3=vertex_non;
 
 
@@ -179,15 +197,15 @@ void do_pong(vec2 Position) {
 
 */
 
-            vec2 off1=6.4*vec2( sin(iTime/2.3) ,    cos(iTime/2.3) )  ;
-            vec2 off2=6.4*vec2( sin(iTime/3.6) ,    cos(iTime/3.6) )  ;
-            vec2 off3=6.4*vec2( sin(iTime/4.3) ,    cos(iTime/4.3) )  ;
-            vec2 off4=6.4*vec2( sin(iTime/5.6) ,    cos(iTime/5.6) )  ;
+            vec2 off1=6.4*vec2( sin(PI+iTime/11.3) ,    cos(PI+iTime/11.3) )  ;
+            vec2 off2=6.4*vec2( sin(iTime/11.3) ,    cos(iTime/11.3) )  ;
+            vec2 off3=6.4*vec2( sin(iTime/5.3) ,    cos(iTime/5.9) )  ;
+            vec2 off4=6.4*vec2( sin(iTime/4.9) ,    cos(iTime/4.6) )  ;
 
-            lp1=normalize( (  vec4( off1.x,  -5.0+off1.y,  -4.0, 1.0)         ).xyz) ; // zzzzz 2.0
-            lp2=normalize( (  vec4( off2.x,  -5.0+off2.y,  -4.0, 1.0)         ).xyz) ; // zzzzz 2.0
-            lp3=normalize( (  vec4( off3.x,  -5.0+off3.y,  -4.0, 1.0)         ).xyz) ; // zzzzz 2.0
-            lp4=normalize( (  vec4( off4.x,  -5.0+off4.y,  -4.0, 1.0)         ).xyz) ; // zzzzz 2.0
+            lp1=normalize( (  vec4( off1.x*3.0,  -4.0+off1.y,  -4.0, 1.0)         ).xyz) ; // zzzzz 2.0
+            lp2=normalize( (  vec4( off2.x*2.5,  -2.0+off2.y,  -5.0, 1.0)         ).xyz) ; // zzzzz 2.0
+            lp3=normalize( (  vec4( off3.x*3.0,  -4.0+off3.y,  -6.0, 1.0)         ).xyz) ; // zzzzz 2.0
+            lp4=normalize( (  vec4( off4.x*3.5,  -4.0+off4.y,  -7.0, 1.0)         ).xyz) ; // zzzzz 2.0
 
 //            lp1=normalize( (  vec4( off4.x,   0.0 -(+1.0+off1.y/8.8), off4.y, 1.0) *      gl_ModelViewMatrix  ).xyz) ; // zzzzz 2.0
 //            lp2=normalize( (  vec4( off2.x,   1.0 +1.0+off1.x/8.8, off2.y, 1.0) *         gl_ModelViewMatrix  ).xyz) ; // zzzzz 2.0

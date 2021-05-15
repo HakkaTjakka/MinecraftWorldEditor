@@ -1975,6 +1975,8 @@ extern int record_window;
         if (waiter==1) {
             static char pname[1000];
             static bool first=true;
+            cleanupbitmaps_mazes();
+            cleanupbitmaps();
             insert_key('P');
             if (first) {
                 strcpy(pname,picture_name);

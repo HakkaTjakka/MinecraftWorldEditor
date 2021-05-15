@@ -4906,14 +4906,22 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
     case sf::Keyboard::Numpad8:
         if (event.key.alt)
             plot_all_rotate_y-=1.0;
-        else
-            plot_all_translate_y-=1.0;
+        else {
+            if (event.key.control)
+                plot_all_translate_y-=0.1;
+            else
+                plot_all_translate_y-=1.0;
+
+        }
         break;
     case sf::Keyboard::Numpad2:
         if (event.key.alt)
             plot_all_rotate_y+=1.0;
         else
-            plot_all_translate_y+=1.0;
+            if (event.key.control)
+                plot_all_translate_y+=0.1;
+            else
+                plot_all_translate_y+=1.0;
         break;
     case sf::Keyboard::Numpad7:
         if (event.key.alt)
