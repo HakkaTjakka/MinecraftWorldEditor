@@ -12,15 +12,15 @@ uniform float iTime;
 #define iterations 17
 #define formuparam 0.53
 
-#define volsteps 20
+#define volsteps 30
 #define stepsize 0.1
 
 #define zoom   0.800
 #define tile   0.850
-#define speed  0.002
+#define speed  0.0002
 
 #define brightness 0.0015
-#define darkmatter 0.300
+#define darkmatter 0.400
 #define distfading 0.730
 #define saturation 0.850
 
@@ -28,7 +28,8 @@ uniform float iTime;
 void main(  )
 {
 	//get coords and direction
-	vec2 uv=(gl_FragCoord.xy-pos_correction.xy)/iResolution.xy-.5;
+//	vec2 uv=(gl_FragCoord.xy-pos_correction.xy)/iResolution.xy-.5;
+	vec2 uv=(gl_FragCoord.xy-vec2(0.0,iTime*50.0))/iResolution.xy-.5;
 	uv.y*=iResolution.y/iResolution.x;
 	vec3 dir=vec3(uv*zoom,1.);
 	float time=iTime*speed+.25;
@@ -41,7 +42,8 @@ void main(  )
 	dir.xz*=rot1;
 	dir.xy*=rot2;
 	vec3 from=vec3(1.,.5,0.5);
-	from+=vec3(time*2.,time,-2.);
+//	from+=vec3(time*2.,time,-2.);
+	from+=vec3(time*0.2,-time,-2.);
 	from.xz*=rot1;
 	from.xy*=rot2;
 

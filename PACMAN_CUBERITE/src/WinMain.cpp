@@ -5357,8 +5357,46 @@ extern sf::Sprite ding_sprite_render[];
         else if (movie==0 && ((plot_back==1 && handler[MOVIE_SELECT].plot_front==0) || handler[MOVIE_SELECT].plot_front==-1))
             timer_movie--;
 
-        if (internetfile==0 && ((plot_back==1 && handler[INTERNET_SELECT].plot_front==0) || handler[INTERNET_SELECT].plot_front==-1))
+        if (ffmpegfile==0 && blend_on_movie==0 && ((plot_back==1 && handler[FFMPEG_SELECT].plot_front==0) || handler[FFMPEG_SELECT].plot_front==-1))
+//        if (ffmpegfile==0 && blend_on_movie==0 && ((plot_back==1 && handler[FFMPEG_SELECT].plot_front==0)))
         {
+
+            setffmpegfile();
+            if (handler[FFMPEG_SELECT].show)
+            {
+
+                if (handler[FFMPEG_SELECT].shader==0)
+                {
+                    picture_states.shader=NULL;
+                }
+
+                if (blending>=1 || shade_main!=0 || blendit==1)
+                {
+                    if ((blending>=1 && handler[FFMPEG_SELECT].blending==0) || handler[FFMPEG_SELECT].blending>=1 )
+                    {
+                        texture_final.draw(sprite_from_ffmpeg,picture_states);
+                    }
+                    else
+                    {
+                        sf::BlendMode old_mode=picture_states.blendMode;
+                        picture_states.blendMode=sf::BlendAlpha;
+                        texture_final.draw(sprite_from_ffmpeg,picture_states);
+                        picture_states.blendMode=old_mode;
+                    }
+                }
+                else
+                    SFMLView1.draw(sprite_from_ffmpeg,picture_states);
+
+                if (handler[FFMPEG_SELECT].shader==0)
+                {
+                    if (vertex_shader==1 || fragment_shader==1)
+                        picture_states.shader = &picture_shader;
+
+                }
+            }
+        }
+
+        if (internetfile==0 && ((plot_back==1 && handler[INTERNET_SELECT].plot_front==0) || handler[INTERNET_SELECT].plot_front==-1)) {
 //hello
 //            if (movieextern==0) {
 //                sprintf(error_msg3,"%s FRAME=%d %s",seconds_to_time(playing_time),playing_screen_num,playing_info_static);
@@ -5398,44 +5436,7 @@ extern sf::Sprite ding_sprite_render[];
 
             }
         }
-
-        if (ffmpegfile==0 && blend_on_movie==0 && ((plot_back==1 && handler[FFMPEG_SELECT].plot_front==0) || handler[FFMPEG_SELECT].plot_front==-1))
-        {
-
-            setffmpegfile();
-            if (handler[FFMPEG_SELECT].show)
-            {
-
-                if (handler[FFMPEG_SELECT].shader==0)
-                {
-                    picture_states.shader=NULL;
-                }
-
-                if (blending>=1 || shade_main!=0 || blendit==1)
-                {
-                    if ((blending>=1 && handler[FFMPEG_SELECT].blending==0) || handler[FFMPEG_SELECT].blending>=1 )
-                    {
-                        texture_final.draw(sprite_from_ffmpeg,picture_states);
-                    }
-                    else
-                    {
-                        sf::BlendMode old_mode=picture_states.blendMode;
-                        picture_states.blendMode=sf::BlendAlpha;
-                        texture_final.draw(sprite_from_ffmpeg,picture_states);
-                        picture_states.blendMode=old_mode;
-                    }
-                }
-                else
-                    SFMLView1.draw(sprite_from_ffmpeg,picture_states);
-
-                if (handler[FFMPEG_SELECT].shader==0)
-                {
-                    if (vertex_shader==1 || fragment_shader==1)
-                        picture_states.shader = &picture_shader;
-
-                }
-            }
-        }
+//slots
         if (movie2==0 && timer_movie2==0 && ((plot_back==1 && handler[MOVIE2_SELECT].plot_front==0) || handler[MOVIE2_SELECT].plot_front==-1) && handler[MOVIE2_SELECT].show)
         {
             setmoviefile2();
@@ -5664,7 +5665,10 @@ extern sf::Sprite ding_sprite_render[];
                     setffmpegfile();
                 }
         */
+//slots
+//        if (ffmpegfile==0 && ((plot_front==1 && (handler[FFMPEG_SELECT].plot_front==0 || handler[FFMPEG_SELECT].plot_front==2) ) || handler[FFMPEG_SELECT].plot_front>=1 || handler[FFMPEG_SELECT].plot_front==-1))
         if (ffmpegfile==0 && ((plot_front==1 && (handler[FFMPEG_SELECT].plot_front==0 || handler[FFMPEG_SELECT].plot_front==2) ) || handler[FFMPEG_SELECT].plot_front>=1))
+
 //        if (ffmpegfile==0 && blend_on_movie==0 && ((plot_front==1 && handler[FFMPEG_SELECT].plot_front==0) || handler[FFMPEG_SELECT].plot_front==1))
         {
             setffmpegfile();
@@ -5686,7 +5690,8 @@ extern sf::Sprite ding_sprite_render[];
                             SFMLView1.setActive(true);
                             SFMLView1.pushGLStates();
                         }
-
+//slotter
+/*
                         glEnable(GL_TEXTURE_2D);
                         glEnable(GL_DEPTH_CLAMP);
                         glEnable(GL_DEPTH_TEST);
@@ -5696,6 +5701,25 @@ extern sf::Sprite ding_sprite_render[];
                         glClearDepth(0.0f);
                         glAlphaFunc(GL_GREATER, 0.0);
                         glEnable(GL_ALPHA_TEST);
+*/
+
+                        glEnable(GL_TEXTURE_2D);
+                        glEnable(GL_DEPTH_CLAMP);
+                        glEnable(GL_DEPTH_TEST);
+                //        glDisable(GL_DEPTH_TEST);
+//                        glDepthMask(GL_FALSE);
+                        glDepthMask(GL_TRUE);
+                        glDepthFunc(GL_LEQUAL);
+                        glDepthRange(0.0f, 1.0f);
+                        glClearDepth(0.0f);
+                        glAlphaFunc(GL_GREATER, 0.9);
+                        glEnable(GL_ALPHA_TEST);
+//                        glDisable(GL_ALPHA_TEST);
+
+
+
+
+
                         if (blending>=1 || shade_main!=0 || blendit==1)
                         {
                             texture_final.setActive(false);
@@ -5734,8 +5758,10 @@ extern sf::Sprite ding_sprite_render[];
                         picture_states.blendMode=old_mode;
                     }
                 }
-                else
+                else {
+
                     SFMLView1.draw(sprite_from_ffmpeg,picture_states);
+                }
 
                 if (handler[FFMPEG_SELECT].shader==0)
                 {
@@ -13230,6 +13256,7 @@ void update_plot_all()
 
 }
 extern void shader_map_init(int x,int y);
+int CapsLock=0;
 
 void update_plot_all2(int plot_front)
 {
@@ -13273,31 +13300,58 @@ void update_plot_all2(int plot_front)
             SFMLView1.setActive(false);
         }
     }
-    int fromx=-BITMAPSX/2+1;
-    if (fromx<-3-plot_all_factor) fromx=-3-plot_all_factor;
-//    if (fromx<-5) fromx=-5;
+    int fromx;
+    int tox;
+    int fromy;
+    int toy;
 
-    int tox=BITMAPSX/2;
-    if (tox>4+plot_all_factor) tox=4+plot_all_factor;
-//    if (tox>6) tox=6;
+//slots
+extern int draw_model;
+    if (draw_model==6) {
+        fromx=0;
+        tox=1;
+        fromy=-9;
+        toy=10;
+//        fromy=-10;
+//        toy=9;
+    } else {
+        fromx=-BITMAPSX/2+1;
+        if (fromx<-3-plot_all_factor) fromx=-3-plot_all_factor;
 
-    int fromy=-BITMAPSY/2+1;
-    if (fromy<-3-plot_all_factor) fromy=-3-plot_all_factor;
+        tox=BITMAPSX/2;
+        if (tox>4+plot_all_factor) tox=4+plot_all_factor;
 
-    int toy=BITMAPSY/2;
-    if (toy>4+plot_all_factor) toy=4+plot_all_factor;
+        fromy=-BITMAPSY/2+1;
+        if (fromy<-3-plot_all_factor) fromy=-3-plot_all_factor;
+
+        toy=BITMAPSY/2;
+        if (toy>4+plot_all_factor) toy=4+plot_all_factor;
+    }
 
 //  fromx=-3; tox=4;
 //  fromy=-6; toy=7;
     if (plot_front==0) {
+        if (draw_model==6 && totalused+40>MAXINMEM) {
+            int oldx=picturex,oldy=picturey;
+            picturex=render_picturex;
+            picturey=render_picturey;
+            while (totalused+40>MAXINMEM && draw_model==6) {
+                go_save_some_bitmaps();
+            }
+            picturex=oldx;
+            picturey=oldy;
+        }
         for (x=fromx; x<=tox; x++)
         {
             for (y=fromy; y<=toy; y++)
             {
+
                 int arx=(render_picturex+x+BITMAPSX)%BITMAPSX;
                 int ary=(render_picturey+y+BITMAPSY)%BITMAPSY;
-                if (used[arx][ary]!=0)
-                    shader_map_init(x,y);
+                if (draw_model==6) arx=x    ;
+                if (used[arx][ary]!=0) {
+                    if (draw_model!=6) shader_map_init(x,y);
+                }
                 else
                 {
                     if (totalused>MAXINMEM)
@@ -13359,6 +13413,44 @@ void update_plot_all2(int plot_front)
                             SFMLView1.pushGLStates();
                         }
 
+                        glEnable(GL_TEXTURE_2D);
+                        glEnable(GL_DEPTH_CLAMP);
+                        glEnable(GL_DEPTH_TEST);
+                //        glDisable(GL_DEPTH_TEST);
+                        glDepthMask(GL_FALSE);
+                        glDepthMask(GL_TRUE);
+                        glDepthFunc(GL_LEQUAL);
+                        glDepthRange(0.0f, 1.0f);
+                        glClearDepth(0.0f);
+                //        glAlphaFunc(GL_GREATER, 0.0);
+                //        glEnable(GL_ALPHA_TEST);
+                        glDisable(GL_ALPHA_TEST);
+                //        glEnable(GL_CLAMP_TO_EDGE);
+
+
+                        if (blending>=1 || shade_main!=0 || blendit==1)
+                        {
+                            texture_final.setActive(false);
+                        }
+                        else
+                        {
+                            SFMLView1.setActive(false);
+                        }
+                    }
+                    if (draw_model!=6) shader_map_init(x,y);
+                }
+            }
+        }
+    }
+
+extern void plot_it(int plot_front);
+extern int kleur_back;
+
+    int old_position_y=(render_picturey*1080-render_posy);
+    int old_position_x=(render_picturex*1920-render_posx);
+
+    if (draw_model==6) {
+/*
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_DEPTH_CLAMP);
         glEnable(GL_DEPTH_TEST);
@@ -13372,26 +13464,72 @@ void update_plot_all2(int plot_front)
 //        glEnable(GL_ALPHA_TEST);
         glDisable(GL_ALPHA_TEST);
 //        glEnable(GL_CLAMP_TO_EDGE);
+*/
+        int position_y=old_position_y;
+        for (x=fromx; x<=tox; x++)
+        {
+            for (y=fromy; y<=toy; y++)
+            {
+//                posx=-posx;
+//                posy=-posy;
 
+                render_posx=0+960-(-2+0.5)*500;
+                render_picturex=(-2+BITMAPSX)%BITMAPSX;
+                shader_map_init(-2,y);
 
-                        if (blending>=1 || shade_main!=0 || blendit==1)
-                        {
-                            texture_final.setActive(false);
-                        }
-                        else
-                        {
-                            SFMLView1.setActive(false);
-                        }
-                    }
-                    shader_map_init(x,y);
-                }
+//            position_y+=1080;
+            position_y+=2160+160*fpstime;
+            position_y=(position_y+maxpixelsy)%maxpixelsy;
+            render_picturey=position_y/1080;
+            render_posy=position_y-1080*render_picturey;
+            render_posy=-render_posy;
+
+                render_posx=0+960-(-1+0.5)*500;
+                render_picturex=(-1+BITMAPSX)%BITMAPSX;
+                shader_map_init(-1,y);
+
+            position_y+=2160+160*fpstime;
+            position_y=(position_y+maxpixelsy)%maxpixelsy;
+            render_picturey=position_y/1080;
+            render_posy=position_y-1080*render_picturey;
+            render_posy=-render_posy;
+
+                render_posx=0+960-(0+0.5)*500;
+                render_picturex=(0+BITMAPSX)%BITMAPSX;
+                shader_map_init(0,y);
+
+            position_y+=2160+160*fpstime;
+            position_y=(position_y+maxpixelsy)%maxpixelsy;
+            render_picturey=position_y/1080;
+            render_posy=position_y-1080*render_picturey;
+            render_posy=-render_posy;
+
+                render_posx=0+960-(1+0.5)*500;
+                render_picturex=(1+BITMAPSX)%BITMAPSX;
+                shader_map_init(1,y);
+
             }
         }
+        render_picturey=old_position_y/1080;
+        render_posy=old_position_y-1080*render_picturey;
+        render_posy=-render_posy;
     }
-extern void plot_it(int plot_front);
-extern int kleur_back;
+
+    CapsLock = GetKeyState(0x14);
 
     plot_it(plot_front);
+
+
+    if (draw_model==6) {
+//        render_picturey=old_position_y/1080;
+//        render_posy=old_position_y-1080*render_picturey;
+//        render_posy=-render_posy;
+//        render_picturey=(render_picturey+BITMAPSY)%BITMAPSY;
+
+        render_picturex=old_position_x/1920;
+        render_posx=old_position_x-1920*render_picturex;
+        render_posx=-render_posx;
+    }
 
     if (!((blending>=1 && handler[CANVAS_SELECT].blending==0) || handler[CANVAS_SELECT].blending>=1))
     {

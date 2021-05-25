@@ -960,6 +960,7 @@ void shader_map(int x,int y) {
 }
 
 int mul_mat(int m, int n, float *first, int p, int q, float *second, float *multiply);
+extern int CapsLock;
 
 class MAPPER : public Effect
 {
@@ -988,8 +989,37 @@ public:
         m_transform = sf::Transform::Identity;
         m_shader.setUniform("iTime", (float) (fpstime/2.0));
 
-        int arx=(render_picturex+mappos_x+BITMAPSX)%BITMAPSX;
-        int ary=(render_picturey+mappos_y+BITMAPSY)%BITMAPSY;
+        static int old_position_y;
+        int arx,ary;
+        if (draw_model==6) {
+            old_position_y=(render_picturey*1080-render_posy);
+            int position_y=old_position_y;
+            if (CapsLock==1)
+                arx=1;
+            else
+                arx=0;
+//            render_posx=0+960+(mappos_x)*500;
+//            render_posx=0+960;//+(mappos_x)*500;
+            render_posx=0+960-(mappos_x+0.5)*500;
+            render_picturex=(mappos_x+BITMAPSX)%BITMAPSX;
+
+
+//            extra_y=fpstime*(mappos_y+2);
+//            position_y+=1080*(mappos_x+2);
+            position_y+=(2160+160*fpstime)*(mappos_x+2);
+            position_y=(position_y+maxpixelsy)%maxpixelsy;
+            render_picturey=position_y/1080;
+            render_posy=position_y-1080*render_picturey;
+            render_posy=-render_posy;
+        } else {
+            arx=(render_picturex+mappos_x+BITMAPSX)%BITMAPSX;
+        }
+        ary=(render_picturey+mappos_y+BITMAPSY)%BITMAPSY;
+        int flash;
+        if ( (ary+(int)mappos_x+20+(int)(fpstime/2.0)%6)%(1+(int)(fpstime)%4)==0  || (ary+(int)(fpstime/4.0)%3)%(1+20+(int)mappos_x+(int)(fpstime)%5)==0 ) flash=1;
+        else flash=0;
+        m_shader.setUniform("flash", flash); // scale BITMAPSX,BITMAPSY
+
 
         float offsetx;
         float offsety;
@@ -998,7 +1028,7 @@ public:
             offsety=(float)mappos_y*1080.0+(float)render_posy-(float)smooth_y+(float)((int)smooth_y);
         } else {
             offsetx=(float)mappos_x*1920.0+(float)render_posx-(float)smooth_x+(float)((int)smooth_x);
-            offsety=-72+1080.0+(float)mappos_y*1080.0+(float)render_posy-(float)smooth_y+(float)((int)smooth_y);
+            offsety=72+1080.0+(float)mappos_y*1080.0+(float)render_posy-(float)smooth_y+(float)((int)smooth_y);
         }
 
 //        m_transform.scale( 1.0,1.0).translate(0.0,0.0);
@@ -1022,7 +1052,15 @@ public:
 
 //        m_shader.setUniform("BITMAPS", sf::Vector2f(BITMAPSX,BITMAPSY));
 
+//slots
+        if (draw_model==6) {
+            render_picturey=old_position_y/1080;
+            render_posy=old_position_y-1080*render_picturey;
+            render_posy=-render_posy;
+        }
+
         m_shader.setUniform("texture_plot", texturemaxinmempoint[used2[arx][ary]]->getTexture());
+        m_shader.setUniform("texture_plot2", texturemaxinmempoint[used2[0][ary]]->getTexture());
 
         int add=0;
 
@@ -1360,6 +1398,7 @@ sf::Vector3f check_to_plot(int mappos_x, int mappos_y) {
 
 
 sf::Vector3f make_vertex(sf::Vector2f pos) {
+    float aspect = 1920.0 / 1080.0;
 
     sf::Vector3f vertex;
     glm::vec4 myVector;
@@ -1405,6 +1444,25 @@ sf::Vector3f make_vertex(sf::Vector2f pos) {
             myVector.y = myVector2.y*cos(myVector2.x*draw_scale.x*PI/8.0);
             myVector.z = myVector2.z;
 
+            break;
+        }
+        case 5 : {
+//            myVector.z = cos(myVector.x*draw_scale.x*PI/8.0)/draw_scale.x*2.5;
+//            myVector.x = sin(myVector.x*draw_scale.x*PI/8.0)/draw_scale.x*2.5;
+
+
+
+            myVector.z =  -cos(myVector.x*draw_scale.x*PI/32.0)/draw_scale.x*2.5;
+            myVector.z += cos(myVector.y*draw_scale.y*PI/32.0)/draw_scale.y*2.5;
+            myVector.x = sin(myVector.x*draw_scale.x*PI/64.0)/draw_scale.x*5.0;
+            myVector.y = sin(myVector.y*draw_scale.y*PI/32.0)/draw_scale.y*2.5;
+
+            break;
+        }
+//slots
+        case 6 : {
+            myVector.z = -cos(myVector.y*draw_scale.y*PI/20.0)/draw_scale.y*6.0/aspect;
+            myVector.y = sin(myVector.y*draw_scale.y*PI/20.0)/draw_scale.y*6.0;
             break;
         }
 

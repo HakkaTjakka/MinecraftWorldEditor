@@ -63,7 +63,7 @@ const float reflectionIntence = 200000.;
 
 void main(  )
 {
-    float time = iTime*0.03;
+    float time = iTime*0.08;
 
 vec2 p = vec2(1.0,-1.0)*(gl_FragCoord.xy-pos_correction.xy) / iResolution.xy;
 vec2 c1 = p;

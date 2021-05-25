@@ -308,8 +308,8 @@ int reload_init() {
 				else if (strcmp(var,"FFMPEG_BURN_SUBS")==0) {
                     numread=sscanf(line2,"FFMPEG_BURN_SUBS=(BEGIN)%4999[^(](END)",  FFMPEGCOMMAND_BURN_SUBS);
 //                    numread=sscanf(line2,"FFMPEG_BURN_SUBS=(BEGIN)%4999(END)",  FFMPEGCOMMAND_BURN_SUBS);
-                    printf("\nline2=%s\n",line2);
-                    printf("\nFFMPEGCOMMAND_BURN_SUBS=%s\n",FFMPEGCOMMAND_BURN_SUBS);
+//                    printf("\nline2=%s\n",line2);
+//                    printf("\nFFMPEGCOMMAND_BURN_SUBS=%s\n",FFMPEGCOMMAND_BURN_SUBS);
 				}
 
 				else if (strcmp(var,"FFMPEG_M_ORIG")==0)                numread=sscanf(line2,"FFMPEG_M_ORIG=\"%4999[^\"]\"",     FFMPEGCOMMAND_M_ORIG);

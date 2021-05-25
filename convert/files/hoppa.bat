@@ -1,0 +1,3 @@
+ffmpeg.exe -hide_banner -i "Dr. Robert O. Young ITNJ Testimony-gKjnEz5s37o.f248.webm" -i "Dr. Robert O. Young ITNJ Testimony-gKjnEz5s37o.f140.m4a" -map 0:v:0 -map 1:a:0 -strict -2 -vf "subtitles=f='Dr. Robert O. Young ITNJ Testimony-gKjnEz5s37o.en.srt.fixed':force_style='FontName=Arial,FontSize=24,Shadow=1'" -c:s mov_text -c:v h264_nvenc -profile:v high -pix_fmt yuv420p -bufsize 20M -bf:v 3 -preset slow -rc:v vbr_hq -rc-lookahead 32 -c:a aac -b:a 96k "out\Dr. Robert O. Young ITNJ Testimony-gKjnEz5s37o.en.mp4"
+
+pause

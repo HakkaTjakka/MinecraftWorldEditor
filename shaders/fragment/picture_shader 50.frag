@@ -11,7 +11,7 @@ uniform float iTime;
 uniform vec2 iMouse;
 
 const float cloudscale = 1.1;
-const float speed = 0.005;
+const float speed = 0.015;
 const float clouddark = 0.5;
 const float cloudlight = 0.3;
 const float cloudcover = 0.2;
@@ -60,14 +60,16 @@ void main() {
 
 //    vec2 p = (gl_FragCoord.xy-pos_correction.xy) / iResolution.xy;
 //    vec2 p2 = (gl_FragCoord.xy-txt_correction.xy) / iResolution.xy;
-    vec2 p2 =  (gl_FragCoord.xy-txt_correction.xy*vec2(-1.5,1.5)) / iResolution.xy;
+//    vec2 p2 =  (gl_FragCoord.xy-txt_correction.xy*vec2(-1.5,1.5)) / iResolution.xy;
+//    vec2 p2 =  (gl_FragCoord.xy-txt_correction.xy*vec2(-1.5,1.5)/13.0) / iResolution.xy;
+    vec2 p2 =  (gl_FragCoord.xy-iTime*vec2(-1.5,1.5)/13.0) / iResolution.xy;
 
 //	vec2 uv = (gl_FragCoord.xy-pos_correction.xy) / iResolution.x * resolution;
 
 //	vec2 uv = (gl_FragCoord.xy-pos_correction.xy)/iResolution.xy;
 
 //    vec2 uv = p*vec2(iResolution.x/iResolution.y,1.0);
-    float time = iTime * speed;
+    float time = iTime * speed*2.0;
 //    float q = fbm(uv * cloudscale * 0.5);
 
 	vec2 uv2 = p2*vec2(iResolution.x/iResolution.y,1.0);
@@ -88,7 +90,7 @@ void main() {
 	float f = 0.0;
     uv2 = p2*vec2(iResolution.x/iResolution.y,1.0);
 	uv2 *= cloudscale;
-    uv2 -= q2 - time;
+    uv2 -= q2 - time/10.0;
     weight = 0.7;
     for (int i=0; i<8; i++){
 		f += weight*noise( uv2 );
@@ -107,7 +109,7 @@ void main() {
     weight = 0.4;
     for (int i=0; i<7; i++){
 		c += weight*noise( uv2 );
-        uv2 = m*uv2 + time;
+        uv2 = m*uv2 + time/10.0;
 		weight *= 0.6;
     }
 
@@ -137,7 +139,7 @@ void main() {
 //    vec3 color = texture(texture_in, uv/resolution ).rgb;
 
 //    vec3 result = mix(color, clamp(cloudcolour, 0.0, 1.0), clamp(f + c, 0.0, 1.0));
-    vec3 result = mix(skycolour, clamp(skytint * skycolour + cloudcolour, 0.0, 1.0), clamp(f + c, 0.0, 1.0));
+    vec3 result = mix(skycolour, clamp(skytint * skycolour + cloudcolour, 0.0, 1.4), clamp(f + c, 0.0, 1.2));
 
 //	gl_FragColor = vec4( mix(color,result),1.0);
 //	gl_FragColor = vec4( color,1.0);
