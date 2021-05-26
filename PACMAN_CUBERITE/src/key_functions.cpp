@@ -4974,9 +4974,14 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
         }
         if (draw_model==6) {
             plot_all_znear=1.6;
-            sprite_from_canvas.setScale(0.15892,0.15892);
+//            sprite_from_canvas.setScale(0.15892,0.15892);
+//            sprite_from_canvas.setScale(0.15696,0.15696);
+            sprite_from_canvas.setScale(0.13304,0.13304);
             plot_all_translate_z=-116;
-            plot_all_translate_y=39;
+//            plot_all_translate_y=39;
+            plot_all_translate_y=43;
+
+
 //            plot_all_znear=1.10;
 //            sprite_from_canvas.setScale(0.03592,0.03592);
 //            plot_all_translate_z=14;

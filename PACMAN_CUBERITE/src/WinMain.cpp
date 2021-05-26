@@ -13258,6 +13258,8 @@ void update_plot_all()
 extern void shader_map_init(int x,int y);
 int CapsLock=0;
 
+int y_bar[5]={0,0,0,0,0};
+
 void update_plot_all2(int plot_front)
 {
 //    if (plot_front==0) {
@@ -13466,6 +13468,9 @@ extern int kleur_back;
 //        glEnable(GL_CLAMP_TO_EDGE);
 */
         int position_y=old_position_y;
+        int position_x=old_position_x;
+//        int position_y;
+//        int position_x;
         for (x=fromx; x<=tox; x++)
         {
             for (y=fromy; y<=toy; y++)
@@ -13473,6 +13478,29 @@ extern int kleur_back;
 //                posx=-posx;
 //                posy=-posy;
 
+                position_y=old_position_y;
+                for (int x_bars=-2; x_bars<=2; x_bars++) {
+//                    render_posx=0+960-(x_bars+0.5)*500;
+//                    position_x=0-(x_bars+0.5)*500;
+                    position_x=0-(x_bars)*500;
+                    position_x=(position_x+maxpixelsx)%maxpixelsx;
+                    render_picturex=position_x/1920;
+                    render_posx=position_x-1920*render_picturex;
+                    render_posx=-render_posx;
+
+
+
+//                    position_y+=(2160+160*fpstime);
+                    position_y=y_bar[x_bars+2];
+//                    position_y=(x_bars+2)*(2160+160*fpstime);
+                    position_y=(position_y+maxpixelsy)%maxpixelsy;
+                    render_picturey=position_y/1080;
+                    render_posy=position_y-1080*render_picturey;
+                    render_posy=-render_posy;
+
+                    shader_map_init(x_bars,y);
+                }
+/*
                 render_posx=0+960-(-2+0.5)*500;
                 render_picturex=(-2+BITMAPSX)%BITMAPSX;
                 shader_map_init(-2,y);
@@ -13508,6 +13536,16 @@ extern int kleur_back;
                 render_picturex=(1+BITMAPSX)%BITMAPSX;
                 shader_map_init(1,y);
 
+            position_y+=2160+160*fpstime;
+            position_y=(position_y+maxpixelsy)%maxpixelsy;
+            render_picturey=position_y/1080;
+            render_posy=position_y-1080*render_picturey;
+            render_posy=-render_posy;
+
+                render_posx=0+960-(2+0.5)*500;
+                render_picturex=(2+BITMAPSX)%BITMAPSX;
+                shader_map_init(2,y);
+*/
             }
         }
         render_picturey=old_position_y/1080;
@@ -13519,7 +13557,6 @@ extern int kleur_back;
 
     plot_it(plot_front);
 
-
     if (draw_model==6) {
 //        render_picturey=old_position_y/1080;
 //        render_posy=old_position_y-1080*render_picturey;
@@ -13529,6 +13566,14 @@ extern int kleur_back;
         render_picturex=old_position_x/1920;
         render_posx=old_position_x-1920*render_picturex;
         render_posx=-render_posx;
+
+        render_picturey=old_position_y/1080;
+        render_posy=old_position_y-1080*render_picturey;
+        render_posy=-render_posy;
+        for (int x_bars=-2; x_bars<=2; x_bars++) {
+//            y_bar[x_bars+2]=(old_position_y+(int)(160*fpstime)*(x_bars+2))%maxpixelsy;
+            y_bar[x_bars+2]=( old_position_y + (int)( 160*fpstime  ) )%maxpixelsy;
+        }
     }
 
     if (!((blending>=1 && handler[CANVAS_SELECT].blending==0) || handler[CANVAS_SELECT].blending>=1))

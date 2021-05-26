@@ -1000,13 +1000,24 @@ public:
                 arx=0;
 //            render_posx=0+960+(mappos_x)*500;
 //            render_posx=0+960;//+(mappos_x)*500;
-            render_posx=0+960-(mappos_x+0.5)*500;
+//            render_posx=0+960-(mappos_x+0.5)*500;
+//            render_posx=0-(mappos_x+0.5)*500;
+            render_posx=0-(mappos_x)*500;
             render_picturex=(mappos_x+BITMAPSX)%BITMAPSX;
+
+//            int position_x=0-(mappos_x+0.5)*500+mappos_x*1920;
+//            position_x=(position_x+maxpixelsx)%maxpixelsx;
+//            render_picturex=position_x/1920;
+//            render_posx=position_x-1920*render_picturex;
+//            render_posx=-render_posx;
 
 
 //            extra_y=fpstime*(mappos_y+2);
 //            position_y+=1080*(mappos_x+2);
-            position_y+=(2160+160*fpstime)*(mappos_x+2);
+extern int y_bar[];
+            position_y=y_bar[mappos_x+2];
+
+//            position_y+=(2160+160*fpstime)*(mappos_x+2);
             position_y=(position_y+maxpixelsy)%maxpixelsy;
             render_picturey=position_y/1080;
             render_posy=position_y-1080*render_picturey;
@@ -1016,7 +1027,7 @@ public:
         }
         ary=(render_picturey+mappos_y+BITMAPSY)%BITMAPSY;
         int flash;
-        if ( (ary+(int)mappos_x+20+(int)(fpstime/2.0)%6)%(1+(int)(fpstime)%4)==0  || (ary+(int)(fpstime/4.0)%3)%(1+20+(int)mappos_x+(int)(fpstime)%5)==0 ) flash=1;
+        if ( sin(5.0*fpstime*3.1415)>0.0 && ( (ary+(int)mappos_x+20+(int)(fpstime/2.0)%6)%(1+(int)(fpstime)%4)==0  || (ary+(int)(fpstime/4.0)%3)%(1+20+(int)mappos_x+(int)(fpstime)%5)==0 ) ) flash=1;
         else flash=0;
         m_shader.setUniform("flash", flash); // scale BITMAPSX,BITMAPSY
 

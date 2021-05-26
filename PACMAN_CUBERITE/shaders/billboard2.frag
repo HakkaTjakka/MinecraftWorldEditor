@@ -46,7 +46,8 @@ void main()
                 vec4 kB=vec4(0);
 //                kD =  texture2D(the_texture,  vec2(gl_TexCoord[0].s,gl_TexCoord[0].t));
                 kD =  texture2D(texture_plot,  (tex_coord.xy/resolution) );
-                if (flash && sin(10.0*iTime*3.1415)>0.0) {
+//                if (flash && sin(5.0*iTime*3.1415)>0.0) {
+                if (flash) {
                     kB =  texture2D(texture_plot2,  (tex_coord.xy/resolution) );
                 }
 //                if (kD.a!=1.0) {
@@ -78,10 +79,10 @@ void main()
                 float hoppa=1.0;
                 if (draw_model==6) hoppa=0.3;
 
-                float diff1 = 1.0 * clamp(dot( n,lp1), 0.5, 1.);
-                float diff2 = 1.0 * clamp(dot( n,lp2), 0.5, 1.);
-                float diff3 = 1.0 * clamp(dot( n,lp3), 0.5, 1.);
-                float diff4 = 1.0 * clamp(dot( n,lp4), 0.5, 1.);
+                float diff1 = 1.0 * clamp(dot( n,lp1), 0.3, 1.);
+                float diff2 = 1.0 * clamp(dot( n,lp2), 0.3, 1.);
+                float diff3 = 1.0 * clamp(dot( n,lp3), 0.3, 1.);
+                float diff4 = 1.0 * clamp(dot( n,lp4), 0.3, 1.);
 
                 float diff=diff1;
                 if (diff2>diff) diff=diff2;
@@ -116,7 +117,7 @@ void main()
                 vec3 kS_x_spec = spec*vec3(1.0, 1.0, 1.0) ;
 
 
-                gl_FragColor = clamp(   kB*1.0 + vec4( kD.xyz * (diff*.5 ) + kS_x_spec, kD.a) , 0.0 , 1.0);
+                gl_FragColor = clamp(   kB*0.8 + vec4( kD.xyz * (diff*.7 ) + kS_x_spec, kD.a) , 0.0 , 1.0);
 
 //                vec4 fragcolor = clamp(   vec4( kD.xyz * (diff ) + kS_x_spec, kD.a) , 0.0 , 1.0);
 
