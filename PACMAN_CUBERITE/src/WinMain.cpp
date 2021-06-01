@@ -1933,7 +1933,7 @@ extern int replace_string(char *str, char *orig, char *rep);
     if (start_burning>0)
     {
         start_burning++;
-        if (start_burning>100)
+        if (start_burning>20)
         {
             burn_next_sub_ready_mutex.lock();
             start_burning=0;
@@ -10440,7 +10440,7 @@ extern sf::Text mytext2;
 //                if (movieextern==0) playing_end();
             }
             burn_next_sub_ready++;
-            if (burn_next_sub_ready>100)
+            if (burn_next_sub_ready>20)
             {
                 burn_next_sub_ready=0;
                 start_burn_next_sub_thread();

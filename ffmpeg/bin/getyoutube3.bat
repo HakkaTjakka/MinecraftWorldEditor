@@ -1,1 +1,1 @@
-youtube-dl -k --skip-download --abort-on-error --no-mtime --sub-lang "en,nl" --convert-subs srt --write-auto-sub --download-archive ARCHIVE.TXT --skip-unavailable-fragments --write-thumbnail --write-info-json --geo-bypass "%*"
+youtube-dl -k --abort-on-error --no-mtime --sub-lang "en,nl" --convert-subs srt --write-auto-sub --download-archive ARCHIVE.TXT --skip-unavailable-fragments --write-thumbnail --write-info-json --geo-bypass %*

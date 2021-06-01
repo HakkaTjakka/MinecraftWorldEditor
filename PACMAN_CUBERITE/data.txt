@@ -7406,3 +7406,7 @@
 1 Program busy or hangs... Thread alive at: 26/05/2021 15:23:03
 1 Program busy or hangs... Thread alive at: 26/05/2021 15:56:04
 1 Program busy or hangs... Thread alive at: 26/05/2021 16:11:33
+0 Program busy or hangs... Thread alive at: 29/05/2021 12:16:38
+0 Program busy or hangs... Thread alive at: 29/05/2021 12:19:24
+0 Program busy or hangs... Thread alive at: 29/05/2021 12:19:30
+1 Program busy or hangs... Thread alive at: 30/05/2021 16:13:56

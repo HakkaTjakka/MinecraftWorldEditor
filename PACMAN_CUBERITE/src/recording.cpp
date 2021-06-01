@@ -149,6 +149,7 @@ int movie_height=0;
 int movie_sample_rate=0;
 int movie_channels=0;
 int movie_r_frame_rate1=0;
+int movie_bit_rate=0;
 int movie_r_frame_rate2=0;
 
 sf::SoundBuffer movie_buffer;
@@ -252,7 +253,7 @@ int playing_start(char * filename)
         return -1;
     }
 // ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of default=nw=1 holland_sound.mp4
-    sprintf(command_line,"ffprobe.exe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of default=nw=1 %s",quote_filename);
+    sprintf(command_line,"ffprobe.exe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate,bit_rate -of default=nw=1 %s",quote_filename);
     FILE* file;
     if (file=fopen("../convert/files/convert.log","a")) {
         fprintf(file,"%s\n",command_line);
@@ -264,9 +265,11 @@ int playing_start(char * filename)
         char line1[100];
         char line2[100];
         char line3[100];
+        char line4[100];
         fgets(line1,100,pipein);
         fgets(line2,100,pipein);
         fgets(line3,100,pipein);
+        fgets(line4,100,pipein);
         pclose(pipein);
 
         if (strcmp(FFMPEGCOMMANDIN_SUBS_RES,"HD")==0) {
@@ -280,6 +283,7 @@ int playing_start(char * filename)
         }
 
         sscanf(line3,"r_frame_rate=%d/%d",&movie_r_frame_rate1,&movie_r_frame_rate2);
+        sscanf(line4,"bit_rate=%d",&movie_bit_rate);
 //        printf("FFPROBE: width=%d height=%d framerate=%d/%d\n",movie_width,movie_height,movie_r_frame_rate1,movie_r_frame_rate2);
     } else {
         printf("Error: %s\n",command_line);
@@ -321,25 +325,25 @@ int playing_start(char * filename)
             return -1;
         }
         if (movie_r_frame_rate2!=0)
-            sprintf(playing_info_static,"Resolution=%dx%d - Framerate=%d/%d=%5.3f Fps - Samplerate: %d Hz %d Channels\nFile=\"%s\"",
+            sprintf(playing_info_static,"Resolution=%dx%d - Framerate=%d/%d=%5.3f Fps - Samplerate: %d Hz %d Bitrate: %d Channels\nFile=\"%s\"",
                     movie_width,movie_height,movie_r_frame_rate1,movie_r_frame_rate2,(float)movie_r_frame_rate1/(float)movie_r_frame_rate2,
-                    movie_sample_rate,movie_channels,filename
+                    movie_sample_rate,movie_channels,movie_bit_rate,filename
                     );
         else
-            sprintf(playing_info_static,"Resolution=%dx%d - Framerate=%d/%d=??? Fps - Samplerate: %d Hz %d Channels\nFile=\"%s\"",
+            sprintf(playing_info_static,"Resolution=%dx%d - Framerate=%d/%d=??? Fps - Samplerate: %d Hz %d Bitrate: %d Channels\nFile=\"%s\"",
                     movie_width,movie_height,movie_r_frame_rate1,movie_r_frame_rate2,
-                    movie_sample_rate,movie_channels,filename
+                    movie_sample_rate,movie_channels,movie_bit_rate,filename
                     );
     } else {
         if (movie_r_frame_rate2!=0)
-            sprintf(playing_info_static,"Time=%s - Resolution: %dx%d - Framerate=%d/%d=%5.3f Fps\nFile=%s\nSubs=%s",
+            sprintf(playing_info_static,"Time=%s - Resolution: %dx%d - Framerate=%d/%d=%5.3f Fps Bitrate: %d \nFile=%s\nSubs=%s",
                     source_time,movie_width,movie_height,
                     movie_r_frame_rate1,movie_r_frame_rate2,(float)movie_r_frame_rate1/(float)movie_r_frame_rate2,
-                    quote_video,quote_subs);
+                    movie_bit_rate,quote_video,quote_subs);
         else
-            sprintf(playing_info_static,"Time=%s - Resolution: %dx%d - Framerate=%d/%d=??? Fps\nFile=%s\nSubs=%s",
+            sprintf(playing_info_static,"Time=%s - Resolution: %dx%d - Framerate=%d/%d=??? Fps Bitrate: %d \nFile=%s\nSubs=%s ",
                     source_time,movie_width,movie_height,movie_r_frame_rate1,movie_r_frame_rate2,
-                    quote_video,quote_subs);
+                    movie_bit_rate,quote_video,quote_subs);
             print_to_screen_buf(1,playing_info_static,PRINT_FONT_SIZE,COL_BLUE,COL_WHITE,COL_WHITE_T,PRINT_FONT_OUTLINE,TXT_REG);
     }
 //?????????
@@ -1443,7 +1447,7 @@ char * get_info_video(char * filename) {
     char quote_filename[1000];
     sprintf(quote_filename,"\"%s\"",filename);
 
-    sprintf(command_line,"ffprobe.exe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of default=nw=1 %s",quote_filename);
+    sprintf(command_line,"ffprobe.exe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate,bit_rate -of default=nw=1 %s",quote_filename);
     FILE* file;
     if (file=fopen("../convert/files/convert.log","a")) {
         fprintf(file,"%s\n",command_line);
@@ -1454,10 +1458,13 @@ char * get_info_video(char * filename) {
         char line1[100];
         char line2[100];
         char line3[100];
+        char line4[100];
         fgets(line1,100,pipein);
         fgets(line2,100,pipein);
         fgets(line3,100,pipein);
+        fgets(line4,100,pipein);
         pclose(pipein);
+        sscanf(line4,"bit_rate=%d",&movie_bit_rate);
         if (strcmp(FFMPEGCOMMANDIN_SUBS_RES,"HD")==0) {
             printf("RECORDING IN HD\n");
             movie_width=1920;
@@ -1473,11 +1480,11 @@ char * get_info_video(char * filename) {
 //        printf("height=%d\n",movie_height);
 //        printf("r_frame_rate=%d/%d\n",movie_r_frame_rate1,movie_r_frame_rate2);
         if (movie_r_frame_rate2!=0)
-            sprintf(return_info,"(%dx%d - %d/%d=%5.3f Fps)",
-                    movie_width,movie_height,movie_r_frame_rate1,movie_r_frame_rate2,(float)movie_r_frame_rate1/(float)movie_r_frame_rate2);
+            sprintf(return_info,"(%dx%d - %d/%d=%5.3f Fps Bitrate=%d)",
+                    movie_width,movie_height,movie_r_frame_rate1,movie_r_frame_rate2,(float)movie_r_frame_rate1/(float)movie_r_frame_rate2,movie_bit_rate);
         else
-            sprintf(return_info,"(%dx%d - %d/%d=???)",
-                    movie_width,movie_height,movie_r_frame_rate1,movie_r_frame_rate2);
+            sprintf(return_info,"(%dx%d - %d/%d=??? Bitrate=%d)",
+                    movie_width,movie_height,movie_r_frame_rate1,movie_r_frame_rate2,movie_bit_rate);
     } else {
         printf("Error: %s\n",command_line);
         printf("ffprobe.exe not in path?\n",command_line);

@@ -14,6 +14,7 @@ extern sf::Mutex burn_next_sub_ready_mutex;
 void get_videos();
 void burn_next_sub();
 void dos_command();
+extern int movie_bit_rate;
 
 sf::Thread get_videos_thread(&get_videos);
 sf::Thread burn_next_sub_thread(&burn_next_sub);
@@ -37,8 +38,8 @@ void get_videos() {
             get_video_thread_running=0;
             return;
         }
-        line_count++;
         ret=select_from_list2(link,"../convert/list.txt",line_count);
+        line_count++;
         if (ret==0) {
             printf("../convert/list.txt EMPTY?\n");
             get_video_thread_running=0;
@@ -48,7 +49,7 @@ void get_videos() {
             printf("GETTING INFO: %d/%d : %s\n",line_count,ret,link);
 //            wprintf(L"\x1b[0m");
             char com[1000];
-            sprintf(com,"youtube-dl -i --skip-unavailable-fragments --geo-bypass --get-id --get-format --get-filename --get-duration \"%s\"",link);
+            sprintf(com,"youtube-dl -i --restrict-filenames --skip-unavailable-fragments --geo-bypass --get-id --get-format --get-filename --get-duration \"%s\"",link);
             if (ESCAPE_PRESSED) {
                 ESCAPE_PRESSED=0;
                 printf("ABORTING\n");
@@ -242,10 +243,15 @@ void get_videos() {
 
                         }
                         if (video_ok && audio_ok && subs_ok) {
+                            sprintf(test,"../convert/files/%s",videoname);
+                            printf("\n      TESTING FFPROBE.EXE: %s\n",get_info_video(test));
+                            printf("\n      movie_bit_rate=%d\n",movie_bit_rate);
 
                             textfiles.lock();
                             if (file=fopen("../convert/files/convert.txt","a")) {
-                                fprintf(file,"VIDEO=\"%s\" AUDIO=\"%s\" SUBS=\"%s\" LANG=\"%s\" TIME=\"%s\"\n",videoname,audioname,subsname,lang,str_time);
+//                                fprintf(file,"VIDEO=\"%s\" AUDIO=\"%s\" SUBS=\"%s\" LANG=\"%s\" TIME=\"%s\"\n",videoname,audioname,subsname,lang,str_time);
+                                fprintf(file,"VIDEO=\"%s\" AUDIO=\"%s\" SUBS=\"%s\" LANG=\"%s\" TIME=\"%s\" BITRATE=\"%d\"\n",
+                                        videoname,audioname,subsname,lang,str_time,movie_bit_rate);
                                 fclose(file);
                             } else {
                                 printf("CAN NOT WRITE TO FILE ../convert/files/convert.txt\n");
@@ -292,11 +298,13 @@ void get_videos() {
 //burn subs
 //FFMPEG_IN_FILTER_COMPLEX="scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:-1:-1:color=black,subtitles=f='%s':force_style='FontName=Arial,FontSize=24,Shadow=1'"
 
+//                                    fprintf(file,FFMPEGCOMMAND_BURN_SUBS, q_video,q_audio,q_subs,outputfile);
                                     fprintf(file,FFMPEGCOMMAND_BURN_SUBS, q_video,q_audio,q_subs,outputfile);
 
                                     printf(FFMPEGCOMMAND_BURN_SUBS, q_video,q_audio,q_subs,outputfile);
 
                                     fprintf(file,"\n");
+                                    printf("\n");
                                 } else {
                                     fprintf(file,"ffmpeg.exe -hide_banner -i %s -i %s -map 0:v:0 -map 1:a:0 -strict -2 -vf subtitles=%s -c:s mov_text -c:v libx264 -preset veryfast -crf 23 -c:a aac -b:a 96k -pix_fmt yuv420p %s",
                                             q_video,q_audio,q_subs,outputfile);
@@ -307,6 +315,7 @@ void get_videos() {
                                     burn_next_sub_ready_mutex.lock();
                                     start_burning=1;
                                     burn_next_sub_ready_mutex.unlock();
+                                    sf::sleep(sf::seconds(5.0));
 //                                    go_burn=0;
                                 }
                             } else {
@@ -349,11 +358,11 @@ void get_videos() {
                                 sprintf(outputfile,"\"out/%s.%s.mp4\"",data,lang_en);
                                 if (strlen(FFMPEGCOMMAND_BURN_SUBS)>0) {
                                     fprintf(file,FFMPEGCOMMAND_BURN_SUBS,
-                                            q_video,q_audio,q_subs,outputfile);
+                                            q_video,q_audio,q_subs,movie_bit_rate,outputfile);
                                     fprintf(file,"\n");
                                 } else {
                                     fprintf(file,"ffmpeg.exe -hide_banner -i %s -i %s -map 0:v:0 -map 1:a:0 -strict -2 -vf subtitles=%s -c:s mov_text -c:v libx264 -preset veryfast -crf 23 -c:a aac -b:a 96k -pix_fmt yuv420p %s",
-                                            q_video,q_audio,q_subs,outputfile);
+                                            q_video,q_audio,q_subs,movie_bit_rate,outputfile);
                                     fprintf(file,"\n");
                                 }
                                 fclose(file);
@@ -361,6 +370,7 @@ void get_videos() {
                                     burn_next_sub_ready_mutex.lock();
                                     start_burning=1;
                                     burn_next_sub_ready_mutex.unlock();
+                                    sf::sleep(sf::seconds(5.0));
 //                                    go_burn=0;
                                 }
                             } else {
@@ -557,7 +567,7 @@ void start_get_videos_thread() {
         get_videos_thread.launch();
 //        printf("start_get_videos_thread()\n");
     } else {
-        printf("Allready running....\n");
+        printf("Already running....\n");
     }
 }
 
@@ -598,7 +608,7 @@ char lang_nq[10]="";
 
 
 void burn_next_sub() {
-    static int line_count=1;
+    static int line_count=0;
     static int ret=1;
     playsound=playsound|2;
 
@@ -640,7 +650,7 @@ void burn_next_sub() {
             return;
         } else {
             line_count++;
-            sscanf(data,"VIDEO=\"%999[^\"]\" AUDIO=\"%999[^\"]\" SUBS=\"%999[^\"]\" LANG=\"%9[^\"]\" TIME=\"%50[^\"]\"", videoname,audioname,subsname,lang_nq,source_time);
+            sscanf(data,"VIDEO=\"%999[^\"]\" AUDIO=\"%999[^\"]\" SUBS=\"%999[^\"]\" LANG=\"%9[^\"]\" TIME=\"%50[^\"] BITRATE=\"%50[^\"]\"", videoname,audioname,subsname,lang_nq,source_time,&movie_bit_rate);
             if (strlen(videoname)==0) {
                 printf("No video name detected. Empty line in convert.txt?\n");
                 continue;
