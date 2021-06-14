@@ -1,0 +1,13 @@
+E:\PACMAN\PACMAN_CUBERITE
+sizeof(float)=4
+COMMAND: ""
+COMMAND: ffmpeg -f gdigrab -framerate 30 -ss 00:00:00.2 -i desktop -vframes 1 -c:v h264_nvenc -qp 0 -f image2pipe -vcodec rawvideo -pix_fmt rgba -
+SFMLGL2 thread starting
+Calling do_SFMLGL2()
+Area=Models
+New area: Size=3,1
+Center: 1,0 Models
+Trying: Models 1,0 -> D:/PACMAN/models/male02/male02.obj
+FRAGMENT SHADER ERROR: shaders/depth_shader.frag
+Returned from_SFMLGL2()
+SFMLGL2 thread stopped

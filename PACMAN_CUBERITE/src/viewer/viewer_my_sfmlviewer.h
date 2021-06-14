@@ -1,4 +1,5 @@
 extern sf::Texture texture_from_ffmpeg;
+extern sf::Texture texture_from_ffmpeg;
 extern int ffmpegfile;
 extern bool get_screenshot(sf::Texture* m_texture);
 
@@ -843,7 +844,7 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
         contextSettings.depthBits    = 24;
         contextSettings.stencilBits  = 8;
 //        contextSettings.antialiasingLevel = 0; //important, set to 0 when running shift-b -> analyse. For color feedback from gpu that codes octant block.
-        contextSettings.antialiasingLevel = 0;
+        contextSettings.antialiasingLevel = 5;
 //        contextSettings.majorVersion = 3;
 //        contextSettings.minorVersion = 3;
         contextSettings.sRgbCapable = false;
@@ -2000,8 +2001,14 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
 //                        window.setActive(true);
 
                 if (by_texture) {
+                    window.setActive(true);
+                    glClearColor(0.0,0.0,0.0,0);
+                    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
                     between_texture.setActive(true);
                 } else {
+//                    window.setActive(false);
+//                    window.clear();
                     window.setActive(true);
                 }
 
@@ -2015,11 +2022,28 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
 
 //                glClearColor(1.0,0.7,1.0,0.2);
 //                glClearColor(fun_r,fun_g,fun_b,1.0f);
+
+
+/*
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_DEPTH_CLAMP);
+    glEnable(GL_DEPTH_TEST);
+    glDepthMask(GL_TRUE);
+    glDepthFunc(GL_LEQUAL);
+    glDepthRange(0.0f, 1.0f);
+    glClearDepth(0.0f);
+    glAlphaFunc(GL_GREATER, 0.0);
+    glEnable(GL_ALPHA_TEST);
+*/
+
                 glClearColor(0.0,0.0,0.0,0);
+//    glClearDepth(0.0f);
+//                glClearDepth(1.f);      //added
+
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                 glEnable(GL_DEPTH_TEST);
                 glDepthMask(GL_TRUE);   //added
-                glClearDepth(1.f);      //added
+                glDepthFunc(GL_LEQUAL);
 
 //                glEnable(GL_BLEND);
 //                glBlendFunc(GL_DST_ALPHA, GL_ONE_MINUS_DST_ALPHA);
@@ -2366,11 +2390,11 @@ extern double schematic_size;
 //                if (local_request_3d_x>=0 && local_request_3d_y>=0)
 //                    render_texture1_local.setActive(false);
 //                else
-                    if (by_texture) {
-                        between_texture.setActive(false);
-                    } else {
-                        window.setActive(false);
-                    }
+                if (by_texture) {
+                    between_texture.setActive(false);
+                } else {
+                    window.setActive(false);
+                }
 
 //                window.setActive(false);
 
@@ -2429,9 +2453,14 @@ extern double schematic_size;
                     between_texture.popGLStates();
 
                 }
-                else
+                else {
+//                    window.setActive(false);
+//                    sf::sleep(sf::milliseconds(10));
                     window.display();
+//                    window.clear();
+                }
 
+//                sf::sleep(sf::microseconds(500));
                 render_time=render_clock.getElapsedTime().asSeconds();
                 render_count++;
                 if (render_count>=60) {
@@ -2560,6 +2589,10 @@ extern double schematic_size;
 //            if (by_texture)
 //                texture.setActive(true);
 //            else
+
+
+
+
                 window.setActive(true);
 //            window.pushGLStates();
 

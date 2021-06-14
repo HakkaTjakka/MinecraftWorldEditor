@@ -20,6 +20,7 @@
                                     } else {
                                         window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Fullscreen, contextSettings);
 //                                        glViewport(0, 0, 1920,1080);
+                                        window.setVerticalSyncEnabled(true);
                                     }
                                     between_texture.create(1920,1080,contextSettings);
                                 }
@@ -36,6 +37,7 @@
 
                                     } else {
                                         window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close , contextSettings);
+                                        window.setVerticalSyncEnabled(true);
 //                                        glViewport(0, 0, 1920,1080);
                                     }
                                     between_texture.create(1920,1080,contextSettings);

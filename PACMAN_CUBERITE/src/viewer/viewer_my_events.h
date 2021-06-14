@@ -173,7 +173,7 @@ extern void make_test_schematic();
                                             }
                                             window.clear(sf::Color::Transparent);
                                             window.display();
-//                                            get_screenshot(backgroundTexture[win_num]);
+                                            get_screenshot(backgroundTexture[win_num]);
                                         }
 
                                         backgroundTexture[win_num]->setSmooth(false);
@@ -1858,7 +1858,8 @@ extern bool screensaver;
                                 window.display();
                                 contextSettings.minorVersion = 3;
                                 contextSettings.majorVersion = 3;
-
+                            contextSettings.depthBits    = 24;
+                            contextSettings.stencilBits  = 8;
                                 window.close();
                                 if (videomode[win_num]==0) {
                                     if (transparant) {
@@ -1873,7 +1874,11 @@ extern bool screensaver;
                                         window.setVerticalSyncEnabled(true);
 //                                        glViewport(0, 0, 1922,1082);
                                     } else {
-                                        window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Fullscreen, contextSettings);
+                                        window.create(sf::VideoMode(1920,1080,32), window_title, sf::Style::Fullscreen, contextSettings);
+//                                        window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Fullscreen, contextSettings);
+//                                        window.create(sf::VideoMode(1922,1082), window_title,  sf::Style::None, contextSettings);
+//                                        window.create(sf::VideoMode(1922,1082), window_title, sf::Style::Fullscreen, contextSettings);
+                                        window.setVerticalSyncEnabled(true);
 //                                        glViewport(0, 0, 1920,1080);
                                     }
                                     between_texture.create(1920,1080,contextSettings);
@@ -1890,7 +1895,11 @@ extern bool screensaver;
 //                                        glViewport(0, 0, 1922,1082);
 
                                     } else {
+                                        sf::Image backgroundImage;
+                                        backgroundImage.create(1922,1082,sf::Color(255,255,255,1));
                                         window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close , contextSettings);
+                                        setShape(window.getSystemHandle(), backgroundImage);
+                                        window.setVerticalSyncEnabled(true);
 //                                        glViewport(0, 0, 1920,1080);
                                     }
                                     between_texture.create(1920,1080,contextSettings);

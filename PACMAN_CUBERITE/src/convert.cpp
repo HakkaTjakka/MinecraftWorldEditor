@@ -50,6 +50,12 @@ void get_videos() {
 //            wprintf(L"\x1b[0m");
             char com[1000];
             sprintf(com,"youtube-dl -i --restrict-filenames --skip-unavailable-fragments --geo-bypass --get-id --get-format --get-filename --get-duration \"%s\"",link);
+            printf("HERE IS IT:\n");
+            printf(com);
+            printf("\n");
+            system(com);
+            printf("HERE IS IT:\n");
+
             if (ESCAPE_PRESSED) {
                 ESCAPE_PRESSED=0;
                 printf("ABORTING\n");
@@ -997,6 +1003,7 @@ void get_container(struct container_struct * container, int num) {
         case 335 : strcpy(container->extension,"webm");	container->isaudio=0; container->isvideo=1; break; //	    1080p60	-	    hdr
         case 336 : strcpy(container->extension,"webm");	container->isaudio=0; container->isvideo=1; break; //	    1440p60	-	    hdr
         case 337 : strcpy(container->extension,"webm");	container->isaudio=0; container->isvideo=1; break; //	    2160p60	-	    hdr
+        case 398 : strcpy(container->extension,"mp4");	container->isaudio=0; container->isvideo=1; break; //	    2160p60	-	    hdr
         default  : strcpy(container->extension,"");	    container->isaudio=0; container->isvideo=0; break; //	    2160p60	-	    hdr
 
             break;
