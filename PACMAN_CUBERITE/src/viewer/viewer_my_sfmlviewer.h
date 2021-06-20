@@ -2384,6 +2384,7 @@ extern double schematic_size;
                         for (auto u : Pacman_Objects[win_num]) {
                             if (u.show==1) Draw(u.gDrawObjects, u.materials, u.textures);
                         }
+                        glFlush();
                     }
                 }
 
@@ -2456,7 +2457,9 @@ extern double schematic_size;
                 else {
 //                    window.setActive(false);
 //                    sf::sleep(sf::milliseconds(10));
+//                    window.pushGLStates();
                     window.display();
+//                    window.popGLStates();
 //                    window.clear();
                 }
 

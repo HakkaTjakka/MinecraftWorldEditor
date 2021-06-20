@@ -1,4 +1,5 @@
 #include <conio.h>
+#include <exception>
 #define PI 3.141592653589793
 #define SFML_STATIC
 #undef UNICODE
@@ -2414,8 +2415,204 @@ extern int record_window;
         if (plotx==15 && ploty==0) start_logger=0;
     }
 
+//jojojo
+    static float scaler=1.0;
+    static int timer2=0;
+    static float size_x;
+    if (f8_repeat && movie==0) {
+        static int hoppa=0;
+        hoppa++;
+        if (hoppa==100 && rand()%2)      { int m_old=mirror; mirror=0; insert_event(sf::Keyboard::Key::Left, 0); mirror=m_old; /* if (!(rand()%15)) insert_event(sf::Keyboard::Key::Left, 0); if (rand()%2) insert_event(sf::Keyboard::Key::Down, 0); if (rand()%2) insert_event(sf::Keyboard::Key::Right,0); if (rand()%2) insert_event(sf::Keyboard::Key::Up,   0);*/  }
+        else if (hoppa==200 && rand()%2) { int m_old=mirror; mirror=0; insert_event(sf::Keyboard::Key::Up,   0); mirror=m_old; /* if (!(rand()%15)) insert_event(sf::Keyboard::Key::Up,   0); if (rand()%2) insert_event(sf::Keyboard::Key::Left, 0); if (rand()%2) insert_event(sf::Keyboard::Key::Down, 0); if (rand()%2) insert_event(sf::Keyboard::Key::Right,0);*/  }
+        else if (hoppa==300 && rand()%2) { int m_old=mirror; mirror=0; insert_event(sf::Keyboard::Key::Right,0); mirror=m_old; /* if (!(rand()%15)) insert_event(sf::Keyboard::Key::Right,0); if (rand()%2) insert_event(sf::Keyboard::Key::Up,   0); if (rand()%2) insert_event(sf::Keyboard::Key::Left, 0); if (rand()%2) insert_event(sf::Keyboard::Key::Down, 0);*/  }
+        else if (hoppa==400 && rand()%2) { int m_old=mirror; mirror=0; insert_event(sf::Keyboard::Key::Down, 0); mirror=m_old; /* if (!(rand()%15)) insert_event(sf::Keyboard::Key::Down, 0); if (rand()%2) insert_event(sf::Keyboard::Key::Right,0); if (rand()%2) insert_event(sf::Keyboard::Key::Up,   0); if (rand()%2) insert_event(sf::Keyboard::Key::Left, 0);*/  }
+        if (hoppa==400) hoppa=0;
+        static int hoppa2=0;
+        hoppa2++;
+
+        if (hoppa2>=60*10) {
+            hoppa2=0;
+            if (live_movie->getStatus()==sfe::Stopped)
+                updatemovie();
+            else
+            {
+                timer2++;
+                time_movie=live_movie->getDuration();
+                int add=20.0+rand()%( int( time_movie.asSeconds() - 30.0 )  );
+//                printf("time: %d  add: %d  ",int( time_movie.asSeconds() ), add);
+
+                if ( timer2<(2+time_movie.asSeconds()/600) && add>1.0 && add < int(time_movie.asSeconds()-11.0) )
+                {
+                    printf( "timer=%d  duration=%d  is=%d  goto=%d  ->  ",
+                           timer2,int(time_movie.asSeconds()),int(live_movie->getPlayingOffset().asSeconds()), add );
+
+                    time_movie=sf::seconds((float)add);
+
+                    try
+                    {
+                        char sys[1000];
+                        sprintf(sys,"echo \"offset: %s\" >> movie_offset.log",movie_name);
+                        system(sys);
+
+                        live_movie->setPlayingOffset(time_movie);
+                    }
+                    catch (std::exception const &exc)
+                    {
+                        std::cerr << "\nException caught " << exc.what() << "\n";
+                        printf( "is=%d\n",int(live_movie->getPlayingOffset().asSeconds()) );
+                        if (live_movie->getStatus() != sfe::Playing) {
+                            printf("    next3: ");
+
+                            try
+                            {
+                                live_movie->stop();
+                                updatemovie();
+
+                                time_movie=live_movie->getDuration();
+                                int add=20+rand()%( int( time_movie.asSeconds() - 30.0 )  );
+                                if ( add>1.0 && add < int(time_movie.asSeconds()-11.0) )
+                                {
+                                    printf( "   timer=%d  duration=%d  is=%d  goto=%d  ->  ",
+                                           timer2,int(time_movie.asSeconds()),int(live_movie->getPlayingOffset().asSeconds()), add );
+                                    time_movie=sf::seconds((float)add);
+                                    live_movie->setPlayingOffset(time_movie);
+                                }
+                            }
+                            catch (std::exception const &exc)
+                            {
+
+                                char sys[1000];
+                                sprintf(sys,"echo \"%s\" >> movie_error.log",movie_name);
+                                system(sys);
+
+                                std::cerr << "\n    Exception caught " << exc.what() << "\n";
+                                printf( "   is=%d\n",int(live_movie->getPlayingOffset().asSeconds()) );
+                            }
+
+                            printf("    playing\n");
+//                            live_movie->play();
+                        }
+                    }
+                    catch (...)
+                    {
+                        std::cerr << "\nUnknown exception caught\n";
+                    }
+//                    rotation_movie=sin(fpstime/3.0)*30;
+//                    rotation_movie=rand()%61-30;
+//                    rot_speed_movie=-rotation_movie/1200.0;
+                    rotate_canvas=1;
+                    rotate_movie=1;
+//                    rot_speed_movie=(rand()%61)/1200.0;
+//                    rot_speed_canvas=-rot_speed_movie*2.0;
+                    printf("done\n");
+                    srand(time(0));
+                }
+                else
+                {
+//                    size_x=sprite_from_movie.getScale().x*texture_from_movie_new.getSize().x;
+                    timer2=0;
+                    printf("next2: ");
+                    try
+                    {
+                        live_movie->stop();
+                        updatemovie();
+                        time_movie=live_movie->getDuration();
+                        int add=20+rand()%( int( time_movie.asSeconds() - 30.0 )  );
+                        if ( add>1.0 && add < int(time_movie.asSeconds()-11.0) )
+                        {
+                            printf( "   timer=%d  duration=%d  is=%d  goto=%d  ->  ",
+                                   timer2,int(time_movie.asSeconds()),int(live_movie->getPlayingOffset().asSeconds()), add );
+                            time_movie=sf::seconds((float)add);
+                            live_movie->setPlayingOffset(time_movie);
+                        }
+                    }
+                    catch (std::exception const &exc)
+                    {
+
+                        char sys[1000];
+                        sprintf(sys,"echo \"%s\" >> movie_error.log",movie_name);
+                        system(sys);
+
+                        std::cerr << "\nException caught " << exc.what() << "\n";
+                        printf( "is=%d\n",int(live_movie->getPlayingOffset().asSeconds()) );
+                        if (live_movie->getStatus() != sfe::Playing) {
+                            printf("    next3: ");
+
+                            try
+                            {
+                                live_movie->stop();
+                                updatemovie();
+
+                                time_movie=live_movie->getDuration();
+                                int add=20+rand()%( int( time_movie.asSeconds() - 30.0 )  );
+                                if ( add>1.0 && add < int(time_movie.asSeconds()-11.0) )
+                                {
+                                    printf( "   timer=%d  duration=%d  is=%d  goto=%d  ->  ",
+                                           timer2,int(time_movie.asSeconds()),int(live_movie->getPlayingOffset().asSeconds()), add );
+                                    time_movie=sf::seconds((float)add);
+                                    live_movie->setPlayingOffset(time_movie);
+                                }
+                            }
+                            catch (std::exception const &exc)
+                            {
+
+                                char sys[1000];
+                                sprintf(sys,"echo \"%s\" >> movie_error.log",movie_name);
+                                system(sys);
+
+                                std::cerr << "\n    Exception caught " << exc.what() << "\n";
+                                printf( "   is=%d\n",int(live_movie->getPlayingOffset().asSeconds()) );
+                            }
+                            printf("    playing\n");
+    //                            live_movie->play();
+                        }
+                    }
+                    catch (...)
+                    {
+                        std::cerr << "\nUnknown exception caught\n";
+                    }
+                    printf("playing\n");
+//                    scaler=size_x/texture_from_movie_new.getSize().x;
+                }
 
 
+//                printf("new time: %d\n ",int( time_movie.asSeconds() ));
+
+
+/*
+                time_movie=live_movie->getPlayingOffset();
+                int add=rand()%600;
+                if ( live_movie->getDuration() > (time_movie+sf::seconds(add + 11) ) )
+                {
+                    live_movie->setPlayingOffset(time_movie+sf::seconds(add));
+//                                rotation_movie=rand()%41-20;
+                }
+                else
+                {
+                    size_x=sprite_from_movie.getScale().x*texture_from_movie_new.getSize().x;
+                    live_movie->stop();
+                    updatemovie();
+
+                    scaler=size_x/texture_from_movie_new.getSize().x;
+                }
+*/
+            }
+        }
+
+        scaler=size_x/(float)texture_from_movie_new.getSize().x;
+        float scaler_mod=(1.0+sin(fpstime/5.0)/1.8);
+        float f=(scaler*scaler_mod);
+
+        fspeedx=fspeedx+sin(fpstime/2.13)/911.0+sin(fpstime/5.77)/2400.0;
+        fspeedy=fspeedy+cos(fpstime/2.13)/911.0+cos(fpstime/5.77)/2400.0;
+        speedx=fspeedx;
+        speedy=fspeedy;
+        sprite_from_movie.setScale(f,f);
+        rotation_movie=sin(fpstime/3.0)*40;
+    } else if (movie==0) {
+        scaler=sprite_from_movie.getScale().x;
+        size_x=scaler*(float)texture_from_movie_new.getSize().x;
+    }
 
 //hopla
     if (flippo==1 && number>=1)
@@ -2592,10 +2789,12 @@ extern int record_window;
         fposx=posx;
         fposy=posy;
 //pospos
+//jojojo
         if (posx<-1920)
         {
             posx=posx+1920;
-            posx=posx;
+            fposx=fposx+1920;
+//            posx=posx;
             picturex++;
             if (picturex>maxpicturex)
                 picturex=0;
@@ -2604,7 +2803,8 @@ extern int record_window;
         else if (posx>=0)
         {
             posx=posx-1920;
-            fposx=posx;
+            fposx=fposx-1920;
+//            fposx=posx;
             picturex--;
             if (picturex<0)
                 picturex=maxpicturex;
@@ -2613,7 +2813,8 @@ extern int record_window;
         if (posy<-1080)
         {
             posy=posy+1080;
-            fposy=posy;
+            fposy=fposy+1080;
+//            fposy=posy;
             picturey++;
             if (picturey>maxpicturey)
                 picturey=0;
@@ -2622,16 +2823,13 @@ extern int record_window;
         else if (posy>=0)
         {
             posy=posy-1080;
-            fposy=posy;
+            fposy=fposy-1080;
+//            fposy=posy;
             picturey--;
             if (picturey<0)
                 picturey=maxpicturey;
             ReadBitmaps2();
         }
-
-
-
-
 
         if (fspeedx<0)
             packy=0;
@@ -3553,6 +3751,7 @@ extern int record_window;
             fspeedy=0;
         }
 
+//jojojo
         if (pen!=1) {
 //pospos
             if (posx<-1920)
@@ -3561,18 +3760,30 @@ extern int record_window;
                 posx=posx+1920;
                 fposx=fposx+1920;
                 picturex++;
-                if (picturex>maxpicturex)
-                    picturex=0;
+                if (picturex>maxpicturex) picturex=0;
+                if (posx<-1920)
+                {
+                    posx=posx+1920;
+                    fposx=fposx+1920;
+                    picturex++;
+                    if (picturex>maxpicturex) picturex=0;
+                }
+
                 ReadBitmaps2();
             }
             else if (posx>=0)
-//            else if (posx>0)
             {
                 posx=posx-1920;
                 fposx=fposx-1920;
                 picturex--;
-                if (picturex<0)
-                    picturex=maxpicturex;
+                if (picturex<0) picturex=maxpicturex;
+                if (posx>=0)
+                {
+                    posx=posx-1920;
+                    fposx=fposx-1920;
+                    picturex--;
+                    if (picturex<0) picturex=maxpicturex;
+                }
                 ReadBitmaps2();
             }
             if (posy<-1080)
@@ -3581,55 +3792,94 @@ extern int record_window;
                 posy=posy+1080;
                 fposy=fposy+1080;
                 picturey++;
-                if (picturey>maxpicturey)
-                    picturey=0;
+                if (picturey>maxpicturey) picturey=0;
+                if (posy<-1080)
+                {
+                    posy=posy+1080;
+                    fposy=fposy+1080;
+                    picturey++;
+                    if (picturey>maxpicturey) picturey=0;
+                }
                 ReadBitmaps2();
             }
             else if (posy>=0)
-//            else if (posy>0)
             {
                 posy=posy-1080;
                 fposy=fposy-1080;
                 picturey--;
-                if (picturey<0)
-                    picturey=maxpicturey;
+                if (picturey<0) picturey=maxpicturey;
+                if (posy>=0)
+                {
+                    posy=posy-1080;
+                    fposy=fposy-1080;
+                    picturey--;
+                    if (picturey<0) picturey=maxpicturey;
+                }
                 ReadBitmaps2();
             }
         } else {
             if (posx<-1920)
             {
                 posx=posx+1920;
-                posx=posx;
+                fposx=fposx+1920;
                 picturex++;
                 if (picturex>maxpicturex)
                     picturex=0;
+                if (posx<-1920)
+                {
+                    posx=posx+1920;
+                    fposx=fposx+1920;
+                    picturex++;
+                    if (picturex>maxpicturex)
+                        picturex=0;
+                }
                 ReadBitmaps2();
             }
             else if (posx>=0)
             {
                 posx=posx-1920;
-                fposx=posx;
+                fposx=fposx-1920;
                 picturex--;
                 if (picturex<0)
                     picturex=maxpicturex;
+                if (posx>=0)
+                {
+                    posx=posx-1920;
+                    fposx=fposx-1920;
+                    picturex--;
+                    if (picturex<0)
+                        picturex=maxpicturex;
+                }
                 ReadBitmaps2();
             }
             if (posy<-1080)
             {
                 posy=posy+1080;
-                fposy=posy;
+                fposy=fposy+1080;
                 picturey++;
-                if (picturey>maxpicturey)
-                    picturey=0;
+                if (picturey>maxpicturey) picturey=0;
+                if (posy<-1080)
+                {
+                    posy=posy+1080;
+                    fposy=fposy+1080;
+                    picturey++;
+                    if (picturey>maxpicturey) picturey=0;
+                }
                 ReadBitmaps2();
             }
             else if (posy>=0)
             {
                 posy=posy-1080;
-                fposy=posy;
+                fposy=fposy-1080;
                 picturey--;
-                if (picturey<0)
-                    picturey=maxpicturey;
+                if (picturey<0) picturey=maxpicturey;
+                if (posy>=0)
+                {
+                    posy=posy-1080;
+                    fposy=fposy-1080;
+                    picturey--;
+                    if (picturey<0) picturey=maxpicturey;
+                }
                 ReadBitmaps2();
             }
         }
@@ -4763,7 +5013,7 @@ extern int record_window;
 //                posx=posx+(position.x-position2.x);
 //                posy=posy+(position.y-position2.y);
 //pospos
-                if (posx<=-1920)
+//                if (posx<=-1920)
                 if (posx<-1920)
                 {
                     posx=posx+1920;
@@ -5921,8 +6171,12 @@ extern sf::Sprite ding_sprite_render[];
                 }
             }
         }
-
-        if (movie==0 && timer_movie==0 && ((plot_front==1 && handler[MOVIE_SELECT].plot_front==0) || handler[MOVIE_SELECT].plot_front==1) && handler[MOVIE_SELECT].show)
+//jojojo
+//        if (f8_repeat==0 && movie==0 && timer_movie==0 && ((plot_front==1 && handler[MOVIE_SELECT].plot_front==0) || handler[MOVIE_SELECT].plot_front==1) && handler[MOVIE_SELECT].show)
+        if (f8_repeat!=0 && mirror==1) {
+                    updatemovie();
+        } else
+        if ( movie==0 && timer_movie==0 && ((plot_front==1 && handler[MOVIE_SELECT].plot_front==0) || handler[MOVIE_SELECT].plot_front==1) && handler[MOVIE_SELECT].show)
         {
             setmoviefile();
             if (live_movie_is_mp3==0)
@@ -8856,7 +9110,7 @@ extern int overlap_pixels;
                 mydraw2(writer,1200,y_offset+selector*32,sf::Color::Red,sf::Color::White);
             }
 
-            sprintf(writer,"POSITION: X=%d Y=%d MX=%d MY=%d TX=%d TY=%d SX=%f SY=%f VX=%f VY=%f",
+            sprintf(writer,"POSITION: X=%5d Y=%5d MX=%5d MY=%5d TX=%3d TY=%3d SX=%7.3f SY=%7.3f VX=%7.3f VY=%7.3f",
                     (mazemovex+1920/2)%maxpixelsx,(mazemovey+1080/2)%maxpixelsy,plotx,ploty,render_picturex,render_picturey,
                     fmod(smooth_x,(double)maxpixelsx),fmod(smooth_y,(double)maxpixelsy),
                     avg_speedx,avg_speedy);
@@ -12799,8 +13053,11 @@ void do_the_recording_stuff()
                 }
                 else if (recording_type==1)
                     Screenshot3_m_orig();
-
-                if (record_screen==1 && record_pause==0 && movie==0 ) // change mafkees movie function....
+//jojojo
+                if (f8_repeat!=0 || mirror!=0) {
+                    updatemovie();
+                }
+                else if (record_screen==1 && record_pause==0 && movie==0 ) // change mafkees movie function....
                 {
                     if (live_movie->getStatus()==sfe::Playing && timer_movie==0 && live_movie_is_mp3==0 && tune==1)
                     {

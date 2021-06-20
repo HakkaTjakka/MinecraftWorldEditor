@@ -6989,8 +6989,10 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
         {
             if (fspeedx!=0)
             {
-                speedx=speedx+1;
+                if (mirror==1) speedx+=100;
+                else speedx=speedx+1;
                 fspeedx=speedx;
+                printf("x=%d,y=%d\r",speedx,speedy);
 //                        speedy=0;
 //                        fspeedy=0.0;
             }
@@ -7017,7 +7019,7 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
             maze_right_new=0;
             pressed=1;
             break;
-        }
+        } else printf("NOOOOOOOOOOOOOO\r");
         if (pen==1)
         {
             speedx=64;
@@ -7125,8 +7127,10 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
         {
             if (fspeedx!=0)
             {
-                speedx=speedx-1;
+                if (mirror==1) speedx-=100;
+                else speedx=speedx-1;
                 fspeedx=speedx;
+                printf("x=%d,y=%d\r",speedx,speedy);
 //                        speedy=0;
 //                        fspeedy=0.0;
             }
@@ -7153,7 +7157,7 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
             maze_right_new=1;
             pressed=1;
             break;
-        }
+        } else printf("NOOOOOOOOOOOOOO\r");
         if (pen==1)
         {
             speedx=-64;
@@ -7299,8 +7303,10 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
         {
             if (fspeedy!=0)
             {
-                speedy=speedy+1;
+                if (mirror==1) speedy+=100;
+                else speedy=speedy+1;
                 fspeedy=speedy;
+                printf("x=%d,y=%d\r",speedx,speedy);
 //                        speedx=0;
 //                        fspeedx=0.0;
             }
@@ -7327,7 +7333,7 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
             maze_right_new=0;
             pressed=1;
             break;
-        }
+        } else printf("NOOOOOOOOOOOOOO\r");
         if (pen==1)
         {
             speedy=72;
@@ -7473,8 +7479,10 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
         {
             if (fspeedy!=0)
             {
-                speedy=speedy-1;
+                if (mirror==1) speedy-=100;
+                else speedy=speedy-1;
                 fspeedy=speedy;
+                printf("x=%d,y=%d\r",speedx,speedy);
 //                        speedx=0;
 //                        fspeedx=0.0;
             }
@@ -7501,7 +7509,7 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
             maze_right_new=0;
             pressed=1;
             break;
-        }
+        } else printf("NOOOOOOOOOOOOOO\r");
         if (pen==1)
         {
             speedy=-72;
@@ -9142,8 +9150,9 @@ extern int bukkit_running;
                 strcpy(error_msg,"BACKGROUND EDITED AND NOT SAVED!!! PRESS ALT-DELETE AGAIN 2x TO CLEAR BITMAPS");
                 error_flag=1;
                 levelnotsaved=0;
-                pen=1;
-                pen_mode=2;
+//jojojo
+//                pen=1;
+//                pen_mode=2;
 //                shift=0;
 //                again1=1;
                 break;
@@ -9252,8 +9261,9 @@ extern int bukkit_running;
             ReadBitmaps2();
             ReadBitmaps4();
             LOADALLBITMAPS();
-            pen=1;
-            pen_mode=2;
+//jojojo
+//            pen=1;
+//            pen_mode=2;
 //            shift=0;
             break;
         }

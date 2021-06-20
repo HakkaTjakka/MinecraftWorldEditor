@@ -39,7 +39,7 @@ void main()
 
 //normal
 
-        if (draw_model==0) {
+        if (draw_model<=1) {
                 gl_FragColor            =  texture2D(texture_plot,  (tex_coord.xy/resolution) );
         } else {
                 vec4 kD;
@@ -47,7 +47,7 @@ void main()
 //                kD =  texture2D(the_texture,  vec2(gl_TexCoord[0].s,gl_TexCoord[0].t));
                 kD =  texture2D(texture_plot,  (tex_coord.xy/resolution) );
 //                if (flash && sin(5.0*iTime*3.1415)>0.0) {
-                if (flash) {
+                if (flash && draw_model==6) {
                     kB =  texture2D(texture_plot2,  (tex_coord.xy/resolution) );
                 }
 //                if (kD.a!=1.0) {

@@ -1871,15 +1871,26 @@ extern bool screensaver;
 
                                         setShape(window.getSystemHandle(), backgroundImage);
                                         setTransparency(window.getSystemHandle(), opacity);
+
                                         window.setVerticalSyncEnabled(true);
 //                                        glViewport(0, 0, 1922,1082);
+//                                        window.setSize(old_size[win_num]);
+//                                        window.setPosition(old_pos[win_num]);
                                     } else {
-                                        window.create(sf::VideoMode(1920,1080,32), window_title, sf::Style::Fullscreen, contextSettings);
+                                        sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
+                                        window.create(desktop, window_title, sf::Style::Fullscreen, contextSettings);
+//                                        window.create(sf::VideoMode(1920,1080,32), window_title, sf::Style::Fullscreen, contextSettings);
+//                                        sf::Image backgroundImage;
+//                                        backgroundImage.create(1922,1082,sf::Color(255,255,255,1));
+//                                        setShape(window.getSystemHandle(), backgroundImage);
+
 //                                        window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Fullscreen, contextSettings);
 //                                        window.create(sf::VideoMode(1922,1082), window_title,  sf::Style::None, contextSettings);
 //                                        window.create(sf::VideoMode(1922,1082), window_title, sf::Style::Fullscreen, contextSettings);
                                         window.setVerticalSyncEnabled(true);
 //                                        glViewport(0, 0, 1920,1080);
+//                                        window.setSize(sf::Vector2u(1920,1080));
+//                                        window.setPosition(sf::Vector2i(0,0));
                                     }
                                     between_texture.create(1920,1080,contextSettings);
                                 }
@@ -1895,14 +1906,16 @@ extern bool screensaver;
 //                                        glViewport(0, 0, 1922,1082);
 
                                     } else {
-                                        sf::Image backgroundImage;
-                                        backgroundImage.create(1922,1082,sf::Color(255,255,255,1));
+//                                        sf::Image backgroundImage;
+//                                        backgroundImage.create(1922,1082,sf::Color(255,255,255,1));
                                         window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close , contextSettings);
-                                        setShape(window.getSystemHandle(), backgroundImage);
+//                                        setShape(window.getSystemHandle(), backgroundImage);
                                         window.setVerticalSyncEnabled(true);
 //                                        glViewport(0, 0, 1920,1080);
                                     }
                                     between_texture.create(1920,1080,contextSettings);
+//                                    window.setSize(old_size[win_num]);
+//                                    window.setPosition(old_pos[win_num]);
                                 }
 
                                 window.setSize(old_size[win_num]);
