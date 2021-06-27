@@ -44,7 +44,7 @@ std::string get_octant_BRUSSEL(int &x, int &y);
 std::string get_octant_LA(int &x, int &y);
 std::string get_octant_ENSCHEDE(int &x, int &y);
 std::string get_octant_NEWYORK(int &x, int &y);
-std::string get_octant_UTRECHT(int &x, int &y);
+extern std::string get_octant_UTRECHT(int &x, int &y);
 std::string get_octant_MIAMI(int &x, int &y);
 std::string get_Model(int &x, int &y);
 std::string get_Canvas(int &x, int &y);
@@ -1514,6 +1514,7 @@ std::string get_octant_AZORES(int &x, int &y) {
 void init_sfmlgl() {
 }
 
+/*
 std::string get_octant_UTRECHT(int &x, int &y) {
     static std::string *octants[3];
     static std::string *lat_lon[3];
@@ -1567,3 +1568,4 @@ std::string get_octant_UTRECHT(int &x, int &y) {
     printf("Directory not found on search paths: %s-21\n",octants[x][y].c_str());
     return "";
 }
+*/

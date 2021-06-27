@@ -49,6 +49,7 @@ bool GET_OCTANT_LIST(std::string area_name, std::string **octants, std::string *
         int octant_line_count=0;
         while (fgets (line,200000, area_file)!=NULL ) {
             line_number++;
+            printf("line_number=%d\n",line_number);
             sscanf(line, "%20[^[][%d]=new std::string[%d] {%200000[^}];\n", what, &index, &array_size, array_line );
             sprintf(comp,"%s[%d]=new std::string[%d] {%s};\n", what, index, array_size, array_line);
 //            printf("%s[%d]=new std::string[%d] {%s};\n", what, index, array_size, array_line);
@@ -175,6 +176,61 @@ std::string get_octant_AMSTERDAM(int &x, int &y) {
 	return_root = std::string()+EARTH_ROOT1+"/AMSTERDAM/"+"obj/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
 	return_root = std::string()+EARTH_ROOT2+"/AMSTERDAM/"+"obj/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
 	return_root = std::string()+EARTH_ROOT3+"/AMSTERDAM/"+"obj/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/"+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/"+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/"+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	printf("Directory not found on search paths: %s-21\n",octants[x][y].c_str());
+	return "";
+}
+
+std::string get_octant_UTRECHT(int &x, int &y) {
+	static std::string *octants[73];
+	static std::string *lat_lon[72];
+	static int first_do=1;
+	if  (first_do==1) {
+		first_do=0;
+        printf("LOADING OCTANTS/UTRECHT.TXT\n");
+        if (!GET_OCTANT_LIST("UTRECHT", octants, lat_lon, 73, 72, 1)) {
+            printf("Error reading OCTANTS/UTRECHT.TXT\n");
+            return "";
+        }
+	}
+	extra_octants=1;
+	extra_octants_belong_to_string_pointer=octants[72];
+	extra_octants_belong_to_string_pointer_x=71;
+	if (x<0 || y<0) {
+		x=71;y=72;
+		return "";
+	}
+	bool OK=false;
+	if (x>=71 && y>0) printf("Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
+	else if (!(x>=71) && (x>71 || y>71)) printf("Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
+	else OK=true;
+	if (!OK) return "";
+	if (!(x>71)) latitude_longditude=lat_lon[x][y];
+	else latitude_longditude="";
+	std::string subdir=octants[x][y].substr(0,14)+"/";
+	return_root = std::string()+EARTH_ROOT1+"/UTRECHT/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/UTRECHT/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/UTRECHT/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/UTRECHT/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/UTRECHT/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/UTRECHT/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/UTRECHT/"+"nbt/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/UTRECHT/"+"nbt/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/UTRECHT/"+"nbt/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/UTRECHT/"+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/UTRECHT/"+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/UTRECHT/"+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/"+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/"+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/"+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/UTRECHT/"+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/UTRECHT/"+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/UTRECHT/"+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/UTRECHT/"+"obj/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/UTRECHT/"+"obj/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/UTRECHT/"+"obj/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
 	return_root = std::string()+EARTH_ROOT1+"/"+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
 	return_root = std::string()+EARTH_ROOT2+"/"+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;
 	return_root = std::string()+EARTH_ROOT3+"/"+octants[x][y]+"-21/"+octants[x][y]+".obj";  if (FileExists(return_root.c_str())) return return_root;

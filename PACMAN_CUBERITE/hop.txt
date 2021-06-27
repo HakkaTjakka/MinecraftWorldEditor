@@ -1,0 +1,213 @@
+total 64028
+-rwxrwxrwx 1 pacman pacman       50 Sep 29  2019 ADD_MAZE.BAT
+-rwxrwxrwx 1 pacman pacman      113 Sep  3  2019 AUTOMATE.BAT
+-rwxrwxrwx 1 pacman pacman  6648010 Oct 24  2020 Amsterdam.DAT
+-rwxrwxrwx 1 pacman pacman       36 Aug 17  2019 CUBERITE.BAT
+-rwxrwxrwx 1 pacman pacman       71 Aug 17  2019 CUBERITE2.BAT
+-rwxrwxrwx 1 pacman pacman   544183 Dec 23  2020 DenHaag.DAT
+drwxrwxrwx 1 pacman pacman     4096 Jan  4 00:09 ENSCHEDE
+-rwxrwxrwx 1 pacman pacman      161 May 27  2020 Enschede - kopie (2).DAT
+-rwxrwxrwx 1 pacman pacman      161 May 23  2020 Enschede - kopie.DAT
+-rwxrwxrwx 1 pacman pacman   245023 Jun 18  2020 Enschede.DAT
+-rwxrwxrwx 1 pacman pacman        0 Nov 30  2019 FROM
+-rwxrwxrwx 1 pacman pacman       69 Oct  9  2019 GEN_MAZE.BAT
+-rwxrwxrwx 1 pacman pacman       71 Oct  9  2019 GEN_MAZE_ADD_1.BAT
+-rwxrwxrwx 1 pacman pacman       71 Oct  9  2019 GEN_MAZE_ADD_2.BAT
+-rwxrwxrwx 1 pacman pacman      701 Oct 17  2019 GEN_ONE_TOTAL.BAT
+-rwxrwxrwx 1 pacman pacman     9436 Mar  1  2020 INFO.TXT
+-rwxrwxrwx 1 pacman pacman    21291 Jun 27 14:35 MACRO.TXT
+-rwxrwxrwx 1 pacman pacman      194 Apr 22  2019 MS TCP.bat
+-rwxrwxrwx 1 pacman pacman      194 Apr 22  2019 MS UPD.bat
+-rwxrwxrwx 1 pacman pacman      743 Jan  6 11:42 Models.DAT
+-rwxrwxrwx 1 pacman pacman     3072 Feb 12  2020 MojangAPI.sqlite
+-rwxrwxrwx 1 pacman pacman     4609 Aug  5  2019 NBT.TXT
+-rwxrwxrwx 1 pacman pacman       59 May 19  2020 NBT2REGION.BAT
+-rwxrwxrwx 1 pacman pacman  3791584 Sep 26  2020 NewYork.DAT
+-rwxrwxrwx 1 pacman pacman       51 May  1  2020 OBJECT_ARRAY - kopie.TXT
+-rwxrwxrwx 1 pacman pacman       40 Jun  4  2020 OBJECT_ARRAY.NEW
+-rwxrwxrwx 1 pacman pacman      543 Dec 15  2019 OBJECT_ARRAY.TXT (2).bak
+-rwxrwxrwx 1 pacman pacman       99 Jun 14  2020 OBJECT_ARRAY.TXT (3).bak
+-rwxrwxrwx 1 pacman pacman       99 Mar 30  2020 OBJECT_ARRAY.TXT (5).bak
+-rwxrwxrwx 1 pacman pacman       51 Apr 21  2020 OBJECT_ARRAY.TXT (6).bak
+-rwxrwxrwx 1 pacman pacman       99 Oct  8  2020 OBJECT_ARRAY.TXT (8).bak
+-rwxrwxrwx 1 pacman pacman       44 Nov 25  2020 OBJECT_ARRAY.TXT.bak
+-rwxrwxrwx 1 pacman pacman      103 Dec 11  2019 OBJECT_ARRAY.TXT.bakje
+-rwxrwxrwx 1 pacman pacman      110 Oct 24  2020 OBJECT_ARRAY.TXT.bakkie
+-rwxrwxrwx 1 pacman pacman        9 Jan  5 12:10 OBJECT_ARRAY.TXT.bye
+-rwxrwxrwx 1 pacman pacman      108 Oct 24  2020 OBJECT_ARRAY.TXT.hoppa
+-rwxrwxrwx 1 pacman pacman        9 Jun 22  2020 OBJECT_ARRAY.TXT.kut
+-rwxrwxrwx 1 pacman pacman       10 May 20  2020 OBJECT_ARRAY.txt (7).bak
+drwxrwxrwx 1 pacman pacman     4096 Jun 27 13:56 OCTANTS
+-rwxrwxrwx 1 pacman pacman       76 Jun 24  2020 PACMAN.BAT
+-rwxrwxrwx 1 pacman pacman      116 Jan 17 00:02 PACMAN2.BAT
+-rwxrwxrwx 1 pacman pacman      896 Aug 26  2019 PACMAN_CUBERITE.cbp - Snelkoppeling.lnk
+-rwxrwxrwx 1 pacman pacman    41345 Jun 27 14:32 Pacman.ini
+drwxrwxrwx 1 pacman pacman     4096 Jan  4 00:09 Plugins
+drwxrwxrwx 1 pacman pacman     4096 Jan  4 00:09 Prefabs
+-rwxrwxrwx 1 pacman pacman      461 Apr 22  2019 RECONNECT CLIENT TCP.bat
+-rwxrwxrwx 1 pacman pacman       83 Apr 22  2019 RECONNECT CLIENT UDP.bat
+-rwxrwxrwx 1 pacman pacman       74 Apr 22  2019 RECONNECT SERVER TCP.bat
+-rwxrwxrwx 1 pacman pacman       74 Apr 22  2019 RECONNECT SERVER UDP.bat
+-rwxrwxrwx 1 pacman pacman       61 May 19  2020 REGION2NBT.BAT
+-rwxrwxrwx 1 pacman pacman       34 Jun 24 02:18 REL_POS_IN_MAP_X1.TXT
+-rwxrwxrwx 1 pacman pacman       34 May 28 22:36 REL_POS_IN_MAP_X2.TXT
+-rwxrwxrwx 1 pacman pacman       33 Jun 24 02:18 REL_POS_IN_MAP_Y1.TXT
+-rwxrwxrwx 1 pacman pacman       33 May 28 22:36 REL_POS_IN_MAP_Y2.TXT
+-rwxrwxrwx 1 pacman pacman       63 Apr 26  2020 REMEMBER_911_TO_LEVELS_100x200_001.BAT
+-rwxrwxrwx 1 pacman pacman       59 Apr 26  2020 REMEMBER_911_TO_LEVELS_8x8_001.BAT
+-rwxrwxrwx 1 pacman pacman      289 Oct 27  2019 RUNME.bat
+-rwxrwxrwx 1 pacman pacman     8192 Feb 12  2020 Ranks.sqlite
+-rwxrwxrwx 1 pacman pacman  3884268 Nov 21  2020 Rio.DAT
+drwxrwxrwx 1 pacman pacman     4096 Jan  4 00:09 SERVER_SETTINGS
+drwxrwxrwx 1 pacman pacman     4096 Mar  9 09:22 Saves
+drwxrwxrwx 1 pacman pacman     4096 Jan  4 00:09 SimpleViewer
+-rwxrwxrwx 1 pacman pacman   271872 Nov  4  2019 SimpleViewer.exe
+-rwxrwxrwx 1 pacman pacman  3210681 Mar 16  2013 Sophie.remesh.uv.m
+-rwxrwxrwx 1 pacman pacman     3988 Oct 28  2020 Utrecht.DAT
+-rwxrwxrwx 1 pacman pacman       25 Jun  3  2020 VOXEL.BAT
+-rwxrwxrwx 1 pacman pacman        0 Jul 11  2020 add_to_region.off
+-rwxrwxrwx 1 pacman pacman        0 Oct 30  2020 add_to_region.offstupid!
+-rwxrwxrwx 1 pacman pacman        0 Jan 16  2020 amsterdam.out
+-rwxrwxrwx 1 pacman pacman   137089 Jun  5  2019 apple(bump)001.jpg
+-rwxrwxrwx 1 pacman pacman   209629 Jun  5  2019 apple(bump)002.jpg
+-rwxrwxrwx 1 pacman pacman   320612 Jun  5  2019 apple(diffuse)001.jpg
+-rwxrwxrwx 1 pacman pacman   375830 Jun  5  2019 apple(diffuse)002.jpg
+-rwxrwxrwx 1 pacman pacman   203571 Jun  5  2019 apple(reflect)001.jpg
+-rwxrwxrwx 1 pacman pacman   275708 Jun  5  2019 apple(reflect)002.jpg
+-rwxrwxrwx 1 pacman pacman     1118 Jun  5  2019 apple.mtl
+-rwxrwxrwx 1 pacman pacman 10109264 Nov  5  2019 apple.obj
+-rwxrwxrwx 1 pacman pacman      971 Nov  5  2019 apple2.mtl
+-rwxrwxrwx 1 pacman pacman       30 Jan 29 02:03 autoflower.txt.off
+-rwxrwxrwx 1 pacman pacman       71 Oct 14  2019 b.bat
+-rwxrwxrwx 1 pacman pacman     3072 Aug 14  2019 banlist.sqlite
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 bedrock.off
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 bedrock_floor.on
+-rwxrwxrwx 1 pacman pacman    66714 Mar  9 15:32 best_colors.txt
+drwxrwxrwx 1 pacman pacman     4096 Jun 27 14:46 bin
+-rwxrwxrwx 1 pacman pacman   877938 Mar  9 15:32 blockstates.txt
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 blue_to_water.on
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 boom.off
+-rwxrwxrwx 1 pacman pacman     4653 Aug 14  2019 brewing.txt
+-rwxrwxrwx 1 pacman pacman      246 Jan 23  2020 browse.bat
+drwxrwxrwx 1 pacman pacman     4096 Jan  4 00:09 build
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 caves.off
+-rwxrwxrwx 1 pacman pacman  3145782 Aug 18  2007 check_1k_64.bmp
+-rwxrwxrwx 1 pacman pacman    35634 Mar  9 15:32 colors_index.txt
+drwxrwxrwx 1 pacman pacman     4096 Jan  4 00:09 convert
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 coral.on
+-rwxrwxrwx 1 pacman pacman    53606 Aug 14  2019 crafting.txt
+-rwxrwxrwx 1 pacman pacman      124 Dec 19  2017 current_settings.bat
+-rwxrwxrwx 1 pacman pacman      678 Jul 27  2020 cut - Snelkoppeling.lnk
+-rwxrwxrwx 1 pacman pacman   189177 Jun 24 11:00 data.txt
+-rwxrwxrwx 1 pacman pacman       66 Aug 14  2019 delete_windows_service.cmd
+-rwxrwxrwx 1 pacman pacman       53 Oct  2  2019 dev_dshow.bat
+-rwxrwxrwx 1 pacman pacman       37 Apr 16  2020 dev_vfwcap.bat
+drwxrwxrwx 1 pacman pacman     4096 Dec 23  2020 dist
+-rwxrwxrwx 1 pacman pacman       77 Jun 13 20:46 e1Out.txt
+-rwxrwxrwx 1 pacman pacman     8192 May 19  2020 enschede.mca
+-rwxrwxrwx 1 pacman pacman      166 Mar 13 00:58 f2f.bat
+-rwxrwxrwx 1 pacman pacman     3748 May 23  2020 faults.txt
+-rwxrwxrwx 1 pacman pacman     2233 Aug 14  2019 favicon.png
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 fix.off
+-rwxrwxrwx 1 pacman pacman  6355776 Nov 18  2019 fly-master.zip
+drwxrwxrwx 1 pacman pacman     4096 Jan  4 00:09 freeglut
+-rwxrwxrwx 1 pacman pacman       32 Oct 19  2019 from_empty.txt.OUT
+-rwxrwxrwx 1 pacman pacman       32 Oct 19  2019 from_empty.txt.bak
+-rwxrwxrwx 1 pacman pacman     8210 Aug 14  2019 furnace.txt
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 glass.off
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 grass.off
+-rwxrwxrwx 1 pacman pacman      214 Apr 22  2019 greetings.txt
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 ground.off
+-rwxrwxrwx 1 pacman pacman   124376 Oct 28  2020 handleiding.txt
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 hills.off
+-rwxrwxrwx 1 pacman pacman        0 Jun 27 17:54 hop.txt
+-rwxrwxrwx 1 pacman pacman      283 Aug 14  2019 install_windows_service.cmd
+-rwxrwxrwx 1 pacman pacman      872 Aug 14  2019 itemblacklist
+-rwxrwxrwx 1 pacman pacman    27569 Aug 14  2019 items.ini
+-rwxrwxrwx 1 pacman pacman    12902 Jul 18  2019 keylist.txt
+drwxrwxrwx 1 pacman pacman     4096 Jan  4 00:09 lang
+-rwxrwxrwx 1 pacman pacman     2998 Oct 28  2020 lat_lon.txt
+-rwxrwxrwx 1 pacman pacman     2798 May 30  2020 lat_lon.txt.bak
+-rwxrwxrwx 1 pacman pacman        3 Jun 27 14:35 level.txt
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 lighten.on
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 lights.off
+-rwxrwxrwx 1 pacman pacman      179 Aug 27  2019 link_saves.bat
+-rwxrwxrwx 1 pacman pacman       11 Jun 27 14:35 list.txt
+-rwxrwxrwx 1 pacman pacman    12154 Oct 23  2019 list32x32.txt
+-rwxrwxrwx 1 pacman pacman    27749 Oct 21  2019 list64x64.txt
+-rwxrwxrwx 1 pacman pacman    12153 Jun 24 02:18 locations1.txt
+-rwxrwxrwx 1 pacman pacman    11116 May 28 22:36 locations2.txt
+-rwxrwxrwx 1 pacman pacman  1655052 Jun 27 14:35 logfile.txt
+drwxrwxrwx 1 pacman pacman     4096 Jan  4 00:09 logs
+-rwxrwxrwx 1 pacman pacman      461 Apr 22  2019 makelist.bat
+-rwxrwxrwx 1 pacman pacman        3 Apr 16  2020 map.txt
+-rwxrwxrwx 1 pacman pacman     4455 Nov 27  2019 markers.txt
+-rwxrwxrwx 1 pacman pacman     7080 Jun 27 14:34 markers_copy.txt
+-rwxrwxrwx 1 pacman pacman     7080 Jun 27 14:34 markers_window0.txt
+-rwxrwxrwx 1 pacman pacman      670 Jan  1 00:10 markers_window1 - Copy.txt
+-rwxrwxrwx 1 pacman pacman     5664 Jun 14 16:38 markers_window1.txt
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 massiv.off
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 maze.off
+drwxrwxrwx 1 pacman pacman     4096 Mar 12 21:44 mcfunctions
+-rwxrwxrwx 1 pacman pacman      215 Aug  6  2019 memory.txt
+-rwxrwxrwx 1 pacman pacman   192813 Nov  5  2019 model.3.mtl
+-rwxrwxrwx 1 pacman pacman   152732 Nov  2  2019 model.mtl
+-rwxrwxrwx 1 pacman pacman     2953 Aug 14  2019 monsters.ini
+-rwxrwxrwx 1 pacman pacman      108 Aug 16  2019 motd.txt
+-rwxrwxrwx 1 pacman pacman      252 Jun 15 18:55 movie_error.log
+-rwxrwxrwx 1 pacman pacman   354090 Jun 24 11:01 movie_offset.log
+-rwxrwxrwx 1 pacman pacman       62 Apr  2  2020 path_for_mingw_seh.txt
+drwxrwxrwx 1 pacman pacman     4096 Jan 19 05:50 pictures
+-rwxrwxrwx 1 pacman pacman        6 Feb 12 18:13 playbackspeed.txt
+drwxrwxrwx 1 pacman pacman     4096 Jan  4 00:09 players
+drwxrwxrwx 1 pacman pacman     4096 Jan  4 00:09 project-obj
+-rwxrwxrwx 1 pacman pacman  1603806 Jun 13  2020 project-obj.zip
+-rwxrwxrwx 1 pacman pacman     1028 Dec 23  2020 projection.spec
+-rwxrwxrwx 1 pacman pacman    19007 Sep  1  2020 qq - kopie.bat
+-rwxrwxrwx 1 pacman pacman    19639 Sep  1  2020 qq.bat
+-rwxrwxrwx 1 pacman pacman       85 Jan  6 22:05 qsetpath_seh_64_v7 - kopie.bat
+-rwxrwxrwx 1 pacman pacman  2689015 Jan 23 19:10 r.0.0.vox
+-rwxrwxrwx 1 pacman pacman  2109575 Aug 30  2020 r.23.26.gzip.nbt
+-rwxrwxrwx 1 pacman pacman  4780032 Jul  4  2020 r.23.26.mca
+-rwxrwxrwx 1 pacman pacman  2903554 Aug 30  2020 r.23.26.zip
+drwxrwxrwx 1 pacman pacman     4096 Jan  4 00:09 record
+-rwxrwxrwx 1 pacman pacman    13225 May 21  2020 record_screen.bat
+-rwxrwxrwx 1 pacman pacman       99 Jun 16  2019 record_webcam.bat
+-rwxrwxrwx 1 pacman pacman      166 Oct 30  2020 recover.bat
+-rwxrwxrwx 1 pacman pacman       20 Feb 27 12:18 report.txt
+-rwxrwxrwx 1 pacman pacman    21118 May 28  2020 report_sub.txt
+-rwxrwxrwx 1 pacman pacman       33 Aug 18  2019 res.bat
+drwxrwxrwx 1 pacman pacman     4096 Mar 11 08:03 resources
+-rwxrwxrwx 1 pacman pacman       45 Nov 27  2020 restore_one_regionfile.bat
+-rwxrwxrwx 1 pacman pacman   262655 Jul 19  2020 result.txt
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 rooms.off
+-rwxrwxrwx 1 pacman pacman       40 Oct 20  2019 s.bat
+-rwxrwxrwx 1 pacman pacman    84843 Sep 29  2019 scarpet-master.zip
+-rwxrwxrwx 1 pacman pacman  3935626 Jun 14 16:45 screenshot.png
+-rwxrwxrwx 1 pacman pacman      122 Aug 27  2019 setpath_seh_64_v7.bat
+-rwxrwxrwx 1 pacman pacman     3326 Feb 12  2020 settings.ini
+drwxrwxrwx 1 pacman pacman     4096 Jun 27 09:53 shaders
+-rwxrwxrwx 1 pacman pacman    99895 Jan 12 05:36 shit.txt
+-rwxrwxrwx 1 pacman pacman   183280 Jun 24  2020 skull.schematic
+-rwxrwxrwx 1 pacman pacman    23735 Dec 16  2019 sort.obj
+drwxrwxrwx 1 pacman pacman     4096 Jun 27 10:40 src
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 stone.on
+-rwxrwxrwx 1 pacman pacman       79 Oct 17  2019 stop.bak
+-rwxrwxrwx 1 pacman pacman      151 Oct 27  2019 t.bat
+-rwxrwxrwx 1 pacman pacman       29 Jul  4  2020 taskbar.bat
+-rwxrwxrwx 1 pacman pacman  2211894 Nov 29  2019 test.bmp
+-rwxrwxrwx 1 pacman pacman     8192 Aug 27  2019 test.mca
+-rwxrwxrwx 1 pacman pacman      127 Apr 26  2020 text - kopie.txt
+-rwxrwxrwx 1 pacman pacman       24 Feb 11 00:34 text.txt
+-rwxrwxrwx 1 pacman pacman   383513 Feb 13 13:27 textures_file_error.log
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 tunnels.off
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 turbo.on
+-rwxrwxrwx 1 pacman pacman      242 Nov  4  2019 view_test.bat
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 water.on
+drwxrwxrwx 1 pacman pacman     4096 Jan  4 00:10 webadmin
+-rwxrwxrwx 1 pacman pacman      358 Feb 12  2020 webadmin.ini
+-rwxrwxrwx 1 pacman pacman        0 Jun 26  2020 white.off
+-rwxrwxrwx 1 pacman pacman     4096 Aug 14  2019 whitelist.sqlite
+-rwxrwxrwx 1 pacman pacman   177783 Jun  5  2019 wood(bump)_Byholma.jpg
+-rwxrwxrwx 1 pacman pacman   152817 Jun  5  2019 wood(diffuse)_Byholma(white).jpg
+drwxrwxrwx 1 pacman pacman     4096 Jan  4 00:10 world

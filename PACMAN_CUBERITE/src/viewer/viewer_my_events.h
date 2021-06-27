@@ -1838,7 +1838,9 @@ extern bool screensaver;
                                         old_size[win_num]=sf::Vector2u(1922,1082);
                                         old_pos[win_num]=sf::Vector2i(0,0);
                                     }  else {
-                                        old_size[win_num]=sf::Vector2u(1920,1080);
+//flikker
+                                        old_size[win_num]=sf::Vector2u(1922,1082);
+//                                        old_size[win_num]=sf::Vector2u(1920,1080);
                                         old_pos[win_num]=sf::Vector2i(0,0);
                                     }
                                     old_size2=window.getSize();
@@ -1877,20 +1879,28 @@ extern bool screensaver;
 //                                        window.setSize(old_size[win_num]);
 //                                        window.setPosition(old_pos[win_num]);
                                     } else {
+/*
+                                        const unsigned char opacity = 255;
+                                        sf::Image backgroundImage;
+                                        backgroundImage.create(1922,1082,sf::Color(255,255,255,1));
+                                        window.create(sf::VideoMode(backgroundImage.getSize().x, backgroundImage.getSize().y, 32), "Transparent Window", sf::Style::None ,contextSettings);
+//                                        window.setPosition(-1,-1);
+
+                                        setShape(window.getSystemHandle(), backgroundImage);
+                                        setTransparency(window.getSystemHandle(), opacity);
+
+                                        window.setVerticalSyncEnabled(true);
+*/
+
+
+
                                         sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
                                         window.create(desktop, window_title, sf::Style::Fullscreen, contextSettings);
-//                                        window.create(sf::VideoMode(1920,1080,32), window_title, sf::Style::Fullscreen, contextSettings);
-//                                        sf::Image backgroundImage;
-//                                        backgroundImage.create(1922,1082,sf::Color(255,255,255,1));
-//                                        setShape(window.getSystemHandle(), backgroundImage);
-
-//                                        window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Fullscreen, contextSettings);
-//                                        window.create(sf::VideoMode(1922,1082), window_title,  sf::Style::None, contextSettings);
-//                                        window.create(sf::VideoMode(1922,1082), window_title, sf::Style::Fullscreen, contextSettings);
+                                        printf("here\n");
                                         window.setVerticalSyncEnabled(true);
 //                                        glViewport(0, 0, 1920,1080);
-//                                        window.setSize(sf::Vector2u(1920,1080));
-//                                        window.setPosition(sf::Vector2i(0,0));
+                                        window.setSize(sf::Vector2u(1920,1080));
+                                        window.setPosition(sf::Vector2i(0,0));
                                     }
                                     between_texture.create(1920,1080,contextSettings);
                                 }

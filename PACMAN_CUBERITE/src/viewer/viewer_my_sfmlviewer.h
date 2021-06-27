@@ -11,6 +11,7 @@ void one_region_voxel_files_to_region_files(bool display_only, char* voxel_filen
 #include <Windows.h>
 
 #include <Dwmapi.h>
+//#include <GL/freeglut.h>
 
 #pragma comment (lib, "Dwmapi.lib")
 extern bool dont_slow_down;
@@ -813,7 +814,9 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                         old_size[i] = ( sf::Vector2u(1922,1082) );
                         old_pos[i]  = ( sf::Vector2i(0,0) );
                     } else {
-                        old_size[i] = ( sf::Vector2u(1920,1080) );
+//flikker
+                        old_size[i] = ( sf::Vector2u(1922,1082) );
+//                        old_size[i] = ( sf::Vector2u(1920,1080) );
                         old_pos[i]  = ( sf::Vector2i(0,0) );
                     }
                 } else {
@@ -875,7 +878,7 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
         if (area=="Models") {
             printf("%s ->",filename);
             test_area=GetFileName(filename);
-            test_area=GetFileName(filename);
+//            test_area=GetFileName(filename);
             test_area=test_area.substr(0,my_area.length()-4);
         } else {
             test_area=area;
@@ -2418,6 +2421,7 @@ extern double schematic_size;
                 } else {
                     if (doesnt_work==0) doesnt_work=1;
                 }
+
                 static float Hz60=1.0/60.0;
                 static float render_current;
                 render_current=render_clock.getElapsedTime().asSeconds();
@@ -2428,6 +2432,7 @@ extern double schematic_size;
                 }
                 misses_percentage=misses/(hits+misses)*100.0;
                 cpu_usage=(cpu_usage*9.0+(render_current-render_time)/Hz60)/10.0;
+
 
 //jitter?
 //                sf::sleep(sf::seconds(0.001));
@@ -2457,9 +2462,11 @@ extern double schematic_size;
                 else {
 //                    window.setActive(false);
 //                    sf::sleep(sf::milliseconds(10));
-//                    window.pushGLStates();
-                    window.display();
 //                    window.popGLStates();
+//                    glutSwapBuffers();
+//flikker
+                    window.display();
+//                    window.pushGLStates();
 //                    window.clear();
                 }
 

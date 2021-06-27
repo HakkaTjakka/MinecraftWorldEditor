@@ -550,6 +550,7 @@
 		<Unit filename="shaders/wave.vert">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="slots.cpp" />
 		<Unit filename="stdafx.cpp" />
 		<Unit filename="stdafx.h" />
 		<Unit filename="targetver.h" />

@@ -678,7 +678,7 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                 size_t f=0;
                 size_t shape_size=shapes[s].mesh.indices.size() / 3;
 
-                printf("shapes[%d].mesh.indices.size()=%d\n",s,shapes[s].mesh.indices.size());
+//                printf("shapes[%d].mesh.indices.size()=%d\n",s,shapes[s].mesh.indices.size());
 
                 for (f = 0; f < shape_size; f++)
                 {

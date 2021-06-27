@@ -62,7 +62,7 @@
 #include <glm/common.hpp>
 #include <../VOXEL.HPP>
 bool dont_slow_down=false;
-
+extern int draw_model;
 extern bool roelof;
 extern bool screensaver;
 extern void merge_back_to_front();
@@ -2441,7 +2441,7 @@ extern int record_window;
                 int add=20.0+rand()%( int( time_movie.asSeconds() - 30.0 )  );
 //                printf("time: %d  add: %d  ",int( time_movie.asSeconds() ), add);
 
-                if ( timer2<(2+time_movie.asSeconds()/600) && add>1.0 && add < int(time_movie.asSeconds()-11.0) )
+                if ( timer2<(2+time_movie.asSeconds()/1600) && add>1.0 && add < int(time_movie.asSeconds()-11.0) )
                 {
                     printf( "timer=%d  duration=%d  is=%d  goto=%d  ->  ",
                            timer2,int(time_movie.asSeconds()),int(live_movie->getPlayingOffset().asSeconds()), add );
@@ -9061,8 +9061,8 @@ extern int overlap_pixels;
                     sprintf(writer,"         PATH=%10.9f   SET HOLD=%8.5f",
                             ddp,hold);
                     mydraw2(writer,1200,y_offset+32*9,sf::Color::Blue,sf::Color::White);
-                    sprintf(writer,"         HOLD LEVEL=%2d       CURRENT=%8.5f",
-                            hold_level,(double)(sprite_from_canvas.getScale().x)*pow(2.0,level));
+                    sprintf(writer,"         HOLD LEVEL=%2d       CURRENT=%8.5f  MODE=%d",
+                            hold_level,(double)(sprite_from_canvas.getScale().x)*pow(2.0,level),draw_model);
                     mydraw2(writer,1200,y_offset+32*10,sf::Color::Blue,sf::Color::White);
 
 
@@ -13728,6 +13728,10 @@ extern int kleur_back;
         int position_x=old_position_x;
 //        int position_y;
 //        int position_x;
+
+extern void set_bars();
+        set_bars();
+
         for (x=fromx; x<=tox; x++)
         {
             for (y=fromy; y<=toy; y++)

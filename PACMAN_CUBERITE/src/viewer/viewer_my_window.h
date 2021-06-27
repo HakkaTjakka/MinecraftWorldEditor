@@ -72,6 +72,11 @@
                 {
                     static bool first=true;
                     if (first) {
+                        char arg0[10]="moi";
+                        char arg1[10]="";
+                        char *arg[2]={arg0,arg1};
+                        int argc=1;
+//                        glutInit(&argc,arg);
                         texture_shit.create(1,1);
                         texture_shit.clear(sf::Color(1,1,1,1));
                         sprite_shit.setTexture(texture_shit.getTexture(),true);
@@ -127,6 +132,8 @@
 //                WorkArea.right=1920;
 //                WorkArea.top=0;
 //                WorkArea.bottom=1080;
+//flikker
+                window.setActive(false);
                 window.clear(sf::Color(sf::Color::Transparent));
                 window.display();
 
@@ -136,7 +143,7 @@
 
                 ShowCursor(true);
                 rot_on=false;
-//                window.setVerticalSyncEnabled(true);
+                window.setVerticalSyncEnabled(true);
                 sync_window[win_num]=1;
                 window.setActive(true);
 

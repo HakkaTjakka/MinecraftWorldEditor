@@ -33,6 +33,7 @@ bower_components
 build/Release
 
 # Dependency directories
+node_modules/
 jspm_packages/
 
 # TypeScript v1 declaration files
@@ -60,4 +61,14 @@ typings/
 .next
 
 # other
+downloaded_files/
 
+client/main
+*.exe
+*.dll
+*.idb
+*.pdb
+*.dSYM
+*.pb.h
+*.pb.cc
+client/cache
