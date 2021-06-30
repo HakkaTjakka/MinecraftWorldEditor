@@ -1,7 +1,7 @@
 #!/bin/bash
 #echo Converting mtl files
 
-# patches model.mtl
+# converts all *.jpg and *.bmp files to *.png and patches model.mtl
 
 dir="."
 test $(find "$dir" -type d | head -n 1) || exit 1

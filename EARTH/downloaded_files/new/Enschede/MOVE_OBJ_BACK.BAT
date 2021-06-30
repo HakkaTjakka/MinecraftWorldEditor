@@ -1,6 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
-for /D %%a in (%CD%\03*) do (
+for /D %%a in (%CD%\3*) do (
 rem	echo %%a
 	for /D %%b in (%%a\*) do (
 rem	echo %%b
