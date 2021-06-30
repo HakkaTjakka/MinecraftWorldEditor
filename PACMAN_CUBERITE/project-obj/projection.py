@@ -2,6 +2,7 @@
 
 import jnius_config
 import sys
+import math
 
 jnius_config.set_classpath('terra121_classes')
 from jnius import autoclass
@@ -18,7 +19,7 @@ base_projection = GeographicProjection.orientProjection(ModifiedAirocean(), Orie
 projection = ScaleProjection(base_projection, 7318261.522857145, -7318261.522857145)
 
 if __name__ == "__main__":
-    multiprocessing.freeze_support()
+#    multiprocessing.freeze_support()
 #    print(projection.fromGeo(0, 51.5))
 #    print(projection.toGeo(*projection.fromGeo(0, 51.5)))
 
@@ -47,11 +48,72 @@ if __name__ == "__main__":
         BOTTOM_LEFT=projection.fromGeo(LON_WEST,LAT_SOUTH)
         BOTTOM_RIGHT=projection.fromGeo(LON_EAST,LAT_SOUTH)
         
-        print ('top left:    ' + 'X=' + str(TOP_LEFT[0]) + ' , Z=' + str(TOP_LEFT[1]) )
-        print ('top right:   ' + 'X=' + str(TOP_RIGHT[0]) + ' , Z=' + str(TOP_RIGHT[1]) )
-        print ('bottom left: ' + 'X=' + str(BOTTOM_LEFT[0]) + ' , Z=' + str(BOTTOM_LEFT[1]) )
-        print ('bottom right:' + 'X=' + str(BOTTOM_RIGHT[0]) + ' , Z=' + str(BOTTOM_RIGHT[1]) )
+#        print ('top left:    ' + 'X=' + str(TOP_LEFT[0]) + ' , Z=' + str(TOP_LEFT[1]) )
+#        print ('top right:   ' + 'X=' + str(TOP_RIGHT[0]) + ' , Z=' + str(TOP_RIGHT[1]) )
+#        print ('bottom left: ' + 'X=' + str(BOTTOM_LEFT[0]) + ' , Z=' + str(BOTTOM_LEFT[1]) )
+#        print ('bottom right:' + 'X=' + str(BOTTOM_RIGHT[0]) + ' , Z=' + str(BOTTOM_RIGHT[1]) )
+        print ('TOP_LEFT(' + 'X=' + str(TOP_LEFT[0]) + ',Z=' + str(TOP_LEFT[1]) + ')')
+        print ('TOP_RIGHT(' + 'X=' + str(TOP_RIGHT[0]) + ',Z=' + str(TOP_RIGHT[1]) + ')')
+        print ('BOT_LEFT(' + 'X=' + str(BOTTOM_LEFT[0]) + ',Z=' + str(BOTTOM_LEFT[1]) + ')')
+        print ('BOT_RIGHT(' + 'X=' + str(BOTTOM_RIGHT[0]) + ',Z=' + str(BOTTOM_RIGHT[1]) + ')')
+
+        LEN_TOP=   math.sqrt( (TOP_RIGHT[0]-TOP_LEFT[0])*(TOP_RIGHT[0]-TOP_LEFT[0]) + (TOP_RIGHT[1]-TOP_LEFT[1])*(TOP_RIGHT[1]-TOP_LEFT[1]) ) 
+        LEN_BOT=   math.sqrt( (BOTTOM_RIGHT[0]-BOTTOM_LEFT[0])*(BOTTOM_RIGHT[0]-BOTTOM_LEFT[0]) + (BOTTOM_RIGHT[1]-BOTTOM_LEFT[1])*(BOTTOM_RIGHT[1]-BOTTOM_LEFT[1]) ) 
+        LEN_RIGHT= math.sqrt( (TOP_RIGHT[0]-BOTTOM_RIGHT[0])*(TOP_RIGHT[0]-TOP_RIGHT[0]) + (TOP_RIGHT[1]-BOTTOM_RIGHT[1])*(TOP_RIGHT[1]-BOTTOM_RIGHT[1]) ) 
+        LEN_LEFT=  math.sqrt( (TOP_LEFT[0]-BOTTOM_LEFT[0])*(TOP_LEFT[0]-TOP_LEFT[0]) + (TOP_LEFT[1]-BOTTOM_LEFT[1])*(TOP_LEFT[1]-BOTTOM_LEFT[1]) ) 
+
+        SURFACE=((LEN_TOP+LEN_BOT)/2.0) * ((LEN_RIGHT+LEN_LEFT)/2.0) / (512.0*512.0)
+
+        print ('SURFACE=' + str(SURFACE) + ' REGION FILES')
+
+        print( "LEN_TOP=  " + str( math.sqrt( (TOP_RIGHT[0]-TOP_LEFT[0])*(TOP_RIGHT[0]-TOP_LEFT[0]) + (TOP_RIGHT[1]-TOP_LEFT[1])*(TOP_RIGHT[1]-TOP_LEFT[1]) ) ) )
+        print( "LEN_BOT=  " + str( math.sqrt( (BOTTOM_RIGHT[0]-BOTTOM_LEFT[0])*(BOTTOM_RIGHT[0]-BOTTOM_LEFT[0]) + (BOTTOM_RIGHT[1]-BOTTOM_LEFT[1])*(BOTTOM_RIGHT[1]-BOTTOM_LEFT[1]) ) ) )
+        print( "LEN_RIGHT=" + str( math.sqrt( (TOP_RIGHT[0]-BOTTOM_RIGHT[0])*(TOP_RIGHT[0]-TOP_RIGHT[0]) + (TOP_RIGHT[1]-BOTTOM_RIGHT[1])*(TOP_RIGHT[1]-BOTTOM_RIGHT[1]) ) ) )
+        print( "LEN_LEFT= " + str( math.sqrt( (TOP_LEFT[0]-BOTTOM_LEFT[0])*(TOP_LEFT[0]-TOP_LEFT[0]) + (TOP_LEFT[1]-BOTTOM_LEFT[1])*(TOP_LEFT[1]-BOTTOM_LEFT[1]) ) ) )
+    elif len(sys.argv)==6:
+        LON_WEST=float(sys.argv[3])
+        LAT_NORTH=float(sys.argv[1])
+        LON_EAST=float(sys.argv[4])
+        LAT_SOUTH=float(sys.argv[2])
+        TOP_LEFT=projection.fromGeo(LON_WEST,LAT_NORTH)
+        TOP_RIGHT=projection.fromGeo(LON_EAST,LAT_NORTH)
+        BOTTOM_LEFT=projection.fromGeo(LON_WEST,LAT_SOUTH)
+        BOTTOM_RIGHT=projection.fromGeo(LON_EAST,LAT_SOUTH)
         
+#        print ('top left:    ' + 'X=' + str(TOP_LEFT[0]) + ' , Z=' + str(TOP_LEFT[1]) )
+#        print ('top right:   ' + 'X=' + str(TOP_RIGHT[0]) + ' , Z=' + str(TOP_RIGHT[1]) )
+#        print ('bottom left: ' + 'X=' + str(BOTTOM_LEFT[0]) + ' , Z=' + str(BOTTOM_LEFT[1]) )
+#        print ('bottom right:' + 'X=' + str(BOTTOM_RIGHT[0]) + ' , Z=' + str(BOTTOM_RIGHT[1]) )
+
+        LEN_TOP=   math.sqrt( (TOP_RIGHT[0]-TOP_LEFT[0])*(TOP_RIGHT[0]-TOP_LEFT[0]) + (TOP_RIGHT[1]-TOP_LEFT[1])*(TOP_RIGHT[1]-TOP_LEFT[1]) ) 
+        LEN_BOT=   math.sqrt( (BOTTOM_RIGHT[0]-BOTTOM_LEFT[0])*(BOTTOM_RIGHT[0]-BOTTOM_LEFT[0]) + (BOTTOM_RIGHT[1]-BOTTOM_LEFT[1])*(BOTTOM_RIGHT[1]-BOTTOM_LEFT[1]) ) 
+        LEN_RIGHT= math.sqrt( (TOP_RIGHT[0]-BOTTOM_RIGHT[0])*(TOP_RIGHT[0]-TOP_RIGHT[0]) + (TOP_RIGHT[1]-BOTTOM_RIGHT[1])*(TOP_RIGHT[1]-BOTTOM_RIGHT[1]) ) 
+        LEN_LEFT=  math.sqrt( (TOP_LEFT[0]-BOTTOM_LEFT[0])*(TOP_LEFT[0]-TOP_LEFT[0]) + (TOP_LEFT[1]-BOTTOM_LEFT[1])*(TOP_LEFT[1]-BOTTOM_LEFT[1]) ) 
+
+        SURFACE=((LEN_TOP+LEN_BOT)/2.0) * ((LEN_RIGHT+LEN_LEFT)/2.0) / (512.0*512.0)
+
+#        SURFACE=round(SURFACE,3)
+
+#        TOP_LEFT[0]=round(TOP_LEFT[0],3)
+#        TOP_RIGHT[0]=round(TOP_RIGHT[0],3)
+#        BOTTOM_LEFT[0]=round(BOTTOM_LEFT[0],3)
+#        BOTTOM_RIGHT[0]=round(BOTTOM_RIGHT[0],3)
+#        TOP_LEFT[1]=round(TOP_LEFT[1],3)
+#        TOP_RIGHT[1]=round(TOP_RIGHT[1],3)
+#        BOTTOM_LEFT[1]=round(BOTTOM_LEFT[1],3)
+#        BOTTOM_RIGHT[1]=round(BOTTOM_RIGHT[1],3)
+        print ('TOP_LEFT(' + 'X=' + str(TOP_LEFT[0]) + ',Z=' + str(TOP_LEFT[1]) + ') ' )
+        print ('TOP_RIGHT(' + 'X=' + str(TOP_RIGHT[0]) + ',Z=' + str(TOP_RIGHT[1]) + ') ' )
+        print ('BOT_LEFT(' + 'X=' + str(BOTTOM_LEFT[0]) + ',Z=' + str(BOTTOM_LEFT[1]) + ') ' )
+        print ('BOT_RIGHT(' + 'X=' + str(BOTTOM_RIGHT[0]) + ',Z=' + str(BOTTOM_RIGHT[1]) + ') ' )
+
+        print ('SURFACE=' + str(SURFACE) + ' REGIONS')
+
+#        print( "LEN_TOP=  " + str( math.sqrt( (TOP_RIGHT[0]-TOP_LEFT[0])*(TOP_RIGHT[0]-TOP_LEFT[0]) + (TOP_RIGHT[1]-TOP_LEFT[1])*(TOP_RIGHT[1]-TOP_LEFT[1]) ) ) )
+#        print( "LEN_BOT=  " + str( math.sqrt( (BOTTOM_RIGHT[0]-BOTTOM_LEFT[0])*(BOTTOM_RIGHT[0]-BOTTOM_LEFT[0]) + (BOTTOM_RIGHT[1]-BOTTOM_LEFT[1])*(BOTTOM_RIGHT[1]-BOTTOM_LEFT[1]) ) ) )
+#        print( "LEN_RIGHT=" + str( math.sqrt( (TOP_RIGHT[0]-BOTTOM_RIGHT[0])*(TOP_RIGHT[0]-TOP_RIGHT[0]) + (TOP_RIGHT[1]-BOTTOM_RIGHT[1])*(TOP_RIGHT[1]-BOTTOM_RIGHT[1]) ) ) )
+#        print( "LEN_LEFT= " + str( math.sqrt( (TOP_LEFT[0]-BOTTOM_LEFT[0])*(TOP_LEFT[0]-TOP_LEFT[0]) + (TOP_LEFT[1]-BOTTOM_LEFT[1])*(TOP_LEFT[1]-BOTTOM_LEFT[1]) ) ) )
+
         
         
 #    I = 0

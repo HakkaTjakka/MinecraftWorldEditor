@@ -184,31 +184,32 @@ std::string get_octant_AMSTERDAM(int &x, int &y) {
 }
 
 std::string get_octant_UTRECHT(int &x, int &y) {
-	static std::string *octants[73];
-	static std::string *lat_lon[72];
+	static std::string *octants[145];
+	static std::string *lat_lon[144];
 	static int first_do=1;
 	if  (first_do==1) {
 		first_do=0;
         printf("LOADING OCTANTS/UTRECHT.TXT\n");
-        if (!GET_OCTANT_LIST("UTRECHT", octants, lat_lon, 73, 72, 1)) {
+        if (!GET_OCTANT_LIST("UTRECHT", octants, lat_lon, 145, 144, 336)) {
             printf("Error reading OCTANTS/UTRECHT.TXT\n");
             return "";
         }
 	}
-	extra_octants=1;
-	extra_octants_belong_to_string_pointer=octants[72];
-	extra_octants_belong_to_string_pointer_x=71;
+	extra_octants=336;
+	extra_octants_belong_to_string_pointer=octants[144];
+	extra_octants_belong_to_string_pointer_x=143;
 	if (x<0 || y<0) {
-		x=71;y=72;
+		x=143;y=145;
 		return "";
 	}
 	bool OK=false;
-	if (x>=71 && y>0) printf("Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
-	else if (!(x>=71) && (x>71 || y>71)) printf("Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
+	if (x>=143 && y>335) printf("Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
+	else if (!(x>=143) && (x>143 || y>144)) printf("Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
 	else OK=true;
 	if (!OK) return "";
-	if (!(x>71)) latitude_longditude=lat_lon[x][y];
+	if (!(x>143)) latitude_longditude=lat_lon[x][y];
 	else latitude_longditude="";
+
 	std::string subdir=octants[x][y].substr(0,14)+"/";
 	return_root = std::string()+EARTH_ROOT1+"/UTRECHT/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
 	return_root = std::string()+EARTH_ROOT2+"/UTRECHT/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;

@@ -99,10 +99,16 @@ async function run() {
 			lon1= 6.974389;
 		} else if (CITY=="--UTRECHT") {
 			CITY_NAME="UTRECHT"
-			lat0=52.190255;
-			lon0=4.928771;
-			lat1=51.991946;
-			lon1=5.316060;
+			
+			lat0=52.290255;
+			lon0=4.728771;
+			lat1=51.891946;
+			lon1=5.516060;
+			
+//			lat0=52.190255;
+//			lon0=4.928771;
+//			lat1=51.991946;
+//			lon1=5.316060;
 		} else if (CITY=="--LA") {
 			CITY_NAME="LA"
 			lat0=34.081049;
@@ -234,8 +240,10 @@ async function run() {
         let set_extra_lat_lon=0;
         var num_lats=0.0;
         var num_lons=0.0;
-        if (size_lat>0) num_lats=(lat0-lat1)/size_lat+1;
-        if (size_lon>0) num_lons=(lon1-lon0)/size_lon+1;
+//        if (size_lat>0) num_lats=(lat0-lat1)/size_lat+1;
+//        if (size_lon>0) num_lons=(lon1-lon0)/size_lon+1;
+        if (size_lat>0) num_lats=(lat0-lat1)/size_lat;
+        if (size_lon>0) num_lons=(lon1-lon0)/size_lon;
 		num_lats = Math.round(num_lats);
 		num_lons = Math.round(num_lons);
 		console.log("num_lats=" + num_lats);

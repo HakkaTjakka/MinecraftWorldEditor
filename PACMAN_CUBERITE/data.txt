@@ -2538,3 +2538,48 @@
 0 MOVIE: E:\SHIT\recode\Hookup Hotshot Sex Tapes Volume 9 cd1.mp4
 0 MOVIE: E:\SHIT\new\output1624500931151.mp4
 1 Program busy or hangs... Thread alive at: 24/06/2021 11:00:16
+1 Program busy or hangs... Thread alive at: 27/06/2021 20:02:52
+1 Program busy or hangs... Thread alive at: 27/06/2021 20:05:32
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE2: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+1 Program busy or hangs... Thread alive at: 27/06/2021 20:17:44
+0 MOVIE2: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 Program busy or hangs... Thread alive at: 27/06/2021 20:19:01
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+1 Program busy or hangs... Thread alive at: 27/06/2021 20:19:06
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE2: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE2: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE2: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE2: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE2: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE2: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE2: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+0 MOVIE2: C:\Users\PACMAN\Pictures\CIRCUS\output1624817125.mp4
+1 Program busy or hangs... Thread alive at: 30/06/2021 03:20:37
+1 Program busy or hangs... Thread alive at: 30/06/2021 03:21:06
+1 Program busy or hangs... Thread alive at: 30/06/2021 03:21:23

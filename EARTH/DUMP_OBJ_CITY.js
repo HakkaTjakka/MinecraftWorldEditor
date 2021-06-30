@@ -14,7 +14,7 @@ const DL_DIR = './downloaded_files';
 const [ DUMP_NEW_NEW_DIR,	DUMP_NEW_DIR,		DUMP_NEW_DIR_UTRECHT,	DUMP_NEW_DIR_RIO,		DUMP_NEW_DIR_MIAMI,		DUMP_NEW_DIR_AZORES,		DUMP_NEW_DIR_DENHAAG,		DUMP_NEW_DIR_SCHWEIZ,		DUMP_NEW_DIR_NEWYORK,		DUMP_NEW_DIR_BRUSSEL,		DUMP_NEW_DIR_ENSCHEDE,		DUMP_NEW_DIR_LA,		DUMP_NEW_DIR_AMSTERDAM,		DUMP_OBJ_DIR,		DUMP_JSON_DIR,		DUMP_RAW_DIR	] =
 	  [	'new/new',			'new',			  	'new/Utrecht',			'new/Rio',				'new/Miami',			'new/Azores',				'new/DenHaag',				'new/Schweiz',				'new/NewYork',	  			'new/Brussel',	  			'new/Enschede',	  			'new/LA',				'new/Amsterdam',			'obj',				'json',				'raw' 		  	].map(x => path.join(DL_DIR, x));
                                                                         
-const DL_DIR1 = 'D:/PACMAN/EARTH/downloaded_files';                     
+const DL_DIR1 = 'D:/PACMAN/EARTH2/downloaded_files';                     
 const [ DUMP_NEW_NEW_DIR1,	DUMP_NEW_DIR1,		DUMP_NEW_DIR_UTRECHT1,	DUMP_NEW_DIR_RIO1,		DUMP_NEW_DIR_MIAMI1,	DUMP_NEW_DIR_AZORES1,		DUMP_NEW_DIR_DENHAAG1,		DUMP_NEW_DIR_SCHWEIZ1,		DUMP_NEW_DIR_NEWYORK1,		DUMP_NEW_DIR_BRUSSEL1,		DUMP_NEW_DIR_ENSCHEDE1,		DUMP_NEW_DIR_LA1,		DUMP_NEW_DIR_AMSTERDAM1,	DUMP_OBJ_DIR1,		DUMP_JSON_DIR1,		DUMP_RAW_DIR1	] =
 	  [	'new/new',			'new',			  	'new/Utrecht',			'new/Rio',				'new/Miami',			'new/Azores',				'new/DenHaag',				'new/Schweiz',				'new/NewYork',	  			'new/Brussel',	  			'new/Enschede',	  			'new/LA',				'new/Amsterdam',			'obj',				'json',				'raw' 		  	].map(x => path.join(DL_DIR1, x));
                                                                         
@@ -197,7 +197,7 @@ async function run() {
 		else if (fs.existsSync(newDir_SCHWEIZb) ) 	{	console.log('exists in: ' + newDir_SCHWEIZb);	return;		}
 		else if (fs.existsSync(newDir_AZORESb) ) 	{	console.log('exists in: ' + newDir_AZORESb);	return;		}
 //		else 										{	console.log('not exist: ' + objDir);	}
-		else 										{	console.log('not exist: ' + DL_DIR);	}
+//		else 										{	console.log('not exist: ' + DL_DIR);	}
 
 			 if (fs.existsSync(newDir1) )			{	console.log('exists in: ' + newDir1);			return;		}
 		else if (fs.existsSync(newnewDir1) ) 		{	console.log('exists in: ' + newnewDir1);		return;		}
@@ -226,7 +226,7 @@ async function run() {
 		else if (fs.existsSync(newDir_SCHWEIZb1) ) 	{	console.log('exists in: ' + newDir_SCHWEIZb1);	return;		}
 		else if (fs.existsSync(newDir_AZORESb1) ) 	{	console.log('exists in: ' + newDir_AZORESb1);	return;		}
 //		else 										{	console.log('not exist: ' + objDir1);	}
-		else 										{	console.log('not exist: ' + DL_DIR1);	}
+//		else 										{	console.log('not exist: ' + DL_DIR1);	}
 
 			 if (fs.existsSync(newDir2) )			{	console.log('exists in: ' + newDir2);			return;		}
 		else if (fs.existsSync(newnewDir2) ) 		{	console.log('exists in: ' + newnewDir2);		return;		}
@@ -255,7 +255,7 @@ async function run() {
 		else if (fs.existsSync(newDir_SCHWEIZb2) ) 	{	console.log('exists in: ' + newDir_SCHWEIZb2);	return;		}
 		else if (fs.existsSync(newDir_AZORESb2) ) 	{	console.log('exists in: ' + newDir_AZORESb2);	return;		}
 //		else 										{	console.log('not exist: ' + objDir2);	}
-		else 										{	console.log('not exist: ' + DL_DIR2);	}
+//		else 										{	console.log('not exist: ' + DL_DIR2);	}
 
 			 if (fs.existsSync(newDir3) )			{	console.log('exists in: ' + newDir3);			return;		}
 		else if (fs.existsSync(newnewDir3) ) 		{	console.log('exists in: ' + newnewDir3);		return;		}
@@ -284,7 +284,7 @@ async function run() {
 		else if (fs.existsSync(newDir_SCHWEIZb3) ) 	{	console.log('exists in: ' + newDir_SCHWEIZb3);	return;		}
 		else if (fs.existsSync(newDir_AZORESb3) ) 	{	console.log('exists in: ' + newDir_AZORESb3);	return;		}
 //		else 										{	console.log('not exist: ' + objDir3);	}
-		else 										{	console.log('not exist: ' + DL_DIR3);	}
+//		else 										{	console.log('not exist: ' + DL_DIR3);	}
 	}
 
 	if (CITYNAME[0]=="--ENSCHEDE")			{	offset_x=3875099.0;					offset_y=468154.0;				offset_z=5035344.0; }
