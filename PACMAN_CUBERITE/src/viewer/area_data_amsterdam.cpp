@@ -34,7 +34,7 @@ extern std::string area;
 
 bool GET_OCTANT_LIST(std::string area_name, std::string **octants, std::string **lat_lon, int x, int y, int num_extra) {
     FILE* area_file;
-    area_name=std::string()+"OCTANTS/"+area_name+".txt";
+    area_name=std::string()+"../OCTANTS/"+area_name+".txt";
 
 
     if ((area_file = fopen (area_name.c_str(), "r"))!=NULL) {
@@ -49,7 +49,7 @@ bool GET_OCTANT_LIST(std::string area_name, std::string **octants, std::string *
         int octant_line_count=0;
         while (fgets (line,200000, area_file)!=NULL ) {
             line_number++;
-            printf("line_number=%d\n",line_number);
+//            printf("line_number=%d\n",line_number);
             sscanf(line, "%20[^[][%d]=new std::string[%d] {%200000[^}];\n", what, &index, &array_size, array_line );
             sprintf(comp,"%s[%d]=new std::string[%d] {%s};\n", what, index, array_size, array_line);
 //            printf("%s[%d]=new std::string[%d] {%s};\n", what, index, array_size, array_line);
@@ -138,9 +138,9 @@ std::string get_octant_AMSTERDAM(int &x, int &y) {
 	static int first_do=1;
 	if  (first_do==1) {
 		first_do=0;
-        printf("LOADING OCTANTS/AMSTERDAM.TXT\n");
+        printf("LOADING ../OCTANTS/AMSTERDAM.TXT\n");
         if (!GET_OCTANT_LIST("AMSTERDAM", octants, lat_lon, 88, 202, 0)) {
-            printf("Error reading OCTANTS/AMSTERDAM.TXT\n");
+            printf("Error reading ../OCTANTS/AMSTERDAM.TXT\n");
             return "";
         }
 	}
@@ -184,32 +184,32 @@ std::string get_octant_AMSTERDAM(int &x, int &y) {
 }
 
 std::string get_octant_UTRECHT(int &x, int &y) {
-	static std::string *octants[145];
-	static std::string *lat_lon[144];
+	static std::string *octants[457];       //first parm. GET_OCTANT_LIST
+	static std::string *lat_lon[456];
 	static int first_do=1;
 	if  (first_do==1) {
 		first_do=0;
-        printf("LOADING OCTANTS/UTRECHT.TXT\n");
-        if (!GET_OCTANT_LIST("UTRECHT", octants, lat_lon, 145, 144, 336)) {
-            printf("Error reading OCTANTS/UTRECHT.TXT\n");
+        printf("LOADING ../OCTANTS/UTRECHT.TXT\n");
+        if (!GET_OCTANT_LIST("UTRECHT", octants, lat_lon, 457, 259, 2144)) {
+            printf("Error reading ../OCTANTS/UTRECHT.TXT\n");
             return "";
         }
 	}
-	extra_octants=336;
-	extra_octants_belong_to_string_pointer=octants[144];
-	extra_octants_belong_to_string_pointer_x=143;
+
+	extra_octants=2144;     //third parm. GET_OCTANT_LIST
+	extra_octants_belong_to_string_pointer=octants[456];
+	extra_octants_belong_to_string_pointer_x=455;
 	if (x<0 || y<0) {
-		x=143;y=145;
+		x=455;y=259;        //y=second parm. GET_OCTANT_LIST
 		return "";
 	}
 	bool OK=false;
-	if (x>=143 && y>335) printf("Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
-	else if (!(x>=143) && (x>143 || y>144)) printf("Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
+	if (x>=455 && y>2143) printf("Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
+	else if (!(x>=455) && (x>455 || y>258)) printf("Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
 	else OK=true;
 	if (!OK) return "";
-	if (!(x>143)) latitude_longditude=lat_lon[x][y];
+	if (!(x>455)) latitude_longditude=lat_lon[x][y];
 	else latitude_longditude="";
-
 	std::string subdir=octants[x][y].substr(0,14)+"/";
 	return_root = std::string()+EARTH_ROOT1+"/UTRECHT/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
 	return_root = std::string()+EARTH_ROOT2+"/UTRECHT/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
@@ -246,9 +246,9 @@ std::string get_octant_RIO(int &x, int &y) {
 	static int first_do=1;
 	if  (first_do==1) {
 		first_do=0;
-        printf("LOADING OCTANTS/RIO.TXT\n");
+        printf("LOADING ../OCTANTS/RIO.TXT\n");
         if (!GET_OCTANT_LIST("RIO", octants, lat_lon, 178, 55, 1842)) {
-            printf("Error reading OCTANTS/RIO.TXT\n");
+            printf("Error reading ../OCTANTS/RIO.TXT\n");
             return "";
         }
 	}

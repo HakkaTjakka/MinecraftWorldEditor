@@ -1836,10 +1836,30 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
         float cnt_x=0.0;
         float cnt_z=0.0;
 
-        top_left =glm::fvec2((3173619.701549666 -cnt_x)*1.0,   (-5353990.708839205-cnt_z)*1.0);
-        top_right=glm::fvec2((3174801.152713919 -cnt_x)*1.0,   (-5353619.96164422 -cnt_z)*1.0);
-        bot_left =glm::fvec2((3173319.705408585 -cnt_x)*1.0,   (-5353028.639382178-cnt_z)*1.0);
-        bot_right=glm::fvec2((3174501.387840918 -cnt_x)*1.0,   (-5352657.873705601-cnt_z)*1.0);
+        top_left =glm::fvec2((3153366.896357943	 -cnt_x)*1.0,   (-5415823.892077346  -cnt_z)*1.0);
+        top_right=glm::fvec2((3332296.4138517035 -cnt_x)*1.0,   (-5360923.333970745  -cnt_z)*1.0);
+        bot_left =glm::fvec2((3127029.9093990717 -cnt_x)*1.0,   (-5332805.38180718	 -cnt_z)*1.0);
+        bot_right=glm::fvec2((3307366.9097758397 -cnt_x)*1.0,   (-5277242.0736351935 -cnt_z)*1.0);
+
+//        top_left =glm::fvec2((3173619.701549666 -cnt_x)*1.0,   (-5353990.708839205-cnt_z)*1.0);
+//        top_right=glm::fvec2((3174801.152713919 -cnt_x)*1.0,   (-5353619.96164422 -cnt_z)*1.0);
+//        bot_left =glm::fvec2((3173319.705408585 -cnt_x)*1.0,   (-5353028.639382178-cnt_z)*1.0);
+//        bot_right=glm::fvec2((3174501.387840918 -cnt_x)*1.0,   (-5352657.873705601-cnt_z)*1.0);
+
+//TOP_LEFT(	X=3153366.896357943		,Z=-5415823.892077346	)
+//TOP_RIGHT(	X=3332296.4138517035	,Z=-5360923.333970745	)
+//BOT_LEFT(	X=3127029.9093990717	,Z=-5332805.38180718	)
+//BOT_RIGHT(	X=3307366.9097758397	,Z=-5277242.0736351935	)
+//SURFACE=59754.05119874485 REGION FILES
+//LEN_TOP=  187162.61248167677
+//LEN_BOT=  188702.7157194765
+//LEN_RIGHT=83681.26033555157
+//LEN_LEFT= 83018.51027016621
+
+
+
+
+
     } else if (area=="Amsterdam" && mirror!=0) {
         vertical =bmax_total[0]- bmin_total[0];
 
