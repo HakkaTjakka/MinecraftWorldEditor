@@ -14598,10 +14598,11 @@ extern bool rot_plot;
         plot_ffmpegfile=1;
         plot_some();
 
-        sprintf(mc_text1,"%8.3f%%",100.0*float(pixel_count)/(512.0*512.0));
+        char mc_text3[100];
+        sprintf(mc_text3,"%8.3f%%",100.0*float(pixel_count)/(512.0*512.0));
         ffmpeg_posy=y+2+270+28*(hit_one->index12); //todo +6*512;
         ffmpeg_posx=x+200; //todo +6*512;
-        text_to_ffmpeg(mc_text1, 28,sf::Color::Red,sf::Color::White);
+        text_to_ffmpeg(mc_text3, 28,sf::Color::Red,sf::Color::White);
         plot_ffmpegfile=1;
         plot_some();
     }

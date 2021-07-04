@@ -2212,8 +2212,8 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
 //                bmin_total[0]=-80.0;
 //                bmax_total[0]=60.0;
             } else if (area=="Utrecht") {
-                bmin_total[0]=-100.0;
-                bmax_total[0]=60.0;
+                bmin_total[0]=-100.0+36;   //FIND GROUND LEVEL....
+                bmax_total[0]=60.0; //DOESN'T MATTER...
             } else if (area=="NewYork") {
 //floors
                 bmin_total[0]=-40.0;
