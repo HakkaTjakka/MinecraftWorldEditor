@@ -210,6 +210,8 @@ std::string get_octant_UTRECHT(int &x, int &y) {
 	if (!OK) return "";
 	if (!(x>455)) latitude_longditude=lat_lon[x][y];
 	else latitude_longditude="";
+//    printf("koekkoek: latitude_longditude.c_str()=%s\n",latitude_longditude.c_str());
+//    printf("koekkoek: lat_lon[%d][%d]=%s\n",x,y,lat_lon[x][y].c_str());
 	std::string subdir=octants[x][y].substr(0,14)+"/";
 	return_root = std::string()+EARTH_ROOT1+"/UTRECHT/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
 	return_root = std::string()+EARTH_ROOT2+"/UTRECHT/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;

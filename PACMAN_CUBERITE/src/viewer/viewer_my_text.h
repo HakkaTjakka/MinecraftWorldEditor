@@ -1,7 +1,7 @@
-#define PRINTIT  { if (by_texture) { draw2_all_texture(between_texture,(char*)to_print,0,i,sf::Color(0,255,0,255),sf::Color::White,24); i+=26; } else { draw2_all(window,(char*)to_print,0,i,sf::Color(0,0,255,255),sf::Color::White,24); i+=26; } }
-#define PRINTIT_RED { if (by_texture) {draw2_all_texture(between_texture,(char*)to_print,0,i,sf::Color(255,255,0,255),sf::Color::White,24); i+=26; } else  {draw2_all(window,(char*)to_print,0,i,sf::Color(255,0,0,255),sf::Color::White,24); i+=26; } }
-#define PRINTIT_BIG { if (by_texture) {draw2_all_texture(between_texture,(char*)to_print,0,i,sf::Color(0,255,0,255),sf::Color::White,28); i+=30; } else {draw2_all(window,(char*)to_print,0,i,sf::Color(0,0,255,255),sf::Color::White,28); i+=30; } }
-#define PRINTIT_RED_BIG { if (by_texture) {draw2_all_texture(between_texture,(char*)to_print,0,i,sf::Color(255,255,0,255),sf::Color::White,28);i+=30; } else {draw2_all(window,(char*)to_print,0,i,sf::Color(255,0,0,255),sf::Color::White,28);i+=30; } }
+#define PRINTIT  { if (by_texture) { draw2_all_texture(between_texture,(char*)to_print,0,i,sf::Color(0,255,0,255),sf::Color::White,20); i+=22; } else { draw2_all(window,(char*)to_print,0,i,sf::Color(0,0,255,255),sf::Color::White,20); i+=22; } }
+#define PRINTIT_RED { if (by_texture) {draw2_all_texture(between_texture,(char*)to_print,0,i,sf::Color(255,255,0,255),sf::Color::White,20); i+=22; } else  {draw2_all(window,(char*)to_print,0,i,sf::Color(255,0,0,255),sf::Color::White,20); i+=22; } }
+#define PRINTIT_BIG { if (by_texture) {draw2_all_texture(between_texture,(char*)to_print,0,i,sf::Color(0,255,0,255),sf::Color::White,24); i+=26; } else {draw2_all(window,(char*)to_print,0,i,sf::Color(0,0,255,255),sf::Color::White,24); i+=26; } }
+#define PRINTIT_RED_BIG { if (by_texture) {draw2_all_texture(between_texture,(char*)to_print,0,i,sf::Color(255,255,0,255),sf::Color::White,24);i+=26; } else {draw2_all(window,(char*)to_print,0,i,sf::Color(255,0,0,255),sf::Color::White,24);i+=26; } }
 void draw2_all_texture(sf::RenderTexture& window,char *towrite, int xpos, int ypos, sf::Color inner, sf::Color outer, int text_size);
 
                     static float enschede_x=3875099.0;
@@ -215,6 +215,8 @@ void draw2_all_texture(sf::RenderTexture& window,char *towrite, int xpos, int yp
 
                                         sprintf(to_print,"antialiasingLevel: %d",contextSettings.antialiasingLevel);           PRINTIT
                                         sprintf(to_print,"Max schematic size: %10d",(int)schematic_size);           PRINTIT
+                                        if (cubic) { sprintf(to_print,"CUBIC (SHIFT+c) = ON (don't trim, make floors)");           PRINTIT_BIG }
+                                        else { sprintf(to_print,"CUBIC (SHIFT+c) = OFF (trim y<0 & y>255");           PRINTIT_BIG }
                                         if (winsize) {
                                             sprintf(to_print,"4K");           PRINTIT
                                         }

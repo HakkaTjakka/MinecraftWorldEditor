@@ -7058,7 +7058,8 @@ extern bool lighten;
                         }
                     }
                     if (min_y>height_add && min_y>0) {
-                        if (AY[min_y-1].id!=2001) {
+//utrecht
+                        if (AY[min_y-1].id!=2001 && AY[min_y].id==0) {
                             if (!(rand()%175)) {
                                 if (AY[min_y].id==0) num_blocks_added++;
                                 else num_blocks_replaced++;
@@ -7234,11 +7235,14 @@ extern bool lighten;
                             if (AY[y].id==0) {
                                 int h=y+region_floor*256;
                                 int hh=floor_y[x][z]-h;
+//utrecht
                                 if (hh>0) {
                                     if ( !(rand()%int(125-sqrt(hh*10.0))) ) {
                                         AY[y]=BlockInfo(89,0,0,0);
                                     } else if ( !(rand()%int(125-sqrt(hh*10.0))) ) {
                                         AY[y]=BlockInfo(14,0,0,0);
+                                    } else if ( !(rand()%int(725-sqrt(hh*10.0))) ) {
+                                        AY[y]=BlockInfo(56,0,0,0);
                                     } else {
                                         int flow = int((   sin((xx)/(33.23) + sin((zz)/23.75)/3 )  +  sin((zz)/(19.75) + sin((xx)/24.87)/7.2  )  )*5.0);
 
@@ -7459,10 +7463,17 @@ extern bool lighten;
                         }
                     }
                 }
-                for (int x = 0; x < 512; x++) { BlockInfo** AZ=AX[x]; for (int z = 0; z < 512; z++) { toggle2(); BlockInfo* AY=AZ[z]; for (int y = height_add; y < 256; y++) {
-                    if (AY[y].id==2005) AY[y].id=2001;
-//                    else if (AY[y].id==2003) AY[y]=BlockInfo();
-                } } }
+                for (int x = 0; x < 512; x++) {
+                    BlockInfo** AZ=AX[x];
+                    for (int z = 0; z < 512; z++) {
+                        toggle2();
+                        BlockInfo* AY=AZ[z];
+                        for (int y = height_add; y < 256; y++) {
+                            if (AY[y].id==2005) AY[y].id=2001;
+//                          else if (AY[y].id==2003) AY[y]=BlockInfo();
+                        }
+                    }
+                }
 
                 num_filled=0;
                 for (int x = 0; x < 512; x++) {
@@ -8081,7 +8092,10 @@ extern bool lighten;
                 }
 
                 for (int y = height_add; y < 256; y++) {
-
+//utrecht
+                    if (AY[y].id>2000) {
+                        AY[y] = BlockInfo();
+                    }
                     if (AY[y].id!=0) {
                         num_blocks_total++;
 
@@ -8229,7 +8243,7 @@ extern bool lighten;
                 }
             }
         }
-
+//utrecht
         printf(" glass ");
         for (int x = 0; x < xl; x++) {
             BlockInfo** AZ=AX[x];
@@ -8942,54 +8956,84 @@ extern bool lighten;
 
     num_blocks=0;
     scan_image.create(512,512,sf::Color(0,0,0,0));
-    for (int x = 0; x < 512; x++) {
-        BlockInfo** AZ=AX[x];
-        for (int z = 0; z < 512; z++) {
-            toggle2();
-            BlockInfo* AY=AZ[z];
-            int max_y=-1;
-            for (int y = 255; y >=0; y--) {
-//pipo
-//                if ((bi.id==251 && cubic) || (bi.id!=0 && !cubic)) {
-                if (AY[y].id!=0) {
-                    num_blocks++;
-                    max_y=y;
-                    break;
-                }
-                if (y<real_min_y) real_min_y=y;
-            }
 
-            if (max_y!=-1) {
-                int r_m,g_m,b_m;
-                int id=AY[max_y].id*16;
-                int data=AY[max_y].data;
-                int lookup=id*16 + data;
-                it_IdDataColor_map = IdDataColor_map.find(lookup);
-                if (it_IdDataColor_map != IdDataColor_map.end()) {
-                    r_m=it_IdDataColor_map->second.r;
-                    g_m=it_IdDataColor_map->second.g;
-                    b_m=it_IdDataColor_map->second.b;
+//utrecht
+    if (1) {
+        for (int x = 0; x < xl; x++) {
+            BlockInfo** AZ=AX[x];
+            for (int z = 0; z < zl; z++) {
+                toggle2();
+                BlockInfo* AY=AZ[z];
+                int max_y=-1;
+                int min_y=-1;
+                for (int y = 0; y < 256; y++) {
+                    BlockInfo bi=AY[y];
+                    if (bi.id!=0) {
+                        if (min_y==-1 && bi.id==251) min_y=y;
+                        num_blocks++;
+                        max_y=y;
+                    }
+                    if (y<real_min_y) real_min_y=y;
+                }
+//                floor_y[x][z]=max_y;
+//                mask[x][z]=min_y;
+                if (max_y!=-1) {
+                    int r_m,g_m,b_m;
+                    ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
                     scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                    if (fix_on) top_view.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+
+                    if (max_y>real_max_y) real_max_y=max_y;
+                    if (x>real_max_x) real_max_x=x;
+                    if (x<real_min_x) real_min_x=x;
+                    if (z>real_max_z) real_max_z=z;
+                    if (z<real_min_z) real_min_z=z;
                 } else {
-                    lookup=id;
+                    scan_image.setPixel(x,z,sf::Color(0,0,0,0));
+                }
+            }
+        }
+    } else {
+        for (int x = 0; x < 512; x++) {
+            BlockInfo** AZ=AX[x];
+            for (int z = 0; z < 512; z++) {
+                toggle2();
+                BlockInfo* AY=AZ[z];
+                int max_y=-1;
+                for (int y = 255; y >=0; y--) {
+    //pipo
+    //                if ((bi.id==251 && cubic) || (bi.id!=0 && !cubic)) {
+                    if (AY[y].id!=0) {
+                        num_blocks++;
+                        max_y=y;
+                        break;
+                    }
+                    if (y<real_min_y) real_min_y=y;
+                }
+
+                if (max_y!=-1) {
+                    int r_m,g_m,b_m;
+                    int id=AY[max_y].id*16;
+                    int data=AY[max_y].data;
+                    int lookup=id*16 + data;
                     it_IdDataColor_map = IdDataColor_map.find(lookup);
                     if (it_IdDataColor_map != IdDataColor_map.end()) {
                         r_m=it_IdDataColor_map->second.r;
                         g_m=it_IdDataColor_map->second.g;
                         b_m=it_IdDataColor_map->second.b;
                         scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
-                    } else if (max_y>1) {
-                        id=AY[max_y-1].id*16;
-                        data=AY[max_y-1].data;
-                        int lookup=id*16 + data;
+                    } else {
+                        lookup=id;
                         it_IdDataColor_map = IdDataColor_map.find(lookup);
                         if (it_IdDataColor_map != IdDataColor_map.end()) {
                             r_m=it_IdDataColor_map->second.r;
                             g_m=it_IdDataColor_map->second.g;
                             b_m=it_IdDataColor_map->second.b;
                             scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
-                        } else {
-                            lookup=id;
+                        } else if (max_y>1) {
+                            id=AY[max_y-1].id*16;
+                            data=AY[max_y-1].data;
+                            int lookup=id*16 + data;
                             it_IdDataColor_map = IdDataColor_map.find(lookup);
                             if (it_IdDataColor_map != IdDataColor_map.end()) {
                                 r_m=it_IdDataColor_map->second.r;
@@ -8997,34 +9041,44 @@ extern bool lighten;
                                 b_m=it_IdDataColor_map->second.b;
                                 scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
                             } else {
-                                scan_image.setPixel(x,z,sf::Color(255,0,0,255));
+                                lookup=id;
+                                it_IdDataColor_map = IdDataColor_map.find(lookup);
+                                if (it_IdDataColor_map != IdDataColor_map.end()) {
+                                    r_m=it_IdDataColor_map->second.r;
+                                    g_m=it_IdDataColor_map->second.g;
+                                    b_m=it_IdDataColor_map->second.b;
+                                    scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                                } else {
+                                    scan_image.setPixel(x,z,sf::Color(255,0,0,255));
+                                }
+    //                                ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
                             }
-//                                ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
+                        } else {
+                            scan_image.setPixel(x,z,sf::Color(255,0,0,255));
                         }
-                    } else {
-                        scan_image.setPixel(x,z,sf::Color(255,0,0,255));
+    //                                ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
                     }
-//                                ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
+                } else {
+                    scan_image.setPixel(x,z,sf::Color(0,0,0,0));
                 }
-            } else {
-                scan_image.setPixel(x,z,sf::Color(0,0,0,0));
+
+
+
+    //                int r_m,g_m,b_m;
+    //                if (AY[max_y].id==8) {r_m=0; g_m=0; b_m=255;}
+    //                else ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
+
+    //                scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+
+                if (max_y>real_max_y) real_max_y=max_y;
+                if (x>real_max_x) real_max_x=x;
+                if (x<real_min_x) real_min_x=x;
+                if (z>real_max_z) real_max_z=z;
+                if (z<real_min_z) real_min_z=z;
+
             }
-
-
-
-//                int r_m,g_m,b_m;
-//                if (AY[max_y].id==8) {r_m=0; g_m=0; b_m=255;}
-//                else ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
-
-//                scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
-
-            if (max_y>real_max_y) real_max_y=max_y;
-            if (x>real_max_x) real_max_x=x;
-            if (x<real_min_x) real_min_x=x;
-            if (z>real_max_z) real_max_z=z;
-            if (z<real_min_z) real_min_z=z;
-
         }
+
     }
 
     update_request=2;

@@ -14583,6 +14583,7 @@ extern bool rot_plot;
     plot_ffmpegfile=1;
     plot_some();
 
+
     if (!plot_only) {
         text_to_ffmpeg(mc_text2, 28,random_pixel,sf::Color::White);
         if (hit_one!=NULL) {
@@ -14596,6 +14597,13 @@ extern bool rot_plot;
 
         plot_ffmpegfile=1;
         plot_some();
+
+        sprintf(mc_text1,"%8.3f%%",100.0*float(pixel_count)/(512.0*512.0));
+        ffmpeg_posy=y+2+270+28*(hit_one->index12); //todo +6*512;
+        ffmpeg_posx=x+200; //todo +6*512;
+        text_to_ffmpeg(mc_text1, 28,sf::Color::Red,sf::Color::White);
+        plot_ffmpegfile=1;
+        plot_some();
     }
 
 //    perform_quit=0;
@@ -14605,7 +14613,7 @@ extern bool rot_plot;
     ffmpegfile=1;
     float complete_f=100.0*float(pixel_count)/(512.0*512.0);
     image_local.create(512,512,sf::Color(0,0,0,0));
-    if (flushing_mode && complete_f>99.90 && !no_plotting) {
+    if (flushing_mode && complete_f>99.95 && !no_plotting) {
 //    if (flushing_mode && complete_f>99.99 && !no_plotting && !complete_f2>99.99) {
         printf("\nGOT ONE COMPLETE (%f%% pixels) : r.%d.%d PUSHED ==>>\n",complete_f,xx,yy);
 //        hit_one_region one_region;

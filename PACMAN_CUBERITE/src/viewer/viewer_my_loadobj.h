@@ -270,6 +270,7 @@ std::vector<Voxel> voxels;
 bool do_wuppie=false;
 bool hold_voxels=false;
 std::string obj_dir;
+
 static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                               std::vector<DrawObject>& drawObjects,
                               std::vector<tinyobj::material_t>& materials,
@@ -305,9 +306,14 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
         char line[2000];
         strcpy(line,latitude_longditude.c_str());
 //decimal_point
-                                            while (replace_str(line,",","."));
+        while (replace_str(line,",","."));
 //        while (replace_str(line,".",","));
         int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
+//        printf("latitude_longditude.c_str()=%s\n",latitude_longditude.c_str());
+//        printf("line=%s\n",line);
+//        printf("hallo: OCTANT NORTH=%20.16f WEST=%20.16f\n",lat_north,lon_west);
+//        printf("hallo: OCTANT SOUTH=%20.16f EAST=%20.16f\n",lat_south,lon_east);
+//        printf("hallo: OCTANT DIFF =%20.16f      %20.16f\n",lat_north-lat_south,lon_east-lon_west);
         if (num==4) {
             char lat_str[100];
             char lon_str[100];
@@ -327,6 +333,7 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
         }
     } else {
         printf("\n");
+
     }
 
 
@@ -1788,6 +1795,10 @@ glm::fvec2 top_left;
 glm::fvec2 top_right;
 glm::fvec2 bot_left;
 glm::fvec2 bot_right;
+double top_left2[2];
+double top_right2[2];
+double bot_left2[2];
+double bot_right2[2];
 //glm::dvec2 top_left;
 //glm::dvec2 top_right;
 //glm::dvec2 bot_left;
@@ -1836,29 +1847,112 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
         float cnt_x=0.0;
         float cnt_z=0.0;
 
-        top_left =glm::fvec2((3153366.896357943	 -cnt_x)*1.0,   (-5415823.892077346  -cnt_z)*1.0);
-        top_right=glm::fvec2((3332296.4138517035 -cnt_x)*1.0,   (-5360923.333970745  -cnt_z)*1.0);
-        bot_left =glm::fvec2((3127029.9093990717 -cnt_x)*1.0,   (-5332805.38180718	 -cnt_z)*1.0);
-        bot_right=glm::fvec2((3307366.9097758397 -cnt_x)*1.0,   (-5277242.0736351935 -cnt_z)*1.0);
+
+//TOP_LEFT    (X=3174307.3814163194   ,Z=-5353422.824258924   )
+//TOP_RIGHT   (X=3174701.2305192538   ,Z=-5353299.263276896   )
+//BOT_LEFT    (X=3174207.434095887    ,Z=-5353102.13033254    )
+//BOT_RIGHT   (X=3174601.3088949216   ,Z=-5352978.5672973385  )
+        printf("Getting BTE121 coords from projection.py\n");
+        char sys_call[1000];
+//projection.exe lon_west lat_north lon_east lat_south
+        sprintf(sys_call,"projection.exe %20.16f %20.16f %20.16f %20.16f > projection.txt",tot_lon[0],tot_lat[0],tot_lon[1],tot_lat[1]);
+        printf("%s\n",sys_call);
+        system(sys_call);
+        system("type projection.txt");
+//TOP_LEFT(X=3153366.896357943,Z=-5415823.892077346)
+//TOP_RIGHT(X=3332296.4138517035,Z=-5360923.333970745)
+//BOT_LEFT(X=3127029.9093990717,Z=-5332805.38180718)
+//BOT_RIGHT(X=3307366.9097758397,Z=-5277242.0736351935)
+
+
+        FILE* HOP;
+        if ((HOP = fopen ("projection.txt", "r"))!=NULL) {
+            char line[1000];
+
+            if (fgets (line,1000, HOP)!=NULL) {
+//                printf("line projection.txt=%s\n",line);
+//                while (replace_str(line,",","."));
+                if ( sscanf(line,"TOP_LEFT(X=%lf Z=%lf)\n",&top_left2[0],&top_left2[1]) != 2) {
+                    printf("ERROR READING TOP_LEFT from projection.txt\n");
+                    printf("line=%s\n",line);
+//                    return;
+                } else printf("TOP_LEFT(X=%20.16f Z=%20.16f)\n",top_left2[0],top_left2[1]);
+            } else {
+                printf("ERROR READING TOP_LEFT from projection.txt\n");
+                printf("line=%s\n",line);
+            }
+
+            if (fgets (line,1000, HOP)!=NULL) {
+//                printf("line projection.txt=%s\n",line);
+//                while (replace_str(line,",","."));
+                if ( sscanf(line,"TOP_RIGHT(X=%lf Z=%lf)\n",&top_right2[0],&top_right2[1]) != 2) {
+                    printf("ERROR READING TOP_RIGHT from projection.txt\n");
+                    printf("line=%s\n",line);
+//                    return;
+                } else printf("TOP_RIGHT(X=%20.16f Z=%20.16f)\n",top_right2[0],top_right2[1]);
+            } else {
+                printf("ERROR READING TOP_RIGHT from projection.txt\n");
+                printf("line=%s\n",line);
+            }
+
+
+            if (fgets (line,1000, HOP)!=NULL) {
+//                printf("line projection.txt=%s\n",line);
+//                while (replace_str(line,",","."));
+                if ( sscanf(line,"BOT_LEFT(X=%lf Z=%lf)\n",&bot_left2[0],&bot_left2[1]) != 2) {
+                    printf("ERROR READING BOT_LEFT from projection.txt\n");
+                    printf("line=%s\n",line);
+//                    return;
+                } else printf("BOT_LEFT(X=%20.16f Z=%20.16f)\n",bot_left2[0],bot_left2[1]);
+            } else {
+                printf("ERROR READING BOT_LEFT from projection.txt\n");
+                printf("line=%s\n",line);
+            }
+
+            if (fgets (line,1000, HOP)!=NULL) {
+//                printf("line projection.txt=%s\n",line);
+//                while (replace_str(line,",","."));
+                if ( sscanf(line,"BOT_RIGHT(X=%lf Z=%lf)\n",&bot_right2[0],&bot_right2[1]) != 2) {
+                    printf("ERROR READING BOT_RIGHT from projection.txt\n");
+                    printf("line=%s\n",line);
+//                    return;
+                } else printf("BOT_RIGHT(X=%20.16f Z=%20.16f)\n",bot_right2[0],bot_right2[1]);
+            } else {
+                printf("ERROR READING BOT_RIGHT from projection.txt\n");
+                printf("line=%s\n",line);
+            }
+            fclose(HOP);
+        } else {
+            printf("Can not open projection.txt\n");
+        }
+
+        top_left =glm::fvec2(( top_left2[0]    -cnt_x)*1.0,   ( top_left2[1]    -cnt_z)*1.0);
+        top_right=glm::fvec2(( top_right2[0]   -cnt_x)*1.0,   ( top_right2[1]   -cnt_z)*1.0);
+        bot_left =glm::fvec2(( bot_left2[0]    -cnt_x)*1.0,   ( bot_left2[1]    -cnt_z)*1.0);
+        bot_right=glm::fvec2(( bot_right2[0]   -cnt_x)*1.0,   ( bot_right2[1]   -cnt_z)*1.0);
+
+//        top_left =glm::fvec2(( 3174307.3814163194   -cnt_x)*1.0,   ( -5353422.824258924     -cnt_z)*1.0);
+//        top_right=glm::fvec2(( 3174701.2305192538   -cnt_x)*1.0,   ( -5353299.263276896     -cnt_z)*1.0);
+//        bot_left =glm::fvec2(( 3174207.434095887    -cnt_x)*1.0,   ( -5353102.13033254      -cnt_z)*1.0);
+//        bot_right=glm::fvec2(( 3174601.3088949216   -cnt_x)*1.0,   ( -5352978.56729733855   -cnt_z)*1.0);
+
+//        top_left =glm::fvec2((3153366.896357943	 -cnt_x)*1.0,   (-5415823.892077346  -cnt_z)*1.0);
+//        top_right=glm::fvec2((3332296.4138517035 -cnt_x)*1.0,   (-5360923.333970745  -cnt_z)*1.0);
+//        bot_left =glm::fvec2((3127029.9093990717 -cnt_x)*1.0,   (-5332805.38180718	 -cnt_z)*1.0);
+//        bot_right=glm::fvec2((3307366.9097758397 -cnt_x)*1.0,   (-5277242.0736351935 -cnt_z)*1.0);
+//4.603271484375
+//52.525634765625
+//7.1026611328125
+//51.81427001953125
+//TOP_LEFT(   X=3153366.896357943 ,Z=-5415823.892077346)
+//TOP_RIGHT(  X=3332296.4138517035,Z=-5360923.333970745)
+//BOT_LEFT(   X=3127029.9093990717,Z=-5332805.38180718)
+//BOT_RIGHT(  X=3307366.9097758397,Z=-5277242.0736351935)
 
 //        top_left =glm::fvec2((3173619.701549666 -cnt_x)*1.0,   (-5353990.708839205-cnt_z)*1.0);
 //        top_right=glm::fvec2((3174801.152713919 -cnt_x)*1.0,   (-5353619.96164422 -cnt_z)*1.0);
 //        bot_left =glm::fvec2((3173319.705408585 -cnt_x)*1.0,   (-5353028.639382178-cnt_z)*1.0);
 //        bot_right=glm::fvec2((3174501.387840918 -cnt_x)*1.0,   (-5352657.873705601-cnt_z)*1.0);
-
-//TOP_LEFT(	X=3153366.896357943		,Z=-5415823.892077346	)
-//TOP_RIGHT(	X=3332296.4138517035	,Z=-5360923.333970745	)
-//BOT_LEFT(	X=3127029.9093990717	,Z=-5332805.38180718	)
-//BOT_RIGHT(	X=3307366.9097758397	,Z=-5277242.0736351935	)
-//SURFACE=59754.05119874485 REGION FILES
-//LEN_TOP=  187162.61248167677
-//LEN_BOT=  188702.7157194765
-//LEN_RIGHT=83681.26033555157
-//LEN_LEFT= 83018.51027016621
-
-
-
-
 
     } else if (area=="Amsterdam" && mirror!=0) {
         vertical =bmax_total[0]- bmin_total[0];
@@ -1935,12 +2029,14 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
         bot_right=glm::fvec2(bmax_total[1]*f - bmin_total[1]*f,       bmax_total[2]*f - bmin_total[2]*f);
         vertical =bmax_total[0]*f- bmin_total[0]*f;
 
-        tot_lon[0]=-180.0; tot_lon[1]=180.0;
+    tot_lon[0]=-180.0; tot_lon[1]=180.0;
         tot_lat[0]=-90.0; tot_lat[1]=90.0;
     }
 
+//utrecht
     if (top_left[0]<0)
         Amx = top_left[0]-512;  //?????? must be 511?
+//        Amx = top_left[0]-511;  //?????? must be 511?
     else
         Amx = top_left[0];
 
@@ -1949,6 +2045,7 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
 
     if (top_left[1]<0)
         Amz = top_left[1]-512; // must be 511?
+//        Amz = top_left[1]-511; // must be 511?
     else
         Amz = top_left[1]; // ?????????
 
@@ -2141,7 +2238,26 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
         printf("OCTANT DIFF =%20.16f      %20.16f\n",lat_north-lat_south,lon_east-lon_west);
     }
 
-    minecraft_set(bmin_total, bmax_total, tot_lon, tot_lat);
+    if (area=="Utrecht") {
+        double bmin_octant[3];
+        double bmax_octant[3];
+        double lon_octant[2];
+        double lat_octant[2];
+        lat_octant[0]=lat_north;
+        lat_octant[1]=lat_south;
+        lon_octant[0]=lon_west;
+        lon_octant[1]=lon_east;
+        bmin_octant[0]=bmin_total[0];
+        bmax_octant[0]=bmax_total[0];
+        bmin_octant[1]=bmin_o[1];
+        bmax_octant[1]=bmax_o[1];
+        bmin_octant[2]=bmin_o[2];
+        bmax_octant[2]=bmax_o[2];
+
+        minecraft_set(bmin_octant, bmax_octant, lon_octant, lat_octant);
+    } else {
+        minecraft_set(bmin_total, bmax_total, tot_lon, tot_lat);
+    }
 
     if (area!="Models") {
         double ll_lat;
@@ -2155,7 +2271,9 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
     }
 
     double blocks_x=sqrt( (top_right[0]-top_left[0])*(top_right[0]-top_left[0])  +  (top_right[1]-top_left[1])*(top_right[1]-top_left[1]) );
-    double block_scale_x=blocks_x/(bmax_total[1]-bmin_total[1]);
+    double block_scale_x;
+    if (area=="Utrecht") block_scale_x=blocks_x/(bmax_o[1]-bmin_o[1]);
+    else block_scale_x=blocks_x/(bmax_total[1]-bmin_total[1]);
     printf("BLOCKS X=%15.6f   SCALE=%9.6f\n",blocks_x,block_scale_x);
 
     double blocks_y=vertical;
@@ -2163,7 +2281,9 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
     printf("BLOCKS Y=%15.6f   SCALE=%9.6f\n",blocks_y,block_scale_y);
 
     double blocks_z=sqrt( (top_left[0]-bot_left[0])*(top_left[0]-bot_left[0])  +  (top_left[1]-bot_left[1])*(top_left[1]-bot_left[1]) );
-    double block_scale_z=blocks_z/(bmax_total[2]-bmin_total[2]);
+    double block_scale_z;
+    if (area=="Utrecht") block_scale_z=blocks_z/(bmax_o[2]-bmin_o[2]);
+    else block_scale_z=blocks_z/(bmax_total[2]-bmin_total[2]);
     printf("BLOCKS Z=%15.6f   SCALE=%9.6f\n",blocks_z,block_scale_z);
 
     double block_scale_avg=(block_scale_x + block_scale_z)/2.0;
@@ -3424,8 +3544,10 @@ extern float* fspeed_ghosty;
 
             rx=y/512;
             rz=z/512;
-            if (y<0) rx--;
-            if (z<0) rz--;
+            if (do_model) {
+                if (y<0) rx--;
+                if (z<0) rz--;
+            }
 
             Voxel prev;
             int rx_prev;
@@ -3499,8 +3621,10 @@ extern float* fspeed_ghosty;
 //                            else rz=(z-511)/512;
 
                             rx=y/512; rz=z/512;
-                            if (y<0) rx--;
-                            if (z<0) rz--;
+                            if (do_model) {
+                                if (y<0) rx--;
+                                if (z<0) rz--;
+                            }
 
 //                            printf("region[%3d][%3d] POS[%3d][%3d][%3d] voxels_total[%3d]=Voxel(%6d,%6d,%6d,%4d,%4d,%4d,%4d)\n",
 //                                   rx,rz,one.y%512,one.x,one.z%512,n,one.x,one.y,one.z,one.r,one.g,one.b,one.l);
@@ -3511,14 +3635,15 @@ extern float* fspeed_ghosty;
 //fucked
                     int prev_y_mod;
 //hakkatjakka
-                    prev_y_mod=(int)(((LONG64)prev.y+100000*512)%512);
-//                    if (prev.y>=0) prev_y_mod=(int)(((LONG64)prev.y+100000*512)%512);
-//                    else prev_y_mod=(int)(((LONG64)prev.y-1+100000*512)%512);
+//utrecht
+//                    prev_y_mod=(int)(((LONG64)prev.y+100000*512)%512);
+                    if (prev.y>=0) prev_y_mod=(int)(((LONG64)prev.y+100000*512)%512);
+                    else prev_y_mod=(int)(((LONG64)prev.y-1+100000*512)%512);
 
                     int prev_z_mod;
-                    prev_z_mod=(int)(((LONG64)prev.z+100000*512)%512);
-//                    if (prev.z>=0) prev_z_mod=(int)(((LONG64)prev.z+100000*512)%512);
-//                    else prev_z_mod=(int)(((LONG64)prev.z-1+100000*512)%512);
+//                    prev_z_mod=(int)(((LONG64)prev.z+100000*512)%512);
+                    if (prev.z>=0) prev_z_mod=(int)(((LONG64)prev.z+100000*512)%512);
+                    else prev_z_mod=(int)(((LONG64)prev.z-1+100000*512)%512);
 
                     if (!xz00 && prev_y_mod==  0 && prev_z_mod==  0) xz00=true;
                     if (!xz01 && prev_y_mod==  0 && prev_z_mod==511) xz01=true;
@@ -3803,7 +3928,7 @@ extern float* fspeed_ghosty;
                     }
                     if (got_one) ready_regions.erase(ready_regions.begin()+n,ready_regions.begin()+n+1);
                 }
-                if (hit_one->index8 > (int)(512.0*512.0*0.9990) || flushing ) {
+                if (hit_one->index8 > (int)(512.0*512.0*0.9995) || flushing ) {
                     if (!got_one) {
 
                         if (already_loaded) printf("ALREADY LOADED ");
@@ -3829,7 +3954,7 @@ extern float* fspeed_ghosty;
                 }
                 if (hit_one->index6>0 || got_one) {
                     NUMBER_OF_REGIONS++;
-                    if ((flushing_mode) || hit_one->index8 > (int)(512.0*512.0*0.9990) || flushing ) {
+                    if ((flushing_mode) || hit_one->index8 > (int)(512.0*512.0*0.9995) || flushing ) {
 //                    if ((voxels_total.size()>25000000) || hit_one->index8 > (int)(512.0*512.0*0.9995) || flushing ) {
 
                         if (flushing_mode && !got_one && !flushing)
@@ -3877,18 +4002,22 @@ extern int floor_y[512][512];
                             int a_z;
                             a_y=u.y/512;
                             a_z=u.z/512;
-                            if (u.y<0) a_y--;
-                            if (u.z<0) a_z--;
+
+                            if (do_model) {
+                                if (u.y<0) a_y--;
+                                if (u.z<0) a_z--;
+                            }
                             if ( (a_y)==x && (a_z)==z ) {
                                 int y_mod;
-                                y_mod=(int)(((LONG64)u.y+100000*512)%512);
-//                                if (u.y>=0) y_mod=(int)(((LONG64)u.y+100000*512)%512);
-//                                else y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
+//utrecht
+//                                y_mod=(int)(((LONG64)u.y+100000*512)%512);
+                                if (u.y>=0) y_mod=(int)(((LONG64)u.y+100000*512)%512);
+                                else y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
 
                                 int z_mod;
-                                z_mod=(int)(((LONG64)u.z+100000*512)%512);
-//                                if (u.z>=0) z_mod=(int)(((LONG64)u.z+100000*512)%512);
-//                                else z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
+//                                z_mod=(int)(((LONG64)u.z+100000*512)%512);
+                                if (u.z>=0) z_mod=(int)(((LONG64)u.z+100000*512)%512);
+                                else z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
 
                                 if (u.x<floor_y[y_mod][z_mod]) floor_y[y_mod][z_mod]=u.x;
                             }
@@ -3900,8 +4029,10 @@ extern int floor_y[512][512];
                             int a_z;
                             a_y=u.y/512;
                             a_z=u.z/512;
-                            if (u.y<0) a_y--;
-                            if (u.z<0) a_z--;
+                            if (do_model) {
+                                if (u.y<0) a_y--;
+                                if (u.z<0) a_z--;
+                            }
 
                             if ( (a_y)==x && (a_z)==z ) {
                                 if (prev_x!=u.y || prev_z!=u.z) columns++;
@@ -3985,13 +4116,14 @@ extern int floor_y[512][512];
                                         }
 //hakkatjakka;
 //fucked
-                                        prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
-//                                        if (u.y>=0) prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
-//                                        else prev_y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
+//utrecht
+//                                        prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
+                                        if (u.y>=0) prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
+                                        else prev_y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
 
-                                        prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
-//                                        if (u.z>=0) prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
-//                                        else prev_z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
+//                                        prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
+                                        if (u.z>=0) prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
+                                        else prev_z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
 
                                         if (u.l>0 || u.face!=0) {
                                             size_t off_x=(u.x-floor*256+256*prev_y_mod+prev_z_mod*512*256)*4;
@@ -4008,14 +4140,15 @@ extern int floor_y[512][512];
 
 //fucked
 //hakkatjakka
+//utrecht
                                         region_floor=0;
-                                        prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
-//                                        if (u.y>=0) prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
-//                                        else prev_y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
+//                                        prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
+                                        if (u.y>=0) prev_y_mod=(int)(((LONG64)u.y+100000*512)%512);
+                                        else prev_y_mod=(int)(((LONG64)u.y-1+100000*512)%512);
 
-                                        prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
-//                                        if (u.z>=0) prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
-//                                        else prev_z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
+//                                        prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
+                                        if (u.z>=0) prev_z_mod=(int)(((LONG64)u.z+100000*512)%512);
+                                        else prev_z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
 
                                         if (0) {
 //                                        if (u.x>=0 && u.x<230 && u.l>0) {

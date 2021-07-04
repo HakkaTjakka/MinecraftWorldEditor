@@ -48,6 +48,7 @@ sf::Mutex window_recording;
 void handle_key_window(sf::Event event, int win_num, sf::RenderWindow& window) {
     window_recording.lock();
     recording_type=0;
+    static sf::Vector2u old_size2;
     switch(event.key.code)
     {
     case sf::Keyboard::R:
@@ -65,11 +66,20 @@ void handle_key_window(sf::Event event, int win_num, sf::RenderWindow& window) {
                 end_on_record=0;
                 sound_counter=0;
                 record_screen_num=0;
+
+                printf("1) window=(%d,%d)\n",window.getSize().x,window.getSize().y);
+
+                old_size2=window.getSize();
+                if (old_size2==sf::Vector2u(1922,1082)) window.setSize(sf::Vector2u(1920,1080));
+
+                printf("2) window=(%d,%d)\n",window.getSize().x,window.getSize().y);
+
                 if (recording_start(window.getSize().x,window.getSize().y)!=0)
                 {
                     printf("RECORDING_START() FAILED");
                     record_screen=0;
                     record_window=0;
+                    window.setSize(old_size2);
                 }
                 else
                 {
@@ -110,11 +120,20 @@ void handle_key_window(sf::Event event, int win_num, sf::RenderWindow& window) {
                 if (recording_type==0)
                 {
                     record_screen_num=0;
+
+                    printf("3) window=(%d,%d)\n",window.getSize().x,window.getSize().y);
+
+                    old_size2=window.getSize();
+                    if (old_size2==sf::Vector2u(1922,1082)) window.setSize(sf::Vector2u(1920,1080));
+
+                    printf("4) window=(%d,%d)\n",window.getSize().x,window.getSize().y);
+
                     if (recording_start(window.getSize().x,window.getSize().y)!=0)
                     {
                         printf("RECORDING_START() FAILED");
                         record_screen=0;
                         record_window=0;
+                        window.setSize(old_size2);
                     }
                     else
                     {
@@ -145,6 +164,12 @@ void handle_key_window(sf::Event event, int win_num, sf::RenderWindow& window) {
 
                 if (recording_type==0)
                     recording_end();
+
+                printf("5) window=(%d,%d)\n",window.getSize().x,window.getSize().y);
+
+                window.setSize(old_size2);
+
+                printf("6) window=(%d,%d)\n",window.getSize().x,window.getSize().y);
             }
             break;
         }

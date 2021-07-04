@@ -1974,11 +1974,11 @@ extern bool screensaver;
                             }
 */
                         } else if (event.type == sf::Event::Resized) {
-                            if (record_window==1) {
-                                printf("Recording, cannot change size....\n");
-                                window.setSize(old_size[win_num]);
-                                window.setPosition(old_pos[win_num]);
-                            }
+//                            if (record_window==1) {
+//                                printf("Recording, cannot change size....\n");
+//                                window.setSize(old_size[win_num]);
+//                                window.setPosition(old_pos[win_num]);
+//                            }
 
                             if (by_texture) {
                                 window.setActive(true);

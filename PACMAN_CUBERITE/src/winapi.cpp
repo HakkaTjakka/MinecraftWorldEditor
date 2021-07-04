@@ -828,6 +828,8 @@ printf("hoppa");
 //change if dirs can not be created / found
 //debug    strcpy(lpCmdLine,"mceditor 9 190 0 4");
 //    strcpy(lpCmdLine,"");
+//    printf("%s\n",lpCmdLine);
+//    strcpy(lpCmdLine,"utrecht");
     argc = 1;
     arg  = lpCmdLine;
     while (arg[0] != 0)

@@ -623,9 +623,13 @@ double center_lon=0;
 
 bool sort_lat_lon=false;
 
+
+
+
 struct info_3d_struct {
     glm::ivec2 pos;
     std::string filename;
+//utrecht
     glm::vec3 min_x=glm::vec3(0,0,0);
     glm::vec3 min_y=glm::vec3(0,0,0);
     glm::vec3 min_z=glm::vec3(0,0,0);
@@ -647,6 +651,10 @@ struct info_3d_struct {
             double Bdist=sqrt( (B.lat-center_lat)*(B.lat-center_lat) + (B.lon-center_lon)*(B.lon-center_lon) );
             return( dist < Bdist );
         } else {
+//            double dist    = fabs(  pos.x-center_x)*320.0/412.0   + fabs(  pos.y-center_y);
+//            double Bdist   = fabs(B.pos.x-center_x)*320.0/412.0   + fabs(B.pos.y-center_y);
+//            return( dist < Bdist );
+
             double dist=sqrt( (pos.x-center_x)*(pos.x-center_x) + 4.0*(pos.y-center_y)*(pos.y-center_y) );
             double Bdist=sqrt( (B.pos.x-center_x)*(B.pos.x-center_x) + 4.0*(B.pos.y-center_y)*(B.pos.y-center_y) );
             return( dist < Bdist );
@@ -702,7 +710,7 @@ bool create_boundaries(std::string my_area, sf::RenderWindow& window) {
                     for (auto v : info_3d) {
                         if (v.pos.x==x && v.pos.y==y) {
                             ERR=true;
-                            printf("DOUBLE X=%4d Y=%4d %s          \r",x,y,GetFileName(str).c_str());
+                            printf("DOUBLE X=%4d Y=%4d %s          \n",x,y,GetFileName(str).c_str());
                         }
                     }
                     if (ERR) continue;
@@ -1276,7 +1284,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                     for (auto v : info_3d) {
                         if (v.pos.x==x && v.pos.y==y) {
                             ERR=true;
-                            printf("DOUBLE X=%4d Y=%4d %s          \nr",x,y,GetFileName(str).c_str());
+                            printf("DOUBLE X=%4d Y=%4d %s          \n",x,y,GetFileName(str).c_str());
                         }
                     }
                     if (ERR) continue;
@@ -1304,7 +1312,9 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                     info_3d_elem.e=lon_east;
                     info_3d_elem.w=lon_west;
 
-                    printf("N=%15.11f S=%15.11f W=%15.11f E=%15.11f\n", lat_north, lat_south, lon_west, lon_east);
+                    printf("N=%20.16f S=%20.16f W=%20.16f E=%20.16f\n", lat_north, lat_south, lon_west, lon_east);
+//                    printf("N=%lf S=%lf W=%lf E=%lf\n", lat_north, lat_south, lon_west, lon_east);
+
                     info_3d.push_back(info_3d_elem);
                 } else {
                     printf("NOT FOUND: X=%4d Y=%4d                                                                                                               \n",x,y);
@@ -1357,7 +1367,8 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                     info_3d_elem.s=lat_south;
                     info_3d_elem.e=lon_east;
                     info_3d_elem.w=lon_west;
-                    printf("N=%15.11f S=%15.11f W=%15.11f E=%15.11f\n", lat_north, lat_south, lon_west, lon_east);
+//                    printf("N=%lf S=%lf W=%lf E=%lf\n", lat_north, lat_south, lon_west, lon_east);
+                    printf("N=%20.16f S=%20.16f W=%20.16f E=%20.16f\n", lat_north, lat_south, lon_west, lon_east);
 
                     info_3d.push_back(info_3d_elem);
                 } else {
@@ -1408,7 +1419,8 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                 info_3d_elem.e=lon_east;
                 info_3d_elem.w=lon_west;
 
-                printf("N=%15.11f S=%15.11f W=%15.11f E=%15.11f\n", lat_north, lat_south, lon_west, lon_east);
+                printf("N=%20.16f S=%20.16f W=%20.16f E=%20.16f\n", lat_north, lat_south, lon_west, lon_east);
+//                printf("N=%lf S=%lf W=%lf E=%lf\n", lat_north, lat_south, lon_west, lon_east);
 
                 info_3d.push_back(info_3d_elem);
             } else {
@@ -1452,6 +1464,11 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
     } else if (my_area=="Amsterdam") {
         center_x=43;
         center_y=100;
+    } else if (my_area=="Utrecht") {
+        center_x=94;
+        center_y=100;
+//        center_x=227;
+//        center_y=129;
     } else if (my_area=="Rio") {
         center_x=80;
         center_y=22;
@@ -1642,9 +1659,14 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
 //            lat_global=v.lat;
 //            lon_global=v.lon;
             char kutjelikken[200];
-            sprintf(kutjelikken,"N=%lf S=%lf W=%lf E=%lf", v.n, v.s, v.w, v.e);
-            latitude_longditude=kutjelikken;
+//utrecht
 
+//            sprintf(kutjelikken,"N=%lf S=%lf W=%lf E=%lf", v.n, v.s, v.w, v.e);
+            sprintf(kutjelikken,"N=%20.16f S=%20.16f W=%20.16f E=%20.16f", v.n, v.s, v.w, v.e);
+//            printf("kutjelikken,N=%20.16f S=%20.16f W=%20.16f E=%20.16f\f", v.n, v.s, v.w, v.e);
+//            sprintf(kutjelikken,"N=%f S=%f W=%f E=%f", v.n, v.s, v.w, v.e);
+            latitude_longditude=kutjelikken;
+//            printf("latitude_longditude=%s\n",latitude_longditude.c_str());
             global_octant_x=v.pos.x;
             global_octant_y=v.pos.y;
 
