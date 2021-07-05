@@ -21,6 +21,10 @@ struct voxel_map {
 int already_loaded=false;
 extern bool make_region_from_voxel(int x, int z);
 extern std::vector<hit_one_region> ready_regions;
+
+std::map<std::string,std::string> ready_regions_number_of_hits;
+std::map<std::string,std::string>::iterator it_ready_regions_number_of_hits;
+
 extern bool no_plotting;
 
 bool sort_cubic=false;
@@ -2034,6 +2038,7 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
     }
 
 //utrecht
+
     if (top_left[0]<0)
         Amx = top_left[0]-512;  //?????? must be 511?
 //        Amx = top_left[0]-511;  //?????? must be 511?
@@ -2212,7 +2217,7 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
 //                bmin_total[0]=-80.0;
 //                bmax_total[0]=60.0;
             } else if (area=="Utrecht") {
-                bmin_total[0]=-100.0+36;   //FIND GROUND LEVEL....
+                bmin_total[0]=-100.0;   //FIND GROUND LEVEL....
                 bmax_total[0]=60.0; //DOESN'T MATTER...
             } else if (area=="NewYork") {
 //floors
@@ -3706,10 +3711,18 @@ extern float* fspeed_ghosty;
                         else
                             plotting=3;
 
-//                        if (hit_regions[rx_prev][rz_prev][11]==0)
-//                            plotting=1;
-//                        else
-//                            plotting=3;
+                        std::string s;
+                        char s_c[100];
+                        sprintf(s_c,"%d,%d",scan_x,scan_z);
+                        s=s_c;
+
+                        it_ready_regions_number_of_hits=ready_regions_number_of_hits.find(s);
+                        if (it_ready_regions_number_of_hits == ready_regions_number_of_hits.end()) {
+                            ready_regions_number_of_hits.insert(std::make_pair(s,std::string()+""));
+                        }
+                        sprintf(s_c,"%d,%d,%s",scan_x,scan_z,fn.c_str());
+                        s=s_c;
+                        ready_regions_number_of_hits.insert(std::make_pair(s,mc_text2));
 
 //                        printf("\nPlotting: %s\n",mc_text1);
                         update_request=2;
@@ -3738,7 +3751,7 @@ extern float* fspeed_ghosty;
 
                 plot_region=false;
 //leuk
-                printf("\rREGION [%3d][%3d]  ",rx_prev,rz_prev);
+                printf("\nREGION [%3d][%3d]  ",rx_prev,rz_prev);
                 total_columns=0;
                 size_t total_voxels=0;
                 int tline=0;
@@ -3788,7 +3801,7 @@ extern float* fspeed_ghosty;
 
 //            printf("\nVOXELS_TOTAL: debug: XX=[%3d-%3d] Y=[%4d-%4d] ZZ=[%3d-%3d]\n",debug_min_y,debug_max_y,debug_min_x,debug_max_x,debug_min_z,debug_max_z);
 
-            printf("\r");
+            printf("\n");
             printf("TOTAL VOXELS:                        %9d  ",total_voxels_all_regions);
             printf("TOTAL HITS:                         %10d  ",total_hits_all_regions);
             if (total_voxels_all_regions!=0.0)
@@ -3875,12 +3888,15 @@ extern float* fspeed_ghosty;
                 int x=hit_one->x;
                 int z=hit_one->z;
 
+                printf("\n========>HIT REGIONS:       [%d][%d]\n",x,z);
+
                 bool got_one=false;
                 if (flushing_mode) {
-//                    int n;
-                    for (size_t n=0; n<ready_regions.size(); n++) {
+                    int n2;
+                    for (size_t n2=0; n<ready_regions.size(); n2++) {
+                        printf("========>    READY REGIONS: [%d][%d] \n",ready_regions[n2].x,ready_regions[n2].z);
 //                        printf("SCANNING READY REGIONs: [%d][%d]",ready_regions[n].x,ready_regions[n].z);
-                        if (ready_regions[n].x==x && ready_regions[n].z==z) {
+                        if (ready_regions[n2].x==x && ready_regions[n2].z==z) {
                             printf(" HIT FOUND! ");
 
 //                            if (make_region_from_voxel(x,z)) {
@@ -3926,7 +3942,14 @@ extern float* fspeed_ghosty;
                         }
                         if (got_one) break;
                     }
-                    if (got_one) ready_regions.erase(ready_regions.begin()+n,ready_regions.begin()+n+1);
+//utrecht
+                    if (got_one) {
+//                        printf("\n!!!!!!!!!!!        SIZE=%d\n",ready_regions.size());
+                        ready_regions.erase(ready_regions.begin()+n2,ready_regions.begin()+n2+1);
+//
+//                        ready_regions.erase(ready_regions.begin()+n,ready_regions.begin()+n);
+//                        printf("\n!!!!!!!!!!!        SIZE=%d\n",ready_regions.size());
+                    }
                 }
                 if (hit_one->index8 > (int)(512.0*512.0*0.9995) || flushing ) {
                     if (!got_one) {
@@ -3951,6 +3974,7 @@ extern float* fspeed_ghosty;
 
                     }
                     got_one=true;
+                    printf("\n");
                 }
                 if (hit_one->index6>0 || got_one) {
                     NUMBER_OF_REGIONS++;
@@ -4229,7 +4253,7 @@ extern int floor_y[512][512];
                             }
                             count++;
                         }
-                        printf("                                                                                                                            \n");
+                        printf("                                                                                                                            \r");
                         if (TOPPED_MIN>0) printf("TOPPED_MIN=%d (MIN=%d)\n",TOPPED_MIN,TOP_MIN);
                         if (TOPPED_MAX>0) printf("TOPPED_MAX=%d (MAX=%d)\n",TOPPED_MAX,TOP_MAX);
 

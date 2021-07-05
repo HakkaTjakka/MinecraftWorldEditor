@@ -7059,13 +7059,13 @@ extern bool lighten;
                     }
                     if (min_y>height_add && min_y>0) {
 //utrecht
-                        if (AY[min_y-1].id!=2001 && AY[min_y].id==0) {
-                            if (!(rand()%175)) {
-                                if (AY[min_y].id==0) num_blocks_added++;
-                                else num_blocks_replaced++;
-                                AY[min_y] = BlockInfo(89, 0, 0, 0 );
-                            }
-                        }
+//                        if (AY[min_y-1].id!=2001 && AY[min_y].id==0) {
+//                            if (!(rand()%175)) {
+//                                if (AY[min_y].id==0) num_blocks_added++;
+//                                else num_blocks_replaced++;
+//                                AY[min_y] = BlockInfo(89, 0, 0, 0 );
+//                            }
+//                        }
                     }
                 }
             }

@@ -13054,7 +13054,7 @@ void do_the_recording_stuff()
                 else if (recording_type==1)
                     Screenshot3_m_orig();
 //jojojo
-                if (f8_repeat!=0 || mirror!=0) {
+                if ((f8_repeat!=0 || mirror!=0) && movie==0 && record_pause==0) {
                     updatemovie();
                 }
                 else if (record_screen==1 && record_pause==0 && movie==0 ) // change mafkees movie function....
@@ -14377,6 +14377,9 @@ extern bool hold_voxels;
 extern bool flushing_mode;
 extern bool rot_plot;
 
+extern std::map<std::string, std::string> ready_regions_number_of_hits;
+extern std::map<std::string, std::string>::iterator it_ready_regions_number_of_hits;
+
 void update_MC(sf::Image& image_local2, int xx, int yy) {
     texture_from_ffmpeg.create(512,512);
     texture_from_ffmpeg.update(image_local2);
@@ -14585,18 +14588,43 @@ extern bool rot_plot;
 
 
     if (!plot_only) {
-        text_to_ffmpeg(mc_text2, 28,random_pixel,sf::Color::White);
-        if (hit_one!=NULL) {
-            ffmpeg_posy=y+2+42+28*(hit_one->index12); //todo +6*512;
-//            if (hit_one->index12>4) printf("Error: hit_one->index12>4\n");
+        int offset=0;
+        std::string s;
+        char s_c[100];
+        sprintf(s_c,"%d,%d",xx,yy);
+        s=s_c;
+
+        it_ready_regions_number_of_hits=ready_regions_number_of_hits.find(s);
+        if (it_ready_regions_number_of_hits != ready_regions_number_of_hits.end()) {
+            it_ready_regions_number_of_hits++;
+            while (it_ready_regions_number_of_hits != ready_regions_number_of_hits.end() && it_ready_regions_number_of_hits->second!=std::string()+"") {
+                sprintf(mc_text2,"%s",it_ready_regions_number_of_hits->second.c_str());
+                text_to_ffmpeg(mc_text2, 28,random_pixel,sf::Color::White);
+                ffmpeg_posy=y+2+42+28*(offset++);
+                plot_ffmpegfile=1;
+                plot_some();
+                it_ready_regions_number_of_hits++;
+            }
         }
-        else
-            ffmpeg_posy=y+2+42+28; // todo +6*512;
 
-//        ffmpeg_posy=y+2+42+28*(region_counter[xx][yy]);
+//        it_ready_regions_number_of_hits=ready_regions_number_of_hits.find(s);
+//        if (it_ready_regions_number_of_hits != ready_regions_number_of_hits.end()) {
+//            offset=it_ready_regions_number_of_hits->second.y;
+//            ffmpeg_posy=y+2+42+28*(offset); //todo +6*512;
+//        }
 
-        plot_ffmpegfile=1;
-        plot_some();
+//        text_to_ffmpeg(mc_text2, 28,random_pixel,sf::Color::White);
+//        if (hit_one!=NULL) {
+//              ffmpeg_posy=y+2+42+28*(offset); //todo +6*512;
+////            ffmpeg_posy=y+2+42+28*(hit_one->index12); //todo +6*512;
+////            if (hit_one->index12>4) printf("Error: hit_one->index12>4\n");
+//          }
+//          else
+//              ffmpeg_posy=y+2+42+28; // todo +6*512;
+
+
+//        plot_ffmpegfile=1;
+//        plot_some();
 
         char mc_text3[100];
         sprintf(mc_text3,"%8.3f%%",100.0*float(pixel_count)/(512.0*512.0));
@@ -14616,7 +14644,7 @@ extern bool rot_plot;
     image_local.create(512,512,sf::Color(0,0,0,0));
     if (flushing_mode && complete_f>99.95 && !no_plotting) {
 //    if (flushing_mode && complete_f>99.99 && !no_plotting && !complete_f2>99.99) {
-        printf("\nGOT ONE COMPLETE (%f%% pixels) : r.%d.%d PUSHED ==>>\n",complete_f,xx,yy);
+        printf("\n\nGOT ONE COMPLETE (%f%% pixels) : r.%d.%d PUSHED ==>>\n",complete_f,xx,yy);
 //        hit_one_region one_region;
 //        one_region.x=xx; one_region.z=zz;
         ready_regions.push_back(hit_one_region(xx,yy));
