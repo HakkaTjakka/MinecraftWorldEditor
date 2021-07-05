@@ -3893,7 +3893,7 @@ extern float* fspeed_ghosty;
                 bool got_one=false;
                 if (flushing_mode) {
                     size_t n2;
-                    for (n2=0; n<ready_regions.size(); n2++) {
+                    for (n2=0; n2<ready_regions.size(); n2++) {
                         printf("========>    READY REGIONS: [%d][%d] \n",ready_regions[n2].x,ready_regions[n2].z);
 //                        printf("SCANNING READY REGIONs: [%d][%d]",ready_regions[n].x,ready_regions[n].z);
                         if (ready_regions[n2].x==x && ready_regions[n2].z==z) {
