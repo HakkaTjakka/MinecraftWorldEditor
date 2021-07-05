@@ -70,7 +70,8 @@ bool got_next=false;
 extern bool voxel_to_file;
 extern bool plot_only;
 extern bool flushing;
-
+extern bool burn;
+extern sf::Clock kp;
 extern int active_window_num;
 extern sf::RenderWindow* windows_3d[];
 extern int is_activated_window[];
@@ -10737,6 +10738,12 @@ extern int scan_min_z;
             update_request=5;
         }
 
+        static int position1x_wanted=position1x;
+        static int position1y_wanted=position1y;
+        static int wanted_position1x=position1x;
+        static int wanted_position1y=position1y;
+        static bool start_to_move=0;
+
         if (update_request==2 || update_request==3) {
             float fspeedx_old=fspeedx;
             float fspeedy_old=fspeedy;
@@ -10782,9 +10789,21 @@ extern std::string region_filename;
                 int x=(int)( ( (LONG64)(scan_x)*512  +256+ (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
                 int y=(int)( ( (LONG64)(scan_z)*512  +256 - offset_y + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
 
-                position1x=(x+maxpixelsx*2)%+maxpixelsx;
-                position1y=(y+maxpixelsy*2)%+maxpixelsy;
-                get_position3();
+                wanted_position1x=(x+maxpixelsx*2)%+maxpixelsx;
+                wanted_position1y=(y+maxpixelsy*2)%+maxpixelsy;
+
+
+                if (!start_to_move) {
+                    position1x_wanted=wanted_position1x;
+                    position1y_wanted=wanted_position1y;
+                    position1x=wanted_position1x;
+                    position1y=wanted_position1y;
+                    start_to_move=true;
+                    get_position3();
+                } else {
+                    position1x_wanted=wanted_position1x;
+                    position1y_wanted=wanted_position1y;
+                }
             } else {
                 position1x=old_positionx;
                 position1y=old_positiony;
@@ -10795,6 +10814,15 @@ extern std::string region_filename;
                 get_position3();
             }
             if (update_request==2) update_request=0;
+        }
+        if (burn && mirror==4 && crossing==2 && start_to_move) {
+            if (kp.getElapsedTime()>sf::seconds(10)) {
+                position1x=(position1x*50 + position1x_wanted)/51;
+                position1y=(position1y*50 + position1y_wanted)/51;
+                get_position3();
+            }
+        } else {
+            start_to_move=false;
         }
 //        MUTEX_MCEDITOR.unlock();
         if (update_request==3) {
@@ -14385,6 +14413,7 @@ void update_MC(sf::Image& image_local2, int xx, int yy) {
     texture_from_ffmpeg.update(image_local2);
 
     sf::Image image_local;
+    sf::Image image_local3;
     image_local=texture_from_ffmpeg.copyToImage();
 
     hit_one_region* hit_one=findRegion(xx, yy);
@@ -14402,6 +14431,7 @@ void update_MC(sf::Image& image_local2, int xx, int yy) {
 
     int pixel_count=0;
     int pixel_count2=0;
+    char fname[1000];
     for (int y=0; y<512; y++)
         for (int x=0; x<512; x++) {
             sf::Color pixel = image_local.getPixel(x,y);
@@ -14409,7 +14439,6 @@ void update_MC(sf::Image& image_local2, int xx, int yy) {
         }
     if (!hold_voxels || rot_plot) {
         sf::Image back;
-        char fname[200];
         if ((plot_only && !flushing_mode) || rot_plot) {
             mkdir("../cut/png");
             sprintf(fname,"../cut/png/r.%d.%d.png",xx,yy);
@@ -14447,6 +14476,7 @@ void update_MC(sf::Image& image_local2, int xx, int yy) {
             remove(fname);
         }
         texture_from_ffmpeg.copyToImage().saveToFile(fname);
+        image_local3=texture_from_ffmpeg.copyToImage();
     }
     if (pixel_count==512*512) complete=true;
     float complete_f2=100.0*float(pixel_count)/(512.0*512.0);
@@ -14587,52 +14617,57 @@ extern bool rot_plot;
     plot_some();
 
 
-    if (!plot_only) {
-        int offset=0;
-        std::string s;
-        char s_c[100];
-        sprintf(s_c,"%d,%d",xx,yy);
-        s=s_c;
+    float complete_f=100.0*float(pixel_count)/(512.0*512.0);
+    if (!(flushing_mode && complete_f>99.95 && !no_plotting) && plotting) {
+        if (!plot_only) {
+            int offset=0;
+            std::string s;
+            char s_c[100];
+            sprintf(s_c,"%d,%d",xx,yy);
+            s=s_c;
 
-        it_ready_regions_number_of_hits=ready_regions_number_of_hits.find(s);
-        if (it_ready_regions_number_of_hits != ready_regions_number_of_hits.end()) {
-            it_ready_regions_number_of_hits++;
-            while (it_ready_regions_number_of_hits != ready_regions_number_of_hits.end() && it_ready_regions_number_of_hits->second!=std::string()+"") {
-                sprintf(mc_text2,"%s",it_ready_regions_number_of_hits->second.c_str());
-                text_to_ffmpeg(mc_text2, 28,random_pixel,sf::Color::White);
-                ffmpeg_posy=y+2+42+28*(offset++);
-                plot_ffmpegfile=1;
-                plot_some();
+            random_pixel=sf::Color(24+rand()%80,24+rand()%80,24+rand()%80,255);
+
+            it_ready_regions_number_of_hits=ready_regions_number_of_hits.find(s);
+            if (it_ready_regions_number_of_hits != ready_regions_number_of_hits.end()) {
                 it_ready_regions_number_of_hits++;
+                while (it_ready_regions_number_of_hits != ready_regions_number_of_hits.end() && it_ready_regions_number_of_hits->second!=std::string()+"") {
+                    sprintf(mc_text2,"%s",it_ready_regions_number_of_hits->second.c_str());
+                    text_to_ffmpeg(mc_text2, 28,random_pixel,sf::Color::White);
+                    ffmpeg_posy=y+2+42+28*(offset++);
+                    plot_ffmpegfile=1;
+                    plot_some();
+                    it_ready_regions_number_of_hits++;
+                }
             }
+
+    //        it_ready_regions_number_of_hits=ready_regions_number_of_hits.find(s);
+    //        if (it_ready_regions_number_of_hits != ready_regions_number_of_hits.end()) {
+    //            offset=it_ready_regions_number_of_hits->second.y;
+    //            ffmpeg_posy=y+2+42+28*(offset); //todo +6*512;
+    //        }
+
+    //        text_to_ffmpeg(mc_text2, 28,random_pixel,sf::Color::White);
+    //        if (hit_one!=NULL) {
+    //              ffmpeg_posy=y+2+42+28*(offset); //todo +6*512;
+    ////            ffmpeg_posy=y+2+42+28*(hit_one->index12); //todo +6*512;
+    ////            if (hit_one->index12>4) printf("Error: hit_one->index12>4\n");
+    //          }
+    //          else
+    //              ffmpeg_posy=y+2+42+28; // todo +6*512;
+
+
+    //        plot_ffmpegfile=1;
+    //        plot_some();
+
+            char mc_text3[100];
+            sprintf(mc_text3,"%8.3f%%",100.0*float(pixel_count)/(512.0*512.0));
+            ffmpeg_posy=y+2+340+28*(hit_one->index12); //todo +6*512;
+            ffmpeg_posx=x+200; //todo +6*512;
+            text_to_ffmpeg(mc_text3, 28,sf::Color::Red,sf::Color::White);
+            plot_ffmpegfile=1;
+            plot_some();
         }
-
-//        it_ready_regions_number_of_hits=ready_regions_number_of_hits.find(s);
-//        if (it_ready_regions_number_of_hits != ready_regions_number_of_hits.end()) {
-//            offset=it_ready_regions_number_of_hits->second.y;
-//            ffmpeg_posy=y+2+42+28*(offset); //todo +6*512;
-//        }
-
-//        text_to_ffmpeg(mc_text2, 28,random_pixel,sf::Color::White);
-//        if (hit_one!=NULL) {
-//              ffmpeg_posy=y+2+42+28*(offset); //todo +6*512;
-////            ffmpeg_posy=y+2+42+28*(hit_one->index12); //todo +6*512;
-////            if (hit_one->index12>4) printf("Error: hit_one->index12>4\n");
-//          }
-//          else
-//              ffmpeg_posy=y+2+42+28; // todo +6*512;
-
-
-//        plot_ffmpegfile=1;
-//        plot_some();
-
-        char mc_text3[100];
-        sprintf(mc_text3,"%8.3f%%",100.0*float(pixel_count)/(512.0*512.0));
-        ffmpeg_posy=y+2+270+28*(hit_one->index12); //todo +6*512;
-        ffmpeg_posx=x+200; //todo +6*512;
-        text_to_ffmpeg(mc_text3, 28,sf::Color::Red,sf::Color::White);
-        plot_ffmpegfile=1;
-        plot_some();
     }
 
 //    perform_quit=0;
@@ -14640,11 +14675,15 @@ extern bool rot_plot;
     smooth=smooth_old;
     blending=bl_old;
     ffmpegfile=1;
-    float complete_f=100.0*float(pixel_count)/(512.0*512.0);
+//    float complete_f=100.0*float(pixel_count)/(512.0*512.0);
     image_local.create(512,512,sf::Color(0,0,0,0));
     if (flushing_mode && complete_f>99.95 && !no_plotting) {
 //    if (flushing_mode && complete_f>99.99 && !no_plotting && !complete_f2>99.99) {
         printf("\n\nGOT ONE COMPLETE (%f%% pixels) : r.%d.%d PUSHED ==>>\n",complete_f,xx,yy);
+        mkdir("../cut/png2");
+        sprintf(fname,"../cut/png2/r.%d.%d.png",xx,yy);
+        image_local3.saveToFile(fname);
+
 //        hit_one_region one_region;
 //        one_region.x=xx; one_region.z=zz;
         ready_regions.push_back(hit_one_region(xx,yy));

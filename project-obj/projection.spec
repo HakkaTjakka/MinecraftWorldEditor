@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['projection.py'],
-             pathex=['D:\\PACMAN\\PACMAN_CUBERITE\\project-obj'],
+             pathex=['project-obj'],
              binaries=[],
              datas=[],
              hiddenimports=['jnius_config'],
