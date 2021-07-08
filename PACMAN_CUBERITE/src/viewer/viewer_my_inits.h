@@ -1,3 +1,4 @@
+#include <conio.h>
 #include "../MCA-NBT-EDIT.HPP"
 #include <winsock2.h>
 

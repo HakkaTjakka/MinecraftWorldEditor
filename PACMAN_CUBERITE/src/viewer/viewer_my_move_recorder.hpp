@@ -876,7 +876,8 @@ bool create_boundaries(std::string my_area, sf::RenderWindow& window) {
         if (data_filename.find_last_of(".") != std::string::npos) data_filename=data_filename.substr(0,data_filename.find_last_of("."))+".dot";
         std::string data_filename_file=GetFileName(GetBaseDir(data_filename)).c_str();
 
-        if ((file_arr = fopen (data_filename.c_str(), "r"))!=NULL) {
+//utrecht
+        if (0 && (file_arr = fopen (data_filename.c_str(), "r"))!=NULL) {
             window.pollEvent(event);
             printf("#%3d LOADING: X=%4d Y=%4d %s ",cnt,v.pos.x,v.pos.y,data_filename_file.c_str());
 
@@ -964,7 +965,12 @@ bool create_boundaries(std::string my_area, sf::RenderWindow& window) {
                 std::vector<tinyobj::material_t> materials;
                 NBT_TO_OBJECT3D(buffers, materials, (char*)nbt_filename.c_str(), minimum,maximum);
 
-                if (buffers.size()>0) RECALC_BMIN_BMAX(buffers, minimum, maximum, v.lat, v.lon);
+                if (my_area=="Utrecht") {
+                    if (buffers.size()>0) RECALC_BMIN_BMAX_NEW(buffers, minimum, maximum, v.lat, v.lon);
+                }
+                else {
+                    if (buffers.size()>0) RECALC_BMIN_BMAX(buffers, minimum, maximum, v.lat, v.lon);
+                }
 
                 min_xx_x = min_yy_x = min_zz_x = minimum[0];
                 min_xx_y = min_yy_y = min_zz_y = minimum[1];

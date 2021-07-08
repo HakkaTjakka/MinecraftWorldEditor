@@ -246,6 +246,7 @@ void NBT_TO_OBJECT3D(std::vector<BufferObject> &buffers, std::vector<tinyobj::ma
 void CANVAS_OBJECT3D(std::vector<BufferObject> &buffers, std::vector<tinyobj::material_t> &materials, char* filename, float bmin[3], float bmax[3], int picturex, int picturey);
 extern void RECALC_BMIN_BMAX(std::vector<BufferObject> buffers, float bmin[3], float bmax[3], double lat, double lon);
 extern void RECALC_BMIN_BMAX2(std::vector<BufferObject> buffers, float bmin[3], float bmax[3], double lat, double lon);
+extern void RECALC_BMIN_BMAX_NEW(std::vector<BufferObject> buffers, float bmin[3], float bmax[3], double lat, double lon);
 extern void RECALC_BMIN_BMAX3(std::vector<BufferObject> buffers, float bmin[3], float bmax[3], double lat, double lon);
 extern void RECALC_BMIN_BMAX4(std::vector<BufferObject> buffers, float bmin[3], float bmax[3], double lat, double lon);
 
@@ -274,6 +275,10 @@ std::vector<Voxel> voxels;
 bool do_wuppie=false;
 bool hold_voxels=false;
 std::string obj_dir;
+
+float before[3];
+float after[3];
+double projection[3];
 
 static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                               std::vector<DrawObject>& drawObjects,
@@ -332,8 +337,12 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                 system(command_str);
             }
 // serious mistaken!!! Sorry :(
-//            lat=(lat_north+lat_south)/2.0;
-//            lon=(lon_east+lon_west)/2.0;
+// not anymore, lat lon values per octant for large scale conversion....
+            if (area=="Utrecht") { // for rotation RECALC_BMIN_BMAX2(buffers, bmin, bmax, lat, lon); when converting to .nbt instead of lat_global and lon_global for all octants
+                lat=(lat_north+lat_south)/2.0; //WHOLE AREA WILL BE FLATTNED INSTEAD OF FOLLOWING EARTH GLOBE (FOR USE WITH CONVERTING TO BTR121 MINCRAFT VOXELIZER
+                lon=(lon_east+lon_west)/2.0;
+                printf("Using per octant lat=%20.16f lon=%20.16f\n",lat,lon);
+            }
         }
     } else {
         printf("\n");
@@ -396,8 +405,19 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
             if (0 && strstr(filename, "models") != NULL || area=="Models") {
                 RECALC_BMIN_BMAX(buffers, bmin,bmax, lat, lon);
             }
-            else
-                RECALC_BMIN_BMAX2(buffers, bmin,bmax, lat, lon);
+            else {
+                float* VertexPointer = (float*)(buffers[0].buffer + sizeof(int));
+                for (int k=0; k<3; k++) {
+                    before[k]=VertexPointer[k];
+                }
+                if (area=="Utrecht")
+                    RECALC_BMIN_BMAX_NEW(buffers, bmin,bmax, lat, lon);
+                else
+                    RECALC_BMIN_BMAX2(buffers, bmin,bmax, lat, lon);
+                for (int k=0; k<3; k++) {
+                    after[k]=VertexPointer[k];
+                }
+            }
         }
 
         NBT_LOADED=true;
@@ -1021,8 +1041,19 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
 
         if (!NBT_LOADED) {
             printf(" Saving to .nbt");
+            float* VertexPointer = (float*)(buffers[0].buffer + sizeof(int));
+            for (int k=0; k<3; k++) {
+                before[k]=VertexPointer[k];
+            }
             OBJECT3D_TO_NBT(buffers, materials, filename, bmin, bmax);
-            RECALC_BMIN_BMAX2(buffers, bmin, bmax, lat, lon);
+            if (area=="Utrecht")
+                RECALC_BMIN_BMAX_NEW(buffers, bmin,bmax, lat, lon);
+            else
+                RECALC_BMIN_BMAX2(buffers, bmin,bmax, lat, lon);
+            for (int k=0; k<3; k++) {
+                after[k]=VertexPointer[k];
+            }
+
         }
         if (do_wuppie) {
             std::string fn = filename;
@@ -1859,10 +1890,22 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
         printf("Getting BTE121 coords from projection.py\n");
         char sys_call[1000];
 //projection.exe lon_west lat_north lon_east lat_south
-        sprintf(sys_call,"projection.exe %20.16f %20.16f %20.16f %20.16f > projection.txt",tot_lon[0],tot_lat[0],tot_lon[1],tot_lat[1]);
+//        sprintf(sys_call,"projection.exe %20.16f %20.16f %20.16f %20.16f > projection.txt",tot_lon[0],tot_lat[0],tot_lon[1],tot_lat[1]);
+
+
+//        offset_x=3899275.0;					offset_y=348997.0;				offset_z=5026376.0; } // from EARTH/DUMP_OBJ_CITY.JS
+
+//        sprintf(sys_call,"projection.exe %20.16f %20.16f %20.16f %20.16f > projection.txt",tot_lon[0],tot_lat[0],tot_lon[1],tot_lat[1]);
+        sprintf(sys_call,"projection.exe %20.16f %20.16f %20.16f %20.16f %20.16f %20.16f %20.16f > projection.txt",
+                tot_lon[0],tot_lat[0],tot_lon[1],tot_lat[1],
+                3899275.0+before[0],348997.0+before[1],5026376.0+before[2]
+//                3899275.0-before[0],348997.0-before[1],5026376.0-before[2]
+//                3899275.0,348997.0,5026376.0
+
+                );
         printf("%s\n",sys_call);
         system(sys_call);
-        system("type projection.txt");
+//        system("type projection.txt");
 //TOP_LEFT(X=3153366.896357943,Z=-5415823.892077346)
 //TOP_RIGHT(X=3332296.4138517035,Z=-5360923.333970745)
 //BOT_LEFT(X=3127029.9093990717,Z=-5332805.38180718)
@@ -1925,6 +1968,27 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
                 printf("ERROR READING BOT_RIGHT from projection.txt\n");
                 printf("line=%s\n",line);
             }
+            if (fgets (line,1000, HOP)!=NULL) {
+//                printf("line projection.txt=%s\n",line);
+//                while (replace_str(line,",","."));
+                //PROJECTION(X=[3174964.36805937] Y=[10.18973941] Z=[-5354805.95750982])
+                if ( sscanf(line,"PROJECTION(X=[%lf] Y=[%lf] Z=[%lf])\n",&projection[0],&projection[1],&projection[2]) != 3) {
+                    printf("ERROR READING PROJECTION from projection.txt\n");
+                    printf("line=%s\n",line);
+//                    return;
+                } else {
+                    printf("PROJECTION(X=%20.16f Y=%20.16f Z=%20.16f)\n",projection[0],projection[1],projection[2]);
+                    printf("BEFORE=   (X=%20.16f Y=%20.16f Z=%20.16f)\n",3899275.0+before[0],348997.0+before[1],5026376.0+before[2]);
+                    printf("AFTER=    (X=%20.16f Y=%20.16f Z=%20.16f)\n",after[0],after[1],after[2]);
+                    printf("DIFFERENCE IN HEIGHT=%20.16f\n",after[0]-projection[1]);
+                }
+            } else {
+                printf("ERROR READING PROJECTION from projection.txt\n");
+                printf("line=%s\n",line);
+            }
+//            while (fgets (line,1000, HOP)!=NULL) {
+//                printf("line=%s",line);
+//            }
             fclose(HOP);
         } else {
             printf("Can not open projection.txt\n");
@@ -2155,61 +2219,70 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
         printf("OBJECT MAX: X=%24.17f Y=%24.17f Z=%24.17f\n",bmax_o[0],bmax_o[1],bmax_o[2]);
         printf("OBJECT DIF: X=%24.17f Y=%24.17f Z=%24.17f\n",bmax_o[0]-bmin_o[0],bmax_o[1]-bmin_o[1],bmax_o[2]-bmin_o[2]);
         sprintf(dat_name,"%s.DAT",area.c_str());
-        FILE* HOP;
-        if ((HOP = fopen (dat_name, "r"))!=NULL) {
-            if (fgets (line,200, HOP)!=NULL) {
-  //decimal_point
-                                            while (replace_str(line,",","."));
-//              while (replace_str(line,".",","));
-                if ( sscanf(line,"TOTAL MIN: X=%lf Y=%lf Z=%lf\n",&bmin_total[0],&bmin_total[1],&bmin_total[2]) != 3) {
+
+        if (area!="Utrecht") {
+            FILE* HOP;
+            if ((HOP = fopen (dat_name, "r"))!=NULL) {
+                if (fgets (line,200, HOP)!=NULL) {
+      //decimal_point
+                                                while (replace_str(line,",","."));
+    //              while (replace_str(line,".",","));
+                    if ( sscanf(line,"TOTAL MIN: X=%lf Y=%lf Z=%lf\n",&bmin_total[0],&bmin_total[1],&bmin_total[2]) != 3) {
+                        printf("ERROR READING TOTAL MIN from %s\n",dat_name);
+                        return -1;
+                    } else {
+                        printf("LOADED TOTAL MIN: X=%24.17f Y=%24.17f Z=%24.17f\n",bmin_total[0],bmin_total[1],bmin_total[2]);
+                    }
+                } else {
                     printf("ERROR READING TOTAL MIN from %s\n",dat_name);
-                    return -1;
-                } else {
-                    printf("LOADED TOTAL MIN: X=%24.17f Y=%24.17f Z=%24.17f\n",bmin_total[0],bmin_total[1],bmin_total[2]);
                 }
-            } else {
-                printf("ERROR READING TOTAL MIN from %s\n",dat_name);
-            }
-            if (fgets (line,200, HOP)!=NULL) {
-//decimal_point
-                                            while (replace_str(line,",","."));
-//                while (replace_str(line,".",","));
-                if (sscanf(line,"TOTAL MAX: X=%lf Y=%lf Z=%lf\n",&bmax_total[0],&bmax_total[1],&bmax_total[2]) != 3) {
+                if (fgets (line,200, HOP)!=NULL) {
+    //decimal_point
+                                                while (replace_str(line,",","."));
+    //                while (replace_str(line,".",","));
+                    if (sscanf(line,"TOTAL MAX: X=%lf Y=%lf Z=%lf\n",&bmax_total[0],&bmax_total[1],&bmax_total[2]) != 3) {
+                        printf("ERROR READING TOTAL MAX from %s\n",dat_name);
+                        return -1;
+                    } else {
+                        printf("LOADED TOTAL MAX: X=%24.17f Y=%24.17f Z=%24.17f\n",bmax_total[0],bmax_total[1],bmax_total[2]);
+                    }
+                } else {
                     printf("ERROR READING TOTAL MAX from %s\n",dat_name);
-                    return -1;
+                }
+                if (fgets (line,200, HOP)!=NULL) { //diff
                 } else {
-                    printf("LOADED TOTAL MAX: X=%24.17f Y=%24.17f Z=%24.17f\n",bmax_total[0],bmax_total[1],bmax_total[2]);
+                    printf("ERROR READING TOTAL DIF from %s\n",dat_name);
                 }
-            } else {
-                printf("ERROR READING TOTAL MAX from %s\n",dat_name);
-            }
-            if (fgets (line,200, HOP)!=NULL) { //diff
-            } else {
-                printf("ERROR READING TOTAL DIF from %s\n",dat_name);
-            }
-            printf("LOADED TOTAL DIF: X=%24.17f Y=%24.17f Z=%24.17f\n",bmax_total[0]-bmin_total[0],bmax_total[1]-bmin_total[1],bmax_total[2]-bmin_total[2]);
+                printf("LOADED TOTAL DIF: X=%24.17f Y=%24.17f Z=%24.17f\n",bmax_total[0]-bmin_total[0],bmax_total[1]-bmin_total[1],bmax_total[2]-bmin_total[2]);
 
-            if (fgets (line,200, HOP)!=NULL) {
-  //decimal_point
-                                            while (replace_str(line,",","."));
-//              while (replace_str(line,".",","));
-                if (sscanf(line,"LAT: NORTH=%lf SOUTH=%lf\n",&tot_lat[0],&tot_lat[1]) != 2) {
-                    printf("ERROR READING LAT FROM %s\n",dat_name);
+                if (fgets (line,200, HOP)!=NULL) {
+      //decimal_point
+                                                while (replace_str(line,",","."));
+    //              while (replace_str(line,".",","));
+                    if (sscanf(line,"LAT: NORTH=%lf SOUTH=%lf\n",&tot_lat[0],&tot_lat[1]) != 2) {
+                        printf("ERROR READING LAT FROM %s\n",dat_name);
+                    }
                 }
-            }
-            if (fgets (line,200, HOP)!=NULL) {
-  //decimal_point
-                                            while (replace_str(line,",","."));
-//              while (replace_str(line,".",","));
-                if (sscanf(line,"LON:  WEST=%lf  EAST=%lf\n",&tot_lon[0],&tot_lon[1]) != 2) {
-                    printf("ERROR READING LON FROM %s\n",dat_name);
+                if (fgets (line,200, HOP)!=NULL) {
+      //decimal_point
+                                                while (replace_str(line,",","."));
+    //              while (replace_str(line,".",","));
+                    if (sscanf(line,"LON:  WEST=%lf  EAST=%lf\n",&tot_lon[0],&tot_lon[1]) != 2) {
+                        printf("ERROR READING LON FROM %s\n",dat_name);
+                    }
                 }
-            }
-            printf("TOTAL: NORTH=%20.16f WEST=%20.16f\n",tot_lat[0],tot_lon[0]);
-            printf("TOTAL: SOUTH=%20.16f EAST=%20.16f\n",tot_lat[1],tot_lon[1]);
-            printf("TOTAL: DIFF =%20.16f      %20.16f\n",tot_lat[0]-tot_lat[1],tot_lon[0]-tot_lon[1]);
+                printf("TOTAL: NORTH=%20.16f WEST=%20.16f\n",tot_lat[0],tot_lon[0]);
+                printf("TOTAL: SOUTH=%20.16f EAST=%20.16f\n",tot_lat[1],tot_lon[1]);
+                printf("TOTAL: DIFF =%20.16f      %20.16f\n",tot_lat[0]-tot_lat[1],tot_lon[0]-tot_lon[1]);
 
-            fclose(HOP);
+                fclose(HOP);
+            } else {
+                printf("Error reading %s\n",dat_name);
+                return-1;
+            }
+        }
+
+        {
             if (area=="Enschede") {
 //                bmin_total[0]+=15.0;
 //                bmax_total[0]+=15.0;
@@ -2217,8 +2290,15 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
 //                bmin_total[0]=-80.0;
 //                bmax_total[0]=60.0;
             } else if (area=="Utrecht") {
-                bmin_total[0]=-100.0;   //FIND GROUND LEVEL....
-                bmax_total[0]=60.0; //DOESN'T MATTER...
+//                bmin_total[0]=after[0]-projection[1];
+//                bmin_total[0]=b_min[0]-projection[1];   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
+//                bmin_total[0]=-170-after[0]+projection[1];   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
+                bmin_total[0]=bmin_o[0]-32;   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
+                bmax_total[0]=bmax_o[0]-32;   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
+//                bmin_total[0]=-116;   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
+//                bmin_total[0]=bmin_o[0]+after[0]-projection[1];   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
+//                bmax_total[0]=200;// 60.0; //DOESN'T MATTER...
+//                bmax_total[0]-=32;// 60.0; //DOESN'T MATTER...
             } else if (area=="NewYork") {
 //floors
                 bmin_total[0]=-40.0;
@@ -2231,9 +2311,6 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
                 bmin_total[0]=-30.0;
                 bmax_total[0]=150.0;
             }
-        } else {
-            printf("Error reading %s\n",dat_name);
-            return-1;
         }
     }
 
@@ -2252,8 +2329,10 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
         lat_octant[1]=lat_south;
         lon_octant[0]=lon_west;
         lon_octant[1]=lon_east;
-        bmin_octant[0]=bmin_total[0];
-        bmax_octant[0]=bmax_total[0];
+//        bmin_octant[0]=bmin_total[0];
+//        bmax_octant[0]=bmax_total[0];
+        bmin_octant[0]=bmin_o[0];
+        bmax_octant[0]=bmax_o[0];
         bmin_octant[1]=bmin_o[1];
         bmax_octant[1]=bmax_o[1];
         bmin_octant[2]=bmin_o[2];
@@ -2292,7 +2371,11 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
     printf("BLOCKS Z=%15.6f   SCALE=%9.6f\n",blocks_z,block_scale_z);
 
     double block_scale_avg=(block_scale_x + block_scale_z)/2.0;
+
+    if (area=="Utrecht") block_scale_avg=1.0;
+
     printf("BLOCKS SCALE AVERAGE            =%9.6f\n",block_scale_avg);
+
 
 //aiaiai
 //    if (crossing==0) {
@@ -2305,9 +2388,10 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
 
 //enschede x3
 //    bmin_total[0]=-10;
-    printf("TOTAL MIN: X=%24.17f Y=%24.17f Z=%24.17f\n",bmin_total[0],bmin_total[1],bmin_total[2]);
-    printf("TOTAL MAX: X=%24.17f Y=%24.17f Z=%24.17f\n",bmax_total[0],bmax_total[1],bmax_total[2]);
-    printf("TOTAL DIF: X=%24.17f Y=%24.17f Z=%24.17f\n",bmax_total[0]-bmin_total[0],bmax_total[1]-bmin_total[1],bmax_total[2]-bmin_total[2]);
+//utrecht
+//    printf("TOTAL MIN: X=%24.17f Y=%24.17f Z=%24.17f\n",bmin_total[0],bmin_total[1],bmin_total[2]);
+//    printf("TOTAL MAX: X=%24.17f Y=%24.17f Z=%24.17f\n",bmax_total[0],bmax_total[1],bmax_total[2]);
+//    printf("TOTAL DIF: X=%24.17f Y=%24.17f Z=%24.17f\n",bmax_total[0]-bmin_total[0],bmax_total[1]-bmin_total[1],bmax_total[2]-bmin_total[2]);
 
 
 //Enschede
@@ -2364,129 +2448,145 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
     double vertex_scale=0.0;
     double texture_scale=0.0;
 
-    for (auto u : buffers) {
-        one_buffer=u;
-//        printf("hier4 \n");
+    if (!(area=="Utrecht")) {
+        for (auto u : buffers) {
+            one_buffer=u;
+    //        printf("hier4 \n");
 
-        int num_faces=(one_buffer.length-sizeof(int)) / (3 + 3 + 3 + 2) / 3 / sizeof(float);     // 3:vtx, 3:normal, 3:col, 2:texcoord
-//test double
-        double v[3][3];
-//        float v[3][3];
-//        float n[3][3];
-//        float c[3][3];
-        double tc[3][2];
-//        float tc[3][2];
-//        printf("hier3 \n");
-        int stride = (3 + 3 + 2 + 3);
-        float* real_buffer = (float*)(one_buffer.buffer + sizeof(int));
-        float* VertexPointer=real_buffer;
-//        float* NormalPointer=real_buffer + 3;
-//        float* ColorPointer=real_buffer + 6;
-        float* TexCoordPointer=real_buffer + 9;
-//        float* TexCoordPointer=real_buffer + 9;
-        int mat_id;
-        memcpy(&mat_id,one_buffer.buffer,sizeof(int));
+            int num_faces=(one_buffer.length-sizeof(int)) / (3 + 3 + 3 + 2) / 3 / sizeof(float);     // 3:vtx, 3:normal, 3:col, 2:texcoord
+    //test double
+            double v[3][3];
+    //        float v[3][3];
+    //        float n[3][3];
+    //        float c[3][3];
+            double tc[3][2];
+    //        float tc[3][2];
+    //        printf("hier3 \n");
+            int stride = (3 + 3 + 2 + 3);
+            float* real_buffer = (float*)(one_buffer.buffer + sizeof(int));
+            float* VertexPointer=real_buffer;
+    //        float* NormalPointer=real_buffer + 3;
+    //        float* ColorPointer=real_buffer + 6;
+            float* TexCoordPointer=real_buffer + 9;
+    //        float* TexCoordPointer=real_buffer + 9;
+            int mat_id;
+            memcpy(&mat_id,one_buffer.buffer,sizeof(int));
 
-        static bool no_texture;
-        int w=0;
-        int h=0;
-//        printf("hier2 \n");
+            static bool no_texture;
+            int w=0;
+            int h=0;
+    //        printf("hier2 \n");
 
-//jaja
-        sf::Image image_copy; //dummy
-        image_copy.create(256,256,sf::Color(255,0,0,255));
-        sf::Image* image=&image_copy;
-        if (mat_id < materials.size())
-//        if (mat_id < materials.size()-1)
-        {
-            if (!image_buffer[mat_id]->ok) {
-//                image=0;
-                printf("Image not ok!!!!\n");
-                w=256;
-                h=256;
-//hmm
+    //jaja
+            sf::Image image_copy; //dummy
+            image_copy.create(256,256,sf::Color(255,0,0,255));
+            sf::Image* image=&image_copy;
+            if (mat_id < materials.size())
+    //        if (mat_id < materials.size()-1)
+            {
+                if (!image_buffer[mat_id]->ok) {
+    //                image=0;
+                    printf("Image not ok!!!!\n");
+                    w=256;
+                    h=256;
+    //hmm
+                    no_texture=true;
+                }
+                else {
+                    w=image_buffer[mat_id]->image->getSize().x;
+                    h=image_buffer[mat_id]->image->getSize().y;
+    //                image=(unsigned char*)image_buffer[mat_id]->image->getPixelsPtr();
+    //                sfml_image=image_buffer[mat_id]->image;
+    //                printf("Material id: %3d  w=%3d , h=%3d  ",mat_id,w,h);
+                    no_texture=false;
+                    image=image_buffer[mat_id]->image;
+                }
+            } else {
+                printf("No material id: %d\n",mat_id);
+    //            sf::sleep(sf::seconds(2.0));
                 no_texture=true;
             }
-            else {
-                w=image_buffer[mat_id]->image->getSize().x;
-                h=image_buffer[mat_id]->image->getSize().y;
-//                image=(unsigned char*)image_buffer[mat_id]->image->getPixelsPtr();
-//                sfml_image=image_buffer[mat_id]->image;
-//                printf("Material id: %3d  w=%3d , h=%3d  ",mat_id,w,h);
-                no_texture=false;
-                image=image_buffer[mat_id]->image;
-            }
-        } else {
-            printf("No material id: %d\n",mat_id);
-//            sf::sleep(sf::seconds(2.0));
-            no_texture=true;
-        }
-//        printf("hier5 mat_id=%d size=%d\n",mat_id, materials.size());
-//        printf("hier1 \n");
-        for (int faces=0; faces<num_faces; faces++) {
-            for (int l=0; l<3; l++) {
-                int offset=(stride*(l+faces*3));
-                for (int k=0; k<3; k++) {
-                    if (offset*sizeof(float) >= one_buffer.length-sizeof(int)) {
-                        printf("Error offset\n");
-                        return-1;
-                    }
-//hopla
-//                    v[l][k]=VertexPointer[offset+k]*block_scale;
+    //        printf("hier5 mat_id=%d size=%d\n",mat_id, materials.size());
+    //        printf("hier1 \n");
+            for (int faces=0; faces<num_faces; faces++) {
+                for (int l=0; l<3; l++) {
+                    int offset=(stride*(l+faces*3));
+                    for (int k=0; k<3; k++) {
+                        if (offset*sizeof(float) >= one_buffer.length-sizeof(int)) {
+                            printf("Error offset\n");
+                            return-1;
+                        }
+    //hopla
+    //                    v[l][k]=VertexPointer[offset+k]*block_scale;
 
-                    v[l][k]=VertexPointer[offset+k];
+                        v[l][k]=VertexPointer[offset+k];
 
-//                    v[l][k]=(v[l][k])*1.0005;
-//                    n[l][k]=NormalPointer[offset+k];
-//                    c[l][k]=ColorPointer[offset+k];
+    //                    v[l][k]=(v[l][k])*1.0005;
+    //                    n[l][k]=NormalPointer[offset+k];
+    //                    c[l][k]=ColorPointer[offset+k];
 
-                    if (k<2) {
-                        if (no_texture)
-                            tc[l][k]=1.0/(1.0+(float)l+(float)k);
+                        if (k<2) {
+                            if (no_texture)
+                                tc[l][k]=1.0/(1.0+(float)l+(float)k);
+                            else
+                                tc[l][k]=TexCoordPointer[offset+k];
+                        }
+                    } //point
+
+                    glm::dvec4 hop;
+
+                    if (do_model) {
+                        if (make_schematic)
+                            v[l][0]=(v[l][0]*block_scale-bmin_total[0]);
                         else
-                            tc[l][k]=TexCoordPointer[offset+k];
+    //tuuttuut
+                            v[l][0]=(v[l][0]*block_scale-bmin_total[0])+1;
+
+                        v[l][1]=(v[l][1]*block_scale-bmin_total[1]);
+                        v[l][2]=(bmax_total[2]-v[l][2]*block_scale);
+                        hop = glm::dvec4(v[l][0], v[l][1], v[l][2], 1.0f) ;
+                        v[l][0]=hop.x; v[l][1]=hop.y; v[l][2]=hop.z;
+                    } else {
+    ////                    double m_x;
+    ////                    double m_z;
+    ////                    vertex_to_minecraft(v[l][1], v[l][2], m_x, m_z);
+    //                    v[l][0]=(v[l][0]-bmin_total[0]);
+    ////                    hop = glm::dvec4(v[l][0], m_x, m_z, 1.0f);
+    //                    hop = glm::dvec4(v[l][0]*block_scale, v[l][1], v[l][2], 1.0f);
+
+
+                        double m_x;
+                        double m_z;
+                        vertex_to_minecraft(v[l][1], v[l][2], m_x, m_z);
+
+                        v[l][0]=(v[l][0]-bmin_total[0])*block_scale;
+                        v[l][1]=m_x;
+                        v[l][2]=m_z;
+
+                        hop = glm::dvec4(v[l][0], v[l][1], v[l][2], 1.0f);
+
                     }
-                } //point
+    //                glm::dvec3 hop = glm::dvec4(v[l][0], v[l][1], v[l][2], 1.0f);
 
-                glm::dvec4 hop;
+                    bmin[0]=std::min((double)hop.x, bmin[0]);   bmax[0]=std::max((double)hop.x, bmax[0]);
+                    bmin[1]=std::min((double)hop.y, bmin[1]);   bmax[1]=std::max((double)hop.y, bmax[1]);
+                    bmin[2]=std::min((double)hop.z, bmin[2]);   bmax[2]=std::max((double)hop.z, bmax[2]);
+                } // triangle
+                total_triangles++;
+                double texture_scale1=sqrt( (tc[0][0]*w-tc[1][0]*w)*(tc[0][0]*w-tc[1][0]*w) + (tc[0][1]*h-tc[1][1]*h)*(tc[0][1]*h-tc[1][1]*h) );
+                double texture_scale2=sqrt( (tc[1][0]*w-tc[2][0]*w)*(tc[1][0]*w-tc[2][0]*w) + (tc[1][1]*h-tc[2][1]*h)*(tc[1][1]*h-tc[2][1]*h) );
+                double texture_scale3=sqrt( (tc[2][0]*w-tc[0][0]*w)*(tc[2][0]*w-tc[0][0]*w) + (tc[2][1]*h-tc[0][1]*h)*(tc[2][1]*h-tc[0][1]*h) );
+                texture_scale+=(texture_scale1+texture_scale2+texture_scale3)/3.0;
+                double vertex_scale1=sqrt( (v[0][0]-v[1][0])*(v[0][0]-v[1][0]) + (v[0][1]-v[1][1])*(v[0][1]-v[1][1]) + (v[0][2]-v[1][2])*(v[0][2]-v[1][2]));
+                double vertex_scale2=sqrt( (v[1][0]-v[2][0])*(v[1][0]-v[2][0]) + (v[1][1]-v[2][1])*(v[1][1]-v[2][1]) + (v[1][2]-v[2][2])*(v[1][2]-v[2][2]));
+                double vertex_scale3=sqrt( (v[2][0]-v[0][0])*(v[2][0]-v[0][0]) + (v[2][1]-v[0][1])*(v[2][1]-v[0][1]) + (v[2][2]-v[0][2])*(v[2][2]-v[0][2]));
+                vertex_scale+=(vertex_scale1+vertex_scale2+vertex_scale3)/3.0;
 
-                if (do_model) {
-                    if (make_schematic)
-                        v[l][0]=(v[l][0]*block_scale-bmin_total[0]);
-                    else
-//tuuttuut
-                        v[l][0]=(v[l][0]*block_scale-bmin_total[0])+1;
+            } // faces
+        } //buffers
+    }
 
-                    v[l][1]=(v[l][1]*block_scale-bmin_total[1]);
-                    v[l][2]=(bmax_total[2]-v[l][2]*block_scale);
-                    hop = glm::dvec4(v[l][0], v[l][1], v[l][2], 1.0f) ;
-                    v[l][0]=hop.x; v[l][1]=hop.y; v[l][2]=hop.z;
-                } else {
-//                    double m_x;
-//                    double m_z;
-//                    vertex_to_minecraft(v[l][1], v[l][2], m_x, m_z);
-                    v[l][0]=(v[l][0]-bmin_total[0]);
-//                    hop = glm::dvec4(v[l][0], m_x, m_z, 1.0f);
-                    hop = glm::dvec4(v[l][0]*block_scale, v[l][1], v[l][2], 1.0f);
-                }
-//                glm::dvec3 hop = glm::dvec4(v[l][0], v[l][1], v[l][2], 1.0f);
 
-                bmin[0]=std::min((double)hop.x, bmin[0]);   bmax[0]=std::max((double)hop.x, bmax[0]);
-                bmin[1]=std::min((double)hop.y, bmin[1]);   bmax[1]=std::max((double)hop.y, bmax[1]);
-                bmin[2]=std::min((double)hop.z, bmin[2]);   bmax[2]=std::max((double)hop.z, bmax[2]);
-            } // triangle
-            total_triangles++;
-            double texture_scale1=sqrt( (tc[0][0]*w-tc[1][0]*w)*(tc[0][0]*w-tc[1][0]*w) + (tc[0][1]*h-tc[1][1]*h)*(tc[0][1]*h-tc[1][1]*h) );
-            double texture_scale2=sqrt( (tc[1][0]*w-tc[2][0]*w)*(tc[1][0]*w-tc[2][0]*w) + (tc[1][1]*h-tc[2][1]*h)*(tc[1][1]*h-tc[2][1]*h) );
-            double texture_scale3=sqrt( (tc[2][0]*w-tc[0][0]*w)*(tc[2][0]*w-tc[0][0]*w) + (tc[2][1]*h-tc[0][1]*h)*(tc[2][1]*h-tc[0][1]*h) );
-            texture_scale+=(texture_scale1+texture_scale2+texture_scale3)/3.0;
-            double vertex_scale1=sqrt( (v[0][0]-v[1][0])*(v[0][0]-v[1][0]) + (v[0][1]-v[1][1])*(v[0][1]-v[1][1]) + (v[0][2]-v[1][2])*(v[0][2]-v[1][2]));
-            double vertex_scale2=sqrt( (v[1][0]-v[2][0])*(v[1][0]-v[2][0]) + (v[1][1]-v[2][1])*(v[1][1]-v[2][1]) + (v[1][2]-v[2][2])*(v[1][2]-v[2][2]));
-            double vertex_scale3=sqrt( (v[2][0]-v[0][0])*(v[2][0]-v[0][0]) + (v[2][1]-v[0][1])*(v[2][1]-v[0][1]) + (v[2][2]-v[0][2])*(v[2][2]-v[0][2]));
-            vertex_scale+=(vertex_scale1+vertex_scale2+vertex_scale3)/3.0;
-
-        } // faces
-    } //buffers
     double pixels_per_block=0.0;
 //aiaiai
     double filler;
@@ -2655,8 +2755,8 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
 //        one_buffer=u;
         one_buffer=buffers[nnn];
 
-        bmin_org[0] = bmin_org[1] = bmin_org[2] = std::numeric_limits<double>::max();
-        bmax_org[0] = bmax_org[1] = bmax_org[2] = -std::numeric_limits<double>::max();
+//        bmin_org[0] = bmin_org[1] = bmin_org[2] = std::numeric_limits<double>::max();
+//        bmax_org[0] = bmax_org[1] = bmax_org[2] = -std::numeric_limits<double>::max();
 
 //        size_t length=one_buffer.length - sizeof(int);
 //        int numTriangles = (length) / (3 + 3 + 3 + 2) / 3;
@@ -2760,9 +2860,9 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
                     hop = glm::dvec4(v[l][0], v[l][1], v[l][2], 1.0f);
                 }
 
-                bmin_org[0]=std::min((double)hop.x, bmin_org[0]);   bmax_org[0]=std::max((double)hop.x, bmax_org[0]);
-                bmin_org[1]=std::min((double)hop.y, bmin_org[1]);   bmax_org[1]=std::max((double)hop.y, bmax_org[1]);
-                bmin_org[2]=std::min((double)hop.z, bmin_org[2]);   bmax_org[2]=std::max((double)hop.z, bmax_org[2]);
+//                bmin_org[0]=std::min((double)hop.x, bmin_org[0]);   bmax_org[0]=std::max((double)hop.x, bmax_org[0]);
+//                bmin_org[1]=std::min((double)hop.y, bmin_org[1]);   bmax_org[1]=std::max((double)hop.y, bmax_org[1]);
+//                bmin_org[2]=std::min((double)hop.z, bmin_org[2]);   bmax_org[2]=std::max((double)hop.z, bmax_org[2]);
 
             } // triangle
 //jaja
@@ -4126,8 +4226,8 @@ extern int floor_y[512][512];
                                                 hits=0;
                                                 count=0;
                                             }
-
-//                                            std::memset(region_block, 0x0, 512*256*512*4);
+//utrecht
+                                            std::memset(region_block, 0x0, 512*256*512*4);
 
 //fucked
 //                                            if (u.x>=0) floor=u.x/256;
@@ -4150,6 +4250,7 @@ extern int floor_y[512][512];
                                         else prev_z_mod=(int)(((LONG64)u.z-1+100000*512)%512);
 
                                         if (u.l>0 || u.face!=0) {
+
                                             size_t off_x=(u.x-floor*256+256*prev_y_mod+prev_z_mod*512*256)*4;
                                             if (u.l) {
                                                 region_block[off_x]=u.r/u.l;

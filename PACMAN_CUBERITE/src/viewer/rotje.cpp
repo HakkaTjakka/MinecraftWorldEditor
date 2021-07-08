@@ -160,12 +160,12 @@ void RECALC_BMIN_BMAX2(std::vector<BufferObject> buffers, float bmin[3], float b
 
     BufferObject one_buffer;
 
-    glm::vec3 NORMALz;
+//    glm::vec3 NORMALz;
     glm::mat4 test(1.0f);
 
-    float tx;
-    float ty;
-    float tz;
+//    float tx;
+//    float ty;
+//    float tz;
 
 
 //    printf("(original)\n");
@@ -173,15 +173,15 @@ void RECALC_BMIN_BMAX2(std::vector<BufferObject> buffers, float bmin[3], float b
 //    printf("bmax = % 24.13f, % 24.13f, % 24.13f\n", bmax[0],           bmax[1],            bmax[2]);
 //    printf("diff = % 24.13f, % 24.13f, % 24.13f\n", bmax[0]-bmin[0],   bmax[1]-bmin[1],    bmax[2]-bmin[2]);
 
-    tx=-0.5 * (bmax[0] + bmin[0]);
-    ty=-0.5 * (bmax[1] + bmin[1]);
-    tz=-0.5 * (bmax[2] + bmin[2]);
+//    tx=-0.5 * (bmax[0] + bmin[0]);
+//    ty=-0.5 * (bmax[1] + bmin[1]);
+//    tz=-0.5 * (bmax[2] + bmin[2]);
 
 //    printf("lat=%lf  lon=%lf\n",lat,lon);
     bmin[0] = bmin[1] = bmin[2] = std::numeric_limits<float>::max();
     bmax[0] = bmax[1] = bmax[2] = -std::numeric_limits<float>::max();
-    NORMALz = glm::vec3((float)(cos(lat*M_PI/180.0)*cos(lon*M_PI/180.0)), (float)(cos(lat*M_PI/180)*sin(lon*M_PI/180)), (float)(sin(lat*M_PI/180)));
-    NORMALz = glm::normalize(NORMALz);
+//    NORMALz = glm::vec3((float)(cos(lat*M_PI/180.0)*cos(lon*M_PI/180.0)), (float)(cos(lat*M_PI/180)*sin(lon*M_PI/180)), (float)(sin(lat*M_PI/180)));
+//    NORMALz = glm::normalize(NORMALz);
 
 
     test=glm::mat4(  cos(lat*M_PI/180.0)*cos(lon*M_PI/180.0)    , cos(lat*M_PI/180.0)*sin(lon*M_PI/180.0)   , sin(lat*M_PI/180.0)   , 0.0,
@@ -206,12 +206,7 @@ void RECALC_BMIN_BMAX2(std::vector<BufferObject> buffers, float bmin[3], float b
 //        float c[3][3];
 //        float tc[3][2];
         int stride = (3 + 3 + 2 + 3);
-        float* real_buffer = (float*)(one_buffer.buffer + sizeof(int));
-        float* VertexPointer=real_buffer;
-//        float* NormalPointer=real_buffer + 3;
-//        float* ColorPointer=real_buffer + 6;
-//        float* TexCoordPointer=real_buffer + 9;
-
+        float* VertexPointer = (float*)(one_buffer.buffer + sizeof(int));
 
         for (int faces=0; faces<num_faces; faces++) {
             for (int l=0; l<3; l++) {
@@ -507,4 +502,90 @@ extern float fpstime;
             }
         }
     }
+}
+
+void RECALC_BMIN_BMAX_NEW(std::vector<BufferObject> buffers, float bmin[3], float bmax[3], double lat, double lon) {
+    BufferObject one_buffer;
+
+    glm::mat4 test(1.0f);
+    glm::dmat4 test2(1.0f);
+    double bmin2[3];
+    double bmax2[3];
+    glm::dvec3 lowest;
+    glm::dvec3 utrecht = glm::dvec3(3899275.0, 348997.0, 5026376.0);
+
+    lowest[0] = std::numeric_limits<double>::max();
+
+    bmin[0] = bmin[1] = bmin[2] = std::numeric_limits<float>::max();
+    bmax[0] = bmax[1] = bmax[2] = -std::numeric_limits<float>::max();
+
+    bmin2[0] = bmin2[1] = bmin2[2] = std::numeric_limits<double>::max();
+    bmax2[0] = bmax2[1] = bmax2[2] = -std::numeric_limits<double>::max();
+
+    test=glm::mat4(  cos(lat*M_PI/180.0)*cos(lon*M_PI/180.0)    , cos(lat*M_PI/180.0)*sin(lon*M_PI/180.0)   , sin(lat*M_PI/180.0)   , 0.0,
+                    -sin(lon*M_PI/180.0)                        , cos(lon*M_PI/180.0)                       , 0.0                   , 0.0,
+                    -sin(lat*M_PI/180.0)*cos(lon*M_PI/180.0)    ,-sin(lat*M_PI/180.0)*sin(lon*M_PI/180.0)   , cos(lat*M_PI/180.0)   , 0.0,
+                    0.0                                         ,0.0                                        ,0.0                    , 1.0);
+    test2=glm::dmat4(  cos(lat*M_PI/180.0)*cos(lon*M_PI/180.0)    , cos(lat*M_PI/180.0)*sin(lon*M_PI/180.0)   , sin(lat*M_PI/180.0)   , 0.0,
+                      -sin(lon*M_PI/180.0)                        , cos(lon*M_PI/180.0)                       , 0.0                   , 0.0,
+                      -sin(lat*M_PI/180.0)*cos(lon*M_PI/180.0)    ,-sin(lat*M_PI/180.0)*sin(lon*M_PI/180.0)   , cos(lat*M_PI/180.0)   , 0.0,
+                      0.0                                         ,0.0                                        ,0.0                    , 1.0);
+
+    for (auto u : buffers) {
+        one_buffer=u;
+
+        int num_faces=(one_buffer.length-sizeof(int)) / (3 + 3 + 3 + 2) / 3 / sizeof(float);
+        float v[3][3];
+        int stride = (3 + 3 + 2 + 3);
+        float* VertexPointer = (float*)(one_buffer.buffer + sizeof(int));
+
+        for (int faces=0; faces<num_faces; faces++) {
+            for (int l=0; l<3; l++) {
+                int offset=(stride*(l+faces*3));
+                for (int k=0; k<3; k++) {
+                    if (offset*sizeof(float) >= one_buffer.length-sizeof(int)) {
+                        printf("Error offset\n");
+                        return;
+                    }
+                    v[l][k]=VertexPointer[offset+k];
+                }
+                glm::vec4 hop = glm::vec4(v[l][0], v[l][1], v[l][2], 1.0f) * test;
+                glm::dvec4 hop2 = glm::dvec4((double)v[l][0]+utrecht.x, (double)v[l][1]+utrecht.y, (double)v[l][2]+utrecht.z, 1.0f) * test2;
+
+
+//                glm::vec4 hop = glm::vec4(v[l][0]+tx, v[l][1]+ty, v[l][2]+tz, 1.0f) * test;
+
+                bmin[0]=std::min((float)(hop2.x-6371000), bmin[0]);   bmax[0]=std::max((float)(hop2.x-6371000), bmax[0]);
+                bmin[1]=std::min((float)hop2.y, bmin[1]);   bmax[1]=std::max((float)hop2.y, bmax[1]);
+                bmin[2]=std::min((float)hop2.z, bmin[2]);   bmax[2]=std::max((float)hop2.z, bmax[2]);
+
+//                bmin2[0]=std::min(hop2.x, bmin2[0]);   bmax2[0]=std::max(hop2.x, bmax2[0]);
+//                bmin2[1]=std::min(hop2.y, bmin2[1]);   bmax2[1]=std::max(hop2.y, bmax2[1]);
+//                bmin2[2]=std::min(hop2.z, bmin2[2]);   bmax2[2]=std::max(hop2.z, bmax2[2]);
+
+                if (hop2.x<lowest[0]) {
+                    lowest[0]=VertexPointer[offset]  +utrecht.x;
+                    lowest[1]=VertexPointer[offset+1]+utrecht.y;
+                    lowest[2]=VertexPointer[offset+2]+utrecht.z;
+                }
+                VertexPointer[offset]   =hop2.x-6371000;
+                VertexPointer[offset+1] =hop2.y;
+                VertexPointer[offset+2] =hop2.z;
+//                VertexPointer[offset]   =hop.x;
+//                VertexPointer[offset+1] =hop.y;
+//                VertexPointer[offset+2] =hop.z;
+            }
+        }
+    }
+//    printf("(calculated1)\n");
+//    printf("bmin   = % 24.13f, % 24.13f, % 24.13f\n", bmin[0],           bmin[1],            bmin[2]);
+//    printf("bmax   = % 24.13f, % 24.13f, % 24.13f\n", bmax[0],           bmax[1],            bmax[2]);
+//    printf("diff   = % 24.13f, % 24.13f, % 24.13f\n", bmax[0]-bmin[0],   bmax[1]-bmin[1],    bmax[2]-bmin[2]);
+//    printf("(calculated2)\n");
+//    printf("bmin2o = % 24.13f, % 24.13f, % 24.13f\n", bmin2[0],          bmin2[1],           bmin2[2]);
+//    printf("bmax2o = % 24.13f, % 24.13f, % 24.13f\n", bmax2[0],          bmax2[1],           bmax2[2]);
+//    printf("bmin2  = % 24.13f, % 24.13f, % 24.13f\n", bmin2[0]-6371000,  bmin2[1],           bmin2[2]);
+//    printf("bmax2  = % 24.13f, % 24.13f, % 24.13f\n", bmax2[0]-6371000,  bmax2[1],           bmax2[2]);
+//    printf("diff2  = % 24.13f, % 24.13f, % 24.13f\n", bmax2[0]-bmin2[0], bmax2[1]-bmin2[1],  bmax2[2]-bmin2[2]);
+//    printf("lowest = % 24.13f, % 24.13f, % 24.13f\n", lowest[0],         lowest[1],          lowest[2]);
 }
