@@ -1,12 +1,84 @@
-TOP_LEFT(X=3175302.2001861176 Z=-5355224.018665428)
-TOP_RIGHT(X=3175696.95365341 Z=-5355100.883562962)
-BOT_LEFT(X=3175201.344670211 Z=-5354902.963414722)
-BOT_RIGHT(X=3175596.123916262 Z=-5354779.826283371)
-PROJECTION(X=[3175490.6221288] Y=[8.38497639] Z=[-5355021.26922155])
-HOPPA: [3175490.6221288] [8.38497639] [-5355021.26922155]
-HOPPA: [-206.33152461] [8.38497639] [79.61434141]
-SURFACE=0.5064575691978284 REGION FILES
-LEN_TOP=  413.5124585776713
-LEN_BOT=  413.53767208061447
-LEN_RIGHT=321.0572795905173
-LEN_LEFT= 321.0552507061511
+2021-07-08 20:58:39
+Full thread dump Java HotSpot(TM) 64-Bit Server VM (25.271-b09 mixed mode):
+
+"Service Thread" #9 daemon prio=9 os_prio=0 tid=0x000002c4c7531800 nid=0x3f90 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C1 CompilerThread2" #8 daemon prio=9 os_prio=2 tid=0x000002c4c751d800 nid=0x3e1c waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread1" #7 daemon prio=9 os_prio=2 tid=0x000002c4c74c4000 nid=0x21e8 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread0" #6 daemon prio=9 os_prio=2 tid=0x000002c4c74ca000 nid=0x4648 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Attach Listener" #5 daemon prio=5 os_prio=2 tid=0x000002c4c74c9000 nid=0x3b78 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Signal Dispatcher" #4 daemon prio=9 os_prio=2 tid=0x000002c4c74af800 nid=0x1b30 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Finalizer" #3 daemon prio=8 os_prio=1 tid=0x000002c4c7454800 nid=0x39f0 in Object.wait() [0x000000e6ef7fe000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x000000076af88ee0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:144)
+	- locked <0x000000076af88ee0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:165)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:216)
+
+"Reference Handler" #2 daemon prio=10 os_prio=2 tid=0x000002c4c744c800 nid=0x3c24 in Object.wait() [0x000000e6ef6ff000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x000000076af86c00> (a java.lang.ref.Reference$Lock)
+	at java.lang.Object.wait(Object.java:502)
+	at java.lang.ref.Reference.tryHandlePending(Reference.java:191)
+	- locked <0x000000076af86c00> (a java.lang.ref.Reference$Lock)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:153)
+
+"main" #1 prio=5 os_prio=0 tid=0x000002c4a7b88800 nid=0x4e10 runnable [0x000000e6eeafa000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.AbstractCollection.toArray(AbstractCollection.java:176)
+	at java.util.regex.Pattern.split(Pattern.java:1241)
+	at java.lang.String.split(String.java:2380)
+	at java.lang.String.split(String.java:2422)
+	at io.github.terra121.projection.ConformalEstimate.<init>(ConformalEstimate.java:37)
+	at io.github.terra121.projection.GeographicProjection.<clinit>(GeographicProjection.java:25)
+
+"VM Thread" os_prio=2 tid=0x000002c4c7447800 nid=0x4330 runnable 
+
+"GC task thread#0 (ParallelGC)" os_prio=0 tid=0x000002c4a7bad800 nid=0x4ea8 runnable 
+
+"GC task thread#1 (ParallelGC)" os_prio=0 tid=0x000002c4a7bae800 nid=0x1480 runnable 
+
+"GC task thread#2 (ParallelGC)" os_prio=0 tid=0x000002c4a7bb0000 nid=0x46b4 runnable 
+
+"GC task thread#3 (ParallelGC)" os_prio=0 tid=0x000002c4a7bb2000 nid=0x3838 runnable 
+
+"VM Periodic Task Thread" os_prio=2 tid=0x000002c4c752a000 nid=0x4d2c waiting on condition 
+
+JNI global references: 10
+
+Heap
+ PSYoungGen      total 76288K, used 62958K [0x000000076af80000, 0x0000000770480000, 0x00000007c0000000)
+  eden space 65536K, 96% used [0x000000076af80000,0x000000076ecfba08,0x000000076ef80000)
+  from space 10752K, 0% used [0x000000076fa00000,0x000000076fa00000,0x0000000770480000)
+  to   space 10752K, 0% used [0x000000076ef80000,0x000000076ef80000,0x000000076fa00000)
+ ParOldGen       total 175104K, used 0K [0x00000006c0e00000, 0x00000006cb900000, 0x000000076af80000)
+  object space 175104K, 0% used [0x00000006c0e00000,0x00000006c0e00000,0x00000006cb900000)
+ Metaspace       used 3705K, capacity 4618K, committed 4864K, reserved 1056768K
+  class space    used 405K, capacity 434K, committed 512K, reserved 1048576K
+
+TOP_LEFT(X=3175596.123916262 Z=-5354779.826283371)
+TOP_RIGHT(X=3175990.9095789683 Z=-5354656.712643088)
+BOT_LEFT(X=3175495.2947553205 Z=-5354458.771394608)
+BOT_RIGHT(X=3175890.1061959285 Z=-5354335.65572673)
+PROJECTION(X=[3175776.50816967] Y=[9.33483134] Z=[-5354558.01067848])
+HOPPA: [3175776.50816967] [9.33483134] [-5354558.01067848]
+HOPPA: [-214.4014093] [9.33483134] [98.70196461]
+SURFACE=0.5064868128070877 REGION FILES
+LEN_TOP=  413.5368035645447
+LEN_BOT=  413.56201628285436
+LEN_RIGHT=321.0569163579494
+LEN_LEFT= 321.054888763465
