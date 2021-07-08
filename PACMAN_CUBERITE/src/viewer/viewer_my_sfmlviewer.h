@@ -18,7 +18,7 @@ extern bool dont_slow_down;
 
 extern char voxel_filename[];
 extern bool screensaver;
-
+bool silence=false;
 //DWMAPI DwmEnableBlurBehindWindow(
 //  HWND                 hWnd,
 //  const DWM_BLURBEHIND *pBlurBehind
@@ -1463,7 +1463,7 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                 if (mirror==4 && crossing==2) {
 //tuuttuut1
                     flushing_mode=true;
-
+                    silence=true;
                     create_nbt(my_area, window, win_num, pac_obj2_arr_used, pac_obj2_arr);
                     printf("Creating rest regions...");
                     make_regions=true;
@@ -1566,7 +1566,12 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                         region_voxel_files_to_region_files(false);
                     }
                     make_regions=false;
-
+                    silence=false;
+extern int DONTSAVEFILES;
+extern void SAVEALLBITMAPS();
+                    DONTSAVEFILES=0;
+                    SAVEALLBITMAPS();
+                    send_message='x';
                 }
 
                 if (flick==false && pull_off2==false && pull_off==false && !load_extra && !load_more_remember && !load_more

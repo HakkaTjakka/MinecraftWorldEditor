@@ -2293,8 +2293,8 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
 //                bmin_total[0]=after[0]-projection[1];
 //                bmin_total[0]=b_min[0]-projection[1];   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
 //                bmin_total[0]=-170-after[0]+projection[1];   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
-                bmin_total[0]=bmin_o[0]-32;   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
-                bmax_total[0]=bmax_o[0]-32;   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
+                bmax_total[0]=(bmax_o-bmin_o)-32;   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
+                bmin_total[0]=-32;   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
 //                bmin_total[0]=-116;   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
 //                bmin_total[0]=bmin_o[0]+after[0]-projection[1];   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
 //                bmax_total[0]=200;// 60.0; //DOESN'T MATTER...

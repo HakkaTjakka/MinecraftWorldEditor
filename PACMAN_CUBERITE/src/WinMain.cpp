@@ -14408,6 +14408,7 @@ extern bool rot_plot;
 extern std::map<std::string, std::string> ready_regions_number_of_hits;
 extern std::map<std::string, std::string>::iterator it_ready_regions_number_of_hits;
 
+extern bool silence;
 void update_MC(sf::Image& image_local2, int xx, int yy) {
     texture_from_ffmpeg.create(512,512);
     texture_from_ffmpeg.update(image_local2);
@@ -14677,7 +14678,7 @@ extern bool rot_plot;
     ffmpegfile=1;
 //    float complete_f=100.0*float(pixel_count)/(512.0*512.0);
     image_local.create(512,512,sf::Color(0,0,0,0));
-    if (flushing_mode && complete_f>99.95 && !no_plotting) {
+    if (flushing_mode && complete_f>99.95 && !no_plotting && silence==false) {
 //    if (flushing_mode && complete_f>99.99 && !no_plotting && !complete_f2>99.99) {
         printf("\n\nGOT ONE COMPLETE (%f%% pixels) : r.%d.%d PUSHED ==>>\n",complete_f,xx,yy);
         mkdir("../cut/png2");
