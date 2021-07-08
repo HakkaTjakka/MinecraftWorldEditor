@@ -2097,7 +2097,7 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
         bot_right=glm::fvec2(bmax_total[1]*f - bmin_total[1]*f,       bmax_total[2]*f - bmin_total[2]*f);
         vertical =bmax_total[0]*f- bmin_total[0]*f;
 
-    tot_lon[0]=-180.0; tot_lon[1]=180.0;
+        tot_lon[0]=-180.0; tot_lon[1]=180.0;
         tot_lat[0]=-90.0; tot_lat[1]=90.0;
     }
 
@@ -2293,7 +2293,7 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
 //                bmin_total[0]=after[0]-projection[1];
 //                bmin_total[0]=b_min[0]-projection[1];   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
 //                bmin_total[0]=-170-after[0]+projection[1];   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
-                bmax_total[0]=(bmax_o-bmin_o)-32;   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
+                bmax_total[0]=(bmax_o[0]-bmin_o[0])-32;   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
                 bmin_total[0]=-32;   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
 //                bmin_total[0]=-116;   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)
 //                bmin_total[0]=bmin_o[0]+after[0]-projection[1];   //FIND GROUND LEVEL.... (now adapted with python script project_obj.py -> project_obj.exe (compiled to .exe) (see earth/downloaded_files/new/utrecht and/or project-obj in main dir)

@@ -655,8 +655,8 @@ struct info_3d_struct {
 //            double Bdist   = fabs(B.pos.x-center_x)*320.0/412.0   + fabs(B.pos.y-center_y);
 //            return( dist < Bdist );
 
-            double dist=sqrt( (pos.x-center_x)*(pos.x-center_x) + 4.0*(pos.y-center_y)*(pos.y-center_y) );
-            double Bdist=sqrt( (B.pos.x-center_x)*(B.pos.x-center_x) + 4.0*(B.pos.y-center_y)*(B.pos.y-center_y) );
+            double dist=sqrt( (pos.x-center_x)*(pos.x-center_x)*1.23 +(pos.y-center_y)*(pos.y-center_y) );
+            double Bdist=sqrt( (B.pos.x-center_x)*(B.pos.x-center_x)*1.23 + (B.pos.y-center_y)*(B.pos.y-center_y) );
             return( dist < Bdist );
         }
 
