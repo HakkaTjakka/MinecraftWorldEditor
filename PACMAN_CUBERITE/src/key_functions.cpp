@@ -198,7 +198,7 @@ double rel_pos_in_map_y1=0.0;
 double rel_pos_in_map_y2=0.0;
 double rel_pos_in_map_x=0.0;
 double rel_pos_in_map_y=0.0;
-
+extern int rate;
 extern int generate_tiles;
 float fpstime_factor=1.0;
 extern float fpstime;
@@ -1118,14 +1118,18 @@ VOID HANDLECHAR(WPARAM wparam)
         {
             reload_init();
             record_screen=1;
-            play_rate=1;
+//utrecht
+//            play_rate=1;
+            rate=2;
             end_on_record=0;
             sound_counter=0;
         }
         else
         {
             record_screen=0;
-            play_rate=1;
+//utrecht
+//            play_rate=1;
+            rate=2;
             record_pause=0;
             clock_ghost.restart();
             burn_subs=0;
@@ -1148,7 +1152,9 @@ VOID HANDLECHAR(WPARAM wparam)
                 else
                 {
                     flop=0;
-                    rate_count=play_rate-1;
+//                    rate_count=play_rate-1;
+//utrecht
+                    rate_count=rate-1;
                     record_pause=1;
                     SFMLView1.setVerticalSyncEnabled(true);
 //                    iFrame=0;
@@ -1243,7 +1249,9 @@ VOID HANDLECHAR(WPARAM wparam)
             }
             else
             {
-                play_rate=1;
+//utrecht
+                rate=2;
+//                play_rate=1;
                 record_pause=0;
                 SFMLView1.setVerticalSyncEnabled(false);
                 /*
@@ -9060,9 +9068,9 @@ extern int bukkit_running;
                     if (playing_start(filename)==0)
                     {
                         if (record_screen==1)
-                            play_rate=1;
+                            play_rate=4;
                         else
-                            play_rate=1;
+                            play_rate=4;
                         strcpy(error_msg2,"EXTERNAL FFMPEG LOADING SUCCESFULL");
                         error_flag2=1;
                         //                    Screenget3();

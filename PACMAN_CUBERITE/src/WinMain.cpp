@@ -1,4 +1,5 @@
 #include <conio.h>
+#include <conio.h>
 #include <exception>
 #define PI 3.141592653589793
 #define SFML_STATIC
@@ -261,7 +262,8 @@ int adapt_maze=0;
 extern void f8_repeater();
 int f8_repeat=0;
 int tune=1;
-int rate=1;
+//utrecht
+int rate=2;
 int play_rate=2;
 int rate_count=0;
 
@@ -14476,7 +14478,8 @@ void update_MC(sf::Image& image_local2, int xx, int yy) {
             } else printf("\nError 512*512\n");
             remove(fname);
         }
-        texture_from_ffmpeg.copyToImage().saveToFile(fname);
+        if (silence==false)
+            texture_from_ffmpeg.copyToImage().saveToFile(fname);
         image_local3=texture_from_ffmpeg.copyToImage();
     }
     if (pixel_count==512*512) complete=true;
@@ -14693,6 +14696,12 @@ extern bool rot_plot;
 
     // else printf("\nPIXELS=%d = %f%% ==>> \n",pixel_count,100.0*float(pixel_count)/(512.0*512.0));
 //    perform_quit=0;
+extern bool set_save;
+    if (set_save) {
+        SAVEALLBITMAPS();
+        set_save=false;
+    }
+
 }
 
 

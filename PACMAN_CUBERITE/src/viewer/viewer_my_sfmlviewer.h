@@ -1466,6 +1466,8 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                     create_nbt(my_area, window, win_num, pac_obj2_arr_used, pac_obj2_arr);
                     silence=true;
                     printf("Creating rest regions...");
+//utrecht
+system("pause");
                     make_regions=true;
                     crossing=0; mirror=0;
                 }

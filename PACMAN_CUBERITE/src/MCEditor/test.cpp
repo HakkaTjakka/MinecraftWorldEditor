@@ -24,6 +24,7 @@ extern int playsound;
 #include <glm/glm.hpp>
 #include <../VOXEL.HPP>
 extern std::vector<Voxel> voxels;
+bool set_save=false;
 
 struct IdDataColor_list {
     int r;
@@ -9081,6 +9082,7 @@ extern bool lighten;
 
     }
 
+    set_save=true;
     update_request=2;
     while (update_request) {
         sf::sleep(sf::seconds(0.005));

@@ -651,13 +651,31 @@ struct info_3d_struct {
             double Bdist=sqrt( (B.lat-center_lat)*(B.lat-center_lat) + (B.lon-center_lon)*(B.lon-center_lon) );
             return( dist < Bdist );
         } else {
+            double s = sin(0.01);
+            double c = cos(0.01);
+            double x1=(pos.x-center_x)*1.23;
+            double y1=(pos.y-center_y);
+            double x2=(B.pos.x-center_x)*1.23;
+            double y2=(B.pos.y-center_y);
+            double x1_new = x1 * c - y1 * s;
+            double y1_new = x1 * s + y1 * c;
+            double x2_new = x2 * c - y2 * s;
+            double y2_new = x2 * s + y2 * c;
+//            double d1=std::min(fabs(x1_new),fabs(y1_new));
+//            double d2=std::min(fabs(x2_new),fabs(y2_new));
+            double d1=std::max(fabs(x1_new),fabs(y1_new));
+            double d2=std::max(fabs(x2_new),fabs(y2_new));
+//            double d1=fabs(x1_new)+fabs(y1_new);
+//            double d2=fabs(x2_new)+fabs(y2_new);
+            return ( d1 < d2 );
+
 //            double dist    = fabs(  pos.x-center_x)*320.0/412.0   + fabs(  pos.y-center_y);
 //            double Bdist   = fabs(B.pos.x-center_x)*320.0/412.0   + fabs(B.pos.y-center_y);
 //            return( dist < Bdist );
 
-            double dist=sqrt( (pos.x-center_x)*(pos.x-center_x)*1.23 +(pos.y-center_y)*(pos.y-center_y) );
-            double Bdist=sqrt( (B.pos.x-center_x)*(B.pos.x-center_x)*1.23 + (B.pos.y-center_y)*(B.pos.y-center_y) );
-            return( dist < Bdist );
+//            double dist=sqrt( (pos.x-center_x)*(pos.x-center_x)*1.23 +(pos.y-center_y)*(pos.y-center_y) );
+//            double Bdist=sqrt( (B.pos.x-center_x)*(B.pos.x-center_x)*1.23 + (B.pos.y-center_y)*(B.pos.y-center_y) );
+//            return( dist < Bdist );
         }
 
     }
@@ -1276,6 +1294,29 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
         printf("OBJECT_ARRAY.TXT detected. Loading object array data...\n");
         while (fgets (line,200, file_arr)!=NULL ) {
             x=-1;y=-1;
+            if (line[0]=='R') {
+                int x1=-1,x2=-1,y1=-1,y2=-1;
+                int num=sscanf(line,"R:X=%d/%d Y=%d/%d\n", &x1, &x2, &y1, &y2);
+                if (num!=4) { printf("Error reading object_array.txt\n"); fclose(file_arr); return false; }
+                fclose(file_arr);
+                if ((file_arr = fopen ("OBJECT_ARRAY2.TXT", "w"))!=NULL) {
+                    for (int x=x1; x<=x2; x++) {
+                        for (int y=y1; y<=y2; y++) {
+                            fprintf(file_arr,"X=%d Y=%d\n",x,y);
+                        }
+                    }
+                    fclose(file_arr);
+                    if ((file_arr = fopen ("OBJECT_ARRAY2.TXT", "r"))!=NULL) {
+                        fgets (line,200, file_arr);
+                    } else {
+                        printf("error opening: OBJECT_ARRAY2.TXT\n");
+                    }
+
+                } else {
+                    printf("error writing to: OBJECT_ARRAY2.TXT\n");
+                    return false;
+                }
+            }
             int num=sscanf(line,"X=%d Y=%d\n", &x, &y);
             cnt++;
             if (num==2 && line[0]=='X' && x!=-1 && y!=-1) {
@@ -1471,8 +1512,8 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
         center_x=43;
         center_y=100;
     } else if (my_area=="Utrecht") {
-        center_x=94;
-        center_y=105;
+        center_x=92;
+        center_y=100;
 //        center_x=227;
 //        center_y=129;
     } else if (my_area=="Rio") {
@@ -1503,7 +1544,11 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
     cnt=0;
     for (auto v : info_3d) {
         if (crossing>0) {
+//utrecht
+            v.filename=get_area_data(my_area,v.pos.x,v.pos.y); //update when moved...
+
             std::string fn = v.filename;
+
             fn=GetFileName(fn.substr(0,fn.find_last_of(".")));
 
             char new_file_raw[100];

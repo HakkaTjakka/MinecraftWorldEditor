@@ -1444,6 +1444,7 @@ void face_it2(const double v[3][3], const iVec3& p, const int bmin_cube[3], std:
     double distance;
     int_fast64_t offset = (p[0]-bmin_cube[0]) + (p[1]-bmin_cube[1])*y_times + (p[2]-bmin_cube[2])*y_times_z;
     std::map<int_fast64_t, Voxel>::iterator it_mini_voxel_map;
+
     if ( mini_voxel_map.find(offset) != mini_voxel_map.end() ) return;
 
     for (int z=-1; z<=1; z++) {
@@ -1500,9 +1501,10 @@ void face_it2(const double v[3][3], const iVec3& p, const int bmin_cube[3], std:
         }
     }
 }
-
+extern bool do_model;
 int rasterize(double v[3][3], double tc_org[3][2], int w_a, int h_a, int buf_count, int faces, sf::Image* image, double factor_a, sf::Image& image_copy,
                int offset_x, int offset_y, int offset_z, int box_x, int box_y, int box_z, unsigned short** mc_sub, double block_scale) {
+
     double tc[3][2];
 
     double bmin_pixel_o[2]; bmin_pixel_o[0] = bmin_pixel_o[1] = std::numeric_limits<double>::max();
@@ -1581,11 +1583,15 @@ int rasterize(double v[3][3], double tc_org[3][2], int w_a, int h_a, int buf_cou
         filler=pixels_per_block_glob/4.0;
 
 //        for (double plot_y = bmin_pixel_o[1]-1; plot_y <= bmax_pixel_o[1]+1; plot_y+=filler) {
-        for (double plot_y = bmin_pixel_o[1]; plot_y <= bmax_pixel_o[1]; plot_y+=filler) {
+//        for (double plot_y = bmin_pixel_o[1]; plot_y <= bmax_pixel_o[1]; plot_y+=filler) {
+//utrecht
+        sf::Vector2u p_max=image->getSize();
+        for (double plot_y = bmin_pixel_o[1]; plot_y < bmax_pixel_o[1]; plot_y+=filler) {
 //        for (double plot_y = bmin_pixel_o[1]; plot_y <= bmax_pixel_o[1]; plot_y+=filler) {
             toggle2();
 //            for (double plot_x = bmin_pixel_o[0]-1; plot_x <= bmax_pixel_o[0]+1; plot_x+=filler) {
-            for (double plot_x = bmin_pixel_o[0]; plot_x <= bmax_pixel_o[0]; plot_x+=filler) {
+//            for (double plot_x = bmin_pixel_o[0]; plot_x <= bmax_pixel_o[0]; plot_x+=filler) {
+            for (double plot_x = bmin_pixel_o[0]; plot_x < bmax_pixel_o[0]; plot_x+=filler) {
 //            for (double plot_x = bmin_pixel_o[0]; plot_x <= bmax_pixel_o[0]; plot_x+=filler) {
 //                if ((int)plot_x<0 || (int)plot_x>=w_a || (int)plot_y<0 || (int)plot_y>=h_a) continue;
 
@@ -1602,10 +1608,17 @@ int rasterize(double v[3][3], double tc_org[3][2], int w_a, int h_a, int buf_cou
 
                     iVec3 cube={(int)(v_x+0.5),(int)(v_y+0.5),(int)(v_z+0.5)};
 
-                    sf::Color pixel=image->getPixel((int)plot_x,(int)plot_y);
+                    int p_x=(int)plot_x;
+                    int p_y=(int)plot_y;
+                    if (p_x<0) p_x=0;
+                    if (p_x>=p_max.x) p_x=p_max.x-1;
+                    if (p_y<0) p_y=0;
+                    if (p_y>=p_max.y) p_y=p_max.y-1;
+//                    sf::Color pixel=image->getPixel((int)plot_x,(int)plot_y);
+                    sf::Color pixel=image->getPixel(p_x,p_y);
 
 //                    face_it(v, cube, pixel, mini_voxel);
-                    face_it2(v, cube, bmin_cube, mini_voxel, mini_voxel_map, y_times, y_times_z);
+                    if (do_model) face_it2(v, cube, bmin_cube, mini_voxel, mini_voxel_map, y_times, y_times_z);
 
                     mini_voxel.push_back(Voxel(cube[0],cube[1],cube[2],pixel.r,pixel.g,pixel.b,1,1,0));
 

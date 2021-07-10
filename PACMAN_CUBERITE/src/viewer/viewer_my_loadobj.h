@@ -14,6 +14,8 @@ extern int ret_color(int r, int g, int b);
 extern int ret_color3(int r,int g,int b);
 bool sort_voxels_on_l=false;
 
+extern bool silence;
+
 struct voxel_map {
     int x,i;
 };
@@ -2927,6 +2929,8 @@ hit_one_region* findRegion(int x, int z) {
 
 int region_floor=0;
 
+bool do_model=false;
+
 void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::material_t> &materials, float bmin_o[3], float bmax_o[3], double lat, double lon, std::string fn) {
 
 //    if (area=="Models") adapt_colors=false;
@@ -2934,7 +2938,6 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
 //    else adapt_colors=true;
     adapt_colors=true;
 //printf("I am here 1\n");
-
     random_pixel=sf::Color(64+rand()%64,64+rand()%64,64+rand()%64,255);
     wuppie_all=false;
     FILE* voxel_file_pointer=NULL;
@@ -2955,6 +2958,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
     vector_hit_regions.clear();
 //FOKIT
 //    first_wuppie=0;
+    silence=true;
     if (first_wuppie==1 && !make_regions) {
         first_wuppie=0;
 //        for (int z=0; z<1000; z++) {
@@ -3243,6 +3247,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
             return;
         }
     }
+    silence=false;
 
     FILE* dummy;
     char new_file_raw[500];
@@ -3293,7 +3298,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
     static int box_y_total_end;
     static int box_z_total_end;
 */
-    bool do_model=false;
+    do_model=false;
 //    if (crossing==0) {
     if (area=="Models") {
         do_model=true;
