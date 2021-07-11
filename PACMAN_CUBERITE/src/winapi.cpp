@@ -636,7 +636,7 @@ extern int keep_running[];
             }
             else if (c==(char)'r') {
                 combine=1;
-                area="Models";
+                area="Utrecht";
                 launch_SFMLGL2_b();
                 while (!i_am_here) {
                     sf::sleep(sf::seconds(0.1));
@@ -957,7 +957,8 @@ printf("hoppa");
                             mcglobal=atoi(argv[3]);
                         }
                         if (argc>4) {
-                            mcglobal=atoi(argv[4]);
+                            if (strcmp("Utrecht",argv[4])==0) area=argv[4];
+                            else mcglobal=atoi(argv[4]);
                         }
                     }
                 }

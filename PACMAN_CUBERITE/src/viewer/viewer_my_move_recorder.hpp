@@ -651,6 +651,7 @@ struct info_3d_struct {
             double Bdist=sqrt( (B.lat-center_lat)*(B.lat-center_lat) + (B.lon-center_lon)*(B.lon-center_lon) );
             return( dist < Bdist );
         } else {
+/*
             double s = sin(0.01);
             double c = cos(0.01);
             double x1=(pos.x-center_x)*1.23;
@@ -672,10 +673,10 @@ struct info_3d_struct {
 //            double dist    = fabs(  pos.x-center_x)*320.0/412.0   + fabs(  pos.y-center_y);
 //            double Bdist   = fabs(B.pos.x-center_x)*320.0/412.0   + fabs(B.pos.y-center_y);
 //            return( dist < Bdist );
-
-//            double dist=sqrt( (pos.x-center_x)*(pos.x-center_x)*1.23 +(pos.y-center_y)*(pos.y-center_y) );
-//            double Bdist=sqrt( (B.pos.x-center_x)*(B.pos.x-center_x)*1.23 + (B.pos.y-center_y)*(B.pos.y-center_y) );
-//            return( dist < Bdist );
+*/
+            double dist=sqrt( (pos.x-center_x)*(pos.x-center_x)*1.23 +(pos.y-center_y)*(pos.y-center_y) );
+            double Bdist=sqrt( (B.pos.x-center_x)*(B.pos.x-center_x)*1.23 + (B.pos.y-center_y)*(B.pos.y-center_y) );
+            return( dist < Bdist );
         }
 
     }
@@ -1512,8 +1513,8 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
         center_x=43;
         center_y=100;
     } else if (my_area=="Utrecht") {
-        center_x=92;
-        center_y=100;
+        center_x=227;
+        center_y=129;
 //        center_x=227;
 //        center_y=129;
     } else if (my_area=="Rio") {

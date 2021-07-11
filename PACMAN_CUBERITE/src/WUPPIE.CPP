@@ -1651,7 +1651,7 @@ int rasterize(double v[3][3], double tc_org[3][2], int w_a, int h_a, int buf_cou
             Voxel total_pos=Voxel(last.x,last.y,last.z,0,0,0,0,last.status,0);
 
             bool hit=(last.face==0);
-            bool silence=false;
+//            silence=false;
 
             size_t vend=mini_voxel.size()-1;
             for (size_t n=0; n<=vend; n++) {
