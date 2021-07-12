@@ -504,6 +504,13 @@ extern float fpstime;
     }
 }
 
+double min_xy_orig[3];
+double max_xy_orig[3];
+extern double before1[];
+extern double before2[];
+extern double after1[];
+extern double after2[];
+
 void RECALC_BMIN_BMAX_NEW(std::vector<BufferObject> buffers, float bmin[3], float bmax[3], double lat, double lon) {
     BufferObject one_buffer;
 
@@ -511,10 +518,10 @@ void RECALC_BMIN_BMAX_NEW(std::vector<BufferObject> buffers, float bmin[3], floa
     glm::dmat4 test2(1.0f);
     double bmin2[3];
     double bmax2[3];
-    glm::dvec3 lowest;
+//    glm::dvec3 lowest;
     glm::dvec3 utrecht = glm::dvec3(3899275.0, 348997.0, 5026376.0);
 
-    lowest[0] = std::numeric_limits<double>::max();
+//    lowest[0] = std::numeric_limits<double>::max();
 
     bmin[0] = bmin[1] = bmin[2] = std::numeric_limits<float>::max();
     bmax[0] = bmax[1] = bmax[2] = -std::numeric_limits<float>::max();
@@ -522,10 +529,10 @@ void RECALC_BMIN_BMAX_NEW(std::vector<BufferObject> buffers, float bmin[3], floa
     bmin2[0] = bmin2[1] = bmin2[2] = std::numeric_limits<double>::max();
     bmax2[0] = bmax2[1] = bmax2[2] = -std::numeric_limits<double>::max();
 
-    test=glm::mat4(  cos(lat*M_PI/180.0)*cos(lon*M_PI/180.0)    , cos(lat*M_PI/180.0)*sin(lon*M_PI/180.0)   , sin(lat*M_PI/180.0)   , 0.0,
-                    -sin(lon*M_PI/180.0)                        , cos(lon*M_PI/180.0)                       , 0.0                   , 0.0,
-                    -sin(lat*M_PI/180.0)*cos(lon*M_PI/180.0)    ,-sin(lat*M_PI/180.0)*sin(lon*M_PI/180.0)   , cos(lat*M_PI/180.0)   , 0.0,
-                    0.0                                         ,0.0                                        ,0.0                    , 1.0);
+//    test=glm::mat4(  cos(lat*M_PI/180.0)*cos(lon*M_PI/180.0)    , cos(lat*M_PI/180.0)*sin(lon*M_PI/180.0)   , sin(lat*M_PI/180.0)   , 0.0,
+//                    -sin(lon*M_PI/180.0)                        , cos(lon*M_PI/180.0)                       , 0.0                   , 0.0,
+//                    -sin(lat*M_PI/180.0)*cos(lon*M_PI/180.0)    ,-sin(lat*M_PI/180.0)*sin(lon*M_PI/180.0)   , cos(lat*M_PI/180.0)   , 0.0,
+//                    0.0                                         ,0.0                                        ,0.0                    , 1.0);
     test2=glm::dmat4(  cos(lat*M_PI/180.0)*cos(lon*M_PI/180.0)    , cos(lat*M_PI/180.0)*sin(lon*M_PI/180.0)   , sin(lat*M_PI/180.0)   , 0.0,
                       -sin(lon*M_PI/180.0)                        , cos(lon*M_PI/180.0)                       , 0.0                   , 0.0,
                       -sin(lat*M_PI/180.0)*cos(lon*M_PI/180.0)    ,-sin(lat*M_PI/180.0)*sin(lon*M_PI/180.0)   , cos(lat*M_PI/180.0)   , 0.0,
@@ -549,9 +556,8 @@ void RECALC_BMIN_BMAX_NEW(std::vector<BufferObject> buffers, float bmin[3], floa
                     }
                     v[l][k]=VertexPointer[offset+k];
                 }
-                glm::vec4 hop = glm::vec4(v[l][0], v[l][1], v[l][2], 1.0f) * test;
+//                glm::vec4 hop = glm::vec4(v[l][0], v[l][1], v[l][2], 1.0f) * test;
                 glm::dvec4 hop2 = glm::dvec4((double)v[l][0]+utrecht.x, (double)v[l][1]+utrecht.y, (double)v[l][2]+utrecht.z, 1.0f) * test2;
-
 
 //                glm::vec4 hop = glm::vec4(v[l][0]+tx, v[l][1]+ty, v[l][2]+tz, 1.0f) * test;
 
@@ -559,18 +565,37 @@ void RECALC_BMIN_BMAX_NEW(std::vector<BufferObject> buffers, float bmin[3], floa
                 bmin[1]=std::min((float)hop2.y, bmin[1]);   bmax[1]=std::max((float)hop2.y, bmax[1]);
                 bmin[2]=std::min((float)hop2.z, bmin[2]);   bmax[2]=std::max((float)hop2.z, bmax[2]);
 
-//                bmin2[0]=std::min(hop2.x, bmin2[0]);   bmax2[0]=std::max(hop2.x, bmax2[0]);
-//                bmin2[1]=std::min(hop2.y, bmin2[1]);   bmax2[1]=std::max(hop2.y, bmax2[1]);
-//                bmin2[2]=std::min(hop2.z, bmin2[2]);   bmax2[2]=std::max(hop2.z, bmax2[2]);
 
-                if (hop2.x<lowest[0]) {
-                    lowest[0]=VertexPointer[offset]  +utrecht.x;
-                    lowest[1]=VertexPointer[offset+1]+utrecht.y;
-                    lowest[2]=VertexPointer[offset+2]+utrecht.z;
+//                if (hop2.x-hop2.y<bmin2[0]) {
+//                    bmin2[0]=hop2.x-hop2.y;
+//                    min_xy_orig[0]=v[l][0]; min_xy_orig[1]=v[l][1]; min_xy_orig[2]=v[l][2];
+//                }
+
+
+                if (hop2.y+hop2.z<bmin2[0]) {       // LAT_SOUTH/LON_WEST
+                    bmin2[0]=hop2.y+hop2.z;
+                    min_xy_orig[0]=v[l][0]; min_xy_orig[1]=v[l][1]; min_xy_orig[2]=v[l][2];
+                    after1[0]=hop2.x; after1[1]=hop2.y; after1[2]=hop2.z;
                 }
+                if (hop2.y+hop2.z>bmax2[0]) {       // LAT_NORTH/LON_EAST
+                    bmax2[0]=hop2.y+hop2.z;
+                    max_xy_orig[0]=v[l][0]; max_xy_orig[1]=v[l][1]; max_xy_orig[2]=v[l][2];
+                    after2[0]=hop2.x; after2[1]=hop2.y; after2[2]=hop2.z;
+                }
+
+//                bmin2[0]=std::min(v[l][0], bmin2[0]);   bmax2[0]=std::max(v[l][0], bmax2[0]);
+//                bmin2[1]=std::min(v[l][1], bmin2[1]);   bmax2[1]=std::max(v[l][1], bmax2[1]);
+//                bmin2[2]=std::min(v[l][2], bmin2[2]);   bmax2[2]=std::max(v[l][2], bmax2[2]);
+
+//                if (hop2.x<lowest[0]) {
+//                    lowest[0]=VertexPointer[offset]  +utrecht.x;
+//                    lowest[1]=VertexPointer[offset+1]+utrecht.y;
+//                    lowest[2]=VertexPointer[offset+2]+utrecht.z;
+//                }
                 VertexPointer[offset]   =hop2.x-6371000;
                 VertexPointer[offset+1] =hop2.y;
                 VertexPointer[offset+2] =hop2.z;
+
 //                VertexPointer[offset]   =hop.x;
 //                VertexPointer[offset+1] =hop.y;
 //                VertexPointer[offset+2] =hop.z;
@@ -588,4 +613,13 @@ void RECALC_BMIN_BMAX_NEW(std::vector<BufferObject> buffers, float bmin[3], floa
 //    printf("bmax2  = % 24.13f, % 24.13f, % 24.13f\n", bmax2[0]-6371000,  bmax2[1],           bmax2[2]);
 //    printf("diff2  = % 24.13f, % 24.13f, % 24.13f\n", bmax2[0]-bmin2[0], bmax2[1]-bmin2[1],  bmax2[2]-bmin2[2]);
 //    printf("lowest = % 24.13f, % 24.13f, % 24.13f\n", lowest[0],         lowest[1],          lowest[2]);
+
+    for (int t=0; t<3; t++) {
+//        min_xy_orig[t]+=utrecht[t];
+//        max_xy_orig[t]+=utrecht[t];
+        before1[t]=min_xy_orig[t];
+        before2[t]=max_xy_orig[t];
+    }
+    printf("min_xy_orig = % 24.13f, % 24.13f, % 24.13f\n", min_xy_orig[0], min_xy_orig[1], min_xy_orig[2]);
+    printf("max_xy_orig = % 24.13f, % 24.13f, % 24.13f\n", max_xy_orig[0], max_xy_orig[1], max_xy_orig[2]);
 }

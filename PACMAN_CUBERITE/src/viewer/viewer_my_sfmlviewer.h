@@ -1152,10 +1152,10 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
             Pacman_Objects[win_num][Pacman_Objects[win_num].size()-1].west=lon_west;
             Pacman_Objects[win_num][Pacman_Objects[win_num].size()-1].east=lon_east;
             Pacman_Objects[win_num][Pacman_Objects[win_num].size()-1].filename=filename;
-            for (int t=0; t<3; t++) {
-                Pacman_Objects[win_num][Pacman_Objects[win_num].size()-1].bmin[t]=pac_obj.bmin[t];
-                Pacman_Objects[win_num][Pacman_Objects[win_num].size()-1].bmax[t]=pac_obj.bmax[t];
-            }
+//            for (int t=0; t<3; t++) {
+//                Pacman_Objects[win_num][Pacman_Objects[win_num].size()-1].bmin[t]=pac_obj.bmin[t];
+//                Pacman_Objects[win_num][Pacman_Objects[win_num].size()-1].bmax[t]=pac_obj.bmax[t];
+//            }
 
             if (loaded==1) printf("b");
             float btot[3]={0.0,0.0,0.0};

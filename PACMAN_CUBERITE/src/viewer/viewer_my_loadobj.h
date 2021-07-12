@@ -30,6 +30,7 @@ std::map<std::string,std::string>::iterator it_ready_regions_number_of_hits;
 extern bool no_plotting;
 
 bool sort_cubic=false;
+void check_surrounding(int x, int z);
 
 extern int F4;
 extern bool rot_plot;
@@ -278,10 +279,14 @@ bool do_wuppie=false;
 bool hold_voxels=false;
 std::string obj_dir;
 
-float before[3];
-float after[3];
-double projection[3];
-
+double before1[3];
+double before2[3];
+double after1[3];
+double after2[3];
+double projection1[3];
+double projection2[3];
+double geo_north_east[3];
+double geo_south_west[3];
 static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                               std::vector<DrawObject>& drawObjects,
                               std::vector<tinyobj::material_t>& materials,
@@ -322,9 +327,6 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
         int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
 //        printf("latitude_longditude.c_str()=%s\n",latitude_longditude.c_str());
 //        printf("line=%s\n",line);
-//        printf("hallo: OCTANT NORTH=%20.16f WEST=%20.16f\n",lat_north,lon_west);
-//        printf("hallo: OCTANT SOUTH=%20.16f EAST=%20.16f\n",lat_south,lon_east);
-//        printf("hallo: OCTANT DIFF =%20.16f      %20.16f\n",lat_north-lat_south,lon_east-lon_west);
         if (num==4) {
             char lat_str[100];
             char lon_str[100];
@@ -333,6 +335,9 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
             if (!burn) {
                 printf(" https://www.google.com/maps/@%s,%s,17.00z\n",lat_str,lon_str);
             }
+            printf("OCTANT NORTH=%20.16f WEST=%20.16f\n",lat_north,lon_west);
+            printf("OCTANT SOUTH=%20.16f EAST=%20.16f\n",lat_south,lon_east);
+            printf("OCTANT DIFF =%20.16f      %20.16f\n",lat_north-lat_south,lon_east-lon_west);
             if (!burn && F2==0 && !crossing>0) {
                 char command_str[1000];
                 sprintf(command_str,"\"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe\" https://www.google.com/maps/@%s,%s,18.00z >nul 2>nul",lat_str,lon_str);
@@ -409,16 +414,16 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
             }
             else {
                 float* VertexPointer = (float*)(buffers[0].buffer + sizeof(int));
-                for (int k=0; k<3; k++) {
-                    before[k]=VertexPointer[k];
-                }
+//                for (int k=0; k<3; k++) {
+//                    before[k]=VertexPointer[k];
+//                }
                 if (area=="Utrecht")
                     RECALC_BMIN_BMAX_NEW(buffers, bmin,bmax, lat, lon);
                 else
                     RECALC_BMIN_BMAX2(buffers, bmin,bmax, lat, lon);
-                for (int k=0; k<3; k++) {
-                    after[k]=VertexPointer[k];
-                }
+//                for (int k=0; k<3; k++) {
+//                    after[k]=VertexPointer[k];
+//                }
             }
         }
 
@@ -1044,17 +1049,17 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
         if (!NBT_LOADED) {
             printf(" Saving to .nbt");
             float* VertexPointer = (float*)(buffers[0].buffer + sizeof(int));
-            for (int k=0; k<3; k++) {
-                before[k]=VertexPointer[k];
-            }
+//            for (int k=0; k<3; k++) {
+//                before[k]=VertexPointer[k];
+//            }
             OBJECT3D_TO_NBT(buffers, materials, filename, bmin, bmax);
             if (area=="Utrecht")
                 RECALC_BMIN_BMAX_NEW(buffers, bmin,bmax, lat, lon);
             else
                 RECALC_BMIN_BMAX2(buffers, bmin,bmax, lat, lon);
-            for (int k=0; k<3; k++) {
-                after[k]=VertexPointer[k];
-            }
+//            for (int k=0; k<3; k++) {
+//                after[k]=VertexPointer[k];
+//            }
 
         }
         if (do_wuppie) {
@@ -1844,6 +1849,9 @@ double vertical;
 
 double schematic_size=0;
 
+extern double min_xy_orig[];
+extern double max_xy_orig[];
+
 void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2], double tot_lat[2]) {
     static bool first=true;
 
@@ -1898,12 +1906,11 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
 //        offset_x=3899275.0;					offset_y=348997.0;				offset_z=5026376.0; } // from EARTH/DUMP_OBJ_CITY.JS
 
 //        sprintf(sys_call,"projection.exe %20.16f %20.16f %20.16f %20.16f > projection.txt",tot_lon[0],tot_lat[0],tot_lon[1],tot_lat[1]);
-        sprintf(sys_call,"projection.exe %20.16f %20.16f %20.16f %20.16f %20.16f %20.16f %20.16f > projection.txt",
+        sprintf(sys_call,"projection.exe %20.16f %20.16f %20.16f %20.16f %20.16f %20.16f %20.16f %20.16f %20.16f %20.16f > projection.txt",
                 tot_lon[0],tot_lat[0],tot_lon[1],tot_lat[1],
-                3899275.0+before[0],348997.0+before[1],5026376.0+before[2]
-//                3899275.0-before[0],348997.0-before[1],5026376.0-before[2]
-//                3899275.0,348997.0,5026376.0
-
+//                3899275.0+before[0],348997.0+before[1],5026376.0+before[2]
+                3899275.0+min_xy_orig[0],348997.0+min_xy_orig[1],5026376.0+min_xy_orig[2],
+                3899275.0+max_xy_orig[0],348997.0+max_xy_orig[1],5026376.0+max_xy_orig[2]
                 );
         printf("%s\n",sys_call);
         system(sys_call);
@@ -1970,24 +1977,98 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
                 printf("ERROR READING BOT_RIGHT from projection.txt\n");
                 printf("line=%s\n",line);
             }
+
             if (fgets (line,1000, HOP)!=NULL) {
-//                printf("line projection.txt=%s\n",line);
-//                while (replace_str(line,",","."));
-                //PROJECTION(X=[3174964.36805937] Y=[10.18973941] Z=[-5354805.95750982])
-                if ( sscanf(line,"PROJECTION(X=[%lf] Y=[%lf] Z=[%lf])\n",&projection[0],&projection[1],&projection[2]) != 3) {
-                    printf("ERROR READING PROJECTION from projection.txt\n");
+                if ( sscanf(line,"PROJECTION1(X=[%lf] Y=[%lf] Z=[%lf])\n",&projection1[0],&projection1[1],&projection1[2]) != 3) {
+                    printf("ERROR READING PROJECTION1 from projection.txt\n");
                     printf("line=%s\n",line);
 //                    return;
                 } else {
-                    printf("PROJECTION(X=%20.16f Y=%20.16f Z=%20.16f)\n",projection[0],projection[1],projection[2]);
-                    printf("BEFORE=   (X=%20.16f Y=%20.16f Z=%20.16f)\n",3899275.0+before[0],348997.0+before[1],5026376.0+before[2]);
-                    printf("AFTER=    (X=%20.16f Y=%20.16f Z=%20.16f)\n",after[0],after[1],after[2]);
-                    printf("DIFFERENCE IN HEIGHT=%20.16f\n",after[0]-projection[1]);
+                    printf("PROJECTION1   (X=%20.16f Y=%20.16f Z=%20.16f)\n",projection1[0],projection1[1],projection1[2]);
+                    printf("BEFORE=       (X=%20.16f Y=%20.16f Z=%20.16f)\n",3899275.0+min_xy_orig[0],348997.0+min_xy_orig[1],5026376.0+min_xy_orig[2]);
+                    printf("AFTER=        (X=%20.16f Y=%20.16f Z=%20.16f)\n",after1[0]-6371000.0,after1[1],after1[2]);
+                    printf("DIFFERENCE IN HEIGHT=%20.16f\n",after1[0]-projection1[1]-6371000.0);
                 }
             } else {
-                printf("ERROR READING PROJECTION from projection.txt\n");
+                printf("ERROR READING PROJECTION1 from projection.txt\n");
                 printf("line=%s\n",line);
             }
+            if (fgets (line,1000, HOP)!=NULL) {
+//                if ( sscanf(line,"GEO_NORTH_EAST(X=[%lf] Y=[%lf] Z=[%lf])\n",&geo_north_east[0],&geo_north_east[1],&geo_north_east[2]) != 3) {
+                if ( sscanf(line,"GEO_NORTH_EAST(X=%lf Y=%lf Z=%lf)\n",&geo_north_east[0],&geo_north_east[1],&geo_north_east[2]) != 3) {
+                    printf("ERROR READING GEO_NORTH_EAST from projection.txt\n");
+                    printf("line=%s\n",line);
+//                    return;
+                } else {
+                    printf("GEO_NORTH_EAST(X=%20.16f Y=%20.16f Z=%20.16f)\n",geo_north_east[0],geo_north_east[1],geo_north_east[2]);
+                    printf("BEFORE=       (X=%20.16f Y=%20.16f Z=%20.16f)\n",3899275.0+min_xy_orig[0],348997.0+min_xy_orig[1],5026376.0+min_xy_orig[2]);
+                    printf("AFTER=        (X=%20.16f Y=%20.16f Z=%20.16f)\n",after1[0]-6371000.0,after1[1],after1[2]);
+                    printf("DIFFERENCE IN HEIGHT=%20.16f\n",after1[0]-projection1[1]-6371000.0);
+                }
+            } else {
+                printf("ERROR READING GEO_NORTH_EAST from projection.txt\n");
+                printf("line=%s\n",line);
+            }
+
+            if (fgets (line,1000, HOP)!=NULL) {
+                if ( sscanf(line,"PROJECTION2(X=[%lf] Y=[%lf] Z=[%lf])\n",&projection2[0],&projection2[1],&projection2[2]) != 3) {
+                    printf("ERROR READING PROJECTION2 from projection.txt\n");
+                    printf("line=%s\n",line);
+//                    return;
+                } else {
+                    printf("PROJECTION2   (X=%20.16f Y=%20.16f Z=%20.16f)\n",projection2[0],projection2[1],projection2[2]);
+                    printf("BEFORE=       (X=%20.16f Y=%20.16f Z=%20.16f)\n",3899275.0+max_xy_orig[0],348997.0+max_xy_orig[1],5026376.0+max_xy_orig[2]);
+                    printf("AFTER=        (X=%20.16f Y=%20.16f Z=%20.16f)\n",after2[0]-6371000.0,after2[1],after2[2]);
+                    printf("DIFFERENCE IN HEIGHT=%20.16f\n",after2[0]-projection2[1]-6371000.0);
+                }
+            } else {
+                printf("ERROR READING PROJECTION2 from projection.txt\n");
+                printf("line=%s\n",line);
+            }
+            if (fgets (line,1000, HOP)!=NULL) {
+//                if ( sscanf(line,"GEO_SOUTH_WEST(X=[%lf] Y=[%lf] Z=[%lf])\n",&geo_south_west[0],&geo_south_west[1],&geo_south_west[2]) != 3) {
+                if ( sscanf(line,"GEO_SOUTH_WEST(X=%lf Y=%lf Z=%lf)\n",&geo_south_west[0],&geo_south_west[1],&geo_south_west[2]) != 3) {
+                    printf("ERROR READING GEO_SOUTH_WEST from projection.txt\n");
+                    printf("line=%s\n",line);
+//                    return;
+                } else {
+                    printf("GEO_SOUTH_WEST(X=%20.16f Y=%20.16f Z=%20.16f)\n",geo_south_west[0],geo_south_west[1],geo_south_west[2]);
+                    printf("BEFORE=       (X=%20.16f Y=%20.16f Z=%20.16f)\n",3899275.0+max_xy_orig[0],348997.0+max_xy_orig[1],5026376.0+max_xy_orig[2]);
+                    printf("AFTER=        (X=%20.16f Y=%20.16f Z=%20.16f)\n",after2[0]-6371000.0,after2[1],after2[2]);
+                    printf("DIFFERENCE IN HEIGHT=%20.16f\n",after2[0]-projection2[1]-6371000.0);
+                }
+            } else {
+                printf("ERROR READING GEO_SOUTH_WEST from projection.txt\n");
+                printf("line=%s\n",line);
+            }
+            double lat=(tot_lat[0]+tot_lat[1])/2.0;
+            double lon=(tot_lon[0]+tot_lon[1])/2.0;
+
+            glm::dmat4 test=glm::dmat4( cos(lat*M_PI/180.0)*cos(lon*M_PI/180.0)    , cos(lat*M_PI/180.0)*sin(lon*M_PI/180.0)   , sin(lat*M_PI/180.0)   , 0.0,
+                                       -sin(lon*M_PI/180.0)                        , cos(lon*M_PI/180.0)                       , 0.0                   , 0.0,
+                                       -sin(lat*M_PI/180.0)*cos(lon*M_PI/180.0)    ,-sin(lat*M_PI/180.0)*sin(lon*M_PI/180.0)   , cos(lat*M_PI/180.0)   , 0.0,
+                                       0.0                                         ,0.0                                        ,0.0                    , 1.0);
+            glm::dvec4 hop1 = glm::dvec4(geo_north_east[0],geo_north_east[1],geo_north_east[2], 1.0f) * test;
+            glm::dvec4 hop2 = glm::dvec4(geo_south_west[0],geo_south_west[1],geo_south_west[2], 1.0f) * test;
+
+            printf("OBJECT MIN: X=%24.17f Y=%24.17f Z=%24.17f\n",hop2[0]-6371000.0,hop2[1],hop2[2]);
+            printf("OBJECT MAX: X=%24.17f Y=%24.17f Z=%24.17f\n",hop1[0]-6371000.0,hop1[1],hop1[2]);
+            printf("OBJECT DIF: X=%24.17f Y=%24.17f Z=%24.17f\n",hop1[0]-hop2[0],hop1[1]-hop2[1],hop1[2]-hop2[2]);
+
+            printf("DIFF   MIN: X=%24.17f Y=%24.17f Z=%24.17f\n",hop2[0]-6371000.0-bmin_total[0],hop2[1]-bmin_total[1],hop2[2]-bmin_total[2]);
+            printf("DIFF   MAX: X=%24.17f Y=%24.17f Z=%24.17f\n",hop1[0]-6371000.0-bmax_total[0],hop1[1]-bmax_total[1],hop1[2]-bmax_total[2]);
+            printf("DIFF   DIF: X=%24.17f Y=%24.17f Z=%24.17f\n",
+                   (bmax_total[0]-bmin_total[0]) - (hop1[0]-hop2[0]) ,
+                   (bmax_total[1]-bmin_total[1]) - (hop1[1]-hop2[1]) ,
+                   (bmax_total[2]-bmin_total[2]) - (hop1[2]-hop2[2]) );
+
+            bmin_total[1]=hop2[1];
+            bmin_total[2]=hop2[2];
+            bmax_total[1]=hop1[1];
+            bmax_total[2]=hop1[2];
+//GEO_NORTH_EAST(X=[3898745.26962457] Y=[349300.09292558] Z=[5026711.63921077])
+//GEO_SOUTH_WEST(X=[3899007.64464307] Y=[348946.78988123] Z=[5026509.6850594])
+
 //            while (fgets (line,1000, HOP)!=NULL) {
 //                printf("line=%s",line);
 //            }
@@ -2000,29 +2081,6 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
         top_right=glm::fvec2(( top_right2[0]   -cnt_x)*1.0,   ( top_right2[1]   -cnt_z)*1.0);
         bot_left =glm::fvec2(( bot_left2[0]    -cnt_x)*1.0,   ( bot_left2[1]    -cnt_z)*1.0);
         bot_right=glm::fvec2(( bot_right2[0]   -cnt_x)*1.0,   ( bot_right2[1]   -cnt_z)*1.0);
-
-//        top_left =glm::fvec2(( 3174307.3814163194   -cnt_x)*1.0,   ( -5353422.824258924     -cnt_z)*1.0);
-//        top_right=glm::fvec2(( 3174701.2305192538   -cnt_x)*1.0,   ( -5353299.263276896     -cnt_z)*1.0);
-//        bot_left =glm::fvec2(( 3174207.434095887    -cnt_x)*1.0,   ( -5353102.13033254      -cnt_z)*1.0);
-//        bot_right=glm::fvec2(( 3174601.3088949216   -cnt_x)*1.0,   ( -5352978.56729733855   -cnt_z)*1.0);
-
-//        top_left =glm::fvec2((3153366.896357943	 -cnt_x)*1.0,   (-5415823.892077346  -cnt_z)*1.0);
-//        top_right=glm::fvec2((3332296.4138517035 -cnt_x)*1.0,   (-5360923.333970745  -cnt_z)*1.0);
-//        bot_left =glm::fvec2((3127029.9093990717 -cnt_x)*1.0,   (-5332805.38180718	 -cnt_z)*1.0);
-//        bot_right=glm::fvec2((3307366.9097758397 -cnt_x)*1.0,   (-5277242.0736351935 -cnt_z)*1.0);
-//4.603271484375
-//52.525634765625
-//7.1026611328125
-//51.81427001953125
-//TOP_LEFT(   X=3153366.896357943 ,Z=-5415823.892077346)
-//TOP_RIGHT(  X=3332296.4138517035,Z=-5360923.333970745)
-//BOT_LEFT(   X=3127029.9093990717,Z=-5332805.38180718)
-//BOT_RIGHT(  X=3307366.9097758397,Z=-5277242.0736351935)
-
-//        top_left =glm::fvec2((3173619.701549666 -cnt_x)*1.0,   (-5353990.708839205-cnt_z)*1.0);
-//        top_right=glm::fvec2((3174801.152713919 -cnt_x)*1.0,   (-5353619.96164422 -cnt_z)*1.0);
-//        bot_left =glm::fvec2((3173319.705408585 -cnt_x)*1.0,   (-5353028.639382178-cnt_z)*1.0);
-//        bot_right=glm::fvec2((3174501.387840918 -cnt_x)*1.0,   (-5352657.873705601-cnt_z)*1.0);
 
     } else if (area=="Amsterdam" && mirror!=0) {
         vertical =bmax_total[0]- bmin_total[0];
@@ -2316,11 +2374,11 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
         }
     }
 
-    if (area!="Models") {
-        printf("OCTANT NORTH=%20.16f WEST=%20.16f\n",lat_north,lon_west);
-        printf("OCTANT SOUTH=%20.16f EAST=%20.16f\n",lat_south,lon_east);
-        printf("OCTANT DIFF =%20.16f      %20.16f\n",lat_north-lat_south,lon_east-lon_west);
-    }
+//    if (area!="Models") {
+//        printf("OCTANT NORTH=%20.16f WEST=%20.16f\n",lat_north,lon_west);
+//        printf("OCTANT SOUTH=%20.16f EAST=%20.16f\n",lat_south,lon_east);
+//        printf("OCTANT DIFF =%20.16f      %20.16f\n",lat_north-lat_south,lon_east-lon_west);
+//    }
 
     if (area=="Utrecht") {
         double bmin_octant[3];
@@ -3863,15 +3921,18 @@ extern float* fspeed_ghosty;
                 for (int zz=0; zz<512; zz++) {
                     for (int xx=0; xx<512; xx++) {
                         if (one_region[xx][zz]>0) {
-                            if (zz==0 || zz==511) tline++;
-                            if (xx==0 || xx==511) tline++;
+//utrecht bug
+                            if (zz==0 || zz==511 || xx==0 || xx==511) tline++;
+//                            if (zz==0 || zz==511) tline++;
+//                            if (xx==0 || xx==511) tline++;
                             total_columns++;
                             total_voxels+=one_region[xx][zz];
                         }
                         one_region[xx][zz]=0;
                     }
                 }
-                if (tline==2048) hit_one->index8=512*512;
+
+                if (tline==2048-4) hit_one->index8=512*512;
 
                 printf("VOXELS=%9d (%6.2f%%)  ", total_voxels,100.0*(double)total_voxels/(512.0*512.0*256.0));
 
@@ -3993,6 +4054,8 @@ extern float* fspeed_ghosty;
                 int x=hit_one->x;
                 int z=hit_one->z;
 
+                check_surrounding(x,z);
+
                 printf("\n========>HIT REGIONS:       [%d][%d]\n",x,z);
 
                 bool got_one=false;
@@ -4056,7 +4119,7 @@ extern float* fspeed_ghosty;
 //                        printf("\n!!!!!!!!!!!        SIZE=%d\n",ready_regions.size());
                     }
                 }
-                if (hit_one->index8 > (int)(512.0*512.0*0.9995) || flushing ) {
+                if (hit_one->index8 > (int)(512.0*512.0*0.998) || flushing ) {
                     if (!got_one) {
 
                         if (already_loaded) printf("ALREADY LOADED ");
@@ -4083,7 +4146,7 @@ extern float* fspeed_ghosty;
                 }
                 if (hit_one->index6>0 || got_one) {
                     NUMBER_OF_REGIONS++;
-                    if ((flushing_mode) || hit_one->index8 > (int)(512.0*512.0*0.9995) || flushing ) {
+                    if ((flushing_mode) || hit_one->index8 > (int)(512.0*512.0*0.998) || flushing ) {
 //                    if ((voxels_total.size()>25000000) || hit_one->index8 > (int)(512.0*512.0*0.9995) || flushing ) {
 
                         if (flushing_mode && !got_one && !flushing)
@@ -5167,3 +5230,32 @@ bool play(int play_num, float bmin[3], float bmax[3]) {
 }
 */
 
+void check_surrounding(int x, int z) {
+    static int depth=0;
+    depth++;
+    char hop[1000]; //checking surrounding regions for them surrounding regions all ready then push
+    for (int zz=z-1; zz<=z+1; zz++) {
+        for (int xx=x-1; xx<=x+1; xx++) {
+            if (!(zz==z && xx==x)) {
+                int surround=0;
+                sprintf(hop,"../cut/r.%d.%d.vox",xx,zz); // to do
+                if (file_exists(hop)) { // not ready, check surrounding if ready.
+                    for (int zzz=-1; zzz<=1; zzz++) {
+                        for (int xxx=-1; xxx<=1; xxx++) {
+                            if (!(zzz==0 && xxx==0)) {
+                                sprintf(hop,"../cut/done/r.%d.%d.vox",xx+xxx,zz+zzz);
+                                if (file_exists(hop)) surround++;
+                            }
+                        }
+                    }
+                    if (surround==8) { // all surrounding ready -> push
+                        printf("DEPTH=%d -> Found ../cut/r.%d.%d.vox not ready but surrounding 8 are, -> pushing\n",depth,xx,zz);
+                        ready_regions.push_back(hit_one_region(xx,zz));
+                        check_surrounding(xx,zz);
+                    }
+                }
+            }
+        }
+    }
+    depth--;
+}
