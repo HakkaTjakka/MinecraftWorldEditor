@@ -620,6 +620,6 @@ void RECALC_BMIN_BMAX_NEW(std::vector<BufferObject> buffers, float bmin[3], floa
         before1[t]=min_xy_orig[t];
         before2[t]=max_xy_orig[t];
     }
-    printf("min_xy_orig = % 24.13f, % 24.13f, % 24.13f\n", min_xy_orig[0], min_xy_orig[1], min_xy_orig[2]);
-    printf("max_xy_orig = % 24.13f, % 24.13f, % 24.13f\n", max_xy_orig[0], max_xy_orig[1], max_xy_orig[2]);
+//    printf("min_xy_orig = % 24.13f, % 24.13f, % 24.13f\n", min_xy_orig[0], min_xy_orig[1], min_xy_orig[2]);
+//    printf("max_xy_orig = % 24.13f, % 24.13f, % 24.13f\n", max_xy_orig[0], max_xy_orig[1], max_xy_orig[2]);
 }

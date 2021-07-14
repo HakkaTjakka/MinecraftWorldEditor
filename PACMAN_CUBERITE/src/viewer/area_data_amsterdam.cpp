@@ -204,8 +204,8 @@ std::string get_octant_UTRECHT(int &x, int &y) {
 		return "";
 	}
 	bool OK=false;
-	if (x>=455 && y>2143) printf("Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
-	else if (!(x>=455) && (x>455 || y>258)) printf("Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
+	if (x>=455 && y>2143) printf("1) Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
+	else if (!(x>=455) && (x>455 || y>258)) printf("2) Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
 	else OK=true;
 	if (!OK) return "";
 	if (!(x>455)) latitude_longditude=lat_lon[x][y];

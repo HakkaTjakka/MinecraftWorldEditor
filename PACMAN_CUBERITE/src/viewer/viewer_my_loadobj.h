@@ -1985,8 +1985,8 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
 //                    return;
                 } else {
                     printf("PROJECTION1   (X=%20.16f Y=%20.16f Z=%20.16f)\n",projection1[0],projection1[1],projection1[2]);
-                    printf("BEFORE=       (X=%20.16f Y=%20.16f Z=%20.16f)\n",3899275.0+min_xy_orig[0],348997.0+min_xy_orig[1],5026376.0+min_xy_orig[2]);
-                    printf("AFTER=        (X=%20.16f Y=%20.16f Z=%20.16f)\n",after1[0]-6371000.0,after1[1],after1[2]);
+//                    printf("BEFORE=       (X=%20.16f Y=%20.16f Z=%20.16f)\n",3899275.0+min_xy_orig[0],348997.0+min_xy_orig[1],5026376.0+min_xy_orig[2]);
+//                    printf("AFTER=        (X=%20.16f Y=%20.16f Z=%20.16f)\n",after1[0]-6371000.0,after1[1],after1[2]);
                     printf("DIFFERENCE IN HEIGHT=%20.16f\n",after1[0]-projection1[1]-6371000.0);
                 }
             } else {
@@ -2001,8 +2001,8 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
 //                    return;
                 } else {
                     printf("GEO_NORTH_EAST(X=%20.16f Y=%20.16f Z=%20.16f)\n",geo_north_east[0],geo_north_east[1],geo_north_east[2]);
-                    printf("BEFORE=       (X=%20.16f Y=%20.16f Z=%20.16f)\n",3899275.0+min_xy_orig[0],348997.0+min_xy_orig[1],5026376.0+min_xy_orig[2]);
-                    printf("AFTER=        (X=%20.16f Y=%20.16f Z=%20.16f)\n",after1[0]-6371000.0,after1[1],after1[2]);
+//                    printf("BEFORE=       (X=%20.16f Y=%20.16f Z=%20.16f)\n",3899275.0+min_xy_orig[0],348997.0+min_xy_orig[1],5026376.0+min_xy_orig[2]);
+//                    printf("AFTER=        (X=%20.16f Y=%20.16f Z=%20.16f)\n",after1[0]-6371000.0,after1[1],after1[2]);
                     printf("DIFFERENCE IN HEIGHT=%20.16f\n",after1[0]-projection1[1]-6371000.0);
                 }
             } else {
@@ -2017,8 +2017,8 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
 //                    return;
                 } else {
                     printf("PROJECTION2   (X=%20.16f Y=%20.16f Z=%20.16f)\n",projection2[0],projection2[1],projection2[2]);
-                    printf("BEFORE=       (X=%20.16f Y=%20.16f Z=%20.16f)\n",3899275.0+max_xy_orig[0],348997.0+max_xy_orig[1],5026376.0+max_xy_orig[2]);
-                    printf("AFTER=        (X=%20.16f Y=%20.16f Z=%20.16f)\n",after2[0]-6371000.0,after2[1],after2[2]);
+//                    printf("BEFORE=       (X=%20.16f Y=%20.16f Z=%20.16f)\n",3899275.0+max_xy_orig[0],348997.0+max_xy_orig[1],5026376.0+max_xy_orig[2]);
+//                    printf("AFTER=        (X=%20.16f Y=%20.16f Z=%20.16f)\n",after2[0]-6371000.0,after2[1],after2[2]);
                     printf("DIFFERENCE IN HEIGHT=%20.16f\n",after2[0]-projection2[1]-6371000.0);
                 }
             } else {
@@ -2033,8 +2033,8 @@ void minecraft_set(double bmin_total[3], double bmax_total[3], double tot_lon[2]
 //                    return;
                 } else {
                     printf("GEO_SOUTH_WEST(X=%20.16f Y=%20.16f Z=%20.16f)\n",geo_south_west[0],geo_south_west[1],geo_south_west[2]);
-                    printf("BEFORE=       (X=%20.16f Y=%20.16f Z=%20.16f)\n",3899275.0+max_xy_orig[0],348997.0+max_xy_orig[1],5026376.0+max_xy_orig[2]);
-                    printf("AFTER=        (X=%20.16f Y=%20.16f Z=%20.16f)\n",after2[0]-6371000.0,after2[1],after2[2]);
+//                    printf("BEFORE=       (X=%20.16f Y=%20.16f Z=%20.16f)\n",3899275.0+max_xy_orig[0],348997.0+max_xy_orig[1],5026376.0+max_xy_orig[2]);
+//                    printf("AFTER=        (X=%20.16f Y=%20.16f Z=%20.16f)\n",after2[0]-6371000.0,after2[1],after2[2]);
                     printf("DIFFERENCE IN HEIGHT=%20.16f\n",after2[0]-projection2[1]-6371000.0);
                 }
             } else {
@@ -3029,7 +3029,6 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
 
 //sukkel
         if (!rot_on && !make_schematic && !plot_only_on && (mirror==3 || mirror==4)) {
-
 
             char picture_file[400];
             if (cubic || 1) {

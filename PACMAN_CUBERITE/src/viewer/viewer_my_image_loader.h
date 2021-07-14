@@ -12,7 +12,8 @@ struct image_loader {
     std::string filename;
     sf::Image* image;
     bool ready=false;
-    bool ok=true;
+//UTRECHT    bool ok=true;
+    bool ok=false;
     size_t index;
     sf::Thread *thread_pointer;
     std::string previous="";
@@ -22,6 +23,7 @@ struct image_loader {
 std::vector<struct image_loader*> image_buffer;
 
 
+/*
 int resize_image(sf::Image *imagebuffer, std::string &filename) {
     sf::Texture texture_buffer;
     int ret=imagebuffer->loadFromFile(filename.c_str());
@@ -40,7 +42,7 @@ int resize_image(sf::Image *imagebuffer, std::string &filename) {
     *imagebuffer=rendertexture_buffer.getTexture().copyToImage();
     return ret;
 }
-
+*/
 
 int wait_for_all_loaded() {
     bool all_ready=1;
@@ -92,42 +94,100 @@ int wait_for_all_loaded() {
 };
 
 int sharp=false;
-extern bool file_exists(const char * filename);
+//extern bool file_exists(const char * filename);
+
+struct stat stat_buffer2;
+
+sf::Mutex file_exists_texture_loader_mutex;
+
+bool file_exists_texture_loader(const char * filename)
+{
+//    file_exists_texture_loader_mutex.lock();
+    int exist = stat(filename,&stat_buffer2);
+//    file_exists_texture_loader_mutex.unlock();
+    if (exist==0)
+    {
+//        printf("EXISTS: %s\n",filename);
+        return true;
+    }
+//    printf("NOT EXISTS: %s\n",filename);
+    return false;
+}
 
 void LOAD_ONE_IMAGE(size_t index) {
 //    printf("index=%d Thread started. filename=%s\n",index,image_buffer[index].filename.c_str());
     int first=1;
     while (stay_active==true) {
         char fn[2000];
-        if (!file_exists(image_buffer[index]->filename.c_str())) {
+//utrecht        if (!file_exists_texture_loader(image_buffer[index]->filename.c_str())) {
+        if (file_exists_texture_loader(image_buffer[index]->filename.c_str())==false) {
+//            printf("TEXTURE NOT FOUND: %s\n",image_buffer[index]->filename.c_str());
             bool f_ok=false;
-            strcpy(fn,image_buffer[index]->filename.c_str());
+//            strcpy(fn,image_buffer[index]->filename.c_str());
+
+            std::string test_other=image_buffer[index]->filename;
+
+            if (test_other.find_last_of(".") != std::string::npos) test_other=test_other.substr(0,test_other.find_last_of("."))+".jpg";
+            else printf("Error changing filename: %s to .jpg : %s\n",image_buffer[index]->filename.c_str(),test_other.c_str());
+            if (!file_exists_texture_loader(test_other.c_str())) {
+                if (test_other.find_last_of(".") != std::string::npos) test_other=test_other.substr(0,test_other.find_last_of("."))+".bmp";
+                else printf("Error changing filename: %s to .bmp : %s\n",image_buffer[index]->filename.c_str(),test_other.c_str());
+                if (!file_exists_texture_loader(test_other.c_str())) {
+                    if (test_other.find_last_of(".") != std::string::npos) test_other=test_other.substr(0,test_other.find_last_of("."))+".png";
+                    else printf("Error changing filename: %s to .png : %s\n",image_buffer[index]->filename.c_str(),test_other.c_str());
+                } else {
+                    f_ok=true;
+                }
+            } else {
+                f_ok=true;
+            }
+
+/*
             if (strlen(fn)>4) {
                 fn[strlen(fn)-3]='j';
                 fn[strlen(fn)-2]='p';
                 fn[strlen(fn)-1]='g';
-                if (!file_exists(fn)) {
+                if (!file_exists_texture_loader(fn)) {
                     fn[strlen(fn)-3]='b';
                     fn[strlen(fn)-2]='m';
                     fn[strlen(fn)-1]='p';
-                    if (!file_exists(fn)) {
+                    if (!file_exists_texture_loader(fn)) {
                         fn[strlen(fn)-3]='p';
                         fn[strlen(fn)-2]='n';
                         fn[strlen(fn)-1]='g';
-                        if (file_exists(fn)) f_ok=true;
+                        if (file_exists_texture_loader(fn)) f_ok=true;
                     } else f_ok=true;
                 } else f_ok=true;
             }
-            if (f_ok) image_buffer[index]->filename=fn;
+            if (f_ok) image_buffer[index]->filename=std::string() + fn;
+*/
+            if (f_ok) {
+                image_buffer[index]->filename=test_other;
+//                printf("ALTERNATIVE FOUND: %s\n",image_buffer[index]->filename.c_str());
+            }
+            else {
+                static bool first=true;
+                printf("Error loading texture(s): %s\n",image_buffer[index]->filename.c_str());
+                FILE* no_texture=fopen("TEXTURE_NOT_FOUND.TXT","a");
+                fprintf(no_texture,"%s\n",image_buffer[index]->filename.c_str());
+                fclose(no_texture);
+                if (first) system("pause");
+                else first=false;
+            }
         }
 
         if (image_buffer[index]->previous==image_buffer[index]->filename) {
 //            printf("\rSAME FILE!!! NOT LOADING -> %s\n",image_buffer[index]->previous.c_str());
             image_buffer[index]->ready=true;
-        } else if (!file_exists(image_buffer[index]->filename.c_str())) {
-            printf("\nindex=%d Cannot find file on disk: %s\n",index,image_buffer[index]->filename.c_str());
-            image_buffer[index]->ok=false;
-        } else {
+        } else if (!file_exists_texture_loader(image_buffer[index]->filename.c_str())) {
+            printf("\nindex=%d Cannot find file on disk, loading error.jpg instead: %s\n",index,image_buffer[index]->filename.c_str());
+//            image_buffer[index]->ok=false;
+            image_buffer[index]->ok=true;
+            image_buffer[index]->ok=image_buffer[index]->image->loadFromFile("error.jpg");
+            image_buffer[index]->ready=true;
+            image_buffer[index]->filename="error.jpg";
+        } //else {
+        {
             if (first==1) {
 //                printf("index=%d File exists / first run Sleeping for 30 seconds before loading %s\n",index,image_buffer[index]->filename.c_str());
                 while (batch_load==0) sf::sleep(sf::milliseconds(10));
@@ -145,9 +205,10 @@ void LOAD_ONE_IMAGE(size_t index) {
 //                image_buffer[index]->ok=resize_image(image_buffer[index]->image,image_buffer[index]->filename);
                 if (!image_buffer[index]->ok)
                     printf("\nindex=%d Error loading file: %s\n",index,image_buffer[index]->filename.c_str());
-                else
-                image_buffer[index]->previous = image_buffer[index]->filename;
-                image_buffer[index]->ready=true;
+                else {
+                    image_buffer[index]->previous = image_buffer[index]->filename;
+                    image_buffer[index]->ready=true;
+                }
             }
         }
         first=0;
@@ -165,11 +226,14 @@ void LOAD_ONE_IMAGE(size_t index) {
     }
 }
 
-void push_image_file(std::string filename) {
+void push_image_file(std::string& filename) {
     size_t index=image_buffer.size();
     sharp=true;
 //    struct image_loader* image_loader_struct_pointer = new image_loader;
 //    sf::Thread* thread_pointer = new sf::Thread(&LOAD_ONE_IMAGE,index);
+
+//    if (filename.find_last_of(".") != std::string::npos) filename=filename.substr(0,filename.find_last_of("."))+".jpg";
+//    else printf("Error changing filename: %s to .jpg : %s\n",image_buffer[index]->filename.c_str(),filename.c_str());
 
     if (loader_index>=index) {
         struct image_loader* image_loader_struct_pointer = new image_loader;

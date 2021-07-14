@@ -957,7 +957,9 @@ printf("hoppa");
                             mcglobal=atoi(argv[3]);
                         }
                         if (argc>4) {
-                            if (strcmp("Utrecht",argv[4])==0) area=argv[4];
+                            int len = strlen(argv[4]);
+                            for(int i=0;i<len;i++) argv[4][i]=toupper(argv[4][i]);
+                            if (strcmp("UTRECHT",argv[4])==0) area="Utrecht";
                             else mcglobal=atoi(argv[4]);
                         }
                     }

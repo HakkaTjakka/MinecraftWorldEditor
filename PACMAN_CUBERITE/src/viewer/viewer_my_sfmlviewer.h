@@ -436,7 +436,7 @@ int do_SFMLGL2(int what)
                 printf("New area: Size=%d,%d\n",max_x,max_y);
                 first=1;
             }
-            if (area!="Models" && area!="Canvas") lat_lon=get_lat_lon(area);
+            if (area!="Models" && area!="Canvas" && crossing==0) lat_lon=get_lat_lon(area);
             else {
 //                if (area=="Models") {
 //                    max_x=-1;max_y=-1;
@@ -1562,7 +1562,6 @@ system("pause");
                             printf("Converting ../cut/%s voxel region file to /saves/test/region/done0/r.%d.%d.mca minecraft files\n",voxel_filename,x,z);
                         }
                         one_region_voxel_files_to_region_files(false, voxel_filename);
-                        send_message='x';
                     } else {
                         if (make_object) {
                             printf("Converting ../cut/*.vox voxel files to ../objects/*.obj wavefront\n");
@@ -1578,6 +1577,7 @@ extern void SAVEALLBITMAPS();
                     DONTSAVEFILES=0;
                     SAVEALLBITMAPS();
                     send_message='x';
+                    return 0;
                 }
 
                 if (flick==false && pull_off2==false && pull_off==false && !load_extra && !load_more_remember && !load_more

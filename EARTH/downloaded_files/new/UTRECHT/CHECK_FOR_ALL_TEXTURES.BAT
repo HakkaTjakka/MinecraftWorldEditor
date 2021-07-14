@@ -40,6 +40,9 @@ for /f "tokens=*" %%F in ('dir /b /a:d ".\3*"') do (
 								if not "!EXTENSION!"=="jpg" set /a no_jpg=1
 								if exist %%F\%%G\!TEXTURE! (
 									set /a num_in_dir=!num_in_dir! + 1
+									if not exist %%F\%%G\!NAME!.jpg (
+										set /a need_conversion=1
+									)
 								) else (
 									if not exist %%F\%%G\!NAME!.jpg (
 										if not exist %%F\%%G\!NAME!.bmp (
@@ -133,7 +136,6 @@ exit /b
 dir %1\*.bmp /s/b > png_and_bmp.txt 2>NUL
 dir %1\*.png /s/b >> png_and_bmp.txt 2>NUL
 for %%a in (png_and_bmp.txt) do (
-	del goingin.txt 2>NUL
 	if not %%~za == 0 (
 		"C:\Program Files\IrfanView\i_view64.exe" /filelist=png_and_bmp.txt /convert=%%F\$d\$N.jpg
 		del %1\*.png /s >NUL 2>NUL 

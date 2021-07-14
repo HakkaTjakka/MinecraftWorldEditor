@@ -14614,7 +14614,7 @@ extern bool rot_plot;
         else
             text_to_ffmpeg(mc_text1, 28,sf::Color::Blue,sf::Color::White);
     } else {
-        text_to_ffmpeg(mc_text1, 28,sf::Color::Yellow,sf::Color::White);
+        text_to_ffmpeg(mc_text1, 28,sf::Color::Yellow,sf::Color::Black);
     }
 
     plot_ffmpegfile=1;
