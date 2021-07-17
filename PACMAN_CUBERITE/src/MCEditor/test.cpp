@@ -6519,7 +6519,10 @@ extern std::string area;
                 scan_image.create(512,512,sf::Color(0,0,0,0));
             }
             if ((make_regions || flushing_mode) && !add_to_region2) {
-                printf("file %s exists, skipping...\n",fname.c_str());
+                if (flushing_mode)
+                    printf("flusing mode, %s plot only...\n",fname.c_str());
+                else
+                    printf("file %s exists, skipping...\n",fname.c_str());
                 return 0;
             }
 

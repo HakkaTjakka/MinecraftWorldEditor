@@ -1,0 +1,13 @@
+rem @ECHO OFF
+
+D:
+
+CD \PACMAN\PACMAN_CUBERITE
+
+bin\pacman.exe nbt
+
+F:
+
+CALL MOVE_OBJ_THEN_OCTANT_TO_G.BAT
+
+pause

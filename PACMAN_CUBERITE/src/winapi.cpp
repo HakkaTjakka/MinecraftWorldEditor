@@ -46,6 +46,7 @@
 #define EVENT_SYSTEM 8
 
 extern void font2function();
+extern bool MAKE_NBT;
 
 extern sf::Texture* backgroundTexture[];
 extern bool get_screenshot(sf::Texture* m_texture);
@@ -57,6 +58,7 @@ extern void launch_REGION_TO_VOXEL();
 bool roelof=false;
 void multiple_regions_to_voxelfiles(std::string);
 bool screensaver=false;
+bool do_nbt_fast=false;
 
 extern bool do_pong=false;
 extern bool and_now_i_am_here;
@@ -717,6 +719,15 @@ extern int keep_running[];
                     sf::sleep(sf::seconds(0.1));
                 }
                 combine=0;
+            } else if (c==(char)'C') {
+                area="Utrecht";
+//                cubic=true;
+//                and_now_i_am_here=true;
+                MAKE_NBT=true;
+                launch_SFMLGL2_b();
+                while (!i_am_here) {
+                    sf::sleep(sf::seconds(0.1));
+                }
             } else if (c==(char)'z') {
                 crossing=2; mirror=4;combine=1;
                 area="Utrecht";
@@ -1015,7 +1026,17 @@ printf("hoppa");
         else if (   strcmp(argv[1],"denhaag"    )==0) { send_message='t'; }
         else if (   strcmp(argv[1],"newyork"    )==0) { send_message='v'; }
         else if (   strcmp(argv[1],"rio"    )==0) { send_message='y'; }
-        else if (   strcmp(argv[1],"utrecht"    )==0) { send_message='z'; }
+        else if (   strcmp(argv[1],"nbt"    )==0) {
+            send_message='C';
+        }
+        else if (   strcmp(argv[1],"utrecht"    )==0) {
+            if (argc>2) {
+                if (strcmp(argv[2],"fast"    )==0) {
+                    do_nbt_fast=true;
+                }
+            }
+            send_message='z';
+        }
         else if (   strcmp(argv[1],"amsterdam"    )==0) { send_message='w'; }
         else if (   strcmp(argv[1],"font2function"    )==0) {
             font2function();

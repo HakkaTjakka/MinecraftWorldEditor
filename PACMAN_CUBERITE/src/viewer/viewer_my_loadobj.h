@@ -608,7 +608,7 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                                 std::string comm=std::string() + "echo " + texture_filename + " texture not ok. >> textures_file_error.log";
                                 system( comm.c_str() );
 //hmm
-//                                return false;
+                                return false;
                             }
                             else {
                                 w=image_buffer[m]->image->getSize().x;
@@ -2547,10 +2547,14 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
                 if (!image_buffer[mat_id]->ok) {
     //                image=0;
                     printf("Image not ok!!!!\n");
+                    std::string comm=std::string() + "echo " + image_buffer[mat_id]->filename.c_str() + " texture not ok. >> textures_file_error.log";
+                    system( comm.c_str() );
+
                     w=256;
                     h=256;
     //hmm
                     no_texture=true;
+                    return 0;
                 }
                 else {
                     w=image_buffer[mat_id]->image->getSize().x;
@@ -2854,6 +2858,7 @@ int WUPPIE_VECTOR(std::vector<BufferObject> buffers, std::vector<tinyobj::materi
                 printf("Image not ok!!!!\n");
 //hmm
                 no_texture=true;
+                return -1;
             }
             else {
                 w=image_buffer[mat_id]->image->getSize().x;
@@ -3015,7 +3020,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
 //    static int first=1;
     vector_hit_regions.clear();
 //FOKIT
-//    first_wuppie=0;
+    first_wuppie=0;
     silence=true;
     if (first_wuppie==1 && !make_regions) {
         first_wuppie=0;
@@ -3232,7 +3237,9 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                             scan_image.create(512,512,sf::Color(128,128,128,128));
                             plotting=1;
                             MCEDITOR_running=1;
+                            silence=false;
                             main_mceditor6_fixed(x, z, region_block);
+                            silence=true;
                             MCEDITOR_running=0;
                             plotting=0;
                             plot_only=plot_only_old;
@@ -3280,7 +3287,9 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                                 scan_image.create(512,512,sf::Color(128,128,128,128));
                                 plotting=1;
                                 MCEDITOR_running=1;
+                                silence=false;
                                 main_mceditor6_fixed(x, z, region_block);
+                                silence=true;
                                 MCEDITOR_running=0;
                                 plotting=0;
                             }

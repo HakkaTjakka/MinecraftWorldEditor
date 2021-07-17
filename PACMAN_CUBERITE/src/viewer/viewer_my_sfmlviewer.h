@@ -3,6 +3,8 @@ extern sf::Texture texture_from_ffmpeg;
 extern int ffmpegfile;
 extern bool get_screenshot(sf::Texture* m_texture);
 
+extern bool do_nbt_fast;
+
 extern bool make_regions;
 extern bool flushing_mode;
 void one_region_voxel_files_to_region_files(bool display_only, char* voxel_filename);
@@ -15,6 +17,9 @@ void one_region_voxel_files_to_region_files(bool display_only, char* voxel_filen
 
 #pragma comment (lib, "Dwmapi.lib")
 extern bool dont_slow_down;
+bool MAKE_NBT=false;
+extern int DONTSAVEFILES;
+extern void SAVEALLBITMAPS();
 
 extern char voxel_filename[];
 extern bool screensaver;
@@ -1460,14 +1465,42 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                 g_move_object_z=move_object_z;
 
                 i_am_here=true;
+                if (MAKE_NBT) {
+                    window.setVisible(false);
+                    SFMLView1.setVisible(false);
+                    create_nbt_fast(my_area, window, win_num, pac_obj2_arr_used, pac_obj2_arr);
+                    send_message='x';
+                    window.close();
+                    return 0;
+                }
+
                 if (make_schematic) {
                     voxelize(Pacman_Objects[win_num]);
                     make_schematic=false;
                 }
+
                 if (mirror==4 && crossing==2) {
 //tuuttuut1
                     flushing_mode=true;
-                    create_nbt(my_area, window, win_num, pac_obj2_arr_used, pac_obj2_arr);
+
+extern bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num, bool pac_obj2_arr_used[100], Pacman_Object pac_obj2_arr[100]);
+
+                    if (do_nbt_fast) {
+                        while (1) {
+                            create_nbt_fast(my_area, window, win_num, pac_obj2_arr_used, pac_obj2_arr);
+                            DONTSAVEFILES=0;
+                            SAVEALLBITMAPS();
+                            while (!(file_exists("READY.TXT"))) {
+                                printf("No READY.TXT, WAITING...\n");
+                                sf::sleep(sf::seconds(300));
+                            }
+                            system("DEL READY.TXT");
+                            system("MOVE OBJECT_ARRAY.NEW OBJECT_ARRAY.TXT");
+                        }
+//                        send_message='x';
+                    }
+                    else
+                        create_nbt(my_area, window, win_num, pac_obj2_arr_used, pac_obj2_arr);
                     silence=true;
                     printf("Creating rest regions...");
 //utrecht
@@ -1572,8 +1605,6 @@ system("pause");
                     }
                     make_regions=false;
                     silence=false;
-extern int DONTSAVEFILES;
-extern void SAVEALLBITMAPS();
                     DONTSAVEFILES=0;
                     SAVEALLBITMAPS();
                     send_message='x';

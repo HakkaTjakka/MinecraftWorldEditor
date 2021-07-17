@@ -1,5 +1,4 @@
 #include <conio.h>
-#include <conio.h>
 #include <exception>
 #define PI 3.141592653589793
 #define SFML_STATIC
@@ -14404,7 +14403,6 @@ extern bool make_region_from_voxel(int x, int z);
 std::vector<hit_one_region> ready_regions;
 extern bool no_plotting;
 extern bool hold_voxels;
-extern bool flushing_mode;
 extern bool rot_plot;
 
 extern std::map<std::string, std::string> ready_regions_number_of_hits;
@@ -14476,7 +14474,8 @@ void update_MC(sf::Image& image_local2, int xx, int yy) {
                     }
                 texture_from_ffmpeg.update(back);
             } else printf("\nError 512*512\n");
-            remove(fname);
+            if (silence==false)
+                remove(fname);
         }
         if (silence==false)
             texture_from_ffmpeg.copyToImage().saveToFile(fname);
@@ -14608,9 +14607,9 @@ extern bool rot_plot;
 
     if (plotting) {
         if (plotting==2)
-            text_to_ffmpeg(mc_text1, 28,sf::Color::Green,sf::Color::White);
+            text_to_ffmpeg(mc_text1, 28,sf::Color::Green,sf::Color::Black);
         else if (plotting==3)
-            text_to_ffmpeg(mc_text1, 28,sf::Color(255,255,0,255),sf::Color::White);
+            text_to_ffmpeg(mc_text1, 28,sf::Color(255,255,0,255),sf::Color::Black);
         else
             text_to_ffmpeg(mc_text1, 28,sf::Color::Blue,sf::Color::White);
     } else {

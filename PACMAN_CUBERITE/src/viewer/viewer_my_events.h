@@ -1,3 +1,4 @@
+extern bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num, bool pac_obj2_arr_used[100], Pacman_Object pac_obj2_arr[100]);
 extern void flush_voxels();
 extern void make_test_schematic();
 
@@ -243,7 +244,20 @@ extern void make_test_schematic();
                                         if (maxExtent < 0.5f * (bmax[2] - bmin[2])) maxExtent = 0.5f * (bmax[2] - bmin[2]);
                                         break;
                                     case sf::Keyboard::B:
-                                        if (event.key.control && event.key.alt) {
+                                        if (event.key.alt + event.key.shift) {
+                                            create_nbt_fast(my_area, window, win_num, pac_obj2_arr_used, pac_obj2_arr);
+                                            break;
+                                        } else if (event.key.alt && event.key.control) {
+                                            while(1) {
+                                                create_nbt_fast(my_area, window, win_num, pac_obj2_arr_used, pac_obj2_arr);
+                                                for (int a=0; a<100; a++) {
+                                                    sf::sleep(sf::seconds(10));
+                                                    printf("Sleeping %d seconds\r",1000-a);
+                                                }
+                                                printf("\n");
+                                            }
+                                            break;
+                                        } else if (event.key.control && event.key.alt) {
 //todo
 //                                            get_one_3d_init(cur_x,my_area,win_num,pac_obj2_arr_used,pac_obj2_arr, window);
                                             set_view_3d(cur_x,my_area,win_num,pac_obj2_arr_used,pac_obj2_arr, window);
@@ -337,7 +351,6 @@ extern void make_test_schematic();
                                             contextSettings.antialiasingLevel = old;
                                             window.create(sf::VideoMode(1920,1080), window_title, sf::Style::Fullscreen, contextSettings);
 */
-
                                         } else {
                                             if (create_boundaries(my_area,window)) {
 //                                                my_area="Models";

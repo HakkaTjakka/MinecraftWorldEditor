@@ -36,30 +36,20 @@
 extern char SHADERDIR[];
 extern char error_msg[];
 extern int error_flag;
-//utrecht
 extern struct stat stat_buffer;
-
-bool file_exists3(const char * filename);
 
 bool file_exists(const char * filename)
 {
-/*
-//    file_exist_mutex.lock();
-//    static struct stat stat_buffer;
+//    struct stat stat_buffer;
     int exist = stat(filename,&stat_buffer);
-//    file_exist_mutex.unlock();
     if (exist==0)
     {
-//        printf("File exist: %s\n",filename);
         return true;
     }
 //    strcpy(error_msg,"FILE NOT FOUND: ");
 //    strcat(error_msg,filename);
 //    error_flag=1;
-//    printf("File not exist: %s\n",filename);
     return false;
-*/
-        return file_exists3(filename);
 }
 
 bool file_exists2(const char * filename)
