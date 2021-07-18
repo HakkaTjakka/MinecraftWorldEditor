@@ -1469,9 +1469,12 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                     window.setVisible(false);
                     SFMLView1.setVisible(false);
                     create_nbt_fast(my_area, window, win_num, pac_obj2_arr_used, pac_obj2_arr);
-                    send_message='x';
-                    window.close();
-                    return 0;
+#define EVENT_CONTROL 4
+extern void insert_event(sf::Keyboard::Key code,int MODE);
+
+//                    insert_event(sf::Keyboard::Q,EVENT_CONTROL);
+//                    sf::sleep(sf::seconds(100));
+                    exit(0);
                 }
 
                 if (make_schematic) {

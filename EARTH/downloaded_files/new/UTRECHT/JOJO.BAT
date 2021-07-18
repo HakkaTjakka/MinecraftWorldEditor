@@ -13,7 +13,7 @@ D:
 
 CD \PACMAN\PACMAN_CUBERITE
 
-bin\pacman2.exe nbt
+bin\pacman.exe nbt
 
 F:
 
@@ -21,6 +21,10 @@ CALL MOVE_OBJ_THEN_OCTANT_TO_G.BAT
 
 ECHO READY >> D:\PACMAN\PACMAN_CUBERITE\READY.TXT
 
-TIMEOUT 100
+del obj\*.* /Q
+
+TIMEOUT 600
 
 GOTO :AGAIN
+
+exit /b

@@ -11,4 +11,4 @@ rem			echo !result!
 	)
 	move %%G !result!
 )
-
+exit /b

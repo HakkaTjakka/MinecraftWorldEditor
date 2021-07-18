@@ -3020,7 +3020,9 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
 //    static int first=1;
     vector_hit_regions.clear();
 //FOKIT
-    first_wuppie=0;
+    if (!file_exists("plot_tiles.on")) {
+        first_wuppie=0;
+    }
     silence=true;
     if (first_wuppie==1 && !make_regions) {
         first_wuppie=0;

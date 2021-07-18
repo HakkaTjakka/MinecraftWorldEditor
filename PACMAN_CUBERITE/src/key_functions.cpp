@@ -7027,7 +7027,7 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
             maze_right_new=0;
             pressed=1;
             break;
-        } else printf("NOOOOOOOOOOOOOO\r");
+        }// else printf("NOOOOOOOOOOOOOO\r");
         if (pen==1)
         {
             speedx=64;
@@ -7165,7 +7165,7 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
             maze_right_new=1;
             pressed=1;
             break;
-        } else printf("NOOOOOOOOOOOOOO\r");
+        } //else printf("NOOOOOOOOOOOOOO\r");
         if (pen==1)
         {
             speedx=-64;
@@ -7341,7 +7341,7 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
             maze_right_new=0;
             pressed=1;
             break;
-        } else printf("NOOOOOOOOOOOOOO\r");
+        } //else printf("NOOOOOOOOOOOOOO\r");
         if (pen==1)
         {
             speedy=72;
@@ -7517,7 +7517,7 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
             maze_right_new=0;
             pressed=1;
             break;
-        } else printf("NOOOOOOOOOOOOOO\r");
+        } //else printf("NOOOOOOOOOOOOOO\r");
         if (pen==1)
         {
             speedy=-72;

@@ -136,7 +136,9 @@ for /f "tokens=*" %%F in ('dir /b /a:d /o:-n ".\3*"') do (
 					echo %%F\%%G DOES NOT EXIST!!!!!!!!
 				)
 			) else (
-				echo ok >> %%F\%%G\checked_ok.txt
+				echo ok >> %%F\%%G\checked_ok.txt 
+				echo Subdirectory: %%F\%%G on %cd% [!cnt!] Ok.
+
 REM 				if not exist G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F mkdir G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F
 REM 				if not exist G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F\%%G mkdir G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F\%%G
 REM 				echo Copying       %%F\%%G G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F
@@ -147,12 +149,12 @@ REM 				rmdir %%F\%%G /S /Q
 				echo Moving        %%F\%%G F:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F\%%G
  				REM move %%F\%%G F:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F >NUL
  				move %%F\%%G F:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F
-				set "l=%%G"
-				set "result=!l:~0,17!"
-				call F:\PACMAN\EARTH\FIND_OCTANT.BAT !result!
+REM 				set "l=%%G"
+REM 				set "result=!l:~0,17!"
+REM 				call F:\PACMAN\EARTH\FIND_OCTANT.BAT !result!
 			)
 		) else (
-			echo Subdirectory: %%F\%%G on %cd% already checked. [!cnt!]
+			echo Subdirectory: %%F\%%G on %cd% [!cnt!] already checked.
 REM 			if not exist G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F mkdir G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F
 REM 			if not exist G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F\%%G mkdir G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F\%%G
 REM 			echo Copying       %%F\%%G G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F
@@ -162,9 +164,9 @@ REM 			echo Deleting      %%F\%%G
 			echo Moving        %%F\%%G F:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F\%%G
 			REM move %%F\%%G F:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F >NUL
 			move %%F\%%G F:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F
-			set "l=%%G"
-			set "result=!l:~0,17!"
-			call F:\PACMAN\EARTH\FIND_OCTANT.BAT !result!
+REM  			set "l=%%G"
+REM  			set "result=!l:~0,17!"
+REM  			call F:\PACMAN\EARTH\FIND_OCTANT.BAT !result!
 		)
 	)
 	echo Removing dir: %%F
