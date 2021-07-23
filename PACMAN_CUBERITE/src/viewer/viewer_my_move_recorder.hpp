@@ -2177,16 +2177,16 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
         std::string str;
         std::string fn = v.filename;
         str=v.filename;
-
+cnt++;
         if (str=="") {
             printf("#%3d of %3d NOT FOUND: X=%3d Y=%3d\r",cnt,cnt2+cnt,x,y);
-            cnt++;
+//            cnt++;
             continue;
         }
         if (strstr(str.c_str(), "/nbt/") != NULL) {
             if (!(crossing==2 && mirror==4) ) {
                 printf("\r#%3d NBT EXISTS: X=%4d Y=%4d %s   \r",cnt,v.pos.x,v.pos.y,str.c_str());
-                cnt++;
+//                cnt++;
                 continue;
             }
         }
@@ -2216,20 +2216,21 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
 
         if (crossing>0) {
 //utrecht
+//            cnt++;
             if (str!="") {
 //                    printf(".");
-                printf("#%3d FOUND: X=%3d Y=%3d %s  ",cnt,x,y,str.c_str());
+//utrecht2
+                printf("#%3d FOUND: X=%3d Y=%3d %s  ",cnt,v.pos.x,v.pos.y,str.c_str());
 //                    printf("lat/lon   : \"%s\"\n",latitude_longditude.c_str());
                 info_3d_elem.filename=str;
 //                info_3d_elem.pos=glm::ivec2(x,y);
 
 //                info_3d.push_back(info_3d_elem);
             } else {
-                printf("#%3d of %3d NOT FOUND: X=%3d Y=%3d         \r",cnt,cnt2+cnt,x,y);
-                cnt++;
-                continue;
+                printf("#%3d of %3d NOT FOUND: X=%3d Y=%3d         \r",cnt2,cnt,v.pos.x,v.pos.y);
+                cnt2++;
+              continue;
             }
-            cnt2++;
 
             fn=GetFileName(fn.substr(0,fn.find_last_of(".")));
 
@@ -2355,9 +2356,9 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
         if (strstr(nbt_filename.c_str(), ".obj") != NULL || (crossing>0 && strstr(nbt_filename.c_str(), ".nbt") != NULL)) {
 //        if (!file_exists(nbt_filename.c_str()) || strstr(nbt_filename.c_str(), ".obj") != NULL) {
             if (crossing>0)
-                printf("\r#%3d CONVERTING TO MINECRAFT FILES: X=%4d Y=%4d %s\n",cnt2+cnt,v.pos.x,v.pos.y,v.filename.c_str());
+                printf("\r#%3d CONVERTING TO MINECRAFT FILES: X=%4d Y=%4d %s\n",cnt,v.pos.x,v.pos.y,v.filename.c_str());
             else
-                printf("\r#%3d CONVERTING: X=%4d Y=%4d %s\n",cnt2+cnt,v.pos.x,v.pos.y,v.filename.c_str());
+                printf("\r#%3d CONVERTING: X=%4d Y=%4d %s\n",cnt,v.pos.x,v.pos.y,v.filename.c_str());
 
 //willem
 //            std::string str=get_area_data(my_area,v.pos.x,v.pos.y);
@@ -2383,7 +2384,7 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
                 do_wuppie=true;
                 burn=true;
 //                if (!(cnt%10)) voxel_to_file=true;
-                if (cnt+cnt2==info_3d.size()-1) {
+                if (cnt==info_3d.size()-1) {
                     flushing=true;
                     voxel_to_file=true;
                 }
@@ -2429,7 +2430,7 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
         } else {
             printf("\r#%3d NBT EXISTS: X=%4d Y=%4d %s\n",cnt,v.pos.x,v.pos.y,nbt_filename.c_str());
         }
-        cnt++;
+//        cnt++;
 //wuppie
 /*
         if (crossing==2) {

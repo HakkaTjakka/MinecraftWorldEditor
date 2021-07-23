@@ -13,7 +13,7 @@ for /f "tokens=*" %%F in ('dir /b /a:d /o:-n ".\3*"') do (
 	echo Directory:    %%F
 	for /f "tokens=*" %%G in ('dir /b /a:d /o:-n "%%F\3*"') do (
 		set /a cnt = !cnt! + 1
-		if not exist %%F\%%G\checked_ok.txt (
+rem		if not exist %%F\%%G\checked_ok.txt (
 			echo Subdirectory: %%F\%%G on %cd% [!cnt!]
 			set "l=%%G"
 			set "result=!l:~0,17!"
@@ -94,6 +94,8 @@ for /f "tokens=*" %%F in ('dir /b /a:d /o:-n ".\3*"') do (
 							echo Subdirectory: %%F\%%G has .obj file
 							echo %%F\%%G has .obj file >> CHECK_FOR_ALL_TEXTURES.LOG
 							echo %%F\%%G has .obj file >> OBJ_FILES.LOG
+							echo "%%F\%%G\!l:~0,17!.obj found"
+							call F:\PACMAN\EARTH\FIND_OCTANT.BAT !result!
 						)
 					) else (
 						if not exist %%F\%%G\!result!.nbt (
@@ -142,21 +144,21 @@ rem 				echo Copying       %%F\%%G G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\
 rem 				copy %%F\%%G\*.* G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F >NUL
 rem 				echo Deleting      %%F\%%G
 rem 				rmdir %%F\%%G /S /Q 
-				set "l=%%G"
-				set "result=!l:~0,17!"
-				call F:\PACMAN\EARTH\FIND_OCTANT.BAT !result!
+rem 				set "l=%%G"
+rem 				set "result=!l:~0,17!"
+rem 				call F:\PACMAN\EARTH\FIND_OCTANT.BAT !result!
 			)
-		) else (
+rem		) else (
 rem 			echo Subdirectory: %%F\%%G on %cd% already checked. [!cnt!]
 rem 			if not exist G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F mkdir G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F
 rem 			echo Copying       %%F\%%G G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F
 rem 			copy %%F\%%G\*.* G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F >NUL
 rem 			echo Deleting      %%F\%%G
 rem 			rmdir %%F\%%G /S /Q 
-			set "l=%%G"
-			set "result=!l:~0,17!"
-			call F:\PACMAN\EARTH\FIND_OCTANT.BAT !result!
-		)
+rem 			set "l=%%G"
+rem 			set "result=!l:~0,17!"
+rem 			call F:\PACMAN\EARTH\FIND_OCTANT.BAT !result!
+rem		)
 	)
 	echo Removing dir: %%F
 	rmdir %%F

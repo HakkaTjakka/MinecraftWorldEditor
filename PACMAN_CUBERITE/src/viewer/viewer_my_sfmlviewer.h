@@ -1610,6 +1610,7 @@ system("pause");
                     silence=false;
                     DONTSAVEFILES=0;
                     SAVEALLBITMAPS();
+                    sf::sleep(sf::seconds(3));
                     send_message='x';
                     return 0;
                 }

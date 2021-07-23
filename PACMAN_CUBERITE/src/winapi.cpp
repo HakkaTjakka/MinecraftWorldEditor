@@ -45,6 +45,7 @@
 #define EVENT_CONTROL 4
 #define EVENT_SYSTEM 8
 
+extern void launch_PLOT_REGIONS();
 extern void font2function();
 extern bool MAKE_NBT;
 
@@ -728,6 +729,12 @@ extern int keep_running[];
                 while (!i_am_here) {
                     sf::sleep(sf::seconds(0.1));
                 }
+            } else if (c==(char)'P') {
+                crossing=2; mirror=4;combine=1;
+                area="Utrecht";
+                cubic=true;
+                launch_PLOT_REGIONS();
+
             } else if (c==(char)'z') {
                 crossing=2; mirror=4;combine=1;
                 area="Utrecht";
@@ -1028,6 +1035,9 @@ printf("hoppa");
         else if (   strcmp(argv[1],"rio"    )==0) { send_message='y'; }
         else if (   strcmp(argv[1],"nbt"    )==0) {
             send_message='C';
+        }
+        else if (   strcmp(argv[1],"plot"    )==0) {
+            send_message='P';
         }
         else if (   strcmp(argv[1],"utrecht"    )==0) {
             if (argc>2) {

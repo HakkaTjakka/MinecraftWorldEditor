@@ -1879,6 +1879,9 @@ extern std::vector<Voxel> voxels_total;
 bool make_region_from_voxel(int x, int z) {
     char fname[200];
     sprintf(fname,"../cut/r.%d.%d.vox",x,z);
+    if (!file_exists(fname)) {
+        sprintf(fname,"../cut/done/r.%d.%d.vox",x,z);
+    }
 
     std::vector<Voxel> voxels_temp;
 

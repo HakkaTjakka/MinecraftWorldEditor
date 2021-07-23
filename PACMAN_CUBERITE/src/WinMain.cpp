@@ -10739,11 +10739,20 @@ extern int scan_min_z;
             update_request=5;
         }
 
+
         static int position1x_wanted=position1x;
         static int position1y_wanted=position1y;
         static int wanted_position1x=position1x;
         static int wanted_position1y=position1y;
-        static bool start_to_move=0;
+        static bool start_to_move=false;
+
+        static bool update_later=false;
+
+        if (update_later) {
+            update_MC(scan_image,scan_x,scan_z);
+            if (update_request==2) update_request=0;
+            update_later=false;
+        }
 
         if (update_request==2 || update_request==3) {
             float fspeedx_old=fspeedx;
@@ -10757,8 +10766,10 @@ extern int scan_min_z;
             static int not_next=1;
             pen_mode==2;
             if (not_next) {
-                update_MC(scan_image,scan_x,scan_z);
-            } else if (update_request==3) not_next=0; else not_next=1;
+                if (update_request==3) update_MC(scan_image,scan_x,scan_z);
+            } else {
+                if (update_request==3) not_next=0; else not_next=1;
+            }
 
             if (!hold_voxels) {
 /*
@@ -10786,25 +10797,28 @@ extern std::string region_filename;
                 int y=(int)( ( (LONG64)(n_z)*512  +256-offset_y  + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
 */
                 float zc=sprite_from_canvas.getScale().x;
-                int offset_y=(zc/0.02)*512.0 - 512;
+//                int offset_y=(zc/0.02)*512.0 - 512;
+                int offset_y=(zc/0.02)*512.0;
                 int x=(int)( ( (LONG64)(scan_x)*512  +256+ (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
                 int y=(int)( ( (LONG64)(scan_z)*512  +256 - offset_y + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
 
                 wanted_position1x=(x+maxpixelsx*2)%+maxpixelsx;
                 wanted_position1y=(y+maxpixelsy*2)%+maxpixelsy;
 
-
                 if (!start_to_move) {
                     position1x_wanted=wanted_position1x;
                     position1y_wanted=wanted_position1y;
-                    position1x=wanted_position1x;
-                    position1y=wanted_position1y;
+//                    position1x=wanted_position1x;
+//                    position1y=wanted_position1y;
+                    position1x=old_positionx;
+                    position1y=old_positiony;
                     start_to_move=true;
-                    get_position3();
+//                    get_position3();
                 } else {
                     position1x_wanted=wanted_position1x;
                     position1y_wanted=wanted_position1y;
                 }
+
             } else {
                 position1x=old_positionx;
                 position1y=old_positiony;
@@ -10814,13 +10828,32 @@ extern std::string region_filename;
                 speedy=speedy_old;
                 get_position3();
             }
-            if (update_request==2) update_request=0;
+//            if (update_request==2) update_request=0;
+            if (update_request==2) {
+                update_later=true;
+            }
         }
+
         if (burn && mirror==4 && crossing==2 && start_to_move) {
-            if (kp.getElapsedTime()>sf::seconds(10)) {
-                position1x=(position1x*50 + position1x_wanted)/51;
-                position1y=(position1y*50 + position1y_wanted)/51;
-                get_position3();
+            static bool first=true;
+            if (kp.getElapsedTime()>sf::seconds(20) || first) {
+                float dist=sqrt( (position1x_wanted-position1x)*(position1x_wanted-position1x)+(position1y_wanted-position1y)*(position1y_wanted-position1y) );
+                if (dist>600.0) {
+                    position1x=position1x_wanted;
+                    position1y=position1y_wanted;
+                    get_position3();
+                    jump_ready=1;
+                    forced_jump=1;
+                    long_jump=1;
+//                    ReadBitmaps2();
+                    follow_ghost_pos();
+                } else {
+                    position1x=(position1x*50 + position1x_wanted)/51;
+                    position1y=(position1y*50 + position1y_wanted)/51;
+                    get_position3();
+                }
+            } else {
+                first=false;
             }
         } else {
             start_to_move=false;
@@ -14691,6 +14724,11 @@ extern bool rot_plot;
 //        one_region.x=xx; one_region.z=zz;
         ready_regions.push_back(hit_one_region(xx,yy));
     } else if (complete && flushing_mode) printf("\nGOT ONE COMPLETE (100%% pixels) : r.%d.%d ==>>\n",xx,yy);
+    if (complete_f!=100.0) {
+        char hoppa[200];
+        sprintf(hoppa,"echo r.%d,%d %f%% complete >> not_complete.txt",xx,yy,complete_f);
+        system(hoppa);
+    }
 //    else if (flushing_mode) printf("\nPIXELS=%d = %f%% ==>> \n",pixel_count,complete_f);
 
     // else printf("\nPIXELS=%d = %f%% ==>> \n",pixel_count,100.0*float(pixel_count)/(512.0*512.0));

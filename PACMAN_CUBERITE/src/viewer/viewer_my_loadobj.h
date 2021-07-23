@@ -607,7 +607,8 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                                 printf("Image not ok!!!!\n");
                                 std::string comm=std::string() + "echo " + texture_filename + " texture not ok. >> textures_file_error.log";
                                 system( comm.c_str() );
-//hmm
+//hmm utrecht
+                                clear_image_buffer();
                                 return false;
                             }
                             else {
@@ -3055,6 +3056,10 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                     DIR* dr = opendir("../cut");
                     struct dirent *de;
                     while ((de = readdir(dr)) != NULL) {
+
+                        int len = strlen(de->d_name);
+                        for(int i=0;i<len;i++) de->d_name[i]=tolower(de->d_name[i]);
+
                         if ((strstr(de->d_name, ".png")) != NULL) {
                             int x,z;
                             sscanf(de->d_name,"r.%d.%d.png",&x,&z);
@@ -3073,6 +3078,9 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                 struct dirent *de_ROOT;
                 while ((de_ROOT = readdir(dr_ROOT)) != NULL) {
 //                    printf("DIR: /saves/test/region/%s\n",de_ROOT->d_name);
+                    int len = strlen(de_ROOT->d_name);
+                    for(int i=0;i<len;i++) de_ROOT->d_name[i]=tolower(de_ROOT->d_name[i]);
+
                     if ((strstr(de_ROOT->d_name, "done")) != NULL) {
                         sscanf(de_ROOT->d_name,"done%d",&region_floor);
                         char floor_dir[2000];
@@ -3083,6 +3091,8 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                         struct dirent *de;
                         while ((de = readdir(dr)) != NULL) {
 //                            printf("DIR: /saves/test/region/%s/%s\n",de_ROOT->d_name,de->d_name);
+                            int len = strlen(de->d_name);
+                            for(int i=0;i<len;i++) de->d_name[i]=tolower(de->d_name[i]);
                             if ((strstr(de->d_name, ".mca")) != NULL) {
                                 int x,z;
                                 sscanf(de->d_name,"r.%d.%d.mca",&x,&z);
@@ -3181,6 +3191,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                 }
     */
                 if (cubic_regions_mapped.size()>0) {
+                    int cnt=0;
                     int prev_x=-99999999;
                     int prev_z=-99999999;
                     it = cubic_regions_mapped.begin();
@@ -3205,6 +3216,8 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
 //                                if (mirror==4 && does_exist) {
                                 if (does_exist) {
                                     printf("Region(%d,%d) ",x,z);
+                                    printf("Done: %6.2f%%",100*(float)cnt/(float)cubic_regions_mapped.size());
+
                                     scan_image.loadFromFile(picture_file);
                                     bool plot_only_old=plot_only;
                                     plot_only=1;
@@ -3245,12 +3258,14 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                             MCEDITOR_running=0;
                             plotting=0;
                             plot_only=plot_only_old;
+                            printf("Done: %6.2f%%\n",100*(float)cnt/(float)cubic_regions_mapped.size());
 //                            printf("\n");
                         }
 
                         prev_x=x;
                         prev_z=z;
                         it++;
+                        cnt++;
                     }
                     printf("\n");
                 }
@@ -3260,6 +3275,8 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                 printf("SCANNING REGIONS:\n");
                 int x,z;
                 while ((de = readdir(dr)) != NULL) {
+                    int len = strlen(de->d_name);
+                    for(int i=0;i<len;i++) de->d_name[i]=tolower(de->d_name[i]);
                     if ((strstr(de->d_name, ".mca")) != NULL) {
         //                printf(de->d_name);
                         printf("\r%s      ",de->d_name);
@@ -5268,4 +5285,306 @@ void check_surrounding(int x, int z) {
         }
     }
     depth--;
+}
+
+
+int PLOT_REGIONS_stop=0;
+int PLOT_REGIONS_running=0;
+
+void PLOT_REGIONS_THREAD();
+
+sf::Thread PLOT_REGIONS(&PLOT_REGIONS_THREAD);
+
+void launch_PLOT_REGIONS()
+{
+    shut_up=1;
+    if (PLOT_REGIONS_running==1)
+    {
+        printf("Region to voxel thread already running\n");
+        return;
+    }
+    PLOT_REGIONS_running=1;
+    PLOT_REGIONS.launch();
+}
+
+void PLOT_REGIONS_FUNC();
+
+extern int first;
+
+void PLOT_REGIONS_THREAD()
+{
+    printf("Waiting for main first loop");
+    while (first==1) {
+        sf::sleep(sf::seconds(0.1));
+        printf(".");
+    }
+
+    printf(". Region to voxel thread starting");
+
+    PLOT_REGIONS_FUNC();
+
+    PLOT_REGIONS_stop=0;
+    PLOT_REGIONS_running=0;
+    SFMLView1.requestFocus();
+    printf("Region to voxel thread end\n");
+}
+
+
+void terminate_PLOT_REGIONS()
+{
+    PLOT_REGIONS.terminate();
+}
+
+
+void PLOT_REGIONS_FUNC() {
+    char picture_file[400];
+    bool plot_only_on=false;
+    if (plot_only) {
+        plot_only_on=true;
+    }
+    flushing_mode=true;
+    silence=true;
+    burn=true;
+    if (cubic || 1) {
+        region_center_x=0;
+        region_center_z=0;
+        int num_regions=0;
+        std::map<long long int, cubic_region> cubic_regions_mapped;
+        std::map<long long int, cubic_region> cubic_regions_mapped_unique;
+        std::map<long long int, cubic_region>::iterator it;
+//            std::vector<cubic_region> cubic_regions;
+
+        cubic_region one_cubic_region;
+        printf("\n");
+
+        if (mirror==4) { //also display unfinished ones
+//                    printf("Unfinished: ");
+            DIR* dr = opendir("../cut");
+            struct dirent *de;
+            while ((de = readdir(dr)) != NULL) {
+
+                int len = strlen(de->d_name);
+                for(int i=0;i<len;i++) de->d_name[i]=tolower(de->d_name[i]);
+
+                if ((strstr(de->d_name, ".png")) != NULL) {
+                    int x,z;
+                    sscanf(de->d_name,"r.%d.%d.png",&x,&z);
+//                            printf("%s ",de->d_name);
+                    one_cubic_region.x=x;
+                    one_cubic_region.z=z;
+                    one_cubic_region.region_floor=0;
+                    cubic_regions_mapped_unique.insert(std::make_pair( z*100000000+100*x, one_cubic_region));
+                }
+            }
+            closedir(dr);
+//                    printf("\n");
+        }
+
+        DIR* dr_ROOT = opendir("/saves/test/region");
+        struct dirent *de_ROOT;
+        while ((de_ROOT = readdir(dr_ROOT)) != NULL) {
+//                    printf("DIR: /saves/test/region/%s\n",de_ROOT->d_name);
+            int len = strlen(de_ROOT->d_name);
+            for(int i=0;i<len;i++) de_ROOT->d_name[i]=tolower(de_ROOT->d_name[i]);
+
+            if ((strstr(de_ROOT->d_name, "done")) != NULL) {
+                sscanf(de_ROOT->d_name,"done%d",&region_floor);
+                char floor_dir[2000];
+                sprintf(floor_dir,"/saves/test/region/%s",de_ROOT->d_name);
+                printf("DIR: /saves/test/region/%s\n",de_ROOT->d_name);
+
+                DIR* dr = opendir(floor_dir);
+                struct dirent *de;
+                while ((de = readdir(dr)) != NULL) {
+//                            printf("DIR: /saves/test/region/%s/%s\n",de_ROOT->d_name,de->d_name);
+                    int len = strlen(de->d_name);
+                    for(int i=0;i<len;i++) de->d_name[i]=tolower(de->d_name[i]);
+                    if ((strstr(de->d_name, ".mca")) != NULL) {
+                        int x,z;
+                        sscanf(de->d_name,"r.%d.%d.mca",&x,&z);
+                        printf("r.%d.%d.mca ",x,z);
+                        one_cubic_region.x=x;
+                        one_cubic_region.z=z;
+                        one_cubic_region.region_floor=region_floor;
+//                            cubic_regions.push_back(one_cubic_region);
+                        cubic_regions_mapped.insert(std::make_pair( z*100000000+100*x+region_floor, one_cubic_region));
+                        if (mirror==4) {
+                            it = cubic_regions_mapped_unique.find(z*100000000+100*x);
+                            if (it != cubic_regions_mapped_unique.end()) {
+                                cubic_regions_mapped_unique.erase(it);
+                            }
+                        }
+                    }
+                }
+                closedir(dr);
+                printf("\n");
+            }
+        }
+        closedir(dr_ROOT);
+        bool does_exist;
+
+        if (mirror==4) {
+            it = cubic_regions_mapped_unique.begin();
+            printf("Unfinished: ");
+            while(it != cubic_regions_mapped_unique.end()) {
+                int x=it->second.x;
+                int z=it->second.z;
+                sprintf(picture_file,"../cut/r.%d.%d.png",x,z);
+                does_exist=file_exists(picture_file);
+                if (does_exist) {
+                    printf("Region(%d,%d) ",x,z);
+                    scan_image.loadFromFile(picture_file);
+                    bool plot_only_old=plot_only;
+                    plot_only=1;
+                    plotting=3;
+                    scan_x=x;
+                    scan_z=z;
+                    sprintf(mc_text1,"R.%d.%d.MCA",x,z);
+                    update_request=2;
+                    while (update_request) {
+                        sf::sleep(sf::seconds(0.005));
+                    }
+                    sf::sleep(sf::seconds(0.1));
+                    plotting=0;
+                    plot_only=plot_only_old;
+                }
+                it++;
+            }
+            printf("\n");
+        }
+
+        if (cubic_regions_mapped.size()>0) {
+            int cnt=0;
+            int prev_x=-99999999;
+            int prev_z=-99999999;
+            it = cubic_regions_mapped.begin();
+
+            while(it != cubic_regions_mapped.end()) {
+                int x=it->second.x;
+                int z=it->second.z;
+                region_floor=it->second.region_floor;
+                if (x==prev_x && z==prev_z) {
+//                            printf(",");
+                }
+                if (x!=prev_x || z!=prev_z) {
+                    if (prev_x!=-99999999) {
+//                                printf("\n");
+                    }
+                    if (mirror==4)
+                        sprintf(picture_file,"../cut/r.%d.%d.png",x,z);
+                    else
+                        sprintf(picture_file,"../cut/png/r.%d.%d.png",x,z);
+                    does_exist=file_exists(picture_file);
+                    if (!flushing) {
+//                                if (mirror==4 && does_exist) {
+                        if (does_exist) {
+                            printf("Region(%d,%d) ",x,z);
+                            scan_image.loadFromFile(picture_file);
+                            bool plot_only_old=plot_only;
+                            plot_only=1;
+                            plotting=3;
+                            scan_x=x;
+                            scan_z=z;
+                            sprintf(mc_text1,"R.%d.%d.MCA",x,z);
+                            update_request=2;
+                            while (update_request) {
+                                sf::sleep(sf::seconds(0.005));
+                            }
+                            sf::sleep(sf::seconds(0.1));
+                            plotting=0;
+                            plot_only=plot_only_old;
+                        } else printf("\n");
+                    }
+                    hit_one_region* hit_one=findRegion(x,z);
+                    if (hit_one==NULL) {
+                        vector_hit_regions.push_back(hit_one_region(x,z));
+                        hit_one=&vector_hit_regions[vector_hit_regions.size()-1];
+                    }
+                    hit_one->index11=1;
+                    hit_one->index12=1;
+                }
+//                        if (!flushing && (mirror==3 || does_exist==false) ) {
+                if (!flushing && does_exist==false ) {
+                    printf("\rRegion(%d,%d) floor(%d)",x,z,region_floor);
+                    bool plot_only_old=plot_only;
+                    if (mirror==3) {
+                        plot_only=1;
+                    }
+                    scan_image.create(512,512,sf::Color(128,128,128,128));
+                    plotting=1;
+                    MCEDITOR_running=1;
+                    silence=false;
+                    main_mceditor6_fixed(x, z, region_block);
+                    silence=true;
+                    MCEDITOR_running=0;
+                    plotting=0;
+                    plot_only=plot_only_old;
+                    printf("Done: %6.2f%%\n",100*(float)cnt/(float)cubic_regions_mapped.size());
+//                            printf("\n");
+                }
+
+                prev_x=x;
+                prev_z=z;
+                it++;
+                cnt++;
+            }
+            printf("\n");
+        }
+    } else {
+        DIR* dr = opendir("/saves/test/region/done0");
+        struct dirent *de;
+        printf("SCANNING REGIONS:\n");
+        int x,z;
+        while ((de = readdir(dr)) != NULL) {
+            int len = strlen(de->d_name);
+            for(int i=0;i<len;i++) de->d_name[i]=tolower(de->d_name[i]);
+            if ((strstr(de->d_name, ".mca")) != NULL) {
+//                printf(de->d_name);
+                printf("\r%s      ",de->d_name);
+                if (!flushing) {
+                    sscanf(de->d_name,"r.%d.%d.mca",&x,&z);
+//                        printf("r.%d.%d.mca ",x,z);
+                    sprintf(picture_file,"../cut/r.%d.%d.png",x,z);
+                    bool plot_only_old=plot_only;
+                    if (mirror==4 && file_exists(picture_file)) {
+                        scan_image.loadFromFile(picture_file);
+                        plot_only=1;
+                        plotting=3;
+                        scan_x=x;
+                        scan_z=z;
+                        sprintf(mc_text1,"R.%d.%d.MCA",x,z);
+                        update_request=2;
+                        while (update_request) {
+                            sf::sleep(sf::seconds(0.005));
+                        }
+                        sf::sleep(sf::seconds(0.1));
+                        plotting=0;
+                    } else {
+                        if (mirror==3) {
+                            printf("\r%s ",de->d_name);
+                            plot_only=1;
+                        }
+                        scan_image.create(512,512,sf::Color(128,128,128,128));
+                        plotting=1;
+                        MCEDITOR_running=1;
+                        silence=false;
+                        main_mceditor6_fixed(x, z, region_block);
+                        silence=true;
+                        MCEDITOR_running=0;
+                        plotting=0;
+                    }
+                    plot_only=plot_only_old;
+                }
+                hit_one_region* hit_one=findRegion(x,z);
+                if (hit_one==NULL) {
+                    vector_hit_regions.push_back(hit_one_region(x,z));
+                    hit_one=&vector_hit_regions[vector_hit_regions.size()-1];
+                }
+                hit_one->index11=1;
+                hit_one->index12=1;
+            }
+        }
+        closedir(dr);
+    }
+    printf("\n");
 }
