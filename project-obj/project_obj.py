@@ -17,9 +17,11 @@ elif len(sys.argv)==1:
 lines = np.array(lines, dtype=str)
 #lines = lines[np.logical_not(np.char.startswith(lines, "vn "))] # delete vertex normals
 
+#Utrecht
 offset_x=3899275.0
 offset_y=348997.0
 offset_z=5026376.0
+
 
 #v 3268023.6848134077 27.84330720361322 -5319793.639094348
 
@@ -29,6 +31,7 @@ idx = np.where(np.char.startswith(lines, "v "))
 v = lines[idx]
 v = np.char.split(v, " ")
 v = np.array(list(v))[:, 1:].astype(float)
+
 
 o = v
 
@@ -80,12 +83,13 @@ with open(outfile, "w") as fd:
     fd.write("\n".join(lines))
 
 
-## convert to string
-#v_out = []
-#for i in range(len(v)):
-#    v_out.append("v {} {} {}".format(v[i, 0], v[i, 1], v[i, 2]))
-#v_out = np.array(v_out, dtype=str)
-#
-#lines[idx] = v_out
-#with open("out.obj", "w") as fd:
-#    fd.write("\n".join(lines))
+
+# convert to string
+v_out = []
+for i in range(len(v)):
+    v_out.append("v {} {} {}".format(v[i, 0], v[i, 1], v[i, 2]))
+v_out = np.array(v_out, dtype=str)
+
+lines[idx] = v_out
+with open("out2.obj", "w") as fd:
+    fd.write("\n".join(lines))

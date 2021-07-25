@@ -10800,24 +10800,17 @@ extern std::string region_filename;
 //                int offset_y=(zc/0.02)*512.0 - 512;
                 int offset_y=(zc/0.02)*512.0;
                 int x=(int)( ( (LONG64)(scan_x)*512  +256+ (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
-                int y=(int)( ( (LONG64)(scan_z)*512  +256 - offset_y + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
+                int y=(int)( ( (LONG64)(scan_z)*512  +256 + 512 - offset_y + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
 
                 wanted_position1x=(x+maxpixelsx*2)%+maxpixelsx;
                 wanted_position1y=(y+maxpixelsy*2)%+maxpixelsy;
 
-                if (!start_to_move) {
-                    position1x_wanted=wanted_position1x;
-                    position1y_wanted=wanted_position1y;
-//                    position1x=wanted_position1x;
-//                    position1y=wanted_position1y;
-                    position1x=old_positionx;
-                    position1y=old_positiony;
-                    start_to_move=true;
-//                    get_position3();
-                } else {
-                    position1x_wanted=wanted_position1x;
-                    position1y_wanted=wanted_position1y;
-                }
+                position1x=old_positionx;
+                position1y=old_positiony;
+                start_to_move=true;
+
+                position1x_wanted=wanted_position1x;
+                position1y_wanted=wanted_position1y;
 
             } else {
                 position1x=old_positionx;
@@ -10826,7 +10819,7 @@ extern std::string region_filename;
                 fspeedy=fspeedy_old;
                 speedx=speedx_old;
                 speedy=speedy_old;
-                get_position3();
+                get_position1();
             }
 //            if (update_request==2) update_request=0;
             if (update_request==2) {
@@ -10835,25 +10828,30 @@ extern std::string region_filename;
         }
 
         if (burn && mirror==4 && crossing==2 && start_to_move) {
-            static bool first=true;
-            if (kp.getElapsedTime()>sf::seconds(20) || first) {
+            if (kp.getElapsedTime()>sf::seconds(20)) {
                 float dist=sqrt( (position1x_wanted-position1x)*(position1x_wanted-position1x)+(position1y_wanted-position1y)*(position1y_wanted-position1y) );
                 if (dist>600.0) {
                     position1x=position1x_wanted;
                     position1y=position1y_wanted;
-                    get_position3();
-                    jump_ready=1;
-                    forced_jump=1;
-                    long_jump=1;
+                    get_position1();
+
+//                    get_position3();
+//                    smooth_x=picturex*1920-posx;
+//                    smooth_y=picturey*1080-posy;
 //                    ReadBitmaps2();
-                    follow_ghost_pos();
+                    long_jump=1;
+//                    DO_ADAPT=1;
+//                    follow_ghost_pos();
+//                    DO_ADAPT=0;
+//                    ReadBitmaps2();
+//                    ReadBitmaps4();
+//                    forced_jump=1;
+//                    follow_ghost_pos();
                 } else {
                     position1x=(position1x*50 + position1x_wanted)/51;
                     position1y=(position1y*50 + position1y_wanted)/51;
-                    get_position3();
+                    get_position1();
                 }
-            } else {
-                first=false;
             }
         } else {
             start_to_move=false;

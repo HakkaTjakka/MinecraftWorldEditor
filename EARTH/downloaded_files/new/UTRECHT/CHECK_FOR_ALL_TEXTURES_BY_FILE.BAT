@@ -16,14 +16,15 @@ for /f "tokens=*" %%P in (check.lst) do (
  	set "subdir=!l:~0,17!"
 	set "fulldir=!dir!\!subdir!-21"
  	if exist !fulldir! (
-		echo !fulldir! exists     [!cnt!]
+		rem echo !fulldir! exists     [!cnt!]
 	) else (
 		echo !fulldir! exists not [!cnt!]
+			echo !fulldir! exists not [!cnt!] >> NOT_THERE.TXT
 	)
 
-	for %%I in (!fulldir!\subdir!.mtl) do (
+	for %%I in (!fulldir!) do (
 		echo Directory:    %%I on %cd% [!cnt!]
-		if not exist %%I\checked_ok.txt (
+		rem if not exist %%I\checked_ok.txt (
 			set /a is_corrupt=0
 			if exist %%I\!subdir!.mtl (
 				set /a num_in_mtl=0
@@ -135,11 +136,11 @@ for /f "tokens=*" %%P in (check.lst) do (
 				if not exist CORRUPTED_OCTANTS mkdir CORRUPTED_OCTANTS
 				if exist %%I move %%I CORRUPTED_OCTANTS >NUL
 			) else (
-				echo ok >> %%I\checked_ok.txt
+				echo ok > %%I\checked_ok.txt
 			)
-		) else (
-			echo already checked.
-		)
+rem 		) else (
+rem 			echo already checked.
+rem 		)
 	)
 )
 

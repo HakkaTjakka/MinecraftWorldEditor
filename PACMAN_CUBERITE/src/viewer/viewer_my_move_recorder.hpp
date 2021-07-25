@@ -1540,15 +1540,17 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
 //        sort_lat_lon=true;
     }
 
-    if (crossing>0 && my_area!="Models" && my_area!="Canvas") {
-//    if (crossing>0 && crossing!=3) {
-        printf("Sorting square\n");
-        sort(info_3d.begin(), info_3d.end());
-        for (auto v : info_3d) {
-                printf(".");
-//            printf("SORTED: X=%4d Y=%4d %s\n",v.pos.x,v.pos.y,v.filename.c_str());
+    if (!file_exists("sort_octants.off")) {
+        if (crossing>0 && my_area!="Models" && my_area!="Canvas") {
+    //    if (crossing>0 && crossing!=3) {
+            printf("Sorting square\n");
+            sort(info_3d.begin(), info_3d.end());
+            for (auto v : info_3d) {
+                    printf(".");
+    //            printf("SORTED: X=%4d Y=%4d %s\n",v.pos.x,v.pos.y,v.filename.c_str());
+            }
+            printf("\n");
         }
-        printf("\n");
     }
     sort_lat_lon=false;
 
@@ -2158,15 +2160,17 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
 //        sort_lat_lon=true;
     }
 
-    if (1 || (crossing>0 && my_area!="Models" && my_area!="Canvas")) {
-//    if (crossing>0 && crossing!=3) {
-        printf("Sorting square\n");
-        sort(info_3d.begin(), info_3d.end());
-        for (auto v : info_3d) {
-                printf(".");
-//            printf("SORTED: X=%4d Y=%4d %s\n",v.pos.x,v.pos.y,v.filename.c_str());
+    if (!file_exists("sort_octants.off")) {
+        if (1 || (crossing>0 && my_area!="Models" && my_area!="Canvas")) {
+    //    if (crossing>0 && crossing!=3) {
+            printf("Sorting square\n");
+            sort(info_3d.begin(), info_3d.end());
+            for (auto v : info_3d) {
+                    printf(".");
+    //            printf("SORTED: X=%4d Y=%4d %s\n",v.pos.x,v.pos.y,v.filename.c_str());
+            }
+            printf("\n");
         }
-        printf("\n");
     }
     sort_lat_lon=false;
 
