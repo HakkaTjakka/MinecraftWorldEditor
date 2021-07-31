@@ -441,7 +441,10 @@ int do_SFMLGL2(int what)
                 printf("New area: Size=%d,%d\n",max_x,max_y);
                 first=1;
             }
-            if (area!="Models" && area!="Canvas" && crossing==0) lat_lon=get_lat_lon(area);
+
+            if (area!="Models" && area!="Canvas" && crossing==0 && !MAKE_NBT ) {
+                lat_lon=get_lat_lon(area);
+            }
             else {
 //                if (area=="Models") {
 //                    max_x=-1;max_y=-1;
@@ -483,6 +486,20 @@ int do_SFMLGL2(int what)
                         cur_x=34;
                         cur_y=42;
                         printf("Miami: %d,%d %s\n",cur_x,cur_y,area.c_str());
+                } else if (area=="Holland") {
+                        cur_x=max_x/2;
+                        cur_y=max_y/2;
+//                        cur_x=337;
+//                        cur_y=528;
+                        printf("Holland: %d,%d %s\n",cur_x,cur_y,area.c_str());
+                } else if (area=="Utrecht") {
+                        cur_x=227;
+                        cur_y=129;
+                        printf("Utrecht: %d,%d %s\n",cur_x,cur_y,area.c_str());
+                } else if (area=="Holland") {
+                        cur_x=337;
+                        cur_y=528;
+                        printf("Utrecht: %d,%d %s\n",cur_x,cur_y,area.c_str());
                 } else if (area=="Schweiz") {
                         cur_x=40;
                         cur_y=21;
@@ -655,10 +672,45 @@ bool depth_shader_on=false;
 
 bool pb=false;
 
+#define EVENT_CONTROL 4
+extern void insert_event(sf::Keyboard::Key code,int MODE);
+bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num, bool pac_obj2_arr_used[100], Pacman_Object pac_obj2_arr[100]);
+
 bool lighten=false;
 sf::Color color_behind;
 int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, int yo_combine)
 {
+    sf::RenderWindow window;
+
+    std::string my_area=area;
+    int win_num=window_num;
+    Pacman_Object pac_obj2_arr[100];
+    bool pac_obj2_arr_used[100];
+
+
+/*
+                i_am_here=true;
+                if (MAKE_NBT) {
+//                    window.setVisible(false);
+//                    SFMLView1.setVisible(false);
+                    create_nbt_fast(my_area, window, win_num, pac_obj2_arr_used, pac_obj2_arr);
+
+//                    insert_event(sf::Keyboard::Q,EVENT_CONTROL);
+                    printf("Ready...\n");
+                    sf::sleep(sf::seconds(2));
+                    ShowTaskBar(true);
+//                    send_message='x';
+//                    sf::sleep(sf::seconds(2));
+//                    exit(0);
+//                    window.close();
+                    SFMLView1.close();
+                    GenerateConsoleCtrlEvent(CTRL_C_EVENT, 0);
+                    return(0);
+                }
+
+*/
+
+
     sf::RenderTexture between_texture;
     sf::Sprite between_sprite;
 //    between_texture.create(1920,1080,true);
@@ -703,7 +755,6 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
 
     int load_more_remember=0;
     int load_more_counter=0;
-    std::string my_area=area;
 
     int frustum_toggle=0;
     bool load_more=false;
@@ -735,7 +786,6 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
     int swoop=0;
     char filename[1000];
     strcpy(filename,filename_in);
-    int win_num=window_num;
     keep_running[win_num]=1;
     int exit_code=0;
     bool exit_thread = false;
@@ -840,7 +890,6 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
         int fade=0;
         win_fly_setvisible=1;
 //        Pacman_Object pac_object_arr[100];
-        sf::RenderWindow window;
         windows_3d[win_num] = &window;
 //        sf::RenderWindow window2;
 //        bool rot_on=false;
@@ -897,6 +946,7 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
         else if (test_area=="AMSTERDAM") { lat= 52.35;      lon=   4.89; }
         else if (test_area=="RIO")       { lat=-22.96;      lon=   -43.17; }
 		else if (test_area=="UTRECHT")   { lat= 52.0878895; lon=   5.1184395; }
+		else if (test_area=="HOLLAND")   { lat= 52.0878895; lon=   5.1184395; }
         else if (test_area=="DENHAAG")   { lat= 52.065;     lon=   4.297; }
         else if (test_area=="NEWYORK")   { lat= 40.689242;  lon= -74.04454; }
         else if (test_area=="SCHWEIZ")   { lat= 46.7;       lon=   7.55; }
@@ -1467,14 +1517,28 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                 i_am_here=true;
                 if (MAKE_NBT) {
                     window.setVisible(false);
-                    SFMLView1.setVisible(false);
+//                    SFMLView1.setVisible(false);
                     create_nbt_fast(my_area, window, win_num, pac_obj2_arr_used, pac_obj2_arr);
 #define EVENT_CONTROL 4
 extern void insert_event(sf::Keyboard::Key code,int MODE);
 
 //                    insert_event(sf::Keyboard::Q,EVENT_CONTROL);
-//                    sf::sleep(sf::seconds(100));
+                    printf("Ready...\n");
+                    extern int shut_up;
+                    extern int monitor_off;
+                    monitor_off=1;
+                    shut_up=1;
+                    sf::sleep(sf::seconds(0.05));
+                    monitor_off=1;
+                    shut_up=1;
+                    ShowTaskBar(true);
+//                    send_message='x';
+//                    GenerateConsoleCtrlEvent(CTRL_C_EVENT, 0);
+//                    sf::sleep(sf::seconds(2));
                     exit(0);
+                    window.close();
+                    SFMLView1.close();
+                    return(0);
                 }
 
                 if (make_schematic) {
@@ -1491,8 +1555,8 @@ extern bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int w
                     if (do_nbt_fast) {
                         while (1) {
                             create_nbt_fast(my_area, window, win_num, pac_obj2_arr_used, pac_obj2_arr);
-                            DONTSAVEFILES=0;
-                            SAVEALLBITMAPS();
+//                            DONTSAVEFILES=0;
+//                            SAVEALLBITMAPS();
                             while (!(file_exists("READY.TXT"))) {
                                 printf("No READY.TXT, WAITING...\n");
                                 sf::sleep(sf::seconds(300));
@@ -1608,11 +1672,13 @@ system("pause");
                     }
                     make_regions=false;
                     silence=false;
-                    DONTSAVEFILES=0;
-                    SAVEALLBITMAPS();
-                    sf::sleep(sf::seconds(3));
-                    send_message='x';
-                    return 0;
+//                    DONTSAVEFILES=0;
+//                    SAVEALLBITMAPS();
+                    sf::sleep(sf::seconds(1));
+//                    exit_code=-1;   exit_thread = true; keep_running[win_num]=0;
+
+//                    send_message='x';
+//                    return 0;
                 }
 
                 if (flick==false && pull_off2==false && pull_off==false && !load_extra && !load_more_remember && !load_more

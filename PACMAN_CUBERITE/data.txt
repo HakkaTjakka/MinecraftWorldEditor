@@ -52704,27 +52704,182 @@
 46 Error loading picture
 1 Program busy or hangs... Thread alive at: 21/07/2021 13:07:51
 29 Error loading picture
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
-112 no free spot READSFML
+1 Program busy or hangs... Thread alive at: 26/07/2021 06:25:44
+1 Program busy or hangs... Thread alive at: 26/07/2021 06:25:53
+1 Program busy or hangs... Thread alive at: 26/07/2021 06:26:04
+1 Program busy or hangs... Thread alive at: 26/07/2021 06:26:16
+1 Program busy or hangs... Thread alive at: 26/07/2021 06:26:27
+1 Program busy or hangs... Thread alive at: 26/07/2021 06:26:34
+1 Program busy or hangs... Thread alive at: 26/07/2021 06:26:49
+1 Program busy or hangs... Thread alive at: 26/07/2021 06:27:16
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 Program busy or hangs... Thread alive at: 26/07/2021 07:18:02
+0 Program busy or hangs... Thread alive at: 26/07/2021 07:18:07
+0 Program busy or hangs... Thread alive at: 26/07/2021 07:18:12
+0 Program busy or hangs... Thread alive at: 26/07/2021 07:18:17
+0 Program busy or hangs... Thread alive at: 26/07/2021 07:18:22
+0 Program busy or hangs... Thread alive at: 26/07/2021 07:18:27
+0 Program busy or hangs... Thread alive at: 26/07/2021 07:18:32
+0 Program busy or hangs... Thread alive at: 26/07/2021 07:18:37
+0 Program busy or hangs... Thread alive at: 26/07/2021 07:18:42
+0 Program busy or hangs... Thread alive at: 26/07/2021 07:18:47
+0 Program busy or hangs... Thread alive at: 26/07/2021 07:18:52
+0 Program busy or hangs... Thread alive at: 26/07/2021 07:18:57
+0 Program busy or hangs... Thread alive at: 26/07/2021 07:19:02
+0 Program busy or hangs... Thread alive at: 26/07/2021 07:19:07
+0 Program busy or hangs... Thread alive at: 26/07/2021 07:19:12
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:13:20
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:13:25
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:13:30
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:13:35
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:13:40
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:13:45
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:13:50
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:13:55
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:14:00
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:14:05
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:14:10
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:14:15
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:14:20
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:14:25
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:14:30
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:22:50
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:22:55
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:23:00
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:23:05
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:23:10
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:23:15
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:23:20
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:23:25
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:23:30
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:23:35
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:23:40
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:23:45
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:23:50
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:23:55
+0 Program busy or hangs... Thread alive at: 26/07/2021 08:24:00
+0 invalid image ffmpeg: 
+
+1 Program busy or hangs... Thread alive at: 27/07/2021 12:08:17

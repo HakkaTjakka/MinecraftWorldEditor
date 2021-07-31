@@ -6,7 +6,7 @@ setlocal EnableExtensions EnableDelayedExpansion
 
 dir *-21 /b > list.txt
 
-timeout 60
+timeout 600
 
 for %%X in (list.txt) do (
 	for /f "tokens=*" %%R in (%%X) do (

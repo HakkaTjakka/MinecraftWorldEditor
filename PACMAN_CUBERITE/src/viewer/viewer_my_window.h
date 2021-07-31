@@ -42,6 +42,10 @@
                                     }
                                     between_texture.create(1920,1080,contextSettings);
                                 }
+                                if (MAKE_NBT) {
+                                    window.setVisible(false);
+                                }
+
 
 
 /*                if (videomode[win_num]==0) {

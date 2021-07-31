@@ -2485,7 +2485,7 @@ void do_something_with_all(char* worldregiondir) {
 
     tied=0.0;tied_total=0.0;print_header=1;
     printf("%6.1f %6.3f ",tied_total,tied);
-    printf("DO SOMETHING WITH ALL:\n");
+    printf("1) DO SOMETHING WITH ALL:\n");
 
     DIR* dr = opendir(worldregiondir);
     struct dirent *de;

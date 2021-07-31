@@ -99,6 +99,7 @@ struct hit_one_region {
 struct cubic_region {
     int region_floor;
     int x,z;
+    time_t    st_mtime;   /* time of last modification */
 
     cubic_region(): region_floor(0), x(0), z(0) {};
 

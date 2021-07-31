@@ -1821,6 +1821,7 @@ extern sf::BlendMode MyBlendingMode;
 
 void combine_front_to_back() {
     char naam[200];
+    char naam2[200];
     int x,y;
     int arx,ary;
     sf::Sprite sprite;
@@ -1842,46 +1843,48 @@ void combine_front_to_back() {
         {
 
             sprintf(naam,"%s/%dx%d/%03d/picture.%06d.%06d.png",LEVELDIR,BITMAPSX,BITMAPSY,level,ary,arx);
-            texture_new.clear(sf::Color(0,0,0,255));
-//            SFMLView1.clear(sf::Color(0,0,0,255));
-//            glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-            SFMLView1.setActive(true);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            SFMLView1.setActive(false);
-            if (file_exists(naam)) {
-                sfml_bitmaps.loadFromFile(naam);
-                texture_new.draw(sprite);
-                SFMLView1.draw(sprite);
+            sprintf(naam2,"%s/%dx%d/%03d/picture_maze.%06d.%06d.png",LEVELDIR,BITMAPSX,BITMAPSY,level,ary,arx);
+            if (file_exists(naam) && file_exists(naam2)) {
+                texture_new.clear(sf::Color(0,0,0,255));
+    //            SFMLView1.clear(sf::Color(0,0,0,255));
+    //            glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+                SFMLView1.setActive(true);
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+                SFMLView1.setActive(false);
+//                if (file_exists(naam)) {
+                    sfml_bitmaps.loadFromFile(naam);
+                    texture_new.draw(sprite);
+                    SFMLView1.draw(sprite);
 
+                    sprintf(writer,"CREATED: %d",numcreated);
+                    draw2(writer,0,36,sf::Color::Blue,sf::Color::White);
+                    sprintf(writer,"COMBINING ALL TEXTURES FRONT+BACK: X=%d Y=%d TOTAL=%d",arx,ary,arx*(maxpicturey+1)+ary+1);
+                    draw2(writer,0,0,sf::Color::Blue,sf::Color::White);
+                    SFMLView1.display();
+//                }
+//                if (file_exists(naam2)) {
+                    sfml_bitmaps.loadFromFile(naam2);
+                    if (blending==0) {
+                        texture_new.draw(sprite);
+                        SFMLView1.draw(sprite);
+                    }
+                    else {
+                        texture_new.draw(sprite,MyBlendingMode);
+                        SFMLView1.draw(sprite,MyBlendingMode);
+                    }
+//                }
+                numcreated++;
                 sprintf(writer,"CREATED: %d",numcreated);
                 draw2(writer,0,36,sf::Color::Blue,sf::Color::White);
                 sprintf(writer,"COMBINING ALL TEXTURES FRONT+BACK: X=%d Y=%d TOTAL=%d",arx,ary,arx*(maxpicturey+1)+ary+1);
                 draw2(writer,0,0,sf::Color::Blue,sf::Color::White);
+
+                texture_new.display();
                 SFMLView1.display();
-            }
-            sprintf(naam,"%s/%dx%d/%03d/picture_maze.%06d.%06d.png",LEVELDIR,BITMAPSX,BITMAPSY,level,ary,arx);
-            if (file_exists(naam)) {
-                sfml_bitmaps.loadFromFile(naam);
-                if (blending==0) {
-                    texture_new.draw(sprite);
-                    SFMLView1.draw(sprite);
-                }
-                else {
-                    texture_new.draw(sprite,MyBlendingMode);
-                    SFMLView1.draw(sprite,MyBlendingMode);
-                }
-            }
-            numcreated++;
-            sprintf(writer,"CREATED: %d",numcreated);
-            draw2(writer,0,36,sf::Color::Blue,sf::Color::White);
-            sprintf(writer,"COMBINING ALL TEXTURES FRONT+BACK: X=%d Y=%d TOTAL=%d",arx,ary,arx*(maxpicturey+1)+ary+1);
-            draw2(writer,0,0,sf::Color::Blue,sf::Color::White);
 
-            texture_new.display();
-            SFMLView1.display();
-
-            sprintf(naam,"%s/%dx%d/%03d/picture.%06d.%06d.png",LEVELDIR,BITMAPSX,BITMAPSY,level,ary,arx);
-            texture_new.getTexture().copyToImage().saveToFile(naam);
+                sprintf(naam,"%s/%dx%d/%03d/picture.%06d.%06d.png",LEVELDIR,BITMAPSX,BITMAPSY,level,ary,arx);
+                texture_new.getTexture().copyToImage().saveToFile(naam);
+            }
             if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
             {
                 TranslateMessage(&msg);

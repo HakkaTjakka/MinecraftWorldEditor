@@ -123,17 +123,25 @@ for /f "tokens=*" %%F in ('dir /b /a:d /o:-n ".\3*"') do (
 					)
 				)
 			) else (
-				echo Subdirectory: %%F\%%G has no file %%F\%%G\!result!.mtl, moving to CORRUPTED_OCTANTS
+				echo Subdirectory: %%F\%%G has no file %%F\%%G\!result!.mtl, moving to NO_MTL_FILE
 				echo Subdirectory: %%F\%%G has no file %%F\%%G\!result!.mtl >> CHECK_FOR_ALL_TEXTURES.LOG
-				set /a is_corrupt = 1
+				set /a is_corrupt = 2
 			)
 			if not !is_corrupt! EQU 0 (
-				if not exist CORRUPTED_OCTANTS mkdir CORRUPTED_OCTANTS
-				if exist %%F\%%G (
-					REM move %%F\%%G CORRUPTED_OCTANTS >NUL
-					move %%F\%%G CORRUPTED_OCTANTS
+				if !is_corrupt! EQU 2 (
+					if not exist NO_MTL_FILE mkdir NO_MTL_FILE
+					if exist %%F\%%G (
+						move %%F\%%G NO_MTL_FILE
+					) else (
+						echo %%F\%%G DOES NOT EXIST!!!!!!!!
+					)
 				) else (
-					echo %%F\%%G DOES NOT EXIST!!!!!!!!
+					if not exist CORRUPTED_OCTANTS mkdir CORRUPTED_OCTANTS
+					if exist %%F\%%G (
+						move %%F\%%G CORRUPTED_OCTANTS
+					) else (
+						echo %%F\%%G DOES NOT EXIST!!!!!!!!
+					)
 				)
 			) else (
 				echo ok >> %%F\%%G\checked_ok.txt 

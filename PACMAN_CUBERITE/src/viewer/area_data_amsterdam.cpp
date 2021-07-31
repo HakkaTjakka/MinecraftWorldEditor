@@ -38,19 +38,24 @@ bool GET_OCTANT_LIST(std::string area_name, std::string **octants, std::string *
 
 
     if ((area_file = fopen (area_name.c_str(), "r"))!=NULL) {
-        char line[200000];
-        char comp[200000];
-        char array_line[200000];
+        char* line=new char[1000000];
+        char* comp=new char[1000000];
+        char* array_line=new char[1000000];
+
+//        char line[1000000];
+//        char comp[1000000];
+//        char array_line[1000000];
+
         char what[20];
         int index;
         int array_size;
         int line_number=0;
         int lat_lon_line_count=0;
         int octant_line_count=0;
-        while (fgets (line,200000, area_file)!=NULL ) {
+        while (fgets (line,1000000, area_file)!=NULL ) {
             line_number++;
 //            printf("line_number=%d\n",line_number);
-            sscanf(line, "%20[^[][%d]=new std::string[%d] {%200000[^}];\n", what, &index, &array_size, array_line );
+            sscanf(line, "%20[^[][%d]=new std::string[%d] {%1000000[^}];\n", what, &index, &array_size, array_line );
             sprintf(comp,"%s[%d]=new std::string[%d] {%s};\n", what, index, array_size, array_line);
 //            printf("%s[%d]=new std::string[%d] {%s};\n", what, index, array_size, array_line);
             if (strcmp(line,comp)!=0) {
@@ -124,6 +129,9 @@ bool GET_OCTANT_LIST(std::string area_name, std::string **octants, std::string *
             printf("Error loading %s\n", area_name.c_str());
         }
         fclose(area_file);
+        free(line);
+        free(comp);
+        free(array_line);
     } else {
         printf("Cannot open %s\n",area_name.c_str());
         return false;
@@ -153,6 +161,7 @@ std::string get_octant_AMSTERDAM(int &x, int &y) {
 	if (x>=88 || y>=202) printf("Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
 	else OK=true;
 	if (!OK) return "";
+
 	latitude_longditude=lat_lon[x][y];
 	std::string subdir=octants[x][y].substr(0,14)+"/";
 	return_root = std::string()+EARTH_ROOT1+"/AMSTERDAM/"+subdir+octants[x][y]+"-21/"+octants[x][y]+".nbt";  if (FileExists(return_root.c_str())) return return_root;
@@ -182,6 +191,82 @@ std::string get_octant_AMSTERDAM(int &x, int &y) {
 	printf("Directory not found on search paths: %s-21\n",octants[x][y].c_str());
 	return "";
 }
+
+bool get_area_quick=false;
+
+std::string get_octant_HOLLAND(int &x, int &y) {
+	static std::string *octants[737];       //first parm. GET_OCTANT_LIST
+	static std::string *lat_lon[736];
+	static int first_do=1;
+	if  (first_do==1) {
+		first_do=0;
+        printf("LOADING ../OCTANTS/HOLLAND.TXT\n");
+        if (!GET_OCTANT_LIST("HOLLAND", octants, lat_lon, 737, 1056, 11908)) {
+            printf("Error reading ../OCTANTS/HOLLAND.TXT\n");
+            return "";
+        }
+	}
+
+	extra_octants=11908;
+	extra_octants_belong_to_string_pointer=octants[736];
+	extra_octants_belong_to_string_pointer_x=735;
+	if (x<0 || y<0) {
+		x=735;y=1056;
+		return "";
+	}
+	bool OK=false;
+	if (x>=735 && y>11907) printf("Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
+	else if (!(x>=735) && (x>735 || y>1055)) printf("Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
+	else OK=true;
+
+    if (octants[x][y]=="00000000000000000") OK=false;
+	if (!OK) return "";
+    std::string octant;
+    octant=std::string()+octants[x][y].substr(0,17);
+	if (!(x>735)) {
+        latitude_longditude=lat_lon[x][y];
+	} else {
+        std::string to_test=extra_octants_belong_to_string_pointer[y];
+        char octant[100];
+        int xx,yy;
+        int num=sscanf(to_test.c_str(),"%100[^ ] X=%d Y=%d", octant, &xx, &yy);
+        if (num==3) {
+            latitude_longditude=lat_lon[xx][yy];
+        } else {
+            latitude_longditude="";
+        }
+	}
+    if (get_area_quick) return octant;
+
+	std::string subdir=octant.substr(0,14)+"/";
+	return_root = std::string()+EARTH_ROOT1+"/UTRECHT/"+subdir+octant+"-21/"+octant+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/UTRECHT/"+subdir+octant+"-21/"+octant+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/UTRECHT/"+subdir+octant+"-21/"+octant+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/UTRECHT/"+subdir+octant+"-21/"+octant+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/UTRECHT/"+subdir+octant+"-21/"+octant+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/UTRECHT/"+subdir+octant+"-21/"+octant+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/UTRECHT/"+"nbt/"+octant+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/UTRECHT/"+"nbt/"+octant+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/UTRECHT/"+"nbt/"+octant+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/UTRECHT/"+octant+"-21/"+octant+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/UTRECHT/"+octant+"-21/"+octant+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/UTRECHT/"+octant+"-21/"+octant+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/"+octant+"-21/"+octant+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/"+octant+"-21/"+octant+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/"+octant+"-21/"+octant+".nbt";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/UTRECHT/"+octant+"-21/"+octant+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/UTRECHT/"+octant+"-21/"+octant+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/UTRECHT/"+octant+"-21/"+octant+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/UTRECHT/"+"obj/"+octant+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/UTRECHT/"+"obj/"+octant+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/UTRECHT/"+"obj/"+octant+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT1+"/"+octant+"-21/"+octant+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT2+"/"+octant+"-21/"+octant+".obj";  if (FileExists(return_root.c_str())) return return_root;
+	return_root = std::string()+EARTH_ROOT3+"/"+octant+"-21/"+octant+".obj";  if (FileExists(return_root.c_str())) return return_root;
+    printf("Directory not found on search paths: %s-21\r",octant.c_str());
+	return "";
+}
+
 
 std::string get_octant_UTRECHT(int &x, int &y) {
 	static std::string *octants[457];       //first parm. GET_OCTANT_LIST

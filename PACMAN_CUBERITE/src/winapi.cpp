@@ -637,9 +637,20 @@ extern int keep_running[];
                 mirror=4;
                 crossing=2;
             }
+            else if (c==(char)'H') {
+                combine=1;
+                area="Holland";
+                launch_SFMLGL2_b();
+                while (!i_am_here) {
+                    sf::sleep(sf::seconds(0.1));
+                }
+
+                sf::sleep(sf::seconds(0.1));
+                make_regions=true;
+            }
             else if (c==(char)'r') {
                 combine=1;
-                area="Utrecht";
+                if (area=="") area="Utrecht";
                 launch_SFMLGL2_b();
                 while (!i_am_here) {
                     sf::sleep(sf::seconds(0.1));
@@ -721,7 +732,7 @@ extern int keep_running[];
                 }
                 combine=0;
             } else if (c==(char)'C') {
-                area="Utrecht";
+                area="Holland";
 //                cubic=true;
 //                and_now_i_am_here=true;
                 MAKE_NBT=true;
@@ -731,13 +742,23 @@ extern int keep_running[];
                 }
             } else if (c==(char)'P') {
                 crossing=2; mirror=4;combine=1;
-                area="Utrecht";
+//                area="Utrecht";
                 cubic=true;
                 launch_PLOT_REGIONS();
 
             } else if (c==(char)'z') {
                 crossing=2; mirror=4;combine=1;
                 area="Utrecht";
+                cubic=true;
+                and_now_i_am_here=true;
+                launch_SFMLGL2_b();
+                while (!i_am_here) {
+                    sf::sleep(sf::seconds(0.1));
+                }
+                combine=0;
+            } else if (c==(char)'Z') {
+                crossing=2; mirror=4;combine=1;
+                area="Holland";
                 cubic=true;
                 and_now_i_am_here=true;
                 launch_SFMLGL2_b();
@@ -978,6 +999,7 @@ printf("hoppa");
                             int len = strlen(argv[4]);
                             for(int i=0;i<len;i++) argv[4][i]=toupper(argv[4][i]);
                             if (strcmp("UTRECHT",argv[4])==0) area="Utrecht";
+                            else if (strcmp("HOLLAND",argv[4])==0) area="Holland";
                             else mcglobal=atoi(argv[4]);
                         }
                     }
@@ -1034,9 +1056,38 @@ printf("hoppa");
         else if (   strcmp(argv[1],"newyork"    )==0) { send_message='v'; }
         else if (   strcmp(argv[1],"rio"    )==0) { send_message='y'; }
         else if (   strcmp(argv[1],"nbt"    )==0) {
+            if (argc>2) {
+                int len = strlen(argv[2]);
+                for(int i=0;i<len;i++) argv[2][i]=toupper(argv[2][i]);
+                if (strcmp("UTRECHT",argv[2])==0) area="Utrecht";
+                else if (strcmp("HOLLAND",argv[2])==0) area="Holland";
+            } else area="Holland";
             send_message='C';
         }
         else if (   strcmp(argv[1],"plot"    )==0) {
+            if (argc>2) {
+                if (strcmp(argv[2],"fast"    )==0) {
+                    do_nbt_fast=true;
+                    if (argc>3) {
+                        int len = strlen(argv[3]);
+                        for(int i=0;i<len;i++) argv[3][i]=toupper(argv[2][i]);
+                        if (strcmp("UTRECHT",argv[3])==0) area="Utrecht";
+                        else if (strcmp("HOLLAND",argv[3])==0) area="Holland";
+                    }
+                } else {
+                    int len = strlen(argv[2]);
+                    for(int i=0;i<len;i++) argv[2][i]=toupper(argv[2][i]);
+                    if (strcmp("UTRECHT",argv[2])==0) area="Utrecht";
+                    else if (strcmp("HOLLAND",argv[2])==0) area="Holland";
+                }
+                if (argc>3) {
+                    if (strcmp(argv[3],"fast"    )==0) {
+                        do_nbt_fast=true;
+                    }
+                }
+            } else {
+                area="Holland";
+            }
             send_message='P';
         }
         else if (   strcmp(argv[1],"utrecht"    )==0) {
@@ -1046,6 +1097,14 @@ printf("hoppa");
                 }
             }
             send_message='z';
+        }
+        else if (   strcmp(argv[1],"holland"    )==0) {
+            if (argc>2) {
+                if (strcmp(argv[2],"fast"    )==0) {
+                    do_nbt_fast=true;
+                }
+            }
+            send_message='Z';
         }
         else if (   strcmp(argv[1],"amsterdam"    )==0) { send_message='w'; }
         else if (   strcmp(argv[1],"font2function"    )==0) {
@@ -1416,18 +1475,22 @@ printf("hoppa");
 //    contextSettings.sRgbCapable = false;
 //    SFMLView1.create(sf::VideoMode(1920,1080, desktop.bitsPerPixel), reg, sf::Style::None,contextSettings);
 
-//    SFMLView1.create(sf::VideoMode(1920,1080), "PACMAN", sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close, contextSettings);
+    if (MAKE_NBT) {
+        SFMLView1.create(sf::VideoMode(1920,1080), "PACMAN", sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close, contextSettings);
+        SFMLView1.setSize(sf::Vector2u(1920/2,1080/2));
+        SFMLView1.setPosition(sf::Vector2i(1920/2-1920/4,1080/2-1080/4));
+        SFMLView1.setVisible(false);
+    } else {
+        SFMLView1.create(sf::VideoMode(1920,1080), "PACMAN", sf::Style::Resize | sf::Style::Fullscreen, contextSettings);
+        SFMLView1.setSize(sf::Vector2u(1920,1080));
+        SFMLView1.setPosition(sf::Vector2i(0,0));
+    }
 
-    SFMLView1.create(sf::VideoMode(1920,1080), "PACMAN", sf::Style::Resize | sf::Style::Fullscreen, contextSettings);
     vm=0;
-    SFMLView1.setSize(sf::Vector2u(1920,1080));
-    SFMLView1.setPosition(sf::Vector2i(0,0));
 
 
 //    launch_FLY_PLAY();
 //    sf::sleep(sf::seconds(1.0));
-
-
 
     SFMLView1.setActive(true);
 

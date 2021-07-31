@@ -99,11 +99,16 @@ async function run() {
 			lon1= 6.974389;
 		} else if (CITY=="--UTRECHT") {
 			CITY_NAME="UTRECHT"
-			
-			lat0=52.525393;
-			lon0=4.603350;
-			lat1=51.813579;
-			lon1=7.100673;
+// Part 1			
+//			lat0=52.525393;
+//			lon0=4.603350;
+//			lat1=51.813579;
+//			lon1=7.100673;
+//Whole Holland
+			lat0=53.6;
+			lon0=3.26;
+			lat1=50.7;
+			lon1=7.3;
 
 //			lat0=52.290255;
 //			lon0=4.728771;
@@ -336,7 +341,8 @@ async function run() {
 								num_lons=Math.round((lon1-lon0)/size_lon);
 							} else {
 								console.log("[EXTRA]"+
-									 "["+num_lats.toString().padStart(3, ' ')+"]"+
+//asshole....									 "["+num_lats.toString().padStart(3, ' ')+"]"+
+									 "["+num_lons.toString().padStart(3, ' ')+"]"+
 									 "["+numberOffoundOctants_extra.toString().padStart(3, ' ')+"]="+
 									 octants[i]+
 									 " lat="+box.n.toString()+	" to "+box.s.toString()+

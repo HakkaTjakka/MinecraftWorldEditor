@@ -10762,6 +10762,8 @@ extern int scan_min_z;
 
             int old_positionx=(picturex*1920-posx);
             int old_positiony=(picturey*1080-posy);
+//            int old_positionx=(render_picturex*1920-render_posx);
+//            int old_positiony=(render_picturey*1080-render_posy);
 
             static int not_next=1;
             pen_mode==2;
@@ -10826,11 +10828,13 @@ extern std::string region_filename;
                 update_later=true;
             }
         }
-
-        if (burn && mirror==4 && crossing==2 && start_to_move) {
+extern bool MAKE_NBT;
+extern bool make_regions;
+        if ( ( (burn && mirror==4 && crossing==2) )  && start_to_move) {
+//        if ( ( (burn && mirror==4 && crossing==2) || MAKE_NBT || make_regions)  && start_to_move) {
             if (kp.getElapsedTime()>sf::seconds(20)) {
                 float dist=sqrt( (position1x_wanted-position1x)*(position1x_wanted-position1x)+(position1y_wanted-position1y)*(position1y_wanted-position1y) );
-                if (dist>600.0) {
+                if (dist>1000.0) {
                     position1x=position1x_wanted;
                     position1y=position1y_wanted;
                     get_position1();
@@ -10840,6 +10844,10 @@ extern std::string region_filename;
 //                    smooth_y=picturey*1080-posy;
 //                    ReadBitmaps2();
                     long_jump=1;
+                    forced_jump=1;
+                    follow_ghost_pos();
+//                    ReadBitmaps2();
+//                    ReadBitmaps4();
 //                    DO_ADAPT=1;
 //                    follow_ghost_pos();
 //                    DO_ADAPT=0;
@@ -10848,9 +10856,12 @@ extern std::string region_filename;
 //                    forced_jump=1;
 //                    follow_ghost_pos();
                 } else {
-                    position1x=(position1x*50 + position1x_wanted)/51;
-                    position1y=(position1y*50 + position1y_wanted)/51;
-                    get_position1();
+                    if (dist==0) start_to_move=false;
+                    else {
+                        position1x=int((float)(position1x*100 + position1x_wanted)/101.0);
+                        position1y=int((float)(position1y*100 + position1y_wanted)/101.0);
+                        get_position1();
+                    }
                 }
             }
         } else {

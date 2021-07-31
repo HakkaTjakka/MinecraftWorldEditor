@@ -19,7 +19,7 @@ for /f "tokens=*" %%P in (check.lst) do (
 		rem echo !fulldir! exists     [!cnt!]
 	) else (
 		echo !fulldir! exists not [!cnt!]
-			echo !fulldir! exists not [!cnt!] >> NOT_THERE.TXT
+		echo !fulldir! exists not [!cnt!] >> NOT_THERE.TXT
 	)
 
 	for %%I in (!fulldir!) do (
@@ -136,6 +136,7 @@ for /f "tokens=*" %%P in (check.lst) do (
 				if not exist CORRUPTED_OCTANTS mkdir CORRUPTED_OCTANTS
 				if exist %%I move %%I CORRUPTED_OCTANTS >NUL
 			) else (
+				echo ok
 				echo ok > %%I\checked_ok.txt
 			)
 rem 		) else (

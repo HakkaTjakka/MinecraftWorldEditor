@@ -16,11 +16,11 @@
 std::string areas(int q) {
     static int x=-1;
     if (q==0) {
-        x=(x+1)%13;
+        x=(x+1)%14;
     } else {
         x=q-1;
     }
-    if (x==0) return "Enschede";
+    if (x==0) return "Holland";
     else if (x==1) return "DenHaag";
     else if (x==2) return "Schweiz";
     else if (x==3) return "LA";
@@ -33,6 +33,7 @@ std::string areas(int q) {
     else if (x==10) return "Azores";
     else if (x==11) return "Utrecht";
     else if (x==12) return "Rio";
+    else if (x==13) return "Enschede";
     else return "Nope...";
 }
 
@@ -45,6 +46,7 @@ std::string get_octant_LA(int &x, int &y);
 std::string get_octant_ENSCHEDE(int &x, int &y);
 std::string get_octant_NEWYORK(int &x, int &y);
 extern std::string get_octant_UTRECHT(int &x, int &y);
+extern std::string get_octant_HOLLAND(int &x, int &y);
 std::string get_octant_MIAMI(int &x, int &y);
 std::string get_Model(int &x, int &y);
 std::string get_Canvas(int &x, int &y);
@@ -98,6 +100,7 @@ std::string get_area_data2(std::string area_name, int &x, int &y) {
     else if (area_name == "RIO") return get_octant_RIO(x,y);
     else if (area_name == "UTRECHT") return get_octant_UTRECHT(x,y);
     else if (area_name == "AZORES") return get_octant_AZORES(x,y);
+    else if (area_name == "HOLLAND") return get_octant_HOLLAND(x,y);
 
     return "Error not in get_area_data2()";
 }

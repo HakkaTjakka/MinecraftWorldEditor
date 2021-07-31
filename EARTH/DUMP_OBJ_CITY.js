@@ -14,7 +14,7 @@ const DL_DIR = './downloaded_files';
 const [ DUMP_NEW_NEW_DIR,	DUMP_NEW_DIR,		DUMP_NEW_DIR_UTRECHT,	DUMP_NEW_DIR_RIO,		DUMP_NEW_DIR_MIAMI,		DUMP_NEW_DIR_AZORES,		DUMP_NEW_DIR_DENHAAG,		DUMP_NEW_DIR_SCHWEIZ,		DUMP_NEW_DIR_NEWYORK,		DUMP_NEW_DIR_BRUSSEL,		DUMP_NEW_DIR_ENSCHEDE,		DUMP_NEW_DIR_LA,		DUMP_NEW_DIR_AMSTERDAM,		DUMP_OBJ_DIR,		DUMP_JSON_DIR,		DUMP_RAW_DIR	] =
 	  [	'new/new',			'new',			  	'new/Utrecht',			'new/Rio',				'new/Miami',			'new/Azores',				'new/DenHaag',				'new/Schweiz',				'new/NewYork',	  			'new/Brussel',	  			'new/Enschede',	  			'new/LA',				'new/Amsterdam',			'obj',				'json',				'raw' 		  	].map(x => path.join(DL_DIR, x));
                                                                         
-const DL_DIR1 = 'D:/PACMAN/EARTH/downloaded_files';                     
+const DL_DIR1 = 'G:/PACMAN/EARTH/downloaded_files';                     
 const [ DUMP_NEW_NEW_DIR1,	DUMP_NEW_DIR1,		DUMP_NEW_DIR_UTRECHT1,	DUMP_NEW_DIR_RIO1,		DUMP_NEW_DIR_MIAMI1,	DUMP_NEW_DIR_AZORES1,		DUMP_NEW_DIR_DENHAAG1,		DUMP_NEW_DIR_SCHWEIZ1,		DUMP_NEW_DIR_NEWYORK1,		DUMP_NEW_DIR_BRUSSEL1,		DUMP_NEW_DIR_ENSCHEDE1,		DUMP_NEW_DIR_LA1,		DUMP_NEW_DIR_AMSTERDAM1,	DUMP_OBJ_DIR1,		DUMP_JSON_DIR1,		DUMP_RAW_DIR1	] =
 	  [	'new/new',			'new',			  	'new/Utrecht',			'new/Rio',				'new/Miami',			'new/Azores',				'new/DenHaag',				'new/Schweiz',				'new/NewYork',	  			'new/Brussel',	  			'new/Enschede',	  			'new/LA',				'new/Amsterdam',			'obj',				'json',				'raw' 		  	].map(x => path.join(DL_DIR1, x));
                                                                         
@@ -22,7 +22,7 @@ const DL_DIR2 = 'F:/PACMAN/EARTH/downloaded_files';
 const [ DUMP_NEW_NEW_DIR2,	DUMP_NEW_DIR2,		DUMP_NEW_DIR_UTRECHT2,	DUMP_NEW_DIR_RIO2,		DUMP_NEW_DIR_MIAMI2,	DUMP_NEW_DIR_AZORES2,		DUMP_NEW_DIR_DENHAAG2,		DUMP_NEW_DIR_SCHWEIZ2,		DUMP_NEW_DIR_NEWYORK2,		DUMP_NEW_DIR_BRUSSEL2,		DUMP_NEW_DIR_ENSCHEDE2,		DUMP_NEW_DIR_LA2,		DUMP_NEW_DIR_AMSTERDAM2,	DUMP_OBJ_DIR2,		DUMP_JSON_DIR2,		DUMP_RAW_DIR2	] =
 	  [	'new/new',			'new',			  	'new/Utrecht',			'new/Rio',				'new/Miami',			'new/Azores',				'new/DenHaag',				'new/Schweiz',				'new/NewYork',	  			'new/Brussel',	  			'new/Enschede',	  			'new/LA',				'new/Amsterdam',			'obj',				'json',				'raw' 		  	].map(x => path.join(DL_DIR2, x));
                                                                         
-const DL_DIR3 = 'G:/PACMAN/EARTH/downloaded_files';
+const DL_DIR3 = 'E:/PACMAN/EARTH/downloaded_files';
 const [ DUMP_NEW_NEW_DIR3,	DUMP_NEW_DIR3,		DUMP_NEW_DIR_UTRECHT3,	DUMP_NEW_DIR_RIO3,		DUMP_NEW_DIR_MIAMI3,	DUMP_NEW_DIR_AZORES3,		DUMP_NEW_DIR_DENHAAG3,		DUMP_NEW_DIR_SCHWEIZ3,		DUMP_NEW_DIR_NEWYORK3,		DUMP_NEW_DIR_BRUSSEL3,		DUMP_NEW_DIR_ENSCHEDE3,		DUMP_NEW_DIR_LA3,		DUMP_NEW_DIR_AMSTERDAM3,	DUMP_OBJ_DIR3,		DUMP_JSON_DIR3,		DUMP_RAW_DIR3	] =
 	  [	'new/new',			'new',			  	'new/Utrecht',			'new/Rio',				'new/Miami',			'new/Azores',				'new/DenHaag',				'new/Schweiz',				'new/NewYork',	  			'new/Brussel',	  			'new/Enschede',	  			'new/LA',				'new/Amsterdam',			'obj',				'json',				'raw' 		  	].map(x => path.join(DL_DIR3, x));
 

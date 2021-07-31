@@ -625,11 +625,9 @@ double center_lon=0;
 
 bool sort_lat_lon=false;
 
-
-
-
 struct info_3d_struct {
     glm::ivec2 pos;
+    glm::ivec2 pos2;
     std::string filename;
 //utrecht
     glm::vec3 min_x=glm::vec3(0,0,0);
@@ -676,8 +674,8 @@ struct info_3d_struct {
 //            double Bdist   = fabs(B.pos.x-center_x)*320.0/412.0   + fabs(B.pos.y-center_y);
 //            return( dist < Bdist );
 */
-            double dist=sqrt( (pos.x-center_x)*(pos.x-center_x)*1.23 +(pos.y-center_y)*(pos.y-center_y) );
-            double Bdist=sqrt( (B.pos.x-center_x)*(B.pos.x-center_x)*1.23 + (B.pos.y-center_y)*(B.pos.y-center_y) );
+            double dist=sqrt( (pos2.x-center_x)*(pos2.x-center_x)*1.23 +(pos2.y-center_y)*(pos2.y-center_y) );
+            double Bdist=sqrt( (B.pos2.x-center_x)*(B.pos2.x-center_x)*1.23 + (B.pos2.y-center_y)*(B.pos2.y-center_y) );
             return( dist < Bdist );
         }
 
@@ -986,7 +984,7 @@ bool create_boundaries(std::string my_area, sf::RenderWindow& window) {
                 std::vector<tinyobj::material_t> materials;
                 NBT_TO_OBJECT3D(buffers, materials, (char*)nbt_filename.c_str(), minimum,maximum);
 
-                if (my_area=="Utrecht") {
+                if (my_area=="Utrecht" || my_area=="Holland") {
                     if (buffers.size()>0) RECALC_BMIN_BMAX_NEW(buffers, minimum, maximum, v.lat, v.lon);
                 }
                 else {
@@ -1235,6 +1233,7 @@ extern int MCEDITOR_stop;
 extern std::vector<Voxel> voxels_total;
 extern bool load_voxels();
 extern std::string *extra_octants_belong_to_string_pointer;
+extern bool get_area_quick;
 
 bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool pac_obj2_arr_used[100], Pacman_Object pac_obj2_arr[100]) {
     ShowTaskBar(true);
@@ -1291,10 +1290,17 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
     FILE *file_arr;
     char line[200];
     int cnt=0;
+
+
+
+
     printf("Area=%s\n",my_area.c_str());
-    if ((file_arr = fopen ("OBJECT_ARRAY.TXT", "r"))!=NULL) {
+    std::string OA;
+    if (MAKE_NBT) OA="OBJECT_ARRAY.NBT";
+    else  OA="OBJECT_ARRAY.TXT";
+    if ((file_arr = fopen (OA.c_str(), "r"))!=NULL) {
 //    if (0 && (file_arr = fopen ("OBJECT_ARRAY.TXT", "r"))!=NULL) {
-        printf("OBJECT_ARRAY.TXT detected. Loading object array data...\n");
+        printf("%s detected. Loading object array data...\n",OA.c_str());
         while (fgets (line,200, file_arr)!=NULL ) {
             x=-1;y=-1;
             if (line[0]=='R') {
@@ -1344,6 +1350,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                     if (y>max_y) max_y=y;
                     info_3d_elem.filename=str;
                     info_3d_elem.pos=glm::ivec2(x,y);
+                    info_3d_elem.pos2=glm::ivec2(x,y);
 
                     lat_north=0.0;
                     lat_south=0.0;
@@ -1363,9 +1370,45 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                     info_3d_elem.w=lon_west;
 
                     printf("N=%20.16f S=%20.16f W=%20.16f E=%20.16f\n", lat_north, lat_south, lon_west, lon_east);
-//                    printf("N=%lf S=%lf W=%lf E=%lf\n", lat_north, lat_south, lon_west, lon_east);
 
                     info_3d.push_back(info_3d_elem);
+
+                    max_x=-1;max_y=-1;
+                    get_area_data(my_area,max_x,max_y);
+                    for (int yyy=0; yyy<extra_octants; yyy++) {
+                        window.pollEvent(event);
+                        get_area_quick=true;
+                        str=get_area_data(my_area,max_x,yyy);
+                        get_area_quick=false;
+                        if (str!="") {
+                            std::string to_test=extra_octants_belong_to_string_pointer[yyy];
+                            char octant[100];
+                            int xx,yy;
+                            int num=sscanf(to_test.c_str(),"%100[^ ] X=%d Y=%d", octant, &xx, &yy);
+
+                            if (xx==x && yy==y) {
+                                printf("#%3d FOUND: X=%3d Y=%3d %s (EXTRA)  ",cnt,max_x,yyy,str.c_str());
+                                if (num==3) {
+                                    str=get_area_data(my_area,max_x,yyy);
+                                    info_3d_elem.filename=str;
+//                                    info_3d_elem.pos=glm::ivec2(xx,yy);
+                                    info_3d_elem.pos=glm::ivec2(max_x,yyy);
+                                    info_3d_elem.pos2=glm::ivec2(xx,yy);
+//                                    printf("Relocating       (%d,%d) to \"%s\"    \r",max_x,yyy,to_test.c_str());
+
+                                    info_3d.push_back(info_3d_elem);
+                                    cnt++;
+                                }
+                                break;
+                            }
+
+                        } else {
+                            //printf("#%3d NOT FOUND: X=%3d Y=%3d (EXTRA)\r",cnt,max_x,yyy);
+                        }
+                    }
+
+
+
                 } else {
                     printf("NOT FOUND: X=%4d Y=%4d                                                                                                               \n",x,y);
                 }
@@ -1399,6 +1442,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
 //                    printf("lat/lon   : \"%s\"\n",latitude_longditude.c_str());
                     info_3d_elem.filename=str;
                     info_3d_elem.pos=glm::ivec2(x,y);
+                    info_3d_elem.pos2=glm::ivec2(x,y);
 
                     lat_north=0.0;
                     lat_south=0.0;
@@ -1427,13 +1471,10 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                     printf("#%3d NOT FOUND: X=%3d Y=%3d\n",cnt,x,y);
                 }
 
-
-
-
-
                 cnt++;
             }
         }
+
         max_x=-1;max_y=-1;
         get_area_data(my_area,max_x,max_y);
         for (y=0; y<extra_octants; y++) {
@@ -1443,44 +1484,44 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
 //                printf(".");
                 printf("#%3d CREATE: X=%3d Y=%3d %s (EXTRA)  \n",cnt,max_x,y,str.c_str());
 //                info_3d_elem.filename=str;
-                info_3d_elem.pos=glm::ivec2(max_x,y);
-
+//                info_3d_elem.pos=glm::ivec2(max_x,y);
 
                 std::string to_test=extra_octants_belong_to_string_pointer[y];
                 char octant[100];
                 int xx,yy;
                 int num=sscanf(to_test.c_str(),"%100[^ ] X=%d Y=%d", octant, &xx, &yy);
                 if (num==3) {
-                    info_3d_elem.pos=glm::ivec2(xx,yy);
-                    printf("Relocating octant %s (%d,%d) to (%d,%d)\n",to_test.c_str(),max_x,y,xx,yy);
-                } else {
-                    printf("Can not relocate (%d,%d) to \"%s\"\n",max_x,y,to_test.c_str());
-                }
+//                    info_3d_elem.pos=glm::ivec2(xx,yy);
+                    info_3d_elem.pos=glm::ivec2(max_x,y);
+                    info_3d_elem.pos2=glm::ivec2(xx,yy);
+                    info_3d_elem.filename=str;
+//                    printf("Relocating octant %s (%d,%d) to (%d,%d)\n",to_test.c_str(),max_x,y,xx,yy);
+//                } else {
+//                    printf("Can not relocate (%d,%d) to \"%s\"\n",max_x,y,to_test.c_str());
+//                    str=get_area_data(my_area,xx,yy);
 
-                lat_north=0.0;
-                lat_south=0.0;
-                lon_west=0.0;
-                lon_east=0.0;
-                if (latitude_longditude!="") {
-                    char line[2000];
-                    strcpy(line,latitude_longditude.c_str());
-//decimal_point
+                    lat_north=0.0;
+                    lat_south=0.0;
+                    lon_west=0.0;
+                    lon_east=0.0;
+                    if (latitude_longditude!="") {
+                        char line[2000];
+                        strcpy(line,latitude_longditude.c_str());
                         while (replace_str(line,",","."));
-//                    while (replace_str(line,".",","));
-                    int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
-//                    printf("N=%f S=%f W=%f E=%f\n", &lat_north, &lat_south, &lon_west, &lon_east);
+                        int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
+                    }
+                    info_3d_elem.lat=(lat_north+lat_south)/2.0;
+                    info_3d_elem.lon=(lon_east+lon_west)/2.0;
+                    info_3d_elem.n=lat_north;
+                    info_3d_elem.s=lat_south;
+                    info_3d_elem.e=lon_east;
+                    info_3d_elem.w=lon_west;
+
+                    printf("N=%20.16f S=%20.16f W=%20.16f E=%20.16f\n", lat_north, lat_south, lon_west, lon_east);
+
+                    info_3d.push_back(info_3d_elem);
                 }
-                info_3d_elem.lat=(lat_north+lat_south)/2.0;
-                info_3d_elem.lon=(lon_east+lon_west)/2.0;
-                info_3d_elem.n=lat_north;
-                info_3d_elem.s=lat_south;
-                info_3d_elem.e=lon_east;
-                info_3d_elem.w=lon_west;
 
-                printf("N=%20.16f S=%20.16f W=%20.16f E=%20.16f\n", lat_north, lat_south, lon_west, lon_east);
-//                printf("N=%lf S=%lf W=%lf E=%lf\n", lat_north, lat_south, lon_west, lon_east);
-
-                info_3d.push_back(info_3d_elem);
             } else {
                 printf("#%3d NOT FOUND: X=%3d Y=%3d (EXTRA)\n",cnt,max_x,y);
             }
@@ -1525,6 +1566,9 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
     } else if (my_area=="Utrecht") {
         center_x=227;
         center_y=129;
+    } else if (my_area=="Holland") {
+        center_x=337;
+        center_y=528;
 //        center_x=227;
 //        center_y=129;
     } else if (my_area=="Rio") {
@@ -1555,13 +1599,40 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
     sort_lat_lon=false;
 
     cnt=0;
+    char new_file_raw[100];
+    char new_file_dat[100];
     for (auto v : info_3d) {
-        if (crossing>0) {
+        if (crossing==2 && mirror==4) {
 //utrecht
+            if (crossing>0) {
+                std::string str;
+                get_area_quick=true;
+                str=get_area_data(my_area,v.pos.x,v.pos.y);
+                get_area_quick=false;
+                sprintf(new_file_dat,"../cut/done/%s.DAT",str.c_str());
+                if (file_exists(new_file_dat)) {
+                    printf("%s exists                    \r",new_file_dat);
+                    cnt++;
+                    continue;
+                }
+            }
+
             v.filename=get_area_data(my_area,v.pos.x,v.pos.y); //update when moved...
 
+            std::string mtl=v.filename;
+            if (mtl.find_last_of(".") != std::string::npos) mtl=mtl.substr(0,mtl.find_last_of("."))+".mtl";
+            if (!file_exists(mtl.c_str())) {
+                printf("No .mtl file: %s                 \r",mtl.c_str());
+                continue;
+            }
+
             if (v.filename=="") {
+                printf("NOT FOUND: X=%3d Y=%3d X=%3d Y=%3d        \r",v.pos.x,v.pos.y,v.pos2.x,v.pos2.y);
+
                 printf("Doesn't exist, skipping: %s\n",v.filename);
+                char out[1000];
+                sprintf(out,"echo OCTANT NOT FOUND [%3d][%3d] [%3d][%3d]\n",v.pos.x,v.pos.y,v.pos2.x,v.pos2.y));
+                system(out);
                 continue;
 
             }
@@ -1569,8 +1640,6 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
 
             fn=GetFileName(fn.substr(0,fn.find_last_of(".")));
 
-            char new_file_raw[100];
-            char new_file_dat[100];
 
             if (crossing==3) {
                 if (MCEDITOR_stop==1) return true;
@@ -1583,6 +1652,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                         printf("And %s exists, crossing==3, scanning/reporting\n",new_file_dat);
                         if (mirror>=1) {
                             scan_done0_plot(report, new_file_dat,new_file_raw);
+                            cnt++;
                             continue;
                         }
                         else
@@ -1598,6 +1668,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                             printf("And %s exists, crossing==3, scanning/reporting\n",new_file_dat);
                             if (mirror>=1) {
                                 scan_done0_plot(report, new_file_dat,new_file_raw);
+                                cnt++;
                                 continue;
                             }
                             else
@@ -1640,7 +1711,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
             sprintf(new_file_dat,"../cut/%s.DAT",fn.c_str());
             if (file_exists(new_file_dat)) {
                 printf("%s exists\n",new_file_dat);
-
+                cnt++;
                 continue;
 
                 sprintf(new_file_raw,"../cut/%s.RAW",fn.c_str());
@@ -1658,6 +1729,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
             sprintf(new_file_dat,"../cut/done/%s.DAT",fn.c_str());
             if (file_exists(new_file_dat)) {
                 printf("%s exists\n",new_file_dat);
+                cnt++;
 
                 continue;
 
@@ -1944,54 +2016,59 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
 //                str=get_area_data(my_area,x,y);
 //                to_check_filename.push_back(str);
 
-                if (1) {
-                    printf("MAKING: X=%4d Y=%4d    \r",x,y);
-//                    printf("lat/lon   : \"%s\"\n",latitude_longditude.c_str());
-                    bool ERR=false;
-                    for (auto v : info_3d) {
-                        if (v.pos.x==x && v.pos.y==y) {
-                            ERR=true;
-                            printf("DOUBLE X=%4d Y=%4d           \n",x,y);
+                printf("MAKING: X=%4d Y=%4d    \r",x,y);
+                bool ERR=false;
+                for (auto v : info_3d) {
+                    if (v.pos.x==x && v.pos.y==y) {
+                        ERR=true;
+                        printf("DOUBLE X=%4d Y=%4d           \n",x,y);
+                    }
+                }
+                if (ERR) continue;
+                if (x<min_x) min_x=x;
+                if (y<min_y) min_y=y;
+                if (x>max_x) max_x=x;
+                if (y>max_y) max_y=y;
+                info_3d_elem.pos=glm::ivec2(x,y);
+                info_3d_elem.pos2=glm::ivec2(x,y);
+                info_3d.push_back(info_3d_elem);
+                cnt++;
+
+
+                max_x=-1;max_y=-1;
+                get_area_data(my_area,max_x,max_y);
+                for (int yyy=0; yyy<extra_octants; yyy++) {
+                    window.pollEvent(event);
+                    get_area_quick=true;
+                    str=get_area_data(my_area,max_x,yyy);
+                    get_area_quick=false;
+                    if (str!="") {
+        //                printf(".");
+//                        printf("#%3d FOUND: X=%3d Y=%3d %s (EXTRA)  ",cnt,max_x,y,str.c_str());
+
+                        std::string to_test=extra_octants_belong_to_string_pointer[yyy];
+                        char octant[100];
+                        int xx,yy;
+                        int num=sscanf(to_test.c_str(),"%100[^ ] X=%d Y=%d", octant, &xx, &yy);
+
+                        if (xx==x && yy==y) {
+                            printf("#%3d FOUND: X=%3d Y=%3d %s (EXTRA)  ",cnt,max_x,yyy,str.c_str());
+
+                            if (num==3) {
+//                                str=get_area_data(my_area,max_x,yyy);
+//                                info_3d_elem.filename=str;
+                                info_3d_elem.pos=glm::ivec2(max_x,yyy);
+                                info_3d_elem.pos2=glm::ivec2(xx,yy);
+//                                printf("Relocating       (%d,%d) to \"%s\"    \r",max_x,yyy,to_test.c_str());
+                                info_3d.push_back(info_3d_elem);
+                                cnt++;
+                                break;
+                            } else {
+                                printf("Can not relocate (%d,%d) to \"%s\"    \r",max_x,yyy,to_test.c_str());
+                            }
                         }
                     }
-                    if (ERR) continue;
-                    if (x<min_x) min_x=x;
-                    if (y<min_y) min_y=y;
-                    if (x>max_x) max_x=x;
-                    if (y>max_y) max_y=y;
-//                    info_3d_elem.filename=str;
-                    info_3d_elem.pos=glm::ivec2(x,y);
-
-/*
-                    lat_north=0.0;
-                    lat_south=0.0;
-                    lon_west=0.0;
-                    lon_east=0.0;
-                    if (latitude_longditude!="") {
-                        char line[2000];
-                        strcpy(line,latitude_longditude.c_str());
-                        while (replace_str(line,",","."));
-                        int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
-                    }
-                    info_3d_elem.lat=(lat_north+lat_south)/2.0;
-                    info_3d_elem.lon=(lon_east+lon_west)/2.0;
-                    info_3d_elem.n=lat_north;
-                    info_3d_elem.s=lat_south;
-                    info_3d_elem.e=lon_east;
-                    info_3d_elem.w=lon_west;
-
-                    printf("N=%20.16f S=%20.16f W=%20.16f E=%20.16f\n", lat_north, lat_south, lon_west, lon_east);
-//                    printf("N=%lf S=%lf W=%lf E=%lf\n", lat_north, lat_south, lon_west, lon_east);
-*/
-
-                    info_3d.push_back(info_3d_elem);
-                } else {
-                    printf("NOT FOUND: X=%4d Y=%4d                                                                                                               \r",x,y);
                 }
-            } else {
-//                printf("Skipping line %d: %s\n",cnt,line);
-
-
             }
         }
         fclose(file_arr);
@@ -2019,6 +2096,7 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
 //                    printf("lat/lon   : \"%s\"\n",latitude_longditude.c_str());
 //                    info_3d_elem.filename=str;
                     info_3d_elem.pos=glm::ivec2(x,y);
+                    info_3d_elem.pos2=glm::ivec2(x,y);
 
 /*
                     lat_north=0.0;
@@ -2052,57 +2130,30 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
                 cnt++;
             }
         }
+
         max_x=-1;max_y=-1;
         get_area_data(my_area,max_x,max_y);
         for (y=0; y<extra_octants; y++) {
             window.pollEvent(event);
+            get_area_quick=true;
             str=get_area_data(my_area,max_x,y);
+            get_area_quick=false;
             if (str!="") {
-//                printf(".");
-                printf("#%3d FOUND: X=%3d Y=%3d %s (EXTRA)  ",cnt,max_x,y,str.c_str());
-                info_3d_elem.filename=str;
-                info_3d_elem.pos=glm::ivec2(max_x,y);
+                printf("#%3d CREATE: X=%3d Y=%3d %s (EXTRA)  \n",cnt,max_x,y,str.c_str());
 
                 std::string to_test=extra_octants_belong_to_string_pointer[y];
                 char octant[100];
                 int xx,yy;
                 int num=sscanf(to_test.c_str(),"%100[^ ] X=%d Y=%d", octant, &xx, &yy);
                 if (num==3) {
-                    info_3d_elem.pos=glm::ivec2(xx,yy);
-                    printf("Relocating       (%d,%d) to \"%s\"    \r",max_x,y,to_test.c_str());
-                } else {
-                    printf("Can not relocate (%d,%d) to \"%s\"    \r",max_x,y,to_test.c_str());
+                    info_3d_elem.pos=glm::ivec2(max_x,y);
+                    info_3d_elem.pos2=glm::ivec2(xx,yy);
+//                    info_3d_elem.filename=str;
+                    info_3d.push_back(info_3d_elem);
                 }
-/*
 
-
-                lat_north=0.0;
-                lat_south=0.0;
-                lon_west=0.0;
-                lon_east=0.0;
-                if (latitude_longditude!="") {
-                    char line[2000];
-                    strcpy(line,latitude_longditude.c_str());
-//decimal_point
-                        while (replace_str(line,",","."));
-//                    while (replace_str(line,".",","));
-                    int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
-//                    printf("N=%f S=%f W=%f E=%f\n", &lat_north, &lat_south, &lon_west, &lon_east);
-                }
-                info_3d_elem.lat=(lat_north+lat_south)/2.0;
-                info_3d_elem.lon=(lon_east+lon_west)/2.0;
-                info_3d_elem.n=lat_north;
-                info_3d_elem.s=lat_south;
-                info_3d_elem.e=lon_east;
-                info_3d_elem.w=lon_west;
-
-                printf("N=%20.16f S=%20.16f W=%20.16f E=%20.16f\r", lat_north, lat_south, lon_west, lon_east);
-//                printf("N=%lf S=%lf W=%lf E=%lf\n", lat_north, lat_south, lon_west, lon_east);
-*/
-
-                info_3d.push_back(info_3d_elem);
             } else {
-                printf("#%3d NOT FOUND: X=%3d Y=%3d (EXTRA)\r",cnt,max_x,y);
+                printf("#%3d NOT FOUND: X=%3d Y=%3d (EXTRA)\n",cnt,max_x,y);
             }
             cnt++;
         }
@@ -2135,6 +2186,7 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
         center_lon/=num_octants;
     }
 
+//jippie!!!
     sort_lat_lon=false;
     if (my_area=="DenHaag") {
 //        center_x=22;
@@ -2147,6 +2199,9 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
         center_y=129;
 //        center_x=227;
 //        center_y=129;
+    } else if (my_area=="Holland") {
+        center_x=337;
+        center_y=528;
     } else if (my_area=="Rio") {
         center_x=80;
         center_y=22;
@@ -2176,20 +2231,47 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
 
     cnt=0;
     int cnt2=0;
+    char new_file_raw[100];
+    char new_file_dat[100];
     for (auto v : info_3d) {
+        cnt++;
+
+        if (crossing==2 && mirror==4) {
+            std::string str;
+            get_area_quick=true;
+            str=get_area_data(my_area,v.pos.x,v.pos.y);
+            get_area_quick=false;
+            sprintf(new_file_dat,"../cut/done/%s.DAT",str.c_str());
+            if (file_exists(new_file_dat)) {
+                printf("%s exists                        \r",new_file_dat);
+                continue;
+            }
+
+        }
+
         v.filename=get_area_data(my_area,v.pos.x,v.pos.y); //update when moved...
         std::string str;
         std::string fn = v.filename;
         str=v.filename;
-cnt++;
+
+        std::string mtl=str;
+        if (mtl.find_last_of(".") != std::string::npos) mtl=mtl.substr(0,mtl.find_last_of("."))+".mtl";
+        if (!file_exists(mtl.c_str())) {
+            printf("No .mtl file: %s                 \r",mtl.c_str());
+            continue;
+        }
+
         if (str=="") {
-            printf("#%3d of %3d NOT FOUND: X=%3d Y=%3d\r",cnt,cnt2+cnt,x,y);
+            printf("#%3d of %3d NOT FOUND: X=%3d Y=%3d X=%3d Y=%3d      \r",cnt,cnt2+cnt,v.pos.x,v.pos.y,v.pos2.x,v.pos2.y);
+            char out[1000];
+            sprintf(out,"echo OCTANT NOT FOUND [%3d][%3d] [%3d][%3d]\n",v.pos.x,v.pos.y,v.pos2.x,v.pos2.y);
+            system(out);
 //            cnt++;
             continue;
         }
         if (strstr(str.c_str(), "/nbt/") != NULL) {
             if (!(crossing==2 && mirror==4) ) {
-                printf("\r#%3d NBT EXISTS: X=%4d Y=%4d %s   \r",cnt,v.pos.x,v.pos.y,str.c_str());
+                printf("\r#%3d NBT EXISTS: X=%4d Y=%4d %s        \r",cnt,v.pos.x,v.pos.y,str.c_str());
 //                cnt++;
                 continue;
             }
@@ -2237,9 +2319,6 @@ cnt++;
             }
 
             fn=GetFileName(fn.substr(0,fn.find_last_of(".")));
-
-            char new_file_raw[100];
-            char new_file_dat[100];
 
             if (crossing==3) {
                 if (MCEDITOR_stop==1) return true;
@@ -2393,18 +2472,9 @@ cnt++;
                     voxel_to_file=true;
                 }
             }
-//serious failure part 2
-//            lat_global=v.lat;
-//            lon_global=v.lon;
             char kutjelikken[200];
-//utrecht
-
-//            sprintf(kutjelikken,"N=%lf S=%lf W=%lf E=%lf", v.n, v.s, v.w, v.e);
             sprintf(kutjelikken,"N=%20.16f S=%20.16f W=%20.16f E=%20.16f", v.n, v.s, v.w, v.e);
-//            printf("kutjelikken,N=%20.16f S=%20.16f W=%20.16f E=%20.16f\f", v.n, v.s, v.w, v.e);
-//            sprintf(kutjelikken,"N=%f S=%f W=%f E=%f", v.n, v.s, v.w, v.e);
             latitude_longditude=kutjelikken;
-//            printf("latitude_longditude=%s\n",latitude_longditude.c_str());
             global_octant_x=v.pos.x;
             global_octant_y=v.pos.y;
 
