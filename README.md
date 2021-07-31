@@ -1,5 +1,7 @@
 CHECK THE ISSUES!!!
 
+!!!WARNING!!! Welcome to the jungle of Junk coding. If you don't know your way in the jungle, don't enter it... ;)
+
 (You need to dive into the code because it is updated on dayly basis. Follow the white rabbit.)
 Only for c/c++ devils.
 
