@@ -20,10 +20,16 @@ for /f "tokens=*" %%F in ('dir /b /a:d ".\3*"') do (
 				echo Deleting      %%F\%%G
 				rmdir %%F\%%G /S /Q
 			) else (
-				echo "%%F\%%G\!l:~0,17!.obj found"
- 				set "l=%%G"
- 				set "result=!l:~0,17!"
- 				call F:\PACMAN\EARTH\FIND_OCTANT.BAT !result!
+				if exist "G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F\%%G\!l:~0,17!.nbt" (
+					echo G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F\%%G\!l:~0,17!.nbt FOUND! MOVING TO NBT_EXISTS
+					echo G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F\%%G NBT_EXISTS >> NBT_EXISTS.TXT
+					move "%%F\%%G" NBT_EXISTS>NUL
+				) else (
+					echo "%%F\%%G\!l:~0,17!.obj found"
+					set "l=%%G"
+					set "result=!l:~0,17!"
+					call F:\PACMAN\EARTH\FIND_OCTANT.BAT !result!
+				)
 			)
 		) else (
 			if exist "%%F\%%G\!l:~0,17!.nbt" (

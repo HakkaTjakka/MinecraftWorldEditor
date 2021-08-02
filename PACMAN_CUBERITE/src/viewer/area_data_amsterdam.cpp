@@ -215,8 +215,8 @@ std::string get_octant_HOLLAND(int &x, int &y) {
 		return "";
 	}
 	bool OK=false;
-	if (x>=735 && y>11907) printf("Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
-	else if (!(x>=735) && (x>735 || y>1055)) printf("Out of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
+	if (x>=735 && y>11948) printf("\nOut of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
+	else if (!(x>=735) && (x>735 || y>1055)) printf("\nOut of bound: %s X=%d Y=%d\n",area.c_str(),x,y);
 	else OK=true;
 
     if (octants[x][y]=="00000000000000000") OK=false;

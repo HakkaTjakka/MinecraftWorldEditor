@@ -678,6 +678,24 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
 
 bool lighten=false;
 sf::Color color_behind;
+
+void nbt_fast() {
+    Pacman_Object pac_obj2_arr[100];
+    bool pac_obj2_arr_used[100];
+    std::string my_area=area;
+    sf::RenderWindow window; //dummy
+    for (int i=0; i<100; i++) {
+        pac_obj2_arr_used[i]=false;
+        pac_obj2_arr[i].gDrawObjects.clear();
+        pac_obj2_arr[i].materials.clear();
+        pac_obj2_arr[i].textures.clear();
+    }
+    size_t pac_obj2_arr_size=0;
+
+
+    create_nbt_fast(my_area, window, 0, pac_obj2_arr_used, pac_obj2_arr);
+}
+
 int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, int yo_combine)
 {
     sf::RenderWindow window;
@@ -1675,7 +1693,7 @@ system("pause");
 //                    DONTSAVEFILES=0;
 //                    SAVEALLBITMAPS();
                     sf::sleep(sf::seconds(1));
-//                    exit_code=-1;   exit_thread = true; keep_running[win_num]=0;
+                    exit_code=-1;   exit_thread = true; keep_running[win_num]=0;
 
 //                    send_message='x';
 //                    return 0;

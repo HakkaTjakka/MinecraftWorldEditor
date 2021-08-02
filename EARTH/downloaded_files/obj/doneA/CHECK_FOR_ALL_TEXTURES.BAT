@@ -123,15 +123,21 @@ for /f "tokens=*" %%F in ('dir /b /a:d /o:-n ".\3*"') do (
 					)
 				)
 			) else (
-				echo Subdirectory: %%F\%%G has no file %%F\%%G\!result!.mtl, moving to NO_MTL_FILE
-				echo Subdirectory: %%F\%%G has no file %%F\%%G\!result!.mtl >> CHECK_FOR_ALL_TEXTURES.LOG
+				echo Subdirectory: %%F\%%G has no .mtl file %%F\%%G\!result!.mtl, moving to G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F
+				echo Subdirectory: %%F\%%G has no .mtl file %%F\%%G\!result!.mtl >> CHECK_FOR_ALL_TEXTURES.LOG
 				set /a is_corrupt = 2
 			)
 			if not !is_corrupt! EQU 0 (
 				if !is_corrupt! EQU 2 (
-					if not exist NO_MTL_FILE mkdir NO_MTL_FILE
+REM					if not exist NO_MTL_FILE mkdir NO_MTL_FILE
 					if exist %%F\%%G (
-						move %%F\%%G NO_MTL_FILE
+						if not exist G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F mkdir G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F
+						if not exist G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F\%%G mkdir G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F\%%G
+						echo Copying       %%F\%%G G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F
+						copy %%F\%%G\*.* G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F\%%G >NUL
+						echo Deleting      %%F\%%G
+						rmdir %%F\%%G /S /Q
+REM 						move %%F\%%G NO_MTL_FILE
 					) else (
 						echo %%F\%%G DOES NOT EXIST!!!!!!!!
 					)

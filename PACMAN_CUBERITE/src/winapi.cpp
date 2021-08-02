@@ -48,6 +48,8 @@
 extern void launch_PLOT_REGIONS();
 extern void font2function();
 extern bool MAKE_NBT;
+bool MAKE_NBT_EXTERN=false;
+void nbt_fast();
 
 extern sf::Texture* backgroundTexture[];
 extern bool get_screenshot(sf::Texture* m_texture);
@@ -740,6 +742,15 @@ extern int keep_running[];
                 while (!i_am_here) {
                     sf::sleep(sf::seconds(0.1));
                 }
+            } else if (c==(char)'D') {
+                area="Holland";
+//                cubic=true;
+//                and_now_i_am_here=true;
+                MAKE_NBT=true;
+                MAKE_NBT_EXTERN=true;
+                nbt_fast();
+                exit(0);
+//                GenerateConsoleCtrlEvent(CTRL_C_EVENT, 0);
             } else if (c==(char)'P') {
                 crossing=2; mirror=4;combine=1;
 //                area="Utrecht";
@@ -984,6 +995,13 @@ printf("hoppa");
             if (argc>2) {
                 if (strcmp(argv[2],"cubic")==0) {
                     cubic=true;
+                    if (argc>3) {
+                        int len = strlen(argv[3]);
+                        for(int i=0;i<len;i++) argv[3][i]=toupper(argv[3][i]);
+                        if (strcmp("UTRECHT",argv[3])==0) area="Utrecht";
+                        else if (strcmp("HOLLAND",argv[3])==0) area="Holland";
+                        else mcglobal=atoi(argv[3]);
+                    }
                 } else {
                     strcpy(voxel_filename,argv[2]);
                     mcglobal=atoi(argv[2]);
@@ -993,7 +1011,11 @@ printf("hoppa");
                         if (strcmp(argv[3],"cubic")==0) {
                             cubic=true;
                         } else {
-                            mcglobal=atoi(argv[3]);
+                            int len = strlen(argv[3]);
+                            for(int i=0;i<len;i++) argv[3][i]=toupper(argv[4][i]);
+                            if (strcmp("UTRECHT",argv[3])==0) area="Utrecht";
+                            else if (strcmp("HOLLAND",argv[3])==0) area="Holland";
+                            else mcglobal=atoi(argv[3]);
                         }
                         if (argc>4) {
                             int len = strlen(argv[4]);
@@ -1063,6 +1085,15 @@ printf("hoppa");
                 else if (strcmp("HOLLAND",argv[2])==0) area="Holland";
             } else area="Holland";
             send_message='C';
+        }
+        else if (   strcmp(argv[1],"nbt_extern"    )==0) {
+            if (argc>2) {
+                int len = strlen(argv[2]);
+                for(int i=0;i<len;i++) argv[2][i]=toupper(argv[2][i]);
+                if (strcmp("UTRECHT",argv[2])==0) area="Utrecht";
+                else if (strcmp("HOLLAND",argv[2])==0) area="Holland";
+            } else area="Holland";
+            send_message='D';
         }
         else if (   strcmp(argv[1],"plot"    )==0) {
             if (argc>2) {

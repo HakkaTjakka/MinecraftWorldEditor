@@ -1619,11 +1619,13 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
 
             v.filename=get_area_data(my_area,v.pos.x,v.pos.y); //update when moved...
 
-            std::string mtl=v.filename;
-            if (mtl.find_last_of(".") != std::string::npos) mtl=mtl.substr(0,mtl.find_last_of("."))+".mtl";
-            if (!file_exists(mtl.c_str())) {
-                printf("No .mtl file: %s                 \r",mtl.c_str());
-                continue;
+            if (!(v.filename=="")) {
+                std::string mtl=str;
+                if (mtl.find_last_of(".") != std::string::npos) mtl=mtl.substr(0,mtl.find_last_of("."))+".mtl";
+                if (!file_exists(mtl.c_str())) {
+                    printf("\nNo .mtl file: %s                 \n",mtl.c_str());
+                    continue;
+                }
             }
 
             if (v.filename=="") {
@@ -1631,7 +1633,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
 
                 printf("Doesn't exist, skipping: %s\n",v.filename);
                 char out[1000];
-                sprintf(out,"echo OCTANT NOT FOUND [%3d][%3d] [%3d][%3d]\n",v.pos.x,v.pos.y,v.pos2.x,v.pos2.y));
+                sprintf(out,"echo OCTANT NOT FOUND [%3d][%3d] [%3d][%3d]>>octant_not_found.txt\n",v.pos.x,v.pos.y,v.pos2.x,v.pos2.y);
                 system(out);
                 continue;
 
@@ -1918,6 +1920,7 @@ bool Make_Canvas() {
     system(filename);
     return true;
 }
+extern bool MAKE_NBT_EXTERN;
 
 bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num, bool pac_obj2_arr_used[100], Pacman_Object pac_obj2_arr[100]) {
     ShowTaskBar(true);
@@ -2011,7 +2014,7 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
             cnt++;
 
             if (num==2 && line[0]=='X' && x!=-1 && y!=-1) {
-                window.pollEvent(event);
+                if (!MAKE_NBT_EXTERN) window.pollEvent(event);
 //                to_check_pos.push_back(glm::vec2(x,y));
 //                str=get_area_data(my_area,x,y);
 //                to_check_filename.push_back(str);
@@ -2038,7 +2041,7 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
                 max_x=-1;max_y=-1;
                 get_area_data(my_area,max_x,max_y);
                 for (int yyy=0; yyy<extra_octants; yyy++) {
-                    window.pollEvent(event);
+                    if (!MAKE_NBT_EXTERN) window.pollEvent(event);
                     get_area_quick=true;
                     str=get_area_data(my_area,max_x,yyy);
                     get_area_quick=false;
@@ -2052,7 +2055,7 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
                         int num=sscanf(to_test.c_str(),"%100[^ ] X=%d Y=%d", octant, &xx, &yy);
 
                         if (xx==x && yy==y) {
-                            printf("#%3d FOUND: X=%3d Y=%3d %s (EXTRA)  ",cnt,max_x,yyy,str.c_str());
+                            printf("\n#%3d FOUND: X=%3d Y=%3d %s (EXTRA)\n",cnt,max_x,yyy,str.c_str());
 
                             if (num==3) {
 //                                str=get_area_data(my_area,max_x,yyy);
@@ -2080,7 +2083,7 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
         min_x=0;min_y=0;
         for (y=0; y<max_y; y++) {
             for (x=0; x<max_x; x++) {
-                window.pollEvent(event);
+                if (!MAKE_NBT_EXTERN) window.pollEvent(event);
 //wuppie
 
                 if (my_area == "Amsterdam" || my_area == "NewYork")
@@ -2134,7 +2137,7 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
         max_x=-1;max_y=-1;
         get_area_data(my_area,max_x,max_y);
         for (y=0; y<extra_octants; y++) {
-            window.pollEvent(event);
+            if (!MAKE_NBT_EXTERN) window.pollEvent(event);
             get_area_quick=true;
             str=get_area_data(my_area,max_x,y);
             get_area_quick=false;
@@ -2254,17 +2257,19 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
         std::string fn = v.filename;
         str=v.filename;
 
-        std::string mtl=str;
-        if (mtl.find_last_of(".") != std::string::npos) mtl=mtl.substr(0,mtl.find_last_of("."))+".mtl";
-        if (!file_exists(mtl.c_str())) {
-            printf("No .mtl file: %s                 \r",mtl.c_str());
-            continue;
+        if (!(str=="")) {
+            std::string mtl=str;
+            if (mtl.find_last_of(".") != std::string::npos) mtl=mtl.substr(0,mtl.find_last_of("."))+".mtl";
+            if (!file_exists(mtl.c_str())) {
+                printf("\nNo .mtl file: %s                 \n",mtl.c_str());
+                continue;
+            }
         }
 
         if (str=="") {
             printf("#%3d of %3d NOT FOUND: X=%3d Y=%3d X=%3d Y=%3d      \r",cnt,cnt2+cnt,v.pos.x,v.pos.y,v.pos2.x,v.pos2.y);
             char out[1000];
-            sprintf(out,"echo OCTANT NOT FOUND [%3d][%3d] [%3d][%3d]\n",v.pos.x,v.pos.y,v.pos2.x,v.pos2.y);
+            sprintf(out,"echo OCTANT NOT FOUND [%3d][%3d] [%3d][%3d]>>octant_not_found.txt\n",v.pos.x,v.pos.y,v.pos2.x,v.pos2.y);
             system(out);
 //            cnt++;
             continue;
@@ -2427,11 +2432,18 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
         }
 //        nbt_filename_file=GetFileName(nbt_filename.c_str());
 
+        if ((crossing==2 && mirror==4) || MAKE_NBT) to_gpu=false;
         burn=true;
-        window.setActive(true);
-        while (Pacman_Objects[win_num].size()>1) {
-//            printf("Erasing: X=%d,Y=%d\n",Pacman_Objects[win_num][0].map_x,Pacman_Objects[win_num][0].map_y);
-            erase_one_pacman_objects(Pacman_Objects[win_num][1].map_x,Pacman_Objects[win_num][1].map_y,win_num,pac_obj2_arr_used,pac_obj2_arr);
+        if (!MAKE_NBT_EXTERN) {
+            window.setActive(true);
+            while (Pacman_Objects[win_num].size()>1) {
+                erase_one_pacman_objects(Pacman_Objects[win_num][1].map_x,Pacman_Objects[win_num][1].map_y,win_num,pac_obj2_arr_used,pac_obj2_arr);
+            }
+        } else {
+            while (Pacman_Objects[win_num].size()>0) {
+//                Pacman_Objects[win_num].clear();
+                erase_one_pacman_objects(Pacman_Objects[win_num][0].map_x,Pacman_Objects[win_num][0].map_y,win_num,pac_obj2_arr_used,pac_obj2_arr);
+            }
         }
 
 //wuppie
@@ -2478,7 +2490,7 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
             global_octant_x=v.pos.x;
             global_octant_y=v.pos.y;
 
-            if (crossing==2 && mirror==4) to_gpu=false;
+//            if ((crossing==2 && mirror==4) || MAKE_NBT) to_gpu=false;
             if (true == LoadObjAndConvert_window(pac_obj2_arr[i].bmin, pac_obj2_arr[i].bmax, pac_obj2_arr[i].gDrawObjects, pac_obj2_arr[i].materials, pac_obj2_arr[i].textures, (char*) str.c_str()))
             {
                 pac_obj2_arr[i].map_x=v.pos.x;
@@ -2499,7 +2511,7 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
 //                nbt_creating=false;
 //                return true;
             }
-            if (crossing==2 && mirror==4) to_gpu=true;
+            if ((crossing==2 && mirror==4) || MAKE_NBT) to_gpu=true;
 
         } else {
             printf("\r#%3d NBT EXISTS: X=%4d Y=%4d %s\n",cnt,v.pos.x,v.pos.y,nbt_filename.c_str());
@@ -2545,9 +2557,18 @@ extern char send_message;
         }
         fclose(report);
     }
-    while (Pacman_Objects[win_num].size()>1) {
-//            printf("Erasing: X=%d,Y=%d\n",Pacman_Objects[win_num][0].map_x,Pacman_Objects[win_num][0].map_y);
-        erase_one_pacman_objects(Pacman_Objects[win_num][1].map_x,Pacman_Objects[win_num][1].map_y,win_num,pac_obj2_arr_used,pac_obj2_arr);
+    if (!MAKE_NBT_EXTERN) {
+        window.setActive(true);
+        while (Pacman_Objects[win_num].size()>1) {
+            erase_one_pacman_objects(Pacman_Objects[win_num][1].map_x,Pacman_Objects[win_num][1].map_y,win_num,pac_obj2_arr_used,pac_obj2_arr);
+        }
+    } else {
+        if ((crossing==2 && mirror==4) || MAKE_NBT) to_gpu=false;
+        while (Pacman_Objects[win_num].size()>0) {
+//                Pacman_Objects[win_num].clear();
+            erase_one_pacman_objects(Pacman_Objects[win_num][0].map_x,Pacman_Objects[win_num][0].map_y,win_num,pac_obj2_arr_used,pac_obj2_arr);
+        }
+        if ((crossing==2 && mirror==4) || MAKE_NBT) to_gpu=true;
     }
     printf("\n");
     nbt_creating=false;
@@ -3328,27 +3349,30 @@ void erase_one_pacman_objects(int map_x,int map_y,int win_num, bool pac_obj2_arr
     for (auto p : Pacman_Objects[win_num]) {
         if (p.map_x==map_x && p.map_y==map_y) {
             {
-                num_p1=0;
-                GLuint gluint_arr[p.textures.size()];
-                int num_com=0;
-                for (auto u : p.textures) {
-                    gluint_arr[num_com++]=u.second;
-                    num_p++;
-                    num_p1++;
+                if (to_gpu) {
+                    num_p1=0;
+                    GLuint gluint_arr[p.textures.size()];
+                    int num_com=0;
+                    for (auto u : p.textures) {
+                        gluint_arr[num_com++]=u.second;
+                        num_p++;
+                        num_p1++;
+                    }
+                    glDeleteTextures((GLsizei)p.textures.size(), gluint_arr);
                 }
-                glDeleteTextures((GLsizei)p.textures.size(), gluint_arr);
             }
             {
-
-                num_p1b=0;
-                GLuint gluint_arr[p.gDrawObjects.size()];
-                int num_com=0;
-                for (auto u : p.gDrawObjects) {
-                    gluint_arr[num_com++]=u.vb_id;
-                    num_pb++;
-                    num_p1b++;
+                if (to_gpu) {
+                    num_p1b=0;
+                    GLuint gluint_arr[p.gDrawObjects.size()];
+                    int num_com=0;
+                    for (auto u : p.gDrawObjects) {
+                        gluint_arr[num_com++]=u.vb_id;
+                        num_pb++;
+                        num_p1b++;
+                    }
+                    glDeleteBuffers((GLsizei)p.gDrawObjects.size(), gluint_arr);
                 }
-                glDeleteBuffers((GLsizei)p.gDrawObjects.size(), gluint_arr);
             }
 
             p.map_x=-1;

@@ -287,6 +287,8 @@ double projection1[3];
 double projection2[3];
 double geo_north_east[3];
 double geo_south_west[3];
+extern bool MAKE_NBT_EXTERN;
+
 static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
                               std::vector<DrawObject>& drawObjects,
                               std::vector<tinyobj::material_t>& materials,
@@ -355,7 +357,6 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
         printf("\n");
 
     }
-
 
     tinyobj::attrib_t attrib;
     std::vector<tinyobj::shape_t> shapes;
@@ -997,12 +998,14 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
 
                 if (buffer.size() > 0)
                 {
+//printf("shit 13.6\n");
                     if (to_gpu) {
                         glGenBuffers(1, &o.vb_id);
                         glBindBuffer(GL_ARRAY_BUFFER, o.vb_id);
 //                        glBufferData(GL_ARRAY_BUFFER, buffer.size() * sizeof(float),  &buffer.at(0), GL_STATIC_DRAW);
                         glBufferData(GL_ARRAY_BUFFER, buffer.size() * sizeof(float),  &buffer.at(0), GL_STATIC_DRAW);
                     }
+//printf("shit 13.7\n");
                     o.numTriangles = buffer.size() / (3 + 3 + 3 + 2) / 3;     // 3:vtx, 3:normal, 3:col, 2:texcoord
     //                printf(" shape[%d] # of triangles = %d", static_cast<int>(s), o.numTriangles);
                     drawObjects.push_back(o);

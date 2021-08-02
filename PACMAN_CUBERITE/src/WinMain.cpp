@@ -10801,11 +10801,11 @@ extern std::string region_filename;
                 float zc=sprite_from_canvas.getScale().x;
 //                int offset_y=(zc/0.02)*512.0 - 512;
                 int offset_y=(zc/0.02)*512.0;
-                int x=(int)( ( (LONG64)(scan_x)*512  +256+ (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
-                int y=(int)( ( (LONG64)(scan_z)*512  +256 + 512 - offset_y + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
+                int x=(int)( ( (LONG64)(scan_x)*512  +256+ (LONG64)maxpixelsx*1000 ) % (LONG64)maxpixelsx );
+                int y=(int)( ( (LONG64)(scan_z)*512  +256 + 512 - offset_y + (LONG64)maxpixelsy*1000 ) % (LONG64)maxpixelsy );
 
-                wanted_position1x=(x+maxpixelsx*2)%+maxpixelsx;
-                wanted_position1y=(y+maxpixelsy*2)%+maxpixelsy;
+                wanted_position1x=(x+maxpixelsx*2)%maxpixelsx;
+                wanted_position1y=(y+maxpixelsy*2)%maxpixelsy;
 
                 position1x=old_positionx;
                 position1y=old_positiony;
@@ -10814,6 +10814,16 @@ extern std::string region_filename;
                 position1x_wanted=wanted_position1x;
                 position1y_wanted=wanted_position1y;
 
+                float dist=sqrt( (position1x_wanted-position1x)*(position1x_wanted-position1x)+(position1y_wanted-position1y)*(position1y_wanted-position1y) );
+                if (dist>1000.0) {
+                    position1x=position1x_wanted;
+                    position1y=position1y_wanted;
+                    get_position1();
+
+                    long_jump=1;
+                    forced_jump=1;
+                    follow_ghost_pos();
+                }
             } else {
                 position1x=old_positionx;
                 position1y=old_positiony;
