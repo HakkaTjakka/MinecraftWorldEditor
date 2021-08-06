@@ -162,9 +162,10 @@ void LOAD_ONE_IMAGE(size_t index) {
 //                image_buffer[index]->ok=resize_image(image_buffer[index]->image,image_buffer[index]->filename);
                 if (!image_buffer[index]->ok)
                     printf("\nindex=%d Error loading file: %s\n",index,image_buffer[index]->filename.c_str());
-                else
-                image_buffer[index]->previous = image_buffer[index]->filename;
-                image_buffer[index]->ready=true;
+                else {
+                    image_buffer[index]->previous = image_buffer[index]->filename;
+                    image_buffer[index]->ready=true;
+                }
             }
         }
         first=0;

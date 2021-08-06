@@ -674,9 +674,23 @@ struct info_3d_struct {
 //            double Bdist   = fabs(B.pos.x-center_x)*320.0/412.0   + fabs(B.pos.y-center_y);
 //            return( dist < Bdist );
 */
+
             double dist=sqrt( (pos2.x-center_x)*(pos2.x-center_x)*1.23 +(pos2.y-center_y)*(pos2.y-center_y) );
             double Bdist=sqrt( (B.pos2.x-center_x)*(B.pos2.x-center_x)*1.23 + (B.pos2.y-center_y)*(B.pos2.y-center_y) );
-            return( dist < Bdist );
+
+            double angle=atan2(pos2.x-center_x,pos2.y-center_y);
+            double Bangle=atan2(B.pos2.x-center_x,B.pos2.y-center_y);
+
+            double s=int(dist/3) + angle*2/(PI)+0.5;
+            double Bs=int(Bdist/3) + Bangle*2/(PI)+0.5;
+
+            return( s < Bs );
+
+
+
+//            double dist=sqrt( (pos2.x-center_x)*(pos2.x-center_x)*1.23 +(pos2.y-center_y)*(pos2.y-center_y) );
+//            double Bdist=sqrt( (B.pos2.x-center_x)*(B.pos2.x-center_x)*1.23 + (B.pos2.y-center_y)*(B.pos2.y-center_y) );
+//            return( dist < Bdist );
         }
 
     }
@@ -1757,6 +1771,9 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
 
         burn=true;
         window.setActive(true);
+
+        if (crossing==2 && mirror==4 || MAKE_NBT) to_gpu=false;
+
         while (Pacman_Objects[win_num].size()>1) {
 //            printf("Erasing: X=%d,Y=%d\n",Pacman_Objects[win_num][0].map_x,Pacman_Objects[win_num][0].map_y);
             erase_one_pacman_objects(Pacman_Objects[win_num][1].map_x,Pacman_Objects[win_num][1].map_y,win_num,pac_obj2_arr_used,pac_obj2_arr);
@@ -1815,7 +1832,7 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
             global_octant_x=v.pos.x;
             global_octant_y=v.pos.y;
 
-            if (crossing==2 && mirror==4) to_gpu=false;
+//            if (crossing==2 && mirror==4 || MAKE_NBT) to_gpu=false;
             if (true == LoadObjAndConvert_window(pac_obj2_arr[i].bmin, pac_obj2_arr[i].bmax, pac_obj2_arr[i].gDrawObjects, pac_obj2_arr[i].materials, pac_obj2_arr[i].textures, (char*) str.c_str()))
             {
                 pac_obj2_arr[i].map_x=v.pos.x;
@@ -1828,14 +1845,19 @@ bool create_nbt(std::string my_area, sf::RenderWindow& window, int win_num, bool
                 Pacman_Objects[win_num].push_back(pac_obj2_arr[i]);
             } else {
                 printf("Error loading new object: (%d,%d): %s\n",v.pos.x,v.pos.y,str.c_str());
-                if (crossing>0) {
-                    voxel_to_file=true;
-                }
+                char out[1000];
+                sprintf(out, "echo Error loading new object: (%d,%d): %s>>LOADOBJOBJECT_ERROR.TXT\n",v.pos.x,v.pos.y,str.c_str());
+                system(out);
+                if ((crossing==2 && mirror==4) || MAKE_NBT) to_gpu=true;
+                continue;
+//                if (crossing>0) {
+//                    voxel_to_file=true;
+//                }
 //                window.setActive(false);
 //                nbt_creating=false;
 //                return true;
             }
-            if (crossing==2 && mirror==4) to_gpu=true;
+            if ((crossing==2 && mirror==4)  || MAKE_NBT) to_gpu=true;
 
         } else {
             printf("\r#%3d NBT EXISTS: X=%4d Y=%4d %s\n",cnt,v.pos.x,v.pos.y,nbt_filename.c_str());
@@ -2203,7 +2225,7 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
 //        center_x=227;
 //        center_y=129;
     } else if (my_area=="Holland") {
-        center_x=337;
+        center_x=437;
         center_y=528;
     } else if (my_area=="Rio") {
         center_x=80;
@@ -2504,9 +2526,14 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
                 printf("\n");
             } else {
                 printf("Error loading new object: (%d,%d): %s\n",v.pos.x,v.pos.y,str.c_str());
-                if (crossing>0) {
-                    voxel_to_file=true;
-                }
+                char out[1000];
+                sprintf(out, "echo Error loading new object: (%d,%d): %s>>LOADOBJOBJECT_ERROR.TXT\n",v.pos.x,v.pos.y,str.c_str());
+                system(out);
+                if ((crossing==2 && mirror==4) || MAKE_NBT) to_gpu=true;
+                continue;
+//                if (crossing>0) {
+//                    voxel_to_file=true;
+//                }
 //                window.setActive(false);
 //                nbt_creating=false;
 //                return true;

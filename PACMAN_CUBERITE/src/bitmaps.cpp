@@ -1901,8 +1901,8 @@ void combine_front_to_back() {
 
 
 void merge_back_to_front() {
-    char naam_maze[200];
-    char naam_back[200];
+    char naam_maze[400];
+    char naam_back[400];
     int x,y;
     int arx,ary;
     int numoverwritten=0;
@@ -1916,6 +1916,79 @@ void merge_back_to_front() {
     text.setFillColor(sf::Color::White);
 
     SFMLView1.setVerticalSyncEnabled(false);
+
+    char dir_maze[400];
+    DIR* dr;
+    struct dirent *de;
+    sprintf(dir_maze,"%s/%dx%d/%03d",LEVELDIR,BITMAPSX,BITMAPSY,level);
+    dr = opendir(dir_maze);
+//    int x,y;
+    while ((de = readdir(dr)) != NULL)
+    {
+        if (sscanf(de->d_name, "picture_maze.%d.%d.png",&y,&x)==2) {
+            sprintf(naam_maze,"%s/%dx%d/%03d/picture_maze.%06d.%06d.png",LEVELDIR,BITMAPSX,BITMAPSY,level,y,x);
+            sprintf(naam_back,"%s/%dx%d/%03d/picture.%06d.%06d.png",LEVELDIR,BITMAPSX,BITMAPSY,level,y,x);
+
+            if (file_exists(naam_back)) {
+                if (file_exists(naam_maze)) {
+                    numoverwritten++;
+                    nummoved++;
+                    totalfiles_mazes++;
+                    if (!remove(naam_back)) {
+                    }
+                    if (!rename(naam_maze,naam_back)) {
+                    }
+                }
+                totalfiles_background++;
+                totalfiles++;
+            } else {
+                if (file_exists(naam_maze)) {
+                    nummoved++;
+                    if (rename(naam_maze,naam_back)) {
+                    }
+                    totalfiles_mazes++;
+                    totalfiles++;
+                }
+            }
+
+            blitter2();
+
+            sprintf(writer,"CHECKING FILES: X=%d Y=%d TOTAL=%d",x,y,y*(maxpicturex+1)+x+1);
+            draw2(writer,0,0,sf::Color::Blue,sf::Color::White);
+
+            sprintf(writer,"BACKGROUND BEFORE:      %d",totalfiles_background);
+            draw2(writer,0,36,sf::Color::Blue,sf::Color::White);
+
+            sprintf(writer,"BACKGROUND OVERWRITTEN: %d",numoverwritten);
+            draw2(writer,0,36*2,sf::Color::Blue,sf::Color::White);
+
+            sprintf(writer,"FOREGROUND MOVED:       %d",nummoved);
+            draw2(writer,0,36*3,sf::Color::Blue,sf::Color::White);
+
+            sprintf(writer,"TOTAL FILES:            %d",totalfiles);
+            draw2(writer,0,36*4,sf::Color::Blue,sf::Color::White);
+
+            SFMLView1.display();
+
+            if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+            {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
+            else
+            {
+                HANDLEEVENTS();
+            }
+            if (ESCAPE==1) {
+                ESCAPE=0;
+                goexit=0;
+                break;
+            }
+        }
+    }
+    closedir(dr);
+
+/*
     for (ary=0; ary<=maxpicturey; ary++)
     {
         for (arx=0; arx<=maxpicturex; arx++)
@@ -1989,6 +2062,7 @@ void merge_back_to_front() {
             }
         }
     }
+*/
     if (sync==1)
         SFMLView1.setVerticalSyncEnabled(true);
 

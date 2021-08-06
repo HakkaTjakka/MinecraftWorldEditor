@@ -6353,7 +6353,8 @@ extern std::string area;
         if (flushing && !(make_regions || flushing_mode)) {
             printf("flushing, file %s exists, adding to region...\n",fname.c_str());
         } else if (add_to_region2) {
-            playsound=playsound|8;
+            playsound=playsound|1;
+            //playsound=playsound|8;
             printf("file %s exists, adding to region...\n",fname.c_str());
         } else if (!plotting) {
             printf("file %s exists, skipping...\n",fname.c_str());
@@ -9209,7 +9210,9 @@ extern bool lighten;
 
 //        region_counter[region_x][region_z]=0;
         sprintf(mc_text2,"SAVED");
-        playsound=playsound|4;
+        playsound=playsound|1;
+        //playsound=playsound|8;
+        //playsound=playsound|4;
 
 //        if (!no_plotting) {
             update_request=2;

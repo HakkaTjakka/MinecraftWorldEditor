@@ -356,7 +356,6 @@ int main(int argc, char ** argv) {
 //        main_fly(1,argv1);
 
 //    printf("main_fly3()\n");
-
     std::ios_base::sync_with_stdio(false);
     {
         char *argv[]={"moi","--plane-box"};
@@ -476,20 +475,28 @@ extern std::string rtrim(const std::string& s);
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow) {
 //    do3dview();
 //int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow) {
-    printf("sizeof(float)=%d\n",sizeof(float));
     hInstance_pass=hInstance;
     hPrevInstance_pass=hPrevInstance;
     lpCmdLine_pass=lpCmdLine;
     nCmdShow_pas=nCmdShow;
     std::string cmd=rtrim(lpCmdLine);
     std::transform(cmd.begin(), cmd.end(),cmd.begin(), ::toupper);
+    printf("COMMAND: \"%s\"\n",cmd.c_str());
+    if (cmd=="NBT_EXTERN") {
+//        printf("COMMAND: \"%s\"\n",cmd.c_str());
+        area="Holland";
+        MAKE_NBT=true;
+        MAKE_NBT_EXTERN=true;
+        nbt_fast();
+        exit(0);
+    }
 
+    printf("sizeof(float)=%d\n",sizeof(float));
     if (cmd=="FONT2FUNCTION") {
         font2function();
         ShowTaskBar(true);
         exit(0);
     }
-    printf("COMMAND: \"%s\"\n",cmd.c_str());
 
 //    int ret=WinMain2();
 //    printf("WinMain2() returned. WINAPI=%d\n",ret);
@@ -749,7 +756,9 @@ extern int keep_running[];
                 MAKE_NBT=true;
                 MAKE_NBT_EXTERN=true;
                 nbt_fast();
-                exit(0);
+//                send_message='x';
+//                sf::sleep(sf::seconds(5.0));
+//                return 0;
 //                GenerateConsoleCtrlEvent(CTRL_C_EVENT, 0);
             } else if (c==(char)'P') {
                 crossing=2; mirror=4;combine=1;

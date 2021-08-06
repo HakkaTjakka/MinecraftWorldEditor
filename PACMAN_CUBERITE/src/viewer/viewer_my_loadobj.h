@@ -4591,11 +4591,15 @@ extern int floor_y[512][512];
                                 mkdir("../cut/done");
                                 sprintf (fname,"../cut/r.%d.%d.vox",x,z);
                                 if (file_exists(fname)) {
+                                    sprintf(naam,"del \"..\\cut\\done\\%s\"",fname);
+                                    system(naam);
                                     sprintf(naam,"move \"..\\cut\\%s\" ..\\cut\\done\\",fname);
                                     system(naam);
                                 }
                                 sprintf (fname,"../cut/r.%d.%d.info",x,z);
                                 if (file_exists(fname)) {
+                                    sprintf(naam,"del \"..\\cut\\done\\%s\"",fname);
+                                    system(naam);
                                     sprintf(naam,"move \"..\\cut\\%s\" ..\\cut\\done\\",fname);
                                     system(naam);
                                 }
@@ -4645,6 +4649,8 @@ extern int floor_y[512][512];
     if (!plot_only_on && !make_schematic && !hold_voxels && !dont_write_to_region_voxels) {
         char naam[200];
         mkdir("../cut/done");
+        sprintf(naam,"del \"..\\cut\\done\\%s.*\"",fn.c_str());
+        system(naam);
         sprintf(naam,"move \"..\\cut\\%s.*\" ..\\cut\\done\\",fn.c_str());
         system(naam);
     }
@@ -5297,32 +5303,38 @@ bool play(int play_num, float bmin[3], float bmax[3]) {
 
 void check_surrounding(int x, int z) {
     static int depth=0;
+    static bool killyourself=false;
     depth++;
-    char hop[1000]; //checking surrounding regions for them surrounding regions all ready then push
-    for (int zz=z-1; zz<=z+1; zz++) {
-        for (int xx=x-1; xx<=x+1; xx++) {
-            if (!(zz==z && xx==x)) {
-                int surround=0;
-                sprintf(hop,"../cut/r.%d.%d.vox",xx,zz); // to do
-                if (file_exists(hop)) { // not ready, check surrounding if ready.
-                    for (int zzz=-1; zzz<=1; zzz++) {
-                        for (int xxx=-1; xxx<=1; xxx++) {
-                            if (!(zzz==0 && xxx==0)) {
-                                sprintf(hop,"../cut/done/r.%d.%d.vox",xx+xxx,zz+zzz);
-                                if (file_exists(hop)) surround++;
+    if (depth<3 && !killyourself) {
+        char hop[1000]; //checking surrounding regions for them surrounding regions all ready then push
+        for (int zz=z-1; zz<=z+1; zz++) {
+            for (int xx=x-1; xx<=x+1; xx++) {
+                if (!(zz==z && xx==x)) {
+                    int surround=0;
+                    sprintf(hop,"../cut/r.%d.%d.vox",xx,zz); // to do
+                    if (file_exists(hop)) { // not ready, check surrounding if ready.
+                        for (int zzz=-1; zzz<=1; zzz++) {
+                            for (int xxx=-1; xxx<=1; xxx++) {
+                                if (!(zzz==0 && xxx==0)) {
+                                    sprintf(hop,"../cut/done/r.%d.%d.vox",xx+xxx,zz+zzz);
+                                    if (file_exists(hop)) surround++;
+                                }
                             }
                         }
-                    }
-                    if (surround==8) { // all surrounding ready -> push
-                        printf("DEPTH=%d -> Found ../cut/r.%d.%d.vox not ready but surrounding 8 are, -> pushing\n",depth,xx,zz);
-                        ready_regions.push_back(hit_one_region(xx,zz));
-                        check_surrounding(xx,zz);
+                        if (surround==8) { // all surrounding ready -> push
+                            printf("DEPTH=%d -> Found ../cut/r.%d.%d.vox not ready but surrounding 8 are, -> pushing\n",depth,xx,zz);
+                            ready_regions.push_back(hit_one_region(xx,zz));
+                            check_surrounding(xx,zz);
+                        }
                     }
                 }
             }
         }
+    } else {
+        killyourself=true;
     }
     depth--;
+    if (depth==0) killyourself=false;
 }
 
 

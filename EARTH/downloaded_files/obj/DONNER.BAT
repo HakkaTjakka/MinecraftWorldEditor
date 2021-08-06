@@ -6,7 +6,7 @@ dir *-21 /b > list.txt
 
 :AGAIN
 
-timeout 30
+timeout 300
 
 set "nothing=YES"
 for %%X in (list.txt) do (
@@ -18,7 +18,7 @@ for %%X in (list.txt) do (
 
 if "!nothing!" == "YES" (
 	dir *-21 /b > list.txt
-	timeout 60
+	timeout 300
 ) else (
 	dir *-21 /b > list.txt
 	cd doneA

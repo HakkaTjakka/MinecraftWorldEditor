@@ -14,7 +14,7 @@ IF EXIST F:\PACMAN\EARTH\OBJECT_ARRAY.TXT (
 
 	CD \PACMAN\PACMAN_CUBERITE
 
-	bin\pacman2.exe nbt_extern
+	bin\pacman.exe nbt_extern
 	
 	F:
 

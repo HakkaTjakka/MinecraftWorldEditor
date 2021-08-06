@@ -133,7 +133,7 @@ void SCANNER_LOAD_ONE_IMAGE(size_t index) {
             if (!scanner_image_buffer[index]->ok)
                 printf("\nindex=%d Error loading file: %s\n",index,scanner_image_buffer[index]->filename.c_str());
             else
-            scanner_image_buffer[index]->ready=true;
+                scanner_image_buffer[index]->ready=true;
         }
 
         first=0;

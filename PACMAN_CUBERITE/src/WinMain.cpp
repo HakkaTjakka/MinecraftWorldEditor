@@ -72,10 +72,12 @@ extern bool plot_only;
 extern bool flushing;
 extern bool burn;
 extern sf::Clock kp;
+extern sf::Mutex wierdo_mutex;
 extern int active_window_num;
 extern sf::RenderWindow* windows_3d[];
 extern int is_activated_window[];
 extern int bar_on[];
+extern bool set_save;
 
 extern void text_to_ffmpeg(char * in,int font_size, sf::Color inner, sf::Color outer);
 extern sf::Color random_pixel;
@@ -10747,11 +10749,25 @@ extern int scan_min_z;
         static bool start_to_move=false;
 
         static bool update_later=false;
+        static int savie_savie=0;
+        if (savie_savie!=0) {
+            savie_savie--;
+            if (savie_savie==0) SAVEALLBITMAPS();
+        }
 
         if (update_later) {
             update_MC(scan_image,scan_x,scan_z);
-            if (update_request==2) update_request=0;
+            update_request=0;
             update_later=false;
+            if (set_save) {
+                static int cnt=10;
+                cnt--;
+                if (cnt==0) {
+                    cnt=10;
+                    savie_savie=180;
+                    set_save=false;
+                }
+            }
         }
 
         if (update_request==2 || update_request==3) {
@@ -10760,8 +10776,6 @@ extern int scan_min_z;
             int speedx_old=speedx;
             int speedy_old=speedy;
 
-            int old_positionx=(picturex*1920-posx);
-            int old_positiony=(picturey*1080-posy);
 //            int old_positionx=(render_picturex*1920-render_posx);
 //            int old_positiony=(render_picturey*1080-render_posy);
 
@@ -10807,26 +10821,15 @@ extern std::string region_filename;
                 wanted_position1x=(x+maxpixelsx*2)%maxpixelsx;
                 wanted_position1y=(y+maxpixelsy*2)%maxpixelsy;
 
-                position1x=old_positionx;
-                position1y=old_positiony;
-                start_to_move=true;
-
                 position1x_wanted=wanted_position1x;
                 position1y_wanted=wanted_position1y;
+//                position1x=(picturex*1920-posx);
+//                position1y=(picturey*1080-posy);
 
-                float dist=sqrt( (position1x_wanted-position1x)*(position1x_wanted-position1x)+(position1y_wanted-position1y)*(position1y_wanted-position1y) );
-                if (dist>1000.0) {
-                    position1x=position1x_wanted;
-                    position1y=position1y_wanted;
-                    get_position1();
-
-                    long_jump=1;
-                    forced_jump=1;
-                    follow_ghost_pos();
-                }
+                start_to_move=true;
             } else {
-                position1x=old_positionx;
-                position1y=old_positiony;
+                position1x=(picturex*1920-posx);
+                position1y=(picturey*1080-posy);
                 fspeedx=fspeedx_old;
                 fspeedy=fspeedy_old;
                 speedx=speedx_old;
@@ -10843,36 +10846,17 @@ extern bool make_regions;
         if ( ( (burn && mirror==4 && crossing==2) )  && start_to_move) {
 //        if ( ( (burn && mirror==4 && crossing==2) || MAKE_NBT || make_regions)  && start_to_move) {
             if (kp.getElapsedTime()>sf::seconds(20)) {
-                float dist=sqrt( (position1x_wanted-position1x)*(position1x_wanted-position1x)+(position1y_wanted-position1y)*(position1y_wanted-position1y) );
-                if (dist>1000.0) {
-                    position1x=position1x_wanted;
-                    position1y=position1y_wanted;
-                    get_position1();
+                set_position1();
+                int verschilx=position1x_wanted-position1x;
+                int verschily=position1y_wanted-position1y;
+                if (verschilx<=-maxpixelsx/2)   verschilx=verschilx+maxpixelsx; else if (verschilx>maxpixelsx/2) verschilx=verschilx-maxpixelsx;
+                if (verschily<=-maxpixelsy/2)   verschily=verschily+maxpixelsy; else if (verschily>maxpixelsy/2) verschily=verschily-maxpixelsy;
 
-//                    get_position3();
-//                    smooth_x=picturex*1920-posx;
-//                    smooth_y=picturey*1080-posy;
-//                    ReadBitmaps2();
-                    long_jump=1;
-                    forced_jump=1;
-                    follow_ghost_pos();
-//                    ReadBitmaps2();
-//                    ReadBitmaps4();
-//                    DO_ADAPT=1;
-//                    follow_ghost_pos();
-//                    DO_ADAPT=0;
-//                    ReadBitmaps2();
-//                    ReadBitmaps4();
-//                    forced_jump=1;
-//                    follow_ghost_pos();
-                } else {
-                    if (dist==0) start_to_move=false;
-                    else {
-                        position1x=int((float)(position1x*100 + position1x_wanted)/101.0);
-                        position1y=int((float)(position1y*100 + position1y_wanted)/101.0);
-                        get_position1();
-                    }
-                }
+                position1x=position1x_wanted;
+                position1y=position1y_wanted;
+                get_position1();
+                long_jump=1;
+                start_to_move=false;
             }
         } else {
             start_to_move=false;
@@ -10934,8 +10918,6 @@ extern sf::Mutex window_recording;
         extern bool running_3d[];
         int slow_down=false;
 
-extern sf::Mutex wierdo_mutex;
-extern sf::Clock kp;
         static int anti_slow=300;
         if (!dont_slow_down) {
             for (int i=0; i<10; i++) {
@@ -14752,12 +14734,6 @@ extern bool rot_plot;
 
     // else printf("\nPIXELS=%d = %f%% ==>> \n",pixel_count,100.0*float(pixel_count)/(512.0*512.0));
 //    perform_quit=0;
-extern bool set_save;
-    if (set_save) {
-        SAVEALLBITMAPS();
-        set_save=false;
-    }
-
 }
 
 
