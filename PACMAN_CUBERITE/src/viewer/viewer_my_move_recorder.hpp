@@ -2245,10 +2245,27 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
     //    if (crossing>0 && crossing!=3) {
             printf("Sorting square\n");
             sort(info_3d.begin(), info_3d.end());
-            for (auto v : info_3d) {
-                    printf(".");
-    //            printf("SORTED: X=%4d Y=%4d %s\n",v.pos.x,v.pos.y,v.filename.c_str());
+            FILE* F=fopen("OCTANTS_SORTED.TXT","w");
+
+            if (F==NULL) printf("Error opening OCTANTS_SORTED.TXT for writing\n");
+            else {
+                int i=0;
+                std::string str;
+                get_area_quick=true;
+                for (auto v : info_3d) {
+                    str=get_area_data(my_area,v.pos.x,v.pos.y);
+                    if (i++==1000) {
+                        printf(".");
+                        i=0;
+                    }
+
+                    fprintf(F,"%s\n",str.c_str());
+        //            printf("SORTED: X=%4d Y=%4d %s\n",v.pos.x,v.pos.y,v.filename.c_str());
+                }
+                get_area_quick=false;
+                fclose(F);
             }
+
             printf("\n");
         }
     }

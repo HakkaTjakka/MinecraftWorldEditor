@@ -35,7 +35,7 @@ module.exports = function parseCommandLine(filename) {
 		MAX_LEVEL: parseInt(max_level),
 		CITYNAME: optional.filter(o => ['--UTRECHT','--RIO','--MIAMI','--SCHWEIZ', '--AZORES', '--ENSCHEDE', '--DENHAAG', '--AMSTERDAM', '--BRUSSEL',  '--LA',  '--NEWYORK', '--JOCELYN' ].includes(o)),
 		DUMP_JSON: optional.includes('--dump-json'),
-		DUMP_JSON: optional.includes('--dump-json'),
+//		DUMP_JSON: optional.includes('--dump-json'),
 		DUMP_RAW: optional.includes('--dump-raw'),
 		PARALLEL_SEARCH: optional.includes('--parallel-search')
 	};

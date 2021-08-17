@@ -52883,3 +52883,15 @@
 0 invalid image ffmpeg: 
 
 1 Program busy or hangs... Thread alive at: 27/07/2021 12:08:17
+102 Error loading picture
+104 Error loading picture
+101 Error loading picture
+53 Error loading picture
+102 Error loading picture
+102 Error loading picture
+40 Error loading picture
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP

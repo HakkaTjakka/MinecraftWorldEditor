@@ -10760,7 +10760,7 @@ extern int scan_min_z;
             update_request=0;
             update_later=false;
             if (set_save) {
-                static int cnt=10;
+                static int cnt=60;
                 cnt--;
                 if (cnt==0) {
                     cnt=10;
@@ -10846,16 +10846,36 @@ extern bool make_regions;
         if ( ( (burn && mirror==4 && crossing==2) )  && start_to_move) {
 //        if ( ( (burn && mirror==4 && crossing==2) || MAKE_NBT || make_regions)  && start_to_move) {
             if (kp.getElapsedTime()>sf::seconds(20)) {
-                set_position1();
+//                set_position1();
+                position1x=(picturex*1920-posx);
+                position1y=(picturey*1080-posy);
+
                 int verschilx=position1x_wanted-position1x;
                 int verschily=position1y_wanted-position1y;
                 if (verschilx<=-maxpixelsx/2)   verschilx=verschilx+maxpixelsx; else if (verschilx>maxpixelsx/2) verschilx=verschilx-maxpixelsx;
                 if (verschily<=-maxpixelsy/2)   verschily=verschily+maxpixelsy; else if (verschily>maxpixelsy/2) verschily=verschily-maxpixelsy;
 
-                position1x=position1x_wanted;
-                position1y=position1y_wanted;
-                get_position1();
-                long_jump=1;
+
+//                position1x=position1x_wanted;
+//                position1y=position1y_wanted;
+
+//                follow_ghost_pos();
+                float dist=sqrt(verschilx*verschilx+verschily*verschily);
+
+                picturex=position1x_wanted/1920;
+                posx=position1x_wanted-1920*picturex;
+
+                picturey=position1y_wanted/1080;
+                posy=position1y_wanted-1080*picturey;
+
+                posx=-posx;
+                posy=-posy;
+
+                fposx=posx;
+                fposy=posy;
+
+//                get_position1();
+                if (dist>1000) long_jump=1;
                 start_to_move=false;
             }
         } else {
