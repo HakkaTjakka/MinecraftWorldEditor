@@ -52895,3 +52895,597 @@
 0 MESSED UP
 0 MESSED UP
 0 MESSED UP
+1 Program busy or hangs... Thread alive at: 19/08/2021 15:48:35
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+1 Program busy or hangs... Thread alive at: 22/08/2021 13:48:13
+1 Program busy or hangs... Thread alive at: 22/08/2021 14:08:13
+1 Program busy or hangs... Thread alive at: 22/08/2021 14:16:44
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+0 MESSED UP
+62 Error loading picture
+30 Error loading picture
+120 Error loading picture
+65 Error loading picture
+34 Error loading picture
+45 Error loading picture
+101 Error loading picture
+141 Error loading picture
+5 Error loading picture
+60 Error loading picture
+68 Error loading picture
+22 Error loading picture
+127 Error loading picture
+72 Error loading picture
+32 Error loading picture
+24 Error loading picture
+111 Error loading picture
+138 Error loading picture
+38 Error loading picture
+15 Error loading picture
+35 Error loading picture
+34 Error loading picture
+57 Error loading picture
+115 Error loading picture
+134 Error loading picture
+143 Error loading picture
+144 Error loading picture
+51 Error loading picture
+44 Error loading picture
+53 Error loading picture
+36 Error loading picture
+2 Error loading picture
+107 Error loading picture
+128 Error loading picture
+24 Error loading picture
+111 Error loading picture
+59 Error loading picture
+58 Error loading picture
+48 Error loading picture
+115 Error loading picture
+69 Error loading picture
+116 Error loading picture
+77 Error loading picture
+127 Error loading picture
+94 Error loading picture
+104 Error loading picture
+67 Error loading picture
+112 Error loading picture
+10 Error loading picture
+76 Error loading picture
+66 Error loading picture
+73 Error loading picture
+14 Error loading picture
+11 Error loading picture
+126 Error loading picture
+64 Error loading picture
+90 Error loading picture
+60 Error loading picture
+129 Error loading picture
+45 Error loading picture
+139 Error loading picture
+88 Error loading picture
+25 Error loading picture
+92 Error loading picture
+38 Error loading picture
+97 Error loading picture
+125 Error loading picture
+33 Error loading picture
+143 Error loading picture
+144 Error loading picture
+127 Error loading picture
+72 Error loading picture
+56 Error loading picture
+109 Error loading picture
+28 Error loading picture
+101 Error loading picture
+120 Error loading picture
+74 Error loading picture
+117 Error loading picture
+107 Error loading picture
+125 Error loading picture
+43 Error loading picture
+67 Error loading picture
+101 Error loading picture
+133 Error loading picture
+87 Error loading picture
+47 Error loading picture
+21 Error loading picture
+12 Error loading picture
+20 Error loading picture
+111 Error loading picture
+62 Error loading picture
+85 Error loading picture
+64 Error loading picture
+40 Error loading picture
+142 Error loading picture
+143 Error loading picture
+4 Error loading picture
+6 Error loading picture
+61 Error loading picture
+114 Error loading picture
+25 Error loading picture
+93 Error loading picture
+9 Error loading picture
+99 Error loading picture
+108 Error loading picture
+46 Error loading picture
+71 Error loading picture
+98 Error loading picture
+55 Error loading picture
+91 Error loading picture
+50 Error loading picture
+129 Error loading picture
+66 Error loading picture
+63 Error loading picture
+97 Error loading picture
+2 Error loading picture
+137 Error loading picture
+119 Error loading picture
+100 Error loading picture
+43 Error loading picture
+89 Error loading picture
+112 Error loading picture
+52 Error loading picture
+73 Error loading picture
+141 Error loading picture
+129 Error loading picture
+1 Error loading picture
+92 Error loading picture
+50 Error loading picture
+51 Error loading picture
+9 Error loading picture
+18 Error loading picture
+102 Error loading picture
+130 Error loading picture
+85 Error loading picture
+128 Error loading picture
+46 Error loading picture
+109 Error loading picture
+52 Error loading picture
+101 Error loading picture
+143 Error loading picture
+144 Error loading picture
+25 Error loading picture
+102 Error loading picture
+109 Error loading picture
+119 Error loading picture
+43 Error loading picture
+85 Error loading picture
+50 Error loading picture
+133 Error loading picture
+116 Error loading picture
+60 Error loading picture
+104 Error loading picture
+122 Error loading picture
+70 Error loading picture
+127 Error loading picture
+117 Error loading picture
+98 Error loading picture
+90 Error loading picture
+40 Error loading picture
+84 Error loading picture
+18 Error loading picture
+87 Error loading picture
+114 Error loading picture
+56 Error loading picture
+89 Error loading picture
+10 Error loading picture
+138 Error loading picture
+137 Error loading picture
+95 Error loading picture
+12 Error loading picture
+129 Error loading picture
+115 Error loading picture
+17 Error loading picture
+75 Error loading picture
+108 Error loading picture
+136 Error loading picture
+61 Error loading picture
+123 Error loading picture
+63 Error loading picture
+8 Error loading picture
+16 Error loading picture
+19 Error loading picture
+118 Error loading picture
+24 Error loading picture
+49 Error loading picture
+107 Error loading picture
+110 Error loading picture
+105 Error loading picture
+52 Error loading picture
+76 Error loading picture
+135 Error loading picture
+140 Error loading picture
+98 Error loading picture
+71 Error loading picture
+84 Error loading picture
+18 Error loading picture
+135 Error loading picture
+57 Error loading picture
+78 Error loading picture
+67 Error loading picture
+113 Error loading picture
+139 Error loading picture
+14 Error loading picture
+81 Error loading picture
+93 Error loading picture
+124 Error loading picture
+72 Error loading picture
+66 Error loading picture
+2 Error loading picture
+1 Error loading picture
+2 Error loading picture
+3 Error loading picture
+4 Error loading picture
+24 Error loading picture
+25 Error loading picture
+26 Error loading picture
+27 Error loading picture
+28 Error loading picture
+31 Error loading picture
+32 Error loading picture
+33 Error loading picture
+34 Error loading picture
+37 Error loading picture
+38 Error loading picture
+43 Error loading picture
+44 Error loading picture
+45 Error loading picture
+51 Error loading picture
+52 Error loading picture
+53 Error loading picture
+59 Error loading picture
+60 Error loading picture
+61 Error loading picture
+62 Error loading picture

@@ -10752,7 +10752,10 @@ extern int scan_min_z;
         static int savie_savie=0;
         if (savie_savie!=0) {
             savie_savie--;
-            if (savie_savie==0) SAVEALLBITMAPS();
+            if (savie_savie==0) {
+                SAVEALLBITMAPS();
+                system("time /t > last_saved.txt");
+            }
         }
 
         if (update_later) {
@@ -14747,7 +14750,7 @@ extern bool rot_plot;
     } else if (complete && flushing_mode) printf("\nGOT ONE COMPLETE (100%% pixels) : r.%d.%d ==>>\n",xx,yy);
     if (complete_f!=100.0) {
         char hoppa[200];
-        sprintf(hoppa,"echo r.%d,%d %f%% complete >> not_complete.txt",xx,yy,complete_f);
+        sprintf(hoppa,"echo r.%d,%d %f%% not complete >> not_complete.txt",xx,yy,complete_f);
         system(hoppa);
     }
 //    else if (flushing_mode) printf("\nPIXELS=%d = %f%% ==>> \n",pixel_count,complete_f);

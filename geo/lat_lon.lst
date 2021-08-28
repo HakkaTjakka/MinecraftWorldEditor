@@ -1,0 +1,838 @@
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3778,	4.9057); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0363	Amsterdam
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.341,	4.9546); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0384	Diemen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3308,	4.932 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0437	Amsterdam-Duivendrecht
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3133,	4.8066); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0394	Schiphol
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4429,	4.9148); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0415	Landsmeer
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4905,	5.0673); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0385	Volendam
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4593,	5.0338); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0852	Monnickendam
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3851,	4.7324); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0394	Zwanenburg
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3213,	4.8636); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0362	Amstelveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3102,	4.9074); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0437	Ouderkerk aan de Amstel
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2308,	5.1766); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0402	Hilversum
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2601,	5.1662); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1942	Bussum
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2564,	5.1821); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0402	Hilversum
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2055,	5.1312); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1696	Loosdrecht
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2724,	5.2249); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0417	Laren
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2771,	5.2116); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0376	Blaricum
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3078,	5.2383); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0406	Huizen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4169,	5.2197); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0034	Almere
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7499,	5.1284); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0420	Wervershoof
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3453,	5.1469); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0034	Almere
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3082,	5.0381); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0457	Weesp
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2731,	4.9723); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0736	Abcoude
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.273,	5.0269); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1904	Nigtevecht
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2527,	5.0492); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1696	Nederhorst den Berg
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2592,	4.976 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0736	Baambrugge
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3326,	5.0711); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1942	Muiden
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2655,	5.1954); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0402	Hilversum
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.266,	5.191 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1942	Bussum
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2346,	4.8346); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0451	Uithoorn
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2272,	4.8201); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0736	de Hoef
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2276,	4.7875); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0569	Vrouwenakker
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2645,	4.7465); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0358	Aalsmeer
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2662,	4.7312); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0394	Rijsenhout
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5104,	4.9499); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0439	Purmerend
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.485,	4.9276); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0415	Purmerland
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4649,	4.9745); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0852	Ilpendam
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5079,	4.9189); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0880	Wijdewormer
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5139,	4.9441); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0370	Zuidoostbeemster
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5314,	4.9667); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0385	Kwadijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4735,	4.993 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0852	Purmer
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5616,	4.8597); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0361	De Rijp
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5474,	4.7759); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0383	de Woude
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4379,	4.8284); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0479	Zaandam
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4468,	4.8716); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0431	Oostzaan
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.489,	4.7958); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0479	Wormerveer
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4951,	4.8009); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0880	Wormer
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.523,	4.7817); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0361	Markenbinnen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4559,	4.8099); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0479	Koog aan de Zaan
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5063,	4.8474); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0880	Jisp
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4624,	4.7736); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0479	Westzaan
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7042,	5.2928); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0388	Enkhuizen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.678,	5.2383); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0498	Venhuizen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6979,	5.2356); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0532	Bovenkarspel
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6906,	5.1555); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0498	Hoogkarspel
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7443,	5.2519); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0420	Andijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6359,	5.0567); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0405	Hoorn
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6057,	4.9598); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1598	Oudendijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6013,	4.888 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0361	Schermerhorn
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6491,	4.9399); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1598	Spierdijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6249,	4.8699); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0361	Ursem
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6431,	5.0255); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1598	Berkhout
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.712,	5.0282); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0420	Benningbroek
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7308,	4.992 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0432	De Weere
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7712,	5.1085); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0420	Medemblik
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6633,	5.0633); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0405	Zwaag
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6608,	5.1067); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0498	Oosterblokker
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6714,	5.0836); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0405	Zwaag
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7006,	5.0884); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0420	Hauwert
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6644,	5.1012); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0405	Blokker
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6703,	5.0972); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0498	Oosterblokker
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6742,	4.8447); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0398	Heerhugowaard
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6586,	4.8877); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1598	Hensbroek
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6994,	4.9587); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0432	Spanbroek
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6696,	4.8015); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0416	Broek op Langedijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7207,	4.7914); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0441	Oudkarspel
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.722,	4.7861); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0416	Oudkarspel
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7619,	4.8892); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1911	Winkel
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7254,	4.8358); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0441	Waarland
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.8617,	4.834 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1911	Anna Paulowna
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9638,	4.7703); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0400	Den Helder
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0555,	4.7981); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0448	Den Burg
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0881,	4.9099); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0632	Woerden
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6274,	4.7533); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0361	Alkmaar
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6873,	4.7355); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0416	Koedijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6153,	4.8227); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0361	Stompetoren
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6197,	4.7206); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0399	Heiloo
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6649,	4.6864); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0373	Bergen (NH)
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.546,	4.6594); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0383	Castricum
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5204,	4.7096); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0450	Uitgeest
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5604,	4.7309); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0383	Akersloot
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6166,	4.6211); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0373	Egmond aan Zee
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4809,	4.655 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0375	Beverwijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4744,	4.6491); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0453	Velsen-Noord
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5098,	4.6712); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0396	Heemskerk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4626,	4.6249); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0453	IJmuiden
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3797,	4.6412); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0392	Haarlem
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3941,	4.6223); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0377	Overveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3839,	4.6155); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0392	Haarlem
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3763,	4.5303); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0473	Zandvoort
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3856,	4.5975); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0377	Overveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4159,	4.6754); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0392	Spaarndam gem. Haarlem
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.403,	4.6785); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0394	Spaarndam
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4228,	4.6402); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0453	Santpoort-Noord
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3579,	4.6223); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0397	Heemstede
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3657,	4.5789); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0377	Aerdenhout
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3438,	4.5973); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0397	Heemstede
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3461,	4.588 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0377	Vogelenzang
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3661,	4.5764); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0473	Bentveld
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3263,	4.5958); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0377	Bennebroek
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3132,	4.6938); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0394	Hoofddorp
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2141,	4.5884); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1884	Kaag
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2651,	4.559 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0553	Lisse
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2391,	4.5655); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0394	Lisserbroek
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2223,	4.5139); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1525	Sassenheim
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2896,	4.5866); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0534	Hillegom
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3001,	4.5468); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0575	De Zilk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2221,	4.4823); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1525	Voorhout
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2069,	4.4116); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0537	Katwijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.141,	4.4078); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0629	Wassenaar
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1207,	4.4456); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0626	Voorschoten
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.054,	4.2284); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0518	s-Gravenhage
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1365,	4.4515); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0626	Voorschoten
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0993,	4.3924); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1916	Leidschendam
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.059,	4.3361); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0603	Rijswijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0259,	4.2839); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1783	Wateringen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1596,	4.479 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0546	Leiden
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.181,	4.4493); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0579	Oegstgeest
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1508,	4.5234); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0547	Leiderdorp
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1666,	4.5722); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1884	Hoogmade
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2001,	4.5103); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1525	Warmond
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1936,	4.615 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1884	Roelofarendsveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1167,	4.4974); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0638	Zoeterwoude
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0956,	4.5994); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0484	Hazerswoude-Dorp
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0855,	4.7466); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1901	Bodegraven
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1329,	4.7623); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0569	Nieuwkoop
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1277,	4.7302); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0484	Aarlanderveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2257,	4.6782); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1884	Leimuiden
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2128,	4.7247); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0451	De Kwakel
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2125,	4.7242); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1884	Leimuiden
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1663,	4.7068); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0569	Ter Aar
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2067,	4.6687); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1884	Rijnsaterwoude
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.105,	4.7299); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0484	Zwammerdam
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.167,	4.637 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1884	Woubrugge
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0717,	4.4004); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0518	s-Gravenhage
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0057,	4.3601); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0503	Delft
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0412,	4.391 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1926	Nootdorp
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9963,	4.3274); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1842	Den Hoorn
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0203,	4.4307); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1926	Pijnacker
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9769,	4.43  ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1621	Berkel en Rodenrijs
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9971,	4.2021); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1783	Naaldwijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0609,	4.4825); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0637	Zoetermeer
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0787,	4.5443); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0484	Benthuizen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0936,	4.5333); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0638	Gelderswoude
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.059,	4.6508); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0627	Waddinxveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0461,	4.5785); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1892	Moerkapelle
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0911,	4.6918); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0484	Boskoop
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.014,	4.7001); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0513	Gouda
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0483,	4.7264); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1901	Reeuwijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9706,	4.7733); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1931	Stolwijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9948,	4.6803); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1892	Moordrecht
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0154,	4.8389); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1931	Haastrecht
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9143,	4.569 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0502	Capelle aan den IJssel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9643,	4.6215); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1892	Nieuwerkerk aan den IJssel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9126,	4.5801); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0542	Krimpen aan den IJssel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8937,	4.6224); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1931	Krimpen aan de Lek
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8642,	4.6649); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0482	Alblasserdam
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.89  ,	4.687 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1978	Nieuw-Lekkerland
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8659,	4.596 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0597	Ridderkerk
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8567,	4.5393); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0489	Barendrecht
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8726,	4.5894); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0597	Ridderkerk
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8487,	4.524 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0489	Barendrecht
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8349,	4.5661); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0642	Heerjansdam
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9202,	4.4811); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0599	Rotterdam
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9136,	4.4015); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0606	Schiedam
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9082,	4.3441); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0622	Vlaardingen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9213,	4.2544); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0556	Maassluis
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9774,	4.1314); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0599	Hoek van Holland
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9378,	4.2754); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1842	Maasland
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.857,	4.4164); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0613	Rhoon
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9015,	4.2605); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0599	Rozenburg
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8531,	4.328 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1930	Spijkenisse
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8308,	4.1308); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0530	Hellevoetsluis
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9059,	4.1768); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0501	Vierpolders
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9158,	4.108 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0614	Oostvoorne
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8778,	4.1811); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0501	Vierpolders
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7537,	4.165 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1924	Middelharnis
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7541, 4.1621); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1924	Goeree-Overflakkee
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7146,	4.1662); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1924	Nieuwe-Tonge
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8221,	4.4217); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1963	Oud-Beijerland
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8175,	4.664 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0505	Dordrecht
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8161,	4.6507); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0642	Zwijndrecht
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8409,	4.6576); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0531	Hendrik-Ido-Ambacht
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8247,	4.6815); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0590	Papendrecht
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8166,	4.7845); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0610	Sliedrecht
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8442,	4.7625); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1978	Wijngaarden
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.844,	4.7555); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0610	Sliedrecht
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8447,	4.7548); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1978	Wijngaarden
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8293,	4.834 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0523	Hardinxveld-Giessendam
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8498,	4.8925); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1978	Giessenburg
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0237,	5.0404); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0353	IJsselstein
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0082,	4.9813); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0331	Benschop
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0476,	4.9509); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0335	Montfoort
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0238,	4.8715); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0589	Oudewater
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.037,	5.0831); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0356	Nieuwegein
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0853,	4.8798); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0632	Woerden
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1079,	5.0126); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0344	Vleuten
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0608,	4.8972); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0335	Linschoten
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0461,	4.8526); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0589	Papekop
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0325,	4.8001); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1901	Driebruggen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0173,	4.8225); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0589	Hekendorp
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1102,	4.8923); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0632	Kamerik
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0926,	5.1156); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0344	Utrecht
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1408,	5.0464); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1904	Maarssen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.139,	5.1264); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0310	Westbroek
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1716,	5.004 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1904	Breukelen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1729,	5.0694); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1696	Breukeleveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.189,	4.9872); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1904	Nieuwer Ter Aa
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2032,	4.8637); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0736	Mijdrecht
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1531,	4.8632); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0569	Woerdense Verlaat
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1444,	4.8326); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0632	Zegveld
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1374,	4.855 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0569	Woerdense Verlaat
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0813,	5.2399); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0355	Zeist
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1143,	5.192 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0310	Bilthoven
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1454,	5.2443); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0355	Den Dolder
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1253,	5.1461); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0310	Groenekan
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2122,	5.2949); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0308	Baarn
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2543,	5.3829); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0313	Bunschoten-Spakenburg
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2608,	5.2502); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0317	Eemnes
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1827,	5.2963); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0342	Soest
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1371,	5.5946); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0203	Barneveld
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1363,	5.4965); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0327	Achterveld
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1339,	5.5172); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0203	Achterveld
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1545,	5.3882); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0307	Amersfoort
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1361,	5.4361); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0327	Leusden
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.164,	5.4624); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0307	Stoutenburg Noord
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3522,	5.6218); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0243	Harderwijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2899,	5.6155); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0233	Ermelo
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2234,	5.4845); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0267	Nijkerk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2606,	5.5955); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0273	Putten
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2311,	5.7149); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0203	Garderen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2565,	5.7836); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0200	Uddel
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3322,	5.544 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0050	Zeewolde
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0256,	5.555 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0345	Veenendaal
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9556,	5.5751); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0340	Rhenen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0767,	5.4795); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0279	Scherpenzeel
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0744,	5.5434); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0339	Renswoude
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0843,	5.4066); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0351	Woudenberg
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0395,	5.3007); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1581	Doorn
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9955,	5.3178); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0352	Cothen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0628,	5.3713); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1581	Maarn
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9709,	5.3486); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0352	Wijk bij Duurstede
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0607,	5.3013); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1581	Driebergen-Rijsenburg
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0643,	5.2059); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0312	Bunnik
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9921,	5.1385); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1961	Ossenwaard
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0261,	5.1651); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0321	Houten
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8881,	5.4322); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0281	Tiel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.898,	5.3927); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0214	Zoelen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8811,	5.3736); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0281	Kapel Avezaath
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8814,	5.3554); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0214	Kapel-Avezaath
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8953,	5.3968); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0281	Kerk Avezaath
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9597,	5.412 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0214	Maurik
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9341,	5.5744); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1740	Kesteren
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8454,	5.3897); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1960	Ophemert
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.865,	5.415 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0281	Zennewijnen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8543,	5.4052); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1960	Zennewijnen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8606,	5.4138); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0281	Zennewijnen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8525,	5.4072); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1960	Zennewijnen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8608,	5.3816); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0281	Zennewijnen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8132,	5.3431); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1960	Heesselt
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9599,	5.2224); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0216	Culemborg
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9455,	5.3049); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0214	Zoelmond
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9658,	5.1555); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1961	Everdingen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8823,	5.1154); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1960	Asperen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8791,	5.0789); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1961	Oosterwijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8259,	5.1282); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1960	Herwijnen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9208,	5.2784); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0214	Buurmalsen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9217,	5.2793); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1960	Buurmalsen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9061,	5.3006); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0214	Buurmalsen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8944,	5.3013); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1960	Buurmalsen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8996,	5.302 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0214	Buurmalsen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9141,	5.2783); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1960	Buurmalsen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.901,	5.2944); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0214	Buurmalsen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9074,	5.2863); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1960	Buurmalsen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8974,	5.3085); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0214	Buurmalsen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.83	,4.977); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //7	0512	Gorinchem
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8403,	4.9148); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1978	Schelluinen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8562,	5.0407); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1960	Spijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8284,	5.009 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0512	Dalem
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8243,	5.047 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1960	Vuren
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8758,	4.9744); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1978	Hoogblokland
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9192,	4.9946); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1961	Meerkerk
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8647,	4.9976); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1978	Arkel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9033,	5.0145); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1961	Nieuwland
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8151,	4.8956); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1959	Werkendam
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6499,	3.9182); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1676	Zierikzee
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5001,	3.6118); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0687	Middelburg
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5496,	3.6685); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0717	Veere
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4427,	3.5787); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0718	Vlissingen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4948,	4.0498); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0703	Yerseke
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4867,	3.9578); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0678	Kapelle
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4583,	3.8992); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0654	s-Gravenpolder
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4915,	3.8223); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0664	s-Heer Arendskerke
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4909,	3.9273); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0678	Kloetinge
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5568,	3.801 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1695	Kortgene
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3282,	3.4801); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1714	Oostburg
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3259,	3.6878); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0715	Biervliet
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3342,	3.6289); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1714	Biervliet
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3349,	3.823 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0715	Terneuzen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.2801,	4.0499); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0677	Hulst
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.2625,	3.9152); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0715	Axel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3246,	3.9861); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0677	Vogelwaarde
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3008,	3.9759); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0715	Axel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3058,	4.0067); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0677	Vogelwaarde
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.492,	4.2882); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0748	Bergen op Zoom
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.433,	4.3172); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0873	Hoogerheide
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5885,	4.3278); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0851	Steenbergen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5165,	4.3004); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0748	Halsteren
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6316,	4.3674); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0851	Dinteloord
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6518,	4.3787); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1709	Heijningen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6387,	4.3782); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0851	Dinteloord
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.616,	4.1623); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0716	Sint Philipsland
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5881,	4.215 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0851	Nieuw-Vossemeer
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5365,	4.2264); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0716	Tholen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5319,	4.4564); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1674	Roosendaal
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5512,	4.5929); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0840	St. Willebrord
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.542,	4.5135); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1674	Roosendaal
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5491,	4.5416); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0840	Rucphen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5235,	4.3899); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1674	Wouw
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5862,	4.5391); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1655	Oudenbosch
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.555,	4.5157); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0840	Zegge
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5834,	4.5865); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1655	Hoeven
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5655,	4.4077); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0851	Kruisland
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6115,	4.5178); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1709	Standdaarbuiten
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6676,	4.6904); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1719	Zevenbergschen Hoek
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6389,	4.6385); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1709	Langeweg
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5935,	4.7773); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0758	Breda
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6985,	4.8607); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0779	Geertruidenberg
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5951,	4.7183); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0758	Prinsenbeek
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6438,	4.752 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1719	Terheijden
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.609,	4.817 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0758	Teteringen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5906,	4.8636); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0826	Dorst
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5508,	4.7996); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0758	Ulvenhout
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5277,	4.7779); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1723	Galder
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5817,	4.6398); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0777	Etten-Leur
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4713,	4.6578); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0879	Zundert
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6519,	4.8566); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0826	Oosterhout
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6805,	4.7996); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1719	Made
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7063,	4.8622); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0779	Geertruidenberg
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5352,	4.2242); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0716	Tholen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5794,	5.0904); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0855	Tilburg
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5195,	5.0678); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0785	Goirle
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5774,	5.1369); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0855	Berkel-Enschot
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5839,	5.1607); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0824	Heukelom
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6128,	5.1524); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0855	Udenhout
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6151,	5.1838); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0788	Biezenmortel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4839,	5.1375); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0798	Hilvarenbeek
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4673,	5.2481); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0823	Oost West en Middelbeers
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4049,	5.1472); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1667	Lage Mierde
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6255,	4.9346); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0766	Dongen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4478,	4.9293); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0744	Baarle-Nassau
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4301,	5.45  ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0772	Eindhoven
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4473,	4.9187); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0744	Baarle-Nassau
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5905,	4.9024); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0784	Rijen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4936,	4.9559); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1723	Alphen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.537,	4.9955); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0785	Riel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6884,	5.0484); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0867	Waalwijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6883,	5.116 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0797	Drunen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6782,	4.9867); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0867	Sprang-Capelle
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4225,	5.4569); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0772	Eindhoven
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6563,	5.0294); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0809	Kaatsheuvel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6883,	5.2944); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0796	s-Hertogenbosch
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6942,	5.2248); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0797	Vlijmen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6811,	5.4016); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0845	Berlicum
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6691,	5.2936); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0865	Vught
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6335,	5.2321); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0788	Helvoirt
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6384,	5.3506); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0845	Sint-Michielsgestel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5915,	5.3278); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0757	Boxtel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6166,	5.3548); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0845	Gemonde
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6127,	5.2834); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0788	Esch
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5652,	5.373 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0757	Liempde
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8133,	5.2484); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0297	Zaltbommel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7485,	5.2454); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0263	Hedel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7729,	5.5236); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0828	Oss
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7564,	5.7305); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0786	Grave
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8242,	5.5604); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0828	Megen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7469,	5.6303); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1685	Schaijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7071,	5.4661); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0796	Vinkel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7132,	5.4956); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1721	Vinkel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7165,	5.4827); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0796	Vinkel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7139,	5.4867); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1721	Vinkel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7101,	5.4972); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0796	Vinkel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7114,	5.5003); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1721	Vinkel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7167,	5.4811); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0796	Vinkel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7105,	5.5013); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1721	Vinkel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7069,	5.4816); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0796	Vinkel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6986,	5.4863); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1721	Vinkel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6926,	5.4533); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0796	Vinkel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7322,	5.5328); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1721	Heesch
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7425,	5.4597); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0828	Geffen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7039,	5.5586); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1721	Nistelrode
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7301,	5.4328); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0796	Nuland
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8262,	5.5023); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0828	Oijen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6618,	5.6057); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0856	Uden
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6947,	5.6793); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1685	Zeeland
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.554,	5.704 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1652	Gemert
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6025,	5.6731); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0755	Boekel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7385,	5.8747); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1684	Cuijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7419,	5.7801); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0786	Gassel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7511,	5.8426); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1684	Linden
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6975,	5.9321); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0756	Oeffelt
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6902,	5.863 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1684	Haps
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6184,	5.7925); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1702	Landhorst
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6574,	5.8846); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0756	Rijkevoort
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6511,	5.8712); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1702	Rijkevoort-De Walsert
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6898,	5.7793); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0815	Mill
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6192,	5.54  ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1948	Veghel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6824,	5.5037); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1721	Loosbroek
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6219,	5.4292); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1948	Schijndel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.422,	5.3964); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0861	Veldhoven
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3892,	5.373 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0770	Knegsel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3895,	5.3809); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0861	Veldhoven
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4006,	5.3483); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0770	Knegsel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3715,	5.2602); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1728	Hapert
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3543,	5.1612); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1667	Reusel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.344,	5.4304); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0858	Valkenswaard
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3534,	5.3893); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1724	Riethoven
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3898,	5.4369); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0866	Waalre
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3902,	5.5759); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1658	Heeze
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.442,	5.4814); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0772	Eindhoven
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4096,	5.5423); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1771	Geldrop
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4757,	5.5393); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0820	Nuenen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5207,	5.398 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0753	Best
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5031,	5.3112); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0823	Oirschot
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5116,	5.4938); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0848	Son en Breugel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4867,	5.6622); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0794	Helmond
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3828,	5.7094); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0847	Someren
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4033,	5.7429); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0743	Asten
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4389,	5.601 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1771	Mierlo
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5085,	5.6366); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1659	Aarle-Rixtel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4648,	5.8031); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0762	Deurne
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5046,	5.7455); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1652	Bakel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.444,	5.8782); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1507	Griendtsveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3421,	5.8848); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1894	Meijel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5226,	5.9743); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0984	Venray
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6017,	6.008 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0756	Vierlingsbeek
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6096,	5.8752); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1702	Oploo
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6219,	6.0292); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0893	Afferden L
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5296,	6.083 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0984	Wanssum
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.5188,	6.0818); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1507	Meerlo
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3691,	6.174 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0983	Venlo
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.2801,	6.0762); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0889	Reuver
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.4557,	6.0507); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1507	Horst
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3291,	5.9812); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1894	Panningen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.2533,	5.7146); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0988	Weert
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.2198,	5.7975); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1640	Ell
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.1593,	5.8369); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1641	Thorn
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.2629,	5.5745); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1706	Budel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.3439,	5.6307); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1658	Sterksel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.2893,	5.7711); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0946	Nederweert
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.2203,	5.8432); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1640	Kelpen-Oler
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.1973,	5.7229); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0988	Stramproy
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.2135,	6.0012); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0957	Roermond
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.1512,	5.8928); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1641	Maasbracht
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.1177,	6.0359); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1669	Posterholt
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.1574,	5.9512); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1641	Linne
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.2625,	5.9855); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1640	Neer
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.2141,	6.0425); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0957	Swalmen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.1541,	6.007 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1669	Melick
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.2269,	5.9498); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1640	Haelen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.2472,	5.814 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0946	Leveroy
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.2456,	5.9069); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1640	Heythuysen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.193,	5.7255); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0988	Stramproy
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.2508,	5.903 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1640	Heythuysen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.1796,	5.9004); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1641	Heel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.1083,	5.8558); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1711	Echt
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.1205,	5.8375); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1641	Stevensweert
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.1051,	5.9079); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1711	Sint Joost
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.034,	5.8024); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1883	Born
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.0052,	5.7729); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0971	Urmond
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.9962,	5.8567); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1883	Sittard
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.9499,	5.8754); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1954	Puth
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.9642,	5.8166); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1883	Geleen
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.9799,	5.7775); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0971	Stein
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.9642,	5.8465); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1954	Sweikhuizen
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.9321,	5.8408); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0888	Spaubeek
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.9557,	5.7847); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0971	Elsloo
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.9396,	5.793 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0888	Beek
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.859,	5.6944); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0935	Maastricht
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.8732,	5.7406); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0938	Meerssen
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.7674,	5.7116); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1903	Eijsden
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.8167,	5.9021); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1729	Gulpen
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.771,	6.0234); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0981	Vaals
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.8566,	5.8355); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0994	Valkenburg
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.8278,	5.8476); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1903	Scheulder
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.864,	5.8864); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0986	Ransdaal
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.8315,	5.8904); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1729	Wijlre
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.8603,	5.7782); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0994	Berg en Terblijt
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.8903,	5.8182); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1954	Schimmert
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.8639,	5.8701); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0994	Walem
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.8779,	5.8828); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0986	Klimmen
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.8235,	5.983 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0965	Bocholtz
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.9118,	5.8934); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1954	Nuth
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.8756,	5.9355); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0986	Voerendaal
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.834,	5.9844); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0965	Simpelveld
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.9057,	6.0202); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0882	Landgraaf
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.8878,	5.9708); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0917	Heerlen
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.9373,	5.9284); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1954	Amstenrade
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.9516,	5.9753); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0899	Brunssum
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.9516,	5.9474); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1954	Merkelbeek
+        one_get_lat_lon = GET_LAT_LON3(my_area,50.8683,	6.0639); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0928	Kerkrade
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8461,	5.8548); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0268	Nijmegen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8547,	5.8208); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0209	Weurt
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.785,	5.9297); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1945	Groesbeek
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8233,	5.8913); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0268	Nijmegen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8217,	5.8851); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1945	Heilig Landstichting
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8093,	5.8816); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0268	Nijmegen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.809,	5.8798); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1945	Heilig Landstichting
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8269,	5.9034); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0268	Nijmegen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.826,	5.9009); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1945	Berg en Dal
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8301,	5.9069); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0268	Nijmegen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8318,	5.9053); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1945	Ubbergen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8299,	5.9072); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0268	Nijmegen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8325,	5.9058); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1945	Ubbergen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7779,	5.8531); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0252	Malden
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7606,	5.8711); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0944	Molenhoek
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.6941,	5.969 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0907	Gennep
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8127,	5.7199); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0296	Wijchen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7653,	5.7809); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0252	Overasselt
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.7864,	5.7191); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0296	Balgoij
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8405,	5.4213); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0668	Dreumel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8155,	5.3882); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0263	Heerewaarden
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8207,	5.4744); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0668	Alphen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.858,	5.6078); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0225	Horssen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8217,	5.629 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0296	Batenburg
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8615,	5.7894); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0209	Beuningen Gld
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8929,	5.6134); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0225	Druten
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8853,	5.5635); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0668	Boven-Leeuwen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9271,	5.8438); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1734	Elst
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.869,	5.8539); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0268	Lent
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9648,	5.8235); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1734	Driel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9094,	5.6585); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1740	Dodewaard
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9305,	5.7145); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1734	Zetten
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8925,	5.8987); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1705	Bemmel
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9681,	5.6674); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0289	Wageningen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0431,	5.6696); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0228	Ede
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9847,	5.9069); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0202	Arnhem
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9399,	5.9409); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1705	Huissen
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.992,	5.8071); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0274	Oosterbeek
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0971,	5.9383); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0228	Deelen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0004,	5.985 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0275	Velp
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.001,	5.9608); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0277	Rozendaal
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9254,	6.0751); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0299	Zevenaar
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9539,	6.0127); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0226	Duiven
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9306,	5.968 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1705	Loo Gld
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9224,	5.9888); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0226	Loo Gld
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9713,	5.9783); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0293	Westervoort
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.952,	5.9853); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0226	Duiven
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9527,	5.9841); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0293	Westervoort
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.939,	6.1245); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1955	Didam
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0459,	6.1034); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0275	Dieren
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1071,	6.051 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0213	Eerbeek
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0654,	6.0003); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0277	Rozendaal
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0992,	6.0758); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0213	Eerbeek
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0191,	6.1316); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0221	Doesburg
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9933,	6.1307); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0299	Angerlo
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0088,	6.0239); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0275	Rheden
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0061,	6.1721); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1876	Drempt
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9665,	6.2905); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0222	Doetinchem
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0066,	6.3496); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1876	Zelhem
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9607,	6.2105); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0222	Wehl
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9392,	6.2317); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1955	Kilder
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9437,	6.4604); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1509	Varsseveld
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.8637,	6.4888); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0197	Dinxperlo
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.975,	6.7177); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0294	Winterswijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9293,	6.5807); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0197	Aalten
+        one_get_lat_lon = GET_LAT_LON3(my_area,51.9864,	6.5529); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1586	Lichtenvoorde
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.101,	6.6536); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1859	Eibergen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1452,	6.2049); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0301	Zutphen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1594,	6.2211); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0262	Eefde
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0643,	6.1866); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1876	Steenderen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1428,	6.2213); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0301	Warnsveld
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1062,	6.2638); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1876	Vierakker
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.162,	6.4148); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0262	Lochem
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1031,	6.3124); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1876	Vorden
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0859,	6.4455); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1859	Ruurlo
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.0218,	6.489 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1586	Mariënvelde
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1176,	6.5277); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1859	Borculo
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2166,	5.9617); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0200	Apeldoorn
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1242,	5.8345); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0228	Hoenderloo
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1353,	5.8845); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0200	Hoenderloo
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1117,	5.8765); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0228	Hoenderloo
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1563,	5.9616); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0200	Beekbergen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.171,	6.0656); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0285	Klarenbeek
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1501,	6.1417); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0213	Empe
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2477,	6.1656); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0150	Deventer
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2472,	6.1479); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0285	Steenenkamer
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3607,	6.4618); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0163	Nijverdal
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2814,	6.4249); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1742	Holten
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3261,	6.4772); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0189	Zuna
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2344,	6.5939); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1735	Goor
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.1671,	6.7548); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0158	Haaksbergen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2626,	6.7126); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1735	Delden
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2185,	6.8931); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0153	Enschede
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2663,	6.7893); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0164	Hengelo
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3004,	6.8324); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1774	Deurningen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3103,	6.876 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0173	Deurningen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2632,	7.0066); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0168	Losser
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3731,	7.0108); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1774	Denekamp
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3502,	6.666 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0141	Almelo
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3791,	6.7074); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0183	Mariaparochie
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3048,	6.7255); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0147	Borne
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3251,	6.6239); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0141	Bornerbroek
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.41	,6.899); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1774	Ootmarsum
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3651,	6.5907); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0189	Wierden
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4027,	6.7869); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0183	Tubbergen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4134,	6.6304); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1700	Vriezenveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4199,	6.7386); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0183	Geesteren
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4597,	6.5718); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1700	Vroomshoop
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4937,	6.5732); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0175	Beerzerveld
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4763,	6.5635); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1700	Geerdijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4433,	6.5771); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0163	Daarlerveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5266,	6.6103); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0160	Bergentheim
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4885,	6.6555); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1700	Sibculo
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4898,	6.6564); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0160	Sibculo
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4908,	6.666 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1700	Kloosterhaar
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4966,	6.6756); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0160	Kloosterhaar
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4934,	6.6719); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1700	Kloosterhaar
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5035,	6.6699); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0160	Kloosterhaar
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6238,	6.482 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1690	Drogteropslagen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6009,	6.3892); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0160	Balkbrug
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5745,	6.2912); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0148	Nieuwleusen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6185,	6.2684); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0180	Punthorst
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5078,	6.2631); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0148	Dalfsen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5086,	6.4227); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0175	Ommen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6682,	6.7515); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0109	Coevorden
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.2644,	6.2204); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0150	Deventer
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6559,	6.7516); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0109	Coevorden
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6576,	6.8972); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0114	Schoonebeek
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5761,	6.613 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0160	Hardenberg
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7817,	6.8912); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0114	Emmen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7727,	6.8028); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0109	Sleen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7142,	6.8506); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0114	Veenoord
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7319,	6.7994); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0109	Holsloot
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.8836,	6.7421); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1681	Eeserveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7598,	6.7152); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0109	Oosterhesselen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.8337,	6.8587); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1681	Klijndijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.8125,	7.0476); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0114	Emmer-Compascuum
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7331,	6.4742); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0118	Hoogeveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7389,	6.5877); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1731	Nieuweroord
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7178,	6.5615); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0118	Nieuweroord
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7273,	6.6343); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0109	Geesbrug
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7038,	6.6108); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0118	Nieuwlande
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6796,	6.4301); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1690	Zuidwolde
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7718,	6.4955); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1731	Stuifzand
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6971,	6.635 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0109	Nieuwlande Coevorden
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7339,	6.4466); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0118	Fluitenberg
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7172,	6.4018); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1690	Echten
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7728,	6.4507); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0118	Pesse
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7838,	6.4291); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1701	Pesse
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7687,	6.4561); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0118	Pesse
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7972,	6.4475); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1701	Pesse
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7896,	6.4552); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0118	Pesse
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7803,	6.4396); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1690	Eursinge
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7457,	6.5449); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0118	Tiendeveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.765,	6.5216); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1731	Tiendeveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6987,	6.19  ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0119	Meppel
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7047,	6.124 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1708	Wanneperveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7304,	6.1644); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0119	Nijeveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6471,	6.207 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0180	Staphorst
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6758,	6.2836); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1690	de Wijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7833,	6.375 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1701	Ruinen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7799,	6.3583); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1690	Ruinen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.784,	6.3686); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1701	Ruinen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7789,	6.3548); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1690	Ruinen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.782,	6.356 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1701	Ruinen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7772,	6.3488); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1690	Ruinen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7868,	6.3569); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1701	Ansen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7904,	6.3435); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1690	Ansen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6984,	6.2652); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0119	Broekhuizen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7787,	6.2442); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1701	Havelte
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.511,	6.0847); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0193	Zwolle
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4648,	6.0686); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0244	Hattem
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4681,	6.1919); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0177	Laag Zuthem
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5959,	6.0921); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1896	Hasselt
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6696,	6.0511); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1708	Belt-Schutsloot
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3717,	5.7855); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0302	Nunspeet
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.517,	5.8745); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0269	Noordeinde Gld
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4395,	5.8244); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0230	Elburg
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4625,	5.9933); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0269	Wezep
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3889,	6.2701); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0177	Raalte
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3407,	6.106 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1773	Olst
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4353,	6.236 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0177	Heino
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4717,	6.3447); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0175	Dalmsholte
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.4489,	6.3431); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0148	Lemelerveld
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3617,	5.9854); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0232	Epe
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3892,	6.043 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0246	Heerde
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.3142,	6.0893); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1773	Welsum
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5351,	5.5192); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0995	Lelystad
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.52	,5.708); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); // 	0303	Dronten
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5569,	5.9189); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0166	Kampen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6207,	6.0427); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1896	Genemuiden
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5637,	5.9927); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0166	Mastenbroek
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.5674,	6.0277); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1896	Mastenbroek
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7093,	5.7524); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0171	Emmeloord
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6647,	5.609 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0184	Urk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.6811,	5.9501); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1708	Vollenhove
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.8103,	6.2113); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1701	Wapserveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.7537,	6.0842); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1708	Giethoorn
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.8572,	6.2056); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1701	Vledder
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.8996,	6.1713); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0098	Oosterstreek
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9977,	6.0658); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0086	Gorredijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9926,	6.0978); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0074	Jubbega
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9222,	6.1124); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0085	Oldeberkoop
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9211,	6.2553); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1701	Zorgvlied
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9672,	5.925 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0074	Heerenveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9507,	5.9013); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1940	Rottum
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9925,	5.881 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0074	Haskerdijken
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.881,	5.9893); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0098	Wolvega
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0534,	5.8461); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0074	Akkrum
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0378,	5.7777); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1940	Terherne
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0783,	5.8314); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0074	Nes
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0841,	5.9164); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0090	Goëngahuizen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9701,	5.7904); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1940	Joure
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9585,	5.6565); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1900	Koufurderrige
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.8369,	5.7227); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1940	Lemmer
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9398,	5.6247); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1900	Woudsend
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.8949,	5.6462); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1940	Sloten
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.8799,	5.4568); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1900	Hemelum
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1849,	5.5489); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1949	Franeker
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1345,	5.4195); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1900	Kimswerd
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1555,	5.614 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1949	Winsum
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1599,	5.6678); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0080	Húns
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1653,	5.6377); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1949	Baaium
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1241,	5.6277); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1900	Hinnaard
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2371,	5.5519); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1949	Tzummarum
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2026,	5.4465); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0072	Wijnaldum
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.3586,	5.215 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0093	West-Terschelling
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2962,	5.0723); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0096	Vlieland
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1978,	5.7882); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0080	Leeuwarden
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0995,	5.7602); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1900	Raerd
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1285,	5.7204); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0080	Mantgum
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1773,	5.7313); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1949	Boksum
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2658,	5.7561); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0080	Stiens
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2364,	5.8976); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0737	Gytsjerk
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.272,	5.8939); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1891	Readtsjerk
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2823,	5.7257); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0080	Alde Leie
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2944,	5.6537); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1949	Nij Altoenae
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.3272,	5.804 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1970	Marrum
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2859,	5.5944); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1949	Westhoek
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2252,	5.8185); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0080	Lekkum
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2435,	5.8331); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0737	Wyns
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.3316,	5.9988); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1970	Dokkum
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.3049,	6.0103); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1891	Damwâld
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.3124,	5.918 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1970	Jannum
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2755,	6.0047); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1891	Broeksterwâld
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.3052,	5.8833); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1970	Burdaard
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.3029,	6.0254); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1891	Wâlterswâld
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.3415,	5.9956); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1970	Aalsum
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.4382,	5.6523); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0060	Hollum
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.4796,	6.1629); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0088	Schiermonnikoog
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.3605,	5.862 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1970	Blije
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1144,	6.0803); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0090	Drachten
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0944,	6.1367); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0086	Drachten-Azeven
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1134,	6.1416); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0090	Drachten
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1767,	6.1522); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0059	Surhuisterveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0579,	6.2062); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0086	Wijnjewoude
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1978,	5.9882); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0737	Burgum
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2515,	6.0089); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1891	Feanwâlden
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1813,	6.1331); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0059	Harkema
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.286,	6.1464); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1970	Kollum
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1375,	6.4336); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1699	Roden
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1633,	6.3931); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1969	Leek
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1542,	6.3845); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1699	Nietap
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1603,	6.3904); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1969	Leek
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1165,	6.3653); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1699	Nieuw-Roden
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1144,	6.3604); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1969	Zevenhuizen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9984,	6.5661); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0106	Assen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.8605,	6.5114); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1731	Beilen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.8178,	6.4592); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1701	Spier
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.8186,	6.4701); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1731	Spier
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9098,	6.3685); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1701	Hoogersmilde
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9184,	6.3859); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1731	Hoogersmilde
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9043,	6.7009); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1680	Schoonloo
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.093,	6.6861); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1730	Zuidlaren
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1226,	6.6673); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0014	Noordlaren
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0781,	6.5805); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1730	Vries
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0344,	6.5721); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0106	Rhee
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.048,	6.5478); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1730	Zeijen
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0491,	6.5744); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0106	Ubbena
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1141,	6.6035); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1730	De Punt
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9925,	6.9523); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0037	Stadskanaal
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0059,	6.8433); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1680	Gieterveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9375,	6.8872); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1681	Nieuw-Buinen
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0248,	7.1043); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1950	Vlagtwedde
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9185,	7.0252); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1681	Zandberg
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0569,	7.1229); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1950	Veelerveen
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.9003,	6.9183); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1681	2e Exloërmond
+        one_get_lat_lon = GET_LAT_LON3(my_area,52.936,	7.0074); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0037	Musselkanaal
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1674,	6.7562); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1952	Hoogezand
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2246,	6.6453); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0014	Meerstad
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1852,	6.7592); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1952	Kolham
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.252,	6.7023); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0014	Lageland GN
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.239,	6.7167); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1952	Lageland
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1197,	6.8177); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0047	Borgercompagnie
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1328,	6.8082); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1952	Borgercompagnie
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1068,	6.8803); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0047	Veendam
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1359,	6.8663); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1952	Muntendam
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0852,	6.7905); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1680	Annerveenschekanaal
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0418,	7.0241); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0037	Alteveer
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0863,	6.9761); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0765	Nieuwe Pekela
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.141,	7.0356); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1895	Winschoten
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0999,	7.1435); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1950	Bellingwolde
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2137,	6.5615); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0014	Groningen
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1934,	6.4509); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1699	Matsloot
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1767,	6.601 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0014	Haren Gn
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.1406,	6.5668); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1730	Eelde
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2944,	6.5339); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1966	Sauwerd
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2725,	6.6971); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0014	Ten Boer
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2472,	6.4063); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1969	Zuidhorn
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2735,	6.23  ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1970	Burum
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2166,	6.2889); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1969	Grootegast
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.239,	6.2156); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0059	Stroobos
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2867,	6.3233); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1969	Kommerzijl
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.3147,	6.3558); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1966	Zuurdijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.3112,	6.4053); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1969	Oldehove
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.32,	6.8544); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0003	Appingedam
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.3536,	6.8501); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0010	Krewerd
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.3367,	6.808 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0024	Oosterwijtwerd
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.3709,	6.6978); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1966	Startenhuizen
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.335,	6.903 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0010	Delfzijl
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2782,	6.8609); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1952	Tjuchem
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2208,	6.9437); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1895	t Waar
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.2588,	6.9268); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0010	Wagenborgen
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.3316,	6.5155); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1966	Winsum
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.4011,	6.7718); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0024	Zijldijk
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.4003,	6.6104); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1966	Usquert
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.3472,	6.6427); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0024	Middelstum
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.3608,	6.6243); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1966	Kantens

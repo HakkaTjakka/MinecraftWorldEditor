@@ -9,7 +9,7 @@
 		<Build>
 			<Target title="Release">
 				<Option platforms="Windows;" />
-				<Option output="../bin/pacman" prefix_auto="1" extension_auto="1" />
+				<Option output="../bin/pacman2" prefix_auto="1" extension_auto="1" />
 				<Option working_dir=".." />
 				<Option object_output="../../obj" />
 				<Option type="1" />
@@ -152,9 +152,6 @@
 			<Add library="lib/cuberite/lua/CMakeFiles/lua.dir/objects.a" />
 			<Add library="lib/libws2_32.a" />
 			<Add directory="lib" />
-			<Add directory="C:/mingw-w64/x86_64-7.3.0-release-posix-seh-rt_v5-rev0/mingw64/lib" />
-			<Add directory="C:/mingw-w64/x86_64-7.3.0-release-posix-seh-rt_v5-rev0/mingw64/x86_64-w64-mingw32/lib" />
-			<Add directory="C:/mingw-w64/x86_64-7.3.0-release-posix-seh-rt_v5-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/7.3.0" />
 		</Linker>
 		<Unit filename="../../shaders/fragment/picture_shader 01.frag" />
 		<Unit filename="../../shaders/fragment/picture_shader 02.frag" />

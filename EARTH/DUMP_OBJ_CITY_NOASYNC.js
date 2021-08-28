@@ -332,7 +332,7 @@ async function run() {
 	let num_octants = 0;
 	let num_downloaded = 0;
 
-	const search = initNodeSearch(rootEpoch, PARALLEL_SEARCH ? 2 : 1,
+	const search = initNodeSearch(rootEpoch, PARALLEL_SEARCH ? 4 : 1,
 		function nodeFound(path) {
 			num_octants++;
 			console.log( num_downloaded.toString().padStart(3, ' ') + '/' + num_octants.toString().padStart(3, ' ') + ' found     ', path );

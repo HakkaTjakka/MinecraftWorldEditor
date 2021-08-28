@@ -2997,6 +2997,7 @@ hit_one_region* findRegion(int x, int z) {
 int region_floor=0;
 
 bool do_model=false;
+extern bool set_save;
 
 void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::material_t> &materials, float bmin_o[3], float bmax_o[3], double lat, double lon, std::string fn) {
 
@@ -3141,6 +3142,12 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                         sprintf(picture_file,"../cut/r.%d.%d.png",x,z);
                         does_exist=file_exists(picture_file);
                         if (does_exist) {
+                            static int blue_screen=2;
+                            blue_screen--;
+                            if (blue_screen==0) {
+                                blue_screen=2;
+                                set_save=true;
+                            }
                             printf("Region(%d,%d) ",x,z);
                             scan_image.loadFromFile(picture_file);
                             bool plot_only_old=plot_only;
@@ -3231,6 +3238,13 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                             if (!flushing) {
 //                                if (mirror==4 && does_exist) {
                                 if (does_exist && !only_new_mca_files) {
+                                    static int blue_screen=2;
+                                    blue_screen--;
+                                    if (blue_screen==0) {
+                                        blue_screen=2;
+                                        set_save=true;
+                                    }
+
                                     printf("\rRegion(%d,%d) ",x,z);
                                     printf("Done: %6.2f%%",100*(float)cnt/(float)cubic_regions_mapped.size());
 
@@ -3277,6 +3291,12 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                         }
 
                         if ((!flushing && does_exist==false) || rescan ) {
+                            static int blue_screen=2;
+                            blue_screen--;
+                            if (blue_screen==0) {
+                                blue_screen=2;
+                                set_save=true;
+                            }
                             printf("\rRegion(%d,%d) floor(%d)",x,z,region_floor);
                             bool plot_only_old=plot_only;
                             if (mirror==3) {
@@ -3314,6 +3334,13 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
         //                printf(de->d_name);
                         printf("\r%s      ",de->d_name);
                         if (!flushing) {
+                            static int blue_screen=2;
+                            blue_screen--;
+                            if (blue_screen==0) {
+                                blue_screen=2;
+                                set_save=true;
+                            }
+
                             sscanf(de->d_name,"r.%d.%d.mca",&x,&z);
     //                        printf("r.%d.%d.mca ",x,z);
                             sprintf(picture_file,"../cut/r.%d.%d.png",x,z);
