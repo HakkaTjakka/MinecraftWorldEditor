@@ -6333,7 +6333,7 @@ extern std::string area;
         sprintf(tmp, "/Saves/Test/region/%s/r.%d.%d.mca", DONE, region_x, region_z);
 //    sprintf(tmp, "/Saves/Test/region/done0/r.%d.%d.mca", region_x, region_z);
     fname=tmp;
-    if (file_exists("add_to_region.on") || add_to_region) {
+    if ((file_exists("add_to_region.on") || add_to_region) && !file_exists("add_to_region.off")) {
         add_to_region2=true;
         printf(" Add to region=on");
     } else add_to_region2=false;

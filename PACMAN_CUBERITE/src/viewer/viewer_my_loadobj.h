@@ -3246,7 +3246,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                                     }
 
                                     printf("\rRegion(%d,%d) ",x,z);
-                                    printf("Done: %6.2f%%",100*(float)cnt/(float)cubic_regions_mapped.size());
+                                    printf("Done: %d/%d = %6.2f%%",cnt,cubic_regions_mapped.size(),100.0*(float)cnt/(float)cubic_regions_mapped.size());
 
                                     scan_image.loadFromFile(picture_file);
                                     bool plot_only_old=plot_only;
@@ -3311,7 +3311,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                             MCEDITOR_running=0;
                             plotting=0;
                             plot_only=plot_only_old;
-                            printf("Done: %6.2f%%\n",100*(float)cnt/(float)cubic_regions_mapped.size());
+                            printf("Done: %d/%d = %6.2f%%\n",cnt,cubic_regions_mapped.size(),100.0*(float)cnt/(float)cubic_regions_mapped.size());
 //                            printf("\n");
                         }
 
@@ -5390,6 +5390,18 @@ void PLOT_REGIONS_FUNC2();
 
 extern int first;
 
+int plot_region_x_min=0;
+int plot_region_x_max=0;
+int plot_region_z_min=0;
+int plot_region_z_max=0;
+
+extern int paper_select;
+extern int paper_format();
+extern int rectangle_paper_pos_x;
+extern int rectangle_paper_pos_y;
+extern int rectangle_paper_count_x;
+extern int rectangle_paper_count_y;
+
 void PLOT_REGIONS_THREAD()
 {
     printf("Waiting for main first loop");
@@ -5406,7 +5418,39 @@ void PLOT_REGIONS_THREAD()
     PLOT_REGIONS_stop=0;
     PLOT_REGIONS_running=0;
     SFMLView1.requestFocus();
-    printf("Region to voxel thread end\n");
+    printf("Region to voxel thread end");
+//extern void SAVEALLBITMAPS();
+//    SAVEALLBITMAPS();
+    printf(", done. Setting papers, press ALT+c to posterize\n");
+
+    if (plot_region_x_min<0) plot_region_x_min-=10;
+    if (plot_region_z_min<0) plot_region_z_min-=10;
+    plot_region_x_min=int(plot_region_x_min/10);
+    plot_region_z_min=int(plot_region_z_min/10);
+
+    if (plot_region_x_max<0) plot_region_x_max-=10;
+    if (plot_region_z_max<0) plot_region_z_max-=10;
+    plot_region_x_max=int(plot_region_x_max/10);
+    plot_region_z_max=int(plot_region_z_max/10);
+
+    rectangle_paper_count_x=plot_region_x_max-plot_region_x_min+1;;
+    rectangle_paper_count_y=plot_region_z_max-plot_region_z_min+1;;
+
+    int x=plot_region_x_min*512+1920/2;
+    int y=plot_region_z_min*512+1080/2;
+
+    if (plot_region_x_min>=0)
+        rectangle_paper_pos_x=(int)( ( (LONG64)x + (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
+    else
+        rectangle_paper_pos_x=(int)( ( (LONG64)x +1 + (LONG64)maxpixelsx*100 ) % (LONG64)maxpixelsx );
+
+    if (plot_region_z_min>=0)
+        rectangle_paper_pos_y=(int)( ( (LONG64)y + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
+    else
+        rectangle_paper_pos_y=(int)( ( (LONG64)y +1 + (LONG64)maxpixelsy*100 ) % (LONG64)maxpixelsy );
+
+    paper_select=0;
+    paper_format();
 }
 
 
@@ -5599,7 +5643,7 @@ void PLOT_REGIONS_FUNC() {
                     MCEDITOR_running=0;
                     plotting=0;
                     plot_only=plot_only_old;
-                    printf("Done: %6.2f%%\n",100*(float)cnt/(float)cubic_regions_mapped.size());
+                    printf("Done: %d/%d = %6.2f%%\n",cnt,cubic_regions_mapped.size(),100.0*(float)cnt/(float)cubic_regions_mapped.size());
 //                            printf("\n");
                 }
 
@@ -5669,6 +5713,7 @@ void PLOT_REGIONS_FUNC() {
     printf("\n");
 }
 
+
 void PLOT_REGIONS_FUNC2() {
     bool plot_only_on=false;
     if (plot_only) {
@@ -5678,6 +5723,8 @@ void PLOT_REGIONS_FUNC2() {
     silence=true;
     burn=true;
     char picture_file[400];
+    plot_region_x_min = plot_region_z_min = std::numeric_limits<int>::max();
+    plot_region_x_max = plot_region_z_max = std::numeric_limits<int>::min();
     if (cubic || 1) {
         region_center_x=0;
         region_center_z=0;
@@ -5708,6 +5755,10 @@ void PLOT_REGIONS_FUNC2() {
                     one_cubic_region.region_floor=0;
 
                     cubic_regions_mapped_unique.insert(std::make_pair( z*100000000+100*x, one_cubic_region));
+                    plot_region_x_min = std::min(plot_region_x_min, x);
+                    plot_region_z_min = std::min(plot_region_z_min, z);
+                    plot_region_x_max = std::max(plot_region_x_max, x);
+                    plot_region_z_max = std::max(plot_region_z_max, z);
                 }
             }
             closedir(dr);
@@ -5824,7 +5875,7 @@ void PLOT_REGIONS_FUNC2() {
 //                                if (mirror==4 && does_exist) {
                         if (does_exist && !only_new_mca_files) {
                             printf("\rRegion(%d,%d) ",x,z);
-                            printf("Done: %6.2f%%",100*(float)cnt/(float)cubic_regions_mapped.size());
+                            printf("Done: %d/%d = %6.2f%%",cnt,cubic_regions_mapped.size(),100.0*(float)cnt/(float)cubic_regions_mapped.size());
 
                             scan_image.loadFromFile(picture_file);
                             bool plot_only_old=plot_only;
@@ -5883,7 +5934,7 @@ void PLOT_REGIONS_FUNC2() {
                     MCEDITOR_running=0;
                     plotting=0;
                     plot_only=plot_only_old;
-                    printf("Done: %6.2f%%\n",100*(float)cnt/(float)cubic_regions_mapped.size());
+                    printf("Done: %d/%d = %6.2f%%\n",cnt,cubic_regions_mapped.size(),100.0*(float)cnt/(float)cubic_regions_mapped.size());
 //                            printf("\n");
                 }
 

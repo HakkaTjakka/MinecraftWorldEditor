@@ -8765,7 +8765,7 @@ extern int bukkit_running;
                 texturemaxinmem[xx].setSmooth(FALSE);
             }
             printf("\n");
-            system("mkdir ..\\cut");
+            system("mkdir ..\\paper");
             scale_now=1.0;
             ffmpeg_move=1;
 
@@ -8834,7 +8834,7 @@ extern int bukkit_running;
                     printf("Creating X=%d,Y=%d  ",x,y);
 //                    sprite_from_ffmpeg.setRotation(rectangle_paper.getRotation());
                     get_ffmpegfile();
-                    sprintf(naam,"..\\cut\\picture.%06d.%06d.png",y,x);
+                    sprintf(naam,"..\\paper\\picture.%06d.%06d.png",y,x);
 
                     if (crossing==1) {
                         sprite_from_ffmpeg.setScale(1920.0/(float)texture_from_ffmpeg.getSize().x,1080.0/(float)texture_from_ffmpeg.getSize().y);

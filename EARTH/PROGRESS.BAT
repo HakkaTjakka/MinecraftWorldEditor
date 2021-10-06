@@ -1,0 +1,40 @@
+set A=1,000
+set B=154,022
+
+set A2=%A:,=%
+set B2=%B:,=%
+
+set /a TOTAL=A2 + B2
+
+echo %TOTAL%
+pause
+
+@ECHO OFF
+
+setlocal EnableExtensions EnableDelayedExpansion
+
+IF EXIST OCTANTS_TODO.TXT DEL OCTANTS_TODO.TXT
+IF EXIST OCTANTS_READY.TXT DEL OCTANTS_READY.TXT
+SET /A YES=0
+SET /A NO=0
+SET /A TOT=0
+for /F "tokens=*" %%A in (OCTANTS_SORTED_GRID.TXT) do (
+	set "l=%%A"
+	set "result=!l:~0,14!"
+
+	IF EXIST G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\!result!\%%A-21 (
+		ECHO %%A >> OCTANTS_READY.TXT
+		ECHO ALREADY EXIST: G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\!result!\%%A-21  !PERC2!
+		SET /A YES=!YES! + 1
+	) ELSE (
+		ECHO %%A >> OCTANTS_TODO.TXT
+		ECHO DOESN'T EXIST: G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\!result!\%%A-21  !PERC2!
+		SET /A NO=!NO! + 1
+	)
+	SET /A TOT=!TOT! + 1
+	
+	SET PERC2=!YES! + !NO! = !TOT!
+)
+PAUSE
+
+
