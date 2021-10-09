@@ -40,6 +40,7 @@ for /f "tokens=*" %%F in ('dir /b /a:d /o:-n ".\3*"') do (
 										set NAME=%%c
 										set EXTENSION=%%d
 									)
+									ECHO %%F\%%G\!TEXTURE!
 									if not "!EXTENSION!"=="jpg" set /a no_jpg=1
 									if exist %%F\%%G\!TEXTURE! (
 										set /a num_in_dir=!num_in_dir! + 1
@@ -123,7 +124,7 @@ for /f "tokens=*" %%F in ('dir /b /a:d /o:-n ".\3*"') do (
 					)
 				)
 			) else (
-				echo Subdirectory: %%F\%%G has no .mtl file %%F\%%G\!result!.mtl, moving to G:\PACMAN\EARTH\DOWNLOADED_FILES\NEW\UTRECHT\%%F
+				echo Subdirectory: %%F\%%G has no .mtl file %%F\%%G\!result!.mtl, moving to NO_MTL_FILE
 				echo Subdirectory: %%F\%%G has no .mtl file %%F\%%G\!result!.mtl >> CHECK_FOR_ALL_TEXTURES.LOG
 				set /a is_corrupt = 2
 			)

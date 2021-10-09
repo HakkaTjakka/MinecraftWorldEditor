@@ -7826,7 +7826,7 @@ glm::ivec2 GET_LAT_LON3(std::string my_area, double lat, double lon) {
 
     char line[2000]="";
     int ret=1;
-    printf("Got : lat=%f , lon=%f\n",lat,lon);
+    //printf("Got : lat=%f , lon=%f\n",lat,lon);
     sprintf(line,"LAT=%f LON=%f\n",lat,lon);
     if ( ret!=0) {
         if (strlen(line)!=0 ) {
@@ -7839,10 +7839,10 @@ glm::ivec2 GET_LAT_LON3(std::string my_area, double lat, double lon) {
             if (num<2) {
                 num=sscanf(line,"%999[^\@]@%lf\,%lf\,%999[^\n]",rest, &lat, &lon, rest2);
                 if (num==4) num=2;
-                printf("lat=%f lon=%f rest=%s rest2=%s\n",lat,lon,rest,rest2);
+                //printf("lat=%f lon=%f rest=%s rest2=%s\n",lat,lon,rest,rest2);
             } else {
-                if (num==2) printf("lat=%f lon=%f\n",lat,lon);
-                else printf("lat=%f lon=%f rest=%s\n",lat,lon,rest);
+                //if (num==2) printf("lat=%f lon=%f\n",lat,lon);
+                //else printf("lat=%f lon=%f rest=%s\n",lat,lon,rest);
                 if (num==3) num=2;
             }
             int max_x=-1; int max_y=-1;
@@ -7859,7 +7859,7 @@ glm::ivec2 GET_LAT_LON3(std::string my_area, double lat, double lon) {
 //                    while (replace_str(line,".",","));
                     int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
                     if (num==4 && lat>=lat_south && lat<=lat_north) {
-                        printf("FOUND!!!! LAT: LAT=%lf LON=%lf Testing: N=%lf S=%lf W=%lf E=%lf\n",lat,lon, lat_north, lat_south, lon_west, lon_east);
+                        //printf("FOUND!!!! LAT: LAT=%lf LON=%lf Testing: N=%lf S=%lf W=%lf E=%lf\n",lat,lon, lat_north, lat_south, lon_west, lon_east);
                         lat_found=true;
                         break;
                     } else {
@@ -7878,7 +7878,7 @@ glm::ivec2 GET_LAT_LON3(std::string my_area, double lat, double lon) {
 //                    while (replace_str(line,".",","));
                     int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
                     if (num==4 && lon>=lon_west && lon<=lon_east) {
-                        printf("FOUND!!!! LON: LAT=%lf LON=%lf Testing: N=%lf S=%lf W=%lf E=%lf\n",lat,lon, lat_north, lat_south, lon_west, lon_east);
+                        //printf("FOUND!!!! LON: LAT=%lf LON=%lf Testing: N=%lf S=%lf W=%lf E=%lf\n",lat,lon, lat_north, lat_south, lon_west, lon_east);
                         lon_found=true;
                         break;
                     } else {
@@ -7908,6 +7908,107 @@ glm::ivec2 GET_LAT_LON3(std::string my_area, double lat, double lon) {
     }
     else {
         if (my_area!="Models" && my_area!="Canvas") printf("\nNot found: LAT=%lf LON=%lf\n",lat,lon);
+        return glm::ivec2(999.0,999.0);
+    }
+}
+
+glm::ivec2 GET_LAT_LON4(std::string my_area, double lat, double lon) {
+    on_hold=true;
+    FILE* file;
+    bool lat_found=false;
+    bool lon_found=false;
+    int y=0;
+    int x=0;
+
+    lat_north=0.0;
+    lat_south=0.0;
+    lon_west=0.0;
+    lon_east=0.0;
+
+    char line[2000]="";
+    int ret=1;
+    //printf("Got : lat=%f , lon=%f\n",lat,lon);
+    sprintf(line,"LAT=%f LON=%f\n",lat,lon);
+    if ( ret!=0) {
+        if (strlen(line)!=0 ) {
+//decimal_point
+            while (replace_str(line,",","."));
+//            while (replace_str(line,".",","));
+            char rest[999]="";
+            char rest2[999]="";
+            int num=sscanf(line,"LAT=%lf LON=%lf %999[^\n]", &lat, &lon, rest);
+            if (num<2) {
+                num=sscanf(line,"%999[^\@]@%lf\,%lf\,%999[^\n]",rest, &lat, &lon, rest2);
+                if (num==4) num=2;
+                //printf("lat=%f lon=%f rest=%s rest2=%s\n",lat,lon,rest,rest2);
+            } else {
+                //if (num==2) printf("lat=%f lon=%f\n",lat,lon);
+                //else printf("lat=%f lon=%f rest=%s\n",lat,lon,rest);
+                if (num==3) num=2;
+            }
+            int max_x=-1; int max_y=-1;
+            if (num==2) {
+                get_area_data(my_area,max_x,max_y);
+                x=max_x/2;
+                for (y=0; y<max_y; y++) {
+                    get_area_quick=true;
+                    get_area_data(my_area,x,y);
+                    get_area_quick=false;
+                    strcpy(line,latitude_longditude.c_str());
+//decimal_point
+                        while (replace_str(line,",","."));
+//                    while (replace_str(line,".",","));
+                    int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
+                    if (num==4 && lat>=lat_south && lat<=lat_north) {
+//                        printf("FOUND!!!! LAT: LAT=%lf LON=%lf Testing: N=%lf S=%lf W=%lf E=%lf\n",lat,lon, lat_north, lat_south, lon_west, lon_east);
+                        lat_found=true;
+                        break;
+                    } else {
+//                        printf("Searching LAT: LAT=%lf LON=%lf Testing: N=%lf S=%lf W=%lf E=%lf\n",lat,lon, lat_north, lat_south, lon_west, lon_east);
+                    }
+                }
+            }
+            if (lat_found) {
+                for (x=0; x<max_x; x++) {
+                    get_area_quick=true;
+                    get_area_data(my_area,x,y);
+                    get_area_quick=false;
+                    strcpy(line,latitude_longditude.c_str());
+//decimal_point
+                        while (replace_str(line,",","."));
+//                    while (replace_str(line,".",","));
+                    int num=sscanf(line,"N=%lf S=%lf W=%lf E=%lf", &lat_north, &lat_south, &lon_west, &lon_east);
+                    if (num==4 && lon>=lon_west && lon<=lon_east) {
+//                        printf("FOUND!!!! LON: LAT=%lf LON=%lf Testing: N=%lf S=%lf W=%lf E=%lf\n",lat,lon, lat_north, lat_south, lon_west, lon_east);
+                        lon_found=true;
+                        break;
+                    } else {
+//                        printf("Searching LON: LAT=%lf LON=%lf Testing: N=%lf S=%lf W=%lf E=%lf\n",lat,lon, lat_north, lat_south, lon_west, lon_east);
+                    }
+                }
+            } else {
+                //printf("\nLat not found: LAT=%lf\n",lat,lon);
+            }
+        }// else fclose(file);
+    }
+    if (lat_found && lon_found) {
+
+        //printf("Found: X=%d,Y=%d %s ",x,y,get_area_data(my_area,x,y).c_str());
+
+//        char lat_str[100];
+//        char lon_str[100];
+//        sprintf(lat_str,"%lf",(lat_north+lat_south)/2.0); while (replace_str(lat_str,",","."));
+//        sprintf(lon_str,"%lf",(lon_east+lon_west)/2.0); while (replace_str(lon_str,",","."));
+//        sprintf(lat_str,"%lf",lat); while (replace_str(lat_str,",","."));
+//        sprintf(lon_str,"%lf",lon); while (replace_str(lon_str,",","."));
+//        printf("https://www.google.com/maps/@%s,%s,17.00z\n",lat_str,lon_str);
+        found_lat=lat;
+        found_lon=lon;
+        lat_lon_found=true;
+        return glm::ivec2(x,y);
+    }
+    else {
+        //if (my_area!="Models" && my_area!="Canvas") printf("\nNot found: LAT=%lf LON=%lf\n",lat,lon);
         return glm::ivec2(999.0,999.0);
     }
 }
@@ -7965,4 +8066,80 @@ bool plot_quick_func(double& lat, double& lon, std::string& my_area, int win_num
     for (auto u : Pacman_Objects[win_num]) Draw(u.gDrawObjects, u.materials, u.textures);
     window.setActive(false);
 //    window.display();
+}
+
+void geo_to_index(std::string my_area) {
+    glm::ivec2 one_get_lat_lon;
+    lat_lon_center.clear();
+//printf("1\n");
+    FILE* HOP;
+    if ((HOP = fopen ("RESULT.TXT", "r"))!=NULL) {
+//printf("2\n");
+        char line[1000];
+        int index=0;
+        int max_x; int max_y; int min_x; int min_y;
+        FILE* RES;
+        RES = fopen ("OBJECT_ARRAY.RES", "w");
+        while (fgets (line,1000, HOP)!=NULL) {
+            //printf("%s\n",line);
+            while (replace_str(line,",","."));
+            char rest[999]="";
+            char rest2[999]="";
+            double lat,lon;
+
+            if (index==0) {
+                max_x =-std::numeric_limits<int>::max();
+                max_y =-std::numeric_limits<int>::max();
+                min_x = std::numeric_limits<int>::max();
+                min_y = std::numeric_limits<int>::max();
+            }
+
+            int num=sscanf(line,"%999[^ ] %lf %lf", rest, &lon, &lat);
+            //printf("%s %17.13f %17.13f\n",rest, lon, lat);
+            if (num<2) {
+                num=sscanf(line,"%999[^\@]@%lf\,%lf\,%999[^\n]",rest, &lat, &lon, rest2);
+                if (num==4) num=2;
+                //printf("lat=%f lon=%f rest=%s rest2=%s\n",lat,lon,rest,rest2);
+            } else {
+                //if (num==2) printf("lat=%f lon=%f\n",lat,lon);
+                //else printf("lat=%f lon=%f rest=%s\n",lat,lon,rest);
+                //if (num==3) num=2;
+            }
+
+            one_get_lat_lon = GET_LAT_LON4(my_area,lat,lon);
+            if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) {
+                get_area_quick=true;
+
+                //lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
+                printf("%s %17.13f %17.13f [%17.13f,%17.13f]-[%17.13f,%17.13f] %s X=%d Y=%d\n",
+                       rest, lon, lat,
+                       lat_north,lon_west,lat_south,lon_east,
+                       get_area_data(my_area,one_get_lat_lon.x,one_get_lat_lon.y).c_str(),
+                       one_get_lat_lon.x,one_get_lat_lon.y );
+
+                get_area_quick=false;
+                min_x=std::min(min_x,one_get_lat_lon.x);
+                max_x=std::max(max_x,one_get_lat_lon.x);
+                min_y=std::min(min_y,one_get_lat_lon.y);
+                max_y=std::max(max_y,one_get_lat_lon.y);
+                if (index==3) {
+                    for (int x=min_x; x<=max_x; x++ ) {
+                        for (int y=min_y; y<=max_y; y++ ) {
+                           fprintf(RES,"X=%d Y=%d\n",x,y);
+                        }
+                    }
+                }
+            } else {
+                printf("%s %17.13f %17.13f Not found!\n", rest, lon, lat);
+            }
+            index++;
+            if (index==4) {
+                index=0;
+            }
+        }
+        fclose(RES);
+        fclose(HOP);
+    } else {
+        printf("Error opening RESULT.TXT\n");
+    }
 }

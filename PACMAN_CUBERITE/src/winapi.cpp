@@ -45,6 +45,8 @@
 #define EVENT_CONTROL 4
 #define EVENT_SYSTEM 8
 
+extern void geo_to_index(std::string my_area);
+
 extern void launch_PLOT_REGIONS();
 extern void font2function();
 extern bool MAKE_NBT;
@@ -1137,6 +1139,13 @@ printf("hoppa");
                 }
             }
             send_message='z';
+        }
+        else if (   strcmp(argv[1],"geo2index"    )==0) {
+            if (argc>2) {
+                geo_to_index(argv[2]);
+            }
+            ShowTaskBar(true);
+            GenerateConsoleCtrlEvent(CTRL_C_EVENT, 0);
         }
         else if (   strcmp(argv[1],"holland"    )==0) {
             if (argc>2) {
