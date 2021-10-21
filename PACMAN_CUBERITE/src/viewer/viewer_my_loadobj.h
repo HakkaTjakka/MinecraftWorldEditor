@@ -544,7 +544,7 @@ static bool LoadObjAndConvert_window(float bmin[3], float bmax[3],
             time=clock.getElapsedTime();
             batch_load=1;
             int wait_stat=0;
-            int count_ready=0;
+//            int count_ready=0;
 
             while ((wait_stat=wait_for_all_loaded()) == 0) {
     //            printf("\rWaiting for all ready loading or error... ");

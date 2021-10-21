@@ -793,38 +793,39 @@ int ppi_x,ppi_y;
 
 int paper_format() {
     paper_select++;
-    if (paper_select>27) {
+    if (paper_select>28) {
         paper_select=0;
         paper_name="";
     }
     if      (paper_select== 1)  {   paper_name=std::string()+"Minecraft";           width_mm=433;   height_mm=433;  overlap_mm=0;   width_pixels=5120;      height_pixels=5120;     overlap_pixels=0;  }
-    else if (paper_select== 2)  {   paper_name=std::string()+"Poster landscape";    width_mm=1800;  height_mm=1200; overlap_mm=3;   width_pixels=21260;     height_pixels=14174;    overlap_pixels=36; }
-    else if (paper_select== 3)  {   paper_name=std::string()+"Poster portrait";     width_mm=1200;  height_mm=1800; overlap_mm=0;   width_pixels=14174;     height_pixels=21260;    overlap_pixels=00; }
-    else if (paper_select== 4)  {   paper_name=std::string()+"A0 Landscape";	    width_mm=1189;  height_mm=841;  overlap_mm=3;   width_pixels=14044;     height_pixels=9934;     overlap_pixels=36; }
-    else if (paper_select== 5)  {   paper_name=std::string()+"A0 Portrait";	        width_mm=841;   height_mm=1189; overlap_mm=3;   width_pixels=9934;      height_pixels=14044;    overlap_pixels=36; }
-    else if (paper_select== 6)  {   paper_name=std::string()+"A1 Landscape";	    width_mm=841;   height_mm=594;  overlap_mm=3;   width_pixels=9934;      height_pixels=7016;     overlap_pixels=36; }
-    else if (paper_select== 7)  {   paper_name=std::string()+"A1 Portrait";	        width_mm=594;   height_mm=841;  overlap_mm=3;   width_pixels=7016;      height_pixels=9934;     overlap_pixels=36; }
-    else if (paper_select== 8)  {   paper_name=std::string()+"A2 Landscape";	    width_mm=594;   height_mm=420;  overlap_mm=3;   width_pixels=7016;      height_pixels=4962;     overlap_pixels=36; }
-    else if (paper_select== 9)  {   paper_name=std::string()+"A2 Portrait";	        width_mm=420;   height_mm=594;  overlap_mm=3;   width_pixels=4962;      height_pixels=7016;     overlap_pixels=36; }
-    else if (paper_select==10)  {   paper_name=std::string()+"A3 Landscape";	    width_mm=420;   height_mm=297;  overlap_mm=3;   width_pixels=4962;      height_pixels=3508;     overlap_pixels=36; }
-    else if (paper_select==11)  {   paper_name=std::string()+"A3 Portrait";	        width_mm=297;   height_mm=420;  overlap_mm=3;   width_pixels=3508;      height_pixels=4962;     overlap_pixels=36; }
-    else if (paper_select==12)  {   paper_name=std::string()+"A4 Landscape";	    width_mm=297;   height_mm=210;  overlap_mm=3;   width_pixels=3508;      height_pixels=2480;     overlap_pixels=36; }
-    else if (paper_select==13)  {   paper_name=std::string()+"A4 Portrait";	        width_mm=210;   height_mm=297;  overlap_mm=3;   width_pixels=2480;      height_pixels=3508;     overlap_pixels=36; }
-    else if (paper_select==14)  {   paper_name=std::string()+"A5 Landscape";	    width_mm=210;   height_mm=148;  overlap_mm=3;   width_pixels=2480;      height_pixels=1748;     overlap_pixels=36; }
-    else if (paper_select==15)  {   paper_name=std::string()+"A5 Portrait";	        width_mm=148;   height_mm=210;  overlap_mm=3;   width_pixels=1748;      height_pixels=2480;     overlap_pixels=36; }
-    else if (paper_select==16)  {   paper_name=std::string()+"A6 Landscape";	    width_mm=148;   height_mm=105;  overlap_mm=3;   width_pixels=1748;      height_pixels=1240;     overlap_pixels=36; }
-    else if (paper_select==17)  {   paper_name=std::string()+"A6 Portrait";	        width_mm=105;   height_mm=148;  overlap_mm=3;   width_pixels=1240;      height_pixels=1748;     overlap_pixels=36; }
-    else if (paper_select==18)  {   paper_name=std::string()+"A7 Landscape";	    width_mm=105;   height_mm=74;   overlap_mm=3;   width_pixels=1240;      height_pixels=874;      overlap_pixels=36; }
-    else if (paper_select==19)  {   paper_name=std::string()+"A7 Portrait";	        width_mm=74;    height_mm=105;  overlap_mm=3;   width_pixels=874;       height_pixels=1240;     overlap_pixels=36; }
-    else if (paper_select==20)  {   paper_name=std::string()+"TEST";	            width_mm=41;    height_mm=23;   overlap_mm=3;   width_pixels=480;       height_pixels=270;      overlap_pixels=36; }
-    else if (paper_select==21)  {   paper_name=std::string()+"TEST NO OVERLAP";	    width_mm=41;    height_mm=23;   overlap_mm=0;   width_pixels=480;       height_pixels=270;      overlap_pixels=0;  }
-    else if (paper_select==22)  {   paper_name=std::string()+"1920 x 1080";	        width_mm=162;   height_mm=91;   overlap_mm=0;   width_pixels=1920;      height_pixels=1080;     overlap_pixels=0;  }
+    else if (paper_select== 2)  {   paper_name=std::string()+"Map512";              width_mm=43;    height_mm=43;   overlap_mm=0;   width_pixels=512;       height_pixels=512;      overlap_pixels=0;  }
+    else if (paper_select== 3)  {   paper_name=std::string()+"Poster landscape";    width_mm=1800;  height_mm=1200; overlap_mm=3;   width_pixels=21260;     height_pixels=14174;    overlap_pixels=36; }
+    else if (paper_select== 4)  {   paper_name=std::string()+"Poster portrait";     width_mm=1200;  height_mm=1800; overlap_mm=0;   width_pixels=14174;     height_pixels=21260;    overlap_pixels=00; }
+    else if (paper_select== 5)  {   paper_name=std::string()+"A0 Landscape";	    width_mm=1189;  height_mm=841;  overlap_mm=3;   width_pixels=14044;     height_pixels=9934;     overlap_pixels=36; }
+    else if (paper_select== 6)  {   paper_name=std::string()+"A0 Portrait";	        width_mm=841;   height_mm=1189; overlap_mm=3;   width_pixels=9934;      height_pixels=14044;    overlap_pixels=36; }
+    else if (paper_select== 7)  {   paper_name=std::string()+"A1 Landscape";	    width_mm=841;   height_mm=594;  overlap_mm=3;   width_pixels=9934;      height_pixels=7016;     overlap_pixels=36; }
+    else if (paper_select== 8)  {   paper_name=std::string()+"A1 Portrait";	        width_mm=594;   height_mm=841;  overlap_mm=3;   width_pixels=7016;      height_pixels=9934;     overlap_pixels=36; }
+    else if (paper_select== 9)  {   paper_name=std::string()+"A2 Landscape";	    width_mm=594;   height_mm=420;  overlap_mm=3;   width_pixels=7016;      height_pixels=4962;     overlap_pixels=36; }
+    else if (paper_select==10)  {   paper_name=std::string()+"A2 Portrait";	        width_mm=420;   height_mm=594;  overlap_mm=3;   width_pixels=4962;      height_pixels=7016;     overlap_pixels=36; }
+    else if (paper_select==11)  {   paper_name=std::string()+"A3 Landscape";	    width_mm=420;   height_mm=297;  overlap_mm=3;   width_pixels=4962;      height_pixels=3508;     overlap_pixels=36; }
+    else if (paper_select==12)  {   paper_name=std::string()+"A3 Portrait";	        width_mm=297;   height_mm=420;  overlap_mm=3;   width_pixels=3508;      height_pixels=4962;     overlap_pixels=36; }
+    else if (paper_select==13)  {   paper_name=std::string()+"A4 Landscape";	    width_mm=297;   height_mm=210;  overlap_mm=3;   width_pixels=3508;      height_pixels=2480;     overlap_pixels=36; }
+    else if (paper_select==14)  {   paper_name=std::string()+"A4 Portrait";	        width_mm=210;   height_mm=297;  overlap_mm=3;   width_pixels=2480;      height_pixels=3508;     overlap_pixels=36; }
+    else if (paper_select==15)  {   paper_name=std::string()+"A5 Landscape";	    width_mm=210;   height_mm=148;  overlap_mm=3;   width_pixels=2480;      height_pixels=1748;     overlap_pixels=36; }
+    else if (paper_select==16)  {   paper_name=std::string()+"A5 Portrait";	        width_mm=148;   height_mm=210;  overlap_mm=3;   width_pixels=1748;      height_pixels=2480;     overlap_pixels=36; }
+    else if (paper_select==17)  {   paper_name=std::string()+"A6 Landscape";	    width_mm=148;   height_mm=105;  overlap_mm=3;   width_pixels=1748;      height_pixels=1240;     overlap_pixels=36; }
+    else if (paper_select==18)  {   paper_name=std::string()+"A6 Portrait";	        width_mm=105;   height_mm=148;  overlap_mm=3;   width_pixels=1240;      height_pixels=1748;     overlap_pixels=36; }
+    else if (paper_select==19)  {   paper_name=std::string()+"A7 Landscape";	    width_mm=105;   height_mm=74;   overlap_mm=3;   width_pixels=1240;      height_pixels=874;      overlap_pixels=36; }
+    else if (paper_select==20)  {   paper_name=std::string()+"A7 Portrait";	        width_mm=74;    height_mm=105;  overlap_mm=3;   width_pixels=874;       height_pixels=1240;     overlap_pixels=36; }
+    else if (paper_select==21)  {   paper_name=std::string()+"TEST";	            width_mm=41;    height_mm=23;   overlap_mm=3;   width_pixels=480;       height_pixels=270;      overlap_pixels=36; }
+    else if (paper_select==22)  {   paper_name=std::string()+"TEST NO OVERLAP";	    width_mm=41;    height_mm=23;   overlap_mm=0;   width_pixels=480;       height_pixels=270;      overlap_pixels=0;  }
+    else if (paper_select==23)  {   paper_name=std::string()+"1920 x 1080";	        width_mm=162;   height_mm=91;   overlap_mm=0;   width_pixels=1920;      height_pixels=1080;     overlap_pixels=0;  }
     else if (paper_select==23)  {   paper_name=std::string()+"3840 x 2160";	        width_mm=324;   height_mm=182;  overlap_mm=0;   width_pixels=3840;      height_pixels=2160;     overlap_pixels=0;  }
-    else if (paper_select==23)  {   paper_name=std::string()+"7680 x 4320";	        width_mm=648;   height_mm=364;  overlap_mm=0;   width_pixels=7680;      height_pixels=4320;     overlap_pixels=0;  }
     else if (paper_select==24)  {   paper_name=std::string()+"7680 x 4320";	        width_mm=648;   height_mm=364;  overlap_mm=0;   width_pixels=7680;      height_pixels=4320;     overlap_pixels=0;  }
-    else if (paper_select==25)  {   paper_name=std::string()+"5760 x 3240";	        width_mm=486;   height_mm=273;  overlap_mm=0;   width_pixels=5760;      height_pixels=3240;     overlap_pixels=0;  }
-    else if (paper_select==26)  {   paper_name=std::string()+"4800 x 2700";	        width_mm=405;   height_mm=227;  overlap_mm=0;   width_pixels=4800;      height_pixels=2700;     overlap_pixels=0;  }
-    else if (paper_select==27)  {   paper_name=std::string()+"14400 x 21600";	    width_mm=920;   height_mm=1350; overlap_mm=3*3;   width_pixels=14400;     height_pixels=21600;    overlap_pixels=36*6; }
+    else if (paper_select==25)  {   paper_name=std::string()+"7680 x 4320";	        width_mm=648;   height_mm=364;  overlap_mm=0;   width_pixels=7680;      height_pixels=4320;     overlap_pixels=0;  }
+    else if (paper_select==26)  {   paper_name=std::string()+"5760 x 3240";	        width_mm=486;   height_mm=273;  overlap_mm=0;   width_pixels=5760;      height_pixels=3240;     overlap_pixels=0;  }
+    else if (paper_select==27)  {   paper_name=std::string()+"4800 x 2700";	        width_mm=405;   height_mm=227;  overlap_mm=0;   width_pixels=4800;      height_pixels=2700;     overlap_pixels=0;  }
+    else if (paper_select==28)  {   paper_name=std::string()+"14400 x 21600";	    width_mm=920;   height_mm=1350; overlap_mm=3*3;   width_pixels=14400;     height_pixels=21600;    overlap_pixels=36*6; }
 
     if (paper_select) {
         ppi_x=(int)(0.5+(float)width_pixels/((float)width_mm/25.4));
@@ -8770,6 +8771,11 @@ extern int bukkit_running;
             ffmpeg_move=1;
 
             char naam[2000];
+//USED FOR TESTING LARGE CANVAS TO TILES. WILL BE OPTION ON COMMAND LINE SOON...
+//for poster 200x200 cut into 512x512
+//            rectangle_paper_count_x=750;
+//            rectangle_paper_count_y=420;
+
             for (int y=0; y<rectangle_paper_count_y; y++) {
                 for (int x=0; x<rectangle_paper_count_x; x++) {
 
@@ -8834,7 +8840,8 @@ extern int bukkit_running;
                     printf("Creating X=%d,Y=%d  ",x,y);
 //                    sprite_from_ffmpeg.setRotation(rectangle_paper.getRotation());
                     get_ffmpegfile();
-                    sprintf(naam,"..\\paper\\picture.%06d.%06d.png",y,x);
+//                    sprintf(naam,"..\\paper\\picture.%06d.%06d.png",y,x);
+                    sprintf(naam,"..\\paper\\r.%06d.%06d.jpg",y,x);
 
                     if (crossing==1) {
                         sprite_from_ffmpeg.setScale(1920.0/(float)texture_from_ffmpeg.getSize().x,1080.0/(float)texture_from_ffmpeg.getSize().y);

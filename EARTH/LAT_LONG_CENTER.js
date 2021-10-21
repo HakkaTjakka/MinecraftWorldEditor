@@ -105,7 +105,8 @@ async function run() {
 //			lat1=51.813579;
 //			lon1=7.100673;
 //Whole Holland
-			lat0=53.6;
+//HIGHER
+			lat0=54.0;
 			lon0=3.26;
 			lat1=50.7;
 			lon1=7.3;
@@ -413,23 +414,23 @@ async function run() {
 			out_cplusplus_lat_lon.push(row_cc_lat_lon);
 			lon=lon+size_lon
         }
-		ok=0;
-		while (ok===0) {
-			ok=1;
-			for (let i=0; i<numberOffoundOctants-1; i++) {
-//				out_index[i]
-				if (out[i+1]<out[i]) {
-					ok=0;
-					let tussen=indexedOctants[i];					indexedOctants[i]=indexedOctants[i+1];					indexedOctants[i+1]=tussen;
-					let tussen_x=out_x[i];							out_x[i]=out_x[i+1];									out_x[i+1]=tussen_x;
-					let tussen_y=out_y[i];							out_y[i]=out_y[i+1];									out_y[i+1]=tussen_y;
-					let tussen_out_index=out_index[i];				out_index[i]=out_index[i+1];							out_index[i+1]=tussen_out_index;
-					let tussen_out=out[i];							out[i]=out[i+1];										out[i+1]=tussen_out;
-					let tussen_middle_lats=middle_lats[i];			middle_lats[i]=middle_lats[i+1];						middle_lats[i+1]=tussen_middle_lats;
-					let tussen_middle_lons=middle_lons[i];			middle_lons[i]=middle_lons[i+1];						middle_lons[i+1]=tussen_middle_lons;
-				}
-			}
-		}
+//		ok=0;
+//		while (ok===0) {
+//			ok=1;
+//			for (let i=0; i<numberOffoundOctants-1; i++) {
+////				out_index[i]
+//				if (out[i+1]<out[i]) {
+//					ok=0;
+//					let tussen=indexedOctants[i];					indexedOctants[i]=indexedOctants[i+1];					indexedOctants[i+1]=tussen;
+//					let tussen_x=out_x[i];							out_x[i]=out_x[i+1];									out_x[i+1]=tussen_x;
+//					let tussen_y=out_y[i];							out_y[i]=out_y[i+1];									out_y[i+1]=tussen_y;
+//					let tussen_out_index=out_index[i];				out_index[i]=out_index[i+1];							out_index[i+1]=tussen_out_index;
+//					let tussen_out=out[i];							out[i]=out[i+1];										out[i+1]=tussen_out;
+//					let tussen_middle_lats=middle_lats[i];			middle_lats[i]=middle_lats[i+1];						middle_lats[i+1]=tussen_middle_lats;
+//					let tussen_middle_lons=middle_lons[i];			middle_lons[i]=middle_lons[i+1];						middle_lons[i+1]=tussen_middle_lons;
+//				}
+//			}
+//		}
 		if (NO_EXTRA>0) numberOffoundOctants_extra=0;
 /*
 		for (let i=0; i<numberOffoundOctants; i++) {

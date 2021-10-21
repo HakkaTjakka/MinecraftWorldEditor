@@ -1,7 +1,7 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
 rem if exist HOLLAND.TXT DEL HOLLAND.TXT
-for /f "tokens=*" %%P in (HOLLAND_LAT_LONG_CENTER.TXT) do (
+for /f "tokens=*" %%P in (HOLLAND_LAT_LON_LARGER.TXT) do (
 	for /f "tokens=1,2 delims=='='" %%a in ("%%P") do (
 		set "l=%%b"
 		set "dir=!l:~0,10!"

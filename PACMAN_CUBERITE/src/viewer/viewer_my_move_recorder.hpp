@@ -2395,22 +2395,50 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
 //        center_x=227;
 //        center_y=129;
     } else if (my_area=="Holland") {
-        center_x=363;
-        center_y=539;
+        center_x=0;
+        center_y=0;
         //center
         //center_x=337;
         //center_y=528;
         // Breda
 //        center_x=276;
 //        center_y=323;
-        sort_lat_lon=true;
+
+//        sort_lat_lon=true;
+
 //        lat_lon_center.clear();
 //        lat_lon_center.push_back(glm::dvec2(51.438273, 5.478636)); // Eindhoven
 
         if (!MAKE_NBT_EXTERN) {
             glm::ivec2 one_get_lat_lon;
 
-/*grens
+// LARGER AREA:
+//			lat0=54.0;
+//			lon0=3.26;
+//			lat1=50.7;
+//			lon1=7.3;
+//upper left corner LARGER AREA;
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0,3.26); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0,3.46); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0,3.66); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0,3.86); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0,4.06); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0,4.26); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0,4.46); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0,4.66); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0,4.86); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0,5.06); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0,5.26); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
+        one_get_lat_lon = GET_LAT_LON3(my_area,53.0,5.46); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
+        one_get_lat_lon = GET_LAT_LON3(my_area,530,5.66); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
+        one_get_lat_lon = GET_LAT_LON3(my_area,530,6.86); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
+        one_get_lat_lon = GET_LAT_LON3(my_area,530,7.06); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
+        one_get_lat_lon = GET_LAT_LON3(my_area,530,7.26); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
+
+
+
+//border Belgium and Germany
+/*
 		            one_get_lat_lon = GET_LAT_LON3(my_area,52.241253,7.065712); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
 		            one_get_lat_lon = GET_LAT_LON3(my_area,52.251274,7.049980); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
 		            one_get_lat_lon = GET_LAT_LON3(my_area,52.256203,7.042369); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
@@ -3623,7 +3651,8 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
 		            one_get_lat_lon = GET_LAT_LON3(my_area,51.366718,3.368379); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
 */
 
-
+//whole surface holland (from all postal codes including alfa's(2) code
+/*
 		            one_get_lat_lon = GET_LAT_LON3(my_area,50.7,5.9); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
 		            one_get_lat_lon = GET_LAT_LON3(my_area,50.7,6.0); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
 		            one_get_lat_lon = GET_LAT_LON3(my_area,50.7,5.8); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
@@ -4347,9 +4376,10 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
 		            one_get_lat_lon = GET_LAT_LON3(my_area,53.7,6.0); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
 		            one_get_lat_lon = GET_LAT_LON3(my_area,53.8,3.8); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
 		            one_get_lat_lon = GET_LAT_LON3(my_area,54.5,3.9); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
+*/
+
+//postal codes -> one city
 /*
-
-
             one_get_lat_lon = GET_LAT_LON3(my_area,52.3778,	4.9057); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0363	Amsterdam
             one_get_lat_lon = GET_LAT_LON3(my_area,52.341,	4.9546); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0384	Diemen
             one_get_lat_lon = GET_LAT_LON3(my_area,52.3308,	4.932 ); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0437	Amsterdam-Duivendrecht
@@ -5189,24 +5219,8 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
             one_get_lat_lon = GET_LAT_LON3(my_area,53.3472,	6.6427); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	0024	Middelstum
             one_get_lat_lon = GET_LAT_LON3(my_area,53.3608,	6.6243); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); //	1966	Kantens
 */
-        }
 
-/*
-        one_get_lat_lon = GET_LAT_LON3(my_area,51.368637, 6.163314); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));  // Venlo
-        one_get_lat_lon = GET_LAT_LON3(my_area,51.561469, 5.083881); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));  // Tilburg
-        one_get_lat_lon = GET_LAT_LON3(my_area,51.589059, 4.777077); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));  // Breda
-        one_get_lat_lon = GET_LAT_LON3(my_area,51.480162, 3.603747); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));  // Middelburg
-        one_get_lat_lon = GET_LAT_LON3(my_area,50.849641, 5.699629); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));  // Maastricht
-        one_get_lat_lon = GET_LAT_LON3(my_area,52.265415, 6.793167); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));  // Hengelo
-        one_get_lat_lon = GET_LAT_LON3(my_area,52.217449, 6.892678); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));  // Enschede
-        one_get_lat_lon = GET_LAT_LON3(my_area,52.512940, 6.096484); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));  // Zwolle
-        one_get_lat_lon = GET_LAT_LON3(my_area,53.218785, 6.567774); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));  // Groningen
-        one_get_lat_lon = GET_LAT_LON3(my_area,53.199248, 5.798004); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));  // Leeuwarden
-        one_get_lat_lon = GET_LAT_LON3(my_area,52.644307, 4.762205); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));  // Alkmaar
-        one_get_lat_lon = GET_LAT_LON3(my_area,52.670016, 4.838258); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));  // Heerhugowaard
-        one_get_lat_lon = GET_LAT_LON3(my_area,51.452968, 3.582514); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));  // Middelburg
-        one_get_lat_lon = GET_LAT_LON3(my_area,52.375488, 4.900063); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));  // Amsterdam
-*/
+//some cities
 /*
         one_get_lat_lon = GET_LAT_LON3(my_area,52.3778,	4.9057); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); // Amsterdam
         one_get_lat_lon = GET_LAT_LON3(my_area,52.3092,	4.9311); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); // Amsterdam
@@ -5299,6 +5313,7 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
         one_get_lat_lon = GET_LAT_LON3(my_area,53.2472,	6.4063); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); // Zuidhorn
         one_get_lat_lon = GET_LAT_LON3(my_area,53.32,	6.8544); if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) lat_lon_center.push_back(glm::dvec2(one_get_lat_lon)); // Appingedam
 */
+        }
     } else if (my_area=="Rio") {
         center_x=80;
         center_y=22;
@@ -5332,7 +5347,9 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
                     }
 
 //                    fprintf(F,"%s\n",str.c_str());
-                    fprintf(F,"%s\n",v.filename.c_str());
+                    fprintf(F,"%s  ",v.filename.c_str());
+                    fprintf(F," N=%20.16f S=%20.16f W=%20.16f E=%20.16f   \r", lat_north, lat_south, lon_west, lon_east);
+
         //            printf("SORTED: X=%4d Y=%4d %s\n",v.pos.x,v.pos.y,v.filename.c_str());
                 }
 //                get_area_quick=false;
@@ -5340,6 +5357,28 @@ bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num,
             }
 
             printf("\n");
+        }
+    } else {
+        FILE* F=fopen("OCTANTS_LOADED.TXT","w");
+
+        if (F==NULL) printf("Error opening OCTANTS_SORTED.TXT for writing\n");
+        else {
+            int i=0;
+            //std::string str;
+            //get_area_quick=true;
+            for (auto v : info_3d) {
+                //str=get_area_data(my_area,v.pos.x,v.pos.y);
+                if (i++==1000) {
+                    printf(".");
+                    i=0;
+                }
+
+//                    fprintf(F,"%s\n",str.c_str());
+                fprintf(F,"%s\n",v.filename.c_str());
+    //            printf("SORTED: X=%4d Y=%4d %s\n",v.pos.x,v.pos.y,v.filename.c_str());
+            }
+//                get_area_quick=false;
+            fclose(F);
         }
     }
     sort_lat_lon=false;
@@ -8080,6 +8119,10 @@ void geo_to_index(std::string my_area) {
         int max_x; int max_y; int min_x; int min_y;
         FILE* RES;
         RES = fopen ("OBJECT_ARRAY.RES", "w");
+        FILE* OCT;
+        OCT = fopen ("OBJECT_ARRAY.OCTANTS", "w");
+        int count=0;
+        std::string octant;
         while (fgets (line,1000, HOP)!=NULL) {
             //printf("%s\n",line);
             while (replace_str(line,",","."));
@@ -8108,16 +8151,18 @@ void geo_to_index(std::string my_area) {
 
             one_get_lat_lon = GET_LAT_LON4(my_area,lat,lon);
             if (one_get_lat_lon.x!=999 && one_get_lat_lon.y!=999) {
-                get_area_quick=true;
 
                 //lat_lon_center.push_back(glm::dvec2(one_get_lat_lon));
-                printf("%s %17.13f %17.13f [%17.13f,%17.13f]-[%17.13f,%17.13f] %s X=%d Y=%d\n",
-                       rest, lon, lat,
-                       lat_north,lon_west,lat_south,lon_east,
-                       get_area_data(my_area,one_get_lat_lon.x,one_get_lat_lon.y).c_str(),
-                       one_get_lat_lon.x,one_get_lat_lon.y );
-
+                get_area_quick=true;
+                octant=get_area_data(my_area,one_get_lat_lon.x,one_get_lat_lon.y);
                 get_area_quick=false;
+
+//                printf("%s %17.13f %17.13f [%17.13f,%17.13f]-[%17.13f,%17.13f] %s X=%d Y=%d\r",
+//                    rest, lon, lat,
+//                    lat_north,lon_west,lat_south,lon_east,
+//                    octant.c_str(),
+//                    one_get_lat_lon.x,one_get_lat_lon.y );
+
                 min_x=std::min(min_x,one_get_lat_lon.x);
                 max_x=std::max(max_x,one_get_lat_lon.x);
                 min_y=std::min(min_y,one_get_lat_lon.y);
@@ -8125,12 +8170,33 @@ void geo_to_index(std::string my_area) {
                 if (index==3) {
                     for (int x=min_x; x<=max_x; x++ ) {
                         for (int y=min_y; y<=max_y; y++ ) {
-                           fprintf(RES,"X=%d Y=%d\n",x,y);
+
+                            get_area_quick=true;
+                            octant=get_area_data(my_area,x,y);
+                            get_area_quick=false;
+
+                            printf("X=%4d Y=%4d %s %s ",x,y,rest,octant.c_str());
+                            fprintf(RES,"X=%d Y=%d %s ",x,y,octant.c_str());
+                            fprintf(OCT,"X=%4d Y=%4d %s %s",x,y,rest,octant.c_str());
+
+                            //get_area_quick=true;
+                            octant=get_area_data(my_area,x,y);
+                            //get_area_quick=false;
+
+                            printf("%s %s\n",octant.c_str(),latitude_longditude.c_str());
+                            fprintf(RES,"%s\n",octant.c_str());
+                            fprintf(OCT,"%s %s\n",octant.c_str(),latitude_longditude.c_str());
+
+
+//                            if (!((count++)%1000)) {
+//                            }
+
                         }
                     }
                 }
             } else {
                 printf("%s %17.13f %17.13f Not found!\n", rest, lon, lat);
+                fprintf(OCT,"%s %17.13f %17.13f Not found!\n", rest, lon, lat);
             }
             index++;
             if (index==4) {
@@ -8139,6 +8205,7 @@ void geo_to_index(std::string my_area) {
         }
         fclose(RES);
         fclose(HOP);
+        fclose(OCT);
     } else {
         printf("Error opening RESULT.TXT\n");
     }

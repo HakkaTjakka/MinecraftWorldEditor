@@ -1144,8 +1144,11 @@ printf("hoppa");
             if (argc>2) {
                 geo_to_index(argv[2]);
             }
-            ShowTaskBar(true);
-            GenerateConsoleCtrlEvent(CTRL_C_EVENT, 0);
+//            ShowTaskBar(true);
+//            send_message='x';
+            sf::sleep(sf::seconds(3));
+            frexit(0);
+//            GenerateConsoleCtrlEvent(CTRL_C_EVENT, 0);
         }
         else if (   strcmp(argv[1],"holland"    )==0) {
             if (argc>2) {
