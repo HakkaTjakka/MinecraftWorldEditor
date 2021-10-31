@@ -61,6 +61,17 @@
 #include <glm/glm.hpp>
 #include <glm/common.hpp>
 #include <../VOXEL.HPP>
+#include <geo_thread.hpp>
+
+bool signal_geo=false;
+bool signal2_geo=false;
+bool repair_mca=false;
+extern void LAUNCH_GEO_THREAD(double xxx, double yyy);
+
+extern int replace_str(char *str, char *orig, char *rep);
+extern void geo_thread(double xxx, double yyy);
+
+bool get_octant_from_region=false;
 bool dont_slow_down=false;
 extern int draw_model;
 extern bool roelof;
@@ -1928,6 +1939,20 @@ extern bool do_pong;
 extern char picture_name[];
 extern char PICTUREDIR[];
 extern int replace_string(char *str, char *orig, char *rep);
+
+    static bool SFML_VIEW_ACTIVE=true;
+    static int MOUSE_STATUS=0;
+
+    if (!SFML_VIEW_ACTIVE && SFMLView1.hasFocus()) {
+        SFML_VIEW_ACTIVE=true;
+        mouse_move=MOUSE_STATUS;
+        if (mouse_move) printf("mouse on\n");
+    } else if (SFML_VIEW_ACTIVE && !SFMLView1.hasFocus()) {
+        SFML_VIEW_ACTIVE=false;
+        MOUSE_STATUS=mouse_move;
+        if (mouse_move) printf("mouse off\n");
+        mouse_move=0;
+    }
 
     if (DO_ADAPT)
         do_command(ADAPT_SPEED);
@@ -4648,15 +4673,22 @@ extern int record_window;
 //            }
         }
 
+        sf::Vector2i mouse_center=sf::Vector2i(
+                            SFMLView1.getPosition().x+SFMLView1.getSize().x/2,
+                            SFMLView1.getPosition().y+SFMLView1.getSize().y/2
+                                         );
         if ( (sf::Mouse::isButtonPressed(sf::Mouse::Left) && mouse_move==1) || (follow_ghost==1 && (counter==0 || plot_counter==0 || fix>0)))
         {
             static int counter2=0;
             if (first_click==0)
             {
 //babe
+//mouse center changed
                 if (mouse_move==1)
-                    sf::Mouse::setPosition(sf::Vector2i(960,540));
-                position = sf::Vector2i(960,540);
+//                    sf::Mouse::setPosition(sf::Vector2i(960,540));
+                    sf::Mouse::setPosition(mouse_center);
+//                position = sf::Vector2i(960,540);
+                position = mouse_center;
 //                position=sf::Mouse::getPosition();
                 first_click=1;
                 if (ffmpegfile==0 && blend_on_movie==0)
@@ -4669,15 +4701,19 @@ extern int record_window;
 //                plotplot();
                 plot_some();
                 perform_quit=0;
-                printf("oh oh\n");
+//                printf("oh oh\n");
             }
-            sf::Vector2i position2=sf::Vector2i(960,540);
+//mouse center changed
+//            sf::Vector2i position2=sf::Vector2i(960,540);
+            sf::Vector2i position2=mouse_center;
             if (mouse_move==1)
             {
                 position2=sf::Mouse::getPosition();
             }
 //            plot_counter--;
-            if (position2.x!=960 || position2.y!=540 || (follow_ghost==1 && (counter==0 || plot_counter==0 || fix>0)))
+//mouse center changed
+            if (position2.x!=mouse_center.x || position2.y!=mouse_center.y || (follow_ghost==1 && (counter==0 || plot_counter==0 || fix>0)))
+//            if (position2.x!=960 || position2.y!=540 || (follow_ghost==1 && (counter==0 || plot_counter==0 || fix>0)))
             {
                 if (mouse_move==1)
                 {
@@ -4774,9 +4810,13 @@ extern int record_window;
 
                     }
 //babe
+
+//mouse center changed
                 if (mouse_move==1)
-                    sf::Mouse::setPosition(sf::Vector2i(960,540));
-                position = sf::Vector2i(960,540);
+                    sf::Mouse::setPosition(mouse_center);
+//                    sf::Mouse::setPosition(sf::Vector2i(960,540));
+//                position = sf::Vector2i(960,540);
+                position = mouse_center;
                 if (movie==0 && timer_movie==0 && !live_movie->getStatus()==sfe::Stopped)
                     plot_moviefile=1;
 
@@ -5000,15 +5040,19 @@ extern int record_window;
         {
             if (first_click2==0)
             {
-                sf::Mouse::setPosition(sf::Vector2i(960,540));
-                position = sf::Vector2i(960,540);
+//mouse center changed
+//                sf::Mouse::setPosition(sf::Vector2i(960,540));
+                sf::Mouse::setPosition(mouse_center);
+//                position = sf::Vector2i(960,540);
+                position = mouse_center;
 //                position = sf::Mouse::getPosition();
 //                forced_jump=1;
 //                follow_ghost_pos();
                 first_click2=1;
             }
             sf::Vector2i position2=sf::Mouse::getPosition();
-            if (position2.x!=960 || position2.y!=540 )
+//            if (position2.x!=960 || position2.y!=540 )
+            if (position2.x!=mouse_center.x || position2.y!=mouse_center.y )
             {
                 fposx=fposx+(position.x-position2.x);
                 fposy=fposy+(position.y-position2.y);
@@ -5057,8 +5101,11 @@ extern int record_window;
                         picturey=maxpicturey;
                     ReadBitmaps2();
                 }
-                sf::Mouse::setPosition(sf::Vector2i(960,540));
-                position = sf::Vector2i(960,540);
+//mouse center changed
+                sf::Mouse::setPosition(mouse_center);
+//                sf::Mouse::setPosition(sf::Vector2i(960,540));
+                position = mouse_center;
+//                position = sf::Vector2i(960,540);
                 forced_jump=1;
 //mousemove
 //                first_click=0;
@@ -8886,6 +8933,7 @@ extern int overlap_pixels;
     {
         if (F2==1)
         {
+
             if (mazetype==1)
             {
                 sprintf(score,"LEVEL=%d TYPE=MAZE WIDTH=%d HEIGHT=%d", level,hoog,breed);
@@ -8949,8 +8997,127 @@ extern int overlap_pixels;
 
         plotx=(picturex*1920-posx-32)/64;
         ploty=(picturey*1080-posy   )/72;
+
         plotx=(plotx-45+60*(maxpicturex+1) )%(30*(maxpicturex+1));
         ploty=(ploty-23+30*(maxpicturey+1) )%(15*(maxpicturey+1));
+
+
+        if (mouse_move || signal2_geo || repair_mca) {
+            static double xx;
+            static double zz;
+            static double xxx=xx;
+            static double zzz=zz;
+            static int rest_x;
+            static int rest_z;
+            static bool click_on=false;
+            static bool click_off=true;
+            static bool erase_tiles=false;
+
+            static struct geo_region_struct one_click_regions;
+            static std::vector<struct geo_region_struct> vector_click_regions;
+
+            if (!signal2_geo) {
+                xx=(double)(picturex*1920-posx)+(double)smooth_x-(double)((int)smooth_x);
+                zz=(double)(picturey*1080-posy)+(double)smooth_y-(double)((int)smooth_y);
+
+                xx=6002+(fmod(xx+(double)maxpixelsx,(double)maxpixelsx)-1920.0/2.0-64.0 )/512.0;
+                if (picturey<40)
+                    zz=-10969+(fmod(zz+(double)maxpixelsy,(double)maxpixelsy)+(double)maxpixelsy-1080.0/2.0+154.0)/512.0;
+                else
+                    zz=-10969+(fmod(zz+(double)maxpixelsy,(double)maxpixelsy)-1080.0/2.0+154.0)/512.0;
+
+                if (zz<0) zz++;
+                if (xx<0) xx++;
+                xxx=xx;
+                zzz=zz;
+
+                int rest_x=(xxx-int(xxx))*512; if (xxx<0) rest_x=(511-rest_x+1)%512;
+                int rest_z=(zzz-int(zzz))*512; if (zzz<0) rest_z=(511+rest_z+1)%512;
+                if (zz<0) zz--;
+                if (xx<0) xx--;
+
+                if (!click_on && mouse_move && click_off) {
+                    if ( sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Mouse::isButtonPressed(sf::Mouse::Right) ) {
+                        if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+                            repair_mca=true;
+                            erase_tiles=true;
+                        }
+                        else repair_mca=false;
+                        click_on=true;
+                        click_off=false;
+                        signal_geo=true;
+//                        signal2_geo=true;
+                        //printf("click on\n");
+                    }
+                } else {
+                    if (click_on && mouse_move && !click_off) {
+                        if ( !sf::Mouse::isButtonPressed(sf::Mouse::Left) && !sf::Mouse::isButtonPressed(sf::Mouse::Right) ) {
+                            click_on=false;
+                            click_off=true;
+    //                        playsound=playsound|2;
+                            //printf("click off\n");
+                        }
+                    }
+                }
+                sprintf(writer,"RX=%20.4f\nRY=%20.4f\nX=%d Y=%d\nR.%d.%d.MCA\n%d in queue",
+                        xxx,zzz, rest_x, rest_z,int(xx),int(zz),vector_click_regions.size());
+                text.setCharacterSize(32);
+                draw2(writer,200,700,sf::Color(50,50,255,255),sf::Color::White);
+                text.setCharacterSize(24);
+
+            } else {
+                sprintf(writer,"RX=%20.4f\nRY=%20.4f\nX=%d Y=%d\nR.%d.%d.MCA\n%d in queue",
+                        xxx,zzz, rest_x, rest_z,int(xx),int(zz),vector_click_regions.size());
+                text.setCharacterSize(32);
+                static int P=0;
+                static int D_P=1;
+                P=P+D_P; if (P==255 || P==0) D_P=-D_P;
+                draw2(writer,200,700,sf::Color(255,P,P,255),sf::Color(255-P,255-P,255-P,255));
+                text.setCharacterSize(24);
+            }
+
+
+            if (erase_tiles && click_off) {
+                erase_tiles=false;
+                char f[1000];
+                for (auto v : vector_click_regions) {
+                    sprintf(f,"../cut.backup/r.%d.%d.png",v.region.x,v.region.z);
+                    if (file_exists(f)) {
+                        printf("Deleting %s\n",f);
+                        remove(f);
+                    }
+                }
+            }
+            if (signal_geo && click_off) {
+                signal_geo=false;
+//                signal2_geo=false;
+                one_click_regions.coords     = dvec2(xxx,zzz);
+                one_click_regions.region     = ivec2(xx,zz);
+                one_click_regions.offset     = ivec2(rest_x,rest_z);
+                vector_click_regions.push_back(one_click_regions);
+                scan_image.create(512,512,sf::Color(255,128,0,128));
+                scan_x=one_click_regions.region.x;
+                scan_z=one_click_regions.region.z;
+                silence=true;
+                update_request=2;
+                playsound=playsound|2;
+
+//                SEND_TO_GEO_PIPE(one_click_regions);
+
+//                LAUNCH_GEO_THREAD(xxx, yyy);
+            }
+            if (repair_mca && !signal2_geo) {
+                if (vector_click_regions.size()>0) {
+                    one_click_regions=vector_click_regions[0];
+                    signal2_geo=true;
+                    silence=false;
+                    SEND_TO_GEO_PIPE(one_click_regions);
+                    vector_click_regions.erase(vector_click_regions.begin());
+                } else repair_mca=false;
+            }
+        }
+
+
 
         if (connected==1)
             NETWORK_HANDLER2();
@@ -9121,6 +9288,7 @@ extern int overlap_pixels;
 //hotshot
 //            if (follow_ghost==1) printf("F1: x=%d,y%d\n",(render_picturex*y_offset0-render_posx),(render_picturey*1080-render_posy));
             draw2(writer,0,128,sf::Color::Blue,sf::Color::White);
+
 
 //            printf("main: info: clock: playing_time=%f playing_screen_num=%d\n",playing_time,playing_screen_num);
             if (movieextern==0)
@@ -10762,7 +10930,7 @@ extern int scan_min_z;
             update_MC(scan_image,scan_x,scan_z);
             update_request=0;
             update_later=false;
-            if (set_save) {
+            if (set_save && !mouse_move) {
                 static int cnt=60;
                 cnt--;
                 if (cnt==0) {
@@ -10829,7 +10997,7 @@ extern std::string region_filename;
 //                position1x=(picturex*1920-posx);
 //                position1y=(picturey*1080-posy);
 
-                start_to_move=true;
+                if (!mouse_move) start_to_move=true;
             } else {
                 position1x=(picturex*1920-posx);
                 position1y=(picturey*1080-posy);
@@ -14758,6 +14926,5 @@ extern bool rot_plot;
     // else printf("\nPIXELS=%d = %f%% ==>> \n",pixel_count,100.0*float(pixel_count)/(512.0*512.0));
 //    perform_quit=0;
 }
-
 
 

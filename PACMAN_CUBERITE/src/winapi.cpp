@@ -1088,6 +1088,21 @@ printf("hoppa");
         else if (   strcmp(argv[1],"denhaag"    )==0) { send_message='t'; }
         else if (   strcmp(argv[1],"newyork"    )==0) { send_message='v'; }
         else if (   strcmp(argv[1],"rio"    )==0) { send_message='y'; }
+//        else if (   strcmp(argv[1],"paper"    )==0) {
+//            if (argc>2) {
+//                paper_select=atoi(argv[2]);
+//                width_pixels=atoi(argv[3]);
+//                height_pixels=atoi(argv[4]);
+//                rectangle_paper_count_x=atoi(argv[5]);
+//                rectangle_paper_count_y=atoi(argv[6]);
+//                rectangle_paper_pos_x==atoi(argv[7]);
+//                rectangle_paper_pos_y==atoi(argv[8]);
+//                overlap_pixels==atoi(argv[9]);
+//                rectangle_paper.setRotation(argv[10]);
+
+//            }
+//            send_message='y';
+//        }
         else if (   strcmp(argv[1],"nbt"    )==0) {
             if (argc>2) {
                 int len = strlen(argv[2]);
@@ -2062,4 +2077,12 @@ void ShowTaskBar(bool show)
 //        ShowWindow(start, show ? SW_SHOW : SW_HIDE);
 //        UpdateWindow(start);
 //    }
+}
+
+void paper_cut() {
+    printf("Waiting for main first loop");
+    while (first==1) {
+        sf::sleep(sf::seconds(0.1));
+        printf(".");
+    }
 }

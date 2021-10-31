@@ -2,12 +2,13 @@ extern sf::Texture texture_from_ffmpeg;
 extern sf::Texture texture_from_ffmpeg;
 extern int ffmpegfile;
 extern bool get_screenshot(sf::Texture* m_texture);
+extern bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num, bool pac_obj2_arr_used[100], Pacman_Object pac_obj2_arr[100]);
 
 extern bool do_nbt_fast;
 
 extern bool make_regions;
 extern bool flushing_mode;
-void one_region_voxel_files_to_region_files(bool display_only, char* voxel_filename);
+bool one_region_voxel_files_to_region_files(bool display_only, char* voxel_filename);
 
 #include <SFML/Graphics.hpp>
 #include <Windows.h>
@@ -691,7 +692,6 @@ void nbt_fast() {
         pac_obj2_arr[i].textures.clear();
     }
     size_t pac_obj2_arr_size=0;
-
 
     create_nbt_fast(my_area, window, 0, pac_obj2_arr_used, pac_obj2_arr);
 }
@@ -1567,8 +1567,6 @@ extern void insert_event(sf::Keyboard::Key code,int MODE);
                 if (mirror==4 && crossing==2) {
 //tuuttuut1
                     flushing_mode=true;
-
-extern bool create_nbt_fast(std::string my_area, sf::RenderWindow& window, int win_num, bool pac_obj2_arr_used[100], Pacman_Object pac_obj2_arr[100]);
 
                     if (do_nbt_fast) {
                         while (1) {

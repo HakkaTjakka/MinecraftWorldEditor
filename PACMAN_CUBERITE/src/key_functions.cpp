@@ -63,6 +63,7 @@
 #define TILE_SELECT 3
 #define SHADER_SELECT 4
 
+extern bool get_octant_from_region;
 int move_config=0;
 extern int RGBA;
 extern sf::Sprite sprite_from_crop;
@@ -8773,6 +8774,7 @@ extern int bukkit_running;
             char naam[2000];
 //USED FOR TESTING LARGE CANVAS TO TILES. WILL BE OPTION ON COMMAND LINE SOON...
 //for poster 200x200 cut into 512x512
+
 //            rectangle_paper_count_x=750;
 //            rectangle_paper_count_y=420;
 

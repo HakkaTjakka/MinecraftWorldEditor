@@ -116,6 +116,7 @@ glm::ivec2 get_lat_lon(std::string my_area);
 glm::ivec2 GET_LAT_LON2(std::string my_area);
 extern int GET_LAT_LON_FROM_FILE_LIST(char *naam);
 glm::ivec2 GET_LAT_LON3(std::string my_area, double lat, double lon);
+glm::ivec2 GET_LAT_LON4(std::string my_area, double lat, double lon);
 
 float voxel_bottom=0.0;
 
@@ -3297,6 +3298,8 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                                 blue_screen=2;
                                 set_save=true;
                             }
+
+
                             printf("\rRegion(%d,%d) floor(%d)",x,z,region_floor);
                             bool plot_only_old=plot_only;
                             if (mirror==3) {
@@ -3311,6 +3314,7 @@ void WUPPIE_SUBS(std::vector<BufferObject> buffers, std::vector<tinyobj::materia
                             MCEDITOR_running=0;
                             plotting=0;
                             plot_only=plot_only_old;
+
                             printf("Done: %d/%d = %6.2f%%\n",cnt,cubic_regions_mapped.size(),100.0*(float)cnt/(float)cubic_regions_mapped.size());
 //                            printf("\n");
                         }
@@ -4950,7 +4954,7 @@ void make_test_schematic() {
 
 void voxels_to_object(char* picture_file);
 
-void region_voxel_files_to_region_files(bool display_only) {
+bool region_voxel_files_to_region_files(bool display_only) {
     int x,z;
     char picture_file[200];
     char voxel_file[200];
@@ -5101,6 +5105,13 @@ void region_voxel_files_to_region_files(bool display_only) {
                     voxels_total.clear();
                 }
                 area=o_area;
+            } else {
+                FILE* report;
+                voxels_total.clear();
+                report = fopen ( "report.txt" , "a" );
+                fprintf(report,"Error reading voxels from=%s\n",area.c_str());
+                fclose(report);
+                return(false);
             }
         }
     }
@@ -5109,7 +5120,7 @@ void region_voxel_files_to_region_files(bool display_only) {
     area=o_area;
 }
 
-void one_region_voxel_files_to_region_files(bool display_only, char* voxel_filename) {
+bool one_region_voxel_files_to_region_files(bool display_only, char* voxel_filename) {
     int x,z;
     char picture_file[200];
     char full_name[1000];
@@ -5120,7 +5131,7 @@ void one_region_voxel_files_to_region_files(bool display_only, char* voxel_filen
     sprintf(full_name,"../cut/%s",voxel_filename);
     if (!file_exists(full_name)) {
         printf("Can not find .vox file: %s\n",full_name);
-        return;
+        return false;
     }
     if ((strstr(voxel_filename, ".vox")) != NULL) {
         int num=sscanf(voxel_filename,"r.%d.%d.vox",&x,&z);
@@ -5172,6 +5183,13 @@ void one_region_voxel_files_to_region_files(bool display_only, char* voxel_filen
                 voxels_total.clear();
             }
             area=o_area;
+        } else {
+            FILE* report;
+            voxels_total.clear();
+            report = fopen ( "report.txt" , "a" );
+            fprintf(report,"Error reading voxels from=%s\n",area.c_str());
+            fclose(report);
+            return(false);
         }
     } else {
         printf("Not .vox file: %s\n",voxel_filename);
@@ -5363,7 +5381,6 @@ void check_surrounding(int x, int z) {
     depth--;
     if (depth==0) killyourself=false;
 }
-
 
 int PLOT_REGIONS_stop=0;
 int PLOT_REGIONS_running=0;
@@ -5929,6 +5946,9 @@ void PLOT_REGIONS_FUNC2() {
                     plotting=1;
                     MCEDITOR_running=1;
                     silence=false;
+                    FILE* f=fopen("PLOT.LOG","a");
+                    fprintf(f,"r.%d.%d.mca floor %d\n", x, z, region_floor);
+                    fclose(f);
                     main_mceditor6_fixed(x, z, region_block);
                     silence=true;
                     MCEDITOR_running=0;

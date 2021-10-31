@@ -1845,11 +1845,10 @@ bool load_voxels() {
                     voxels_total.push_back(one);
                 }
                 else {
-                    printf("Error reading line %d from %s\n",check_tot_lines,fname);
-                    if (check_tot_errors>10) {
-                        voxels_total.clear();
-                        return 0;
-                    }
+                    printf("\nError reading line %d from %s\n",check_tot_lines,fname);
+                    voxels_total.clear();
+                    fclose(voxel_file_pointer);
+                    return 0;
                 }
             }
         } else {
@@ -1922,12 +1921,10 @@ bool make_region_from_voxel(int x, int z) {
                     voxels_temp.push_back(one);
                 }
                 else {
-                    printf("Error reading line %d from %s\n",check_tot_lines,fname);
-                    if (check_tot_errors>10) {
-                        voxels_temp.clear();
-                        fclose(voxel_file_pointer);
-                        return 0;
-                    }
+                    printf("\nError reading line %d from %s\n",check_tot_lines,fname);
+                    voxels_temp.clear();
+                    fclose(voxel_file_pointer);
+                    return 0;
                 }
             }
         } else {

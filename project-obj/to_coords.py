@@ -27,12 +27,31 @@ base_projection = GeographicProjection.orientProjection(ModifiedAirocean(), Orie
 projection = ScaleProjection(base_projection, 7318261.522857145, -7318261.522857145)
 
 if __name__ == "__main__":
-    if len(sys.argv)==3:
+    LINE='# '
+    if len(sys.argv)>=3:
+        for i in range(len(sys.argv)):
+            if i>2:
+                LINE+=sys.argv[i]
+                if i != len(sys.argv):
+                    LINE+=' '
+
         LON=float(sys.argv[1])
         LAT=float(sys.argv[2])
         COORDS=projection.fromGeo(LON,LAT)
-        REGIONX=int(10000*COORDS[0])/10000
-        REGIONZ=int(10000*COORDS[1])/10000
-        print ( '/tp ' + str(REGIONX) + ' ~ ' + str(REGIONZ)  )
+#        REGIONX=int(10000*COORDS[0])/10000
+#        REGIONZ=int(10000*COORDS[1])/10000
+        REGIONX=int(COORDS[0]+0.5)
+        REGIONZ=int(COORDS[1]+0.5)
+
+        X=int(COORDS[0]/512)
+        Z=int(COORDS[1]/512)
+        if X<0:
+            X=X-1
+        if Z<0:
+            Z=Z-1
+#        print ( 'r.=' + str(X) + '.' + str(Z) + '.mca' )
+        
+        print ( '/tp ' + str(REGIONX) + ' ~ ' + str(REGIONZ)  + ' @ ' + 'r.=' + str(X) + '.' + str(Z) + '.mca ' + "{:.8f}".format(LON) + ' ' +"{:.8f}".format(LAT) + ' ' + LINE)
+#        print ( '/tp ' + str(REGIONX) + ' ~ ' + str(REGIONZ))
         
 

@@ -17,6 +17,7 @@
 #include <dirent.h>
 #include <iostream>
 #include <map>
+extern bool fuck_you;
 using namespace std;
 extern bool no_plotting;
 extern int SEED;
@@ -6004,7 +6005,7 @@ int main_mceditor6(int box_x, int box_y, int box_z, unsigned char* mc,
                             if (max_y!=-1) {
                                 int r_m,g_m,b_m;
                                 ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
-                                scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                                scan_image.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
 
                                 if (max_y>real_max_y) real_max_y=max_y;
                                 if (x>real_max_x) real_max_x=x;
@@ -6148,12 +6149,12 @@ int main_mceditor6(int box_x, int box_y, int box_z, unsigned char* mc,
                             }
 
                             if (plotting) {
-                                if (max_y!=-1) scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                                if (max_y!=-1) scan_image.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
                                 else scan_image.setPixel(x,z,sf::Color(0,0,0,0));
                             } else {
                                 if (max_y!=-1) {
                                     ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
-                                    scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                                    scan_image.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
                                 }
                                 else scan_image.setPixel(x,z,sf::Color(0,0,0,0));
                             }
@@ -6437,8 +6438,6 @@ extern std::string area;
         }
     }
 
-
-
     MCRegion region(x00, z00, y00, xl, zl, yl);
     BlockInfo*** AX=region.A;
 
@@ -6457,7 +6456,6 @@ extern std::string area;
 
     int real_max_y=-std::numeric_limits<int>::max();
     int real_min_y=std::numeric_limits<int>::max();
-
 
     if (!load_leeg) {
         printf("Ok. Testing: ");
@@ -6494,8 +6492,8 @@ extern std::string area;
                     if (max_y!=-1) {
                         int r_m,g_m,b_m;
                         ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
-                        scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
-                        if (fix_on) top_view.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                        scan_image.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
+                        if (fix_on) top_view.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
 
                         if (max_y>real_max_y) real_max_y=max_y;
                         if (x>real_max_x) real_max_x=x;
@@ -6512,6 +6510,8 @@ extern std::string area;
             scan_x=region_x;
             scan_z=region_z;
             sprintf(mc_text1,"R.%d.%d.MCA",region_x,region_z);
+//            scan_image.saveToFile("error.png");
+            if (fuck_you) return 0;
             update_request=2;
             while (update_request) {
                 sf::sleep(sf::seconds(0.005));
@@ -6519,6 +6519,7 @@ extern std::string area;
             if (plotting && !get_block) {
                 scan_image.create(512,512,sf::Color(0,0,0,0));
             }
+
             if ((make_regions || flushing_mode) && !add_to_region2) {
                 if (flushing_mode)
                     printf("flusing mode, %s plot only...\n",fname.c_str());
@@ -6582,8 +6583,8 @@ extern std::string area;
 
                         int r_m,g_m,b_m;
                         ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
-                        scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
-                        if (fix_on) top_view.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                        scan_image.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
+                        if (fix_on) top_view.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
 
                         if (max_y>real_max_y) real_max_y=max_y;
                         if (x>real_max_x) real_max_x=x;
@@ -7042,13 +7043,13 @@ extern bool lighten;
 //                }
 
                 if (plotting) {
-                    if (max_y!=-1) scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                    if (max_y!=-1) scan_image.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
                     else scan_image.setPixel(x,z,sf::Color(0,0,0,0));
                 } else {
                     if (max_y!=-1) {
                         ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
-                        scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
-                        if (fix_on) top_view.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                        scan_image.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
+                        if (fix_on) top_view.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
                     }
                     else scan_image.setPixel(x,z,sf::Color(0,0,0,0));
                 }
@@ -8985,8 +8986,8 @@ extern bool lighten;
                 if (max_y!=-1) {
                     int r_m,g_m,b_m;
                     ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
-                    scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
-                    if (fix_on) top_view.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                    scan_image.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
+                    if (fix_on) top_view.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
 
                     if (max_y>real_max_y) real_max_y=max_y;
                     if (x>real_max_x) real_max_x=x;
@@ -9026,7 +9027,7 @@ extern bool lighten;
                         r_m=it_IdDataColor_map->second.r;
                         g_m=it_IdDataColor_map->second.g;
                         b_m=it_IdDataColor_map->second.b;
-                        scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                        scan_image.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
                     } else {
                         lookup=id;
                         it_IdDataColor_map = IdDataColor_map.find(lookup);
@@ -9034,7 +9035,7 @@ extern bool lighten;
                             r_m=it_IdDataColor_map->second.r;
                             g_m=it_IdDataColor_map->second.g;
                             b_m=it_IdDataColor_map->second.b;
-                            scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                            scan_image.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
                         } else if (max_y>1) {
                             id=AY[max_y-1].id*16;
                             data=AY[max_y-1].data;
@@ -9044,7 +9045,7 @@ extern bool lighten;
                                 r_m=it_IdDataColor_map->second.r;
                                 g_m=it_IdDataColor_map->second.g;
                                 b_m=it_IdDataColor_map->second.b;
-                                scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                                scan_image.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
                             } else {
                                 lookup=id;
                                 it_IdDataColor_map = IdDataColor_map.find(lookup);
@@ -9052,7 +9053,7 @@ extern bool lighten;
                                     r_m=it_IdDataColor_map->second.r;
                                     g_m=it_IdDataColor_map->second.g;
                                     b_m=it_IdDataColor_map->second.b;
-                                    scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                                    scan_image.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
                                 } else {
                                     scan_image.setPixel(x,z,sf::Color(255,0,0,255));
                                 }
@@ -9073,7 +9074,7 @@ extern bool lighten;
     //                if (AY[max_y].id==8) {r_m=0; g_m=0; b_m=255;}
     //                else ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
 
-    //                scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+    //                scan_image.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
 
                 if (max_y>real_max_y) real_max_y=max_y;
                 if (x>real_max_x) real_max_x=x;
@@ -9729,7 +9730,7 @@ int main_mceditor6_plot(int box_x, int box_y, int box_z, unsigned char* mc,
                                 b_m=mc[off+2];
                             }
                         }
-                        if (max_y!=-1) scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                        if (max_y!=-1) scan_image.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
 //                        else scan_image.setPixel(x,z,sf::Color(0,0,0,0));
                     }
                 }
@@ -10582,7 +10583,7 @@ int scan_done0_sub_plot(char* octant, FILE* report, unsigned char* mc, int box_x
                             if (max_y!=-1) {
                                 int r_m,g_m,b_m;
                                 ret_color_rev( AY[max_y].data, r_m, g_m, b_m );
-                                scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                                scan_image.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
                             } else {
                                 scan_image.setPixel(x,z,sf::Color(0,0,0,0));
                             }
@@ -10720,7 +10721,7 @@ int scan_done0_sub_plot(char* octant, FILE* report, unsigned char* mc, int box_x
 //                                scan_image.setPixel(x,z,sf::Color(255,0,0,255));
 //                                else scan_image.setPixel(x,z,sf::Color(255,random_pixel.g/2,random_pixel.b/2,50));
                             } else {
-                                if (max_y!=-1) scan_image.setPixel(x,z,sf::Color(r_m,g_m,b_m,255));
+                                if (max_y!=-1) scan_image.setPixel(x,z,sf::Color((unsigned char)r_m,(unsigned char)g_m,(unsigned char)b_m,255));
                                 else scan_image.setPixel(x,z,sf::Color(0,0,0,0));
 //                                if (max_y>=0) scan_image.setPixel(x,z,sf::Color(random_pixel.r,random_pixel.g,random_pixel.b,255));
 //                                if (max_y>=0) scan_image.setPixel(x,z,sf::Color(max_y,max_y,max_y,255));

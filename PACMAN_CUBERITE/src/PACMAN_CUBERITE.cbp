@@ -15,6 +15,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option use_console_runner="0" />
+				<Option parameters="holland fast" />
 				<Option projectCompilerOptionsRelation="0" />
 				<Option projectLinkerOptionsRelation="0" />
 				<Compiler>
@@ -43,14 +44,12 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option use_console_runner="0" />
-				<Option parameters="schematic skull/skull.obj" />
 				<Option projectLinkerOptionsRelation="0" />
 				<Compiler>
 					<Add option="-march=corei7" />
 					<Add option="-w" />
 					<Add option="-std=c++14" />
 					<Add option="-m64" />
-					<Add option="-Og" />
 					<Add option="-g" />
 					<Add option="-DSFML_STATIC" />
 				</Compiler>
@@ -86,8 +85,10 @@
 			<Add directory="include/MeshLib/core" />
 			<Add directory="fly/include" />
 			<Add directory="fly/extlibs" />
+			<Add directory="." />
 		</Compiler>
 		<Linker>
+			<Add option="-s" />
 			<Add option="-m64" />
 			<Add option="-static-libgcc -static-libstdc++" />
 			<Add option="-fstack-protector" />
@@ -226,6 +227,7 @@
 		<Unit filename="../shaders/fragment/picture_shader 16.frag" />
 		<Unit filename="../shaders/fragment/picture_shader 40.frag" />
 		<Unit filename="../text.txt" />
+		<Unit filename="../to_geo.py" />
 		<Unit filename="../webadmin.ini" />
 		<Unit filename="../whitelist.sqlite" />
 		<Unit filename="Allocator.cpp" />
@@ -337,6 +339,8 @@
 		<Unit filename="fly/src/TextureManager.cpp" />
 		<Unit filename="fly/src/Utility.cpp" />
 		<Unit filename="fly/src/main.cpp" />
+		<Unit filename="geo_thread.cpp" />
+		<Unit filename="geo_thread.hpp" />
 		<Unit filename="include/SFML/Audio.hpp" />
 		<Unit filename="include/SFML/Audio/AlResource.hpp" />
 		<Unit filename="include/SFML/Audio/Export.hpp" />

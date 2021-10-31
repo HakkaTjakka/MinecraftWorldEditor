@@ -540,7 +540,7 @@ function writeMeshOBJ(ctx, meshName, texName, payload, mesh, exclude) {
 		x =  ((x - offset_x) );
 		y =  ((y - offset_y) );
 		z =  ((z - offset_z) );
-		
+
 		if (x<min_x_x) { min_x_x=x; min_x_y=y; min_x_z=z; }
 		if (x>max_x_x) { max_x_x=x; max_x_y=y; max_x_z=z; }
 		if (y<min_y_y) { min_y_x=x; min_y_y=y; min_y_z=z; }
