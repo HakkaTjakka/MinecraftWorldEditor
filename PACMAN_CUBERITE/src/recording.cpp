@@ -36,6 +36,8 @@
 #define PRINT_FONT_OUTLINE 2
 extern sf::Mutex animate_lock;
 extern char SUBTITLE_FORMAT[];
+extern bool MAKEMOVIE;
+extern int MOVIE_NUMBER;
 
 sf::Clock rec_clock_tot;
 sf::Clock rec_clock_frame;
@@ -868,6 +870,7 @@ int recording_start(int x, int y)
 //    reload_init();
 
 //FFMPEG_M_CROP="ffmpeg -hide_banner -f rawvideo -vcodec rawvideo -pix_fmt rgb24 -s 1920x1080 -r 60 -i - -filter:v "crop=%d:1080:%d:0" -an -c:v libx264 -preset slow -crf 23 -c:a copy -pix_fmt yuv420p ../record/output%d.mp4"
+    MOVIE_NUMBER=timenow;
     if (crop==0) {
         if (RGBA) {
             if (strlen(FFMPEGCOMMAND_RGBA)>0)
@@ -875,8 +878,9 @@ int recording_start(int x, int y)
             else
                 sprintf(command_line,"ffmpeg.exe -hide_banner -f rawvideo -vcodec rawvideo -pix_fmt rgba -s %dx%d -r 60 -i - -an -c:v libx264 -pix_fmt yuv444p -preset veryfast -crf 23 ../record/output%d_rgba.mp4",x,y,timenow);
         } else {
-            if (strlen(FFMPEGCOMMAND)>0)
+            if (strlen(FFMPEGCOMMAND)>0) {
                 sprintf(command_line,FFMPEGCOMMAND,x,y,timenow);
+            }
             else
                 sprintf(command_line,"ffmpeg.exe -hide_banner -f rawvideo -vcodec rawvideo -pix_fmt rgb24 -s %dx%d -r 60 -i - -an -c:v libx264 -pix_fmt yuv420p -preset veryfast -crf 23 ../record/output%d.mp4",x,y,timenow);
         }

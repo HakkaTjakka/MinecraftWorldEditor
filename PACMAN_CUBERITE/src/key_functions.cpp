@@ -50,6 +50,7 @@
 #include <dirent.h>
 #include "keylist.hpp"
 #include <string.h>
+#include "geo_thread.hpp"
 
 #define FFMPEG_SELECT 0
 #define INTERNET_SELECT 1
@@ -62,6 +63,10 @@
 #define SHOW_SELECT 2
 #define TILE_SELECT 3
 #define SHADER_SELECT 4
+
+extern std::vector<struct geo_region_struct> vector_click_regions;
+
+extern bool repair_by_list;
 
 extern bool get_octant_from_region;
 int move_config=0;
@@ -4206,6 +4211,7 @@ VOID HANDLECHAR(WPARAM wparam)
 //        diff_draw.lock();
 //        different_draw=1;
 //        diff_draw.unlock();
+//        vector_click_regions.clear();
         if (crossing==3 && !mirror==4) MCEDITOR_stop=1;
         else if (mirror==4) {
             flushing=!flushing;
@@ -8290,8 +8296,37 @@ extern int bukkit_running;
             }
         }
         break;
+    case sf::Keyboard::L:
+        if (event.key.alt) {
+            char line[100];
+            if (file_exists("border_fail.txt")) {
+                FILE* BF=fopen("border_fail.txt","r");
+                vector_click_regions.clear();
+                struct geo_region_struct one_click_regions;
+                int cnt=1;
+                bool err=false;
+                while (fgets (line,100, BF)!=NULL) {
+                    if ( sscanf(line,"R.%d.%d.MCA",&one_click_regions.region.x,&one_click_regions.region.z) == 2 ) {
+                        printf("REPAIR: X=%d Y=%d\n",one_click_regions.region.x,one_click_regions.region.z);
+                        one_click_regions.coords.x=one_click_regions.region.x+0.5;
+                        one_click_regions.coords.z=one_click_regions.region.z+0.5;
+                        vector_click_regions.push_back(one_click_regions);
+                    } else {
+                        printf("Error reading border_fail.txt line %d : %s\n",cnt,line);
+                        err=true;
+                    }
+                    cnt++;
+                }
+                fclose(BF);
+                if (!err) {
+                    repair_by_list=true;
+                }
+            } else {
+                printf("Need file border_fail.txt from REGION_FINDER.\n");
+            }
+            break;
+        }
 
-//    case sf::Keyboard::L:
 //        GET_LAT_LON_FROM_FILELIST(naam);
 //        if (file_exists(naam)) {
 //        }

@@ -21,6 +21,9 @@ extern bool dont_slow_down;
 bool MAKE_NBT=false;
 extern int DONTSAVEFILES;
 extern void SAVEALLBITMAPS();
+extern bool MAKEMOVIE;
+#define EVENT_CONTROL 4
+extern void insert_event(sf::Keyboard::Key code,int MODE);
 
 extern char voxel_filename[];
 extern bool screensaver;
@@ -802,6 +805,7 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
     rotate_object_y_cum=0.0;
     rotate_object_z_cum=0.0;
     int swoop=0;
+    int roelof_count=300;
     char filename[1000];
     strcpy(filename,filename_in);
     keep_running[win_num]=1;
@@ -919,7 +923,10 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
         contextSettings.depthBits    = 24;
         contextSettings.stencilBits  = 8;
 //        contextSettings.antialiasingLevel = 0; //important, set to 0 when running shift-b -> analyse. For color feedback from gpu that codes octant block.
-        contextSettings.antialiasingLevel = 5;
+        if (MAKEMOVIE)
+            contextSettings.antialiasingLevel = 5;
+        else
+            contextSettings.antialiasingLevel = 20;
 //        contextSettings.majorVersion = 3;
 //        contextSettings.minorVersion = 3;
         contextSettings.sRgbCapable = false;
@@ -1311,8 +1318,32 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
             if (area=="Models") do_model=true;
             else do_model=false;
             bool oldfocus=true;
+            int exit_counter=1600;
             while (window.isOpen() && exit_thread==0)
             {
+                if (MAKEMOVIE) {
+                    if (exit_counter==1600) {
+//                    sf::Event event;
+//                    event.key.code=sf::Keyboard::R;
+//                    handle_key_window(event, win_num, window);
+                        roelof=true;
+                        screensaver=true;
+                        pb=false;
+                    }
+                    exit_counter--;
+                    if (exit_counter<0) {
+                        sf::Event event;
+                        event.key.code=sf::Keyboard::R;
+                        event.key.shift=false;
+                        event.key.control=false;
+                        event.key.system=false;
+                        event.key.alt=false;
+                        handle_key_window(event, win_num, window);
+
+                        exit_code=-1;   exit_thread = true; keep_running[win_num]=0;
+                    }
+                }
+
                 static int teller=0;
                 teller++;
                 if (teller>120) {
@@ -1537,8 +1568,6 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
                     window.setVisible(false);
 //                    SFMLView1.setVisible(false);
                     create_nbt_fast(my_area, window, win_num, pac_obj2_arr_used, pac_obj2_arr);
-#define EVENT_CONTROL 4
-extern void insert_event(sf::Keyboard::Key code,int MODE);
 
 //                    insert_event(sf::Keyboard::Q,EVENT_CONTROL);
                     printf("Ready...\n");
@@ -1596,8 +1625,9 @@ system("pause");
                 }
                 if (screensaver) {
 
-                    static int roelof_count=300;
+//                    static int roelof_count=300;
                     if (roelof_count) roelof_count--;
+
                     if (roelof_count==1) {
 //                        printf("1");
 //                        reset_text(win_num);
@@ -1646,7 +1676,20 @@ system("pause");
                             printf("FRAGMENT SHADER LOADED: %s\n","shaders/depth_shader.frag");
                         }
                         show_text=false;
-                        whattodo=2;
+                        if (MAKEMOVIE) {
+                            sf::Event event;
+                            event.key.code=sf::Keyboard::R;
+                            event.key.shift=false;
+                            event.key.control=false;
+                            event.key.system=false;
+                            event.key.alt=false;
+                            handle_key_window(event, win_num, window);
+                            whattodo=3;
+                        }
+                        else
+                            whattodo=2;
+//                        MAKEMOVIE=false;
+
                         sf::Shader::bind(&depth_shader);
                         depth_shader_on=true;
 

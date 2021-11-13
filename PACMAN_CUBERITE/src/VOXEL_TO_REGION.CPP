@@ -15,6 +15,7 @@
 
 #include <Windows.h>
 
+std::string WAVEFRONT;
 extern void toggle2();
 extern void ret_color_rev(int idx, int&r,int&g,int&b );
 extern int remove_block_entities;
@@ -28,7 +29,7 @@ extern char mc_text1[];
 extern int update_request;
 extern std::string file_name_MCA;
 extern unsigned char color_table[16][3];
-
+void make_movie();
 struct IdDataColor_list {
     int r;
     int g;
@@ -1208,6 +1209,9 @@ void voxels_to_object(char* picture_file_in) {
 
 
 void voxels_to_object2(char* picture_file_in) {
+
+    WAVEFRONT="";
+
     char picture_file[200];
     strcpy(picture_file,picture_file_in); //copy before destroyed
 
@@ -2160,6 +2164,7 @@ void voxels_to_object2(char* picture_file_in) {
 
     fclose(out);
     if (!in_background) printf("Ready\n");
+    WAVEFRONT=filename;
 }
 
 extern int shut_up;
@@ -2246,6 +2251,10 @@ void multiple_regions_to_voxelfiles(std::string root) {
 
 
 void regions_to_voxelfiles() {
+//hoepla
+//    WAVEFRONT="/saves/3dtest/region/object/r.6242.-10110.obj";
+//    make_movie();
+//    return;
     if (region_filename!="") multiple_regions_to_voxelfiles(region_filename);
     else {
         region_filename="/saves/tovoxels/region";
@@ -2476,7 +2485,7 @@ void regions_to_voxelfiles2() {
 
                 BlockInfo*** AX=region.A;
 
-                printf(" Ready. Converting.");
+                printf("\nReady. Converting.");
 
                 int region_x=x,region_z=z;
                 int num_blocks=0;
@@ -2551,6 +2560,9 @@ void regions_to_voxelfiles2() {
                             int min_y=-1;
 
                             for (int y = 0; y < 256; y++) {
+//fillup
+//                                if (AY[y].sky_light==0) AY[y].id=251;
+
                                 if (AY[y].id!=0) {
                                     if (min_y==-1) min_y=y;
                                     max_y=y;
@@ -2763,7 +2775,32 @@ void regions_to_voxelfiles2() {
 //leuk
 
                 if (1) {
+
+                    int xxxx=512*region_x;
+                    int zzzz=512*region_z;
+//                    int xxxx=512*it->second.x;
+//                    int zzzz=512*it->second.z;
+//                    int xxxx=512*6100;
+//                    int zzzz=512*-10410;
+
                     scan_image.create(512,512,sf::Color(255,0,255,0));
+
+
+                    for (int x = 0; x < 512; x++) {
+                        int xx=x+512*region_x;
+                        BlockInfo** AZ=AX[x];
+                        for (int z = 0; z < 512; z++) {
+                            int zz=z+region_z*512;
+                            BlockInfo* AY=AZ[z];
+                            for (int y = 0; y < 256; y++) {
+                                if (AY[y].id==0) {
+                                    if (AY[y].sky_light==0) AY[y]=BlockInfo(1, 0, 0, 0 );
+                                }
+                            }
+                        }
+                    }
+
+
 
                     int blocks_shown=0;
                     for (int x = 0; x < 512; x++) {
@@ -2781,6 +2818,7 @@ void regions_to_voxelfiles2() {
                             int b_max;
                             for (int y = 0; y < 256; y++) {
                                 if (!(n++%256)) toggle2();
+//fillup
                                 if (AY[y].id!=0) {
                                     if (min_y==-1) min_y=y;
                                     max_y=y;
@@ -2822,7 +2860,9 @@ void regions_to_voxelfiles2() {
                                                 }
                                             }
                                             if (edge) {
-                                                voxels.push_back(Voxel(y+region_floor*256,xx,zz,0,0,0,1,0,1));
+
+//cubes                                                voxels.push_back(Voxel(y+region_floor*256,xx,zz,0,0,0,1,0,1));
+                                                voxels.push_back(Voxel(y+region_floor*256,xx-xxxx,zz-zzzz,0,0,0,1,0,1));
                                             }
                                             continue;
                                          }
@@ -2879,7 +2919,9 @@ void regions_to_voxelfiles2() {
 
 //                                    voxels.push_back(Voxel(y+region_floor*256,xx,zz,r_m,g_m,b_m,1,0,0));
 
-                                    voxels.push_back(Voxel(y+region_floor*256,xx,zz,r_m,g_m,b_m,id_data,0,0));
+//cubs                                    voxels.push_back(Voxel(y+region_floor*256,xx,zz,r_m,g_m,b_m,id_data,0,0));
+                                    voxels.push_back(Voxel(y+region_floor*256,xx-xxxx,zz-zzzz,r_m,g_m,b_m,id_data,0,0));
+//                                    voxels.push_back(Voxel(y+region_floor*256,xx-xxxx,zz-zzzz,r_m,g_m,b_m,l,0,0));
 //                                    voxels.push_back(Voxel(y+region_floor*256,xx,zz,r,g,b,1,(unsigned char)0,0));
 
                                     blocks_shown++;
@@ -2908,7 +2950,7 @@ void regions_to_voxelfiles2() {
 
 
 
-                    printf("\n%d blocks added to voxels\n",blocks_shown);
+                    printf("\n%d blocks added to voxels, voxels=%d total=%d\n",blocks_shown,voxels.size(),voxels_total.size());
 
                 }
 
@@ -2944,6 +2986,8 @@ void regions_to_voxelfiles2() {
                                 if (u.l>0) {
                                     fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d),(%d)\n",
                                             u.y, u.x, u.z,  u.r/u.l, u.g/u.l, u.b/u.l,  u.l , u.face);
+//                                    fprintf(voxel_file_pointer,"(%d,%d,%d),(%d,%d,%d),(%d),(%d)\n",
+//                                            u.y-512*x, u.x, u.z-512*z,  u.r/u.l, u.g/u.l, u.b/u.l,  u.l , u.face);
                                     if (u.x<min_x) min_x=u.x;
                                     if (u.x>max_x) max_x=u.x;
                                     if (u.y>max_y) max_y=u.y;
@@ -3027,7 +3071,8 @@ void regions_to_voxelfiles2() {
                         in_background=false;
                         voxels.clear();
 
-                        voxels_to_object(voxel_file);
+                        voxels_to_object2(voxel_file);
+                        make_movie();
 
                         //voxels_to_object_new_thread(voxel_file);
 //                            while (running_in_background>0) {
@@ -3044,10 +3089,45 @@ void regions_to_voxelfiles2() {
 //leuk
             prev_x=x;
             prev_z=z;
-            voxels.clear();
+//            voxels.clear();
             it++;
         }
         printf("\n");
     }
     voxels.clear();
+}
+extern void SFMLGL2_THREAD();
+extern int window_num;
+extern int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, int yo_combine);
+extern std::string area;
+extern bool pb;
+bool MAKEMOVIE=false;
+extern bool screensaver;
+extern int combine;
+extern bool roelof;
+int MOVIE_NUMBER=0;
+extern std::string GetFileName(const std::string& filepath);
+extern char MODELS[];
+
+void make_movie() {
+    MAKEMOVIE=true;
+    window_num=0;
+    area="Models";
+    combine=1;
+
+    char m[2000];
+    std::string to=GetFileName(WAVEFRONT);
+
+    sprintf(m,"echo %s>%s/list.txt",WAVEFRONT.c_str(),MODELS);
+    system(m);
+
+    int ret=main_hoppa2((char*)WAVEFRONT.c_str(),0,0,0,0,0);
+
+    to=to.substr(0,to.find_last_of("."))+".mp4";
+    sprintf(m,"rename ..\\record\\output%d.mp4 %s",MOVIE_NUMBER,to.c_str());
+
+//    printf("COMMAND: %s\n",m);
+    system(m);
+
+    MAKEMOVIE=false;
 }

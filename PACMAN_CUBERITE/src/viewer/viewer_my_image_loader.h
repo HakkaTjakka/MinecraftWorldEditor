@@ -118,7 +118,7 @@ void LOAD_ONE_IMAGE(size_t index) {
 //            printf("\nfn[strlen(fn)-3]=%c",fn[strlen(fn)-3]);
 //            printf("\nfn[strlen(fn)-2]=%c",fn[strlen(fn)-2]);
 //            printf("\nfn[strlen(fn)-1]=%c\n",fn[strlen(fn)-1]);
-            sleep(sf::seconds(10));
+            sleep(sf::seconds(0.05));
             if (strlen(fn)>4) {
                 fn[strlen(fn)-3]='b';
                 fn[strlen(fn)-2]='m';

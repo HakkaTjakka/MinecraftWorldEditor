@@ -8177,7 +8177,11 @@ void geo_to_index(std::string my_area) {
         RES = fopen ("OBJECT_ARRAY.RES", "w");
         FILE* OCT;
         OCT = fopen ("OBJECT_ARRAY.OCTANTS", "w");
+        FILE* OCT_ONLY;
+        OCT_ONLY = fopen ("OBJECT_ARRAY.OCTANTS_ONLY.TXT", "w");
         int count=0;
+//        std::map<std::string,std::string> octants;
+        std::map<std::string, int> octants;
         std::string octant;
         while (fgets (line,1000, HOP)!=NULL) {
             //printf("%s\n",line);
@@ -8231,15 +8235,20 @@ void geo_to_index(std::string my_area) {
                             octant=get_area_data(my_area,x,y);
                             get_area_quick=false;
 
-                            printf("X=%4d Y=%4d %s %s ",x,y,rest,octant.c_str());
+//                            printf("X=%4d Y=%4d %s %s ",x,y,rest,octant.c_str());
                             fprintf(RES,"X=%d Y=%d %s ",x,y,octant.c_str());
-                            fprintf(OCT,"X=%4d Y=%4d %s %s",x,y,rest,octant.c_str());
+                            fprintf(OCT,"X=%4d Y=%4d %s %s ",x,y,rest,octant.c_str());
+//                            fprintf(OCT_ONLY,"%s",octant.c_str());
+
+                            if (octants.find(octant.c_str()) == octants.end()) {
+                                octants.insert(std::make_pair( octant.c_str(),0) );
+                            }
 
                             //get_area_quick=true;
-                            octant=get_area_data(my_area,x,y);
+                            //octant=get_area_data(my_area,x,y);
                             //get_area_quick=false;
 
-                            printf("%s %s\n",octant.c_str(),latitude_longditude.c_str());
+//                            printf("%s %s\n",octant.c_str(),latitude_longditude.c_str());
                             fprintf(RES,"%s\n",octant.c_str());
                             fprintf(OCT,"%s %s\n",octant.c_str(),latitude_longditude.c_str());
 
@@ -8262,6 +8271,10 @@ void geo_to_index(std::string my_area) {
         fclose(RES);
         fclose(HOP);
         fclose(OCT);
+        for (auto u : octants) {
+            fprintf(OCT_ONLY,"%s\n",u.first.c_str());
+        }
+        fclose(OCT_ONLY);
     } else {
         printf("Error opening RESULT.TXT\n");
     }

@@ -52,7 +52,7 @@ extern bool signal2_geo;
 extern bool file_exists(const char * filename);
 extern std::string area;
 extern bool get_area_quick;
-
+extern bool repair_by_list;
 
 int GEO_STOP=0;
 int GEO_RUNNING=0;
@@ -64,7 +64,6 @@ std::map<long long int, struct geo_region_struct> click_regions;
 struct geo_region_struct one_click_regions;
 
 bool fuck_you=false;
-
 
 void calc_octants(struct geo_region_struct& one_click_region) {
     double lat_min, lat_max, lon_min, lon_max;
@@ -92,6 +91,7 @@ void calc_octants(struct geo_region_struct& one_click_region) {
 
     if ( (one_get_lat_lon_bot_right.x==9999 && one_get_lat_lon_bot_right.y==9999) || (one_get_lat_lon_top_left.x==9999 && one_get_lat_lon_top_left.y==9999) ) {
         printf("index(es) not found\n");
+//        signal2_geo=false;
         return;
     }
 
@@ -109,6 +109,7 @@ void calc_octants(struct geo_region_struct& one_click_region) {
 //    get_area_quick=true;
     std::string octant;
     char s[1000];
+    bool fail=false;
 
     FILE* f=fopen("OBJECT_ARRAY.NBT","w");
     for (int y=one_get_lat_lon_top_left.y; y<=one_get_lat_lon_bot_right.y; y++) {
@@ -126,12 +127,20 @@ void calc_octants(struct geo_region_struct& one_click_region) {
 
             printf(" File %s.nbt ",octant.c_str());
             octant=get_area_data(area,x,y);
-            if (octant=="") printf("does not exist.\n",octant.c_str());
+            if (octant=="") {
+                printf("does not exist.\n",octant.c_str());
+                fail=true;
+            }
             else printf(" exists.\n");
 
         }
     }
     fclose(f);
+    if (repair_by_list && fail) {
+        printf("Not all octants present\n");
+//        printf("Not all octants present, aborting repair\n");
+//        return;
+    }
 //    get_area_quick=false;
     sprintf(s,"../cut/r.%d.%d.png",one_click_region.region.x,one_click_region.region.z);
 extern sf::Texture texture_from_ffmpeg;
@@ -226,6 +235,7 @@ extern int ffmpegfile;
         do_nbt_fast=true;
         crossing=2;
         mirror=4;
+        burn=true;
 //        combine=1;
         cubic=true;
         do_wuppie=true;
@@ -251,16 +261,18 @@ void GEO_FUNC_PIPE(struct geo_region_struct& one_click_region) {
 //        pfile=popen("python to_geo.py","wb");
         if (pfile==NULL) {
             printf("Cannot open pipe to python to_geo.exe\n");
-            signal2_geo=false;
+//            signal2_geo=false;
             return;
         }
     }
 
     sprintf((char*)frame,"%f %f\r\n",   one_click_region.coords.x,    one_click_region.coords.z  );
     fwrite(frame, strlen((char*)frame), 1, pfile);
-    for (int n=0; n<4; n++) {
-        sprintf((char*)frame,"%d %d\r\n",   one_click_region.region.x+n%2,    one_click_region.region.z+int(n/2)  );
-        fwrite(frame, strlen((char*)frame), 1, pfile);
+    if (repair_mca) {
+        for (int n=0; n<4; n++) {
+            sprintf((char*)frame,"%d %d\r\n",   one_click_region.region.x+n%2,    one_click_region.region.z+int(n/2)  );
+            fwrite(frame, strlen((char*)frame), 1, pfile);
+        }
     }
 //    sprintf((char*)frame,"%d %d\r\n",   one_click_region.region.x+1,  one_click_region.region.z  ); fwrite(frame, strlen((char*)frame), 1, pfile);
 //    sprintf((char*)frame,"%d %d\r\n",   one_click_region.region.x,    one_click_region.region.z+1); fwrite(frame, strlen((char*)frame), 1, pfile);
@@ -306,23 +318,25 @@ void GEO_FUNC_PIPE(struct geo_region_struct& one_click_region) {
                 fprintf(f,command_str);
                 fclose(f);
                 ok=true;
-                for (int n=0; n<4; n++) {
-                    if (fgets (line,1000, HOP)!=NULL) {
-                        if ( sscanf(line,"%lf %lf",&lon,&lat) != 2) {
-                            printf("ERROR READING CORNER from projection.txt\n");
-                            printf("line %d =\"%s\"\n",n,line);
+                if (repair_mca) {
+                    for (int n=0; n<4; n++) {
+                        if (fgets (line,1000, HOP)!=NULL) {
+                            if ( sscanf(line,"%lf %lf",&lon,&lat) != 2) {
+                                printf("ERROR READING CORNER from projection.txt\n");
+                                printf("line %d =\"%s\"\n",n,line);
+                            } else {
+                                printf("CORNER:  LAT=%20.16f LON=%20.16f r.%d.%d.mca\n",
+                                        lat, lon,
+                                        one_click_region.region.x+n%2,
+                                        one_click_region.region.z+(int(n/2))
+                                );
+                                one_click_region.geo_corners[n]=dvec2(lon,lat);
+                            }
                         } else {
-                            printf("CORNER:  LAT=%20.16f LON=%20.16f r.%d.%d.mca\n",
-                                    lat, lon,
-                                    one_click_region.region.x+n%2,
-                                    one_click_region.region.z+(int(n/2))
-                            );
-                            one_click_region.geo_corners[n]=dvec2(lon,lat);
+                            printf("ERROR READING LAT LON FROM TO_GEO.TXT\n");
+                            printf("line=%s\n",line);
+                            break;
                         }
-                    } else {
-                        printf("ERROR READING LAT LON FROM TO_GEO.TXT\n");
-                        printf("line=%s\n",line);
-                        break;
                     }
                 }
             }
@@ -331,8 +345,10 @@ void GEO_FUNC_PIPE(struct geo_region_struct& one_click_region) {
             printf("line=%s\n",line);
         }
         fclose(HOP);
-        if (ok) {
+        if (ok && repair_mca) {
             calc_octants(one_click_region);
+
+
 //            sprintf(command_str,"call_chrome.bat &");
 //            system(command_str);
         }
@@ -345,10 +361,29 @@ void GEO_FUNC_PIPE(struct geo_region_struct& one_click_region) {
 //void GEO_FUNC_PIPE2(struct geo_region_struct& one_click_region) {
 struct geo_region_struct one_click_region_pass;
 
+void VOXEL_TO_REGION(struct geo_region_struct& one_click_region) {
+    char voxel_filename[1000];
+    sprintf(voxel_filename,"r.%d.%d.vox",one_click_region.region.x,one_click_region.region.z);
+    scan_image.create(512,512,sf::Color(0,0,0,0));
+
+    scan_x=one_click_regions.region.x;
+    scan_z=one_click_regions.region.z;
+    silence=true;
+    update_request=2;
+    while (update_request) sf::sleep(sf::seconds(0.1));
+    silence=false;
+    one_region_voxel_files_to_region_files(false, voxel_filename);
+}
+
 void GEO_FUNC_PIPE2() {
-    GEO_FUNC_PIPE(one_click_region_pass);
+    if (make_regions) {
+        VOXEL_TO_REGION(one_click_region_pass);
+    } else {
+        GEO_FUNC_PIPE(one_click_region_pass);
+    }
     GEO_RUNNING=0;
     GEO_STOP=1;
+    printf("Leaving geo pipe thread\n");
     signal2_geo=false;
 }
 
@@ -383,7 +418,6 @@ void SEND_TO_GEO_PIPE(struct geo_region_struct& one_click_region)
     one_click_region_pass=one_click_region;
    GEO_PIPE.launch();
 }
-
 
 
 
@@ -458,9 +492,9 @@ void GEO_FUNC2() {
     GEO_FUNC();
     GEO_RUNNING=0;
     GEO_STOP=1;
-    signal2_geo=false;
     printf("Leaving geo thread\n");
-}
+    signal2_geo=false;
+  }
 
 sf::Thread GEO(&GEO_FUNC2);
 
@@ -468,7 +502,7 @@ void LAUNCH_GEO_THREAD(double xxx, double yyy)
 {
     if (GEO_RUNNING==1)
     {
-        printf("geo thread already running sukkel\n");
+        printf("\ngeo thread already running sukkel\n");
         return;
     }
     pass_geo_xxx=xxx;

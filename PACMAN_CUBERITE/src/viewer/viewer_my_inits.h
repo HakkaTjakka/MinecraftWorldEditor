@@ -366,14 +366,14 @@ extern std::string get_octant_LA(int &x, int &y);
 extern int smooth;
 int global_octant_x,global_octant_y;
 
-static std::string GetBaseDir(const std::string& filepath)
+std::string GetBaseDir(const std::string& filepath)
 {
     if (filepath.find_last_of("/\\") != std::string::npos)
         return filepath.substr(0, filepath.find_last_of("/\\"));
     return "";
 }
 
-static std::string GetFileName(const std::string& filepath)
+std::string GetFileName(const std::string& filepath)
 {
     if (filepath.find_last_of("/\\") != std::string::npos)
         return filepath.substr(1+filepath.find_last_of("/\\"),filepath.length());

@@ -719,7 +719,8 @@ void MCACoder::getBlock_FAST(const MCRegion &region) {
                                 num_blocks++;
                                 AY[y]=BlockInfo(id,add,data,block_light,sky_light);
                             } else {
-                                AY[y]=BlockInfo();
+                                AY[y]=BlockInfo(id,add,data,block_light,sky_light);
+//                                AY[y]=BlockInfo();
                             }
                         }
                     }

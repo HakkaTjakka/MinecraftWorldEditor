@@ -4,6 +4,8 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <glm/glm.hpp>
+#include <glm/common.hpp>
 
 struct dvec2
 {
@@ -37,6 +39,7 @@ struct geo_region_struct {
 };
 
 void SEND_TO_GEO_PIPE(struct geo_region_struct& one_region_struct);
+
 extern glm::ivec2 GET_LAT_LON4(std::string my_area, double lat, double lon);
 extern std::string get_area_data(std::string area_name, int &x, int &y);
 extern nbt_fast();
@@ -65,10 +68,7 @@ extern int scan_z;
 
 #include <../VOXEL.HPP>
 extern std::vector<hit_one_region> ready_regions;
-
-
-
-
-
+bool one_region_voxel_files_to_region_files(bool display_only, char* voxel_filename);
+extern bool make_regions;
 
 #endif // GEO_THREAD_HPP

@@ -63,10 +63,14 @@
 #include <../VOXEL.HPP>
 #include <geo_thread.hpp>
 
+extern int ESCAPE_PRESSED;
 bool signal_geo=false;
 bool signal2_geo=false;
 bool repair_mca=false;
 extern void LAUNCH_GEO_THREAD(double xxx, double yyy);
+bool repair_by_list=false;
+
+std::vector<struct geo_region_struct> vector_click_regions;
 
 extern int replace_str(char *str, char *orig, char *rep);
 extern void geo_thread(double xxx, double yyy);
@@ -4516,7 +4520,10 @@ extern int record_window;
 //    if  (( ffmpegfile==0 || movie==0 && !sf::Mouse::isButtonPressed(sf::Mouse::Right)) )
     static int first_plot=1;
     move_slow=0;
-    if  (1)
+
+//ghost move klimbim
+//    if  (1)
+    if  (0)
 //    if  (!sf::Mouse::isButtonPressed(sf::Mouse::Right) )
     {
         static int counter=1;
@@ -9014,7 +9021,6 @@ extern int overlap_pixels;
             static bool erase_tiles=false;
 
             static struct geo_region_struct one_click_regions;
-            static std::vector<struct geo_region_struct> vector_click_regions;
 
             if (!signal2_geo) {
                 xx=(double)(picturex*1920-posx)+(double)smooth_x-(double)((int)smooth_x);
@@ -9077,7 +9083,7 @@ extern int overlap_pixels;
             }
 
 
-            if (erase_tiles && click_off) {
+            if (erase_tiles && click_off && !combine) {
                 erase_tiles=false;
                 char f[1000];
                 for (auto v : vector_click_regions) {
@@ -9101,18 +9107,59 @@ extern int overlap_pixels;
                 silence=true;
                 update_request=2;
                 playsound=playsound|2;
+//                SEND_TO_GEO_PIPE(one_click_regions);
 
 //                SEND_TO_GEO_PIPE(one_click_regions);
 
 //                LAUNCH_GEO_THREAD(xxx, yyy);
-            }
-            if (repair_mca && !signal2_geo) {
+            } else if (repair_mca && !signal2_geo) {
+                if (ESCAPE_PRESSED) vector_click_regions.clear();
                 if (vector_click_regions.size()>0) {
                     one_click_regions=vector_click_regions[0];
+
+                    xxx    = one_click_regions.coords.x;
+                    zzz    = one_click_regions.coords.z;
+                    xx     = one_click_regions.region.x;
+                    zz     = one_click_regions.region.z;
+                    rest_x = one_click_regions.offset.x;
+                    rest_z = one_click_regions.offset.z;
+
                     signal2_geo=true;
                     silence=false;
+                    if (combine!=0) {
+                        make_regions=true;
+                    }
+                    else make_regions=false;
                     SEND_TO_GEO_PIPE(one_click_regions);
                     vector_click_regions.erase(vector_click_regions.begin());
+                    if (combine!=0) {
+                        char f[1000];
+                        for (int z=-1; z<2; z++) {
+                            for (int x=-1; x<2; x++) {
+                                if (x!=0 || z!=0) {
+                                    bool dbl=false;
+                                    for (auto v : vector_click_regions) {
+                                        if (v.region.x==one_click_regions.region.x+x && v.region.z==one_click_regions.region.z+z) {
+                                            dbl=true;
+                                            break;
+                                        }
+                                    }
+                                    if (!dbl) {
+                                        sprintf(f,"../cut/r.%d.%d.vox",one_click_regions.region.x+x,one_click_regions.region.z+z);
+                                        if (file_exists(f)) {
+                                            printf("Pushing %s\n",f);
+                                            static struct geo_region_struct ocr;
+                                            ocr.region.x=one_click_regions.region.x+x;
+                                            ocr.region.z=one_click_regions.region.z+z;
+                                            vector_click_regions.push_back(ocr);
+//                                        } else {
+//                                            printf("%s does not exist\n",f);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 } else repair_mca=false;
             }
         }
