@@ -45,6 +45,8 @@
 #define EVENT_CONTROL 4
 #define EVENT_SYSTEM 8
 
+bool SLOT_MACHINE=false;
+
 extern void geo_to_index(std::string my_area);
 
 extern void launch_PLOT_REGIONS();
@@ -493,6 +495,11 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
         exit(0);
     }
 
+    if (cmd=="SLOTS") {
+//        printf("COMMAND: \"%s\"\n",cmd.c_str());
+        SLOT_MACHINE=true;
+    }
+
     printf("sizeof(float)=%d\n",sizeof(float));
     if (cmd=="FONT2FUNCTION") {
         font2function();
@@ -939,7 +946,7 @@ printf("hoppa");
 
     sprintf(writer,"usage: %s [ ? ] [ reconnect ] [ server | client ipaddress ] [ udp | tcp ] [ portnumber ]\n",argv[0]);
     strcpy(commandline,writer);
-
+//    argc=1;
 
     int param_connect=0;
     int i,n=1;

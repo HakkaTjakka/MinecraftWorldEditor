@@ -1968,6 +1968,8 @@ void home_map()
     int x=start_posx;
     int y=start_posy;
 
+//    printf("start_posx=%d start_posy=%d\n",start_posx,start_posy);
+
     if (shift==1)
     {
         x=2912;

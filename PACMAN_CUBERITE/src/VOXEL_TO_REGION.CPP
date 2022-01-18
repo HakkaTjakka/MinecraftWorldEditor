@@ -2776,12 +2776,13 @@ void regions_to_voxelfiles2() {
 
                 if (1) {
 
-                    int xxxx=512*region_x;
-                    int zzzz=512*region_z;
+                    int xxxx=512*region_x+256;
+                    int zzzz=512*region_z+256;
 //                    int xxxx=512*it->second.x;
 //                    int zzzz=512*it->second.z;
-//                    int xxxx=512*6100;
-//                    int zzzz=512*-10410;
+//                    int xxxx=512*6412;
+//                    int zzzz=512*-10403;
+
 
                     scan_image.create(512,512,sf::Color(255,0,255,0));
 
@@ -3107,9 +3108,12 @@ extern int combine;
 extern bool roelof;
 int MOVIE_NUMBER=0;
 extern std::string GetFileName(const std::string& filepath);
+extern std::string GetBaseDir(const std::string& filepath);
+
 extern char MODELS[];
 
 void make_movie() {
+//    return;
     MAKEMOVIE=true;
     window_num=0;
     area="Models";
@@ -3117,6 +3121,9 @@ void make_movie() {
 
     char m[2000];
     std::string to=GetFileName(WAVEFRONT);
+
+//    MODELS=GetBaseDir(WAVEFRONT);
+    strcpy(MODELS,GetBaseDir(WAVEFRONT).c_str());
 
     sprintf(m,"echo %s>%s/list.txt",WAVEFRONT.c_str(),MODELS);
     system(m);

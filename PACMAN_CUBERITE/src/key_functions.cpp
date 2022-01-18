@@ -4982,7 +4982,8 @@ VOID HANDLEKEY(WPARAM wparam, sf::Event event)
         }
         else
         {
-            if (draw_model==6)
+//slots
+            if (draw_model==5)
                 draw_model=0;
             else
                 draw_model++;
@@ -8810,92 +8811,99 @@ extern int bukkit_running;
 //USED FOR TESTING LARGE CANVAS TO TILES. WILL BE OPTION ON COMMAND LINE SOON...
 //for poster 200x200 cut into 512x512
 
-//            rectangle_paper_count_x=750;
-//            rectangle_paper_count_y=420;
+            if (paper_select==2) {
+                rectangle_paper_count_x=maxpixelsx/512;
+                rectangle_paper_count_y=maxpixelsy/512;
+            }
 
-            for (int y=0; y<rectangle_paper_count_y; y++) {
-                for (int x=0; x<rectangle_paper_count_x; x++) {
+            for (int yy=0; yy<rectangle_paper_count_y; yy+=10) {
+                for (int xx=0; xx<rectangle_paper_count_x; xx+=10) {
 
-                    ffmpeg_posx=x*(width_pixels) + width_pixels/2.0+overlap_pixels;
-                    ffmpeg_posy=y*(height_pixels)+height_pixels/2.0+overlap_pixels;
+                    for (int y=yy; y<rectangle_paper_count_y && y<yy+10; y++) {
+                        for (int x=xx; x<rectangle_paper_count_x && x<xx+10; x++) {
 
-                    float rot=rectangle_paper.getRotation();
-                    float rot_x=ffmpeg_posx;
-                    float rot_y=ffmpeg_posy;
+                            ffmpeg_posx=x*(width_pixels) + width_pixels/2.0+overlap_pixels;
+                            ffmpeg_posy=y*(height_pixels)+height_pixels/2.0+overlap_pixels;
 
-/*
-                                    rot_x=(float)(maxpixelsx*x)+(float)pos_x-(float)smooth_x+(float)((int)smooth_x);
-                                    rot_y=(float)(maxpixelsy*y)+(float)pos_y-(float)smooth_y+(float)((int)smooth_y);
-                                    float plus_x=rot_x*cos( rot*M_PI/180.0)+rot_y*sin( rot*M_PI/180.0);
-                                    float plus_y=rot_x*sin(-rot*M_PI/180.0)+rot_y*cos(-rot*M_PI/180.0);
-*/
+                            float rot=rectangle_paper.getRotation();
+                            float rot_x=ffmpeg_posx;
+                            float rot_y=ffmpeg_posy;
+
+        /*
+                                            rot_x=(float)(maxpixelsx*x)+(float)pos_x-(float)smooth_x+(float)((int)smooth_x);
+                                            rot_y=(float)(maxpixelsy*y)+(float)pos_y-(float)smooth_y+(float)((int)smooth_y);
+                                            float plus_x=rot_x*cos( rot*M_PI/180.0)+rot_y*sin( rot*M_PI/180.0);
+                                            float plus_y=rot_x*sin(-rot*M_PI/180.0)+rot_y*cos(-rot*M_PI/180.0);
+        */
 
 
 
 
-//                    ffmpeg_posx=rot_x*cos( rot*M_PI/180.0)+rot_y*sin( rot*M_PI/180.0)+rectangle_paper_pos_x;
-//                    ffmpeg_posy=rot_x*sin(-rot*M_PI/180.0)+rot_y*cos(-rot*M_PI/180.0)+rectangle_paper_pos_y;
+        //                    ffmpeg_posx=rot_x*cos( rot*M_PI/180.0)+rot_y*sin( rot*M_PI/180.0)+rectangle_paper_pos_x;
+        //                    ffmpeg_posy=rot_x*sin(-rot*M_PI/180.0)+rot_y*cos(-rot*M_PI/180.0)+rectangle_paper_pos_y;
 
-                    ffmpeg_posx=rot_x*cos(rot*M_PI/180.0)+rot_y*sin(-rot*M_PI/180.0)+rectangle_paper_pos_x;
-                    ffmpeg_posy=rot_x*sin(rot*M_PI/180.0)+rot_y*cos( rot*M_PI/180.0)+rectangle_paper_pos_y;
+                            ffmpeg_posx=rot_x*cos(rot*M_PI/180.0)+rot_y*sin(-rot*M_PI/180.0)+rectangle_paper_pos_x;
+                            ffmpeg_posy=rot_x*sin(rot*M_PI/180.0)+rot_y*cos( rot*M_PI/180.0)+rectangle_paper_pos_y;
 
-                    ffmpeg_posx=ffmpeg_posx-width_pixels/2.0 -overlap_pixels;
-                    ffmpeg_posy=ffmpeg_posy-height_pixels/2.0-overlap_pixels;
+                            ffmpeg_posx=ffmpeg_posx-width_pixels/2.0 -overlap_pixels;
+                            ffmpeg_posy=ffmpeg_posy-height_pixels/2.0-overlap_pixels;
 
-//                    ffmpeg_posx=ffmpeg_posx-texture_from_ffmpeg.getSize().x/2;
-//                    ffmpeg_posy=ffmpeg_posy-texture_from_ffmpeg.getSize().y/2;
-//                    ffmpeg_posx=ffmpeg_posx-texture_from_ffmpeg.getSize().x/2;
-//                    ffmpeg_posy=ffmpeg_posy-texture_from_ffmpeg.getSize().y/2;
+        //                    ffmpeg_posx=ffmpeg_posx-texture_from_ffmpeg.getSize().x/2;
+        //                    ffmpeg_posy=ffmpeg_posy-texture_from_ffmpeg.getSize().y/2;
+        //                    ffmpeg_posx=ffmpeg_posx-texture_from_ffmpeg.getSize().x/2;
+        //                    ffmpeg_posy=ffmpeg_posy-texture_from_ffmpeg.getSize().y/2;
 
-//                    rot_x=texture_from_ffmpeg.getSize().x/2;
-//                    rot_y=texture_from_ffmpeg.getSize().y/2;
-//                    rot_x= width_pixels/2.0;
-//                    rot_y=height_pixels/2.0;
+        //                    rot_x=texture_from_ffmpeg.getSize().x/2;
+        //                    rot_y=texture_from_ffmpeg.getSize().y/2;
+        //                    rot_x= width_pixels/2.0;
+        //                    rot_y=height_pixels/2.0;
 
-//                    start_posx=ffmpeg_posx-1920/2+rot_x*cos(rot*M_PI/180.0)+rot_y*sin(-rot*M_PI/180.0);
-//                    start_posy=ffmpeg_posy-1080/2+rot_x*sin(rot*M_PI/180.0)+rot_y*cos( rot*M_PI/180.0);
+        //                    start_posx=ffmpeg_posx-1920/2+rot_x*cos(rot*M_PI/180.0)+rot_y*sin(-rot*M_PI/180.0);
+        //                    start_posy=ffmpeg_posy-1080/2+rot_x*sin(rot*M_PI/180.0)+rot_y*cos( rot*M_PI/180.0);
 
-//                    start_posx=ffmpeg_posx-1920/2+rot_x*cos(rot*M_PI/180.0)+rot_y*sin(-rot*M_PI/180.0);
-//                    start_posy=ffmpeg_posy-1080/2+rot_x*sin(rot*M_PI/180.0)+rot_y*cos( rot*M_PI/180.0);
+        //                    start_posx=ffmpeg_posx-1920/2+rot_x*cos(rot*M_PI/180.0)+rot_y*sin(-rot*M_PI/180.0);
+        //                    start_posy=ffmpeg_posy-1080/2+rot_x*sin(rot*M_PI/180.0)+rot_y*cos( rot*M_PI/180.0);
 
-                    start_posx=ffmpeg_posx-1920/2+ width_pixels/2.0+overlap_pixels;
-                    start_posy=ffmpeg_posy-1080/2+height_pixels/2.0+overlap_pixels;
+                            start_posx=ffmpeg_posx-1920/2+ width_pixels/2.0+overlap_pixels;
+                            start_posy=ffmpeg_posy-1080/2+height_pixels/2.0+overlap_pixels;
 
-//                    start_posx=ffmpeg_posx-1920/2+texture_from_ffmpeg.getSize().x/2;
-//                    start_posy=ffmpeg_posy-1080/2+texture_from_ffmpeg.getSize().y/2;
+        //                    start_posx=ffmpeg_posx-1920/2+texture_from_ffmpeg.getSize().x/2;
+        //                    start_posy=ffmpeg_posy-1080/2+texture_from_ffmpeg.getSize().y/2;
 
-                    if ((start_posx)>=maxpixelsx)   start_posx=start_posx-maxpixelsx;
-                    else if ((start_posx)<0)        start_posx=start_posx+maxpixelsx;
-                    if ((start_posy)>=maxpixelsy)   start_posy=start_posy-maxpixelsy;
-                    else if ((start_posy)<0)        start_posy=start_posy+maxpixelsy;
+                            if ((start_posx)>=maxpixelsx)   start_posx=start_posx-maxpixelsx;
+                            else if ((start_posx)<0)        start_posx=start_posx+maxpixelsx;
+                            if ((start_posy)>=maxpixelsy)   start_posy=start_posy-maxpixelsy;
+                            else if ((start_posy)<0)        start_posy=start_posy+maxpixelsy;
 
-                    home_map();
-                    render_picturex=picturex;
-                    render_posx=posx;
-                    render_picturey=picturey;
-                    render_posy=posy;
-                    printf("Creating X=%d,Y=%d  ",x,y);
-//                    sprite_from_ffmpeg.setRotation(rectangle_paper.getRotation());
-                    get_ffmpegfile();
-//                    sprintf(naam,"..\\paper\\picture.%06d.%06d.png",y,x);
-                    sprintf(naam,"..\\paper\\r.%06d.%06d.jpg",y,x);
+                            home_map();
+                            render_picturex=picturex;
+                            render_posx=posx;
+                            render_picturey=picturey;
+                            render_posy=posy;
+                            printf("Creating X=%d,Y=%d  ",x,y);
+        //                    sprite_from_ffmpeg.setRotation(rectangle_paper.getRotation());
+                            get_ffmpegfile();
+        //                    sprintf(naam,"..\\paper\\picture.%06d.%06d.png",y,x);
+                            sprintf(naam,"..\\paper\\r.%06d.%06d.jpg",y,x);
 
-                    if (crossing==1) {
-                        sprite_from_ffmpeg.setScale(1920.0/(float)texture_from_ffmpeg.getSize().x,1080.0/(float)texture_from_ffmpeg.getSize().y);
-                        convert_to_scale(&texture_from_ffmpeg, &sprite_from_ffmpeg);
-                        scale_now=1.0;
-                    }
+                            if (crossing==1) {
+                                sprite_from_ffmpeg.setScale(1920.0/(float)texture_from_ffmpeg.getSize().x,1080.0/(float)texture_from_ffmpeg.getSize().y);
+                                convert_to_scale(&texture_from_ffmpeg, &sprite_from_ffmpeg);
+                                scale_now=1.0;
+                            }
 
-                    printf("Saving %s\n",naam);
-                    shut_up=1;
-                    texture_from_ffmpeg.copyToImage().saveToFile(naam);
-                    shut_up=0;
+                            printf("Saving %s\n",naam);
+                            shut_up=1;
+                            texture_from_ffmpeg.copyToImage().saveToFile(naam);
+                            shut_up=0;
 
-                    if (crossing==1) {
-                        texture_from_ffmpeg.create(width_pixels+2*overlap_pixels,height_pixels+2*overlap_pixels);
-                        sprite_from_ffmpeg.setTexture(texture_from_ffmpeg,true);
-                        sprite_from_ffmpeg.setScale(1.0,1.0);
-                        sprite_from_ffmpeg.setPosition(0.0,0.0);
+                            if (crossing==1) {
+                                texture_from_ffmpeg.create(width_pixels+2*overlap_pixels,height_pixels+2*overlap_pixels);
+                                sprite_from_ffmpeg.setTexture(texture_from_ffmpeg,true);
+                                sprite_from_ffmpeg.setScale(1.0,1.0);
+                                sprite_from_ffmpeg.setPosition(0.0,0.0);
+                            }
+                        }
                     }
                 }
             }

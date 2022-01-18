@@ -927,6 +927,7 @@ void shader_map_init(int x,int y) {
     plot_all_count++;
 }
 
+
 void shader_map(int x,int y) {
 //    update_map(x,y);
     if (handler[CANVAS_SELECT].show==0) return;
@@ -961,6 +962,7 @@ void shader_map(int x,int y) {
 
 int mul_mat(int m, int n, float *first, int p, int q, float *second, float *multiply);
 extern int CapsLock;
+extern int flasher[5][20];
 
 class MAPPER : public Effect
 {
@@ -994,10 +996,10 @@ public:
         if (draw_model==6) {
             old_position_y=(render_picturey*1080-render_posy);
             int position_y=old_position_y;
-            if (CapsLock==1)
+//            if (CapsLock==1)
                 arx=1;
-            else
-                arx=0;
+//            else
+//                arx=0;
 //            render_posx=0+960+(mappos_x)*500;
 //            render_posx=0+960;//+(mappos_x)*500;
 //            render_posx=0+960-(mappos_x+0.5)*500;
@@ -1027,8 +1029,17 @@ extern int y_bar[];
         }
         ary=(render_picturey+mappos_y+BITMAPSY)%BITMAPSY;
         int flash;
-        if ( sin(5.0*fpstime*3.1415)>0.0 && ( (ary+(int)mappos_x+20+(int)(fpstime/2.0)%6)%(1+(int)(fpstime)%4)==0  || (ary+(int)(fpstime/4.0)%3)%(1+20+(int)mappos_x+(int)(fpstime)%5)==0 ) ) flash=1;
-        else flash=0;
+
+//        if ( sin(5.0*fpstime*3.1415)>0.0 &&
+//            ( (ary+(int)mappos_x+20+(int)(fpstime/2.0)%6)%(1+(int)(fpstime)%4)==0  ||
+//              (ary+(int)(fpstime/4.0)%3)%(1+20+(int)mappos_x+(int)(fpstime)%5)==0 ) ) flash=1;
+//        else flash=0;
+//        printf("mappos_x=%d mappos_y=%d\n",
+//               (mappos_x+5)%5,
+//               (mappos_y+BITMAPSY)%BITMAPSY);
+
+        flash=flasher[(mappos_x+5)%5][(mappos_y+BITMAPSY+render_picturey)%BITMAPSY];
+
         m_shader.setUniform("flash", flash); // scale BITMAPSX,BITMAPSY
 
 

@@ -924,9 +924,9 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
         contextSettings.stencilBits  = 8;
 //        contextSettings.antialiasingLevel = 0; //important, set to 0 when running shift-b -> analyse. For color feedback from gpu that codes octant block.
         if (MAKEMOVIE)
-            contextSettings.antialiasingLevel = 5;
-        else
             contextSettings.antialiasingLevel = 20;
+        else
+            contextSettings.antialiasingLevel = 5;
 //        contextSettings.majorVersion = 3;
 //        contextSettings.minorVersion = 3;
         contextSettings.sRgbCapable = false;
@@ -1319,29 +1319,33 @@ int main_hoppa2(char* filename_in, int cur_x, int cur_y, int max_x, int max_y, i
             else do_model=false;
             bool oldfocus=true;
             int exit_counter=1600;
+            bool once=false;
             while (window.isOpen() && exit_thread==0)
             {
                 if (MAKEMOVIE) {
                     if (exit_counter==1600) {
-//                    sf::Event event;
-//                    event.key.code=sf::Keyboard::R;
-//                    handle_key_window(event, win_num, window);
                         roelof=true;
                         screensaver=true;
                         pb=false;
+                    } else if (exit_counter==1599) {
+//                    sf::Event event;
+//                    event.key.code=sf::Keyboard::R;
+//                    handle_key_window(event, win_num, window);
+                        once=true;
+                    } else {
+                        if (exit_counter==0) {
+                            sf::Event event;
+                            event.key.code=sf::Keyboard::R;
+                            event.key.shift=false;
+                            event.key.control=false;
+                            event.key.system=false;
+                            event.key.alt=false;
+                            handle_key_window(event, win_num, window);
+
+                            exit_code=-1;   exit_thread = true; keep_running[win_num]=0;
+                        }
                     }
                     exit_counter--;
-                    if (exit_counter<0) {
-                        sf::Event event;
-                        event.key.code=sf::Keyboard::R;
-                        event.key.shift=false;
-                        event.key.control=false;
-                        event.key.system=false;
-                        event.key.alt=false;
-                        handle_key_window(event, win_num, window);
-
-                        exit_code=-1;   exit_thread = true; keep_running[win_num]=0;
-                    }
                 }
 
                 static int teller=0;
@@ -1656,6 +1660,17 @@ system("pause");
                         window.requestFocus();
 
                     }
+                    if (MAKEMOVIE && once) {
+                        once=false;
+                        sf::Event event;
+                        event.key.code=sf::Keyboard::R;
+                        event.key.shift=false;
+                        event.key.control=false;
+                        event.key.system=false;
+                        event.key.alt=false;
+                        handle_key_window(event, win_num, window);
+                        whattodo=3;
+                    }
                     if (roelof && roelof_count>0) {
     //                    switch_to_full_screen=1;-map "[v]""
                         ShowCursor(false);
@@ -1677,13 +1692,13 @@ system("pause");
                         }
                         show_text=false;
                         if (MAKEMOVIE) {
-                            sf::Event event;
-                            event.key.code=sf::Keyboard::R;
-                            event.key.shift=false;
-                            event.key.control=false;
-                            event.key.system=false;
-                            event.key.alt=false;
-                            handle_key_window(event, win_num, window);
+//                            sf::Event event;
+//                            event.key.code=sf::Keyboard::R;
+//                            event.key.shift=false;
+//                            event.key.control=false;
+//                            event.key.system=false;
+//                            event.key.alt=false;
+//                            handle_key_window(event, win_num, window);
                             whattodo=3;
                         }
                         else
@@ -1700,6 +1715,8 @@ system("pause");
                         roelof=false;
     //                    switch_to_full_screen=true;
                     }
+
+
 
                 }
 

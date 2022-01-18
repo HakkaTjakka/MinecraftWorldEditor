@@ -56297,3 +56297,465 @@
 1 Program busy or hangs... Thread alive at: 31/10/2021 22:46:21
 1 Program busy or hangs... Thread alive at: 02/11/2021 14:00:46
 1 Program busy or hangs... Thread alive at: 02/11/2021 18:04:13
+1 Program busy or hangs... Thread alive at: 14/11/2021 11:46:51
+1 Program busy or hangs... Thread alive at: 22/11/2021 22:04:22
+0 Program busy or hangs... Thread alive at: 22/11/2021 22:10:14
+0 Program busy or hangs... Thread alive at: 22/11/2021 22:10:19
+0 Program busy or hangs... Thread alive at: 22/11/2021 22:10:24
+0 Program busy or hangs... Thread alive at: 22/11/2021 22:10:29
+0 Program busy or hangs... Thread alive at: 22/11/2021 22:10:34
+0 Program busy or hangs... Thread alive at: 22/11/2021 22:10:39
+0 Program busy or hangs... Thread alive at: 22/11/2021 22:10:44
+1 Program busy or hangs... Thread alive at: 22/11/2021 22:11:16
+1 Program busy or hangs... Thread alive at: 24/11/2021 20:04:41
+1 Program busy or hangs... Thread alive at: 24/11/2021 20:29:38
+1 Program busy or hangs... Thread alive at: 29/11/2021 22:06:43
+1 Program busy or hangs... Thread alive at: 29/11/2021 22:06:57
+1 Program busy or hangs... Thread alive at: 29/11/2021 22:18:44
+1 Program busy or hangs... Thread alive at: 29/11/2021 22:19:14
+1 Program busy or hangs... Thread alive at: 30/11/2021 01:07:27
+1 Program busy or hangs... Thread alive at: 30/11/2021 03:25:42
+0 Program busy or hangs... Thread alive at: 30/11/2021 04:42:07
+1 Program busy or hangs... Thread alive at: 30/11/2021 04:42:12
+1 Program busy or hangs... Thread alive at: 30/11/2021 04:42:20
+1 Program busy or hangs... Thread alive at: 30/11/2021 04:42:29
+0 Program busy or hangs... Thread alive at: 30/11/2021 04:43:07
+1 Program busy or hangs... Thread alive at: 30/11/2021 04:43:12
+1 Program busy or hangs... Thread alive at: 30/11/2021 04:43:23
+1 Program busy or hangs... Thread alive at: 30/11/2021 04:43:36
+1 Program busy or hangs... Thread alive at: 30/11/2021 04:44:15
+1 Program busy or hangs... Thread alive at: 30/11/2021 05:04:58
+1 Program busy or hangs... Thread alive at: 30/11/2021 05:12:11
+1 Program busy or hangs... Thread alive at: 30/11/2021 05:15:06
+0 Program busy or hangs... Thread alive at: 01/12/2021 00:38:43
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:38:48
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:38:55
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:39:05
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:39:14
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:39:24
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:39:34
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:39:44
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:39:54
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:40:04
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:40:14
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:40:24
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:40:34
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:40:44
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:40:54
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:41:03
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:41:13
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:41:23
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:41:33
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:41:43
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:41:54
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:42:04
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:42:15
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:42:25
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:42:36
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:42:46
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:42:56
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:43:07
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:43:17
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:43:28
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:43:38
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:43:48
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:43:59
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:44:09
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:44:20
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:44:30
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:44:40
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:44:51
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:45:01
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:45:12
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:45:23
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:45:33
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:45:44
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:45:55
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:46:05
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:46:16
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:46:27
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:46:37
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:46:48
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:46:58
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:47:09
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:47:19
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:47:29
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:47:40
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:47:50
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:48:00
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:48:11
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:48:21
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:48:32
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:48:42
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:48:53
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:49:03
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:49:13
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:49:24
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:49:34
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:49:45
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:49:55
+0 Program busy or hangs... Thread alive at: 01/12/2021 00:50:07
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:50:12
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:50:18
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:50:28
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:50:39
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:50:49
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:50:59
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:51:10
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:51:20
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:51:30
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:51:41
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:51:51
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:52:02
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:52:12
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:52:22
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:52:33
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:52:43
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:52:54
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:53:04
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:53:14
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:53:25
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:53:35
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:53:45
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:53:56
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:54:06
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:54:17
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:54:27
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:54:37
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:54:47
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:54:58
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:55:09
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:55:19
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:55:30
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:55:40
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:55:50
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:56:01
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:56:11
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:56:22
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:56:32
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:56:43
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:56:54
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:57:05
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:57:15
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:57:27
+0 Program busy or hangs... Thread alive at: 01/12/2021 00:57:38
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:57:43
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:57:51
+0 Program busy or hangs... Thread alive at: 01/12/2021 00:58:02
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:58:07
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:58:15
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:58:25
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:58:36
+0 Program busy or hangs... Thread alive at: 01/12/2021 00:58:48
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:58:53
+0 Program busy or hangs... Thread alive at: 01/12/2021 00:59:02
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:59:07
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:59:15
+0 Program busy or hangs... Thread alive at: 01/12/2021 00:59:25
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:59:30
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:59:37
+0 Program busy or hangs... Thread alive at: 01/12/2021 00:59:48
+1 Program busy or hangs... Thread alive at: 01/12/2021 00:59:53
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:00:00
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:00:11
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:00:23
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:00:34
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:00:45
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:00:57
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:01:02
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:01:09
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:01:14
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:01:23
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:01:35
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:01:46
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:01:57
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:02:08
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:02:19
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:02:24
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:02:33
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:02:45
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:02:50
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:02:56
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:03:07
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:03:18
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:03:29
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:03:39
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:03:50
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:04:01
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:04:06
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:04:14
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:04:19
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:04:32
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:04:37
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:04:49
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:04:54
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:05:02
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:05:07
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:05:15
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:05:20
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:05:32
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:05:43
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:05:55
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:06:08
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:06:13
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:06:24
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:06:29
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:06:39
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:06:44
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:06:52
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:06:57
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:07:05
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:07:10
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:07:20
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:07:25
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:07:35
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:07:40
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:07:49
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:07:54
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:08:04
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:08:09
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:08:19
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:08:24
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:08:31
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:08:36
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:08:44
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:08:57
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:09:02
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:09:10
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:09:21
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:09:31
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:09:41
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:09:51
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:10:01
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:10:06
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:10:13
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:10:25
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:10:30
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:10:41
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:10:53
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:11:03
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:11:08
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:11:15
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:11:25
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:11:36
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:11:47
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:11:58
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:12:03
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:12:10
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:12:20
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:12:31
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:12:41
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:12:54
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:12:59
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:13:06
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:13:15
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:13:25
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:13:35
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:13:45
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:13:55
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:14:06
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:14:16
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:14:27
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:14:38
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:14:43
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:14:51
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:14:56
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:15:02
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:15:14
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:15:25
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:15:35
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:15:45
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:15:55
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:16:07
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:16:18
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:16:30
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:16:35
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:16:45
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:16:50
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:17:05
+1 Program busy or hangs... Thread alive at: 01/12/2021 01:17:10
+0 Program busy or hangs... Thread alive at: 01/12/2021 01:17:19
+1 Program busy or hangs... Thread alive at: 02/12/2021 10:06:56
+1 Program busy or hangs... Thread alive at: 02/12/2021 11:53:16
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:01:17
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:01:22
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:01:27
+1 Program busy or hangs... Thread alive at: 02/12/2021 12:01:32
+1 Program busy or hangs... Thread alive at: 02/12/2021 12:01:59
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:02:05
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:02:10
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:02:15
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:02:20
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:02:25
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:02:30
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:02:35
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:02:40
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:02:45
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:02:50
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:02:55
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:03:00
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:03:05
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:03:10
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:03:15
+0 Program busy or hangs... Thread alive at: 02/12/2021 12:03:27
+1 Program busy or hangs... Thread alive at: 02/12/2021 12:04:13
+1 Program busy or hangs... Thread alive at: 02/12/2021 12:04:29
+1 Program busy or hangs... Thread alive at: 02/12/2021 12:11:06
+1 Program busy or hangs... Thread alive at: 02/12/2021 14:50:58
+1 Program busy or hangs... Thread alive at: 02/12/2021 14:51:05
+1 Program busy or hangs... Thread alive at: 02/12/2021 14:51:12
+1 Program busy or hangs... Thread alive at: 02/12/2021 14:51:19
+1 Program busy or hangs... Thread alive at: 02/12/2021 15:19:35
+1 Program busy or hangs... Thread alive at: 02/12/2021 18:02:56
+1 Program busy or hangs... Thread alive at: 02/12/2021 18:04:16
+1 Program busy or hangs... Thread alive at: 02/12/2021 18:05:33
+0 invalid internet: D:\PACMAN\url\files\KAST1.PNG
+
+1 Program busy or hangs... Thread alive at: 04/12/2021 20:51:47
+0 invalid internet: D:\PACMAN\url\files\pic00003.jpg
+
+1 Program busy or hangs... Thread alive at: 18/12/2021 00:29:53
+1 Program busy or hangs... Thread alive at: 18/12/2021 00:34:33
+1 Program busy or hangs... Thread alive at: 18/12/2021 00:43:10
+1 Program busy or hangs... Thread alive at: 18/12/2021 13:01:14
+1 Program busy or hangs... Thread alive at: 18/12/2021 13:01:21
+1 Program busy or hangs... Thread alive at: 18/12/2021 13:05:11
+1 Program busy or hangs... Thread alive at: 18/12/2021 14:32:18
+1 Program busy or hangs... Thread alive at: 18/12/2021 14:58:40
+1 Program busy or hangs... Thread alive at: 18/12/2021 15:00:33
+0 Program busy or hangs... Thread alive at: 18/12/2021 15:00:41
+1 Program busy or hangs... Thread alive at: 18/12/2021 15:00:46
+1 Program busy or hangs... Thread alive at: 21/12/2021 02:30:40
+1 Program busy or hangs... Thread alive at: 22/12/2021 19:42:41
+1 Program busy or hangs... Thread alive at: 22/12/2021 19:52:37
+1 Program busy or hangs... Thread alive at: 22/12/2021 22:20:10
+1 Program busy or hangs... Thread alive at: 22/12/2021 22:36:00
+1 Program busy or hangs... Thread alive at: 22/12/2021 23:06:19
+1 Program busy or hangs... Thread alive at: 22/12/2021 23:20:10
+1 Program busy or hangs... Thread alive at: 22/12/2021 23:23:30
+1 Program busy or hangs... Thread alive at: 22/12/2021 23:40:56
+1 Program busy or hangs... Thread alive at: 23/12/2021 00:57:54
+1 Program busy or hangs... Thread alive at: 23/12/2021 01:03:39
+0 invalid internet: D:\PACMAN\url\files\images (15).jpg
+
+0 Program busy or hangs... Thread alive at: 23/12/2021 01:13:07
+1 Program busy or hangs... Thread alive at: 23/12/2021 01:13:12
+0 invalid internet: D:\PACMAN\url\files\pic00003.png
+
+0 invalid internet: D:\PACMAN\url\files\vlag.jpg
+
+0 invalid internet: D:\PACMAN\url\files\images (15).jpg
+
+1 Program busy or hangs... Thread alive at: 23/12/2021 01:13:35
+0 invalid internet: D:\PACMAN\url\files\KAST1.PNG
+
+1 Program busy or hangs... Thread alive at: 23/12/2021 01:13:55
+0 invalid internet: D:\PACMAN\url\files\KAST1.PNG
+
+0 invalid internet: D:\PACMAN\url\files\pic00003.jpg
+
+0 invalid internet: D:\PACMAN\url\files\images (15).jpg
+
+0 invalid internet: D:\PACMAN\url\files\santa_reindeer_chariot_moon-t2.jpg
+
+1 Program busy or hangs... Thread alive at: 23/12/2021 01:16:16
+0 invalid internet: D:\PACMAN\url\files\pic00003.png
+
+0 invalid internet: D:\PACMAN\url\files\santa_reindeer_chariot_moon-t2.jpg
+
+0 invalid internet: D:\PACMAN\url\files\KAST1.PNG
+
+0 invalid internet: D:\PACMAN\url\files\pic00003.png
+
+0 invalid internet: D:\PACMAN\url\files\pic00003.jpg
+
+0 invalid internet: D:\PACMAN\url\files\pic00005.jpg
+
+0 invalid internet: D:\PACMAN\url\files\vlag.jpg
+
+1 Program busy or hangs... Thread alive at: 23/12/2021 03:13:09
+0 failed loading, file does not exists: 
+0 
+1 Program busy or hangs... Thread alive at: 23/12/2021 03:33:01
+0 failed loading2, to large? Then remove from list.
+1 Program busy or hangs... Thread alive at: 23/12/2021 05:16:35
+1 Program busy or hangs... Thread alive at: 23/12/2021 11:03:13
+1 Program busy or hangs... Thread alive at: 23/12/2021 11:11:22
+1 Program busy or hangs... Thread alive at: 24/12/2021 19:55:22
+1 Program busy or hangs... Thread alive at: 24/12/2021 19:56:08
+0 failed loading2, to large? Then remove from list.
+1 Program busy or hangs... Thread alive at: 24/12/2021 20:04:44
+1 Program busy or hangs... Thread alive at: 24/12/2021 20:23:57
+1 Program busy or hangs... Thread alive at: 24/12/2021 20:34:38
+0 invalid internet: D:\PACMAN\url\files\vlag.jpg
+
+0 invalid internet: D:\PACMAN\url\files\santa_reindeer_chariot_moon-t2.jpg
+
+1 Program busy or hangs... Thread alive at: 24/12/2021 20:41:58
+0 invalid internet: D:\PACMAN\url\files\pic00003.png
+
+0 invalid internet: D:\PACMAN\url\files\pic00005.jpg
+
+1 Program busy or hangs... Thread alive at: 24/12/2021 20:48:37
+1 Program busy or hangs... Thread alive at: 24/12/2021 20:48:50
+0 Program busy or hangs... Thread alive at: 24/12/2021 20:48:57
+0 Program busy or hangs... Thread alive at: 24/12/2021 20:49:02
+0 Program busy or hangs... Thread alive at: 24/12/2021 20:49:07
+0 Program busy or hangs... Thread alive at: 24/12/2021 20:49:12
+0 Program busy or hangs... Thread alive at: 24/12/2021 20:49:17
+0 Program busy or hangs... Thread alive at: 24/12/2021 20:49:22
+0 Program busy or hangs... Thread alive at: 24/12/2021 20:49:27
+1 Program busy or hangs... Thread alive at: 24/12/2021 20:54:51
+1 Program busy or hangs... Thread alive at: 24/12/2021 21:01:08
+1 Program busy or hangs... Thread alive at: 24/12/2021 21:30:01
+1 Program busy or hangs... Thread alive at: 24/12/2021 21:30:41
+0 failed loading2, to large? Then remove from list.
+0 invalid image ffmpeg: D:\PACMAN\fb\makelist.bat
+
+1 Program busy or hangs... Thread alive at: 27/12/2021 21:21:38
+1 Program busy or hangs... Thread alive at: 27/12/2021 21:28:36
+1 Program busy or hangs... Thread alive at: 06/01/2022 17:44:22
+1 Program busy or hangs... Thread alive at: 06/01/2022 17:45:53
+1 Program busy or hangs... Thread alive at: 06/01/2022 17:46:34
+1 Program busy or hangs... Thread alive at: 06/01/2022 17:48:59
+0 Program busy or hangs... Thread alive at: 06/01/2022 17:49:05
+0 Program busy or hangs... Thread alive at: 06/01/2022 17:49:10
+0 Program busy or hangs... Thread alive at: 06/01/2022 17:49:15
+0 Program busy or hangs... Thread alive at: 06/01/2022 17:49:20
+0 Program busy or hangs... Thread alive at: 06/01/2022 17:49:25
+0 Program busy or hangs... Thread alive at: 06/01/2022 17:49:30
+0 Program busy or hangs... Thread alive at: 06/01/2022 17:49:35
+1 Program busy or hangs... Thread alive at: 06/01/2022 17:50:06
+1 Program busy or hangs... Thread alive at: 06/01/2022 18:08:14
+1 Program busy or hangs... Thread alive at: 06/01/2022 18:17:28
+1 Program busy or hangs... Thread alive at: 06/01/2022 18:25:58
+1 Program busy or hangs... Thread alive at: 06/01/2022 18:32:49
+1 Program busy or hangs... Thread alive at: 06/01/2022 18:35:50
+1 Program busy or hangs... Thread alive at: 06/01/2022 19:01:22
+1 Program busy or hangs... Thread alive at: 06/01/2022 19:15:26
+1 Program busy or hangs... Thread alive at: 06/01/2022 19:18:10
+1 Program busy or hangs... Thread alive at: 06/01/2022 19:20:00
+1 Program busy or hangs... Thread alive at: 06/01/2022 19:40:43
+1 Program busy or hangs... Thread alive at: 06/01/2022 20:36:24
+0 Program busy or hangs... Thread alive at: 06/01/2022 20:36:50
+1 Program busy or hangs... Thread alive at: 06/01/2022 20:40:51
+0 Program busy or hangs... Thread alive at: 06/01/2022 20:41:08
+0 Program busy or hangs... Thread alive at: 06/01/2022 20:41:24
+0 Program busy or hangs... Thread alive at: 06/01/2022 20:41:48
+1 Program busy or hangs... Thread alive at: 06/01/2022 20:56:13
+1 Program busy or hangs... Thread alive at: 06/01/2022 21:00:38
+1 Program busy or hangs... Thread alive at: 06/01/2022 21:21:23
+1 Program busy or hangs... Thread alive at: 06/01/2022 21:22:19
+1 Program busy or hangs... Thread alive at: 06/01/2022 21:27:48
+1 Program busy or hangs... Thread alive at: 06/01/2022 21:30:08
+1 Program busy or hangs... Thread alive at: 06/01/2022 21:32:59
+1 Program busy or hangs... Thread alive at: 06/01/2022 21:40:33
+1 Program busy or hangs... Thread alive at: 06/01/2022 21:41:28
+1 Program busy or hangs... Thread alive at: 06/01/2022 21:46:05
+1 Program busy or hangs... Thread alive at: 06/01/2022 21:48:40
+1 Program busy or hangs... Thread alive at: 06/01/2022 22:20:38
+1 Program busy or hangs... Thread alive at: 06/01/2022 22:24:12
+1 Program busy or hangs... Thread alive at: 06/01/2022 22:27:55
+1 Program busy or hangs... Thread alive at: 06/01/2022 22:28:05
+1 Program busy or hangs... Thread alive at: 06/01/2022 22:28:29
+1 Program busy or hangs... Thread alive at: 06/01/2022 22:30:34

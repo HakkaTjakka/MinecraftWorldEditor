@@ -39,7 +39,7 @@ void main()
 
 //normal
 
-        if (draw_model<=1) {
+        if (draw_model<=0) {
                 gl_FragColor            =  texture2D(texture_plot,  (tex_coord.xy/resolution) );
         } else {
                 vec4 kD;
@@ -63,7 +63,7 @@ void main()
                 float spec1 = (1.5) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.0,1.0);
 //                float spec2 = (0.5) * clamp(pow(max( dot(reflect(lp2, n), ro), 0.), 120.),0.0,1.0);
 
-                float diff1 = 1.0 * clamp(dot( n,lp1), 0.1, 1.);
+                float diff1 = 1.5 * clamp(dot( n,lp1), 0.1, 1.);
 //                float diff2 = 2.5 * clamp(dot( n,lp2), 0.2, 1.);
 
                 float diff=diff1;
@@ -79,20 +79,20 @@ void main()
                 float hoppa=1.0;
                 if (draw_model==6) hoppa=0.3;
 
-                float diff1 = 1.0 * clamp(dot( n,lp1), 0.3, 1.);
-                float diff2 = 1.0 * clamp(dot( n,lp2), 0.3, 1.);
-                float diff3 = 1.0 * clamp(dot( n,lp3), 0.3, 1.);
-                float diff4 = 1.0 * clamp(dot( n,lp4), 0.3, 1.);
+                float diff1 = 0.7 * clamp(dot( n,lp1), 0.3, 1.);
+                float diff2 = 0.7 * clamp(dot( n,lp2), 0.3, 1.);
+                float diff3 = 0.7 * clamp(dot( n,lp3), 0.3, 1.);
+                float diff4 = 0.7 * clamp(dot( n,lp4), 0.3, 1.);
 
                 float diff=diff1;
                 if (diff2>diff) diff=diff2;
                 if (diff3>diff) diff=diff3;
                 if (diff4>diff) diff=diff4;
 
-                float spec1 = (hoppa*diff*1.0) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.0,1.0);
-                float spec2 = (hoppa*diff*1.2) * clamp(pow(max( dot(reflect(lp2, n), ro), 0.), 120.),0.0,1.0);
-                float spec3 = (hoppa*diff*1.2) * clamp(pow(max( dot(reflect(lp3, n), ro), 0.), 120.),0.0,1.0);
-                float spec4 = (hoppa*diff*1.2) * clamp(pow(max( dot(reflect(lp4, n), ro), 0.), 120.),0.0,1.0);
+                float spec1 = (hoppa*diff*1.4) * clamp(pow(max( dot(reflect(lp1, n), ro), 0.), 120.),0.0,1.0);
+                float spec2 = (hoppa*diff*1.5) * clamp(pow(max( dot(reflect(lp2, n), ro), 0.), 120.),0.0,1.0);
+                float spec3 = (hoppa*diff*1.5) * clamp(pow(max( dot(reflect(lp3, n), ro), 0.), 120.),0.0,1.0);
+                float spec4 = (hoppa*diff*1.5) * clamp(pow(max( dot(reflect(lp4, n), ro), 0.), 120.),0.0,1.0);
 
 
 

@@ -63,6 +63,9 @@
 #include <../VOXEL.HPP>
 #include <geo_thread.hpp>
 
+extern bool SLOT_MACHINE;
+static bool start_slot=true;
+
 extern int ESCAPE_PRESSED;
 bool signal_geo=false;
 bool signal2_geo=false;
@@ -279,7 +282,7 @@ extern void f8_repeater();
 int f8_repeat=0;
 int tune=1;
 //utrecht
-int rate=2;
+int rate=1;
 int play_rate=2;
 int rate_count=0;
 
@@ -1736,6 +1739,9 @@ extern int trace_line4(std::string in);
     if (first==1)
     {
 //        if (mirror==4 && crossing==2) sf::sleep(sf::seconds(5.0));
+//        if (SLOT_MACHINE)
+//            SFMLView1.setFramerateLimit(30);
+
         read_keylist_hpp();
         testit(); // enable ansi codes in terminal
 
@@ -1956,6 +1962,33 @@ extern int replace_string(char *str, char *orig, char *rep);
         MOUSE_STATUS=mouse_move;
         if (mouse_move) printf("mouse off\n");
         mouse_move=0;
+    }
+
+
+    if (start_slot) {
+        if (SLOT_MACHINE) {
+            static int count=0;
+            if (count==1) {
+                F2=0;
+                ghost=0;
+                insert_key('P');
+//                handler[FFMPEG_SELECT].plot_front=1;
+            } else if (count==2) {
+                insert_key('I');
+                handler[INTERNET_SELECT].plot_front=-1;
+            } else if (count==3) {
+                insert_event(sf::Keyboard::Key::Y, EVENT_CONTROL);
+            } else if (count==4) {
+                insert_event(sf::Keyboard::Key::Numpad5, EVENT_ALT);
+                plot_all_translate_y=32;
+            } else if (count==5) {
+            } else if (count==10) {
+                start_slot=false;
+            }
+            count++;
+        } else {
+            start_slot=false;
+        }
     }
 
     if (DO_ADAPT)
@@ -5870,7 +5903,7 @@ extern sf::Sprite ding_sprite_render[];
     }
     shader_map_angle=rotation_canvas;
     if (plot_all || plot_cubes) setcanvasfile();
-//transparant
+//transparant koekkoek
     if (plot_all==1) update_plot_all2(0); // back
     if (plot_cubes) plot_cubes_vertex();
 
@@ -8981,7 +9014,13 @@ extern int overlap_pixels;
                 sprintf(score," FOLLOWING NR. %d",follow_ghost_num);
                 strcat(line,score);
             }
+            if (draw_model!=0) {
+                sprintf(score," DRAW MODEL: %d",draw_model);
+                strcat(line,score);
+
+            }
             draw2(line,0,64,sf::Color::Blue,sf::Color::White);
+
 
             if (MAZEOFF==0)
             {
@@ -11137,6 +11176,7 @@ extern sf::Mutex window_recording;
         window_recording.unlock();
 
 
+        if (start_slot) SFMLView1.clear(sf::Color(rand()%256,rand()%256,rand()%256,255));
         SFMLView1.display();
 
         window_recording.lock();
@@ -12961,6 +13001,17 @@ void batch_pictures2()
             {
                 if (texture_from_ffmpeg.loadFromImage(Inter))
                 {
+
+                    scale=2000.0/texture_from_ffmpeg.getSize().y;
+                    sprite_from_ffmpeg.setScale( scale,scale) ;
+
+                    convert_to_scale(&texture_from_ffmpeg, &sprite_from_ffmpeg);
+//                    sprite_from_ffmpeg.setScale(0.5,0.5);
+//                    scale=scale/2.0;
+
+                    scale_now=1.0;
+
+
                     ffmpegfile=0;
                     texture_from_ffmpeg.setRepeated(TRUE);
                     if (smooth==1)
@@ -12980,9 +13031,11 @@ void batch_pictures2()
 
 
 
+
                                         sprite_from_ffmpeg.setTextureRect( { 0,0,(int)texture_from_ffmpeg.getSize().x, (int)texture_from_ffmpeg.getSize().y } );
                                         soften_edge(&texture_from_ffmpeg);
                                         if (ffmpegfile==1) return;
+
 
                                         sprite_from_ffmpeg.setTextureRect( { 0,0,(int)texture_from_ffmpeg.getSize().x, (int)texture_from_ffmpeg.getSize().y } );
                                         add_border(&texture_from_ffmpeg);
@@ -12993,7 +13046,6 @@ void batch_pictures2()
                                         if (ffmpegfile==1) return;
 
                                         sprite_from_ffmpeg.setTextureRect( { 0,0,(int)texture_from_ffmpeg.getSize().x, (int)texture_from_ffmpeg.getSize().y } );
-
 
 
 //                    make_white_transparant(&texture_from_ffmpeg);
@@ -13046,6 +13098,8 @@ void batch_pictures2()
 //        if (n==1) screen_y=texture_from_ffmpeg.getSize().y/2*scale-1080;
 //        if (n==1) screen_x=texture_from_ffmpeg.getSize().x/2*scale-1920;
 
+
+
         if (texture_from_ffmpeg.getSize().x*scale>crop_x_size)
             crop_x_size=texture_from_ffmpeg.getSize().x*scale;
         if (texture_from_ffmpeg.getSize().y*scale>crop_y_size)
@@ -13074,7 +13128,8 @@ void batch_pictures2()
         }
 
         double alpha;
-        alpha=acos((double)(texture_from_ffmpeg.getSize().y*sprite_from_ffmpeg.getScale().y+200)/(double)(BITMAPSX*1920.0));
+        alpha=acos((double)(texture_from_ffmpeg.getSize().y*sprite_from_ffmpeg.getScale().y+2000)/(double)(BITMAPSX*1920.0));
+//        alpha=acos((double)(texture_from_ffmpeg.getSize().y*sprite_from_ffmpeg.getScale().y+200)/(double)(BITMAPSX*1920.0));
 //        alpha=acos((double)(texture_from_ffmpeg.getSize().y*sprite_from_ffmpeg.getScale().y+1100)/(double)(BITMAPSX*1920.0));
 
         rotation_ffmpeg=(float)(90-180.0*alpha/3.141592653589793);
@@ -13261,7 +13316,7 @@ void batch_pictures2()
             return;
         }
         n=GETPICTURE(naam);
-        if (n==1 && 0)
+        if (n==1)
         {
             shift=0;
             ffmpegfile=1;
@@ -13872,8 +13927,6 @@ extern int draw_model;
         tox=1;
         fromy=-9;
         toy=10;
-//        fromy=-10;
-//        toy=9;
     } else {
         fromx=-BITMAPSX/2+1;
         if (fromx<-3-plot_all_factor) fromx=-3-plot_all_factor;
@@ -14030,8 +14083,8 @@ extern int kleur_back;
 //        int position_y;
 //        int position_x;
 
-extern void set_bars();
-        set_bars();
+//extern void set_bars();
+//        set_bars();
 
         for (x=fromx; x<=tox; x++)
         {
@@ -14115,9 +14168,12 @@ extern void set_bars();
         render_posy=-render_posy;
     }
 
-    CapsLock = GetKeyState(0x14);
+//    CapsLock = GetKeyState(0x14);
 
-    plot_it(plot_front);
+//    if (draw_model==6)
+//        plot_it(1);
+//    else
+        plot_it(plot_front);
 
     if (draw_model==6) {
 //        render_picturey=old_position_y/1080;
@@ -14132,10 +14188,13 @@ extern void set_bars();
         render_picturey=old_position_y/1080;
         render_posy=old_position_y-1080*render_picturey;
         render_posy=-render_posy;
-        for (int x_bars=-2; x_bars<=2; x_bars++) {
-//            y_bar[x_bars+2]=(old_position_y+(int)(160*fpstime)*(x_bars+2))%maxpixelsy;
-            y_bar[x_bars+2]=( old_position_y + (int)( 160*fpstime  ) )%maxpixelsy;
-        }
+extern void set_bars();
+        set_bars();
+
+//        for (int x_bars=-2; x_bars<=2; x_bars++) {
+////            y_bar[x_bars+2]=(old_position_y+(int)(160*fpstime)*(x_bars+2))%maxpixelsy;
+//            y_bar[x_bars+2]=( old_position_y + (int)( 160*fpstime  ) )%maxpixelsy;
+//        }
     }
 
     if (!((blending>=1 && handler[CANVAS_SELECT].blending==0) || handler[CANVAS_SELECT].blending>=1))
