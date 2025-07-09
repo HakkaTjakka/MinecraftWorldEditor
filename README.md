@@ -1,5 +1,13 @@
 CHECK THE ISSUES!!!
 
+
+http/ftp server at: 83.84.196.105
+Several posters made with this program of Google Earth 3d (30 x 15 meters on 300 ppi).
+Google Earth 3d whole of Holland converted to Cubic Chunks format for Build The Earth scale 1 to 1 (BTE121).
+Other automated c/c++ generated Mindcraft worlds
+Map / poster zoom demo.
+
+
 !!!WARNING!!! Welcome to the jungle of Junk coding. If you don't know your way in the jungle, don't enter it... ;)
 
 (You need to dive into the code because it is updated on dayly basis. Follow the white rabbit.)
