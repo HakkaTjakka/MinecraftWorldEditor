@@ -2,7 +2,7 @@ CHECK THE ISSUES!!!
 
 IP CHANGED TO:
 
-http://83.84.196.105/
+2026-02-08: http://84.105.193.52/
 
 http/ftp server at: 83.84.196.105
 Several posters made with this program of Google Earth 3d (30 x 15 meters on 300 ppi).
