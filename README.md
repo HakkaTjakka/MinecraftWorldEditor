@@ -2,7 +2,10 @@ CHECK THE ISSUES!!!
 
 IP CHANGED TO:
 
-2026-02-08: http://84.105.193.52/
+DEAD! 2026-02-08: http://84.105.193.52/
+
+NEW 'STATIC' IP(Ziggo): 2026-04-04: http://83.81.147.155/
+(Whole repo Mincraft 1.12 Netherlands from Google Eearch, super sized posters demo, ftp, and shit)
 
 http/ftp server at: 83.84.196.105
 Several posters made with this program of Google Earth 3d (30 x 15 meters on 300 ppi).
